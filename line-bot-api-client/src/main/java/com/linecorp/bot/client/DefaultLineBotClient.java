@@ -172,7 +172,11 @@ public class DefaultLineBotClient implements LineBotClient {
                 .create()
                 .disableAutomaticRetries()
                 .setDefaultRequestConfig(requestConfig)
-                .setUserAgent("line-botsdk-java/" + this.getClass().getPackage().getImplementationVersion());
+                .setUserAgent(buildUserAgent());
+    }
+
+    private static String buildUserAgent() {
+        return "line-botsdk-java/" + DefaultLineBotClient.class.getPackage().getImplementationVersion();
     }
 
     @Override
