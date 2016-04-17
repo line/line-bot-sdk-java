@@ -29,25 +29,25 @@ public class StickerContentMetadata {
      * The package ID of the sticker.
      */
     @JsonProperty("STKPKGID")
-    private String stkpkgid;
+    private final String stkpkgid;
 
     /**
      * The sticker ID.
      */
     @JsonProperty("STKID")
-    private String stkid;
+    private final String stkid;
 
     /**
      * The sticker's version number.
      */
     @JsonProperty("STKVER")
-    private String stkver;
+    private final String stkver;
 
     /**
      * The text of the sticker.
      */
     @JsonProperty("STKTXT")
-    private String stktxt;
+    private final String stktxt;
 
     @JsonCreator
     public StickerContentMetadata(@JsonProperty("STKPKGID") String stkpkgid, @JsonProperty("STKID") String stkid,

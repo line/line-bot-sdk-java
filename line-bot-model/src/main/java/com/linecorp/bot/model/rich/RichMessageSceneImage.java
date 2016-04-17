@@ -22,8 +22,8 @@ import lombok.ToString;
 @ToString
 @Getter
 public class RichMessageSceneImage {
-    private int w;
-    private int h;
+    private final int w;
+    private final int h;
 
     /**
      * Create new image.
@@ -32,8 +32,8 @@ public class RichMessageSceneImage {
      * @param h height of image(0 < h < 2080)
      */
     public RichMessageSceneImage(int w, int h) {
-        setW(w);
-        setH(h);
+        this.w = validateWidth(w);
+        this.h = validateHeight(h);
     }
 
     /**
@@ -62,23 +62,28 @@ public class RichMessageSceneImage {
     }
 
     /**
-     * Set width
+     * Validate width.
      *
      * @param w one of 1040, 700, 460, 300, 240.
      */
-    private void setW(int w) {
+    private int validateWidth(int w) {
         // 1040, 700, 460, 300, 240
         if ((w != 1040) && (w != 700) && (w != 460) && (w != 300) && (w != 240)) {
             throw new IllegalArgumentException("Scene width must be one of 1040, 700, 460, 300 or 240.");
         }
-        this.w = w;
+        return w;
     }
 
     public int getH() {
         return h;
     }
 
-    private void setH(int h) {
+    /**
+     * Validate height.
+     *
+     * @param h the height of image (0 < h < 2080).
+     */
+    private int validateHeight(int h) {
         if (h > 2080) {
             // Integer value. Max value is 2080px.
             throw new IllegalArgumentException("RichMessageImage's height should be less than or equals 2080px.");
@@ -88,6 +93,6 @@ public class RichMessageSceneImage {
             throw new IllegalArgumentException("RichMessageImage's height should be greater than 0px.");
         }
 
-        this.h = h;
+        return h;
     }
 }

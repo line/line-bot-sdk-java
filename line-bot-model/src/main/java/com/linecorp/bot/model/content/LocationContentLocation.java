@@ -28,22 +28,22 @@ public class LocationContentLocation {
     /**
      * "Location data" string
      */
-    private String title;
+    private final String title;
 
     /**
      * Address
      */
-    private String address;
+    private final String address;
 
     /**
      * Latitude
      */
-    private double latitude;
+    private final double latitude;
 
     /**
      * Longitude
      */
-    private double longitude;
+    private final double longitude;
 
     @JsonCreator
     public LocationContentLocation(@JsonProperty("title") String title, @JsonProperty("address") String address,
@@ -53,8 +53,5 @@ public class LocationContentLocation {
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-    public LocationContentLocation() {
     }
 }

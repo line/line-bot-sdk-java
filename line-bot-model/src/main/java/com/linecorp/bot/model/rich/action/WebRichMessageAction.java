@@ -22,8 +22,8 @@ import lombok.ToString;
 
 @ToString
 public class WebRichMessageAction extends AbstractRichMessageAction {
-    private String text;
-    private WebRichMessageActionParams params;
+    private final String text;
+    private final WebRichMessageActionParams params;
 
     public WebRichMessageAction(@NonNull String text, @NonNull String linkUri) {
         super("web");

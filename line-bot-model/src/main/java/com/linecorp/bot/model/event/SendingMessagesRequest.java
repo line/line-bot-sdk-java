@@ -37,22 +37,22 @@ public class SendingMessagesRequest<T extends AbstractContent> implements EventR
     /**
      * List of mids
      */
-    private List<String> to;
+    private final List<String> to;
 
     /**
      * Receiver channel ID
      */
-    private long toChannel;
+    private final long toChannel;
 
     /**
      * Event type.
      */
-    private String eventType;
+    private final String eventType;
 
     /**
      * Content
      */
-    private T content;
+    private final T content;
 
     @JsonCreator
     public SendingMessagesRequest(

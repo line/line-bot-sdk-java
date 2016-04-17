@@ -26,19 +26,19 @@ import lombok.ToString;
 @ToString
 public class RichMessageContentMetadata {
     @JsonProperty("DOWNLOAD_URL")
-    private String downloadUrl;
+    private final String downloadUrl;
 
     @JsonProperty("SPEC_REV")
-    private String specRev;
+    private final String specRev;
 
     @JsonProperty("ALT_TEXT")
-    private String altText;
+    private final String altText;
 
     /**
      * Escaped string of the JSON string representing the rich message object.
      */
     @JsonProperty("MARKUP_JSON")
-    private String markupJson;
+    private final String markupJson;
 
     @JsonCreator
     public RichMessageContentMetadata(
