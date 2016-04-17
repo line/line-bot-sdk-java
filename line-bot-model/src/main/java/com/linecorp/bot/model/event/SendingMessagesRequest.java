@@ -16,16 +16,14 @@
 
 package com.linecorp.bot.model.event;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.linecorp.bot.model.content.AbstractContent;
-
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.Collection;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
@@ -37,7 +35,7 @@ public class SendingMessagesRequest<T extends AbstractContent> implements EventR
     /**
      * List of mids
      */
-    private List<String> to;
+    private Collection<String> to;
 
     /**
      * Receiver channel ID
@@ -56,7 +54,7 @@ public class SendingMessagesRequest<T extends AbstractContent> implements EventR
 
     @JsonCreator
     public SendingMessagesRequest(
-            @JsonProperty("to") List<String> to,
+            @JsonProperty("to") Collection<String> to,
             @JsonProperty("toChannel") long toChannel,
             @JsonProperty("eventType") String eventType,
             @JsonProperty("content") T content) {

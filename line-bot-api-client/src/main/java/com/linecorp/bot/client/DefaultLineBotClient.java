@@ -24,7 +24,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.crypto.Mac;
@@ -238,7 +237,7 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
-    public void sendText(@NonNull List<String> mids, @NonNull String message)
+    public void sendText(@NonNull Collection<String> mids, @NonNull String message)
             throws LineBotAPIException {
         SendingMessagesRequest<TextContent> textEventSendingMessagesRequest = new SendingMessagesRequest<>(
                 mids,
@@ -258,7 +257,7 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
-    public void sendImage(@NonNull List<String> mids, @NonNull String originalContentUrl,
+    public void sendImage(@NonNull Collection<String> mids, @NonNull String originalContentUrl,
                           @NonNull String previewImageUrl)
             throws LineBotAPIException {
         SendingMessagesRequest<ImageContent> textEventSendingMessagesRequest = new SendingMessagesRequest<>(
@@ -279,7 +278,7 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
-    public void sendSticker(@NonNull List<String> mids, @NonNull String stkpkgid,
+    public void sendSticker(@NonNull Collection<String> mids, @NonNull String stkpkgid,
                             @NonNull String stkid)
             throws LineBotAPIException {
         SendingMessagesRequest<StickerContent> request = new SendingMessagesRequest<>(
@@ -304,7 +303,7 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
-    public void sendLocation(@NonNull List<String> mids, @NonNull String text,
+    public void sendLocation(@NonNull Collection<String> mids, @NonNull String text,
                              String title,
                              String address,
                              double latitude,
@@ -334,7 +333,7 @@ public class DefaultLineBotClient implements LineBotClient {
 
     @Override
     public void sendRichMessage(
-            @NonNull List<String> mids,
+            @NonNull Collection<String> mids,
             @NonNull String downloadUrl,
             @NonNull String altText,
             @NonNull RichMessage richMessage
@@ -433,7 +432,7 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
-    public void sendMultipleMessages(List<String> mids, List<AbstractContent> contents) throws LineBotAPIException {
+    public void sendMultipleMessages(Collection<String> mids, Collection<AbstractContent> contents) throws LineBotAPIException {
         SendingMultipleMessagesRequest sendingMultipleMessagesRequest = new SendingMultipleMessagesRequest(
                 mids,
                 this.sendingMessageChannelId,
@@ -449,7 +448,7 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
-    public void sendVideo(List<String> mids, String originalContentUrl, String previewImageUrl)
+    public void sendVideo(Collection<String> mids, String originalContentUrl, String previewImageUrl)
             throws LineBotAPIException {
         SendingMessagesRequest<VideoContent> messagesRequest = new SendingMessagesRequest<>(
                 mids,
@@ -469,7 +468,7 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
-    public void sendAudio(@NonNull List<String> mids, @NonNull String originalContentUrl, @NonNull String audlen)
+    public void sendAudio(@NonNull Collection<String> mids, @NonNull String originalContentUrl, @NonNull String audlen)
             throws LineBotAPIException {
         SendingMessagesRequest<AudioContent> messagesRequest = new SendingMessagesRequest<>(
                 mids,
