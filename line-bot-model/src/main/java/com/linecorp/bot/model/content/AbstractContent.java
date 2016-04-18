@@ -49,9 +49,9 @@ public abstract class AbstractContent implements Content {
     private final String id;
     private final String from;
     private final Long contentType;
-    private final Long toType;
+    private final RecipientType toType;
 
-    public AbstractContent(String id, String from, Long contentType, Long toType) {
+    public AbstractContent(String id, String from, Long contentType, RecipientType toType) {
         this.id = id;
         this.from = from;
         this.contentType = contentType;
@@ -65,7 +65,7 @@ public abstract class AbstractContent implements Content {
     /**
      * Type of recipient set in the to property. (1 = user)
      */
-    public Long getToType() {
+    public RecipientType getToType() {
         return toType;
     }
 

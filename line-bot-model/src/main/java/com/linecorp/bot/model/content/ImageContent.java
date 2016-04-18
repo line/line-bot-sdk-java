@@ -45,7 +45,7 @@ public class ImageContent extends AbstractContent {
     public ImageContent(@JsonProperty("id") String id,
                         @JsonProperty("from") String from,
                         @JsonProperty("contentType") Long contentType,
-                        @JsonProperty("toType") Long toType,
+                        @JsonProperty("toType") RecipientType toType,
                         @JsonProperty("originalContentUrl") String originalContentUrl,
                         @JsonProperty("previewImageUrl") String previewImageUrl) {
         super(id, from, contentType, toType);
@@ -53,7 +53,7 @@ public class ImageContent extends AbstractContent {
         this.previewImageUrl = previewImageUrl;
     }
 
-    public ImageContent(long toType, String originalContentUrl, String previewImageUrl) {
+    public ImageContent(RecipientType toType, String originalContentUrl, String previewImageUrl) {
         this(null, null, CONTENT_TYPE_IMAGE, toType, originalContentUrl, previewImageUrl);
     }
 }

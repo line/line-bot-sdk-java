@@ -33,7 +33,7 @@ public class ContactContent extends AbstractContent {
     public ContactContent(@JsonProperty("id") String id,
                           @JsonProperty("from") String from,
                           @JsonProperty("contentType") Long contentType,
-                          @JsonProperty("toType") Long toType,
+                          @JsonProperty("toType") RecipientType toType,
                           @JsonProperty("ContactContentMetadata") ContactContentMetadata contentMetadata) {
         super(id, from, contentType, toType);
         this.contentMetadata = contentMetadata;

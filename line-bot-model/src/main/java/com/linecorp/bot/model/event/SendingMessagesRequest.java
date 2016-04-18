@@ -32,7 +32,6 @@ import lombok.ToString;
 @ToString
 @Getter
 public class SendingMessagesRequest<T extends AbstractContent> implements EventRequest {
-    public static final long TO_TYPE_USER = 1;
 
     /**
      * List of mids

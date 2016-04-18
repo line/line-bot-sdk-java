@@ -34,13 +34,13 @@ public class TextContent extends AbstractContent {
     public TextContent(@JsonProperty("id") String id,
                        @JsonProperty("from") String from,
                        @JsonProperty("contentType") Long contentType,
-                       @JsonProperty("toType") Long toType,
+                       @JsonProperty("toType") RecipientType toType,
                        @JsonProperty("text") String text) {
         super(id, from, contentType, toType);
         this.text = text;
     }
 
-    public TextContent(long toType, String message) {
+    public TextContent(RecipientType toType, String message) {
         this(null, null, CONTENT_TYPE_TEXT, toType, message);
     }
 }
