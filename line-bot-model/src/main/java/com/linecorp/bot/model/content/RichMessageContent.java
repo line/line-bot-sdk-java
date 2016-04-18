@@ -34,7 +34,7 @@ public class RichMessageContent extends AbstractContent {
             @JsonProperty("id") String id,
             @JsonProperty("from") String from,
             @JsonProperty("contentType") Long contentType,
-            @JsonProperty("toType") Long toType,
+            @JsonProperty("toType") RecipientType toType,
             @JsonProperty("downloadUrl") String downloadUrl,
             @JsonProperty("altText") String altText,
             @JsonProperty("markupJson") String markupJson) {
@@ -42,7 +42,7 @@ public class RichMessageContent extends AbstractContent {
         this.contentMetadata = new RichMessageContentMetadata(downloadUrl, altText, markupJson);
     }
 
-    public RichMessageContent(long toType, String downloadUrl, String altText, String markupJson) {
+    public RichMessageContent(RecipientType toType, String downloadUrl, String altText, String markupJson) {
         this(null, null, CONTENT_TYPE_RICH_MESSAGE, toType, downloadUrl, altText, markupJson);
     }
 }

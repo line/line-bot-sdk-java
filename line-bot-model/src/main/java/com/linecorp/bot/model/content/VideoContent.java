@@ -43,7 +43,7 @@ public class VideoContent extends AbstractContent {
     public VideoContent(@JsonProperty("id") String id,
                         @JsonProperty("from") String from,
                         @JsonProperty("contentType") Long contentType,
-                        @JsonProperty("toType") Long toType,
+                        @JsonProperty("toType") RecipientType toType,
                         @JsonProperty("originalContentUrl") String originalContentUrl,
                         @JsonProperty("previewImageUrl") String previewImageUrl) {
         super(id, from, contentType, toType);
@@ -51,7 +51,7 @@ public class VideoContent extends AbstractContent {
         this.previewImageUrl = previewImageUrl;
     }
 
-    public VideoContent(long toType, String originalContentUrl, String previewImageUrl) {
+    public VideoContent(RecipientType toType, String originalContentUrl, String previewImageUrl) {
         this(null, null, CONTENT_TYPE_VIDEO, toType, originalContentUrl, previewImageUrl);
     }
 }

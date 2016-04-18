@@ -40,7 +40,7 @@ public class LocationContent extends AbstractContent {
             @JsonProperty("id") String id,
             @JsonProperty("from") String from,
             @JsonProperty("contentType") Long contentType,
-            @JsonProperty("toType") Long toType,
+            @JsonProperty("toType") RecipientType toType,
             @JsonProperty("text") String text,
             @JsonProperty("location") LocationContentLocation location) {
         super(id, from, contentType, toType);
@@ -48,7 +48,7 @@ public class LocationContent extends AbstractContent {
         this.location = location;
     }
 
-    public LocationContent(long toType, String text, String title, String address, double latitude,
+    public LocationContent(RecipientType toType, String text, String title, String address, double latitude,
                            double longitude) {
         this(
                 null,

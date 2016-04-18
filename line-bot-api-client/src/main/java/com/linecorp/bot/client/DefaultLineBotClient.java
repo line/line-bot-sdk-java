@@ -54,6 +54,7 @@ import com.linecorp.bot.model.content.AbstractContent;
 import com.linecorp.bot.model.content.AudioContent;
 import com.linecorp.bot.model.content.ImageContent;
 import com.linecorp.bot.model.content.LocationContent;
+import com.linecorp.bot.model.content.RecipientType;
 import com.linecorp.bot.model.content.RichMessageContent;
 import com.linecorp.bot.model.content.StickerContent;
 import com.linecorp.bot.model.content.TextContent;
@@ -252,7 +253,7 @@ public class DefaultLineBotClient implements LineBotClient {
                 mids,
                 this.sendingMessageChannelId,
                 this.sendingMessageEventId,
-                new TextContent(SendingMessagesRequest.TO_TYPE_USER, message)
+                new TextContent(RecipientType.USER, message)
         );
 
         this.sendEvent(textEventSendingMessagesRequest);
@@ -273,7 +274,7 @@ public class DefaultLineBotClient implements LineBotClient {
                 mids,
                 this.sendingMessageChannelId,
                 this.sendingMessageEventId,
-                new ImageContent(SendingMessagesRequest.TO_TYPE_USER, originalContentUrl, previewImageUrl)
+                new ImageContent(RecipientType.USER, originalContentUrl, previewImageUrl)
         );
 
         this.sendEvent(textEventSendingMessagesRequest);
@@ -294,7 +295,7 @@ public class DefaultLineBotClient implements LineBotClient {
                 mids,
                 this.sendingMessageChannelId,
                 this.sendingMessageEventId,
-                new StickerContent(SendingMessagesRequest.TO_TYPE_USER,
+                new StickerContent(RecipientType.USER,
                                    stkpkgid, stkid, null, "[]")
         );
 
@@ -322,7 +323,7 @@ public class DefaultLineBotClient implements LineBotClient {
                 this.sendingMessageChannelId,
                 this.sendingMessageEventId,
                 new LocationContent(
-                        SendingMessagesRequest.TO_TYPE_USER,
+                        RecipientType.USER,
                         text,
                         title, address, latitude, longitude)
         );
@@ -355,7 +356,7 @@ public class DefaultLineBotClient implements LineBotClient {
                     this.sendingMessageChannelId,
                     this.sendingMessageEventId,
                     new RichMessageContent(
-                            SendingMessagesRequest.TO_TYPE_USER,
+                            RecipientType.USER,
                             downloadUrl,
                             altText,
                             json
@@ -464,11 +465,10 @@ public class DefaultLineBotClient implements LineBotClient {
                 mids,
                 this.sendingMessageChannelId,
                 this.sendingMessageEventId,
-                new VideoContent(SendingMessagesRequest.TO_TYPE_USER, originalContentUrl, previewImageUrl)
+                new VideoContent(RecipientType.USER, originalContentUrl, previewImageUrl)
         );
 
         this.sendEvent(messagesRequest);
-
     }
 
     @Override
@@ -484,7 +484,7 @@ public class DefaultLineBotClient implements LineBotClient {
                 mids,
                 this.sendingMessageChannelId,
                 this.sendingMessageEventId,
-                new AudioContent(SendingMessagesRequest.TO_TYPE_USER, originalContentUrl, audlen)
+                new AudioContent(RecipientType.USER, originalContentUrl, audlen)
         );
 
         this.sendEvent(messagesRequest);

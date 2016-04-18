@@ -22,8 +22,8 @@ import java.util.List;
 
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.model.content.AbstractContent;
+import com.linecorp.bot.model.content.RecipientType;
 import com.linecorp.bot.model.content.TextContent;
-import com.linecorp.bot.model.event.SendingMessagesRequest;
 
 import lombok.NonNull;
 
@@ -38,7 +38,7 @@ public class DefaultMultipleMessageBuilder implements MultipleMessageBuilder {
 
     @Override
     public MultipleMessageBuilder addText(@NonNull String message) {
-        return this.add(new TextContent(SendingMessagesRequest.TO_TYPE_USER, message));
+        return this.add(new TextContent(RecipientType.USER, message));
     }
 
     @Override

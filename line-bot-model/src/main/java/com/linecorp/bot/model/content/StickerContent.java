@@ -39,13 +39,13 @@ public class StickerContent extends AbstractContent {
             @JsonProperty("id") String id,
             @JsonProperty("from") String from,
             @JsonProperty("contentType") Long contentType,
-            @JsonProperty("toType") Long toType,
+            @JsonProperty("toType") RecipientType toType,
             @JsonProperty("contentMetadata") StickerContentMetadata contentMetadata) {
         super(id, from, contentType, toType);
         this.contentMetadata = contentMetadata;
     }
 
-    public StickerContent(long toType, String stkpkgid, String stkid,
+    public StickerContent(RecipientType toType, String stkpkgid, String stkid,
                           String stkver, String stktxt) {
         this(null, null, CONTENT_TYPE_STICKER, toType, new StickerContentMetadata(stkpkgid, stkid, stkver, stktxt));
     }

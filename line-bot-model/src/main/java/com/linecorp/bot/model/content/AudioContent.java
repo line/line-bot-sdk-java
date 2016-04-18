@@ -43,7 +43,7 @@ public class AudioContent extends AbstractContent {
     public AudioContent(@JsonProperty("id") String id,
                         @JsonProperty("from") String from,
                         @JsonProperty("contentType") Long contentType,
-                        @JsonProperty("toType") Long toType,
+                        @JsonProperty("toType") RecipientType toType,
                         @JsonProperty("originalContentUrl") String originalContentUrl,
                         @JsonProperty("contentMetadata") AudioContentMetadata contentMetadata) {
         super(id, from, contentType, toType);
@@ -51,7 +51,7 @@ public class AudioContent extends AbstractContent {
         this.contentMetadata = contentMetadata;
     }
 
-    public AudioContent(long toType,
+    public AudioContent(RecipientType toType,
                         String originalContentUrl,
                         String audlen) {
         this(null, null, CONTENT_TYPE_AUDIO, toType, originalContentUrl, new AudioContentMetadata(audlen));
