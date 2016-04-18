@@ -16,12 +16,11 @@
 
 package com.linecorp.bot.model.event;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import java.util.Collection;
 
 @lombok.Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -33,7 +32,7 @@ public class SendingMultipleMessagesRequest implements EventRequest {
     /**
      * List of mids
      */
-    private List<String> to;
+    private Collection<String> to;
 
     /**
      * Receiver channel ID

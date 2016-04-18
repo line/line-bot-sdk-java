@@ -16,15 +16,13 @@
 
 package com.linecorp.bot.model.event;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.linecorp.bot.model.content.AbstractContent;
-
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.Collection;
 
 @ToString
 @Getter
@@ -37,17 +35,17 @@ public class SendingMultipleMessagesRequestContent {
     /**
      * The messages property is an array with multiple sent message definitions.
      */
-    private final List<AbstractContent> messages;
+    private final Collection<AbstractContent> messages;
 
     @JsonCreator
     public SendingMultipleMessagesRequestContent(
             @JsonProperty("messageNotified") int messageNotified,
-            @JsonProperty("contents") List<AbstractContent> contents) {
+            @JsonProperty("contents") Collection<AbstractContent> contents) {
         this.messages = contents;
         this.messageNotified = messageNotified;
     }
 
-    public SendingMultipleMessagesRequestContent(List<AbstractContent> contents) {
+    public SendingMultipleMessagesRequestContent(Collection<AbstractContent> contents) {
         this(0, contents);
     }
 }

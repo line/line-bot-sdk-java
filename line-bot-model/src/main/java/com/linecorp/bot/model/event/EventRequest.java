@@ -16,10 +16,10 @@
 
 package com.linecorp.bot.model.event;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface EventRequest {
-    List<String> getTo();
+    Collection<String> getTo();
 
     long getToChannel();
 
