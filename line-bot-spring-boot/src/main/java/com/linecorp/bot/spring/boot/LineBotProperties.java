@@ -23,6 +23,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import com.linecorp.bot.client.DefaultLineBotClient;
+
 import lombok.Data;
 
 @Data
@@ -44,7 +46,7 @@ public class LineBotProperties {
 
     @Valid
     @NotNull
-    private String apiEndPoint = "https://trialbot-api.line.me";
+    private String apiEndPoint = DefaultLineBotClient.DEFAULT_API_END_POINT;
 
     @Valid
     @NotNull
@@ -60,13 +62,14 @@ public class LineBotProperties {
 
     @Valid
     @NotNull
-    private Long sendingMessageChannelId = 1383378250L;
+    private Long sendingMessageChannelId = DefaultLineBotClient.DEFAULT_SENDING_MESSAGE_CHANNEL_ID;
 
     @Valid
     @NotNull
-    private String sendingMessageEventId = "138311608800106203";
+    private String sendingMessageEventId = DefaultLineBotClient.DEFAULT_SENDING_MESSAGE_EVENT_ID;
 
     @Valid
     @NotNull
-    private String sendingMultipleMessagesEventId = "140177271400161403";
+    private String sendingMultipleMessagesEventId =
+            DefaultLineBotClient.DEFAULT_SENDING_MULTIPLE_MESSAGES_EVENT_ID;
 }

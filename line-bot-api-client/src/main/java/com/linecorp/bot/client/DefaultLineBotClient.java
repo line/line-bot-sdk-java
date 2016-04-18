@@ -17,7 +17,6 @@
 package com.linecorp.bot.client;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -29,6 +28,7 @@ import java.util.stream.Collectors;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -73,6 +73,15 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class DefaultLineBotClient implements LineBotClient {
+
+    public static final String DEFAULT_API_END_POINT = "https://trialbot-api.line.me";
+
+    public static final long DEFAULT_SENDING_MESSAGE_CHANNEL_ID = 1383378250L;
+
+    public static final String DEFAULT_SENDING_MESSAGE_EVENT_ID = "138311608800106203";
+
+    public static final String DEFAULT_SENDING_MULTIPLE_MESSAGES_EVENT_ID = "140177271400161403";
+
     private final String channelId;
     private final String channelSecret;
     private final String channelMid;
@@ -130,8 +139,10 @@ public class DefaultLineBotClient implements LineBotClient {
             HttpClientBuilder httpClientBuilder
     ) {
         this(channelId, channelSecret, channelMid,
-             "https://trialbot-api.line.me",
-             1383378250L, "138311608800106203", "140177271400161403",
+             DEFAULT_API_END_POINT,
+             DEFAULT_SENDING_MESSAGE_CHANNEL_ID,
+             DEFAULT_SENDING_MESSAGE_EVENT_ID,
+             DEFAULT_SENDING_MULTIPLE_MESSAGES_EVENT_ID,
              objectMapper, httpClientBuilder);
     }
 
@@ -147,10 +158,7 @@ public class DefaultLineBotClient implements LineBotClient {
             String channelSecret,
             String channelMid
     ) {
-        this(channelId, channelSecret, channelMid,
-             "https://trialbot-api.line.me",
-             1383378250L, "138311608800106203", "140177271400161403",
-             buildObjectMapper(), buildHttpClientBuilder());
+        this(channelId, channelSecret, channelMid, buildObjectMapper(), buildHttpClientBuilder());
     }
 
     private static ObjectMapper buildObjectMapper() {
@@ -215,7 +223,7 @@ public class DefaultLineBotClient implements LineBotClient {
 
     private void validateStatusCode(CloseableHttpResponse response)
             throws LineBotServerErrorStatusException, IOException {
-        if (response.getStatusLine().getStatusCode() != 200) {
+        if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
             throw new LineBotServerErrorStatusException(
                     response.getStatusLine().getStatusCode(),
                     response.getStatusLine().getReasonPhrase(),
@@ -225,9 +233,9 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     private void addHeaders(HttpUriRequest httpRequest) {
-        httpRequest.setHeader("X-Line-ChannelID", this.channelId);
-        httpRequest.setHeader("X-Line-ChannelSecret", this.channelSecret);
-        httpRequest.setHeader("X-Line-Trusted-User-With-ACL", this.channelMid);
+        httpRequest.setHeader(LineBotAPIHeaders.X_LINE_CHANNEL_ID, this.channelId);
+        httpRequest.setHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SECRET, this.channelSecret);
+        httpRequest.setHeader(LineBotAPIHeaders.X_LINE_TRUSTED_USER_WITH_ACL, this.channelMid);
     }
 
     @Override
@@ -424,9 +432,9 @@ public class DefaultLineBotClient implements LineBotClient {
                                                   "HmacSHA256");
             Mac mac = Mac.getInstance("HmacSHA256");
             mac.init(key);
-            byte[] bytes = mac.doFinal(jsonText.getBytes("UTF-8"));
+            byte[] bytes = mac.doFinal(jsonText.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(bytes);
-        } catch (InvalidKeyException | UnsupportedEncodingException | NoSuchAlgorithmException e) {
+        } catch (InvalidKeyException | NoSuchAlgorithmException e) {
             throw new LineBotAPISignatureException(e);
         }
     }

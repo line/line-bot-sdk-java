@@ -17,6 +17,7 @@
 package com.linecorp.bot.servlet;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.client.LineBotAPIHeaders;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.model.callback.CallbackRequest;
@@ -44,13 +46,13 @@ public class LineBotCallbackRequestParser {
 
     public CallbackRequest handle(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // validate signature
-        String signature = req.getHeader("X-Line-ChannelSignature");
+        String signature = req.getHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE);
         if (signature == null || signature.length() == 0) {
             sendError(resp, "Missing 'X-Line-ChannelSignature' header");
             return null;
         }
 
-        String json = IOUtils.toString(req.getInputStream(), "UTF-8");
+        String json = IOUtils.toString(req.getInputStream(), StandardCharsets.UTF_8);
         log.info("got: " + json);
 
         try {
