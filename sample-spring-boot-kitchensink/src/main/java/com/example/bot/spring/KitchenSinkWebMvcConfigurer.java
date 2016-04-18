@@ -28,5 +28,7 @@ public class KitchenSinkWebMvcConfigurer extends WebMvcConfigurerAdapter {
                 .addResourceLocations(
                         KitchenSinkApplication.downloadedContentDir
                                 .toUri().toASCIIString());
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
     }
 }
