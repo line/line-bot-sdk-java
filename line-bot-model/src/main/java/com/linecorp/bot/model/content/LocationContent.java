@@ -32,8 +32,8 @@ public class LocationContent extends AbstractContent {
     /**
      * String used to explain the location information (example: name of restaurant, address).
      */
-    private String text;
-    private LocationContentLocation location;
+    private final String text;
+    private final LocationContentLocation location;
 
     @JsonCreator
     public LocationContent(

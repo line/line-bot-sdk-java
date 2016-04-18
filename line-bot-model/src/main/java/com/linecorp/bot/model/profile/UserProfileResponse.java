@@ -34,27 +34,27 @@ public class UserProfileResponse {
     /**
      * Container of profile information for 0 friends and above.
      */
-    private List<UserProfileResponseContact> contacts;
+    private final List<UserProfileResponseContact> contacts;
 
     /**
      * No. of results in this response.
      */
-    private Long count;
+    private final Long count;
 
     /**
      * Total no. of results that match the specified conditions.
      */
-    private Long total;
+    private final Long total;
 
     /**
      * Starting index specified in the request.
      */
-    private Long start;
+    private final Long start;
 
     /**
      * Display parameter value specified in the request.
      */
-    private Long display;
+    private final Long display;
 
     public UserProfileResponse(
             @JsonProperty("contacts") List<UserProfileResponseContact> contacts,

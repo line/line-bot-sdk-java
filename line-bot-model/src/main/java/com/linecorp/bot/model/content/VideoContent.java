@@ -33,11 +33,11 @@ public class VideoContent extends AbstractContent {
     /**
      * URL of the movie. The "mp4" format is recommended.
      */
-    private String originalContentUrl;
+    private final String originalContentUrl;
     /**
      * URL of thumbnail image used as a preview.
      */
-    private String previewImageUrl;
+    private final String previewImageUrl;
 
     @JsonCreator
     public VideoContent(@JsonProperty("id") String id,

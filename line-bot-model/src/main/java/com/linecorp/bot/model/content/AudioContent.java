@@ -36,8 +36,8 @@ public class AudioContent extends AbstractContent {
     /**
      * URL of audio file. The "m4a" format is recommended.
      */
-    private String originalContentUrl;
-    private AudioContentMetadata contentMetadata;
+    private final String originalContentUrl;
+    private final AudioContentMetadata contentMetadata;
 
     @JsonCreator
     public AudioContent(@JsonProperty("id") String id,

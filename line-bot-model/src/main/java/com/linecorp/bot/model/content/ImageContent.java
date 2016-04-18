@@ -34,12 +34,12 @@ public class ImageContent extends AbstractContent {
     /**
      * URL of image. Only JPEG format supported. Image size cannot be larger than 1024×1024.
      */
-    private String originalContentUrl;
+    private final String originalContentUrl;
 
     /**
      * URL of thumbnail image. For preview. Only JPEG format supported. Image size cannot be larger than 240×240.
      */
-    private String previewImageUrl;
+    private final String previewImageUrl;
 
     @JsonCreator
     public ImageContent(@JsonProperty("id") String id,

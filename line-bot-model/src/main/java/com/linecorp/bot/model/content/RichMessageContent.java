@@ -27,7 +27,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public class RichMessageContent extends AbstractContent {
-    private RichMessageContentMetadata contentMetadata;
+    private final RichMessageContentMetadata contentMetadata;
 
     @JsonCreator
     public RichMessageContent(

@@ -24,10 +24,10 @@ import lombok.ToString;
 @Getter
 @ToString
 public class RichMessageCanvas {
-    private int height;
+    private final int height;
 
     public RichMessageCanvas(int height) {
-        setHeight(height);
+        this.height = vaidateHeight(height);
     }
 
     /**
@@ -47,14 +47,14 @@ public class RichMessageCanvas {
     }
 
     /**
-     * A height of the canvas area.
+     * Validate height.
      */
-    public void setHeight(int height) {
+    private int vaidateHeight(int height) {
         if (height > 2048) {
             // Integer value. Max value is 2080px.
             throw new IllegalArgumentException("RichMessageCanvas's height should be less than or equals 2080px.");
         }
-        this.height = height;
+        return height;
     }
 
     /**
