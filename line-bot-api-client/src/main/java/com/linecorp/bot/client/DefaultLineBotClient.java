@@ -19,6 +19,7 @@ package com.linecorp.bot.client;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Collection;
@@ -421,19 +422,20 @@ public class DefaultLineBotClient implements LineBotClient {
     @Override
     public boolean validateSignature(@NonNull String jsonText, @NonNull String headerSignature)
             throws LineBotAPIException {
-        String signature = this.createSignature(jsonText);
-        return headerSignature.equals(signature);
+        byte[] signature = this.createSignature(jsonText);
+        byte[] decodeHeaderSignature = Base64.getDecoder().decode(headerSignature);
+        return MessageDigest.isEqual(decodeHeaderSignature,
+                                     signature);
     }
 
     @Override
-    public String createSignature(@NonNull String jsonText) throws LineBotAPIException {
+    public byte[] createSignature(@NonNull String jsonText) throws LineBotAPIException {
         try {
             SecretKeySpec key = new SecretKeySpec(this.channelSecret.getBytes(StandardCharsets.UTF_8),
                                                   "HmacSHA256");
             Mac mac = Mac.getInstance("HmacSHA256");
             mac.init(key);
-            byte[] bytes = mac.doFinal(jsonText.getBytes(StandardCharsets.UTF_8));
-            return Base64.getEncoder().encodeToString(bytes);
+            return mac.doFinal(jsonText.getBytes(StandardCharsets.UTF_8));
         } catch (InvalidKeyException | NoSuchAlgorithmException e) {
             throw new LineBotAPISignatureException(e);
         }
