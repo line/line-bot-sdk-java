@@ -234,9 +234,9 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     private void addHeaders(HttpUriRequest httpRequest) {
-        httpRequest.setHeader("X-Line-ChannelID", this.channelId);
-        httpRequest.setHeader("X-Line-ChannelSecret", this.channelSecret);
-        httpRequest.setHeader("X-Line-Trusted-User-With-ACL", this.channelMid);
+        httpRequest.setHeader(LineBotAPIHeaders.X_LINE_CHANNEL_ID, this.channelId);
+        httpRequest.setHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SECRET, this.channelSecret);
+        httpRequest.setHeader(LineBotAPIHeaders.X_LINE_TRUSTED_USER_WITH_ACL, this.channelMid);
     }
 
     @Override

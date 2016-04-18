@@ -36,6 +36,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.client.LineBotAPIHeaders;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.model.callback.CallbackRequest;
 
@@ -72,7 +73,7 @@ public class LineBotCallbackRequestParserTest {
     @Test
     public void testInvalidSignature() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader("X-Line-ChannelSignature", "SSSSIGNATURE");
+        request.addHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE, "SSSSIGNATURE");
         request.setContent("{}".getBytes(StandardCharsets.UTF_8));
         lineBotCallbackRequestParser.handle(
                 request,
@@ -86,7 +87,7 @@ public class LineBotCallbackRequestParserTest {
     @Test
     public void testNullRequest() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader("X-Line-ChannelSignature", "SSSSIGNATURE");
+        request.addHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE, "SSSSIGNATURE");
         request.setContent("null".getBytes(StandardCharsets.UTF_8));
 
         when(lineBotClient.validateSignature("null", "SSSSIGNATURE"))
@@ -104,7 +105,7 @@ public class LineBotCallbackRequestParserTest {
     @Test
     public void testCallRequest() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader("X-Line-ChannelSignature", "SSSSIGNATURE");
+        request.addHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE, "SSSSIGNATURE");
         request.setContent("{\"result\":[{}]}".getBytes(StandardCharsets.UTF_8));
 
         when(lineBotClient.validateSignature("{\"result\":[{}]}", "SSSSIGNATURE"))
