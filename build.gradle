@@ -27,6 +27,24 @@ buildscript {
 
 apply plugin: 'idea'
 
+group = "com.linecorp.bot"
+version = '0.0.1'
+
+//set build variables based on build type (release, continuous integration, development)
+def isDevBuild
+def isReleaseBuild
+def sonatypeRepositoryUrl
+if (hasProperty("release")) {
+    isReleaseBuild = true
+    sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+} else if (hasProperty("ci")) {
+    version += "-SNAPSHOT"
+    sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+} else {
+    isDevBuild = true
+    version += "-SNAPSHOT"
+}
+
 subprojects {
     apply plugin: 'propdeps'
     apply plugin: 'propdeps-maven'
@@ -38,7 +56,8 @@ subprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
-    version = '0.0.1-SNAPSHOT'
+    group = rootProject.group
+    version = rootProject.version
 
     jar {
         manifest {
@@ -70,21 +89,6 @@ subprojects {
     project(projectName) { project ->
         apply plugin: 'signing'
         apply plugin: 'maven'
-
-        //set build variables based on build type (release, continuous integration, development)
-        def isDevBuild
-        def isReleaseBuild
-        def sonatypeRepositoryUrl
-        if (hasProperty("release")) {
-            isReleaseBuild = true
-            sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-        } else if (hasProperty("ci")) {
-            version += "-SNAPSHOT"
-            sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-        } else {
-            isDevBuild = true
-            version += "-SNAPSHOT"
-        }
 
         signing {
             required { isReleaseBuild }
