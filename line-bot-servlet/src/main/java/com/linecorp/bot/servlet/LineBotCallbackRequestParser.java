@@ -17,6 +17,7 @@
 package com.linecorp.bot.servlet;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +51,7 @@ public class LineBotCallbackRequestParser {
             return null;
         }
 
-        String json = IOUtils.toString(req.getInputStream(), "UTF-8");
+        String json = IOUtils.toString(req.getInputStream(), StandardCharsets.UTF_8);
         log.info("got: " + json);
 
         try {
