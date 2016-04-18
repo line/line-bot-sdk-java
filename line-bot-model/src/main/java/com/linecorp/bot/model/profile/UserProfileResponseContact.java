@@ -30,22 +30,22 @@ public class UserProfileResponseContact {
     /**
      * User nickname.
      */
-    private String displayName;
+    private final String displayName;
 
     /**
      * User ID.
      */
-    private String mid;
+    private final String mid;
 
     /**
      * URL of user's profile photo.
      */
-    private String pictureUrl;
+    private final String pictureUrl;
 
     /**
      * User's status message. Not included in the object if the user has not created a status message.
      */
-    private String statusMessage;
+    private final String statusMessage;
 
     public UserProfileResponseContact(
             @JsonProperty("displayName") String displayName,

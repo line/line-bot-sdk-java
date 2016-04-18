@@ -28,7 +28,7 @@ public class TextContent extends AbstractContent {
     /**
      * String you want to send. Messages can contain up to 1024 characters.
      */
-    private String text;
+    private final String text;
 
     @JsonCreator
     public TextContent(@JsonProperty("id") String id,

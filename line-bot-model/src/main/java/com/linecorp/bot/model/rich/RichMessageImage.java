@@ -22,10 +22,10 @@ import lombok.ToString;
 @ToString
 @Getter
 public class RichMessageImage {
-    private int h;
+    private final int h;
 
     public RichMessageImage(int h) {
-        setH(h);
+        this.h = h;
     }
 
     public int getX() {
@@ -44,7 +44,4 @@ public class RichMessageImage {
         return h;
     }
 
-    private void setH(int h) {
-        this.h = h;
-    }
 }

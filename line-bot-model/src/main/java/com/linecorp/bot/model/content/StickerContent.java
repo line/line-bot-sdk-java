@@ -32,7 +32,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public class StickerContent extends AbstractContent {
-    private StickerContentMetadata contentMetadata;
+    private final StickerContentMetadata contentMetadata;
 
     @JsonCreator
     public StickerContent(

@@ -27,7 +27,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public class ContactContent extends AbstractContent {
-    private ContactContentMetadata contentMetadata;
+    private final ContactContentMetadata contentMetadata;
 
     @JsonCreator
     public ContactContent(@JsonProperty("id") String id,

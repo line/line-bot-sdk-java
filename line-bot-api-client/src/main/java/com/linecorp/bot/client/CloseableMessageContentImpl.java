@@ -19,6 +19,7 @@ package com.linecorp.bot.client;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -26,10 +27,11 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import lombok.NonNull;
 
 public class CloseableMessageContentImpl implements CloseableMessageContent {
-    private CloseableHttpClient httpClient;
+    private final CloseableHttpClient httpClient;
     private final CloseableHttpResponse response;
 
-    public CloseableMessageContentImpl(CloseableHttpClient httpClient, @NonNull CloseableHttpResponse response) {
+    public CloseableMessageContentImpl(@NonNull CloseableHttpClient httpClient,
+                                       @NonNull CloseableHttpResponse response) {
         this.httpClient = httpClient;
         this.response = response;
     }
@@ -47,15 +49,7 @@ public class CloseableMessageContentImpl implements CloseableMessageContent {
 
     @Override
     public void close() {
-        try {
-            httpClient.close();
-        } catch (IOException e) {
-            // ignore
-        }
-        try {
-            response.close();
-        } catch (IOException e) {
-            // ignore
-        }
+        IOUtils.closeQuietly(httpClient);
+        IOUtils.closeQuietly(response);
     }
 }

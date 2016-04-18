@@ -32,20 +32,19 @@ import lombok.Getter;
 import lombok.ToString;
 
 @ToString
-
 public class Message {
     @Getter
     private Content content;
     @Getter
-    private String fromChannel;
+    private final String fromChannel;
     @Getter
-    private List<String> to;
+    private final List<String> to;
     @Getter
-    private String eventType;
+    private final String eventType;
     @Getter
-    private String id;
+    private final String id;
     @Getter
-    private JsonNode contentNode;
+    private final JsonNode contentNode;
 
     @JsonCreator
     public Message(
