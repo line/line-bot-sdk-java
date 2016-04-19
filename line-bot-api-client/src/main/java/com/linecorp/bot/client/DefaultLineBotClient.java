@@ -84,6 +84,30 @@ public class DefaultLineBotClient implements LineBotClient {
 
     public static final String DEFAULT_SENDING_MULTIPLE_MESSAGES_EVENT_ID = "140177271400161403";
 
+    private static final String DEFAULT_USER_AGENT =
+            "line-botsdk-java/" + DefaultLineBotClient.class.getPackage().getImplementationVersion();
+
+    private static ObjectMapper buildDefaultObjectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return objectMapper;
+    }
+
+    private static HttpClientBuilder buildDfaultHttpClientBuilder() {
+        RequestConfig requestConfig = RequestConfig
+                .custom()
+                .setConnectTimeout(3000)
+                .setConnectionRequestTimeout(3000)
+                .setSocketTimeout(3000)
+                .build();
+
+        return HttpClientBuilder
+                .create()
+                .disableAutomaticRetries()
+                .setDefaultRequestConfig(requestConfig)
+                .setUserAgent(DEFAULT_USER_AGENT);
+    }
+
     private final String channelId;
     private final String channelSecret;
     private final String channelMid;
@@ -96,96 +120,38 @@ public class DefaultLineBotClient implements LineBotClient {
     private final ObjectMapper objectMapper;
     private final HttpClientBuilder httpClientBuilder;
 
-    // For testing.
-    public DefaultLineBotClient(
-            String channelId,
-            String channelSecret,
-            String channelMid,
-
-            String apiEndPoint,
-
-            Long sendingMessageChannelId,
-            String sendingMessageEventId,
-            String sendingMultipleMessagesEventId,
-
-            ObjectMapper objectMapper,
-            HttpClientBuilder httpClientBuilder) {
-        this.channelId = channelId;
-        this.channelSecret = channelSecret;
-        this.channelMid = channelMid;
-
-        this.apiEndPoint = apiEndPoint;
-
-        this.sendingMessageChannelId = sendingMessageChannelId;
-        this.sendingMessageEventId = sendingMessageEventId;
-        this.sendingMultipleMessagesEventId = sendingMultipleMessagesEventId;
-
-        this.objectMapper = objectMapper;
-        this.httpClientBuilder = httpClientBuilder;
-    }
-
     /**
      * Create new instance.
      *
      * @param channelId Channel ID
      * @param channelSecret Channel secret
      * @param channelMid Channel MID
+     * @param apiEndPoint LINE Bot API endpoint URI
+     * @param sendingMessageChannelId The channel ID to send a message
+     * @param sendingMessageEventId The event type of sending single message
+     * @param sendingMultipleMessagesEventId The event type of sending multiple messages
      * @param objectMapper Instance of Jackson
      * @param httpClientBuilder Instance of Apache HttpClient
      */
-    public DefaultLineBotClient(
+    DefaultLineBotClient(
             String channelId,
             String channelSecret,
             String channelMid,
+            String apiEndPoint,
+            Long sendingMessageChannelId,
+            String sendingMessageEventId,
+            String sendingMultipleMessagesEventId,
             ObjectMapper objectMapper,
-            HttpClientBuilder httpClientBuilder
-    ) {
-        this(channelId, channelSecret, channelMid,
-             DEFAULT_API_END_POINT,
-             DEFAULT_SENDING_MESSAGE_CHANNEL_ID,
-             DEFAULT_SENDING_MESSAGE_EVENT_ID,
-             DEFAULT_SENDING_MULTIPLE_MESSAGES_EVENT_ID,
-             objectMapper, httpClientBuilder);
-    }
-
-    /**
-     * Create new instance
-     *
-     * @param channelId Channel ID
-     * @param channelSecret Channel secret
-     * @param channelMid Channel MID
-     */
-    public DefaultLineBotClient(
-            String channelId,
-            String channelSecret,
-            String channelMid
-    ) {
-        this(channelId, channelSecret, channelMid, buildObjectMapper(), buildHttpClientBuilder());
-    }
-
-    private static ObjectMapper buildObjectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return objectMapper;
-    }
-
-    private static HttpClientBuilder buildHttpClientBuilder() {
-        RequestConfig requestConfig = RequestConfig
-                .custom()
-                .setConnectTimeout(3000)
-                .setConnectionRequestTimeout(3000)
-                .setSocketTimeout(3000)
-                .build();
-
-        return HttpClientBuilder
-                .create()
-                .disableAutomaticRetries()
-                .setDefaultRequestConfig(requestConfig)
-                .setUserAgent(buildUserAgent());
-    }
-
-    private static String buildUserAgent() {
-        return "line-botsdk-java/" + DefaultLineBotClient.class.getPackage().getImplementationVersion();
+            HttpClientBuilder httpClientBuilder) {
+        this.channelId = channelId;
+        this.channelSecret = channelSecret;
+        this.channelMid = channelMid;
+        this.apiEndPoint = apiEndPoint;
+        this.sendingMessageChannelId = sendingMessageChannelId;
+        this.sendingMessageEventId = sendingMessageEventId;
+        this.sendingMultipleMessagesEventId = sendingMultipleMessagesEventId;
+        this.objectMapper = objectMapper != null ? objectMapper : buildDefaultObjectMapper();
+        this.httpClientBuilder = httpClientBuilder != null ? httpClientBuilder : buildDfaultHttpClientBuilder();
     }
 
     @Override

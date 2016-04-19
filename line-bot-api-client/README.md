@@ -4,11 +4,10 @@ LINE bot API client for Java 8.
 
 ## SYNOPSIS
 
-        DefaultLineBotClient defaultLineBotClient = new DefaultLineBotClient(
-                "YOUR_CHANNEL_ID",
-                "YOUR_CHANNEL_SECRET",
-                "YOUR_CHANNEL_MID");
-        defaultLineBotClient.sendText("USER_MID", "Hello");
+        LineBotClient client = LineBotClientBuilder
+                .create("YOUR_CHANNEL_ID", "YOUR_CHANNEL_SECRET", "YOUR_CHANNEL_MID")
+                .build();
+        client.sendText("USER_MID", "Hello");
 
 ## DESCRIPTION
 
