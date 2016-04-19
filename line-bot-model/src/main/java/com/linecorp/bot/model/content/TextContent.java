@@ -33,7 +33,7 @@ public class TextContent extends AbstractContent {
     @JsonCreator
     public TextContent(@JsonProperty("id") String id,
                        @JsonProperty("from") String from,
-                       @JsonProperty("contentType") Long contentType,
+                       @JsonProperty("contentType") ContentType contentType,
                        @JsonProperty("toType") RecipientType toType,
                        @JsonProperty("text") String text) {
         super(id, from, contentType, toType);
@@ -41,6 +41,6 @@ public class TextContent extends AbstractContent {
     }
 
     public TextContent(RecipientType toType, String message) {
-        this(null, null, CONTENT_TYPE_TEXT, toType, message);
+        this(null, null, ContentType.TEXT, toType, message);
     }
 }

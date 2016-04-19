@@ -37,28 +37,20 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
                       @JsonSubTypes.Type(value = RichMessageContent.class, name = "12")
               })
 public abstract class AbstractContent implements Content {
-    public static final long CONTENT_TYPE_TEXT = 1;
-    public static final long CONTENT_TYPE_IMAGE = 2;
-    public static final long CONTENT_TYPE_VIDEO = 3;
-    public static final long CONTENT_TYPE_AUDIO = 4;
-    public static final long CONTENT_TYPE_LOCATION = 7;
-    public static final long CONTENT_TYPE_STICKER = 8;
-    public static final long CONTENT_TYPE_CONTACT = 10;
-    public static final long CONTENT_TYPE_RICH_MESSAGE = 12;
 
     private final String id;
     private final String from;
-    private final Long contentType;
+    private final ContentType contentType;
     private final RecipientType toType;
 
-    public AbstractContent(String id, String from, Long contentType, RecipientType toType) {
+    public AbstractContent(String id, String from, ContentType contentType, RecipientType toType) {
         this.id = id;
         this.from = from;
         this.contentType = contentType;
         this.toType = toType;
     }
 
-    public Long getContentType() {
+    public ContentType getContentType() {
         return contentType;
     }
 

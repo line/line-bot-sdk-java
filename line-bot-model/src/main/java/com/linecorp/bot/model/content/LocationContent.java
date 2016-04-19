@@ -39,7 +39,7 @@ public class LocationContent extends AbstractContent {
     public LocationContent(
             @JsonProperty("id") String id,
             @JsonProperty("from") String from,
-            @JsonProperty("contentType") Long contentType,
+            @JsonProperty("contentType") ContentType contentType,
             @JsonProperty("toType") RecipientType toType,
             @JsonProperty("text") String text,
             @JsonProperty("location") LocationContentLocation location) {
@@ -53,7 +53,7 @@ public class LocationContent extends AbstractContent {
         this(
                 null,
                 null,
-                CONTENT_TYPE_LOCATION,
+                ContentType.LOCATION,
                 toType,
                 text,
                 new LocationContentLocation(title, address, latitude, longitude)
