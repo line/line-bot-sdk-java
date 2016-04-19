@@ -28,9 +28,12 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.model.content.AddedAsFriendOperation;
+import com.linecorp.bot.model.content.BlockedOperation;
 import com.linecorp.bot.model.content.Content;
 import com.linecorp.bot.model.content.ContentType;
 import com.linecorp.bot.model.content.LocationContent;
+import com.linecorp.bot.model.content.OpType;
 import com.linecorp.bot.model.content.TextContent;
 
 public class CallbackRequestTest {
@@ -74,5 +77,39 @@ public class CallbackRequestTest {
                 .isEqualTo(ContentType.LOCATION);
         assertThat(content.getLocation().getTitle())
                 .isEqualTo("Location");
+    }
+
+    @Test
+    public void testAddedAsFriend() throws IOException {
+        InputStream resource = getClass().getClassLoader().getResourceAsStream("added_as_friend.json");
+        String json = IOUtils.toString(resource);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
+
+        Message message = callbackRequest.getResult().get(0);
+        message.parseContent(objectMapper);
+        AddedAsFriendOperation content = (AddedAsFriendOperation) message.getContent();
+
+        assertThat(content.getOpType()).isEqualTo(OpType.ADDED_AS_FRIEND);
+        assertThat(content.getMid()).isEqualTo("u464471c59f5eefe815a19be11f210147");
+        assertThat(content.getRevision()).isEqualTo(2469);
+    }
+
+    @Test
+    public void testBlocked() throws IOException {
+        InputStream resource = getClass().getClassLoader().getResourceAsStream("blocked.json");
+        String json = IOUtils.toString(resource);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
+
+        Message message = callbackRequest.getResult().get(0);
+        message.parseContent(objectMapper);
+        BlockedOperation content = (BlockedOperation) message.getContent();
+
+        assertThat(content.getOpType()).isEqualTo(OpType.BLOCKED);
+        assertThat(content.getMid()).isEqualTo("u464471c59f5eefe815a19be11f210147");
+        assertThat(content.getRevision()).isEqualTo(56801);
     }
 }

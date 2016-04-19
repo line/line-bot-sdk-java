@@ -1,0 +1,19 @@
+{
+  "result": [
+    {
+      "from": "u2ddf2eb3c959e561f6c9fa2ea732e7eb8",
+      "fromChannel": "1341301815",
+      "to": [
+        "u0cc15697597f61dd8b01cea8b027050e"
+      ],
+      "toChannel": 1441301333,
+      "eventType": "138311609000106303",
+      "id": "ABCDEF-12345678901",
+      "content": {
+        "opType":8,
+        "params":["u464471c59f5eefe815a19be11f210147", null, null],
+        "revision":56801
+      }
+    }
+  ]
+}
