@@ -29,8 +29,8 @@ import org.springframework.context.annotation.Configuration;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.client.DefaultLineBotClient;
 import com.linecorp.bot.client.LineBotClient;
+import com.linecorp.bot.client.LineBotClientBuilder;
 import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
 import com.linecorp.bot.spring.boot.interceptor.LineBotServerInterceptor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
@@ -60,15 +60,17 @@ public class LineBotAutoConfiguration {
 
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        return new DefaultLineBotClient(
-                lineBotProperties.getChannelId(),
-                lineBotProperties.getChannelSecret(),
-                lineBotProperties.getChannelMid(),
-                lineBotProperties.getApiEndPoint(),
-                lineBotProperties.getSendingMessageChannelId(),
-                lineBotProperties.getSendingMessageEventId(),
-                lineBotProperties.getSendingMultipleMessagesEventId(),
-                objectMapper, httpClientBuilder);
+        return LineBotClientBuilder
+                .create(lineBotProperties.getChannelId(),
+                        lineBotProperties.getChannelSecret(),
+                        lineBotProperties.getChannelMid())
+                .apiEndPoint(lineBotProperties.getApiEndPoint())
+                .sendingMessageChannelId(lineBotProperties.getSendingMessageChannelId())
+                .sendingMessageEventId(lineBotProperties.getSendingMessageEventId())
+                .sendingMultipleMessagesEventId(lineBotProperties.getSendingMultipleMessagesEventId())
+                .objectMapper(objectMapper)
+                .httpClientBuilder(httpClientBuilder)
+                .build();
     }
 
     @Bean
