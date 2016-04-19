@@ -29,6 +29,7 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.model.content.ContentType;
 import com.linecorp.bot.model.content.StickerContent;
 import com.linecorp.bot.model.content.metadata.StickerContentMetadata;
 
@@ -49,7 +50,7 @@ public class StickerContentTest {
         StickerContent content = (StickerContent) message.getContent();
         assertEquals("325708", content.getId());
         assertThat(content.getContentType())
-                .isEqualTo(8);
+                .isEqualTo(ContentType.STICKER);
 
         assertThat(content.getContentMetadata(), instanceOf(StickerContentMetadata.class));
         assertEquals("4913046", content.getContentMetadata().getStkid());

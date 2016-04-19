@@ -42,7 +42,7 @@ public class VideoContent extends AbstractContent {
     @JsonCreator
     public VideoContent(@JsonProperty("id") String id,
                         @JsonProperty("from") String from,
-                        @JsonProperty("contentType") Long contentType,
+                        @JsonProperty("contentType") ContentType contentType,
                         @JsonProperty("toType") RecipientType toType,
                         @JsonProperty("originalContentUrl") String originalContentUrl,
                         @JsonProperty("previewImageUrl") String previewImageUrl) {
@@ -52,6 +52,6 @@ public class VideoContent extends AbstractContent {
     }
 
     public VideoContent(RecipientType toType, String originalContentUrl, String previewImageUrl) {
-        this(null, null, CONTENT_TYPE_VIDEO, toType, originalContentUrl, previewImageUrl);
+        this(null, null, ContentType.VIDEO, toType, originalContentUrl, previewImageUrl);
     }
 }

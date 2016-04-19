@@ -44,7 +44,7 @@ public class ImageContent extends AbstractContent {
     @JsonCreator
     public ImageContent(@JsonProperty("id") String id,
                         @JsonProperty("from") String from,
-                        @JsonProperty("contentType") Long contentType,
+                        @JsonProperty("contentType") ContentType contentType,
                         @JsonProperty("toType") RecipientType toType,
                         @JsonProperty("originalContentUrl") String originalContentUrl,
                         @JsonProperty("previewImageUrl") String previewImageUrl) {
@@ -54,6 +54,6 @@ public class ImageContent extends AbstractContent {
     }
 
     public ImageContent(RecipientType toType, String originalContentUrl, String previewImageUrl) {
-        this(null, null, CONTENT_TYPE_IMAGE, toType, originalContentUrl, previewImageUrl);
+        this(null, null, ContentType.IMAGE, toType, originalContentUrl, previewImageUrl);
     }
 }

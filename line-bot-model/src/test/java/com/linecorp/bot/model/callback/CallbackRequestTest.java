@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.model.content.Content;
+import com.linecorp.bot.model.content.ContentType;
 import com.linecorp.bot.model.content.LocationContent;
 import com.linecorp.bot.model.content.TextContent;
 
@@ -52,7 +53,7 @@ public class CallbackRequestTest {
         assertThat(textContent.getId())
                 .isEqualTo("325708");
         assertThat(textContent.getContentType())
-                .isEqualTo(1);
+                .isEqualTo(ContentType.TEXT);
     }
 
     @Test
@@ -70,7 +71,7 @@ public class CallbackRequestTest {
         message.parseContent(objectMapper);
         LocationContent content = (LocationContent) message.getContent();
         assertThat(content.getContentType())
-                .isEqualTo(7);
+                .isEqualTo(ContentType.LOCATION);
         assertThat(content.getLocation().getTitle())
                 .isEqualTo("Location");
     }

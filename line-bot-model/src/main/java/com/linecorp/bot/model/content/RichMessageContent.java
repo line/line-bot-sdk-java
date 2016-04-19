@@ -33,7 +33,7 @@ public class RichMessageContent extends AbstractContent {
     public RichMessageContent(
             @JsonProperty("id") String id,
             @JsonProperty("from") String from,
-            @JsonProperty("contentType") Long contentType,
+            @JsonProperty("contentType") ContentType contentType,
             @JsonProperty("toType") RecipientType toType,
             @JsonProperty("downloadUrl") String downloadUrl,
             @JsonProperty("altText") String altText,
@@ -43,6 +43,6 @@ public class RichMessageContent extends AbstractContent {
     }
 
     public RichMessageContent(RecipientType toType, String downloadUrl, String altText, String markupJson) {
-        this(null, null, CONTENT_TYPE_RICH_MESSAGE, toType, downloadUrl, altText, markupJson);
+        this(null, null, ContentType.RICH_MESSAGE, toType, downloadUrl, altText, markupJson);
     }
 }
