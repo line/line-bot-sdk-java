@@ -37,10 +37,10 @@ import lombok.ToString;
 @Getter
 public abstract class AbstractOperation implements Content {
     private final long revision;
-    private final long opType;
+    private final OpType opType;
     private final String mid;
 
-    public AbstractOperation(long revision, long opType, String mid) {
+    public AbstractOperation(long revision, OpType opType, String mid) {
         this.revision = revision;
         this.opType = opType;
         this.mid = mid;
@@ -50,7 +50,7 @@ public abstract class AbstractOperation implements Content {
         return revision;
     }
 
-    public long getOpType() {
+    public OpType getOpType() {
         return opType;
     }
 

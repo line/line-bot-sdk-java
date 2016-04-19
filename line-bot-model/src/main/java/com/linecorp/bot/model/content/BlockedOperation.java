@@ -30,7 +30,7 @@ import lombok.ToString;
 public class BlockedOperation extends AbstractOperation {
     @JsonCreator
     public BlockedOperation(@JsonProperty("revision") long revision,
-                            @JsonProperty("opType") long opType,
+                            @JsonProperty("opType") OpType opType,
                             @JsonProperty("params") List<String> params) {
         super(revision, opType, params.get(0));
     }
