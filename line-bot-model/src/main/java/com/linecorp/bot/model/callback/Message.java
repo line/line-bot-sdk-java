@@ -40,7 +40,7 @@ public class Message {
     @Getter
     private final List<String> to;
     @Getter
-    private final String eventType;
+    private final EventType eventType;
     @Getter
     private final String id;
     @Getter
@@ -50,7 +50,7 @@ public class Message {
     public Message(
             @JsonProperty("fromChannel") String fromChannel,
             @JsonProperty("to") List<String> to,
-            @JsonProperty("eventType") String eventType,
+            @JsonProperty("eventType") EventType eventType,
             @JsonProperty("id") String id,
             @JsonProperty("content") JsonNode content
     ) {
@@ -63,11 +63,13 @@ public class Message {
 
     // TODO remove this.
     public void parseContent(ObjectMapper objectMapper) throws JsonProcessingException {
-        JsonNode opTypeNode = contentNode.get("opType");
-        if (opTypeNode != null && opTypeNode.isInt()) {
-            this.content = objectMapper.treeToValue(contentNode, AbstractOperation.class);
-        } else {
-            this.content = objectMapper.treeToValue(contentNode, AbstractContent.class);
+        switch (eventType) {
+            case Operation:
+                this.content = objectMapper.treeToValue(contentNode, AbstractOperation.class);
+                break;
+            default:
+                this.content = objectMapper.treeToValue(contentNode, AbstractContent.class);
+                break;
         }
     }
 }
