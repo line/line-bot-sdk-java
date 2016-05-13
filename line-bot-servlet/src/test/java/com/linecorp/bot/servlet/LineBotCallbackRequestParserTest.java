@@ -104,11 +104,13 @@ public class LineBotCallbackRequestParserTest {
 
     @Test
     public void testCallRequest() throws Exception {
+        final String requestBody = "{\"result\":[{\"eventType\":\"138311609000106303\"}]}";
+
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE, "SSSSIGNATURE");
-        request.setContent("{\"result\":[{}]}".getBytes(StandardCharsets.UTF_8));
+        request.setContent(requestBody.getBytes(StandardCharsets.UTF_8));
 
-        when(lineBotClient.validateSignature("{\"result\":[{}]}", "SSSSIGNATURE"))
+        when(lineBotClient.validateSignature(requestBody, "SSSSIGNATURE"))
                 .thenReturn(true);
 
         CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(
