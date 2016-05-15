@@ -19,32 +19,39 @@ package com.linecorp.bot.model.rich;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
 @ToString
+@EqualsAndHashCode
 public class RichMessageScene {
     private final List<RichMessageSceneImage> draws;
     private final List<RichMessageSceneListener> listeners;
 
+    /**
+     * Creates a new Scene Object
+     */
     public RichMessageScene() {
         this.draws = new ArrayList<>();
         this.listeners = new ArrayList<>();
     }
 
-    /**
-     * Add new image.
-     *
-     * @param w width of image. one of 1040, 700, 460, 300, 240.
-     * @param h height of image(0 < h < 2080)
-     */
+    public void addDraw(@NonNull RichMessageSceneImage draw) {
+        this.draws.add(draw);
+    }
+
     public void addDraw(int w, int h) {
-        this.draws.add(new RichMessageSceneImage(w, h));
+        addDraw(new RichMessageSceneImage("image1", 0, 0, w, h));
+    }
+
+    public void addListener(@NonNull RichMessageSceneListener listener) {
+        this.listeners.add(listener);
     }
 
     public void addListener(int x, int y, int width, int height, @NonNull String action) {
-        this.listeners.add(new RichMessageSceneListener(action, x, y, width, height));
+        addListener(new RichMessageSceneListener(action, x, y, width, height));
     }
 }

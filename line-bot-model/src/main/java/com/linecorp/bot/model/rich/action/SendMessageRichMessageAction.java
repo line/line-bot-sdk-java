@@ -16,11 +16,13 @@
 
 package com.linecorp.bot.model.rich.action;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
+@EqualsAndHashCode(callSuper = true)
 public class SendMessageRichMessageAction extends AbstractRichMessageAction {
     private final SendMessageRichMessageActionParams params;
 
@@ -33,6 +35,7 @@ public class SendMessageRichMessageAction extends AbstractRichMessageAction {
 
     @Getter
     @ToString
+    @EqualsAndHashCode
     public static class SendMessageRichMessageActionParams {
         private final String text;
 

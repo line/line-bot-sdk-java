@@ -34,6 +34,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.linecorp.bot.client.CloseableMessageContent;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
+import com.linecorp.bot.client.rich.SimpleRichMessageBuilder;
 import com.linecorp.bot.model.callback.Message;
 import com.linecorp.bot.model.content.AddedAsFriendOperation;
 import com.linecorp.bot.model.content.AudioContent;
@@ -51,7 +52,6 @@ import com.linecorp.bot.model.content.metadata.ContactContentMetadata;
 import com.linecorp.bot.model.content.metadata.StickerContentMetadata;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.rich.RichMessage;
-import com.linecorp.bot.model.rich.RichMessageScene;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.NonNull;
@@ -245,21 +245,13 @@ public class KitchenSinkController {
                              .send(mid);
                 break;
             case "rich":
-                RichMessage richMessage = new RichMessage(1040);
-                richMessage.addWebAction("MANGA", "play", "https://store.line.me/family/manga/en");
-                richMessage.addWebAction("MUSIC", "music", "https://store.line.me/family/music/en");
-                richMessage.addWebAction("PLAY", "play", "https://store.line.me/family/play/en");
-                richMessage.addWebAction("FORTUNE", "play", "https://store.line.me/family/uranai/en");
-                richMessage.addImage("image1", 1040);
-
-                RichMessageScene scene = new RichMessageScene();
-                scene.addDraw(1040, 1040);
-                scene.addListener(0, 0, 1040 / 2, 1040 / 2, "MANGA");
-                scene.addListener(1040 / 2, 0, 1040 / 2, 1040 / 2, "MUSIC");
-                scene.addListener(0, 1040 / 2, 1040 / 2, 1040 / 2, "PLAY");
-                scene.addListener(1040 / 2, 1040 / 2, 1040 / 2, 1040 / 2, "FORTUNE");
-
-                richMessage.addScene("scene1", scene);
+                final RichMessage richMessage =
+                        SimpleRichMessageBuilder.create(1040, 1040)
+                        .addWebAction(0, 0, 520, 520, "manga", "https://store.line.me/family/manga/en")
+                        .addWebAction(520, 0, 520, 520, "music", "https://store.line.me/family/music/en")
+                        .addWebAction(0, 520, 520, 520, "play", "https://store.line.me/family/play/en")
+                        .addWebAction(520, 520, 520, 520, "fortune", "https://store.line.me/family/uranai/en")
+                        .build();
 
                 lineBotClient.sendRichMessage(
                         mid,

@@ -16,77 +16,53 @@
 
 package com.linecorp.bot.model.rich;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
 @Getter
+@EqualsAndHashCode
 public class RichMessageSceneImage {
+
+    private final String image;
+    private final int x;
+    private final int y;
     private final int w;
     private final int h;
 
-    /**
-     * Create new image.
-     *
-     * @param w width of image. one of 1040, 700, 460, 300, 240.
-     * @param h height of image(0 < h < 2080)
-     */
     public RichMessageSceneImage(int w, int h) {
-        this.w = validateWidth(w);
-        this.h = validateHeight(h);
+        this("image1", 0, 0, w, h);
     }
 
     /**
-     * The image ID.
-     */
-    public String getImage() {
-        return "image1";
-    }
-
-    /**
-     * x-coordinate value.
-     */
-    public int getX() {
-        return 0;
-    }
-
-    /**
-     * y-coordinate value.
-     */
-    public int getY() {
-        return 0;
-    }
-
-    public int getW() {
-        return w;
-    }
-
-    /**
-     * Validate width.
+     * Creates a new Draw Object indicating the position to draw the image.
      *
-     * @param w one of 1040, 700, 460, 300, 240.
+     * @param image The name of image object
+     * @param x The horizontal position in the canvas
+     * @param y The vertical position in the canvas
+     * @param w The width to draw the image in the canvas
+     * @param h The height to draw the image in the canvas
      */
-    private int validateWidth(int w) {
-        // 1040, 700, 460, 300, 240
-        if ((w != 1040) && (w != 700) && (w != 460) && (w != 300) && (w != 240)) {
-            throw new IllegalArgumentException("Scene width must be one of 1040, 700, 460, 300 or 240.");
-        }
-        return w;
-    }
-
-    public int getH() {
-        return h;
+    public RichMessageSceneImage(@NonNull String image, int x, int y, int w, int h) {
+        this.image = image;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = validateHeight(h);
     }
 
     /**
      * Validate height.
      *
-     * @param h the height of image (0 < h < 2080).
+     * @param h the height of image (0 < h <= 2080).
      */
     private int validateHeight(int h) {
         if (h > 2080) {
             // Integer value. Max value is 2080px.
-            throw new IllegalArgumentException("RichMessageImage's height should be less than or equals 2080px.");
+            throw new IllegalArgumentException(
+                    "RichMessageImage's height should be less than or equals 2080px.");
         }
         if (h < 1) {
             // Integer value. Max value is 2080px.

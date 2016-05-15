@@ -16,10 +16,12 @@
 
 package com.linecorp.bot.model.rich.action;
 
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
+@EqualsAndHashCode
 public abstract class AbstractRichMessageAction {
     private final String type;
 
