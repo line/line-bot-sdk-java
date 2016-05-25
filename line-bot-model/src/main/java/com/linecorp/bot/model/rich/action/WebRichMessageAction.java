@@ -16,11 +16,13 @@
 
 package com.linecorp.bot.model.rich.action;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
+@EqualsAndHashCode(callSuper = true)
 public class WebRichMessageAction extends AbstractRichMessageAction {
     private final String text;
     private final WebRichMessageActionParams params;
@@ -37,6 +39,7 @@ public class WebRichMessageAction extends AbstractRichMessageAction {
 
     @Getter
     @ToString
+    @EqualsAndHashCode
     public static class WebRichMessageActionParams {
         private final String linkUri;
 

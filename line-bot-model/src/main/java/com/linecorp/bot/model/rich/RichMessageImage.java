@@ -16,32 +16,36 @@
 
 package com.linecorp.bot.model.rich;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 @ToString
 @Getter
+@EqualsAndHashCode
 public class RichMessageImage {
+    private final int x;
+    private final int y;
+    private final int w;
     private final int h;
 
     public RichMessageImage(int h) {
+        this(0, 0, 1040, h);
+    }
+
+    /**
+     * Creates a new Image Object cropped from the base image to the specified size
+     *
+     * @param x The horizontal position of the base image
+     * @param y The vertical position of the base image
+     * @param w The width of cropping area
+     * @param h the height of cropping area
+     */
+    public RichMessageImage(int x, int y, int w, int h) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
         this.h = h;
-    }
-
-    public int getX() {
-        return 0;
-    }
-
-    public int getY() {
-        return 0;
-    }
-
-    public int getW() {
-        return 1040;
-    }
-
-    public int getH() {
-        return h;
     }
 
 }

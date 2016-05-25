@@ -22,12 +22,14 @@ import java.util.Map;
 import com.linecorp.bot.model.rich.action.AbstractRichMessageAction;
 import com.linecorp.bot.model.rich.action.WebRichMessageAction;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
 @Getter
+@EqualsAndHashCode
 public class RichMessage {
     private final RichMessageCanvas canvas;
     private final Map<String, RichMessageImage> images;
@@ -35,7 +37,21 @@ public class RichMessage {
     private final Map<String, RichMessageScene> scenes;
 
     public RichMessage(int height) {
-        this.canvas = new RichMessageCanvas(height);
+        this("scene1", 1040, height);
+    }
+
+    /**
+     * Creates a new RichMessage Object with the specified size and initial scene name.
+     */
+    public RichMessage(String initialScene, int width, int height) {
+        this(new RichMessageCanvas(initialScene, width, height));
+    }
+
+    /**
+     * Creates a new RichMessage Object with the specified canvas.
+     */
+    public RichMessage(RichMessageCanvas canvas) {
+        this.canvas = canvas;
         this.images = new HashMap<>();
         this.actions = new HashMap<>();
         this.scenes = new HashMap<>();
@@ -54,7 +70,7 @@ public class RichMessage {
     }
 
     public void addImage(@NonNull String name, int h) {
-        addImage(name, new RichMessageImage(h));
+        addImage(name, new RichMessageImage(0, 0, 1040, h));
     }
 
     public void addScene(@NonNull String name, @NonNull RichMessageScene scene) {

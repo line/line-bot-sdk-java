@@ -19,7 +19,9 @@ package com.linecorp.bot.model.rich;
 import java.util.Arrays;
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -28,6 +30,7 @@ import lombok.ToString;
  */
 @Getter
 @ToString
+@EqualsAndHashCode
 public class RichMessageSceneListener {
 
     /**
@@ -39,7 +42,16 @@ public class RichMessageSceneListener {
      */
     private final String action;
 
-    public RichMessageSceneListener(String action, int x, int y, int width, int height) {
+    /**
+     * Creates a new Listener Object indicating the position to execute the specified action
+     *
+     * @param action The action name to be executed
+     * @param x The vertical position of the target area
+     * @param y The horizontal position of the target area
+     * @param width The width of the target area
+     * @param height The height of the target area
+     */
+    public RichMessageSceneListener(@NonNull String action, int x, int y, int width, int height) {
         this.params = Arrays.asList(x, y, width, height);
         this.action = action;
     }

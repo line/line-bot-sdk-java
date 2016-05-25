@@ -16,52 +16,45 @@
 
 package com.linecorp.bot.model.rich;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 @Getter
 @ToString
+@EqualsAndHashCode
 public class RichMessageCanvas {
+    private final String initialScene;
+    private final int width;
     private final int height;
 
     public RichMessageCanvas(int height) {
+        this("scene1", 1040, height);
+    }
+
+    /**
+     * Creates a new Canvas Object
+     *
+     * @param initialScene The initial scene
+     * @param width The base width of the canvas
+     * @param height The base height of the canvas (less than 2080px)
+     */
+    public RichMessageCanvas(@NonNull String initialScene, int width, int height) {
+        this.initialScene = initialScene;
+        this.width = width;
         this.height = vaidateHeight(height);
-    }
-
-    /**
-     * A width of the canvas area.
-     */
-    @JsonProperty("width")
-    public int getWidth() {
-        return 1040;
-    }
-
-    /**
-     * A height of the canvas area.
-     */
-    @JsonProperty("height")
-    public int getHeight() {
-        return height;
     }
 
     /**
      * Validate height.
      */
     private int vaidateHeight(int height) {
-        if (height > 2048) {
+        if (height > 2080) {
             // Integer value. Max value is 2080px.
-            throw new IllegalArgumentException("RichMessageCanvas's height should be less than or equals 2080px.");
+            throw new IllegalArgumentException(
+                    "RichMessageCanvas's height should be less than or equals 2080px.");
         }
         return height;
-    }
-
-    /**
-     * An initial scene name.
-     */
-    @JsonProperty("initialScene")
-    public String getInitialScene() {
-        return "scene1";
     }
 }
