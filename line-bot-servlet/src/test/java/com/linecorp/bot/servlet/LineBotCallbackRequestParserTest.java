@@ -16,16 +16,21 @@
 
 package com.linecorp.bot.servlet;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,11 +39,15 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.client.LineBotAPIHeaders;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.model.callback.CallbackRequest;
+import com.linecorp.bot.model.callback.Event;
+import com.linecorp.bot.model.content.AddedAsFriendOperation;
+import com.linecorp.bot.model.content.TextContent;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LineBotCallbackRequestParserTest {
@@ -52,9 +61,11 @@ public class LineBotCallbackRequestParserTest {
     public void before() throws IOException {
         when(response.getWriter())
                 .thenReturn(mock(PrintWriter.class));
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(
                 lineBotClient,
-                new ObjectMapper()
+                objectMapper
         );
     }
 
@@ -106,8 +117,8 @@ public class LineBotCallbackRequestParserTest {
 
     @Test
     public void testCallRequest() throws Exception {
-        final byte[] requestBody = "{\"result\":[{\"eventType\":\"138311609000106303\"}]}"
-                .getBytes(StandardCharsets.UTF_8);
+        InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
+        byte[] requestBody = IOUtils.toByteArray(resource);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE, "SSSSIGNATURE");
@@ -121,5 +132,13 @@ public class LineBotCallbackRequestParserTest {
                 response
         );
         Assert.assertNotNull(callbackRequest);
+
+        final List<Event> result = callbackRequest.getResult();
+
+        final TextContent text = (TextContent) result.get(0).getContent();
+        assertThat(text.getText(), is("Hello, BOT API Server!"));
+
+        final AddedAsFriendOperation addFriend = (AddedAsFriendOperation) result.get(1).getContent();
+        assertThat(addFriend.getMid(), is("u464471c59f5eefe815a19be11f210147"));
     }
 }

@@ -30,7 +30,6 @@ import com.linecorp.bot.client.LineBotAPIHeaders;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.model.callback.CallbackRequest;
-import com.linecorp.bot.model.callback.Message;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,10 +71,6 @@ public class LineBotCallbackRequestParser {
         if (callbackRequest == null || callbackRequest.getResult() == null) {
             sendError(resp, "Result shouldn't be null");
             return null;
-        }
-        // TODO: Use better parsing method.
-        for (Message message : callbackRequest.getResult()) {
-            message.parseContent(objectMapper);
         }
         return callbackRequest;
     }

@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum EventType {
 
-    Message("138311609000106303"),
-    Operation("138311609100106403");
+    Message(Constants.MESSAGE),
+    Operation(Constants.OPERATION);
 
     private final String value;
 
@@ -24,4 +24,10 @@ public enum EventType {
         }
         throw new IllegalArgumentException("Invalid EventType: " + value);
     }
+
+    public interface Constants {
+        String MESSAGE = "138311609000106303";
+        String OPERATION = "138311609100106403";
+    }
+
 }
