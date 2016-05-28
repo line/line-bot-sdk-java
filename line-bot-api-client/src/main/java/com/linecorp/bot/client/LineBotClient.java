@@ -248,7 +248,9 @@ public interface LineBotClient {
 
     boolean validateSignature(@NonNull String jsonText, @NonNull String headerSignature) throws LineBotAPIException;
 
-    byte[] createSignature(@NonNull String jsonText) throws LineBotAPIException;
+    boolean validateSignature(@NonNull byte[] jsonText, @NonNull String headerSignature) throws LineBotAPIException;
+
+    byte[] createSignature(@NonNull byte[] jsonText) throws LineBotAPIException;
 
     void sendMultipleMessages(Collection<String> mids, Collection<AbstractContent> contents) throws LineBotAPIException;
 
