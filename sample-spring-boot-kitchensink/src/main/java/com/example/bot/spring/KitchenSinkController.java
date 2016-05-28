@@ -186,7 +186,7 @@ public class KitchenSinkController {
         ContactContentMetadata contentMetadata = content.getContentMetadata();
         try {
             lineBotClient.sendText(
-                    mid, "Recived contact info for : " + contentMetadata.getDisplayName()
+                    mid, "Received contact info for : " + contentMetadata.getDisplayName()
             );
         } catch (LineBotAPIException e) {
             log.error("LINE server returns '{}'(mid: '{}')",

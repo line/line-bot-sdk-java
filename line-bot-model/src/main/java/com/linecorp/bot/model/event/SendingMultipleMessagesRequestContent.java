@@ -28,7 +28,7 @@ import java.util.Collection;
 @Getter
 public class SendingMultipleMessagesRequestContent {
     /**
-     * Optional. Zero-based index of the message to be notified. Default vralue is 0.
+     * Optional. Zero-based index of the message to be notified. Default value is 0.
      */
     private final int messageNotified;
 

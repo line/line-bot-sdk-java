@@ -32,7 +32,7 @@ import lombok.NonNull;
  */
 public interface LineBotClient {
     /**
-     * Send event requset to the server.
+     * Send event request to the server.
      *
      * @param eventRequest event request object
      *

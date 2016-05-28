@@ -24,7 +24,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * Rsponse model for /v1/events.
+ * Response model for /v1/events.
  */
 @Getter
 @ToString
