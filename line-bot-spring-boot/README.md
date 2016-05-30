@@ -80,7 +80,7 @@ Channel ID for bot server.
 
 ### line.bot.channelSecret
 
-Channel secreat for bot server.
+Channel secret for bot server.
 
 ### line.bot.connectTimeout
 

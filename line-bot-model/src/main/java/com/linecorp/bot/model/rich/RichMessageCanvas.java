@@ -43,13 +43,13 @@ public class RichMessageCanvas {
     public RichMessageCanvas(@NonNull String initialScene, int width, int height) {
         this.initialScene = initialScene;
         this.width = width;
-        this.height = vaidateHeight(height);
+        this.height = validateHeight(height);
     }
 
     /**
      * Validate height.
      */
-    private int vaidateHeight(int height) {
+    private int validateHeight(int height) {
         if (height > 2080) {
             // Integer value. Max value is 2080px.
             throw new IllegalArgumentException(

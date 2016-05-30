@@ -1,6 +1,6 @@
 # sample-spring-boot-echo
 
-sample-spring-boot-echo is a tiny sample bot application based on Srping boot.
+sample-spring-boot-echo is a tiny sample bot application based on Spring boot.
 
 ## Usage
 

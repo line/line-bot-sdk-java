@@ -24,7 +24,7 @@ import com.linecorp.bot.model.content.AbstractContent;
 import lombok.NonNull;
 
 /**
- * Builder class for multiple messsage sending.
+ * Builder class for multiple message sending.
  */
 public interface MultipleMessageBuilder {
 
@@ -43,12 +43,12 @@ public interface MultipleMessageBuilder {
     /**
      * Send messages to the MID.
      *
-     * @param mid Target uers's MID.
+     * @param mid Target user's MID.
      */
     void send(@NonNull String mid) throws LineBotAPIException;
 
     /**
-     * Send messsages.
+     * Send messages.
      *
      * @param mids Array of target users' MIDs. Max count: 150.
      * @throws LineBotAPIException
