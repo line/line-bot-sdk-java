@@ -35,7 +35,7 @@ import com.linecorp.bot.client.CloseableMessageContent;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.rich.SimpleRichMessageBuilder;
-import com.linecorp.bot.model.callback.Message;
+import com.linecorp.bot.model.callback.Event;
 import com.linecorp.bot.model.content.AddedAsFriendOperation;
 import com.linecorp.bot.model.content.AudioContent;
 import com.linecorp.bot.model.content.BlockedOperation;
@@ -64,16 +64,16 @@ public class KitchenSinkController {
     private LineBotClient lineBotClient;
 
     @RequestMapping("/callback")
-    public void callback(@NonNull @LineBotMessages List<Message> messages) {
-        log.info("Got request: {}", messages);
+    public void callback(@NonNull @LineBotMessages List<Event> events) {
+        log.info("Got request: {}", events);
 
-        for (Message message : messages) {
-            this.handleMessage(message);
+        for (Event event : events) {
+            this.handleEvent(event);
         }
     }
 
-    private void handleMessage(Message message) {
-        Content content = message.getContent();
+    private void handleEvent(Event event) {
+        Content content = event.getContent();
         if (content instanceof TextContent) {
             handleTextContent((TextContent) content);
         } else if (content instanceof StickerContent) {

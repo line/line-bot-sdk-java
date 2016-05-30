@@ -17,13 +17,17 @@
 package com.linecorp.bot.spring.boot;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +48,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.model.callback.Message;
+import com.linecorp.bot.model.callback.Event;
+import com.linecorp.bot.model.content.AddedAsFriendOperation;
 import com.linecorp.bot.model.content.Content;
 import com.linecorp.bot.model.content.TextContent;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
@@ -75,23 +80,24 @@ public class EchoBotSampleApplicationTest {
         private LineBotClient lineBotClient;
 
         @RequestMapping("/callback")
-        public void callback(@NonNull @LineBotMessages List<Message> messages) throws IOException, LineBotAPIException {
-            log.info("Got request: {}", messages);
+        public void callback(@NonNull @LineBotMessages List<Event> events) throws IOException, LineBotAPIException {
+            log.info("Got request: {}", events);
 
-            for (Message message : messages) {
-                this.handleMessage(message);
+            for (Event event : events) {
+                this.handleEvent(event);
             }
         }
 
-        private void handleMessage(Message message) throws IOException, LineBotAPIException {
-            Content content = message.getContent();
+        private void handleEvent(Event event) throws IOException, LineBotAPIException {
+            Content content = event.getContent();
             if (content instanceof TextContent) {
                 String mid = ((TextContent) content).getFrom();
                 String text = ((TextContent) content).getText();
                 lineBotClient.sendText(mid, text);
-            } else {
-                log.info("Received message(Ignored): {}",
-                         content);
+            } else if (content instanceof AddedAsFriendOperation){
+                String mid = ((AddedAsFriendOperation) content).getMid();
+                String opType = ((AddedAsFriendOperation) content).getOpType().name();
+                lineBotClient.sendText(mid, opType);
             }
         }
     }
@@ -120,11 +126,28 @@ public class EchoBotSampleApplicationTest {
     }
 
     @Test
-    public void test() throws Exception {
+    public void missingSignatureTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/callback")
                                               .content("{}"))
                .andDo(print())
                .andExpect(status().isBadRequest())
                .andExpect(content().string(containsString("Missing 'X-Line-ChannelSignature' header")));
+    }
+
+    @Test
+    public void validCallbackTest() throws Exception {
+        InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
+        byte[] json = IOUtils.toByteArray(resource);
+
+        when(lineBotClient.validateSignature(json, "SIGN")).thenReturn(true);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/callback")
+                                              .header("X-Line-ChannelSignature", "SIGN")
+                                              .content(json))
+               .andDo(print())
+               .andExpect(status().isOk());
+
+        verify(lineBotClient).sendText("uff2aec188e58752ee1fb0f9507c6529a", "Hello, BOT API Server!");
+        verify(lineBotClient).sendText("u464471c59f5eefe815a19be11f210147", "ADDED_AS_FRIEND");
     }
 }

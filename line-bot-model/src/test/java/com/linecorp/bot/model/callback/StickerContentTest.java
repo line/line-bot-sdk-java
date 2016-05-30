@@ -44,10 +44,9 @@ public class StickerContentTest {
 
         CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
         assertEquals(1, callbackRequest.getResult().size());
-        Message message = callbackRequest.getResult().get(0);
-        message.parseContent(objectMapper);
-        assertEquals("ABCDEF-12345678901", message.getId());
-        StickerContent content = (StickerContent) message.getContent();
+        Event event = callbackRequest.getResult().get(0);
+        assertEquals("ABCDEF-12345678901", event.getId());
+        StickerContent content = (StickerContent) event.getContent();
         assertEquals("325708", content.getId());
         assertThat(content.getContentType())
                 .isEqualTo(ContentType.STICKER);

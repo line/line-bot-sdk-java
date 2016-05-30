@@ -18,20 +18,17 @@ package com.linecorp.bot.model.callback;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Getter;
-import lombok.ToString;
+import com.linecorp.bot.model.content.AbstractContent;
 
-@ToString
-@Getter
-public class CallbackRequest {
-    private final List<Event> result;
+public class MessageEvent extends Event {
 
-    @JsonCreator
-    public CallbackRequest(@JsonProperty("result") List<Event> result) {
-        this.result = result;
+    public MessageEvent(@JsonProperty("fromChannel") String fromChannel,
+                        @JsonProperty("to") List<String> to,
+                        @JsonProperty("eventType") EventType eventType,
+                        @JsonProperty("id") String id,
+                        @JsonProperty("content") AbstractContent content) {
+        super(fromChannel, to, eventType, id, content);
     }
-
 }

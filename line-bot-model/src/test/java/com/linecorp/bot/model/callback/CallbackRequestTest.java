@@ -45,12 +45,11 @@ public class CallbackRequestTest {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
         assertEquals(1, callbackRequest.getResult().size());
-        Message message = callbackRequest.getResult().get(0);
-        assertThat(message.getId())
+        Event event = callbackRequest.getResult().get(0);
+        assertThat(event.getId())
                 .isEqualTo("ABCDEF-12345678901");
-        message.parseContent(objectMapper);
 
-        Content content = message.getContent();
+        Content content = event.getContent();
         assertThat(content).isInstanceOf(TextContent.class);
         TextContent textContent = (TextContent) content;
         assertThat(textContent.getId())
@@ -67,12 +66,11 @@ public class CallbackRequestTest {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
         assertEquals(1, callbackRequest.getResult().size());
-        Message message = callbackRequest.getResult().get(0);
-        assertThat(message.getId())
+        Event event = callbackRequest.getResult().get(0);
+        assertThat(event.getId())
                 .isEqualTo("ID");
 
-        message.parseContent(objectMapper);
-        LocationContent content = (LocationContent) message.getContent();
+        LocationContent content = (LocationContent) event.getContent();
         assertThat(content.getContentType())
                 .isEqualTo(ContentType.LOCATION);
         assertThat(content.getLocation().getTitle())
@@ -87,9 +85,8 @@ public class CallbackRequestTest {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
 
-        Message message = callbackRequest.getResult().get(0);
-        message.parseContent(objectMapper);
-        AddedAsFriendOperation content = (AddedAsFriendOperation) message.getContent();
+        Event event = callbackRequest.getResult().get(0);
+        AddedAsFriendOperation content = (AddedAsFriendOperation) event.getContent();
 
         assertThat(content.getOpType()).isEqualTo(OpType.ADDED_AS_FRIEND);
         assertThat(content.getMid()).isEqualTo("u464471c59f5eefe815a19be11f210147");
@@ -104,9 +101,8 @@ public class CallbackRequestTest {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
 
-        Message message = callbackRequest.getResult().get(0);
-        message.parseContent(objectMapper);
-        BlockedOperation content = (BlockedOperation) message.getContent();
+        Event event = callbackRequest.getResult().get(0);
+        BlockedOperation content = (BlockedOperation) event.getContent();
 
         assertThat(content.getOpType()).isEqualTo(OpType.BLOCKED);
         assertThat(content.getMid()).isEqualTo("u464471c59f5eefe815a19be11f210147");
