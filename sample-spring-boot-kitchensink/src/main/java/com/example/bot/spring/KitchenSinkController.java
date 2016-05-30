@@ -148,7 +148,7 @@ public class KitchenSinkController {
                          messageId)
             ) {
                 String path = saveContent("image", messageContent);
-                String previewPath = saveContent("image" + "-preview", previewMessageContent);
+                String previewPath = saveContent("image-preview", previewMessageContent);
 
                 lineBotClient.sendImage(mid, path, previewPath);
             }

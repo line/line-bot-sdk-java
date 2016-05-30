@@ -52,8 +52,10 @@ public class LineBotCallbackRequestParser {
             return null;
         }
 
-        String json = IOUtils.toString(req.getInputStream(), StandardCharsets.UTF_8);
-        log.info("got: " + json);
+        final byte[] json = IOUtils.toByteArray(req.getInputStream());
+        if (log.isDebugEnabled()) {
+            log.debug("got: {}", new String(json, StandardCharsets.UTF_8));
+        }
 
         try {
             if (!lineBotClient.validateSignature(json, signature)) {

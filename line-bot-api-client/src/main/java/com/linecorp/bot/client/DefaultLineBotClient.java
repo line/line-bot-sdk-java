@@ -84,6 +84,8 @@ public class DefaultLineBotClient implements LineBotClient {
 
     public static final String DEFAULT_SENDING_MULTIPLE_MESSAGES_EVENT_ID = "140177271400161403";
 
+    private static final String HASH_ALGORITHM = "HmacSHA256";
+
     private static final String DEFAULT_USER_AGENT =
             "line-botsdk-java/" + DefaultLineBotClient.class.getPackage().getImplementationVersion();
 
@@ -120,6 +122,8 @@ public class DefaultLineBotClient implements LineBotClient {
     private final ObjectMapper objectMapper;
     private final HttpClientBuilder httpClientBuilder;
 
+    private final SecretKeySpec secretKeySpec;
+
     /**
      * Create new instance.
      *
@@ -152,6 +156,8 @@ public class DefaultLineBotClient implements LineBotClient {
         this.sendingMultipleMessagesEventId = sendingMultipleMessagesEventId;
         this.objectMapper = objectMapper != null ? objectMapper : buildDefaultObjectMapper();
         this.httpClientBuilder = httpClientBuilder != null ? httpClientBuilder : buildDfaultHttpClientBuilder();
+
+        secretKeySpec = new SecretKeySpec(channelSecret.getBytes(StandardCharsets.UTF_8), HASH_ALGORITHM);
     }
 
     @Override
@@ -389,20 +395,23 @@ public class DefaultLineBotClient implements LineBotClient {
     @Override
     public boolean validateSignature(@NonNull String jsonText, @NonNull String headerSignature)
             throws LineBotAPIException {
-        byte[] signature = this.createSignature(jsonText);
-        byte[] decodeHeaderSignature = Base64.getDecoder().decode(headerSignature);
-        return MessageDigest.isEqual(decodeHeaderSignature,
-                                     signature);
+        return validateSignature(jsonText.getBytes(StandardCharsets.UTF_8), headerSignature);
     }
 
     @Override
-    public byte[] createSignature(@NonNull String jsonText) throws LineBotAPIException {
+    public boolean validateSignature(@NonNull byte[] jsonText, @NonNull String headerSignature)
+            throws LineBotAPIException {
+        final byte[] signature = createSignature(jsonText);
+        final byte[] decodeHeaderSignature = Base64.getDecoder().decode(headerSignature);
+        return MessageDigest.isEqual(decodeHeaderSignature, signature);
+    }
+
+    @Override
+    public byte[] createSignature(@NonNull byte[] jsonText) throws LineBotAPIException {
         try {
-            SecretKeySpec key = new SecretKeySpec(this.channelSecret.getBytes(StandardCharsets.UTF_8),
-                                                  "HmacSHA256");
-            Mac mac = Mac.getInstance("HmacSHA256");
-            mac.init(key);
-            return mac.doFinal(jsonText.getBytes(StandardCharsets.UTF_8));
+            final Mac mac = Mac.getInstance(HASH_ALGORITHM);
+            mac.init(secretKeySpec);
+            return mac.doFinal(jsonText);
         } catch (InvalidKeyException | NoSuchAlgorithmException e) {
             throw new LineBotAPISignatureException(e);
         }
