@@ -50,6 +50,7 @@ import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
 import com.linecorp.bot.client.exception.LineBotAPISignatureException;
 import com.linecorp.bot.client.exception.LineBotAPITooManyTargetUsersException;
 import com.linecorp.bot.client.exception.LineBotServerErrorStatusException;
+import com.linecorp.bot.model.callback.CallbackRequest;
 import com.linecorp.bot.model.content.AbstractContent;
 import com.linecorp.bot.model.content.AudioContent;
 import com.linecorp.bot.model.content.ImageContent;
@@ -463,5 +464,31 @@ public class DefaultLineBotClient implements LineBotClient {
         );
 
         this.sendEvent(messagesRequest);
+    }
+
+    @Override
+    public CallbackRequest readCallbackRequest(@NonNull byte[] jsonText) throws LineBotAPIJsonProcessingException {
+        try {
+            final CallbackRequest callbackRequest = objectMapper.readValue(jsonText, CallbackRequest.class);
+            if (callbackRequest == null || callbackRequest.getResult() == null) {
+                throw new LineBotAPIJsonProcessingException("Invalid callback request was given");
+            }
+            return callbackRequest;
+        } catch (IOException e) {
+            throw new LineBotAPIJsonProcessingException(e);
+        }
+    }
+
+    @Override
+    public CallbackRequest readCallbackRequest(@NonNull String jsonText) throws LineBotAPIJsonProcessingException {
+        try {
+            final CallbackRequest callbackRequest = objectMapper.readValue(jsonText, CallbackRequest.class);
+            if (callbackRequest == null || callbackRequest.getResult() == null) {
+                throw new LineBotAPIJsonProcessingException("Invalid callback request was given");
+            }
+            return callbackRequest;
+        } catch (IOException e) {
+            throw new LineBotAPIJsonProcessingException(e);
+        }
     }
 }

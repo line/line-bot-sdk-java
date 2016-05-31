@@ -18,6 +18,7 @@ package com.linecorp.bot.servlet;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -36,6 +37,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -44,6 +46,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.client.LineBotAPIHeaders;
 import com.linecorp.bot.client.LineBotClient;
+import com.linecorp.bot.client.LineBotClientBuilder;
 import com.linecorp.bot.model.callback.CallbackRequest;
 import com.linecorp.bot.model.callback.Event;
 import com.linecorp.bot.model.content.AddedAsFriendOperation;
@@ -53,20 +56,17 @@ import com.linecorp.bot.model.content.TextContent;
 public class LineBotCallbackRequestParserTest {
     @Mock
     private HttpServletResponse response;
-    @Mock
-    private LineBotClient lineBotClient;
+
+    @Spy
+    private LineBotClient lineBotClient = LineBotClientBuilder.create("CID", "SECRET", "MID").build();
+
     private LineBotCallbackRequestParser lineBotCallbackRequestParser;
 
     @Before
     public void before() throws IOException {
         when(response.getWriter())
                 .thenReturn(mock(PrintWriter.class));
-        final ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(
-                lineBotClient,
-                objectMapper
-        );
+        this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(lineBotClient);
     }
 
     @Test
@@ -103,8 +103,7 @@ public class LineBotCallbackRequestParserTest {
         request.addHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE, "SSSSIGNATURE");
         request.setContent(requestBody);
 
-        when(lineBotClient.validateSignature(requestBody, "SSSSIGNATURE"))
-                .thenReturn(true);
+        doReturn(true).when(lineBotClient).validateSignature(requestBody, "SSSSIGNATURE");
 
         lineBotCallbackRequestParser.handle(
                 request,
@@ -112,7 +111,7 @@ public class LineBotCallbackRequestParserTest {
         );
 
         verify(response).sendError(HttpServletResponse.SC_BAD_REQUEST,
-                                   "Result shouldn't be null");
+                                   "Invalid Callback");
     }
 
     @Test
@@ -124,8 +123,7 @@ public class LineBotCallbackRequestParserTest {
         request.addHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE, "SSSSIGNATURE");
         request.setContent(requestBody);
 
-        when(lineBotClient.validateSignature(requestBody, "SSSSIGNATURE"))
-                .thenReturn(true);
+        doReturn(true).when(lineBotClient).validateSignature(requestBody, "SSSSIGNATURE");
 
         CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(
                 request,

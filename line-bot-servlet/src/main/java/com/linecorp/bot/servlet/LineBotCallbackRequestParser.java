@@ -24,22 +24,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.linecorp.bot.client.LineBotAPIHeaders;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
+import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
 import com.linecorp.bot.model.callback.CallbackRequest;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class LineBotCallbackRequestParser {
-    private final ObjectMapper objectMapper;
     private final LineBotClient lineBotClient;
 
-    public LineBotCallbackRequestParser(LineBotClient lineBotClient, ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    public LineBotCallbackRequestParser(LineBotClient lineBotClient) {
         this.lineBotClient = lineBotClient;
     }
 
@@ -67,12 +64,12 @@ public class LineBotCallbackRequestParser {
             return null;
         }
 
-        CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
-        if (callbackRequest == null || callbackRequest.getResult() == null) {
-            sendError(resp, "Result shouldn't be null");
+        try {
+            return lineBotClient.readCallbackRequest(json);
+        } catch (LineBotAPIJsonProcessingException e) {
+            sendError(resp, "Invalid Callback");
             return null;
         }
-        return callbackRequest;
     }
 
     private void sendError(HttpServletResponse resp, String message) throws IOException {

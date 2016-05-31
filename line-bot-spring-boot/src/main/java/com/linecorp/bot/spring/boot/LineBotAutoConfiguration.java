@@ -87,9 +87,7 @@ public class LineBotAutoConfiguration {
 
     @Bean
     @ConditionalOnWebApplication
-    public LineBotCallbackRequestParser lineBotCallbackServletUtils(
-            LineBotClient lineBotClient,
-            ObjectMapper objectMapper) {
-        return new LineBotCallbackRequestParser(lineBotClient, objectMapper);
+    public LineBotCallbackRequestParser lineBotCallbackServletUtils(LineBotClient lineBotClient) {
+        return new LineBotCallbackRequestParser(lineBotClient);
     }
 }

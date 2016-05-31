@@ -17,8 +17,10 @@
 package com.linecorp.bot.spring.boot;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,6 +35,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -47,6 +50,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.linecorp.bot.client.LineBotClient;
+import com.linecorp.bot.client.LineBotClientBuilder;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.model.callback.Event;
 import com.linecorp.bot.model.content.AddedAsFriendOperation;
@@ -106,8 +110,8 @@ public class EchoBotSampleApplicationTest {
     private LineBotClient lineBotClient;
 
     public static class Configuration {
-        @Mock
-        private LineBotClient lineBotClient;
+        @Spy
+        private LineBotClient lineBotClient = LineBotClientBuilder.create("CID", "SECRET", "MID").build();
 
         public Configuration() {
             MockitoAnnotations.initMocks(this);
@@ -136,13 +140,15 @@ public class EchoBotSampleApplicationTest {
 
     @Test
     public void validCallbackTest() throws Exception {
+        String signature = "DN5ox73JKmJcACvebmgDFgzQ9b7FLSODp2NC+HEnvLc=";
+
         InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
         byte[] json = IOUtils.toByteArray(resource);
 
-        when(lineBotClient.validateSignature(json, "SIGN")).thenReturn(true);
+        doNothing().when(lineBotClient).sendText(anyString(), anyString());
 
         mockMvc.perform(MockMvcRequestBuilders.post("/callback")
-                                              .header("X-Line-ChannelSignature", "SIGN")
+                                              .header("X-Line-ChannelSignature", signature)
                                               .content(json))
                .andDo(print())
                .andExpect(status().isOk());
