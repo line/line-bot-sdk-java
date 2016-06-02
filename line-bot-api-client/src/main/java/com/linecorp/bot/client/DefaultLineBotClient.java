@@ -90,12 +90,6 @@ public class DefaultLineBotClient implements LineBotClient {
     private static final String DEFAULT_USER_AGENT =
             "line-botsdk-java/" + DefaultLineBotClient.class.getPackage().getImplementationVersion();
 
-    private static ObjectMapper buildDefaultObjectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return objectMapper;
-    }
-
     private static HttpClientBuilder buildDfaultHttpClientBuilder() {
         RequestConfig requestConfig = RequestConfig
                 .custom()
@@ -135,7 +129,6 @@ public class DefaultLineBotClient implements LineBotClient {
      * @param sendingMessageChannelId The channel ID to send a message
      * @param sendingMessageEventId The event type of sending single message
      * @param sendingMultipleMessagesEventId The event type of sending multiple messages
-     * @param objectMapper Instance of Jackson
      * @param httpClientBuilder Instance of Apache HttpClient
      */
     DefaultLineBotClient(
@@ -146,7 +139,6 @@ public class DefaultLineBotClient implements LineBotClient {
             Long sendingMessageChannelId,
             String sendingMessageEventId,
             String sendingMultipleMessagesEventId,
-            ObjectMapper objectMapper,
             HttpClientBuilder httpClientBuilder) {
         this.channelId = channelId;
         this.channelSecret = channelSecret;
@@ -155,8 +147,10 @@ public class DefaultLineBotClient implements LineBotClient {
         this.sendingMessageChannelId = sendingMessageChannelId;
         this.sendingMessageEventId = sendingMessageEventId;
         this.sendingMultipleMessagesEventId = sendingMultipleMessagesEventId;
-        this.objectMapper = objectMapper != null ? objectMapper : buildDefaultObjectMapper();
         this.httpClientBuilder = httpClientBuilder != null ? httpClientBuilder : buildDfaultHttpClientBuilder();
+
+        objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         secretKeySpec = new SecretKeySpec(channelSecret.getBytes(StandardCharsets.UTF_8), HASH_ALGORITHM);
     }
