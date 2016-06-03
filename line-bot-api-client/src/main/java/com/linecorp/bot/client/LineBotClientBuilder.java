@@ -57,8 +57,6 @@ public final class LineBotClientBuilder {
     private String sendingMultipleMessagesEventId =
             DefaultLineBotClient.DEFAULT_SENDING_MULTIPLE_MESSAGES_EVENT_ID;
 
-    private ObjectMapper objectMapper;
-
     private HttpClientBuilder httpClientBuilder;
 
     private LineBotClientBuilder(@NonNull String channelId,
@@ -74,14 +72,6 @@ public final class LineBotClientBuilder {
      */
     public LineBotClientBuilder apiEndPoint(@NonNull String apiEndPoint) {
         this.apiEndPoint = apiEndPoint;
-        return this;
-    }
-
-    /**
-     * Sets the object mapper to be used.
-     */
-    public LineBotClientBuilder objectMapper(@NonNull ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
         return this;
     }
 
@@ -129,7 +119,6 @@ public final class LineBotClientBuilder {
                 sendingMessageChannelId,
                 sendingMessageEventId,
                 sendingMultipleMessagesEventId,
-                objectMapper,
                 httpClientBuilder
         );
     }

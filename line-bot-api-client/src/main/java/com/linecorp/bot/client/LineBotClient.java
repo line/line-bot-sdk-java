@@ -19,6 +19,8 @@ package com.linecorp.bot.client;
 import java.util.Collection;
 
 import com.linecorp.bot.client.exception.LineBotAPIException;
+import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
+import com.linecorp.bot.model.callback.CallbackRequest;
 import com.linecorp.bot.model.content.AbstractContent;
 import com.linecorp.bot.model.event.EventRequest;
 import com.linecorp.bot.model.event.EventResponse;
@@ -253,5 +255,21 @@ public interface LineBotClient {
     byte[] createSignature(@NonNull byte[] jsonText) throws LineBotAPIException;
 
     void sendMultipleMessages(Collection<String> mids, Collection<AbstractContent> contents) throws LineBotAPIException;
+
+    /**
+     * Reads {@link CallbackRequest} from the given json.
+     *
+     * @param jsonText The byte array to be parsed.
+     * @return parsed {@link CallbackRequest} object.
+     */
+    CallbackRequest readCallbackRequest(@NonNull byte[] jsonText) throws LineBotAPIJsonProcessingException;
+
+    /**
+     * Reads {@link CallbackRequest} from the given json.
+     *
+     * @param jsonText The text to be parsed.
+     * @return parsed {@link CallbackRequest} object.
+     */
+    CallbackRequest readCallbackRequest(@NonNull String jsonText) throws LineBotAPIJsonProcessingException;
 
 }

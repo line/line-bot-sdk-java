@@ -44,7 +44,7 @@ public class LineBotAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(LineBotClient.class)
-    public LineBotClient lineBotClient(ObjectMapper objectMapper) {
+    public LineBotClient lineBotClient() {
         RequestConfig requestConfig = RequestConfig
                 .custom()
                 .setConnectTimeout(lineBotProperties.getConnectTimeout())
@@ -58,8 +58,6 @@ public class LineBotAutoConfiguration {
                 .setDefaultRequestConfig(requestConfig)
                 .setUserAgent("line-botsdk-java/" + this.getClass().getPackage().getImplementationVersion());
 
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
         return LineBotClientBuilder
                 .create(lineBotProperties.getChannelId(),
                         lineBotProperties.getChannelSecret(),
@@ -68,7 +66,6 @@ public class LineBotAutoConfiguration {
                 .sendingMessageChannelId(lineBotProperties.getSendingMessageChannelId())
                 .sendingMessageEventId(lineBotProperties.getSendingMessageEventId())
                 .sendingMultipleMessagesEventId(lineBotProperties.getSendingMultipleMessagesEventId())
-                .objectMapper(objectMapper)
                 .httpClientBuilder(httpClientBuilder)
                 .build();
     }
@@ -87,9 +84,7 @@ public class LineBotAutoConfiguration {
 
     @Bean
     @ConditionalOnWebApplication
-    public LineBotCallbackRequestParser lineBotCallbackServletUtils(
-            LineBotClient lineBotClient,
-            ObjectMapper objectMapper) {
-        return new LineBotCallbackRequestParser(lineBotClient, objectMapper);
+    public LineBotCallbackRequestParser lineBotCallbackServletUtils(LineBotClient lineBotClient) {
+        return new LineBotCallbackRequestParser(lineBotClient);
     }
 }

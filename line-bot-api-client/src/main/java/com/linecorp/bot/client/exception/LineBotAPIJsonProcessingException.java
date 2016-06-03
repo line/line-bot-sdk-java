@@ -16,10 +16,14 @@
 
 package com.linecorp.bot.client.exception;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 public class LineBotAPIJsonProcessingException extends LineBotAPIException {
-    public LineBotAPIJsonProcessingException(JsonProcessingException e) {
+
+    public LineBotAPIJsonProcessingException(Exception e) {
         super(e);
     }
+
+    public LineBotAPIJsonProcessingException(String message) {
+        super(message);
+    }
+
 }
