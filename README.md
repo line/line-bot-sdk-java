@@ -9,7 +9,59 @@
 
 This is a client library for the LINE Bot API.
 
-## SYNOPSIS
+## About LINE Bot API
+
+Please refer to the official api documents for details.
+
+en: http://line.github.io/line-bot-api-doc/en/
+
+ja: http://line.github.io/line-bot-api-doc/ja/
+
+## Create a LINE Bot client
+
+The main entry point is `LineBotClient`. You can create an instance via `LineBotClientBuilder`.
+
+```
+ LineBotClient client = LineBotClientBuilder
+                          .create("YOUR_CHANNEL_ID", "YOUR_CHANNEL_SECRET", "YOUR_CHANNEL_MID")
+                          .build();
+```
+
+## Client usage
+
+You can use `LineBotClient` to receive/send events from/to your followers.
+The following sketch shows a naive echo bot example.
+
+```
+String requestBody = yourWebFramework.getRequestbody();
+String signature = yourWebFramework.getRequestHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE);
+
+// parsing callback request
+CallbackRequest callbackRequest = client.readCallbackRequest(requestBody);
+
+// signature validation
+if (!client.validateSignature(requestBody, signature)) {
+    log.error(...);
+    return;
+}
+
+// processing received events
+for (Event event : callbackRequest.getResult()) {
+    Content content = event.getContent();
+
+    // handle text message
+    if (content instanceof TextContent) {
+        TextContent text = (TextContent) content;
+        // reply back same text
+        client.sendText(text.getFrom(), text.getText());
+    }
+}
+
+```
+
+## Spring Boot Integration
+
+line-bot-spring-boot provides a way to build your bot apps as a Spring Boot Application.
 
 ```
 @SpringBootApplication
@@ -24,13 +76,12 @@ public class EchoApplication {
         private LineBotClient lineBotClient;
 
         @RequestMapping("/callback")
-        public void callback(@LineBotMessages List<Message> messages) throws LineBotAPIException {
-            for (Message message : messages) {
-                Content content = message.getContent();
+        public void callback(@LineBotMessages List<Event> events) throws LineBotAPIException {
+            for (Event event : events) {
+                Content content = event.getContent();
                 if (content instanceof TextContent) {
-                    TextContent textContent = (TextContent) content;
-                    lineBotClient.sendText(textContent.getFrom(),
-                            textContent.getText());
+                    TextContent text = (TextContent) content;
+                    lineBotClient.sendText(text.getFrom(), text.getText());
                 }
             }
         }
