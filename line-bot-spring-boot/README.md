@@ -6,20 +6,20 @@ This is a spring-boot autoconfigurer for LINE bot API.
 
     package com.example.bot.spring.echo;
     
-    import com.linecorp.bot.client.LineBotClient;
-    import com.linecorp.bot.client.exception.LineBotAPIException;
-    import com.linecorp.bot.model.callback.Message;
-    import com.linecorp.bot.model.content.Content;
-    import com.linecorp.bot.model.content.TextContent;
-    import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
+    import java.util.List;
+
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
-    import org.springframework.stereotype.Controller;
     import org.springframework.web.bind.annotation.RequestMapping;
     import org.springframework.web.bind.annotation.RestController;
-    
-    import java.util.List;
+
+    import com.linecorp.bot.client.LineBotClient;
+    import com.linecorp.bot.client.exception.LineBotAPIException;
+    import com.linecorp.bot.model.callback.Event;
+    import com.linecorp.bot.model.content.Content;
+    import com.linecorp.bot.model.content.TextContent;
+    import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
     
     @SpringBootApplication
     public class EchoApplication {
@@ -33,13 +33,13 @@ This is a spring-boot autoconfigurer for LINE bot API.
             private LineBotClient lineBotClient;
     
             @RequestMapping("/callback")
-            public void callback(@LineBotMessages List<Message> messages) throws LineBotAPIException {
-                for (Message message : messages) {
-                    Content content = message.getContent();
+            public void callback(@LineBotMessages List<Event> events) throws LineBotAPIException {
+                for (Event event : events) {
+                    Content content = event.getContent();
                     if (content instanceof TextContent) {
                         TextContent textContent = (TextContent) content;
                         lineBotClient.sendText(textContent.getFrom(),
-                                textContent.getText());
+                                               textContent.getText());
                     }
                 }
             }
@@ -53,13 +53,13 @@ Add this library as a dependency of your project.
 Then, you can get a parsed messages like following code:
 
     @RequestMapping("/callback")
-    public void callback(@LineBotMessages List<Message> messages) throws LineBotAPIException {
-        for (Message message : messages) {
-            Content content = message.getContent();
+    public void callback(@LineBotMessages List<Event> events) throws LineBotAPIException {
+        for (Event event : events) {
+            Content content = event.getContent();
             if (content instanceof TextContent) {
                 TextContent textContent = (TextContent) content;
                 lineBotClient.sendText(textContent.getFrom(),
-                        textContent.getText());
+                                       textContent.getText());
             }
         }
     }
