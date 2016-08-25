@@ -19,7 +19,6 @@ package com.linecorp.bot.spring.boot;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -33,12 +32,11 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -63,7 +61,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(EchoBotSampleApplicationTest.class)
+@SpringBootTest(classes = EchoBotSampleApplicationTest.class)
 @WebAppConfiguration
 public class EchoBotSampleApplicationTest {
 
@@ -92,7 +90,7 @@ public class EchoBotSampleApplicationTest {
             }
         }
 
-        private void handleEvent(Event event) throws IOException, LineBotAPIException {
+        private void handleEvent(Event event) throws LineBotAPIException {
             Content content = event.getContent();
             if (content instanceof TextContent) {
                 String mid = ((TextContent) content).getFrom();
