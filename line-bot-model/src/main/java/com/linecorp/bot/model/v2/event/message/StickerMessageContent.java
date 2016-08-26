@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Value;
 
 @Value
-@JsonTypeName("stickerId")
+@JsonTypeName("sticker")
 public class StickerMessageContent implements MessageContent {
     private final String id;
     private final String packageId;

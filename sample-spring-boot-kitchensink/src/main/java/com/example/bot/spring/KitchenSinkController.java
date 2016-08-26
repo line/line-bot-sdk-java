@@ -42,19 +42,19 @@ import com.linecorp.bot.model.deprecated.content.ContactContent;
 import com.linecorp.bot.model.deprecated.content.ImageContent;
 import com.linecorp.bot.model.deprecated.content.LocationContent;
 import com.linecorp.bot.model.deprecated.content.LocationContentLocation;
-import com.linecorp.bot.model.deprecated.content.StickerContent;
 import com.linecorp.bot.model.deprecated.content.VideoContent;
 import com.linecorp.bot.model.deprecated.content.metadata.AudioContentMetadata;
 import com.linecorp.bot.model.deprecated.content.metadata.ContactContentMetadata;
-import com.linecorp.bot.model.deprecated.content.metadata.StickerContentMetadata;
 import com.linecorp.bot.model.deprecated.profile.UserProfileResponse;
 import com.linecorp.bot.model.deprecated.rich.RichMessage;
 import com.linecorp.bot.model.v2.event.Event;
 import com.linecorp.bot.model.v2.event.MessageEvent;
 import com.linecorp.bot.model.v2.event.message.MessageContent;
+import com.linecorp.bot.model.v2.event.message.StickerMessageContent;
 import com.linecorp.bot.model.v2.event.message.TextMessageContent;
 import com.linecorp.bot.model.v2.event.source.GroupSource;
 import com.linecorp.bot.model.v2.event.source.Source;
+import com.linecorp.bot.model.v2.message.StickerMessage;
 import com.linecorp.bot.model.v2.message.TextMessage;
 import com.linecorp.bot.model.v2.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
@@ -79,17 +79,23 @@ public class KitchenSinkController {
 
     private void handleEvent(Event event) {
         Source source = ((MessageEvent) event).getSource();
+        String mid = source instanceof GroupSource
+                     ? ((GroupSource) source).getGroupId()
+                     : source.getUserId();
         if (event instanceof MessageEvent) {
             MessageContent message = ((MessageEvent) event).getMessage();
             if (message instanceof TextMessageContent) {
-                handleTextContent(source, (TextMessageContent) message);
+                handleTextContent(mid, (TextMessageContent) message);
+            } else if (message instanceof StickerMessageContent) {
+                handleSticker(mid, (StickerMessageContent) message);
             }
-//            @JsonSubTypes.Type(TextMessageContent.class),
-//            @JsonSubTypes.Type(ImageMessageContent.class),
-//            @JsonSubTypes.Type(LocationMessageContent.class),
-//            @JsonSubTypes.Type(ContactMessageContent.class),
-//            @JsonSubTypes.Type(StickerMessageContent.class)
+//        TODO     @JsonSubTypes.Type(ImageMessageContent.class),
+//             TODO @JsonSubTypes.Type(LocationMessageContent.class),
+//   TODO          @JsonSubTypes.Type(ContactMessageContent.class),
+//        TODO     @JsonSubTypes.Type(StickerMessageContent.class)
         } else {
+//    TODO         @JsonSubTypes.Type(OperationEvent.class),
+//         TODO    @JsonSubTypes.Type(PostbackEvent.class)
 //        } else if (event instanceof StickerContent) {
 //            handleSticker((StickerContent) event);
 //        } else if (event instanceof LocationContent) {
@@ -128,9 +134,7 @@ public class KitchenSinkController {
         if (mid.isEmpty()) {
             throw new IllegalArgumentException("MID must not be empty");
         }
-        BotApiResponse apiResponse = lineBotClient.push(
-                Collections.singletonList(mid),
-                Collections.singletonList(new TextMessage(message)));
+        BotApiResponse apiResponse = lineBotClient.push(mid, new TextMessage(message));
         log.info("Sent messages: {}", apiResponse);
     }
 
@@ -242,23 +246,21 @@ public class KitchenSinkController {
 //        }
     }
 
-    private void handleSticker(StickerContent content) {
-        String mid = content.getFrom();
-        StickerContentMetadata contentMetadata = content.getContentMetadata();
+    private void handleSticker(String mid, StickerMessageContent content) {
         // Bot can send some built-in stickers.
-//        try {
-//            lineBotClient.sendSticker(mid, contentMetadata.getStkpkgid(), contentMetadata.getStkid());
-//        } catch (LineBotAPIException e) {
-//            log.error("LINE server returns '{}'(mid: '{}')",
-//                      e.getMessage(),
-//                      mid, e);
-//        }
+        try {
+            BotApiResponse apiResponse = lineBotClient.push(mid, new StickerMessage(
+                    content.getPackageId(), content.getStickerId())
+            );
+            log.info("Sent messages: {}", apiResponse);
+        } catch (LineBotAPIException e) {
+            log.error("LINE server returns '{}'(mid: '{}')",
+                      e.getMessage(),
+                      mid, e);
+        }
     }
 
-    private void handleTextContent(Source source, TextMessageContent content) {
-        String mid = source instanceof GroupSource
-                     ? ((GroupSource) source).getGroupId()
-                     : source.getUserId();
+    private void handleTextContent(String mid, TextMessageContent content) {
         String text = content.getText();
 
         try {

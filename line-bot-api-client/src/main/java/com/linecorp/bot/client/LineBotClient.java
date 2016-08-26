@@ -17,6 +17,7 @@
 package com.linecorp.bot.client;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import com.linecorp.bot.client.exception.LineBotAPIException;
@@ -46,6 +47,11 @@ public interface LineBotClient {
 
     BotApiResponse push(List<String> to, List<Message> messages)
             throws LineBotAPIException;
+
+    default BotApiResponse push(String to, Message messages)
+            throws LineBotAPIException {
+        return push(Collections.singletonList(to), Collections.singletonList(messages));
+    }
 
     /**
      * Use the following API to retrieve the content of a user's message which is an image or video file.
