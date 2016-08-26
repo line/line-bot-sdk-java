@@ -41,7 +41,6 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import com.linecorp.bot.client.LineBotAPIHeaders;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.LineBotClientBuilder;
 import com.linecorp.bot.model.v2.event.CallbackRequest;
@@ -55,7 +54,7 @@ public class LineBotCallbackRequestParserTest {
     private HttpServletResponse response;
 
     @Spy
-    private LineBotClient lineBotClient = LineBotClientBuilder.create("CID", "SECRET").build();
+    private LineBotClient lineBotClient = LineBotClientBuilder.create("SECRET", "TOKEN").build();
 
     private LineBotCallbackRequestParser lineBotCallbackRequestParser;
 
@@ -81,7 +80,7 @@ public class LineBotCallbackRequestParserTest {
     @Test
     public void testInvalidSignature() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE, "SSSSIGNATURE");
+        request.addHeader("X-Line-Channel-Signature", "SSSSIGNATURE");
         request.setContent("{}".getBytes(StandardCharsets.UTF_8));
         lineBotCallbackRequestParser.handle(
                 request,
@@ -97,7 +96,7 @@ public class LineBotCallbackRequestParserTest {
         final byte[] requestBody = "null".getBytes(StandardCharsets.UTF_8);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE, "SSSSIGNATURE");
+        request.addHeader("X-Line-Channel-Signature", "SSSSIGNATURE");
         request.setContent(requestBody);
 
         doReturn(true).when(lineBotClient).validateSignature(requestBody, "SSSSIGNATURE");
@@ -117,7 +116,7 @@ public class LineBotCallbackRequestParserTest {
         byte[] requestBody = IOUtils.toByteArray(resource);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE, "SSSSIGNATURE");
+        request.addHeader("X-Line-Channel-Signature", "SSSSIGNATURE");
         request.setContent(requestBody);
 
         doReturn(true).when(lineBotClient).validateSignature(requestBody, "SSSSIGNATURE");

@@ -17,15 +17,16 @@
 package com.linecorp.bot.client;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
-import com.linecorp.bot.model.deprecated.content.AbstractContent;
 import com.linecorp.bot.model.deprecated.event.EventRequest;
 import com.linecorp.bot.model.deprecated.event.EventResponse;
 import com.linecorp.bot.model.deprecated.profile.UserProfileResponse;
-import com.linecorp.bot.model.deprecated.rich.RichMessage;
 import com.linecorp.bot.model.v2.event.CallbackRequest;
+import com.linecorp.bot.model.v2.message.Message;
+import com.linecorp.bot.model.v2.response.BotApiResponse;
 
 import lombok.NonNull;
 
@@ -40,185 +41,11 @@ public interface LineBotClient {
      *
      * @return API response bean.
      */
-    EventResponse sendEvent(EventRequest eventRequest)
+    EventResponse reply(EventRequest eventRequest)
             throws LineBotAPIException;
 
-    /**
-     * Send text to the server
-     *
-     * @param mid Target user's MID.
-     * @param message String you want to send. Messages can contain up to 1024 characters.
-     */
-    void sendText(String mid, String message) throws LineBotAPIException;
-
-    /**
-     * Send text to the server
-     *  @param mids Array of target user. Max count: 150.
-     * @param message String you want to send. Messages can contain up to 1024 characters.
-     */
-    void sendText(Collection<String> mids, String message) throws LineBotAPIException;
-
-    /**
-     * To send an image, place 2 image files (main image and thumbnail image used for preview) on your BOT API server,
-     * then relay the image to the LINE platform.
-     *
-     * @param mid Target user's MID
-     * @param originalContentUrl URL of image. Only JPEG format supported. Image size cannot be larger than 1024×1024.
-     * @param previewImageUrl URL of thumbnail image. For preview. Only JPEG format supported. Image size cannot be
-     * larger than 240×240.
-     */
-    void sendImage(@NonNull String mid, @NonNull String originalContentUrl,
-                   @NonNull String previewImageUrl)
+    BotApiResponse push(List<String> to, List<Message> messages)
             throws LineBotAPIException;
-
-    /**
-     * To send an image, place 2 image files (main image and thumbnail image used for preview) on your BOT API server,
-     * then relay the image to the LINE platform.
-     *  @param mids Array of target user. Max count: 150.
-     * @param originalContentUrl URL of image. Only JPEG format supported. Image size cannot be larger than 1024×1024.
-     * @param previewImageUrl URL of thumbnail image. For preview. Only JPEG format supported. Image size cannot be
-     */
-    void sendImage(@NonNull Collection<String> mids, @NonNull String originalContentUrl,
-                   @NonNull String previewImageUrl)
-            throws LineBotAPIException;
-
-    /**
-     * To send a video, place a video file and a thumbnail image to be used as preview on your BOT API server, then
-     * relay the video to the LINE platform.
-     *
-     * @param mid Target user's MID
-     * @param originalContentUrl URL of the movie. The "mp4" format is recommended.
-     * @param previewImageUrl URL of thumbnail image used as a preview.
-     */
-    void sendVideo(String mid, String originalContentUrl, String previewImageUrl) throws LineBotAPIException;
-
-    /**
-     * To send a video, place a video file and a thumbnail image to be used as preview on your BOT API server, then
-     * relay the video to the LINE platform.
-     *  @param mids Array of target user. Max count: 150.
-     * @param originalContentUrl URL of the movie. The "mp4" format is recommended.
-     * @param previewImageUrl URL of thumbnail image used as a preview.
-     */
-    void sendVideo(Collection<String> mids, String originalContentUrl, String previewImageUrl)
-            throws LineBotAPIException;
-
-    /**
-     * To send a voice message, place the audio file on your BOT API server, then relay the audio file to the LINE
-     * platform.
-     *
-     * @param mid Target user's MID.
-     * @param originalContentUrl URL of audio file. The "m4a" format is recommended.
-     * @param audlen Length of voice message. The unit is given in milliseconds.
-     */
-    void sendAudio(String mid, String originalContentUrl, String audlen) throws LineBotAPIException;
-
-    /**
-     * To send a voice message, place the audio file on your BOT API server, then relay the audio file to the LINE
-     * platform.
-     *  @param mids Array of target user. Max count: 150.
-     * @param originalContentUrl URL of audio file. The "m4a" format is recommended.
-     * @param audlen Length of voice message. The unit is given in milliseconds.
-     */
-    void sendAudio(Collection<String> mids, String originalContentUrl, String audlen)
-            throws LineBotAPIException;
-
-    /**
-     * To send location information.
-     *
-     * @param mid Target user's MID.
-     * @param text String used to explain the location information (example: name of restaurant, address).
-     * @param title Assigned the same string as the text property.
-     * @param latitude Latitude.
-     * @param longitude Longitude.
-     */
-    void sendLocation(@NonNull String mid,
-                      @NonNull String text,
-                      String title,
-                      String address,
-                      double latitude,
-                      double longitude) throws LineBotAPIException;
-
-    /**
-     * To send location information.
-     *  @param mids Array of target user. Max count: 150.
-     * @param text String used to explain the location information (example: name of restaurant, address).
-     * @param title Assigned the same string as the text property.
-     * @param latitude Latitude.
-     * @param longitude Longitude.
-     */
-    void sendLocation(@NonNull Collection<String> mids, @NonNull String text,
-                      String title,
-                      String address,
-                      double latitude,
-                      double longitude) throws LineBotAPIException;
-
-    /**
-     * To send a sticker, the required values are as follows. You can use the stickers shown in
-     * <a href="https://developers.line.me/wp-content/uploads/2016/04/sticker_list.xlsx">the sticker list</a>.
-     *
-     * @param mid Target user's MID.
-     * @param stkpkgid Package ID of the sticker.
-     * @param stkid Package ID of the sticker.
-     */
-    void sendSticker(@NonNull String mid, @NonNull String stkpkgid,
-                     @NonNull String stkid)
-            throws LineBotAPIException;
-
-    /**
-     * To send a sticker, the required values are as follows. You can use the stickers shown in
-     * <a href="https://developers.line.me/wp-content/uploads/2016/04/sticker_list.xlsx">the sticker list</a>.
-     *  @param mids Array of target user. Max count: 150.
-     * @param stkpkgid Package ID of the sticker.
-     * @param stkid Package ID of the sticker.
-     */
-    void sendSticker(@NonNull Collection<String> mids,
-                     @NonNull String stkpkgid,
-                     @NonNull String stkid)
-            throws LineBotAPIException;
-
-    /**
-     * Your BOT API server can send rich messages, messages that contain one or more pictures and/or text strings in
-     * one message. Rich messages are interactive. By using rich messages, users can tap on the message to go to
-     * different URLs. You can have multiple URLs on one rich message.
-     * <p>
-     * You can send clickable images with rich messages.
-     *
-     * @param mid Target user's MID.
-     * @param downloadUrl URL of image which is on your server.
-     * @param altText Alternative string displayed on low-level devices.
-     * @param richMessage Rich message.
-     */
-    void sendRichMessage(
-            @NonNull String mid,
-            @NonNull String downloadUrl,
-            @NonNull String altText,
-            @NonNull RichMessage richMessage
-    ) throws LineBotAPIException;
-
-    /**
-     * Your BOT API server can send rich messages, messages that contain one or more pictures and/or text strings in
-     * one message. Rich messages are interactive. By using rich messages, users can tap on the message to go to
-     * different URLs. You can have multiple URLs on one rich message.
-     * <p>
-     * You can send clickable images with rich messages.
-     *  @param mids Array of target user. Max count: 150.
-     * @param downloadUrl URL of image which is on your server.
-     * @param altText Alternative string displayed on low-level devices.
-     * @param richMessage Rich message.
-     */
-    void sendRichMessage(
-            @NonNull Collection<String> mids,
-            @NonNull String downloadUrl,
-            @NonNull String altText,
-            @NonNull RichMessage richMessage
-    ) throws LineBotAPIException;
-
-    /**
-     * You can use the following API to send multiple messages to users in a single request. You can also determine the order of the messages that you want to send.
-     *
-     * @return Multiple message builder object.
-     */
-    MultipleMessageBuilder createMultipleMessageBuilder();
 
     /**
      * Use the following API to retrieve the content of a user's message which is an image or video file.
@@ -253,8 +80,6 @@ public interface LineBotClient {
     boolean validateSignature(@NonNull byte[] jsonText, @NonNull String headerSignature) throws LineBotAPIException;
 
     byte[] createSignature(@NonNull byte[] jsonText) throws LineBotAPIException;
-
-    void sendMultipleMessages(Collection<String> mids, Collection<AbstractContent> contents) throws LineBotAPIException;
 
     /**
      * Reads {@link CallbackRequest} from the given json.

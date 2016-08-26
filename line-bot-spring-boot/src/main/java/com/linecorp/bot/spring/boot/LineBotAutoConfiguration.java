@@ -56,12 +56,11 @@ public class LineBotAutoConfiguration {
                 .setUserAgent("line-botsdk-java/" + this.getClass().getPackage().getImplementationVersion());
 
         return LineBotClientBuilder
-                .create(lineBotProperties.getChannelId(),
-                        lineBotProperties.getChannelSecret())
+                .create(
+                        lineBotProperties.getChannelSecret(),
+                        lineBotProperties.getChannelToken()
+                )
                 .apiEndPoint(lineBotProperties.getApiEndPoint())
-                .sendingMessageChannelId(lineBotProperties.getSendingMessageChannelId())
-                .sendingMessageEventId(lineBotProperties.getSendingMessageEventId())
-                .sendingMultipleMessagesEventId(lineBotProperties.getSendingMultipleMessagesEventId())
                 .httpClientBuilder(httpClientBuilder)
                 .build();
     }

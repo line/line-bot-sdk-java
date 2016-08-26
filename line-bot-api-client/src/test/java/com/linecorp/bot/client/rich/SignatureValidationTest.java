@@ -23,7 +23,7 @@ public class SignatureValidationTest {
 
     @Test
     public void validSignatureTest() throws Exception {
-        LineBotClient client = LineBotClientBuilder.create("CID", channelSecret).build();
+        LineBotClient client = LineBotClientBuilder.create(channelSecret, "TOKEN").build();
 
         String httpRequestBody = "{}";
         String headerSignature = computeSignature(httpRequestBody);
@@ -34,7 +34,7 @@ public class SignatureValidationTest {
 
     @Test
     public void invalidSignatureTest() throws Exception {
-        LineBotClient client = LineBotClientBuilder.create("CID", channelSecret).build();
+        LineBotClient client = LineBotClientBuilder.create(channelSecret, "TOKEN").build();
 
         String httpRequestBody = "{}";
         String headerSignature = computeSignature(httpRequestBody);

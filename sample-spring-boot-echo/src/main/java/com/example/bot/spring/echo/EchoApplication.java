@@ -16,6 +16,7 @@
 
 package com.example.bot.spring.echo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ import com.linecorp.bot.model.v2.event.Event;
 import com.linecorp.bot.model.v2.event.MessageEvent;
 import com.linecorp.bot.model.v2.event.message.MessageContent;
 import com.linecorp.bot.model.v2.event.message.TextMessageContent;
+import com.linecorp.bot.model.v2.message.TextMessage;
+import com.linecorp.bot.model.v2.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,9 +56,13 @@ public class EchoApplication {
                 if (event instanceof MessageEvent) {
                     MessageContent message = ((MessageEvent) event).getMessage();
                     if (message instanceof TextMessageContent) {
+                        log.info("Sending reply message");
                         TextMessageContent textMessageContent = (TextMessageContent) message;
-                        lineBotClient.sendText(((MessageEvent) event).getSource().getUserId(),
-                                               textMessageContent.getText());
+                        String mid = ((MessageEvent) event).getSource().getUserId();
+                        BotApiResponse apiResponse = lineBotClient.push(Collections.singletonList(mid),
+                                                                        Collections.singletonList(
+                                                                                new TextMessage("Hello")));
+                        log.info("Sent messages: {}", apiResponse);
                     }
                 }
             }

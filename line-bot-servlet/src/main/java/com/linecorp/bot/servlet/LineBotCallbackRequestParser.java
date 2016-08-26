@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
-import com.linecorp.bot.client.LineBotAPIHeaders;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
@@ -42,7 +41,7 @@ public class LineBotCallbackRequestParser {
 
     public CallbackRequest handle(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // validate signature
-        String signature = req.getHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE);
+        String signature = req.getHeader("X-Line-ChannelSignature");
         if (signature == null || signature.length() == 0) {
             sendError(resp, "Missing 'X-Line-ChannelSignature' header");
             return null;
