@@ -7,15 +7,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.model.v2.event.postback.PostbackContent;
 import com.linecorp.bot.model.v2.event.source.Source;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
-@Getter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@Value
 @JsonTypeName("postback")
-public class PostbackEvent extends Event {
+public class PostbackEvent implements Event {
+    private final long timestamp;
     private final String replyToken;
     private final Source source;
     private final PostbackContent postbackContent;
@@ -27,9 +24,9 @@ public class PostbackEvent extends Event {
             @JsonProperty("timestamp") long timestamp,
             @JsonProperty("postback") PostbackContent postbackContent
     ) {
-        super(timestamp);
         this.replyToken = replyToken;
         this.source = source;
+        this.timestamp = timestamp;
         this.postbackContent = postbackContent;
     }
 }

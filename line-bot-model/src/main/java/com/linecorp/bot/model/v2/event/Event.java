@@ -3,10 +3,6 @@ package com.linecorp.bot.model.v2.event;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
-
 @JsonSubTypes({
                       @JsonSubTypes.Type(MessageEvent.class),
                       @JsonSubTypes.Type(OperationEvent.class),
@@ -18,14 +14,6 @@ import lombok.ToString;
         property = "type",
         visible = true
 )
-@EqualsAndHashCode
-@ToString
-@Getter
-// TODO should i make this class interface?
-public abstract class Event {
-    private final long timestamp;
-
-    protected Event(long timestamp) {
-        this.timestamp = timestamp;
-    }
+public interface Event {
+    long getTimestamp();
 }
