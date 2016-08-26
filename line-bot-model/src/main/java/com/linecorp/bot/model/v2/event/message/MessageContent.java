@@ -1,0 +1,32 @@
+package com.linecorp.bot.model.v2.event.message;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
+@JsonSubTypes({
+                      @JsonSubTypes.Type(TextMessageContent.class),
+                      @JsonSubTypes.Type(ImageMessageContent.class),
+                      @JsonSubTypes.Type(LocationMessageContent.class),
+                      @JsonSubTypes.Type(ContactMessageContent.class),
+                      @JsonSubTypes.Type(StickerMessageContent.class)
+              })
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type",
+        visible = true
+)
+@EqualsAndHashCode
+@ToString
+@Getter
+public abstract class MessageContent {
+    private final String id;
+
+    public MessageContent(final String id) {
+        this.id = id;
+    }
+}
