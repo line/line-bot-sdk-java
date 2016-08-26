@@ -59,11 +59,9 @@ public class EchoApplication {
                         log.info("Sending reply message");
                         TextMessageContent textMessageContent = (TextMessageContent) message;
                         String mid = ((MessageEvent) event).getSource().getUserId();
-                        BotApiResponse apiResponse = lineBotClient.push(Collections.singletonList(mid),
-                                                                        Collections.singletonList(
-                                                                                new TextMessage(
-                                                                                        textMessageContent
-                                                                                                .getText())));
+                        BotApiResponse apiResponse = lineBotClient.push(
+                                Collections.singletonList(mid),
+                                Collections.singletonList(new TextMessage(textMessageContent.getText())));
                         log.info("Sent messages: {}", apiResponse);
                     }
                 }

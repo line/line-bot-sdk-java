@@ -66,6 +66,7 @@ public class LineBotCallbackRequestParser {
         try {
             return lineBotClient.readCallbackRequest(json);
         } catch (LineBotAPIJsonProcessingException e) {
+            log.info("Invalid callback request", e);
             sendError(resp, "Invalid Callback");
             return null;
         }

@@ -35,23 +35,27 @@ import com.linecorp.bot.client.CloseableMessageContent;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.rich.SimpleRichMessageBuilder;
-import com.linecorp.bot.model.deprecated.callback.Event;
 import com.linecorp.bot.model.deprecated.content.AddedAsFriendOperation;
 import com.linecorp.bot.model.deprecated.content.AudioContent;
 import com.linecorp.bot.model.deprecated.content.BlockedOperation;
 import com.linecorp.bot.model.deprecated.content.ContactContent;
-import com.linecorp.bot.model.deprecated.content.Content;
 import com.linecorp.bot.model.deprecated.content.ImageContent;
 import com.linecorp.bot.model.deprecated.content.LocationContent;
 import com.linecorp.bot.model.deprecated.content.LocationContentLocation;
 import com.linecorp.bot.model.deprecated.content.StickerContent;
-import com.linecorp.bot.model.deprecated.content.TextContent;
 import com.linecorp.bot.model.deprecated.content.VideoContent;
 import com.linecorp.bot.model.deprecated.content.metadata.AudioContentMetadata;
 import com.linecorp.bot.model.deprecated.content.metadata.ContactContentMetadata;
 import com.linecorp.bot.model.deprecated.content.metadata.StickerContentMetadata;
 import com.linecorp.bot.model.deprecated.profile.UserProfileResponse;
 import com.linecorp.bot.model.deprecated.rich.RichMessage;
+import com.linecorp.bot.model.v2.event.Event;
+import com.linecorp.bot.model.v2.event.MessageEvent;
+import com.linecorp.bot.model.v2.event.Source;
+import com.linecorp.bot.model.v2.event.message.MessageContent;
+import com.linecorp.bot.model.v2.event.message.TextMessageContent;
+import com.linecorp.bot.model.v2.message.TextMessage;
+import com.linecorp.bot.model.v2.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.NonNull;
@@ -73,28 +77,37 @@ public class KitchenSinkController {
     }
 
     private void handleEvent(Event event) {
-        Content content = event.getContent();
-        if (content instanceof TextContent) {
-            handleTextContent((TextContent) content);
-        } else if (content instanceof StickerContent) {
-            handleSticker((StickerContent) content);
-        } else if (content instanceof LocationContent) {
-            handleLocation((LocationContent) content);
-        } else if (content instanceof ContactContent) {
-            handleContact((ContactContent) content);
-        } else if (content instanceof AudioContent) {
-            handleAudio((AudioContent) content);
-        } else if (content instanceof ImageContent) {
-            handleImage((ImageContent) content);
-        } else if (content instanceof VideoContent) {
-            handleVideo((VideoContent) content);
-        } else if (content instanceof BlockedOperation) {
-            handleBlocked((BlockedOperation) content);
-        } else if (content instanceof AddedAsFriendOperation) {
-            handleAddedAsFriend((AddedAsFriendOperation) content);
+        Source source = ((MessageEvent) event).getSource();
+        if (event instanceof MessageEvent) {
+            MessageContent message = ((MessageEvent) event).getMessage();
+            if (message instanceof TextMessageContent) {
+                handleTextContent(source, (TextMessageContent) message);
+            }
+//            @JsonSubTypes.Type(TextMessageContent.class),
+//            @JsonSubTypes.Type(ImageMessageContent.class),
+//            @JsonSubTypes.Type(LocationMessageContent.class),
+//            @JsonSubTypes.Type(ContactMessageContent.class),
+//            @JsonSubTypes.Type(StickerMessageContent.class)
         } else {
+//        } else if (event instanceof StickerContent) {
+//            handleSticker((StickerContent) event);
+//        } else if (event instanceof LocationContent) {
+//            handleLocation((LocationContent) event);
+//        } else if (event instanceof ContactContent) {
+//            handleContact((ContactContent) event);
+//        } else if (event instanceof AudioContent) {
+//            handleAudio((AudioContent) event);
+//        } else if (event instanceof ImageContent) {
+//            handleImage((ImageContent) event);
+//        } else if (event instanceof VideoContent) {
+//            handleVideo((VideoContent) event);
+//        } else if (event instanceof BlockedOperation) {
+//            handleBlocked((BlockedOperation) event);
+//        } else if (event instanceof AddedAsFriendOperation) {
+//            handleAddedAsFriend((AddedAsFriendOperation) event);
+//        } else{
             log.info("Received message(Ignored): {}",
-                     content);
+                     event);
         }
     }
 
@@ -102,12 +115,19 @@ public class KitchenSinkController {
         String mid = content.getMid();
         log.info("User added this account as a friend: {}", mid);
         try {
-            lineBotClient.sendText(mid, "Hi! I'm a bot!");
+            this.sendText(mid, "Hi! I'm a bot!");
         } catch (LineBotAPIException e) {
             log.error("LINE server returns '{}'(mid: '{}')",
                       e.getMessage(),
                       mid, e);
         }
+    }
+
+    private void sendText(String mid, String message) throws LineBotAPIException {
+        BotApiResponse apiResponse = lineBotClient.push(
+                Collections.singletonList(mid),
+                Collections.singletonList(new TextMessage(message)));
+        log.info("Sent messages: {}", apiResponse);
     }
 
     private void handleBlocked(BlockedOperation content) {
@@ -126,7 +146,8 @@ public class KitchenSinkController {
                 String path = saveContent("video", messageContent);
                 String previewPath = saveContent("video-preview", previewMessageContent);
 
-                lineBotClient.sendVideo(mid, path, previewPath);
+                // FIXME
+//                lineBotClient.sendVideo(mid, path, previewPath);
             }
         } catch (IOException e) {
             log.error("Cannot save item '{}'(mid: '{}')",
@@ -150,7 +171,8 @@ public class KitchenSinkController {
                 String path = saveContent("image", messageContent);
                 String previewPath = saveContent("image-preview", previewMessageContent);
 
-                lineBotClient.sendImage(mid, path, previewPath);
+                // TODO
+//                lineBotClient.sendImage(mid, path, previewPath);
             }
         } catch (IOException e) {
             log.error("Cannot save item '{}'(mid: '{}')",
@@ -169,7 +191,8 @@ public class KitchenSinkController {
         String messageId = content.getId();
         try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId)) {
             String path = saveContent("audio", messageContent);
-            lineBotClient.sendAudio(mid, path, contentMetadata.getAudlen());
+            // TODO
+//            lineBotClient.sendAudio(mid, path, contentMetadata.getAudlen());
         } catch (IOException e) {
             log.error("Cannot save image '{}'(mid: '{}')",
                       e.getMessage(),
@@ -185,7 +208,7 @@ public class KitchenSinkController {
         String mid = content.getFrom();
         ContactContentMetadata contentMetadata = content.getContentMetadata();
         try {
-            lineBotClient.sendText(
+            this.sendText(
                     mid, "Received contact info for : " + contentMetadata.getDisplayName()
             );
         } catch (LineBotAPIException e) {
@@ -198,37 +221,38 @@ public class KitchenSinkController {
     private void handleLocation(LocationContent content) {
         String mid = content.getFrom();
         LocationContentLocation location = content.getLocation();
-        try {
-            lineBotClient.sendLocation(
-                    mid,
-                    content.getText(),
-                    location.getTitle(),
-                    location.getAddress(),
-                    location.getLatitude(),
-                    location.getLongitude()
-            );
-        } catch (LineBotAPIException e) {
-            log.error("LINE server returns '{}'(mid: '{}')",
-                      e.getMessage(),
-                      mid, e);
-        }
+//        try {
+//            lineBotClient.sendLocation(
+//                    mid,
+//                    content.getText(),
+//                    location.getTitle(),
+//                    location.getAddress(),
+//                    location.getLatitude(),
+//                    location.getLongitude()
+//            );
+        // TODO
+//        } catch (LineBotAPIException e) {
+//            log.error("LINE server returns '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      mid, e);
+//        }
     }
 
     private void handleSticker(StickerContent content) {
         String mid = content.getFrom();
         StickerContentMetadata contentMetadata = content.getContentMetadata();
         // Bot can send some built-in stickers.
-        try {
-            lineBotClient.sendSticker(mid, contentMetadata.getStkpkgid(), contentMetadata.getStkid());
-        } catch (LineBotAPIException e) {
-            log.error("LINE server returns '{}'(mid: '{}')",
-                      e.getMessage(),
-                      mid, e);
-        }
+//        try {
+//            lineBotClient.sendSticker(mid, contentMetadata.getStkpkgid(), contentMetadata.getStkid());
+//        } catch (LineBotAPIException e) {
+//            log.error("LINE server returns '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      mid, e);
+//        }
     }
 
-    private void handleTextContent(TextContent content) {
-        String mid = content.getFrom();
+    private void handleTextContent(Source source, TextMessageContent content) {
+        String mid = source.getUserId();
         String text = content.getText();
 
         try {
@@ -236,13 +260,7 @@ public class KitchenSinkController {
             switch (text) {
             case "profile":
                 UserProfileResponse userProfile = lineBotClient.getUserProfile(Collections.singletonList(mid));
-                lineBotClient.sendText(mid, userProfile.toString());
-                break;
-            case "multi":
-                lineBotClient.createMultipleMessageBuilder()
-                             .addText("hoge")
-                             .addText("fuga")
-                             .send(mid);
+//                lineBotClient.sendText(mid, userProfile.toString());
                 break;
             case "rich":
                 final RichMessage richMessage =
@@ -253,16 +271,16 @@ public class KitchenSinkController {
                         .addWebAction(520, 520, 520, 520, "fortune", "https://store.line.me/family/uranai/en")
                         .build();
 
-                lineBotClient.sendRichMessage(
-                        mid,
-                        createUri("/static/rich"),
-                        "This is alt text.",
-                        richMessage
-                );
+//                lineBotClient.sendRichMessage(
+//                        mid,
+//                        createUri("/static/rich"),
+//                        "This is alt text.",
+//                        richMessage
+//                );
                 break;
             default:
                 log.info("Returns echo message {}: {}", mid, text);
-                lineBotClient.sendText(
+                this.sendText(
                         mid,
                         text
                 );

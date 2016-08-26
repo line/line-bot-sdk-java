@@ -37,6 +37,7 @@ import lombok.ToString;
         @JsonSubTypes.Type(value = MessageEvent.class, name = EventType.Constants.MESSAGE),
         @JsonSubTypes.Type(value = OperationEvent.class, name = EventType.Constants.OPERATION)
 })
+@Deprecated
 public abstract class Event {
 
     @Getter
