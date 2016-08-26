@@ -31,6 +31,8 @@ import com.linecorp.bot.model.v2.event.Event;
 import com.linecorp.bot.model.v2.event.MessageEvent;
 import com.linecorp.bot.model.v2.event.message.MessageContent;
 import com.linecorp.bot.model.v2.event.message.TextMessageContent;
+import com.linecorp.bot.model.v2.event.source.GroupSource;
+import com.linecorp.bot.model.v2.event.source.Source;
 import com.linecorp.bot.model.v2.message.TextMessage;
 import com.linecorp.bot.model.v2.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
@@ -58,7 +60,10 @@ public class EchoApplication {
                     if (message instanceof TextMessageContent) {
                         log.info("Sending reply message");
                         TextMessageContent textMessageContent = (TextMessageContent) message;
-                        String mid = ((MessageEvent) event).getSource().getUserId();
+                        Source source = ((MessageEvent) event).getSource();
+                        String mid = source instanceof GroupSource
+                                     ? ((GroupSource) source).getGroupId()
+                                     : source.getUserId();
                         BotApiResponse apiResponse = lineBotClient.push(
                                 Collections.singletonList(mid),
                                 Collections.singletonList(new TextMessage(textMessageContent.getText())));

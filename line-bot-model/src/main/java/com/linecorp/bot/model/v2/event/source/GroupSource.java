@@ -2,18 +2,21 @@ package com.linecorp.bot.model.v2.event.source;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
-@Getter
-@ToString(callSuper = true)
-@EqualsAndHashCode
+@Value
+@JsonTypeName("group")
 public class GroupSource implements Source {
     private final String groupId;
     private final String userId;
 
+    /**
+     * Create new instance.
+     * @param groupId group ID
+     * @param userId user id may be null
+     */
     @JsonCreator
     public GroupSource(
             @JsonProperty("groupId") String groupId,

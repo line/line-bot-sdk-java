@@ -51,9 +51,10 @@ import com.linecorp.bot.model.deprecated.profile.UserProfileResponse;
 import com.linecorp.bot.model.deprecated.rich.RichMessage;
 import com.linecorp.bot.model.v2.event.Event;
 import com.linecorp.bot.model.v2.event.MessageEvent;
-import com.linecorp.bot.model.v2.event.source.Source;
 import com.linecorp.bot.model.v2.event.message.MessageContent;
 import com.linecorp.bot.model.v2.event.message.TextMessageContent;
+import com.linecorp.bot.model.v2.event.source.GroupSource;
+import com.linecorp.bot.model.v2.event.source.Source;
 import com.linecorp.bot.model.v2.message.TextMessage;
 import com.linecorp.bot.model.v2.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
@@ -123,7 +124,10 @@ public class KitchenSinkController {
         }
     }
 
-    private void sendText(String mid, String message) throws LineBotAPIException {
+    private void sendText(@NonNull String mid, String message) throws LineBotAPIException {
+        if (mid.isEmpty()) {
+            throw new IllegalArgumentException("MID must not be empty");
+        }
         BotApiResponse apiResponse = lineBotClient.push(
                 Collections.singletonList(mid),
                 Collections.singletonList(new TextMessage(message)));
@@ -252,7 +256,9 @@ public class KitchenSinkController {
     }
 
     private void handleTextContent(Source source, TextMessageContent content) {
-        String mid = source.getUserId();
+        String mid = source instanceof GroupSource
+                     ? ((GroupSource) source).getGroupId()
+                     : source.getUserId();
         String text = content.getText();
 
         try {
