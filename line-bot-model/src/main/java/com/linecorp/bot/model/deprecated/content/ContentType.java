@@ -3,6 +3,7 @@ package com.linecorp.bot.model.deprecated.content;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+@Deprecated
 public enum ContentType {
 
     TEXT(1),

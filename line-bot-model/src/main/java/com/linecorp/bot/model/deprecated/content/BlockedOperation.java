@@ -27,6 +27,7 @@ import lombok.ToString;
  * Blocked account
  */
 @ToString
+@Deprecated
 public class BlockedOperation extends AbstractOperation {
     @JsonCreator
     public BlockedOperation(@JsonProperty("revision") long revision,

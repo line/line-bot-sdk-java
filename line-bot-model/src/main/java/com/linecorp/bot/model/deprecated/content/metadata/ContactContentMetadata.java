@@ -23,6 +23,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 @ToString
+@Deprecated
 public class ContactContentMetadata {
     /**
      * The MID value of the person sent as this contact.

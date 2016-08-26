@@ -24,6 +24,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Deprecated
 public class StickerContentMetadata {
     /**
      * The package ID of the sticker.

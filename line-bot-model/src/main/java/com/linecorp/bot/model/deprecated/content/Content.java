@@ -16,5 +16,6 @@
 
 package com.linecorp.bot.model.deprecated.content;
 
+@Deprecated
 public interface Content {
 }

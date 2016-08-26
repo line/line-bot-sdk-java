@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+@Deprecated
 public enum EventType {
 
     Message(Constants.MESSAGE),

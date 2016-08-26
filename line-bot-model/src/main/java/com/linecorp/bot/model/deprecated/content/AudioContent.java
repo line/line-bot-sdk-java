@@ -32,6 +32,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Deprecated
 public class AudioContent extends AbstractContent {
     /**
      * URL of audio file. The "m4a" format is recommended.

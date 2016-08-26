@@ -35,6 +35,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Deprecated
 public abstract class AbstractOperation implements Content {
     private final long revision;
     private final OpType opType;

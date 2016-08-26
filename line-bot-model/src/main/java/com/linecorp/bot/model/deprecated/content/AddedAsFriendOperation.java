@@ -27,6 +27,7 @@ import lombok.ToString;
  * Added as friend (including canceling block).
  */
 @ToString
+@Deprecated
 public class AddedAsFriendOperation extends AbstractOperation {
     @JsonCreator
     public AddedAsFriendOperation(@JsonProperty("revision") long revision,

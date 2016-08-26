@@ -24,6 +24,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Deprecated
 public class TextContent extends AbstractContent {
     /**
      * String you want to send. Messages can contain up to 1024 characters.

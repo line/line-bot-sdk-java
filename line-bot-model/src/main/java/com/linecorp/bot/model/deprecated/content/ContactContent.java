@@ -26,6 +26,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Deprecated
 public class ContactContent extends AbstractContent {
     private final ContactContentMetadata contentMetadata;
 

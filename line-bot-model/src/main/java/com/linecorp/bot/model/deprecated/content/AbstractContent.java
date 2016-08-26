@@ -36,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
                       @JsonSubTypes.Type(value = ContactContent.class, name = "10"),
                       @JsonSubTypes.Type(value = RichMessageContent.class, name = "12")
               })
+@Deprecated
 public abstract class AbstractContent implements Content {
 
     private final String id;

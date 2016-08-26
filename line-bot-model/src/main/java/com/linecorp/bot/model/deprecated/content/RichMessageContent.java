@@ -26,6 +26,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Deprecated
 public class RichMessageContent extends AbstractContent {
     private final RichMessageContentMetadata contentMetadata;
 

@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.linecorp.bot.model.deprecated.content.AbstractOperation;
 
+@Deprecated
 public class OperationEvent extends Event {
 
     public OperationEvent(@JsonProperty("fromChannel") String fromChannel,

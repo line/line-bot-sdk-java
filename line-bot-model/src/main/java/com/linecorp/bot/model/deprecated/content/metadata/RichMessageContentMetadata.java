@@ -24,6 +24,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
+@Deprecated
 public class RichMessageContentMetadata {
     @JsonProperty("DOWNLOAD_URL")
     private final String downloadUrl;

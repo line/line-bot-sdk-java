@@ -29,6 +29,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Deprecated
 public class ImageContent extends AbstractContent {
 
     /**

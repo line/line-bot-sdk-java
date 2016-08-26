@@ -29,6 +29,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Deprecated
 public class VideoContent extends AbstractContent {
     /**
      * URL of the movie. The "mp4" format is recommended.

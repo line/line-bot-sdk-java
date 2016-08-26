@@ -23,6 +23,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 @ToString
+@Deprecated
 public class AudioContentMetadata {
     /**
      * Length of voice message. The unit is given in milliseconds.

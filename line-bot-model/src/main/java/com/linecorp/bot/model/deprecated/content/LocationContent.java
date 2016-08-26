@@ -28,6 +28,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Deprecated
 public class LocationContent extends AbstractContent {
     /**
      * String used to explain the location information (example: name of restaurant, address).

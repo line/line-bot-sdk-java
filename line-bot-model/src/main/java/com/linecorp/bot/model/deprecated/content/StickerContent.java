@@ -31,6 +31,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Deprecated
 public class StickerContent extends AbstractContent {
     private final StickerContentMetadata contentMetadata;
 

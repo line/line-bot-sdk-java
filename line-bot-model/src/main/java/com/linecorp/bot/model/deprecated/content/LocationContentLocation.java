@@ -24,6 +24,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Deprecated
 public class LocationContentLocation {
     /**
      * "Location data" string
