@@ -61,7 +61,9 @@ public class EchoApplication {
                         String mid = ((MessageEvent) event).getSource().getUserId();
                         BotApiResponse apiResponse = lineBotClient.push(Collections.singletonList(mid),
                                                                         Collections.singletonList(
-                                                                                new TextMessage("Hello")));
+                                                                                new TextMessage(
+                                                                                        textMessageContent
+                                                                                                .getText())));
                         log.info("Sent messages: {}", apiResponse);
                     }
                 }
