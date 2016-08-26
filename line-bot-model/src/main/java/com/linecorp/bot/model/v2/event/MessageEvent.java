@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.v2.event.message.MessageContent;
+import com.linecorp.bot.model.v2.event.source.Source;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

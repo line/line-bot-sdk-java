@@ -1,4 +1,4 @@
-package com.linecorp.bot.model.v2.event;
+package com.linecorp.bot.model.v2.event.source;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

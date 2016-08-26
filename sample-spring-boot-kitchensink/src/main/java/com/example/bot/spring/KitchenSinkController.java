@@ -51,7 +51,7 @@ import com.linecorp.bot.model.deprecated.profile.UserProfileResponse;
 import com.linecorp.bot.model.deprecated.rich.RichMessage;
 import com.linecorp.bot.model.v2.event.Event;
 import com.linecorp.bot.model.v2.event.MessageEvent;
-import com.linecorp.bot.model.v2.event.Source;
+import com.linecorp.bot.model.v2.event.source.Source;
 import com.linecorp.bot.model.v2.event.message.MessageContent;
 import com.linecorp.bot.model.v2.event.message.TextMessageContent;
 import com.linecorp.bot.model.v2.message.TextMessage;
