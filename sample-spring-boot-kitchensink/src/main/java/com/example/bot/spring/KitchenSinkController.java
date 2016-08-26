@@ -38,22 +38,21 @@ import com.linecorp.bot.client.rich.SimpleRichMessageBuilder;
 import com.linecorp.bot.model.deprecated.content.AddedAsFriendOperation;
 import com.linecorp.bot.model.deprecated.content.AudioContent;
 import com.linecorp.bot.model.deprecated.content.BlockedOperation;
-import com.linecorp.bot.model.deprecated.content.ContactContent;
 import com.linecorp.bot.model.deprecated.content.ImageContent;
-import com.linecorp.bot.model.deprecated.content.LocationContent;
-import com.linecorp.bot.model.deprecated.content.LocationContentLocation;
 import com.linecorp.bot.model.deprecated.content.VideoContent;
 import com.linecorp.bot.model.deprecated.content.metadata.AudioContentMetadata;
-import com.linecorp.bot.model.deprecated.content.metadata.ContactContentMetadata;
 import com.linecorp.bot.model.deprecated.profile.UserProfileResponse;
 import com.linecorp.bot.model.deprecated.rich.RichMessage;
 import com.linecorp.bot.model.v2.event.Event;
 import com.linecorp.bot.model.v2.event.MessageEvent;
+import com.linecorp.bot.model.v2.event.message.ContactMessageContent;
+import com.linecorp.bot.model.v2.event.message.LocationMessageContent;
 import com.linecorp.bot.model.v2.event.message.MessageContent;
 import com.linecorp.bot.model.v2.event.message.StickerMessageContent;
 import com.linecorp.bot.model.v2.event.message.TextMessageContent;
 import com.linecorp.bot.model.v2.event.source.GroupSource;
 import com.linecorp.bot.model.v2.event.source.Source;
+import com.linecorp.bot.model.v2.message.LocationMessage;
 import com.linecorp.bot.model.v2.message.StickerMessage;
 import com.linecorp.bot.model.v2.message.TextMessage;
 import com.linecorp.bot.model.v2.response.BotApiResponse;
@@ -88,11 +87,15 @@ public class KitchenSinkController {
                 handleTextContent(mid, (TextMessageContent) message);
             } else if (message instanceof StickerMessageContent) {
                 handleSticker(mid, (StickerMessageContent) message);
+            } else if (message instanceof ContactMessageContent) {
+                // TODO... Test this at next week.
+                handleContact(mid, (ContactMessageContent) message);
+            } else if (message instanceof LocationMessageContent) {
+                handleLocation(mid, (LocationMessageContent) message);
             }
 //        TODO     @JsonSubTypes.Type(ImageMessageContent.class),
 //             TODO @JsonSubTypes.Type(LocationMessageContent.class),
 //   TODO          @JsonSubTypes.Type(ContactMessageContent.class),
-//        TODO     @JsonSubTypes.Type(StickerMessageContent.class)
         } else {
 //    TODO         @JsonSubTypes.Type(OperationEvent.class),
 //         TODO    @JsonSubTypes.Type(PostbackEvent.class)
@@ -115,6 +118,24 @@ public class KitchenSinkController {
 //        } else{
             log.info("Received message(Ignored): {}",
                      event);
+        }
+    }
+
+    private void handleLocation(String mid, LocationMessageContent content) {
+        try {
+            BotApiResponse apiResponse = lineBotClient.push(
+                    mid,
+                    new LocationMessage(
+                            content.getTitle(),
+                            content.getAddress(),
+                            content.getLatitude(),
+                            content.getLongitude()
+                    ));
+            log.info("Sent messages: {}", apiResponse);
+        } catch (LineBotAPIException e) {
+            log.error("LINE server returns '{}'(mid: '{}')",
+                      e.getMessage(),
+                      mid, e);
         }
     }
 
@@ -212,38 +233,16 @@ public class KitchenSinkController {
         }
     }
 
-    private void handleContact(ContactContent content) {
-        String mid = content.getFrom();
-        ContactContentMetadata contentMetadata = content.getContentMetadata();
+    private void handleContact(@NonNull String mid, @NonNull ContactMessageContent content) {
         try {
             this.sendText(
-                    mid, "Received contact info for : " + contentMetadata.getDisplayName()
+                    mid, "Received contact info for : " + content.getDisplayName()
             );
         } catch (LineBotAPIException e) {
             log.error("LINE server returns '{}'(mid: '{}')",
                       e.getMessage(),
                       mid, e);
         }
-    }
-
-    private void handleLocation(LocationContent content) {
-        String mid = content.getFrom();
-        LocationContentLocation location = content.getLocation();
-//        try {
-//            lineBotClient.sendLocation(
-//                    mid,
-//                    content.getText(),
-//                    location.getTitle(),
-//                    location.getAddress(),
-//                    location.getLatitude(),
-//                    location.getLongitude()
-//            );
-        // TODO
-//        } catch (LineBotAPIException e) {
-//            log.error("LINE server returns '{}'(mid: '{}')",
-//                      e.getMessage(),
-//                      mid, e);
-//        }
     }
 
     private void handleSticker(String mid, StickerMessageContent content) {
