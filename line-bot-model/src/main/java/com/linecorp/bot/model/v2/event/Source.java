@@ -13,6 +13,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         property = "type",
         visible = true
 )
-public abstract class Source {
-    public abstract String getUserId();
+public interface Source {
+    String getUserId();
 }

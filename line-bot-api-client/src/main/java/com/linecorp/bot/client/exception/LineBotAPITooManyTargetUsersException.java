@@ -16,7 +16,7 @@
 
 package com.linecorp.bot.client.exception;
 
-import com.linecorp.bot.model.event.EventRequest;
+import com.linecorp.bot.model.deprecated.event.EventRequest;
 
 import lombok.Getter;
 import lombok.ToString;

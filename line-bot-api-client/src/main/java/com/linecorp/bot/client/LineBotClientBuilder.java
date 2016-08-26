@@ -18,8 +18,6 @@ package com.linecorp.bot.client;
 
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.NonNull;
 
 /**
@@ -38,15 +36,13 @@ public final class LineBotClientBuilder {
     /**
      * Create a new {@link LineBotClientBuilder} with specified channel information.
      */
-    public static LineBotClientBuilder create(String channelId, String channelSecret, String channelMid) {
-        return new LineBotClientBuilder(channelId, channelSecret, channelMid);
+    public static LineBotClientBuilder create(String channelId, String channelSecret) {
+        return new LineBotClientBuilder(channelId, channelSecret);
     }
 
     private final String channelId;
 
     private final String channelSecret;
-
-    private final String channelMid;
 
     private String apiEndPoint = DefaultLineBotClient.DEFAULT_API_END_POINT;
 
@@ -60,11 +56,9 @@ public final class LineBotClientBuilder {
     private HttpClientBuilder httpClientBuilder;
 
     private LineBotClientBuilder(@NonNull String channelId,
-                                 @NonNull String channelSecret,
-                                 @NonNull String channelMid) {
+                                 @NonNull String channelSecret) {
         this.channelId = channelId;
         this.channelSecret = channelSecret;
-        this.channelMid = channelMid;
     }
 
     /**
@@ -114,7 +108,6 @@ public final class LineBotClientBuilder {
         return new DefaultLineBotClient(
                 channelId,
                 channelSecret,
-                channelMid,
                 apiEndPoint,
                 sendingMessageChannelId,
                 sendingMessageEventId,

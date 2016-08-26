@@ -21,6 +21,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @Getter
+// TODO should i make this class interface?
 public abstract class Event {
     private final long timestamp;
 

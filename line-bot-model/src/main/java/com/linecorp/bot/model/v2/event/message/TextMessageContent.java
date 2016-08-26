@@ -4,22 +4,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
-@Getter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@Value
 @JsonTypeName("text")
-public class TextMessageContent extends MessageContent {
+public class TextMessageContent implements MessageContent {
+    private final String id;
     private final String text;
 
     @JsonCreator
     public TextMessageContent(
             @JsonProperty("id") String id,
             @JsonProperty("text") String text) {
-        super(id);
+        this.id = id;
         this.text = text;
     }
 }

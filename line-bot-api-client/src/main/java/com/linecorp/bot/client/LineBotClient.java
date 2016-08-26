@@ -20,12 +20,12 @@ import java.util.Collection;
 
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
-import com.linecorp.bot.model.callback.CallbackRequest;
-import com.linecorp.bot.model.content.AbstractContent;
-import com.linecorp.bot.model.event.EventRequest;
-import com.linecorp.bot.model.event.EventResponse;
-import com.linecorp.bot.model.profile.UserProfileResponse;
-import com.linecorp.bot.model.rich.RichMessage;
+import com.linecorp.bot.model.deprecated.content.AbstractContent;
+import com.linecorp.bot.model.deprecated.event.EventRequest;
+import com.linecorp.bot.model.deprecated.event.EventResponse;
+import com.linecorp.bot.model.deprecated.profile.UserProfileResponse;
+import com.linecorp.bot.model.deprecated.rich.RichMessage;
+import com.linecorp.bot.model.v2.event.CallbackRequest;
 
 import lombok.NonNull;
 

@@ -32,8 +32,8 @@ import lombok.Data;
 public class LineBotProperties {
     private static final Pattern TRAILING_SLASH = Pattern.compile("/$");
 
-    @Valid
-    @NotNull
+    // TODO This maybe deprecated.
+    @Deprecated
     private String channelMid;
 
     @Valid

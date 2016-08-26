@@ -41,16 +41,13 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.linecorp.bot.client.LineBotAPIHeaders;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.LineBotClientBuilder;
-import com.linecorp.bot.model.callback.CallbackRequest;
-import com.linecorp.bot.model.callback.Event;
-import com.linecorp.bot.model.content.AddedAsFriendOperation;
-import com.linecorp.bot.model.content.TextContent;
+import com.linecorp.bot.model.v2.event.CallbackRequest;
+import com.linecorp.bot.model.v2.event.Event;
+import com.linecorp.bot.model.v2.event.MessageEvent;
+import com.linecorp.bot.model.v2.event.message.TextMessageContent;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LineBotCallbackRequestParserTest {
@@ -58,7 +55,7 @@ public class LineBotCallbackRequestParserTest {
     private HttpServletResponse response;
 
     @Spy
-    private LineBotClient lineBotClient = LineBotClientBuilder.create("CID", "SECRET", "MID").build();
+    private LineBotClient lineBotClient = LineBotClientBuilder.create("CID", "SECRET").build();
 
     private LineBotCallbackRequestParser lineBotCallbackRequestParser;
 
@@ -131,12 +128,12 @@ public class LineBotCallbackRequestParserTest {
         );
         Assert.assertNotNull(callbackRequest);
 
-        final List<Event> result = callbackRequest.getResult();
+        final List<Event> result = callbackRequest.getEvents();
 
-        final TextContent text = (TextContent) result.get(0).getContent();
+        final TextMessageContent text = (TextMessageContent) ((MessageEvent) result.get(0)).getMessage();
         assertThat(text.getText(), is("Hello, BOT API Server!"));
 
-        final AddedAsFriendOperation addFriend = (AddedAsFriendOperation) result.get(1).getContent();
-        assertThat(addFriend.getMid(), is("u464471c59f5eefe815a19be11f210147"));
+//        final AddedAsFriendOperation addFriend = (AddedAsFriendOperation) result.get(1).getContent();
+//        assertThat(addFriend.getMid(), is("u464471c59f5eefe815a19be11f210147"));
     }
 }

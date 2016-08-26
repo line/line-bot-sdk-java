@@ -4,15 +4,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
-@Getter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@Value
 @JsonTypeName("stickerId")
-public class StickerMessageContent extends MessageContent {
+public class StickerMessageContent implements MessageContent {
+    private final String id;
     private final String packageId;
     private final String stickerId;
 
@@ -21,7 +18,7 @@ public class StickerMessageContent extends MessageContent {
             @JsonProperty("id") String id,
             @JsonProperty("packageId") String packageId,
             @JsonProperty("stickerId") String stickerId) {
-        super(id);
+        this.id = id;
         this.packageId = packageId;
         this.stickerId = stickerId;
     }

@@ -26,12 +26,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.model.callback.Event;
-import com.linecorp.bot.model.content.Content;
-import com.linecorp.bot.model.content.TextContent;
+import com.linecorp.bot.model.v2.event.Event;
+import com.linecorp.bot.model.v2.event.MessageEvent;
+import com.linecorp.bot.model.v2.event.message.MessageContent;
+import com.linecorp.bot.model.v2.event.message.TextMessageContent;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootApplication
+@Slf4j
 public class EchoApplication {
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
@@ -45,11 +49,14 @@ public class EchoApplication {
         @RequestMapping("/callback")
         public void callback(@LineBotMessages List<Event> events) throws LineBotAPIException {
             for (Event event : events) {
-                Content content = event.getContent();
-                if (content instanceof TextContent) {
-                    TextContent textContent = (TextContent) content;
-                    lineBotClient.sendText(textContent.getFrom(),
-                                           textContent.getText());
+                log.info("event: {}", event);
+                if (event instanceof MessageEvent) {
+                    MessageContent message = ((MessageEvent) event).getMessage();
+                    if (message instanceof TextMessageContent) {
+                        TextMessageContent textMessageContent = (TextMessageContent) message;
+                        lineBotClient.sendText(((MessageEvent) event).getSource().getUserId(),
+                                               textMessageContent.getText());
+                    }
                 }
             }
         }

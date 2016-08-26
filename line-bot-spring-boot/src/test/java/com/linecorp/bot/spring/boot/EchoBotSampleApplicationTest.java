@@ -50,10 +50,10 @@ import org.springframework.web.context.WebApplicationContext;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.LineBotClientBuilder;
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.model.callback.Event;
-import com.linecorp.bot.model.content.AddedAsFriendOperation;
-import com.linecorp.bot.model.content.Content;
-import com.linecorp.bot.model.content.TextContent;
+import com.linecorp.bot.model.deprecated.callback.Event;
+import com.linecorp.bot.model.deprecated.content.AddedAsFriendOperation;
+import com.linecorp.bot.model.deprecated.content.Content;
+import com.linecorp.bot.model.deprecated.content.TextContent;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.NonNull;
@@ -109,7 +109,7 @@ public class EchoBotSampleApplicationTest {
 
     public static class Configuration {
         @Spy
-        private LineBotClient lineBotClient = LineBotClientBuilder.create("CID", "SECRET", "MID").build();
+        private LineBotClient lineBotClient = LineBotClientBuilder.create("CID", "SECRET").build();
 
         public Configuration() {
             MockitoAnnotations.initMocks(this);

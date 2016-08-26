@@ -24,15 +24,15 @@ import java.util.Collection;
 
 import org.junit.Test;
 
-import com.linecorp.bot.model.rich.RichMessage;
-import com.linecorp.bot.model.rich.RichMessageCanvas;
-import com.linecorp.bot.model.rich.RichMessageImage;
-import com.linecorp.bot.model.rich.RichMessageScene;
-import com.linecorp.bot.model.rich.RichMessageSceneImage;
-import com.linecorp.bot.model.rich.RichMessageSceneListener;
-import com.linecorp.bot.model.rich.action.AbstractRichMessageAction;
-import com.linecorp.bot.model.rich.action.SendMessageRichMessageAction;
-import com.linecorp.bot.model.rich.action.WebRichMessageAction;
+import com.linecorp.bot.model.deprecated.rich.RichMessage;
+import com.linecorp.bot.model.deprecated.rich.RichMessageCanvas;
+import com.linecorp.bot.model.deprecated.rich.RichMessageImage;
+import com.linecorp.bot.model.deprecated.rich.RichMessageScene;
+import com.linecorp.bot.model.deprecated.rich.RichMessageSceneImage;
+import com.linecorp.bot.model.deprecated.rich.RichMessageSceneListener;
+import com.linecorp.bot.model.deprecated.rich.action.AbstractRichMessageAction;
+import com.linecorp.bot.model.deprecated.rich.action.SendMessageRichMessageAction;
+import com.linecorp.bot.model.deprecated.rich.action.WebRichMessageAction;
 
 public class SimpleRichMessageBuilderTest {
 

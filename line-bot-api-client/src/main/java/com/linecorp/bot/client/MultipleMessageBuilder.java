@@ -19,7 +19,7 @@ package com.linecorp.bot.client;
 import java.util.List;
 
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.model.content.AbstractContent;
+import com.linecorp.bot.model.deprecated.content.AbstractContent;
 
 import lombok.NonNull;
 

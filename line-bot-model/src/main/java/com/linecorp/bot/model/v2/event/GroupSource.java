@@ -9,8 +9,8 @@ import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class GroupSource extends Source {
+@EqualsAndHashCode
+public class GroupSource implements Source {
     private final String groupId;
     private final String userId;
 

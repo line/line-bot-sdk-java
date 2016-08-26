@@ -28,7 +28,7 @@ import com.linecorp.bot.client.LineBotAPIHeaders;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
-import com.linecorp.bot.model.callback.CallbackRequest;
+import com.linecorp.bot.model.v2.event.CallbackRequest;
 
 import lombok.extern.slf4j.Slf4j;
 

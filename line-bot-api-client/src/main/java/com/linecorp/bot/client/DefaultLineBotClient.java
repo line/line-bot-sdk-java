@@ -50,23 +50,23 @@ import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
 import com.linecorp.bot.client.exception.LineBotAPISignatureException;
 import com.linecorp.bot.client.exception.LineBotAPITooManyTargetUsersException;
 import com.linecorp.bot.client.exception.LineBotServerErrorStatusException;
-import com.linecorp.bot.model.callback.CallbackRequest;
-import com.linecorp.bot.model.content.AbstractContent;
-import com.linecorp.bot.model.content.AudioContent;
-import com.linecorp.bot.model.content.ImageContent;
-import com.linecorp.bot.model.content.LocationContent;
-import com.linecorp.bot.model.content.RecipientType;
-import com.linecorp.bot.model.content.RichMessageContent;
-import com.linecorp.bot.model.content.StickerContent;
-import com.linecorp.bot.model.content.TextContent;
-import com.linecorp.bot.model.content.VideoContent;
-import com.linecorp.bot.model.event.EventRequest;
-import com.linecorp.bot.model.event.EventResponse;
-import com.linecorp.bot.model.event.SendingMessagesRequest;
-import com.linecorp.bot.model.event.SendingMultipleMessagesRequest;
-import com.linecorp.bot.model.event.SendingMultipleMessagesRequestContent;
-import com.linecorp.bot.model.profile.UserProfileResponse;
-import com.linecorp.bot.model.rich.RichMessage;
+import com.linecorp.bot.model.deprecated.content.AbstractContent;
+import com.linecorp.bot.model.deprecated.content.AudioContent;
+import com.linecorp.bot.model.deprecated.content.ImageContent;
+import com.linecorp.bot.model.deprecated.content.LocationContent;
+import com.linecorp.bot.model.deprecated.content.RecipientType;
+import com.linecorp.bot.model.deprecated.content.RichMessageContent;
+import com.linecorp.bot.model.deprecated.content.StickerContent;
+import com.linecorp.bot.model.deprecated.content.TextContent;
+import com.linecorp.bot.model.deprecated.content.VideoContent;
+import com.linecorp.bot.model.deprecated.event.EventRequest;
+import com.linecorp.bot.model.deprecated.event.EventResponse;
+import com.linecorp.bot.model.deprecated.event.SendingMessagesRequest;
+import com.linecorp.bot.model.deprecated.event.SendingMultipleMessagesRequest;
+import com.linecorp.bot.model.deprecated.event.SendingMultipleMessagesRequestContent;
+import com.linecorp.bot.model.deprecated.profile.UserProfileResponse;
+import com.linecorp.bot.model.deprecated.rich.RichMessage;
+import com.linecorp.bot.model.v2.event.CallbackRequest;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -107,7 +107,6 @@ public class DefaultLineBotClient implements LineBotClient {
 
     private final String channelId;
     private final String channelSecret;
-    private final String channelMid;
     private final String apiEndPoint;
 
     private final Long sendingMessageChannelId;
@@ -124,7 +123,6 @@ public class DefaultLineBotClient implements LineBotClient {
      *
      * @param channelId Channel ID
      * @param channelSecret Channel secret
-     * @param channelMid Channel MID
      * @param apiEndPoint LINE Bot API endpoint URI
      * @param sendingMessageChannelId The channel ID to send a message
      * @param sendingMessageEventId The event type of sending single message
@@ -134,7 +132,6 @@ public class DefaultLineBotClient implements LineBotClient {
     DefaultLineBotClient(
             String channelId,
             String channelSecret,
-            String channelMid,
             String apiEndPoint,
             Long sendingMessageChannelId,
             String sendingMessageEventId,
@@ -142,7 +139,6 @@ public class DefaultLineBotClient implements LineBotClient {
             HttpClientBuilder httpClientBuilder) {
         this.channelId = channelId;
         this.channelSecret = channelSecret;
-        this.channelMid = channelMid;
         this.apiEndPoint = apiEndPoint;
         this.sendingMessageChannelId = sendingMessageChannelId;
         this.sendingMessageEventId = sendingMessageEventId;
@@ -204,7 +200,7 @@ public class DefaultLineBotClient implements LineBotClient {
     private void addHeaders(HttpUriRequest httpRequest) {
         httpRequest.setHeader(LineBotAPIHeaders.X_LINE_CHANNEL_ID, this.channelId);
         httpRequest.setHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SECRET, this.channelSecret);
-        httpRequest.setHeader(LineBotAPIHeaders.X_LINE_TRUSTED_USER_WITH_ACL, this.channelMid);
+//        httpRequest.setHeader(LineBotAPIHeaders.X_LINE_TRUSTED_USER_WITH_ACL, this.channelMid);
     }
 
     @Override
@@ -464,7 +460,7 @@ public class DefaultLineBotClient implements LineBotClient {
     public CallbackRequest readCallbackRequest(@NonNull byte[] jsonText) throws LineBotAPIJsonProcessingException {
         try {
             final CallbackRequest callbackRequest = objectMapper.readValue(jsonText, CallbackRequest.class);
-            if (callbackRequest == null || callbackRequest.getResult() == null) {
+            if (callbackRequest == null || callbackRequest.getEvents() == null) {
                 throw new LineBotAPIJsonProcessingException("Invalid callback request was given");
             }
             return callbackRequest;
@@ -477,7 +473,7 @@ public class DefaultLineBotClient implements LineBotClient {
     public CallbackRequest readCallbackRequest(@NonNull String jsonText) throws LineBotAPIJsonProcessingException {
         try {
             final CallbackRequest callbackRequest = objectMapper.readValue(jsonText, CallbackRequest.class);
-            if (callbackRequest == null || callbackRequest.getResult() == null) {
+            if (callbackRequest == null || callbackRequest.getEvents() == null) {
                 throw new LineBotAPIJsonProcessingException("Invalid callback request was given");
             }
             return callbackRequest;

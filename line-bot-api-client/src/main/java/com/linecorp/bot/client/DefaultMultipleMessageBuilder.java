@@ -21,9 +21,9 @@ import java.util.Collections;
 import java.util.List;
 
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.model.content.AbstractContent;
-import com.linecorp.bot.model.content.RecipientType;
-import com.linecorp.bot.model.content.TextContent;
+import com.linecorp.bot.model.deprecated.content.AbstractContent;
+import com.linecorp.bot.model.deprecated.content.RecipientType;
+import com.linecorp.bot.model.deprecated.content.TextContent;
 
 import lombok.NonNull;
 

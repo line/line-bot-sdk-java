@@ -3,10 +3,6 @@ package com.linecorp.bot.model.v2.event.message;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
-
 @JsonSubTypes({
                       @JsonSubTypes.Type(TextMessageContent.class),
                       @JsonSubTypes.Type(ImageMessageContent.class),
@@ -20,13 +16,6 @@ import lombok.ToString;
         property = "type",
         visible = true
 )
-@EqualsAndHashCode
-@ToString
-@Getter
-public abstract class MessageContent {
-    private final String id;
-
-    public MessageContent(final String id) {
-        this.id = id;
-    }
+public interface MessageContent {
+    String getId();
 }
