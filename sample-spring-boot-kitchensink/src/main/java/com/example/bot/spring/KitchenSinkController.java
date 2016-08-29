@@ -84,14 +84,14 @@ public class KitchenSinkController {
             } else if (message instanceof LocationMessageContent) {
                 handleLocation(replyToken, (LocationMessageContent) message);
             } else if (message instanceof ImageMessageContent) {
-//                handleImage(mid, (ImageMessageContent) message);
+                handleImage(replyToken, (ImageMessageContent) message);
             }
 //        TODO     @JsonSubTypes.Type(ImageMessageContent.class),
         } else if (event instanceof UnfollowEvent) {
-            handleUnfollow((UnfollowEvent) event);
+            log.info("unfollowed this bot: {}", event);
         } else if (event instanceof FollowEvent) {
             String replyToken = ((FollowEvent) event).getReplyToken();
-            handleFollow(replyToken);
+            this.replyText(replyToken, "Got followed event");
         } else if (event instanceof JoinEvent) {
             String replyToken = ((JoinEvent) event).getReplyToken();
             this.replyText(replyToken, "Joined " + event.getSource());
@@ -100,51 +100,14 @@ public class KitchenSinkController {
             this.replyText(replyToken, "Leaved " + event.getSource());
         } else {
 //         TODO    @JsonSubTypes.Type(PostbackEvent.class)
-//        } else if (event instanceof StickerContent) {
-//            handleSticker((StickerContent) event);
-//        } else if (event instanceof LocationContent) {
-//            handleLocation((LocationContent) event);
-//        } else if (event instanceof ContactContent) {
-//            handleContact((ContactContent) event);
-//        } else if (event instanceof AudioContent) {
-//            handleAudio((AudioContent) event);
-//        } else if (event instanceof ImageContent) {
-//            handleImage((ImageContent) event);
-//        } else if (event instanceof VideoContent) {
-//            handleVideo((VideoContent) event);
-//        } else if (event instanceof BlockedOperation) {
-//            handleBlocked((BlockedOperation) event);
-//        } else if (event instanceof AddedAsFriendOperation) {
-//            handleAddedAsFriend((AddedAsFriendOperation) event);
-//        } else{
             log.info("Received message(Ignored): {}",
                      event);
         }
     }
 
-    private void handleFollow(String replyToken) throws LineBotAPIException {
-        this.replyText(replyToken, "Got followed event");
-    }
-
-    private void handleUnfollow(UnfollowEvent event) {
-        log.info("unfollowed this bot: {}", event);
-    }
-
     private void handleLocation(String replyToken, LocationMessageContent content) {
 
     }
-
-//    private void handleAddedAsFriend(AddedAsFriendOperation content) {
-//        String mid = content.getMid();
-//        log.info("User added this account as a friend: {}", mid);
-//        try {
-//            this.replyText(mid, "Hi! I'm a bot!");
-//        } catch (LineBotAPIException e) {
-//            log.error("LINE server returns '{}'(mid: '{}')",
-//                      e.getMessage(),
-//                      mid, e);
-//        }
-//    }
 
     private void replyText(@NonNull String replyToken, @NonNull String message) throws LineBotAPIException {
         if (replyToken.isEmpty()) {
@@ -157,11 +120,6 @@ public class KitchenSinkController {
         log.info("Sent messages: {}", apiResponse);
     }
 
-//    private void handleBlocked(BlockedOperation content) {
-//        String mid = content.getMid();
-//        log.info("User blocked this account: {}", mid);
-//    }
-//
 //    private void handleVideo(VideoContent content) {
 //        String mid = content.getFrom();
 //        String messageId = content.getId();
@@ -187,30 +145,23 @@ public class KitchenSinkController {
 //        }
 //    }
 //
-//    private void handleImage(ImageContent content) {
-//        String mid = content.getFrom();
-//        String messageId = content.getId();
-//        try {
-//            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
-//                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
-//                         messageId)
-//            ) {
-//                String path = saveContent("image", messageContent);
-//                String previewPath = saveContent("image-preview", previewMessageContent);
-//
-//                // TODO
-////                lineBotClient.sendImage(mid, path, previewPath);
-//            }
-//        } catch (IOException e) {
-//            log.error("Cannot save item '{}'(mid: '{}')",
-//                      e.getMessage(),
-//                      messageId, e);
-//        } catch (LineBotAPIException e) {
-//            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
-//                      e.getMessage(),
-//                      messageId, e);
-//        }
-//    }
+private void handleImage(String replyToken, ImageMessageContent content) throws LineBotAPIException {
+    String messageId = content.getId();
+    try {
+        try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
+             CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
+                     messageId)
+        ) {
+            String path = saveContent("image", messageContent);
+            String previewPath = saveContent("image-preview", previewMessageContent);
+
+            // TODO
+//                lineBotClient.sendImage(mid, path, previewPath);
+        }
+    } catch (IOException e) {
+        log.error("Cannot save item '{}'(mid: '{}')", e.getMessage(), messageId, e);
+    }
+}
 //
 //    private void handleAudio(AudioContent content) {
 //        String mid = content.getFrom();

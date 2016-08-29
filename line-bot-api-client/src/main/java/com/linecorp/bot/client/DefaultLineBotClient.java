@@ -181,13 +181,13 @@ public class DefaultLineBotClient implements LineBotClient {
     }
     @Override
     public CloseableMessageContent getMessageContent(String messageId) throws LineBotAPIException {
-        String uriString = this.apiEndPoint + "/v1/bot/message/" + messageId + "/content";
+        String uriString = this.apiEndPoint + "/v2/bot/message/" + messageId + "/content";
         return this.getMessageContentByUri(uriString);
     }
 
     @Override
     public CloseableMessageContent getPreviewMessageContent(String messageId) throws LineBotAPIException {
-        String uriString = this.apiEndPoint + "/v1/bot/message/" + messageId + "/content/preview";
+        String uriString = this.apiEndPoint + "/v2/bot/message/" + messageId + "/previewcontent";
         return this.getMessageContentByUri(uriString);
     }
 
