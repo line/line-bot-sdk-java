@@ -22,6 +22,9 @@ public class PostbackAction extends Action {
     private final String data;
     private final String text;
 
+    /**
+     * @param text text message (optional)
+     */
     @JsonCreator
     public PostbackAction(
             @JsonProperty("label") String label,
@@ -30,5 +33,9 @@ public class PostbackAction extends Action {
         super(label);
         this.data = data;
         this.text = text;
+    }
+
+    public PostbackAction(String label, String data) {
+        this(label, data, null);
     }
 }

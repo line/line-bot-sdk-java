@@ -22,14 +22,14 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("buttons")
-public class Buttons extends Template {
+public class ButtonsTemplate extends Template {
     private final String thumbnailImageUrl;
     private final String title;
     private final String text;
     private final List<Action> actions;
 
     @JsonCreator
-    public Buttons(
+    public ButtonsTemplate(
             @JsonProperty("thumbnailImageUrl") String thumbnailImageUrl,
             @JsonProperty("title") String title,
             @JsonProperty("text") String text,

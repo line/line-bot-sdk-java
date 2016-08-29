@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -34,11 +35,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.linecorp.bot.client.CloseableMessageContent;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
+import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.action.PostbackAction;
+import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
 import com.linecorp.bot.model.event.LeaveEvent;
 import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
@@ -47,7 +52,9 @@ import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
+import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
@@ -101,6 +108,10 @@ public class KitchenSinkController {
         } else if (event instanceof LeaveEvent) {
             String replyToken = ((LeaveEvent) event).getReplyToken();
             this.replyText(replyToken, "Leaved " + event.getSource());
+        } else if (event instanceof PostbackEvent) {
+            String replyToken = ((PostbackEvent) event).getReplyToken();
+            this.replyText(replyToken,
+                           "Got postback " + ((PostbackEvent) event).getPostbackContent().getData());
         } else {
             // TODO BeaconEvent
 //         TODO    @JsonSubTypes.Type(PostbackEvent.class)
@@ -207,6 +218,26 @@ private void handleImage(String replyToken, ImageMessageContent content) throws 
                 UserProfileResponse userProfile = lineBotClient.getUserProfile(
                         Collections.singletonList(replyToken));
                 this.replyText(replyToken, userProfile.toString());
+                break;
+            case "buttons":
+                String imageUrl = createUri("/static/buttons/1040.jpg");
+                ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
+                        imageUrl,
+                        "My button sample",
+                        "Hello, my button",
+                        Arrays.asList(
+                                new URIAction("Go to line.me",
+                                              "https://line.me"),
+                                new PostbackAction("Say hello1",
+                                                   "hello こんにちは"),
+                                new PostbackAction("Say hello2",
+                                                   "hello こんにちは",
+                                                   "hello こんにちは"),
+                                new MessageAction("Say message",
+                                                  "Rice=米")
+                        ));
+                TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
+                this.reply(replyToken, templateMessage);
                 break;
             case "rich":
 //                final RichMessage richMessage =

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
 @JsonSubTypes({
-                      @JsonSubTypes.Type(Buttons.class),
+                      @JsonSubTypes.Type(ButtonsTemplate.class),
                       @JsonSubTypes.Type(Carousel.class),
               })
 @JsonTypeInfo(
