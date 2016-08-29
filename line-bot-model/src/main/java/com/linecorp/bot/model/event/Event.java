@@ -8,6 +8,7 @@ import com.linecorp.bot.model.event.source.Source;
 @JsonSubTypes({
                       @JsonSubTypes.Type(MessageEvent.class),
                       @JsonSubTypes.Type(UnfollowEvent.class),
+                      @JsonSubTypes.Type(FollowEvent.class),
                       @JsonSubTypes.Type(PostbackEvent.class)
               })
 @JsonTypeInfo(

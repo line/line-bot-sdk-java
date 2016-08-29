@@ -34,6 +34,7 @@ import com.linecorp.bot.client.CloseableMessageContent;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
 import com.linecorp.bot.model.event.message.ContactMessageContent;
@@ -95,6 +96,8 @@ public class KitchenSinkController {
 //        TODO     @JsonSubTypes.Type(ImageMessageContent.class),
         } else if (event instanceof UnfollowEvent) {
             handleUnfollow((UnfollowEvent) event);
+        } else if (event instanceof FollowEvent) {
+            handleFollow(mid);
         } else {
 //         TODO    @JsonSubTypes.Type(PostbackEvent.class)
 //        } else if (event instanceof StickerContent) {
@@ -117,6 +120,10 @@ public class KitchenSinkController {
             log.info("Received message(Ignored): {}",
                      event);
         }
+    }
+
+    private void handleFollow(String mid) throws LineBotAPIException {
+        this.sendText(mid, "Got followed event");
     }
 
     private void handleUnfollow(UnfollowEvent event) {
