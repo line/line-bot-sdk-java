@@ -35,6 +35,8 @@ import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.FollowEvent;
+import com.linecorp.bot.model.event.JoinEvent;
+import com.linecorp.bot.model.event.LeaveEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
 import com.linecorp.bot.model.event.message.ContactMessageContent;
@@ -98,6 +100,10 @@ public class KitchenSinkController {
             handleUnfollow((UnfollowEvent) event);
         } else if (event instanceof FollowEvent) {
             handleFollow(mid);
+        } else if (event instanceof JoinEvent) {
+            this.sendText(mid, "Joined " + event.getSource());
+        } else if (event instanceof LeaveEvent) {
+            this.sendText(mid, "Leaved " + event.getSource());
         } else {
 //         TODO    @JsonSubTypes.Type(PostbackEvent.class)
 //        } else if (event instanceof StickerContent) {
