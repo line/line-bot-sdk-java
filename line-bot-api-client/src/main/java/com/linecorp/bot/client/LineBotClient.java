@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.client;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
 import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 
 import lombok.NonNull;
@@ -80,7 +82,7 @@ public interface LineBotClient {
      *
      //     * @param mids Required. Lists the MIDs of the users whose information is to be retrieved, separated by commas.
      */
-//    UserProfileResponse getUserProfile(Collection<String> mids) throws LineBotAPIException;
+    UserProfileResponse getUserProfile(Collection<String> mids) throws LineBotAPIException;
 
     boolean validateSignature(@NonNull String jsonText, @NonNull String headerSignature) throws LineBotAPIException;
 

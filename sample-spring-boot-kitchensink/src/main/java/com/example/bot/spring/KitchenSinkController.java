@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,6 +48,7 @@ import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
@@ -100,6 +102,7 @@ public class KitchenSinkController {
             String replyToken = ((LeaveEvent) event).getReplyToken();
             this.replyText(replyToken, "Leaved " + event.getSource());
         } else {
+            // TODO BeaconEvent
 //         TODO    @JsonSubTypes.Type(PostbackEvent.class)
             log.info("Received message(Ignored): {}",
                      event);
@@ -201,8 +204,9 @@ private void handleImage(String replyToken, ImageMessageContent content) throws 
         log.info("Got text message from {}: {}", replyToken, text);
         switch (text) {
             case "profile":
-//                UserProfileResponse userProfile = lineBotClient.getUserProfile(Collections.singletonList(replyToken));
-//                lineBotClient.replyText(replyToken, userProfile.toString());
+                UserProfileResponse userProfile = lineBotClient.getUserProfile(
+                        Collections.singletonList(replyToken));
+                this.replyText(replyToken, userProfile.toString());
                 break;
             case "rich":
 //                final RichMessage richMessage =

@@ -22,7 +22,9 @@ import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -51,6 +53,7 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 
 import lombok.NonNull;
@@ -205,26 +208,25 @@ public class DefaultLineBotClient implements LineBotClient {
         }
     }
 
-    // TODO implement user profile
-//    @Override
-//    public UserProfileResponse getUserProfile(Collection<String> mids) throws LineBotAPIException {
-//        String uriString = this.apiEndPoint + "/v1/profiles?mids=" + mids.stream().collect(
-//                Collectors.joining(","));
-//
-//        HttpGet httpRequest = new HttpGet(uriString);
-//        try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
-//            this.addHeaders(httpRequest);
-//
-//            try (CloseableHttpResponse response = httpClient.execute(httpRequest)) {
-//                validateStatusCode(response);
-//
-//                return this.objectMapper.readValue(response.getEntity().getContent(),
-//                                                   UserProfileResponse.class);
-//            }
-//        } catch (IOException e) {
-//            throw new LineBotAPIIOException(e);
-//        }
-//    }
+    @Override
+    public UserProfileResponse getUserProfile(@NonNull Collection<String> mids) throws LineBotAPIException {
+        String uriString = this.apiEndPoint + "/v2/profiles?mids=" + mids.stream().collect(
+                Collectors.joining(","));
+
+        HttpGet httpRequest = new HttpGet(uriString);
+        try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
+            this.addHeaders(httpRequest);
+
+            try (CloseableHttpResponse response = httpClient.execute(httpRequest)) {
+                validateStatusCode(response);
+
+                return this.objectMapper.readValue(response.getEntity().getContent(),
+                                                   UserProfileResponse.class);
+            }
+        } catch (IOException e) {
+            throw new LineBotAPIIOException(e);
+        }
+    }
 
     @Override
     public boolean validateSignature(@NonNull String jsonText, @NonNull String headerSignature)
