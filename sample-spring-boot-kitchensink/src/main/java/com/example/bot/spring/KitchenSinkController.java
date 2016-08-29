@@ -44,6 +44,7 @@ import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -109,6 +110,11 @@ public class KitchenSinkController {
 
     }
 
+    private void reply(@NonNull String replyToken, @NonNull Message message) throws LineBotAPIException {
+        BotApiResponse apiResponse = lineBotClient.reply(replyToken, message);
+        log.info("Sent messages: {}", apiResponse);
+    }
+
     private void replyText(@NonNull String replyToken, @NonNull String message) throws LineBotAPIException {
         if (replyToken.isEmpty()) {
             throw new IllegalArgumentException("replyToken must not be empty");
@@ -116,8 +122,7 @@ public class KitchenSinkController {
         if (message.length() > 100) {
             message = message.substring(0, 98) + "……";
         }
-        BotApiResponse apiResponse = lineBotClient.reply(replyToken, new TextMessage(message));
-        log.info("Sent messages: {}", apiResponse);
+        this.reply(replyToken, new TextMessage(message));
     }
 
 //    private void handleVideo(VideoContent content) {
@@ -184,7 +189,7 @@ private void handleImage(String replyToken, ImageMessageContent content) throws 
 
     private void handleSticker(String replyToken, StickerMessageContent content) throws LineBotAPIException {
         // Bot can send some built-in stickers.
-        BotApiResponse apiResponse = lineBotClient.push(replyToken, new StickerMessage(
+        BotApiResponse apiResponse = lineBotClient.reply(replyToken, new StickerMessage(
                 content.getPackageId(), content.getStickerId())
         );
         log.info("Sent messages: {}", apiResponse);
