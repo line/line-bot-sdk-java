@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
                       @JsonSubTypes.Type(TextMessageContent.class),
                       @JsonSubTypes.Type(ImageMessageContent.class),
                       @JsonSubTypes.Type(LocationMessageContent.class),
-                      @JsonSubTypes.Type(ContactMessageContent.class),
                       @JsonSubTypes.Type(StickerMessageContent.class)
               })
 @JsonTypeInfo(

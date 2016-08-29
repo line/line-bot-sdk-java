@@ -20,15 +20,7 @@ import lombok.ToString;
 
 @ToString
 public class LineBotAPITooManyTargetUsersException extends LineBotAPIException {
-    public LineBotAPITooManyTargetUsersException(String message) {
-        super(message);
+    public LineBotAPITooManyTargetUsersException(long count) {
+        super("Too many target users: " + count);
     }
-
-//    @Getter
-//    private final EventRequest sendingMessagesRequest;
-
-//    public LineBotAPITooManyTargetUsersException(EventRequest sendingMessagesRequest) {
-//        super("Too many target users: " + sendingMessagesRequest.getTo().size());
-//        this.sendingMessagesRequest = sendingMessagesRequest;
-//    }
 }

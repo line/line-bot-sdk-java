@@ -39,14 +39,11 @@ import com.linecorp.bot.model.event.JoinEvent;
 import com.linecorp.bot.model.event.LeaveEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
-import com.linecorp.bot.model.event.message.ContactMessageContent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
-import com.linecorp.bot.model.event.source.GroupSource;
-import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -77,21 +74,15 @@ public class KitchenSinkController {
     }
 
     private void handleEvent(Event event) throws LineBotAPIException {
-        Source source = event.getSource();
-        String mid = source instanceof GroupSource
-                     ? ((GroupSource) source).getGroupId()
-                     : source.getUserId();
         if (event instanceof MessageEvent) {
+            String replyToken = ((MessageEvent) event).getReplyToken();
             MessageContent message = ((MessageEvent) event).getMessage();
             if (message instanceof TextMessageContent) {
-                handleTextContent(mid, (TextMessageContent) message);
+                handleTextContent(replyToken, (TextMessageContent) message);
             } else if (message instanceof StickerMessageContent) {
-                handleSticker(mid, (StickerMessageContent) message);
-            } else if (message instanceof ContactMessageContent) {
-                // TODO... Test this at next week.
-                handleContact(mid, (ContactMessageContent) message);
+                handleSticker(replyToken, (StickerMessageContent) message);
             } else if (message instanceof LocationMessageContent) {
-                handleLocation(mid, (LocationMessageContent) message);
+                handleLocation(replyToken, (LocationMessageContent) message);
             } else if (message instanceof ImageMessageContent) {
 //                handleImage(mid, (ImageMessageContent) message);
             }
@@ -99,11 +90,14 @@ public class KitchenSinkController {
         } else if (event instanceof UnfollowEvent) {
             handleUnfollow((UnfollowEvent) event);
         } else if (event instanceof FollowEvent) {
-            handleFollow(mid);
+            String replyToken = ((FollowEvent) event).getReplyToken();
+            handleFollow(replyToken);
         } else if (event instanceof JoinEvent) {
-            this.sendText(mid, "Joined " + event.getSource());
+            String replyToken = ((JoinEvent) event).getReplyToken();
+            this.replyText(replyToken, "Joined " + event.getSource());
         } else if (event instanceof LeaveEvent) {
-            this.sendText(mid, "Leaved " + event.getSource());
+            String replyToken = ((LeaveEvent) event).getReplyToken();
+            this.replyText(replyToken, "Leaved " + event.getSource());
         } else {
 //         TODO    @JsonSubTypes.Type(PostbackEvent.class)
 //        } else if (event instanceof StickerContent) {
@@ -128,15 +122,15 @@ public class KitchenSinkController {
         }
     }
 
-    private void handleFollow(String mid) throws LineBotAPIException {
-        this.sendText(mid, "Got followed event");
+    private void handleFollow(String replyToken) throws LineBotAPIException {
+        this.replyText(replyToken, "Got followed event");
     }
 
     private void handleUnfollow(UnfollowEvent event) {
         log.info("unfollowed this bot: {}", event);
     }
 
-    private void handleLocation(String mid, LocationMessageContent content) {
+    private void handleLocation(String replyToken, LocationMessageContent content) {
 
     }
 
@@ -144,7 +138,7 @@ public class KitchenSinkController {
 //        String mid = content.getMid();
 //        log.info("User added this account as a friend: {}", mid);
 //        try {
-//            this.sendText(mid, "Hi! I'm a bot!");
+//            this.replyText(mid, "Hi! I'm a bot!");
 //        } catch (LineBotAPIException e) {
 //            log.error("LINE server returns '{}'(mid: '{}')",
 //                      e.getMessage(),
@@ -152,14 +146,14 @@ public class KitchenSinkController {
 //        }
 //    }
 
-    private void sendText(@NonNull String mid, @NonNull String message) throws LineBotAPIException {
-        if (mid.isEmpty()) {
-            throw new IllegalArgumentException("MID must not be empty");
+    private void replyText(@NonNull String replyToken, @NonNull String message) throws LineBotAPIException {
+        if (replyToken.isEmpty()) {
+            throw new IllegalArgumentException("replyToken must not be empty");
         }
         if (message.length() > 100) {
             message = message.substring(0, 98) + "……";
         }
-        BotApiResponse apiResponse = lineBotClient.push(mid, new TextMessage(message));
+        BotApiResponse apiResponse = lineBotClient.reply(replyToken, new TextMessage(message));
         log.info("Sent messages: {}", apiResponse);
     }
 
@@ -237,41 +231,22 @@ public class KitchenSinkController {
 //        }
 //    }
 
-    private void handleContact(@NonNull String mid, @NonNull ContactMessageContent content) {
-        try {
-            this.sendText(
-                    mid, "Received contact info for : " + content.getDisplayName()
-            );
-        } catch (LineBotAPIException e) {
-            log.error("LINE server returns '{}'(mid: '{}')",
-                      e.getMessage(),
-                      mid, e);
-        }
-    }
-
-    private void handleSticker(String mid, StickerMessageContent content) {
+    private void handleSticker(String replyToken, StickerMessageContent content) throws LineBotAPIException {
         // Bot can send some built-in stickers.
-        try {
-            BotApiResponse apiResponse = lineBotClient.push(mid, new StickerMessage(
-                    content.getPackageId(), content.getStickerId())
-            );
-            log.info("Sent messages: {}", apiResponse);
-        } catch (LineBotAPIException e) {
-            log.error("LINE server returns '{}'(mid: '{}')",
-                      e.getMessage(),
-                      mid, e);
-        }
+        BotApiResponse apiResponse = lineBotClient.push(replyToken, new StickerMessage(
+                content.getPackageId(), content.getStickerId())
+        );
+        log.info("Sent messages: {}", apiResponse);
     }
 
-    private void handleTextContent(String mid, TextMessageContent content) {
+    private void handleTextContent(String replyToken, TextMessageContent content) throws LineBotAPIException {
         String text = content.getText();
 
-        try {
-            log.info("Got text message from {}: {}", mid, text);
-            switch (text) {
+        log.info("Got text message from {}: {}", replyToken, text);
+        switch (text) {
             case "profile":
-//                UserProfileResponse userProfile = lineBotClient.getUserProfile(Collections.singletonList(mid));
-//                lineBotClient.sendText(mid, userProfile.toString());
+//                UserProfileResponse userProfile = lineBotClient.getUserProfile(Collections.singletonList(replyToken));
+//                lineBotClient.replyText(replyToken, userProfile.toString());
                 break;
             case "rich":
 //                final RichMessage richMessage =
@@ -283,26 +258,20 @@ public class KitchenSinkController {
 //                        .build();
 
 //                lineBotClient.sendRichMessage(
-//                        mid,
+//                        replyToken,
 //                        createUri("/static/rich"),
 //                        "This is alt text.",
 //                        richMessage
 //                );
                 break;
-                // TODO html messages
+            // TODO html messages
             default:
-                log.info("Returns echo message {}: {}", mid, text);
-                this.sendText(
-                        mid,
+                log.info("Returns echo message {}: {}", replyToken, text);
+                this.replyText(
+                        replyToken,
                         text
                 );
                 break;
-            }
-        } catch (LineBotAPIException e) {
-            log.error("LINE server returns '{}'(mid: '{}', text: '{}')",
-                      e.getMessage(),
-                      mid,
-                      text, e);
         }
     }
 

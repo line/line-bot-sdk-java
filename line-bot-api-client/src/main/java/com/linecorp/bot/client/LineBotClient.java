@@ -38,8 +38,13 @@ public interface LineBotClient {
      *
      * @return API response bean.
      */
-    BotApiResponse reply(List<String> to, List<Message> messages)
+    BotApiResponse reply(String replyToken, List<Message> messages)
             throws LineBotAPIException;
+
+    default BotApiResponse reply(String replyToken, Message messages)
+            throws LineBotAPIException {
+        return reply(replyToken, Collections.singletonList(messages));
+    }
 
     BotApiResponse push(List<String> to, List<Message> messages)
             throws LineBotAPIException;

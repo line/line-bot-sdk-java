@@ -48,6 +48,7 @@ import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
 import com.linecorp.bot.client.exception.LineBotAPISignatureException;
 import com.linecorp.bot.client.exception.LineBotServerErrorStatusException;
 import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -114,26 +115,20 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
-    public BotApiResponse reply(List<String> to, List<Message> messages)
+    public BotApiResponse reply(String replyToken, List<Message> messages)
             throws LineBotAPIException {
-        // TODO implement this
-        throw new RuntimeException("Not implemented yet");
-//        if (eventRequest.getTo().size() > 150) {
-//            throw new LineBotAPITooManyTargetUsersException(eventRequest);
-//        }
-//
-//        String uriString = apiEndPoint + "/v1/events";
-//        try {
-//            HttpPost httpPost = new HttpPost(uriString);
-//            String json = this.objectMapper.writeValueAsString(eventRequest);
-//            log.info("Sending message to {}: {}", uriString, json);
-//            httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
-//            httpPost.setEntity(new ByteArrayEntity(json.getBytes(StandardCharsets.UTF_8)));
-//            throw new RuntimeException("Not implemented");
-////            return request(httpPost);
-//        } catch (JsonProcessingException e) {
-//            throw new LineBotAPIJsonProcessingException(e);
-//        }
+        String uriString = apiEndPoint + "/v2/bot/message/reply";
+        ReplyMessage pushMessage = new ReplyMessage(replyToken, messages);
+        try {
+            HttpPost httpPost = new HttpPost(uriString);
+            String json = this.objectMapper.writeValueAsString(pushMessage);
+            log.info("Sending message to {}: {}", uriString, json);
+            httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
+            httpPost.setEntity(new ByteArrayEntity(json.getBytes(StandardCharsets.UTF_8)));
+            return request(httpPost);
+        } catch (JsonProcessingException e) {
+            throw new LineBotAPIJsonProcessingException(e);
+        }
     }
 
     @Override
