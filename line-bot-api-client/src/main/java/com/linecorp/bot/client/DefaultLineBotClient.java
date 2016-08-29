@@ -22,9 +22,7 @@ import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -48,11 +46,7 @@ import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.exception.LineBotAPIIOException;
 import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
 import com.linecorp.bot.client.exception.LineBotAPISignatureException;
-import com.linecorp.bot.client.exception.LineBotAPITooManyTargetUsersException;
 import com.linecorp.bot.client.exception.LineBotServerErrorStatusException;
-import com.linecorp.bot.model.deprecated.event.EventRequest;
-import com.linecorp.bot.model.deprecated.event.EventResponse;
-import com.linecorp.bot.model.deprecated.profile.UserProfileResponse;
 import com.linecorp.bot.model.v2.PushMessage;
 import com.linecorp.bot.model.v2.event.CallbackRequest;
 import com.linecorp.bot.model.v2.message.Message;
@@ -120,24 +114,26 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
-    public EventResponse reply(EventRequest eventRequest)
+    public BotApiResponse reply(List<String> to, List<Message> messages)
             throws LineBotAPIException {
-        if (eventRequest.getTo().size() > 150) {
-            throw new LineBotAPITooManyTargetUsersException(eventRequest);
-        }
-
-        String uriString = apiEndPoint + "/v1/events";
-        try {
-            HttpPost httpPost = new HttpPost(uriString);
-            String json = this.objectMapper.writeValueAsString(eventRequest);
-            log.info("Sending message to {}: {}", uriString, json);
-            httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
-            httpPost.setEntity(new ByteArrayEntity(json.getBytes(StandardCharsets.UTF_8)));
-            throw new RuntimeException("Not implemented");
-//            return request(httpPost);
-        } catch (JsonProcessingException e) {
-            throw new LineBotAPIJsonProcessingException(e);
-        }
+        // TODO implement this
+        throw new RuntimeException("Not implemented yet");
+//        if (eventRequest.getTo().size() > 150) {
+//            throw new LineBotAPITooManyTargetUsersException(eventRequest);
+//        }
+//
+//        String uriString = apiEndPoint + "/v1/events";
+//        try {
+//            HttpPost httpPost = new HttpPost(uriString);
+//            String json = this.objectMapper.writeValueAsString(eventRequest);
+//            log.info("Sending message to {}: {}", uriString, json);
+//            httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
+//            httpPost.setEntity(new ByteArrayEntity(json.getBytes(StandardCharsets.UTF_8)));
+//            throw new RuntimeException("Not implemented");
+////            return request(httpPost);
+//        } catch (JsonProcessingException e) {
+//            throw new LineBotAPIJsonProcessingException(e);
+//        }
     }
 
     @Override
@@ -214,25 +210,26 @@ public class DefaultLineBotClient implements LineBotClient {
         }
     }
 
-    @Override
-    public UserProfileResponse getUserProfile(Collection<String> mids) throws LineBotAPIException {
-        String uriString = this.apiEndPoint + "/v1/profiles?mids=" + mids.stream().collect(
-                Collectors.joining(","));
-
-        HttpGet httpRequest = new HttpGet(uriString);
-        try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
-            this.addHeaders(httpRequest);
-
-            try (CloseableHttpResponse response = httpClient.execute(httpRequest)) {
-                validateStatusCode(response);
-
-                return this.objectMapper.readValue(response.getEntity().getContent(),
-                                                   UserProfileResponse.class);
-            }
-        } catch (IOException e) {
-            throw new LineBotAPIIOException(e);
-        }
-    }
+    // TODO implement user profile
+//    @Override
+//    public UserProfileResponse getUserProfile(Collection<String> mids) throws LineBotAPIException {
+//        String uriString = this.apiEndPoint + "/v1/profiles?mids=" + mids.stream().collect(
+//                Collectors.joining(","));
+//
+//        HttpGet httpRequest = new HttpGet(uriString);
+//        try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
+//            this.addHeaders(httpRequest);
+//
+//            try (CloseableHttpResponse response = httpClient.execute(httpRequest)) {
+//                validateStatusCode(response);
+//
+//                return this.objectMapper.readValue(response.getEntity().getContent(),
+//                                                   UserProfileResponse.class);
+//            }
+//        } catch (IOException e) {
+//            throw new LineBotAPIIOException(e);
+//        }
+//    }
 
     @Override
     public boolean validateSignature(@NonNull String jsonText, @NonNull String headerSignature)

@@ -21,7 +21,6 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,15 +33,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.linecorp.bot.client.CloseableMessageContent;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.client.rich.SimpleRichMessageBuilder;
-import com.linecorp.bot.model.deprecated.content.AddedAsFriendOperation;
-import com.linecorp.bot.model.deprecated.content.AudioContent;
-import com.linecorp.bot.model.deprecated.content.BlockedOperation;
-import com.linecorp.bot.model.deprecated.content.ImageContent;
-import com.linecorp.bot.model.deprecated.content.VideoContent;
-import com.linecorp.bot.model.deprecated.content.metadata.AudioContentMetadata;
-import com.linecorp.bot.model.deprecated.profile.UserProfileResponse;
-import com.linecorp.bot.model.deprecated.rich.RichMessage;
 import com.linecorp.bot.model.v2.event.Event;
 import com.linecorp.bot.model.v2.event.MessageEvent;
 import com.linecorp.bot.model.v2.event.UnfollowEvent;
@@ -137,17 +127,17 @@ public class KitchenSinkController {
 
     }
 
-    private void handleAddedAsFriend(AddedAsFriendOperation content) {
-        String mid = content.getMid();
-        log.info("User added this account as a friend: {}", mid);
-        try {
-            this.sendText(mid, "Hi! I'm a bot!");
-        } catch (LineBotAPIException e) {
-            log.error("LINE server returns '{}'(mid: '{}')",
-                      e.getMessage(),
-                      mid, e);
-        }
-    }
+//    private void handleAddedAsFriend(AddedAsFriendOperation content) {
+//        String mid = content.getMid();
+//        log.info("User added this account as a friend: {}", mid);
+//        try {
+//            this.sendText(mid, "Hi! I'm a bot!");
+//        } catch (LineBotAPIException e) {
+//            log.error("LINE server returns '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      mid, e);
+//        }
+//    }
 
     private void sendText(@NonNull String mid, @NonNull String message) throws LineBotAPIException {
         if (mid.isEmpty()) {
@@ -160,79 +150,79 @@ public class KitchenSinkController {
         log.info("Sent messages: {}", apiResponse);
     }
 
-    private void handleBlocked(BlockedOperation content) {
-        String mid = content.getMid();
-        log.info("User blocked this account: {}", mid);
-    }
-
-    private void handleVideo(VideoContent content) {
-        String mid = content.getFrom();
-        String messageId = content.getId();
-        try {
-            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
-                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
-                         messageId)
-            ) {
-                String path = saveContent("video", messageContent);
-                String previewPath = saveContent("video-preview", previewMessageContent);
-
-                // FIXME
-//                lineBotClient.sendVideo(mid, path, previewPath);
-            }
-        } catch (IOException e) {
-            log.error("Cannot save item '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
-        } catch (LineBotAPIException e) {
-            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
-        }
-    }
-
-    private void handleImage(ImageContent content) {
-        String mid = content.getFrom();
-        String messageId = content.getId();
-        try {
-            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
-                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
-                         messageId)
-            ) {
-                String path = saveContent("image", messageContent);
-                String previewPath = saveContent("image-preview", previewMessageContent);
-
-                // TODO
-//                lineBotClient.sendImage(mid, path, previewPath);
-            }
-        } catch (IOException e) {
-            log.error("Cannot save item '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
-        } catch (LineBotAPIException e) {
-            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
-        }
-    }
-
-    private void handleAudio(AudioContent content) {
-        String mid = content.getFrom();
-        AudioContentMetadata contentMetadata = content.getContentMetadata();
-        String messageId = content.getId();
-        try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId)) {
-            String path = saveContent("audio", messageContent);
-            // TODO
-//            lineBotClient.sendAudio(mid, path, contentMetadata.getAudlen());
-        } catch (IOException e) {
-            log.error("Cannot save image '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
-        } catch (LineBotAPIException e) {
-            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
-        }
-    }
+//    private void handleBlocked(BlockedOperation content) {
+//        String mid = content.getMid();
+//        log.info("User blocked this account: {}", mid);
+//    }
+//
+//    private void handleVideo(VideoContent content) {
+//        String mid = content.getFrom();
+//        String messageId = content.getId();
+//        try {
+//            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
+//                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
+//                         messageId)
+//            ) {
+//                String path = saveContent("video", messageContent);
+//                String previewPath = saveContent("video-preview", previewMessageContent);
+//
+//                // FIXME
+////                lineBotClient.sendVideo(mid, path, previewPath);
+//            }
+//        } catch (IOException e) {
+//            log.error("Cannot save item '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      messageId, e);
+//        } catch (LineBotAPIException e) {
+//            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      messageId, e);
+//        }
+//    }
+//
+//    private void handleImage(ImageContent content) {
+//        String mid = content.getFrom();
+//        String messageId = content.getId();
+//        try {
+//            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
+//                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
+//                         messageId)
+//            ) {
+//                String path = saveContent("image", messageContent);
+//                String previewPath = saveContent("image-preview", previewMessageContent);
+//
+//                // TODO
+////                lineBotClient.sendImage(mid, path, previewPath);
+//            }
+//        } catch (IOException e) {
+//            log.error("Cannot save item '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      messageId, e);
+//        } catch (LineBotAPIException e) {
+//            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      messageId, e);
+//        }
+//    }
+//
+//    private void handleAudio(AudioContent content) {
+//        String mid = content.getFrom();
+//        AudioContentMetadata contentMetadata = content.getContentMetadata();
+//        String messageId = content.getId();
+//        try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId)) {
+//            String path = saveContent("audio", messageContent);
+//            // TODO
+////            lineBotClient.sendAudio(mid, path, contentMetadata.getAudlen());
+//        } catch (IOException e) {
+//            log.error("Cannot save image '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      messageId, e);
+//        } catch (LineBotAPIException e) {
+//            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      messageId, e);
+//        }
+//    }
 
     private void handleContact(@NonNull String mid, @NonNull ContactMessageContent content) {
         try {
@@ -267,17 +257,17 @@ public class KitchenSinkController {
             log.info("Got text message from {}: {}", mid, text);
             switch (text) {
             case "profile":
-                UserProfileResponse userProfile = lineBotClient.getUserProfile(Collections.singletonList(mid));
+//                UserProfileResponse userProfile = lineBotClient.getUserProfile(Collections.singletonList(mid));
 //                lineBotClient.sendText(mid, userProfile.toString());
                 break;
             case "rich":
-                final RichMessage richMessage =
-                        SimpleRichMessageBuilder.create(1040, 1040)
-                        .addWebAction(0, 0, 520, 520, "manga", "https://store.line.me/family/manga/en")
-                        .addWebAction(520, 0, 520, 520, "music", "https://store.line.me/family/music/en")
-                        .addWebAction(0, 520, 520, 520, "play", "https://store.line.me/family/play/en")
-                        .addWebAction(520, 520, 520, 520, "fortune", "https://store.line.me/family/uranai/en")
-                        .build();
+//                final RichMessage richMessage =
+//                        SimpleRichMessageBuilder.create(1040, 1040)
+//                        .addWebAction(0, 0, 520, 520, "manga", "https://store.line.me/family/manga/en")
+//                        .addWebAction(520, 0, 520, 520, "music", "https://store.line.me/family/music/en")
+//                        .addWebAction(0, 520, 520, 520, "play", "https://store.line.me/family/play/en")
+//                        .addWebAction(520, 520, 520, 520, "fortune", "https://store.line.me/family/uranai/en")
+//                        .build();
 
 //                lineBotClient.sendRichMessage(
 //                        mid,

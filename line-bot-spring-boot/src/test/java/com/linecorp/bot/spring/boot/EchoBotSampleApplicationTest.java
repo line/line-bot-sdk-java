@@ -47,10 +47,11 @@ import org.springframework.web.context.WebApplicationContext;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.LineBotClientBuilder;
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.model.deprecated.callback.Event;
-import com.linecorp.bot.model.deprecated.content.AddedAsFriendOperation;
-import com.linecorp.bot.model.deprecated.content.Content;
-import com.linecorp.bot.model.deprecated.content.TextContent;
+import com.linecorp.bot.model.v2.event.Event;
+import com.linecorp.bot.model.v2.event.MessageEvent;
+import com.linecorp.bot.model.v2.event.message.MessageContent;
+import com.linecorp.bot.model.v2.event.message.TextMessageContent;
+import com.linecorp.bot.model.v2.event.source.GroupSource;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.NonNull;
@@ -88,16 +89,19 @@ public class EchoBotSampleApplicationTest {
         }
 
         private void handleEvent(Event event) throws LineBotAPIException {
-            Content content = event.getContent();
-            if (content instanceof TextContent) {
-                String mid = ((TextContent) content).getFrom();
-                String text = ((TextContent) content).getText();
-                // FIXME
+            if (event instanceof MessageEvent) {
+                MessageContent content = ((MessageEvent) event).getMessage();
+                String mid = event.getSource() instanceof GroupSource ?
+                             ((GroupSource) event.getSource()).getGroupId() : event.getSource().getUserId();
+                if (content instanceof TextMessageContent) {
+                    ((TextMessageContent) content).getText();
+                    // FIXME
 //                lineBotClient.sendText(mid, text);
-            } else if (content instanceof AddedAsFriendOperation){
-                String mid = ((AddedAsFriendOperation) content).getMid();
-                String opType = ((AddedAsFriendOperation) content).getOpType().name();
-                // FIXME
+                }
+//            } else if (event instanceof AddedAsFriendOperation){
+//                String mid = ((AddedAsFriendOperation) content).getMid();
+//                String opType = ((AddedAsFriendOperation) content).getOpType().name();
+//                // FIXME
 //                lineBotClient.sendText(mid, opType);
             }
         }
