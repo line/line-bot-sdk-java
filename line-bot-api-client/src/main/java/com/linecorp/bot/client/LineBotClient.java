@@ -21,9 +21,9 @@ import java.util.List;
 
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
-import com.linecorp.bot.model.v2.event.CallbackRequest;
-import com.linecorp.bot.model.v2.message.Message;
-import com.linecorp.bot.model.v2.response.BotApiResponse;
+import com.linecorp.bot.model.event.CallbackRequest;
+import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.response.BotApiResponse;
 
 import lombok.NonNull;
 

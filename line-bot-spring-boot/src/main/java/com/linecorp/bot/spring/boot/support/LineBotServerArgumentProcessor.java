@@ -26,7 +26,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.linecorp.bot.model.v2.event.CallbackRequest;
+import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 @Component

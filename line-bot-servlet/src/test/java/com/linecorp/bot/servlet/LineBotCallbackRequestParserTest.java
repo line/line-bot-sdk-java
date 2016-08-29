@@ -43,10 +43,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.LineBotClientBuilder;
-import com.linecorp.bot.model.v2.event.CallbackRequest;
-import com.linecorp.bot.model.v2.event.Event;
-import com.linecorp.bot.model.v2.event.MessageEvent;
-import com.linecorp.bot.model.v2.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.CallbackRequest;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LineBotCallbackRequestParserTest {

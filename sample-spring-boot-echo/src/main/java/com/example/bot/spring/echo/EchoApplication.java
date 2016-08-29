@@ -27,14 +27,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.model.v2.event.Event;
-import com.linecorp.bot.model.v2.event.MessageEvent;
-import com.linecorp.bot.model.v2.event.message.MessageContent;
-import com.linecorp.bot.model.v2.event.message.TextMessageContent;
-import com.linecorp.bot.model.v2.event.source.GroupSource;
-import com.linecorp.bot.model.v2.event.source.Source;
-import com.linecorp.bot.model.v2.message.TextMessage;
-import com.linecorp.bot.model.v2.response.BotApiResponse;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.MessageContent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.Source;
+import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.extern.slf4j.Slf4j;

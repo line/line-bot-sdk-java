@@ -28,8 +28,9 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.model.v2.event.CallbackRequest;
-import com.linecorp.bot.model.v2.event.MessageEvent;
+import com.linecorp.bot.model.event.CallbackRequest;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.MessageEvent;
 
 public class CallbackRequestTest {
     @Test
@@ -40,10 +41,10 @@ public class CallbackRequestTest {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
         assertEquals(1, callbackRequest.getEvents().size());
-        com.linecorp.bot.model.v2.event.Event event = callbackRequest.getEvents().get(0);
+        Event event = callbackRequest.getEvents().get(0);
         assertThat(event).isInstanceOf(MessageEvent.class);
 
-        com.linecorp.bot.model.v2.event.MessageEvent messageEvent = (MessageEvent) event;
+        MessageEvent messageEvent = (MessageEvent) event;
         assertThat(messageEvent.getReplyToken())
                 .isEqualTo("ABCDEF-12345678901");
     }

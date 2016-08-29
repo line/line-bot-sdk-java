@@ -47,11 +47,11 @@ import org.springframework.web.context.WebApplicationContext;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.LineBotClientBuilder;
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.model.v2.event.Event;
-import com.linecorp.bot.model.v2.event.MessageEvent;
-import com.linecorp.bot.model.v2.event.message.MessageContent;
-import com.linecorp.bot.model.v2.event.message.TextMessageContent;
-import com.linecorp.bot.model.v2.event.source.GroupSource;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.MessageContent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.NonNull;
