@@ -20,14 +20,14 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class Column {
+public class CarouselColumn {
     private final String thumbnailImageUrl;
     private final String title;
     private final String text;
     private final List<Action> actions;
 
     @JsonCreator
-    public Column(
+    public CarouselColumn(
             @JsonProperty("thumbnailImageUrl") String thumbnailImageUrl,
             @JsonProperty("title") String title,
             @JsonProperty("text") String text,

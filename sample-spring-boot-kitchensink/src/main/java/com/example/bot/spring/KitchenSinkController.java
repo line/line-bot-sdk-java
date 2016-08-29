@@ -55,6 +55,8 @@ import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
+import com.linecorp.bot.model.message.template.CarouselColumn;
+import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
@@ -139,7 +141,7 @@ public class KitchenSinkController {
         this.reply(replyToken, new TextMessage(message));
     }
 
-//    private void handleVideo(VideoContent content) {
+    //    private void handleVideo(VideoContent content) {
 //        String mid = content.getFrom();
 //        String messageId = content.getId();
 //        try {
@@ -164,23 +166,23 @@ public class KitchenSinkController {
 //        }
 //    }
 //
-private void handleImage(String replyToken, ImageMessageContent content) throws LineBotAPIException {
-    String messageId = content.getId();
-    try {
-        try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
-             CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
-                     messageId)
-        ) {
-            String path = saveContent("image", messageContent);
-            String previewPath = saveContent("image-preview", previewMessageContent);
+    private void handleImage(String replyToken, ImageMessageContent content) throws LineBotAPIException {
+        String messageId = content.getId();
+        try {
+            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
+                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
+                         messageId)
+            ) {
+                String path = saveContent("image", messageContent);
+                String previewPath = saveContent("image-preview", previewMessageContent);
 
-            // TODO
+                // TODO
 //                lineBotClient.sendImage(mid, path, previewPath);
+            }
+        } catch (IOException e) {
+            log.error("Cannot save item '{}'(mid: '{}')", e.getMessage(), messageId, e);
         }
-    } catch (IOException e) {
-        log.error("Cannot save item '{}'(mid: '{}')", e.getMessage(), messageId, e);
     }
-}
 //
 //    private void handleAudio(AudioContent content) {
 //        String mid = content.getFrom();
@@ -219,7 +221,7 @@ private void handleImage(String replyToken, ImageMessageContent content) throws 
                         Collections.singletonList(replyToken));
                 this.replyText(replyToken, userProfile.toString());
                 break;
-            case "buttons":
+            case "buttons": {
                 String imageUrl = createUri("/static/buttons/1040.jpg");
                 ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
                         imageUrl,
@@ -230,7 +232,7 @@ private void handleImage(String replyToken, ImageMessageContent content) throws 
                                               "https://line.me"),
                                 new PostbackAction("Say hello1",
                                                    "hello こんにちは"),
-                                new PostbackAction("Say hello2",
+                                new PostbackAction("言 hello2",
                                                    "hello こんにちは",
                                                    "hello こんにちは"),
                                 new MessageAction("Say message",
@@ -239,6 +241,29 @@ private void handleImage(String replyToken, ImageMessageContent content) throws 
                 TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
                 this.reply(replyToken, templateMessage);
                 break;
+            }
+            case "carousel": {
+                String imageUrl = createUri("/static/buttons/1040.jpg");
+                CarouselTemplate buttonsTemplate = new CarouselTemplate(
+                        Arrays.asList(
+                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
+                                        new URIAction("Go to line.me",
+                                                      "https://line.me"),
+                                        new PostbackAction("Say hello1",
+                                                           "hello こんにちは")
+                                )),
+                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
+                                        new PostbackAction("言 hello2",
+                                                           "hello こんにちは",
+                                                           "hello こんにちは"),
+                                        new MessageAction("Say message",
+                                                          "Rice=米")
+                                ))
+                        ));
+                TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
+                this.reply(replyToken, templateMessage);
+                break;
+            }
             case "rich":
 //                final RichMessage richMessage =
 //                        SimpleRichMessageBuilder.create(1040, 1040)

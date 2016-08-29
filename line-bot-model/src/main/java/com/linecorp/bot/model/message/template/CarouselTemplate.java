@@ -19,11 +19,11 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @JsonTypeName("carousel")
-public class Carousel extends Template {
-    private final List<Column> columns;
+public class CarouselTemplate extends Template {
+    private final List<CarouselColumn> columns;
 
     @JsonCreator
-    public Carousel(@JsonProperty("columns") List<Column> columns) {
+    public CarouselTemplate(@JsonProperty("columns") List<CarouselColumn> columns) {
         this.columns = columns;
     }
 }
