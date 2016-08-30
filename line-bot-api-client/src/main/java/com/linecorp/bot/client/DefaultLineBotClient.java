@@ -180,9 +180,7 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     private void addHeaders(HttpUriRequest httpRequest) {
-//        httpRequest.setHeader(LineBotAPIHeaders.X_LINE_CHANNEL_ID, this.channelId);
         httpRequest.setHeader("X-LINE-ChannelToken", this.channelToken);
-//        httpRequest.setHeader(LineBotAPIHeaders.X_LINE_TRUSTED_USER_WITH_ACL, this.channelMid);
     }
     @Override
     public CloseableMessageContent getMessageContent(String messageId) throws LineBotAPIException {
