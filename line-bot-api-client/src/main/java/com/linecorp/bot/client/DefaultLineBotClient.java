@@ -211,8 +211,8 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
-    public UserProfileResponse getUserProfile(@NonNull Collection<String> mids) throws LineBotAPIException {
-        String uriString = this.apiEndPoint + "/v2/profiles?mids=" + mids.stream().collect(
+    public UserProfileResponse getUserProfile(@NonNull Collection<String> userIds) throws LineBotAPIException {
+        String uriString = this.apiEndPoint + "/v2/bot/profile?userId=" + userIds.stream().collect(
                 Collectors.joining(","));
 
         HttpGet httpRequest = new HttpGet(uriString);

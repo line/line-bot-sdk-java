@@ -90,7 +90,7 @@ public class KitchenSinkController {
             String replyToken = ((MessageEvent) event).getReplyToken();
             MessageContent message = ((MessageEvent) event).getMessage();
             if (message instanceof TextMessageContent) {
-                handleTextContent(replyToken, (TextMessageContent) message);
+                handleTextContent(replyToken, event, (TextMessageContent) message);
             } else if (message instanceof StickerMessageContent) {
                 handleSticker(replyToken, (StickerMessageContent) message);
             } else if (message instanceof LocationMessageContent) {
@@ -211,16 +211,23 @@ public class KitchenSinkController {
         log.info("Sent messages: {}", apiResponse);
     }
 
-    private void handleTextContent(String replyToken, TextMessageContent content) throws LineBotAPIException {
+    private void handleTextContent(String replyToken, Event event, TextMessageContent content)
+            throws LineBotAPIException {
         String text = content.getText();
 
         log.info("Got text message from {}: {}", replyToken, text);
         switch (text) {
-            case "profile":
-                UserProfileResponse userProfile = lineBotClient.getUserProfile(
-                        Collections.singletonList(replyToken));
-                this.replyText(replyToken, userProfile.toString());
-                break;
+            case "profile": {
+                String userId = event.getSource().getUserId();
+                if (userId != null) {
+                    UserProfileResponse userProfile = lineBotClient.getUserProfile(
+                            Collections.singletonList(userId));
+                    this.replyText(replyToken, userProfile.toString());
+                    break;
+                } else {
+                    this.replyText(replyToken, "Bot can't use profile API without user ID");
+                }
+            }
             case "buttons": {
                 String imageUrl = createUri("/static/buttons/1040.jpg");
                 ButtonsTemplate buttonsTemplate = new ButtonsTemplate(

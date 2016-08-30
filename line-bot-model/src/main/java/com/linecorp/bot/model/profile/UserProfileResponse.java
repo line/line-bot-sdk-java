@@ -2,6 +2,8 @@ package com.linecorp.bot.model.profile;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Value;
 
 /*
@@ -22,6 +24,12 @@ import lombok.Value;
  */
 @Value
 public class UserProfileResponse {
-    private String requestId;
-    private List<Profile> profiles;
+    private final String requestId;
+    private final List<Profile> profiles;
+
+    public UserProfileResponse(@JsonProperty("requestid") String requestId,
+                               @JsonProperty("profiles") List<Profile> profiles) {
+        this.requestId = requestId;
+        this.profiles = profiles;
+    }
 }
