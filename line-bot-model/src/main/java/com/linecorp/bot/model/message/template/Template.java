@@ -19,5 +19,5 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
         property = "type",
         visible = true
 )
-public abstract class Template {
+public interface Template {
 }
