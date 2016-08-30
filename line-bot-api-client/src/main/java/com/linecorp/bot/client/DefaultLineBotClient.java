@@ -268,14 +268,6 @@ public class DefaultLineBotClient implements LineBotClient {
 
     @Override
     public CallbackRequest readCallbackRequest(@NonNull String jsonText) throws LineBotAPIJsonProcessingException {
-        try {
-            final CallbackRequest callbackRequest = objectMapper.readValue(jsonText, CallbackRequest.class);
-            if (callbackRequest == null || callbackRequest.getEvents() == null) {
-                throw new LineBotAPIJsonProcessingException("Invalid callback request was given");
-            }
-            return callbackRequest;
-        } catch (IOException e) {
-            throw new LineBotAPIJsonProcessingException(e);
-        }
+        return readCallbackRequest(jsonText.getBytes(StandardCharsets.UTF_8));
     }
 }
