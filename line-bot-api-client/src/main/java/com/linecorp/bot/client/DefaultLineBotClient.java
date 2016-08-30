@@ -130,7 +130,7 @@ public class DefaultLineBotClient implements LineBotClient {
             log.info("Sending message to {}: {}", uriString, json);
             httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
             httpPost.setEntity(new ByteArrayEntity(json.getBytes(StandardCharsets.UTF_8)));
-            return request(httpPost);
+            return request(httpPost, BotApiResponse.class);
         } catch (JsonProcessingException e) {
             throw new LineBotAPIJsonProcessingException(e);
         }
@@ -147,13 +147,13 @@ public class DefaultLineBotClient implements LineBotClient {
             log.info("Sending push message to {}: {}", uriString, json);
             httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
             httpPost.setEntity(new ByteArrayEntity(json.getBytes(StandardCharsets.UTF_8)));
-            return request(httpPost);
+            return request(httpPost, BotApiResponse.class);
         } catch (JsonProcessingException e) {
             throw new LineBotAPIJsonProcessingException(e);
         }
     }
 
-    private BotApiResponse request(HttpUriRequest httpRequest) throws LineBotAPIException {
+    private <T> T request(HttpUriRequest httpRequest, Class<T> klass) throws LineBotAPIException {
         try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
             this.addHeaders(httpRequest);
 
@@ -161,7 +161,7 @@ public class DefaultLineBotClient implements LineBotClient {
                 // Check status code
                 validateStatusCode(response);
                 // Read response content body
-                return this.objectMapper.readValue(response.getEntity().getContent(), BotApiResponse.class);
+                return this.objectMapper.readValue(response.getEntity().getContent(), klass);
             }
         } catch (IOException e) {
             throw new LineBotAPIIOException(e);
@@ -213,25 +213,13 @@ public class DefaultLineBotClient implements LineBotClient {
         String uriString = this.apiEndPoint + "/v2/bot/profile?userId=" + userIds.stream().collect(
                 Collectors.joining(","));
 
-        HttpGet httpRequest = new HttpGet(uriString);
-        try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
-            this.addHeaders(httpRequest);
-
-            try (CloseableHttpResponse response = httpClient.execute(httpRequest)) {
-                validateStatusCode(response);
-
-                return this.objectMapper.readValue(response.getEntity().getContent(),
-                                                   UserProfileResponse.class);
-            }
-        } catch (IOException e) {
-            throw new LineBotAPIIOException(e);
-        }
+        return this.request(new HttpGet(uriString), UserProfileResponse.class);
     }
 
     @Override
     public BotApiResponse leaveGroup(@NonNull String groupId) throws LineBotAPIException {
         String uriString = this.apiEndPoint + "/v2/bot/group/" + groupId + "/leave";
-        return this.request(new HttpPost(uriString));
+        return this.request(new HttpPost(uriString), BotApiResponse.class);
     }
 
     @Override
