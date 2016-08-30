@@ -84,6 +84,8 @@ public interface LineBotClient {
      */
     UserProfileResponse getUserProfile(Collection<String> mids) throws LineBotAPIException;
 
+    BotApiResponse leaveGroup(@NonNull String groupId) throws LineBotAPIException;
+
     boolean validateSignature(@NonNull String jsonText, @NonNull String headerSignature) throws LineBotAPIException;
 
     boolean validateSignature(@NonNull byte[] jsonText, @NonNull String headerSignature) throws LineBotAPIException;

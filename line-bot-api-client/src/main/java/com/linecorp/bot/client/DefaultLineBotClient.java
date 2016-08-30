@@ -229,6 +229,24 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
+    public BotApiResponse leaveGroup(@NonNull String groupId) throws LineBotAPIException {
+        String uriString = this.apiEndPoint + "/v2/bot/group/" + groupId + "/leave";
+
+        HttpPost httpRequest = new HttpPost(uriString);
+        try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
+            this.addHeaders(httpRequest);
+
+            try (CloseableHttpResponse response = httpClient.execute(httpRequest)) {
+                validateStatusCode(response);
+                return this.objectMapper.readValue(response.getEntity().getContent(),
+                                                   BotApiResponse.class);
+            }
+        } catch (IOException e) {
+            throw new LineBotAPIIOException(e);
+        }
+    }
+
+    @Override
     public boolean validateSignature(@NonNull String jsonText, @NonNull String headerSignature)
             throws LineBotAPIException {
         return validateSignature(jsonText.getBytes(StandardCharsets.UTF_8), headerSignature);

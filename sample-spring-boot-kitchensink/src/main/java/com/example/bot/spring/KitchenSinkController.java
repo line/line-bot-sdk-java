@@ -50,6 +50,8 @@ import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
@@ -227,6 +229,16 @@ public class KitchenSinkController {
                 } else {
                     this.replyText(replyToken, "Bot can't use profile API without user ID");
                 }
+            }
+            case "bye": {
+                Source source = event.getSource();
+                if (source instanceof GroupSource) {
+                    this.replyText(replyToken, "Leaving group");
+                    lineBotClient.leaveGroup(((GroupSource) source).getGroupId());
+                } else {
+                    this.replyText(replyToken, "Bot can't leave from 1:1 chat");
+                }
+                break;
             }
             case "buttons": {
                 String imageUrl = createUri("/static/buttons/1040.jpg");
