@@ -18,7 +18,8 @@ import lombok.Getter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("postback")
 @JsonInclude(Include.NON_NULL)
-public class PostbackAction extends Action {
+public class PostbackAction implements Action {
+    private final String label;
     private final String data;
     private final String text;
 
@@ -30,7 +31,7 @@ public class PostbackAction extends Action {
             @JsonProperty("label") String label,
             @JsonProperty("data") String data,
             @JsonProperty("text") String text) {
-        super(label);
+        this.label = label;
         this.data = data;
         this.text = text;
     }

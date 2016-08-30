@@ -15,14 +15,15 @@ import lombok.Getter;
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("uri")
-public class URIAction extends Action {
+public class URIAction implements Action {
+    private final String label;
     private final String uri;
 
     @JsonCreator
     public URIAction(
             @JsonProperty("label") String label,
             @JsonProperty("uri") String uri) {
-        super(label);
+        this.label = label;
         this.uri = uri;
     }
 }

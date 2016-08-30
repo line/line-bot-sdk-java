@@ -5,12 +5,9 @@
 
 package com.linecorp.bot.model.action;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-
-import lombok.Getter;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -23,11 +20,6 @@ import lombok.Getter;
                       @JsonSubTypes.Type(URIAction.class),
                       @JsonSubTypes.Type(MessageAction.class)
               })
-public abstract class Action {
-    @Getter
-    private final String label;
-
-    protected Action(@JsonProperty("label") String label) {
-        this.label = label;
-    }
+public interface Action {
+    String getLabel();
 }

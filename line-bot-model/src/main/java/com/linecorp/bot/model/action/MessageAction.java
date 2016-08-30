@@ -15,14 +15,15 @@ import lombok.Getter;
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("message")
-public class MessageAction extends Action {
+public class MessageAction implements Action {
+    private final String label;
     private final String text;
 
     @JsonCreator
     public MessageAction(
             @JsonProperty("label") String label,
             @JsonProperty("text") String text) {
-        super(label);
+        this.label = label;
         this.text = text;
     }
 }
