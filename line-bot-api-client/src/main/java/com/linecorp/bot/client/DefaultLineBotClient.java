@@ -180,8 +180,10 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     private void addHeaders(HttpUriRequest httpRequest) {
-        httpRequest.setHeader("X-LINE-ChannelToken", this.channelToken);
+        httpRequest.setHeader("X-LINE-ChannelToken", this.channelToken); // will be deprecate
+        httpRequest.setHeader("Authorization", "Bearer " + this.channelToken);
     }
+
     @Override
     public CloseableMessageContent getMessageContent(String messageId) throws LineBotAPIException {
         String uriString = this.apiEndPoint + "/v2/bot/message/" + messageId + "/content";
