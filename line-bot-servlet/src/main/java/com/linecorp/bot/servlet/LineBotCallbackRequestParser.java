@@ -41,9 +41,9 @@ public class LineBotCallbackRequestParser {
 
     public CallbackRequest handle(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // validate signature
-        String signature = req.getHeader("X-Line-ChannelSignature");
+        String signature = req.getHeader("X-Line-Signature");
         if (signature == null || signature.length() == 0) {
-            sendError(resp, "Missing 'X-Line-ChannelSignature' header");
+            sendError(resp, "Missing 'X-Line-Signature' header");
             return null;
         }
 

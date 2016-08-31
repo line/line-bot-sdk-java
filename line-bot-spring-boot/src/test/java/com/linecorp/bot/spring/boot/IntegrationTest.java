@@ -140,7 +140,7 @@ public class IntegrationTest {
                                               .content("{}"))
                .andDo(print())
                .andExpect(status().isBadRequest())
-               .andExpect(content().string(containsString("Missing 'X-Line-ChannelSignature' header")));
+               .andExpect(content().string(containsString("Missing 'X-Line-Signature' header")));
     }
 
     @Test
@@ -155,7 +155,7 @@ public class IntegrationTest {
                 .reply(anyString(), any(Message.class));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/callback")
-                                              .header("X-Line-ChannelSignature", signature)
+                                              .header("X-Line-Signature", signature)
                                               .content(json))
                .andDo(print())
                .andExpect(status().isOk());

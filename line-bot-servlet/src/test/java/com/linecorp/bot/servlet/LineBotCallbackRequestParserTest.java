@@ -73,13 +73,13 @@ public class LineBotCallbackRequestParserTest {
         );
 
         verify(response).sendError(HttpServletResponse.SC_BAD_REQUEST,
-                                   "Missing 'X-Line-ChannelSignature' header");
+                                   "Missing 'X-Line-Signature' header");
     }
 
     @Test
     public void testInvalidSignature() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader("X-Line-ChannelSignature", "SSSSIGNATURE");
+        request.addHeader("X-Line-Signature", "SSSSIGNATURE");
         request.setContent("{}".getBytes(StandardCharsets.UTF_8));
         lineBotCallbackRequestParser.handle(
                 request,
@@ -95,7 +95,7 @@ public class LineBotCallbackRequestParserTest {
         final byte[] requestBody = "null".getBytes(StandardCharsets.UTF_8);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader("X-Line-ChannelSignature", "SSSSIGNATURE");
+        request.addHeader("X-Line-Signature", "SSSSIGNATURE");
         request.setContent(requestBody);
 
         doReturn(true).when(lineBotClient).validateSignature(requestBody, "SSSSIGNATURE");
@@ -115,7 +115,7 @@ public class LineBotCallbackRequestParserTest {
         byte[] requestBody = IOUtils.toByteArray(resource);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader("X-Line-ChannelSignature", "SSSSIGNATURE");
+        request.addHeader("X-Line-Signature", "SSSSIGNATURE");
         request.setContent(requestBody);
 
         doReturn(true).when(lineBotClient).validateSignature(requestBody, "SSSSIGNATURE");
