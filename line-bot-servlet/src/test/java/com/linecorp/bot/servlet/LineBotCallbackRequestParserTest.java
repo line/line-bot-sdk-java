@@ -129,9 +129,9 @@ public class LineBotCallbackRequestParserTest {
         final List<Event> result = callbackRequest.getEvents();
 
         final TextMessageContent text = (TextMessageContent) ((MessageEvent) result.get(0)).getMessage();
-        assertEquals(text.getText(), "Hello, world");
+        assertEquals("Hello, world", text.getText());
 
         final String followedUserId = result.get(0).getSource().getUserId();
-        assertEquals(followedUserId, "u206d25c2ea6bd87c17655609a1c37cb8");
+        assertEquals("u206d25c2ea6bd87c17655609a1c37cb8", followedUserId);
     }
 }
