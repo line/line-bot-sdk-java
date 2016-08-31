@@ -14,15 +14,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.action.Action;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 @JsonTypeName("buttons")
-public class ButtonsTemplate extends Template {
+public class ButtonsTemplate implements Template {
     private final String thumbnailImageUrl;
     private final String title;
     private final String text;
