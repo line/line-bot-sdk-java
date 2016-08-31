@@ -28,7 +28,6 @@ public class SignatureValidationTest {
         String httpRequestBody = "{}";
         String headerSignature = computeSignature(httpRequestBody);
 
-        assertThat(client.validateSignature(httpRequestBody, headerSignature), is(true));
         assertThat(client.validateSignature(httpRequestBody.getBytes(charset), headerSignature), is(true));
     }
 
@@ -41,7 +40,6 @@ public class SignatureValidationTest {
 
         String alteredRequestBody = "{altered}";
 
-        assertThat(client.validateSignature(alteredRequestBody, headerSignature), is(false));
         assertThat(client.validateSignature(alteredRequestBody.getBytes(charset), headerSignature), is(false));
     }
 
