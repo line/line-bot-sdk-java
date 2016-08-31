@@ -8,6 +8,6 @@ import lombok.Value;
 
 @Value
 public class PushMessage {
-    private List<String> to;
+    private String to;
     private List<Message> messages;
 }

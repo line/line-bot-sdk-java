@@ -12,9 +12,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import lombok.Getter;
+import lombok.Value;
 
-@Getter
+@Value
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("postback")
 @JsonInclude(Include.NON_NULL)
