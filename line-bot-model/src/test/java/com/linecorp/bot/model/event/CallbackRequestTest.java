@@ -20,11 +20,11 @@ import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.UserSource;
 
-interface RequestTester {
-    void call(CallbackRequest request) throws IOException;
-}
-
 public class CallbackRequestTest {
+    interface RequestTester {
+        void call(CallbackRequest request) throws IOException;
+    }
+
     private void parse(String resourceName, RequestTester callback) throws IOException {
         try (InputStream resource = getClass().getClassLoader().getResourceAsStream(resourceName)) {
             String json = IOUtils.toString(resource);
