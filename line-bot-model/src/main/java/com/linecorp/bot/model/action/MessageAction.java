@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import lombok.Getter;
 import lombok.Value;
 
 @Value
+@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("message")
 public class MessageAction implements Action {
