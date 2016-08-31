@@ -123,10 +123,10 @@ public class DefaultLineBotClient implements LineBotClient {
     public BotApiResponse reply(String replyToken, List<Message> messages)
             throws LineBotAPIException {
         String uriString = apiEndPoint + "/v2/bot/message/reply";
-        ReplyMessage pushMessage = new ReplyMessage(replyToken, messages);
+        ReplyMessage replyMessage = new ReplyMessage(replyToken, messages);
         try {
             HttpPost httpPost = new HttpPost(uriString);
-            String json = this.objectMapper.writeValueAsString(pushMessage);
+            String json = this.objectMapper.writeValueAsString(replyMessage);
             log.info("Sending message to {}: {}", uriString, json);
             httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
             httpPost.setEntity(new ByteArrayEntity(json.getBytes(StandardCharsets.UTF_8)));
