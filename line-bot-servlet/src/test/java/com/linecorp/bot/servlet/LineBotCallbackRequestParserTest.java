@@ -16,8 +16,7 @@
 
 package com.linecorp.bot.servlet;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -80,7 +79,7 @@ public class LineBotCallbackRequestParserTest {
     @Test
     public void testInvalidSignature() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader("X-Line-Channel-Signature", "SSSSIGNATURE");
+        request.addHeader("X-Line-ChannelSignature", "SSSSIGNATURE");
         request.setContent("{}".getBytes(StandardCharsets.UTF_8));
         lineBotCallbackRequestParser.handle(
                 request,
@@ -96,7 +95,7 @@ public class LineBotCallbackRequestParserTest {
         final byte[] requestBody = "null".getBytes(StandardCharsets.UTF_8);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader("X-Line-Channel-Signature", "SSSSIGNATURE");
+        request.addHeader("X-Line-ChannelSignature", "SSSSIGNATURE");
         request.setContent(requestBody);
 
         doReturn(true).when(lineBotClient).validateSignature(requestBody, "SSSSIGNATURE");
@@ -116,7 +115,7 @@ public class LineBotCallbackRequestParserTest {
         byte[] requestBody = IOUtils.toByteArray(resource);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader("X-Line-Channel-Signature", "SSSSIGNATURE");
+        request.addHeader("X-Line-ChannelSignature", "SSSSIGNATURE");
         request.setContent(requestBody);
 
         doReturn(true).when(lineBotClient).validateSignature(requestBody, "SSSSIGNATURE");
@@ -130,9 +129,9 @@ public class LineBotCallbackRequestParserTest {
         final List<Event> result = callbackRequest.getEvents();
 
         final TextMessageContent text = (TextMessageContent) ((MessageEvent) result.get(0)).getMessage();
-        assertThat(text.getText(), is("Hello, BOT API Server!"));
+        assertEquals(text.getText(), "Hello, world");
 
-//        final AddedAsFriendOperation addFriend = (AddedAsFriendOperation) result.get(1).getContent();
-//        assertThat(addFriend.getMid(), is("u464471c59f5eefe815a19be11f210147"));
+        final String followedUserId = result.get(0).getSource().getUserId();
+        assertEquals(followedUserId, "u206d25c2ea6bd87c17655609a1c37cb8");
     }
 }
