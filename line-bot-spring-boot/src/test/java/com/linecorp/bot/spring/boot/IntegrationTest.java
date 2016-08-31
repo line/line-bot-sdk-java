@@ -17,6 +17,10 @@
 package com.linecorp.bot.spring.boot;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,12 +39,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -48,29 +52,37 @@ import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.LineBotClientBuilder;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
-import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.spring.boot.IntegrationTest.Configuration;
+import com.linecorp.bot.spring.boot.IntegrationTest.MyController;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-@SpringBootApplication
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = EchoBotSampleApplicationTest.class)
+// integration test
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = { IntegrationTest.class, Configuration.class, MyController.class })
 @WebAppConfiguration
-public class EchoBotSampleApplicationTest {
+@SpringBootApplication
+public class IntegrationTest {
 
     static {
-        System.setProperty("line.bot.channelId", "4649");
-        System.setProperty("line.bot.channelMid", "uXXXXX");
-        System.setProperty("line.bot.channelSecret", "SEEECRET");
+        System.setProperty("line.bot.channelSecret", "SECRET");
+        System.setProperty("line.bot.channelToken", "TOKEN");
     }
 
     @Autowired
     private WebApplicationContext wac;
+    @Autowired
+    private LineBotClient lineBotClient;
+
     private MockMvc mockMvc;
 
     @RestController
@@ -79,7 +91,7 @@ public class EchoBotSampleApplicationTest {
         @Autowired
         private LineBotClient lineBotClient;
 
-        @RequestMapping("/callback")
+        @PostMapping("/callback")
         public void callback(@NonNull @LineBotMessages List<Event> events) throws IOException, LineBotAPIException {
             log.info("Got request: {}", events);
 
@@ -91,25 +103,23 @@ public class EchoBotSampleApplicationTest {
         private void handleEvent(Event event) throws LineBotAPIException {
             if (event instanceof MessageEvent) {
                 MessageContent content = ((MessageEvent) event).getMessage();
-                String mid = event.getSource() instanceof GroupSource ?
-                             ((GroupSource) event.getSource()).getGroupId() : event.getSource().getUserId();
                 if (content instanceof TextMessageContent) {
-                    ((TextMessageContent) content).getText();
-                    // FIXME
-//                lineBotClient.sendText(mid, text);
+                    String text = ((TextMessageContent) content).getText();
+                    lineBotClient.reply(((MessageEvent) event).getReplyToken(), new TextMessage(text));
                 }
-//            } else if (event instanceof AddedAsFriendOperation){
-//                String mid = ((AddedAsFriendOperation) content).getMid();
-//                String opType = ((AddedAsFriendOperation) content).getOpType().name();
-//                // FIXME
-//                lineBotClient.sendText(mid, opType);
+            } else if (event instanceof FollowEvent) {
+                lineBotClient.reply(((FollowEvent) event).getReplyToken(), new TextMessage("follow"));
             }
         }
     }
 
-    @Autowired
-    private LineBotClient lineBotClient;
+    @Before
+    public void before() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac)
+                                      .build();
+    }
 
+    @org.springframework.context.annotation.Configuration
     public static class Configuration {
         @Spy
         private LineBotClient lineBotClient = LineBotClientBuilder.create("SECRET", "TOKEN").build();
@@ -124,12 +134,6 @@ public class EchoBotSampleApplicationTest {
         }
     }
 
-    @Before
-    public void before() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac)
-                                      .build();
-    }
-
     @Test
     public void missingSignatureTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/callback")
@@ -141,13 +145,14 @@ public class EchoBotSampleApplicationTest {
 
     @Test
     public void validCallbackTest() throws Exception {
-        String signature = "DN5ox73JKmJcACvebmgDFgzQ9b7FLSODp2NC+HEnvLc=";
+        String signature = "ECezgIpQNUEp4OSHYd7xGSuFG7e66MLPkCkK1Y28XTU=";
 
         InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
         byte[] json = IOUtils.toByteArray(resource);
 
-        // FIXME
-//        doNothing().when(lineBotClient).sendText(anyString(), anyString());
+        doReturn(new BotApiResponse("hogehoge", null, null))
+                .when(lineBotClient)
+                .reply(anyString(), any(Message.class));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/callback")
                                               .header("X-Line-ChannelSignature", signature)
@@ -155,7 +160,9 @@ public class EchoBotSampleApplicationTest {
                .andDo(print())
                .andExpect(status().isOk());
 
-//        verify(lineBotClient).sendText("uff2aec188e58752ee1fb0f9507c6529a", "Hello, BOT API Server!");
-//        verify(lineBotClient).sendText("u464471c59f5eefe815a19be11f210147", "ADDED_AS_FRIEND");
+        verify(lineBotClient).reply("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+                                    new TextMessage("Hello, world"));
+        verify(lineBotClient).reply("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+                                    new TextMessage("follow"));
     }
 }

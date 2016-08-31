@@ -43,9 +43,9 @@ public interface LineBotClient {
     BotApiResponse reply(String replyToken, List<Message> messages)
             throws LineBotAPIException;
 
-    default BotApiResponse reply(String replyToken, Message messages)
+    default BotApiResponse reply(String replyToken, @NonNull Message message)
             throws LineBotAPIException {
-        return reply(replyToken, Collections.singletonList(messages));
+        return reply(replyToken, Collections.singletonList(message));
     }
 
     BotApiResponse push(List<String> to, List<Message> messages)
@@ -86,8 +86,6 @@ public interface LineBotClient {
 
     BotApiResponse leaveGroup(@NonNull String groupId) throws LineBotAPIException;
 
-    boolean validateSignature(@NonNull String jsonText, @NonNull String headerSignature) throws LineBotAPIException;
-
     boolean validateSignature(@NonNull byte[] jsonText, @NonNull String headerSignature) throws LineBotAPIException;
 
     byte[] createSignature(@NonNull byte[] jsonText) throws LineBotAPIException;
@@ -99,13 +97,5 @@ public interface LineBotClient {
      * @return parsed {@link CallbackRequest} object.
      */
     CallbackRequest readCallbackRequest(@NonNull byte[] jsonText) throws LineBotAPIJsonProcessingException;
-
-    /**
-     * Reads {@link CallbackRequest} from the given json.
-     *
-     * @param jsonText The text to be parsed.
-     * @return parsed {@link CallbackRequest} object.
-     */
-    CallbackRequest readCallbackRequest(@NonNull String jsonText) throws LineBotAPIJsonProcessingException;
 
 }

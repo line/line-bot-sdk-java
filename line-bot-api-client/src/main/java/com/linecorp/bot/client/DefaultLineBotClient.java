@@ -223,12 +223,6 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
-    public boolean validateSignature(@NonNull String jsonText, @NonNull String headerSignature)
-            throws LineBotAPIException {
-        return validateSignature(jsonText.getBytes(StandardCharsets.UTF_8), headerSignature);
-    }
-
-    @Override
     public boolean validateSignature(@NonNull byte[] jsonText, @NonNull String headerSignature)
             throws LineBotAPIException {
         final byte[] signature = createSignature(jsonText);
@@ -260,8 +254,4 @@ public class DefaultLineBotClient implements LineBotClient {
         }
     }
 
-    @Override
-    public CallbackRequest readCallbackRequest(@NonNull String jsonText) throws LineBotAPIJsonProcessingException {
-        return readCallbackRequest(jsonText.getBytes(StandardCharsets.UTF_8));
-    }
 }
