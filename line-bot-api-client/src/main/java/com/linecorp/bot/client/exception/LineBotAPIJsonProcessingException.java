@@ -22,8 +22,4 @@ public class LineBotAPIJsonProcessingException extends LineBotAPIException {
         super(e);
     }
 
-    public LineBotAPIJsonProcessingException(String message) {
-        super(message);
-    }
-
 }
