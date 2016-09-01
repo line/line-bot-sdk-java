@@ -16,6 +16,10 @@
 
 package com.linecorp.bot.spring.boot;
 
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.LineBotClientBuilder;
+import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
 import com.linecorp.bot.spring.boot.interceptor.LineBotServerInterceptor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
@@ -57,7 +62,6 @@ public class LineBotAutoConfiguration {
 
         return LineBotClientBuilder
                 .create(
-                        lineBotProperties.getChannelSecret(),
                         lineBotProperties.getChannelToken()
                 )
                 .apiEndPoint(lineBotProperties.getApiEndPoint())
@@ -79,7 +83,17 @@ public class LineBotAutoConfiguration {
 
     @Bean
     @ConditionalOnWebApplication
-    public LineBotCallbackRequestParser lineBotCallbackServletUtils(LineBotClient lineBotClient) {
-        return new LineBotCallbackRequestParser(lineBotClient);
+    public LineSignatureValidator lineSignatureValidator()
+            throws InvalidKeyException, NoSuchAlgorithmException {
+        return new LineSignatureValidator(
+                lineBotProperties.getChannelSecret().getBytes(StandardCharsets.US_ASCII));
+    }
+
+    @Bean
+    @ConditionalOnWebApplication
+    public LineBotCallbackRequestParser lineBotCallbackServletUtils(
+            LineBotClient lineBotClient,
+            LineSignatureValidator lineSignatureValidator) {
+        return new LineBotCallbackRequestParser(lineBotClient, lineSignatureValidator);
     }
 }

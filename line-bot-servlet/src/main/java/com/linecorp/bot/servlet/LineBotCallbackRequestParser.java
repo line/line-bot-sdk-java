@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 
 import com.linecorp.bot.client.LineBotClient;
+import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
 import com.linecorp.bot.model.event.CallbackRequest;
@@ -34,9 +35,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LineBotCallbackRequestParser {
     private final LineBotClient lineBotClient;
+    private final LineSignatureValidator lineSignatureValidator;
 
-    public LineBotCallbackRequestParser(LineBotClient lineBotClient) {
+    public LineBotCallbackRequestParser(LineBotClient lineBotClient,
+                                        LineSignatureValidator lineSignatureValidator) {
         this.lineBotClient = lineBotClient;
+        this.lineSignatureValidator = lineSignatureValidator;
     }
 
     public CallbackRequest handle(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -53,7 +57,7 @@ public class LineBotCallbackRequestParser {
         }
 
         try {
-            if (!lineBotClient.validateSignature(json, signature)) {
+            if (!lineSignatureValidator.validateSignature(json, signature)) {
                 sendError(resp, "Invalid API signature");
                 return null;
             }

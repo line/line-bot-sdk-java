@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +44,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.LineBotClientBuilder;
+import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -53,15 +56,22 @@ public class LineBotCallbackRequestParserTest {
     private HttpServletResponse response;
 
     @Spy
-    private LineBotClient lineBotClient = LineBotClientBuilder.create("SECRET", "TOKEN").build();
+    private LineBotClient lineBotClient = LineBotClientBuilder.create("TOKEN").build();
+    @Spy
+    private LineSignatureValidator lineSignatureValidator = new LineSignatureValidator(
+            "SECRET".getBytes(StandardCharsets.UTF_8));
 
     private LineBotCallbackRequestParser lineBotCallbackRequestParser;
+
+    public LineBotCallbackRequestParserTest() throws InvalidKeyException, NoSuchAlgorithmException {
+    }
 
     @Before
     public void before() throws IOException {
         when(response.getWriter())
                 .thenReturn(mock(PrintWriter.class));
-        this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(lineBotClient);
+        this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(lineBotClient,
+                                                                             lineSignatureValidator);
     }
 
     @Test
@@ -98,7 +108,7 @@ public class LineBotCallbackRequestParserTest {
         request.addHeader("X-Line-Signature", "SSSSIGNATURE");
         request.setContent(requestBody);
 
-        doReturn(true).when(lineBotClient).validateSignature(requestBody, "SSSSIGNATURE");
+        doReturn(true).when(lineSignatureValidator).validateSignature(requestBody, "SSSSIGNATURE");
 
         lineBotCallbackRequestParser.handle(
                 request,
@@ -118,7 +128,7 @@ public class LineBotCallbackRequestParserTest {
         request.addHeader("X-Line-Signature", "SSSSIGNATURE");
         request.setContent(requestBody);
 
-        doReturn(true).when(lineBotClient).validateSignature(requestBody, "SSSSIGNATURE");
+        doReturn(true).when(lineSignatureValidator).validateSignature(requestBody, "SSSSIGNATURE");
 
         CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(
                 request,

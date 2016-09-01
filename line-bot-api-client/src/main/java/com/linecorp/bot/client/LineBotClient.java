@@ -88,10 +88,6 @@ public interface LineBotClient {
 
     BotApiResponse leaveRoom(@NonNull String roomId) throws LineBotAPIException;
 
-    boolean validateSignature(@NonNull byte[] jsonText, @NonNull String headerSignature) throws LineBotAPIException;
-
-    byte[] createSignature(@NonNull byte[] jsonText) throws LineBotAPIException;
-
     /**
      * Reads {@link CallbackRequest} from the given json.
      *
