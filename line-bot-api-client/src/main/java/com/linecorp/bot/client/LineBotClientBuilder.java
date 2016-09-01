@@ -36,11 +36,10 @@ public final class LineBotClientBuilder {
     /**
      * Create a new {@link LineBotClientBuilder} with specified channel information.
      */
-    public static LineBotClientBuilder create(String channelSecret, String channelToken) {
-        return new LineBotClientBuilder(channelSecret, channelToken);
+    public static LineBotClientBuilder create(String channelToken) {
+        return new LineBotClientBuilder(channelToken);
     }
 
-    private final String channelSecret;
     private final String channelToken;
 
     private String apiEndPoint = DefaultLineBotClient.DEFAULT_API_END_POINT;
@@ -48,10 +47,8 @@ public final class LineBotClientBuilder {
     private HttpClientBuilder httpClientBuilder;
 
     private LineBotClientBuilder(
-            @NonNull String channelSecret,
             @NonNull String channelToken
     ) {
-        this.channelSecret = channelSecret;
         this.channelToken = channelToken;
     }
 
@@ -76,7 +73,6 @@ public final class LineBotClientBuilder {
      */
     public LineBotClient build() {
         return new DefaultLineBotClient(
-                channelSecret,
                 channelToken,
                 apiEndPoint,
                 httpClientBuilder

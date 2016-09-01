@@ -18,16 +18,9 @@ package com.linecorp.bot.client;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
@@ -48,7 +41,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.exception.LineBotAPIIOException;
 import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
-import com.linecorp.bot.client.exception.LineBotAPISignatureException;
 import com.linecorp.bot.client.exception.LineBotServerErrorStatusException;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
@@ -67,8 +59,6 @@ import lombok.extern.slf4j.Slf4j;
 public class DefaultLineBotClient implements LineBotClient {
 
     public static final String DEFAULT_API_END_POINT = "https://api.line.me";
-
-    private static final String HASH_ALGORITHM = "HmacSHA256";
 
     private static final String DEFAULT_USER_AGENT =
             "line-botsdk-java/" + DefaultLineBotClient.class.getPackage().getImplementationVersion();
@@ -94,7 +84,6 @@ public class DefaultLineBotClient implements LineBotClient {
     private final ObjectMapper objectMapper;
     private final HttpClientBuilder httpClientBuilder;
 
-    private final SecretKeySpec secretKeySpec;
 
     /**
      * Create new instance.
@@ -104,7 +93,6 @@ public class DefaultLineBotClient implements LineBotClient {
      * @param httpClientBuilder Instance of Apache HttpClient
      */
     DefaultLineBotClient(
-            String channelSecret,
             String channelToken,
             String apiEndPoint,
             HttpClientBuilder httpClientBuilder) {
@@ -115,8 +103,6 @@ public class DefaultLineBotClient implements LineBotClient {
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
-
-        secretKeySpec = new SecretKeySpec(channelSecret.getBytes(StandardCharsets.UTF_8), HASH_ALGORITHM);
     }
 
     @Override
@@ -228,25 +214,6 @@ public class DefaultLineBotClient implements LineBotClient {
     public BotApiResponse leaveRoom(@NonNull String roomId) throws LineBotAPIException {
         String uriString = this.apiEndPoint + "/v2/bot/room/" + roomId + "/leave";
         return this.request(new HttpPost(uriString), BotApiResponse.class);
-    }
-
-    @Override
-    public boolean validateSignature(@NonNull byte[] jsonText, @NonNull String headerSignature)
-            throws LineBotAPIException {
-        final byte[] signature = createSignature(jsonText);
-        final byte[] decodeHeaderSignature = Base64.getDecoder().decode(headerSignature);
-        return MessageDigest.isEqual(decodeHeaderSignature, signature);
-    }
-
-    @Override
-    public byte[] createSignature(@NonNull byte[] jsonText) throws LineBotAPIException {
-        try {
-            final Mac mac = Mac.getInstance(HASH_ALGORITHM);
-            mac.init(secretKeySpec);
-            return mac.doFinal(jsonText);
-        } catch (InvalidKeyException | NoSuchAlgorithmException e) {
-            throw new LineBotAPISignatureException(e);
-        }
     }
 
     @Override

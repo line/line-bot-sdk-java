@@ -122,7 +122,7 @@ public class IntegrationTest {
     @org.springframework.context.annotation.Configuration
     public static class Configuration {
         @Spy
-        private LineBotClient lineBotClient = LineBotClientBuilder.create("SECRET", "TOKEN").build();
+        private LineBotClient lineBotClient = LineBotClientBuilder.create("TOKEN").build();
 
         public Configuration() {
             MockitoAnnotations.initMocks(this);
