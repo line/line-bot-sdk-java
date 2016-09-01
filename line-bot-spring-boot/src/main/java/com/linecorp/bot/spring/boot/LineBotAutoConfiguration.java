@@ -30,6 +30,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.LineBotClientBuilder;
 import com.linecorp.bot.client.LineSignatureValidator;
@@ -92,8 +94,8 @@ public class LineBotAutoConfiguration {
     @Bean
     @ConditionalOnWebApplication
     public LineBotCallbackRequestParser lineBotCallbackServletUtils(
-            LineBotClient lineBotClient,
-            LineSignatureValidator lineSignatureValidator) {
-        return new LineBotCallbackRequestParser(lineBotClient, lineSignatureValidator);
+            LineSignatureValidator lineSignatureValidator,
+            ObjectMapper objectMapper) {
+        return new LineBotCallbackRequestParser(lineSignatureValidator, objectMapper);
     }
 }

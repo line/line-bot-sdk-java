@@ -21,8 +21,6 @@ import java.util.Collections;
 import java.util.List;
 
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
-import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -87,13 +85,4 @@ public interface LineBotClient {
     BotApiResponse leaveGroup(@NonNull String groupId) throws LineBotAPIException;
 
     BotApiResponse leaveRoom(@NonNull String roomId) throws LineBotAPIException;
-
-    /**
-     * Reads {@link CallbackRequest} from the given json.
-     *
-     * @param jsonText The byte array to be parsed.
-     * @return parsed {@link CallbackRequest} object.
-     */
-    CallbackRequest readCallbackRequest(@NonNull byte[] jsonText) throws LineBotAPIJsonProcessingException;
-
 }
