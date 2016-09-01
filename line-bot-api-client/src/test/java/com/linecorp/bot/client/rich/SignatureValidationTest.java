@@ -23,25 +23,23 @@ public class SignatureValidationTest {
 
     @Test
     public void validSignatureTest() throws Exception {
-        LineBotClient client = LineBotClientBuilder.create("CID", channelSecret, "MID").build();
+        LineBotClient client = LineBotClientBuilder.create(channelSecret, "TOKEN").build();
 
         String httpRequestBody = "{}";
         String headerSignature = computeSignature(httpRequestBody);
 
-        assertThat(client.validateSignature(httpRequestBody, headerSignature), is(true));
         assertThat(client.validateSignature(httpRequestBody.getBytes(charset), headerSignature), is(true));
     }
 
     @Test
     public void invalidSignatureTest() throws Exception {
-        LineBotClient client = LineBotClientBuilder.create("CID", channelSecret, "MID").build();
+        LineBotClient client = LineBotClientBuilder.create(channelSecret, "TOKEN").build();
 
         String httpRequestBody = "{}";
         String headerSignature = computeSignature(httpRequestBody);
 
         String alteredRequestBody = "{altered}";
 
-        assertThat(client.validateSignature(alteredRequestBody, headerSignature), is(false));
         assertThat(client.validateSignature(alteredRequestBody.getBytes(charset), headerSignature), is(false));
     }
 

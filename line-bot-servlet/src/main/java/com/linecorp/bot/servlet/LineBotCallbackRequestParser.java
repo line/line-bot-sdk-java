@@ -24,11 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
-import com.linecorp.bot.client.LineBotAPIHeaders;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
-import com.linecorp.bot.model.callback.CallbackRequest;
+import com.linecorp.bot.model.event.CallbackRequest;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,9 +41,9 @@ public class LineBotCallbackRequestParser {
 
     public CallbackRequest handle(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // validate signature
-        String signature = req.getHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE);
+        String signature = req.getHeader("X-Line-Signature");
         if (signature == null || signature.length() == 0) {
-            sendError(resp, "Missing 'X-Line-ChannelSignature' header");
+            sendError(resp, "Missing 'X-Line-Signature' header");
             return null;
         }
 
@@ -67,6 +66,7 @@ public class LineBotCallbackRequestParser {
         try {
             return lineBotClient.readCallbackRequest(json);
         } catch (LineBotAPIJsonProcessingException e) {
+            log.info("Invalid callback request", e);
             sendError(resp, "Invalid Callback");
             return null;
         }

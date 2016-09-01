@@ -16,6 +16,7 @@
 
 package com.example.bot.spring.echo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.model.callback.Event;
-import com.linecorp.bot.model.content.Content;
-import com.linecorp.bot.model.content.TextContent;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.MessageContent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.Source;
+import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootApplication
+@Slf4j
 public class EchoApplication {
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
@@ -45,11 +54,21 @@ public class EchoApplication {
         @RequestMapping("/callback")
         public void callback(@LineBotMessages List<Event> events) throws LineBotAPIException {
             for (Event event : events) {
-                Content content = event.getContent();
-                if (content instanceof TextContent) {
-                    TextContent textContent = (TextContent) content;
-                    lineBotClient.sendText(textContent.getFrom(),
-                                           textContent.getText());
+                log.info("event: {}", event);
+                if (event instanceof MessageEvent) {
+                    MessageContent message = ((MessageEvent) event).getMessage();
+                    if (message instanceof TextMessageContent) {
+                        log.info("Sending reply message");
+                        TextMessageContent textMessageContent = (TextMessageContent) message;
+                        Source source = ((MessageEvent) event).getSource();
+                        String mid = source instanceof GroupSource
+                                     ? ((GroupSource) source).getGroupId()
+                                     : source.getUserId();
+                        BotApiResponse apiResponse = lineBotClient.push(
+                                Collections.singletonList(mid),
+                                Collections.singletonList(new TextMessage(textMessageContent.getText())));
+                        log.info("Sent messages: {}", apiResponse);
+                    }
                 }
             }
         }

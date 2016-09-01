@@ -32,13 +32,16 @@ import lombok.Data;
 public class LineBotProperties {
     private static final Pattern TRAILING_SLASH = Pattern.compile("/$");
 
-    @Valid
-    @NotNull
+    // TODO This maybe deprecated.
+    @Deprecated
     private String channelMid;
+
+    @Deprecated
+    private String channelId;
 
     @Valid
     @NotNull
-    private String channelId;
+    private String channelToken;
 
     @Valid
     @NotNull
@@ -59,17 +62,4 @@ public class LineBotProperties {
     @Valid
     @NotNull
     private int socketTimeout;
-
-    @Valid
-    @NotNull
-    private Long sendingMessageChannelId = DefaultLineBotClient.DEFAULT_SENDING_MESSAGE_CHANNEL_ID;
-
-    @Valid
-    @NotNull
-    private String sendingMessageEventId = DefaultLineBotClient.DEFAULT_SENDING_MESSAGE_EVENT_ID;
-
-    @Valid
-    @NotNull
-    private String sendingMultipleMessagesEventId =
-            DefaultLineBotClient.DEFAULT_SENDING_MULTIPLE_MESSAGES_EVENT_ID;
 }

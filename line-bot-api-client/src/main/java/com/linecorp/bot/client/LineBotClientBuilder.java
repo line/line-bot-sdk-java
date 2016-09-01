@@ -18,8 +18,6 @@ package com.linecorp.bot.client;
 
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.NonNull;
 
 /**
@@ -38,33 +36,23 @@ public final class LineBotClientBuilder {
     /**
      * Create a new {@link LineBotClientBuilder} with specified channel information.
      */
-    public static LineBotClientBuilder create(String channelId, String channelSecret, String channelMid) {
-        return new LineBotClientBuilder(channelId, channelSecret, channelMid);
+    public static LineBotClientBuilder create(String channelSecret, String channelToken) {
+        return new LineBotClientBuilder(channelSecret, channelToken);
     }
 
-    private final String channelId;
-
     private final String channelSecret;
-
-    private final String channelMid;
+    private final String channelToken;
 
     private String apiEndPoint = DefaultLineBotClient.DEFAULT_API_END_POINT;
 
-    private Long sendingMessageChannelId = DefaultLineBotClient.DEFAULT_SENDING_MESSAGE_CHANNEL_ID;
-
-    private String sendingMessageEventId = DefaultLineBotClient.DEFAULT_SENDING_MESSAGE_EVENT_ID;
-
-    private String sendingMultipleMessagesEventId =
-            DefaultLineBotClient.DEFAULT_SENDING_MULTIPLE_MESSAGES_EVENT_ID;
-
     private HttpClientBuilder httpClientBuilder;
 
-    private LineBotClientBuilder(@NonNull String channelId,
-                                 @NonNull String channelSecret,
-                                 @NonNull String channelMid) {
-        this.channelId = channelId;
+    private LineBotClientBuilder(
+            @NonNull String channelSecret,
+            @NonNull String channelToken
+    ) {
         this.channelSecret = channelSecret;
-        this.channelMid = channelMid;
+        this.channelToken = channelToken;
     }
 
     /**
@@ -84,41 +72,13 @@ public final class LineBotClientBuilder {
     }
 
     /**
-     * Sets the channel id to send a message.
-     */
-    public LineBotClientBuilder sendingMessageChannelId(long sendingMessageChannelId) {
-        this.sendingMessageChannelId = sendingMessageChannelId;
-        return this;
-    }
-
-    /**
-     * Sets the event type to send a single message.
-     */
-    public LineBotClientBuilder sendingMessageEventId(@NonNull String sendingMessageEventId) {
-        this.sendingMessageEventId = sendingMessageEventId;
-        return this;
-    }
-
-    /**
-     * Sets the event type to send multiple messages.
-     */
-    public LineBotClientBuilder sendingMultipleMessagesEventId(@NonNull String sendingMultipleMessagesEventId) {
-        this.sendingMultipleMessagesEventId = sendingMultipleMessagesEventId;
-        return this;
-    }
-
-    /**
      * Creates a new {@link LineBotClient}.
      */
     public LineBotClient build() {
         return new DefaultLineBotClient(
-                channelId,
                 channelSecret,
-                channelMid,
+                channelToken,
                 apiEndPoint,
-                sendingMessageChannelId,
-                sendingMessageEventId,
-                sendingMultipleMessagesEventId,
                 httpClientBuilder
         );
     }

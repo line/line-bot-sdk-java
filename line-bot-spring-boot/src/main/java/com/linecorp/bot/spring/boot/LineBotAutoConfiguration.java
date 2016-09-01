@@ -26,9 +26,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.LineBotClientBuilder;
 import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
@@ -59,13 +56,11 @@ public class LineBotAutoConfiguration {
                 .setUserAgent("line-botsdk-java/" + this.getClass().getPackage().getImplementationVersion());
 
         return LineBotClientBuilder
-                .create(lineBotProperties.getChannelId(),
+                .create(
                         lineBotProperties.getChannelSecret(),
-                        lineBotProperties.getChannelMid())
+                        lineBotProperties.getChannelToken()
+                )
                 .apiEndPoint(lineBotProperties.getApiEndPoint())
-                .sendingMessageChannelId(lineBotProperties.getSendingMessageChannelId())
-                .sendingMessageEventId(lineBotProperties.getSendingMessageEventId())
-                .sendingMultipleMessagesEventId(lineBotProperties.getSendingMultipleMessagesEventId())
                 .httpClientBuilder(httpClientBuilder)
                 .build();
     }

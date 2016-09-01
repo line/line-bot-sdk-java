@@ -16,18 +16,11 @@
 
 package com.linecorp.bot.client.exception;
 
-import com.linecorp.bot.model.event.EventRequest;
-
-import lombok.Getter;
 import lombok.ToString;
 
 @ToString
 public class LineBotAPITooManyTargetUsersException extends LineBotAPIException {
-    @Getter
-    private final EventRequest sendingMessagesRequest;
-
-    public LineBotAPITooManyTargetUsersException(EventRequest sendingMessagesRequest) {
-        super("Too many target users: " + sendingMessagesRequest.getTo().size());
-        this.sendingMessagesRequest = sendingMessagesRequest;
+    public LineBotAPITooManyTargetUsersException(long count) {
+        super("Too many target users: " + count);
     }
 }

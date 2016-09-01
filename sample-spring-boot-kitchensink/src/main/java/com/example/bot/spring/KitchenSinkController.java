@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -34,24 +35,33 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.linecorp.bot.client.CloseableMessageContent;
 import com.linecorp.bot.client.LineBotClient;
 import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.client.rich.SimpleRichMessageBuilder;
-import com.linecorp.bot.model.callback.Event;
-import com.linecorp.bot.model.content.AddedAsFriendOperation;
-import com.linecorp.bot.model.content.AudioContent;
-import com.linecorp.bot.model.content.BlockedOperation;
-import com.linecorp.bot.model.content.ContactContent;
-import com.linecorp.bot.model.content.Content;
-import com.linecorp.bot.model.content.ImageContent;
-import com.linecorp.bot.model.content.LocationContent;
-import com.linecorp.bot.model.content.LocationContentLocation;
-import com.linecorp.bot.model.content.StickerContent;
-import com.linecorp.bot.model.content.TextContent;
-import com.linecorp.bot.model.content.VideoContent;
-import com.linecorp.bot.model.content.metadata.AudioContentMetadata;
-import com.linecorp.bot.model.content.metadata.ContactContentMetadata;
-import com.linecorp.bot.model.content.metadata.StickerContentMetadata;
+import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.action.PostbackAction;
+import com.linecorp.bot.model.action.URIAction;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.FollowEvent;
+import com.linecorp.bot.model.event.JoinEvent;
+import com.linecorp.bot.model.event.LeaveEvent;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.PostbackEvent;
+import com.linecorp.bot.model.event.UnfollowEvent;
+import com.linecorp.bot.model.event.message.ImageMessageContent;
+import com.linecorp.bot.model.event.message.LocationMessageContent;
+import com.linecorp.bot.model.event.message.MessageContent;
+import com.linecorp.bot.model.event.message.StickerMessageContent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.RoomSource;
+import com.linecorp.bot.model.event.source.Source;
+import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.message.StickerMessage;
+import com.linecorp.bot.model.message.TemplateMessage;
+import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.template.ButtonsTemplate;
+import com.linecorp.bot.model.message.template.CarouselColumn;
+import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.profile.UserProfileResponse;
-import com.linecorp.bot.model.rich.RichMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.NonNull;
@@ -68,79 +78,98 @@ public class KitchenSinkController {
         log.info("Got request: {}", events);
 
         for (Event event : events) {
-            this.handleEvent(event);
-        }
-    }
-
-    private void handleEvent(Event event) {
-        Content content = event.getContent();
-        if (content instanceof TextContent) {
-            handleTextContent((TextContent) content);
-        } else if (content instanceof StickerContent) {
-            handleSticker((StickerContent) content);
-        } else if (content instanceof LocationContent) {
-            handleLocation((LocationContent) content);
-        } else if (content instanceof ContactContent) {
-            handleContact((ContactContent) content);
-        } else if (content instanceof AudioContent) {
-            handleAudio((AudioContent) content);
-        } else if (content instanceof ImageContent) {
-            handleImage((ImageContent) content);
-        } else if (content instanceof VideoContent) {
-            handleVideo((VideoContent) content);
-        } else if (content instanceof BlockedOperation) {
-            handleBlocked((BlockedOperation) content);
-        } else if (content instanceof AddedAsFriendOperation) {
-            handleAddedAsFriend((AddedAsFriendOperation) content);
-        } else {
-            log.info("Received message(Ignored): {}",
-                     content);
-        }
-    }
-
-    private void handleAddedAsFriend(AddedAsFriendOperation content) {
-        String mid = content.getMid();
-        log.info("User added this account as a friend: {}", mid);
-        try {
-            lineBotClient.sendText(mid, "Hi! I'm a bot!");
-        } catch (LineBotAPIException e) {
-            log.error("LINE server returns '{}'(mid: '{}')",
-                      e.getMessage(),
-                      mid, e);
-        }
-    }
-
-    private void handleBlocked(BlockedOperation content) {
-        String mid = content.getMid();
-        log.info("User blocked this account: {}", mid);
-    }
-
-    private void handleVideo(VideoContent content) {
-        String mid = content.getFrom();
-        String messageId = content.getId();
-        try {
-            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
-                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
-                         messageId)
-            ) {
-                String path = saveContent("video", messageContent);
-                String previewPath = saveContent("video-preview", previewMessageContent);
-
-                lineBotClient.sendVideo(mid, path, previewPath);
+            try {
+                this.handleEvent(event);
+            } catch (LineBotAPIException e) {
+                log.error("LINE server returns '{}'({})",
+                          e.getMessage(),
+                          event, e);
             }
-        } catch (IOException e) {
-            log.error("Cannot save item '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
-        } catch (LineBotAPIException e) {
-            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
         }
     }
 
-    private void handleImage(ImageContent content) {
-        String mid = content.getFrom();
+    private void handleEvent(Event event) throws LineBotAPIException {
+        if (event instanceof MessageEvent) {
+            String replyToken = ((MessageEvent) event).getReplyToken();
+            MessageContent message = ((MessageEvent) event).getMessage();
+            if (message instanceof TextMessageContent) {
+                handleTextContent(replyToken, event, (TextMessageContent) message);
+            } else if (message instanceof StickerMessageContent) {
+                handleSticker(replyToken, (StickerMessageContent) message);
+            } else if (message instanceof LocationMessageContent) {
+                handleLocation(replyToken, (LocationMessageContent) message);
+            } else if (message instanceof ImageMessageContent) {
+                handleImage(replyToken, (ImageMessageContent) message);
+            }
+//        TODO     @JsonSubTypes.Type(ImageMessageContent.class),
+        } else if (event instanceof UnfollowEvent) {
+            log.info("unfollowed this bot: {}", event);
+        } else if (event instanceof FollowEvent) {
+            String replyToken = ((FollowEvent) event).getReplyToken();
+            this.replyText(replyToken, "Got followed event");
+        } else if (event instanceof JoinEvent) {
+            String replyToken = ((JoinEvent) event).getReplyToken();
+            this.replyText(replyToken, "Joined " + event.getSource());
+        } else if (event instanceof LeaveEvent) {
+            String replyToken = ((LeaveEvent) event).getReplyToken();
+            this.replyText(replyToken, "Leaved " + event.getSource());
+        } else if (event instanceof PostbackEvent) {
+            String replyToken = ((PostbackEvent) event).getReplyToken();
+            this.replyText(replyToken,
+                           "Got postback " + ((PostbackEvent) event).getPostbackContent().getData());
+        } else {
+            // TODO BeaconEvent
+//         TODO    @JsonSubTypes.Type(PostbackEvent.class)
+            log.info("Received message(Ignored): {}",
+                     event);
+        }
+    }
+
+    private void handleLocation(String replyToken, LocationMessageContent content) {
+
+    }
+
+    private void reply(@NonNull String replyToken, @NonNull Message message) throws LineBotAPIException {
+        BotApiResponse apiResponse = lineBotClient.reply(replyToken, message);
+        log.info("Sent messages: {}", apiResponse);
+    }
+
+    private void replyText(@NonNull String replyToken, @NonNull String message) throws LineBotAPIException {
+        if (replyToken.isEmpty()) {
+            throw new IllegalArgumentException("replyToken must not be empty");
+        }
+        if (message.length() > 100) {
+            message = message.substring(0, 98) + "……";
+        }
+        this.reply(replyToken, new TextMessage(message));
+    }
+
+    //    private void handleVideo(VideoContent content) {
+//        String mid = content.getFrom();
+//        String messageId = content.getId();
+//        try {
+//            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
+//                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
+//                         messageId)
+//            ) {
+//                String path = saveContent("video", messageContent);
+//                String previewPath = saveContent("video-preview", previewMessageContent);
+//
+//                // FIXME
+////                lineBotClient.sendVideo(mid, path, previewPath);
+//            }
+//        } catch (IOException e) {
+//            log.error("Cannot save item '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      messageId, e);
+//        } catch (LineBotAPIException e) {
+//            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      messageId, e);
+//        }
+//    }
+//
+    private void handleImage(String replyToken, ImageMessageContent content) throws LineBotAPIException {
         String messageId = content.getId();
         try {
             try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
@@ -150,139 +179,149 @@ public class KitchenSinkController {
                 String path = saveContent("image", messageContent);
                 String previewPath = saveContent("image-preview", previewMessageContent);
 
-                lineBotClient.sendImage(mid, path, previewPath);
+                // TODO
+//                lineBotClient.sendImage(mid, path, previewPath);
             }
         } catch (IOException e) {
-            log.error("Cannot save item '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
-        } catch (LineBotAPIException e) {
-            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
+            log.error("Cannot save item '{}'(mid: '{}')", e.getMessage(), messageId, e);
         }
     }
+//
+//    private void handleAudio(AudioContent content) {
+//        String mid = content.getFrom();
+//        AudioContentMetadata contentMetadata = content.getContentMetadata();
+//        String messageId = content.getId();
+//        try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId)) {
+//            String path = saveContent("audio", messageContent);
+//            // TODO
+////            lineBotClient.sendAudio(mid, path, contentMetadata.getAudlen());
+//        } catch (IOException e) {
+//            log.error("Cannot save image '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      messageId, e);
+//        } catch (LineBotAPIException e) {
+//            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
+//                      e.getMessage(),
+//                      messageId, e);
+//        }
+//    }
 
-    private void handleAudio(AudioContent content) {
-        String mid = content.getFrom();
-        AudioContentMetadata contentMetadata = content.getContentMetadata();
-        String messageId = content.getId();
-        try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId)) {
-            String path = saveContent("audio", messageContent);
-            lineBotClient.sendAudio(mid, path, contentMetadata.getAudlen());
-        } catch (IOException e) {
-            log.error("Cannot save image '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
-        } catch (LineBotAPIException e) {
-            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
-                      e.getMessage(),
-                      messageId, e);
-        }
-    }
-
-    private void handleContact(ContactContent content) {
-        String mid = content.getFrom();
-        ContactContentMetadata contentMetadata = content.getContentMetadata();
-        try {
-            lineBotClient.sendText(
-                    mid, "Received contact info for : " + contentMetadata.getDisplayName()
-            );
-        } catch (LineBotAPIException e) {
-            log.error("LINE server returns '{}'(mid: '{}')",
-                      e.getMessage(),
-                      mid, e);
-        }
-    }
-
-    private void handleLocation(LocationContent content) {
-        String mid = content.getFrom();
-        LocationContentLocation location = content.getLocation();
-        try {
-            lineBotClient.sendLocation(
-                    mid,
-                    content.getText(),
-                    location.getTitle(),
-                    location.getAddress(),
-                    location.getLatitude(),
-                    location.getLongitude()
-            );
-        } catch (LineBotAPIException e) {
-            log.error("LINE server returns '{}'(mid: '{}')",
-                      e.getMessage(),
-                      mid, e);
-        }
-    }
-
-    private void handleSticker(StickerContent content) {
-        String mid = content.getFrom();
-        StickerContentMetadata contentMetadata = content.getContentMetadata();
+    private void handleSticker(String replyToken, StickerMessageContent content) throws LineBotAPIException {
         // Bot can send some built-in stickers.
-        try {
-            lineBotClient.sendSticker(mid, contentMetadata.getStkpkgid(), contentMetadata.getStkid());
-        } catch (LineBotAPIException e) {
-            log.error("LINE server returns '{}'(mid: '{}')",
-                      e.getMessage(),
-                      mid, e);
-        }
+        BotApiResponse apiResponse = lineBotClient.reply(replyToken, new StickerMessage(
+                content.getPackageId(), content.getStickerId())
+        );
+        log.info("Sent messages: {}", apiResponse);
     }
 
-    private void handleTextContent(TextContent content) {
-        String mid = content.getFrom();
+    private void handleTextContent(String replyToken, Event event, TextMessageContent content)
+            throws LineBotAPIException {
         String text = content.getText();
 
-        try {
-            log.info("Got text message from {}: {}", mid, text);
-            switch (text) {
-            case "profile":
-                UserProfileResponse userProfile = lineBotClient.getUserProfile(Collections.singletonList(mid));
-                lineBotClient.sendText(mid, userProfile.toString());
+        log.info("Got text message from {}: {}", replyToken, text);
+        switch (text) {
+            case "profile": {
+                String userId = event.getSource().getUserId();
+                if (userId != null) {
+                    UserProfileResponse userProfile = lineBotClient.getUserProfile(
+                            Collections.singletonList(userId));
+                    this.replyText(replyToken, userProfile.toString());
+                    break;
+                } else {
+                    this.replyText(replyToken, "Bot can't use profile API without user ID");
+                    break;
+                }
+            }
+            case "bye": {
+                Source source = event.getSource();
+                if (source instanceof GroupSource) {
+                    this.replyText(replyToken, "Leaving group");
+                    lineBotClient.leaveGroup(((GroupSource) source).getGroupId());
+                } else if (source instanceof RoomSource) {
+                    this.replyText(replyToken, "Leaving room");
+                    lineBotClient.leaveRoom(((RoomSource) source).getRoomId());
+                } else {
+                    this.replyText(replyToken, "Bot can't leave from 1:1 chat");
+                }
                 break;
-            case "multi":
-                lineBotClient.createMultipleMessageBuilder()
-                             .addText("hoge")
-                             .addText("fuga")
-                             .send(mid);
+            }
+            case "buttons": {
+                String imageUrl = createUri("/static/buttons/1040.jpg");
+                ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
+                        imageUrl,
+                        "My button sample",
+                        "Hello, my button",
+                        Arrays.asList(
+                                new URIAction("Go to line.me",
+                                              "https://line.me"),
+                                new PostbackAction("Say hello1",
+                                                   "hello こんにちは"),
+                                new PostbackAction("言 hello2",
+                                                   "hello こんにちは",
+                                                   "hello こんにちは"),
+                                new MessageAction("Say message",
+                                                  "Rice=米")
+                        ));
+                TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
+                this.reply(replyToken, templateMessage);
                 break;
+            }
+            case "carousel": {
+                String imageUrl = createUri("/static/buttons/1040.jpg");
+                CarouselTemplate buttonsTemplate = new CarouselTemplate(
+                        Arrays.asList(
+                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
+                                        new URIAction("Go to line.me",
+                                                      "https://line.me"),
+                                        new PostbackAction("Say hello1",
+                                                           "hello こんにちは")
+                                )),
+                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
+                                        new PostbackAction("言 hello2",
+                                                           "hello こんにちは",
+                                                           "hello こんにちは"),
+                                        new MessageAction("Say message",
+                                                          "Rice=米")
+                                ))
+                        ));
+                TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
+                this.reply(replyToken, templateMessage);
+                break;
+            }
             case "rich":
-                final RichMessage richMessage =
-                        SimpleRichMessageBuilder.create(1040, 1040)
-                        .addWebAction(0, 0, 520, 520, "manga", "https://store.line.me/family/manga/en")
-                        .addWebAction(520, 0, 520, 520, "music", "https://store.line.me/family/music/en")
-                        .addWebAction(0, 520, 520, 520, "play", "https://store.line.me/family/play/en")
-                        .addWebAction(520, 520, 520, 520, "fortune", "https://store.line.me/family/uranai/en")
-                        .build();
+//                final RichMessage richMessage =
+//                        SimpleRichMessageBuilder.create(1040, 1040)
+//                        .addWebAction(0, 0, 520, 520, "manga", "https://store.line.me/family/manga/en")
+//                        .addWebAction(520, 0, 520, 520, "music", "https://store.line.me/family/music/en")
+//                        .addWebAction(0, 520, 520, 520, "play", "https://store.line.me/family/play/en")
+//                        .addWebAction(520, 520, 520, 520, "fortune", "https://store.line.me/family/uranai/en")
+//                        .build();
 
-                lineBotClient.sendRichMessage(
-                        mid,
-                        createUri("/static/rich"),
-                        "This is alt text.",
-                        richMessage
-                );
+//                lineBotClient.sendRichMessage(
+//                        replyToken,
+//                        createUri("/static/rich"),
+//                        "This is alt text.",
+//                        richMessage
+//                );
                 break;
+            // TODO html messages
             default:
-                log.info("Returns echo message {}: {}", mid, text);
-                lineBotClient.sendText(
-                        mid,
+                log.info("Returns echo message {}: {}", replyToken, text);
+                this.replyText(
+                        replyToken,
                         text
                 );
                 break;
-            }
-        } catch (LineBotAPIException e) {
-            log.error("LINE server returns '{}'(mid: '{}', text: '{}')",
-                      e.getMessage(),
-                      mid,
-                      text, e);
         }
     }
 
-    private String createUri(String path) {
+    private static String createUri(String path) {
         return ServletUriComponentsBuilder.fromCurrentContextPath()
                                           .path(path).build()
                                           .toUriString();
     }
 
-    private String saveContent(String type, CloseableMessageContent messageContent) throws IOException {
+    private static String saveContent(String type, CloseableMessageContent messageContent) throws IOException {
         log.info("Got filename: {}", messageContent.getFileName());
         String path = LocalDateTime.now().toString() + '-' + UUID.randomUUID().toString();
         Path tempFile = KitchenSinkApplication.downloadedContentDir.resolve(path);

@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "type": "leave",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "group",
+        "groupId": "cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    }
+  ]
+}
