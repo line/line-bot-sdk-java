@@ -44,7 +44,6 @@ import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
 import com.linecorp.bot.client.exception.LineBotServerErrorStatusException;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -215,18 +214,4 @@ public class DefaultLineBotClient implements LineBotClient {
         String uriString = this.apiEndPoint + "/v2/bot/room/" + roomId + "/leave";
         return this.request(new HttpPost(uriString), BotApiResponse.class);
     }
-
-    @Override
-    public CallbackRequest readCallbackRequest(@NonNull byte[] jsonText) throws LineBotAPIJsonProcessingException {
-        try {
-            final CallbackRequest callbackRequest = objectMapper.readValue(jsonText, CallbackRequest.class);
-            if (callbackRequest == null || callbackRequest.getEvents() == null) {
-                throw new LineBotAPIJsonProcessingException("Invalid callback request was given");
-            }
-            return callbackRequest;
-        } catch (IOException e) {
-            throw new LineBotAPIJsonProcessingException(e);
-        }
-    }
-
 }

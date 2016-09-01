@@ -42,8 +42,9 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import com.linecorp.bot.client.LineBotClient;
-import com.linecorp.bot.client.LineBotClientBuilder;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.model.event.Event;
@@ -55,8 +56,6 @@ public class LineBotCallbackRequestParserTest {
     @Mock
     private HttpServletResponse response;
 
-    @Spy
-    private LineBotClient lineBotClient = LineBotClientBuilder.create("TOKEN").build();
     @Spy
     private LineSignatureValidator lineSignatureValidator = new LineSignatureValidator(
             "SECRET".getBytes(StandardCharsets.UTF_8));
@@ -70,8 +69,10 @@ public class LineBotCallbackRequestParserTest {
     public void before() throws IOException {
         when(response.getWriter())
                 .thenReturn(mock(PrintWriter.class));
-        this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(lineBotClient,
-                                                                             lineSignatureValidator);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(
+                lineSignatureValidator, objectMapper);
     }
 
     @Test
@@ -116,7 +117,7 @@ public class LineBotCallbackRequestParserTest {
         );
 
         verify(response).sendError(HttpServletResponse.SC_BAD_REQUEST,
-                                   "Invalid Callback");
+                                   "Invalid content");
     }
 
     @Test
