@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
                       @JsonSubTypes.Type(UserSource.class),
                       @JsonSubTypes.Type(GroupSource.class),
+                      @JsonSubTypes.Type(RoomSource.class),
               })
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

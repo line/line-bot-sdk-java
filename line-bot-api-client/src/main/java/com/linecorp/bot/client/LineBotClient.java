@@ -86,6 +86,8 @@ public interface LineBotClient {
 
     BotApiResponse leaveGroup(@NonNull String groupId) throws LineBotAPIException;
 
+    BotApiResponse leaveRoom(@NonNull String roomId) throws LineBotAPIException;
+
     boolean validateSignature(@NonNull byte[] jsonText, @NonNull String headerSignature) throws LineBotAPIException;
 
     byte[] createSignature(@NonNull byte[] jsonText) throws LineBotAPIException;

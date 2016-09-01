@@ -51,6 +51,7 @@ import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
@@ -236,6 +237,9 @@ public class KitchenSinkController {
                 if (source instanceof GroupSource) {
                     this.replyText(replyToken, "Leaving group");
                     lineBotClient.leaveGroup(((GroupSource) source).getGroupId());
+                } else if (source instanceof RoomSource) {
+                    this.replyText(replyToken, "Leaving room");
+                    lineBotClient.leaveRoom(((RoomSource) source).getRoomId());
                 } else {
                     this.replyText(replyToken, "Bot can't leave from 1:1 chat");
                 }
@@ -311,13 +315,13 @@ public class KitchenSinkController {
         }
     }
 
-    private String createUri(String path) {
+    private static String createUri(String path) {
         return ServletUriComponentsBuilder.fromCurrentContextPath()
                                           .path(path).build()
                                           .toUriString();
     }
 
-    private String saveContent(String type, CloseableMessageContent messageContent) throws IOException {
+    private static String saveContent(String type, CloseableMessageContent messageContent) throws IOException {
         log.info("Got filename: {}", messageContent.getFileName());
         String path = LocalDateTime.now().toString() + '-' + UUID.randomUUID().toString();
         Path tempFile = KitchenSinkApplication.downloadedContentDir.resolve(path);

@@ -225,6 +225,12 @@ public class DefaultLineBotClient implements LineBotClient {
     }
 
     @Override
+    public BotApiResponse leaveRoom(@NonNull String roomId) throws LineBotAPIException {
+        String uriString = this.apiEndPoint + "/v2/bot/room/" + roomId + "/leave";
+        return this.request(new HttpPost(uriString), BotApiResponse.class);
+    }
+
+    @Override
     public boolean validateSignature(@NonNull byte[] jsonText, @NonNull String headerSignature)
             throws LineBotAPIException {
         final byte[] signature = createSignature(jsonText);
