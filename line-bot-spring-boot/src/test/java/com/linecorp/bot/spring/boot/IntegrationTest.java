@@ -18,9 +18,8 @@ package com.linecorp.bot.spring.boot;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,8 +32,8 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -48,15 +47,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.linecorp.bot.client.LineBotClient;
-import com.linecorp.bot.client.LineBotClientBuilder;
-import com.linecorp.bot.client.exception.LineBotAPIException;
+import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
-import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.IntegrationTest.Configuration;
@@ -65,6 +62,10 @@ import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 // integration test
 @RunWith(SpringRunner.class)
@@ -81,7 +82,7 @@ public class IntegrationTest {
     @Autowired
     private WebApplicationContext wac;
     @Autowired
-    private LineBotClient lineBotClient;
+    private LineMessagingService lineMessagingService;
 
     private MockMvc mockMvc;
 
@@ -89,10 +90,10 @@ public class IntegrationTest {
     @Slf4j
     public static class MyController {
         @Autowired
-        private LineBotClient lineBotClient;
+        private LineMessagingService lineMessagingService;
 
         @PostMapping("/callback")
-        public void callback(@NonNull @LineBotMessages List<Event> events) throws IOException, LineBotAPIException {
+        public void callback(@NonNull @LineBotMessages List<Event> events) throws IOException {
             log.info("Got request: {}", events);
 
             for (Event event : events) {
@@ -100,15 +101,19 @@ public class IntegrationTest {
             }
         }
 
-        private void handleEvent(Event event) throws LineBotAPIException {
+        private void handleEvent(Event event) {
             if (event instanceof MessageEvent) {
                 MessageContent content = ((MessageEvent) event).getMessage();
                 if (content instanceof TextMessageContent) {
                     String text = ((TextMessageContent) content).getText();
-                    lineBotClient.reply(((MessageEvent) event).getReplyToken(), new TextMessage(text));
+                    lineMessagingService.reply(
+                            new ReplyMessage(((MessageEvent) event).getReplyToken(),
+                                             new TextMessage(text)));
                 }
             } else if (event instanceof FollowEvent) {
-                lineBotClient.reply(((FollowEvent) event).getReplyToken(), new TextMessage("follow"));
+                lineMessagingService.reply(
+                        new ReplyMessage(((FollowEvent) event).getReplyToken(),
+                                         new TextMessage("follow")));
             }
         }
     }
@@ -121,16 +126,16 @@ public class IntegrationTest {
 
     @org.springframework.context.annotation.Configuration
     public static class Configuration {
-        @Spy
-        private LineBotClient lineBotClient = LineBotClientBuilder.create("TOKEN").build();
+        @Mock
+        private LineMessagingService lineMessagingService;
 
         public Configuration() {
             MockitoAnnotations.initMocks(this);
         }
 
         @Bean
-        public LineBotClient lineBotClient() {
-            return lineBotClient;
+        public LineMessagingService lineMessagingService() {
+            return lineMessagingService;
         }
     }
 
@@ -150,9 +155,44 @@ public class IntegrationTest {
         InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
         byte[] json = IOUtils.toByteArray(resource);
 
-        doReturn(new BotApiResponse("hogehoge", null, null))
-                .when(lineBotClient)
-                .reply(anyString(), any(Message.class));
+        Call<BotApiResponse> call = new Call<BotApiResponse>() {
+            @Override
+            public Response<BotApiResponse> execute() {
+                return null;
+            }
+
+            @Override
+            public void enqueue(Callback<BotApiResponse> callback) {
+
+            }
+
+            @Override
+            public boolean isExecuted() {
+                return false;
+            }
+
+            @Override
+            public void cancel() {
+
+            }
+
+            @Override
+            public boolean isCanceled() {
+                return false;
+            }
+
+            @Override
+            public Call<BotApiResponse> clone() {
+                return this;
+            }
+
+            @Override
+            public Request request() {
+                return null;
+            }
+        };
+        when(lineMessagingService.reply(any(ReplyMessage.class)))
+                .thenReturn(call);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/callback")
                                               .header("X-Line-Signature", signature)
@@ -160,9 +200,11 @@ public class IntegrationTest {
                .andDo(print())
                .andExpect(status().isOk());
 
-        verify(lineBotClient).reply("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
-                                    new TextMessage("Hello, world"));
-        verify(lineBotClient).reply("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
-                                    new TextMessage("follow"));
+        verify(lineMessagingService).reply(
+                new ReplyMessage("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+                                 new TextMessage("Hello, world")));
+        verify(lineMessagingService).reply(
+                new ReplyMessage("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+                                 new TextMessage("follow")));
     }
 }

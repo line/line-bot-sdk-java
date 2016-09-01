@@ -23,8 +23,6 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import com.linecorp.bot.client.DefaultLineBotClient;
-
 import lombok.Data;
 
 @Data
@@ -49,7 +47,7 @@ public class LineBotProperties {
 
     @Valid
     @NotNull
-    private String apiEndPoint = DefaultLineBotClient.DEFAULT_API_END_POINT;
+    private String apiEndPoint = "https://api.line.me/";
 
     @Valid
     @NotNull

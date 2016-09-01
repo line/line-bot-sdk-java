@@ -16,6 +16,7 @@
 
 package com.example.bot.spring.echo;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,8 +26,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.linecorp.bot.client.LineBotClient;
-import com.linecorp.bot.client.exception.LineBotAPIException;
+import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.MessageContent;
@@ -49,10 +50,10 @@ public class EchoApplication {
     @RestController
     public static class MyController {
         @Autowired
-        private LineBotClient lineBotClient;
+        private LineMessagingService lineMessagingService;
 
         @RequestMapping("/callback")
-        public void callback(@LineBotMessages List<Event> events) throws LineBotAPIException {
+        public void callback(@LineBotMessages List<Event> events) throws IOException {
             for (Event event : events) {
                 log.info("event: {}", event);
                 if (event instanceof MessageEvent) {
@@ -60,13 +61,16 @@ public class EchoApplication {
                     if (message instanceof TextMessageContent) {
                         log.info("Sending reply message");
                         TextMessageContent textMessageContent = (TextMessageContent) message;
-                        Source source = ((MessageEvent) event).getSource();
+                        Source source = event.getSource();
                         String mid = source instanceof GroupSource
                                      ? ((GroupSource) source).getGroupId()
                                      : source.getUserId();
-                        BotApiResponse apiResponse = lineBotClient.push(
-                                Collections.singletonList(mid),
-                                Collections.singletonList(new TextMessage(textMessageContent.getText())));
+                        BotApiResponse apiResponse = lineMessagingService.push(
+                                new PushMessage(
+                                        Collections.singletonList(mid),
+                                        new TextMessage(textMessageContent.getText()
+                                        ))).execute()
+                                                                         .body();
                         log.info("Sent messages: {}", apiResponse);
                     }
                 }

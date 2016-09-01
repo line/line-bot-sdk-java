@@ -27,7 +27,6 @@ import org.apache.commons.io.IOUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.client.LineSignatureValidator;
-import com.linecorp.bot.client.exception.LineBotAPIException;
 import com.linecorp.bot.model.event.CallbackRequest;
 
 import lombok.NonNull;
@@ -58,14 +57,8 @@ public class LineBotCallbackRequestParser {
             log.debug("got: {}", new String(json, StandardCharsets.UTF_8));
         }
 
-        try {
-            if (!lineSignatureValidator.validateSignature(json, signature)) {
-                sendError(resp, "Invalid API signature");
-                return null;
-            }
-        } catch (LineBotAPIException e) {
-            log.warn("Invalid API signature", e);
-            sendError(resp, "Internal serve error: " + e.getMessage());
+        if (!lineSignatureValidator.validateSignature(json, signature)) {
+            sendError(resp, "Invalid API signature");
             return null;
         }
 

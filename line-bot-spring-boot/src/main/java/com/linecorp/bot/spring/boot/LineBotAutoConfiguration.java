@@ -20,11 +20,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -32,12 +29,17 @@ import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.client.LineBotClient;
-import com.linecorp.bot.client.LineBotClientBuilder;
+import com.linecorp.bot.client.LineMessagingService;
 import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
 import com.linecorp.bot.spring.boot.interceptor.LineBotServerInterceptor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Configuration
 @AutoConfigureAfter(LineBotWebMvcConfigurer.class)
@@ -47,28 +49,31 @@ public class LineBotAutoConfiguration {
     private LineBotProperties lineBotProperties;
 
     @Bean
-    @ConditionalOnMissingBean(LineBotClient.class)
-    public LineBotClient lineBotClient() {
-        RequestConfig requestConfig = RequestConfig
-                .custom()
-                .setConnectTimeout(lineBotProperties.getConnectTimeout())
-                .setConnectionRequestTimeout(lineBotProperties.getConnectionRequestTimeout())
-                .setSocketTimeout(lineBotProperties.getSocketTimeout())
+    public LineMessagingService lineMessagingService(ObjectMapper objectMapper) {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .addInterceptor(chain -> {
+                    Request request = chain.request().newBuilder()
+                                           // will be deprecate
+                                           .addHeader("X-LINE-ChannelToken",
+                                                      lineBotProperties.getChannelToken())
+                                           .addHeader("Authorization",
+                                                      "Bearer " + lineBotProperties.getChannelToken())
+                                           .build();
+                    return chain.proceed(request);
+                })
                 .build();
 
-        HttpClientBuilder httpClientBuilder = HttpClientBuilder
-                .create()
-                .disableAutomaticRetries()
-                .setDefaultRequestConfig(requestConfig)
-                .setUserAgent("line-botsdk-java/" + this.getClass().getPackage().getImplementationVersion());
-
-        return LineBotClientBuilder
-                .create(
-                        lineBotProperties.getChannelToken()
-                )
-                .apiEndPoint(lineBotProperties.getApiEndPoint())
-                .httpClientBuilder(httpClientBuilder)
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(lineBotProperties.getApiEndPoint())
+                .client(okHttpClient)
+                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .build();
+
+        return retrofit.create(LineMessagingService.class);
     }
 
     @Bean
@@ -93,7 +98,7 @@ public class LineBotAutoConfiguration {
 
     @Bean
     @ConditionalOnWebApplication
-    public LineBotCallbackRequestParser lineBotCallbackServletUtils(
+    public LineBotCallbackRequestParser lineBotCallbackRequestParser(
             LineSignatureValidator lineSignatureValidator,
             ObjectMapper objectMapper) {
         return new LineBotCallbackRequestParser(lineSignatureValidator, objectMapper);
