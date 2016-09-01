@@ -33,8 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.linecorp.bot.client.CloseableMessageContent;
-import com.linecorp.bot.client.LineBotClient;
-import com.linecorp.bot.client.exception.LineBotAPIException;
+import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
@@ -60,18 +60,20 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
+import com.linecorp.bot.model.profile.Profile;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import retrofit2.Response;
 
 @RestController
 @Slf4j
 public class KitchenSinkController {
     @Autowired
-    private LineBotClient lineBotClient;
+    private LineMessagingService lineMessagingService;
 
     @RequestMapping("/callback")
     public void callback(@NonNull @LineBotMessages List<Event> events) {
@@ -80,7 +82,7 @@ public class KitchenSinkController {
         for (Event event : events) {
             try {
                 this.handleEvent(event);
-            } catch (LineBotAPIException e) {
+            } catch (IOException e) {
                 log.error("LINE server returns '{}'({})",
                           e.getMessage(),
                           event, e);
@@ -88,7 +90,7 @@ public class KitchenSinkController {
         }
     }
 
-    private void handleEvent(Event event) throws LineBotAPIException {
+    private void handleEvent(Event event) throws IOException {
         if (event instanceof MessageEvent) {
             String replyToken = ((MessageEvent) event).getReplyToken();
             MessageContent message = ((MessageEvent) event).getMessage();
@@ -97,9 +99,10 @@ public class KitchenSinkController {
             } else if (message instanceof StickerMessageContent) {
                 handleSticker(replyToken, (StickerMessageContent) message);
             } else if (message instanceof LocationMessageContent) {
-                handleLocation(replyToken, (LocationMessageContent) message);
+                // TODO
             } else if (message instanceof ImageMessageContent) {
-                handleImage(replyToken, (ImageMessageContent) message);
+                // TODO
+//                handleImage(replyToken, (ImageMessageContent) message);
             }
 //        TODO     @JsonSubTypes.Type(ImageMessageContent.class),
         } else if (event instanceof UnfollowEvent) {
@@ -125,16 +128,19 @@ public class KitchenSinkController {
         }
     }
 
-    private void handleLocation(String replyToken, LocationMessageContent content) {
-
+    private void reply(@NonNull String replyToken, @NonNull Message message) throws IOException {
+        reply(replyToken, Collections.singletonList(message));
     }
 
-    private void reply(@NonNull String replyToken, @NonNull Message message) throws LineBotAPIException {
-        BotApiResponse apiResponse = lineBotClient.reply(replyToken, message);
+    private void reply(@NonNull String replyToken, @NonNull List<Message> messages) throws IOException {
+        Response<BotApiResponse> apiResponse = lineMessagingService
+                .reply(new ReplyMessage(replyToken, messages))
+                .execute();
         log.info("Sent messages: {}", apiResponse);
     }
 
-    private void replyText(@NonNull String replyToken, @NonNull String message) throws LineBotAPIException {
+    private void replyText(@NonNull String replyToken, @NonNull String message)
+            throws IOException {
         if (replyToken.isEmpty()) {
             throw new IllegalArgumentException("replyToken must not be empty");
         }
@@ -169,23 +175,23 @@ public class KitchenSinkController {
 //        }
 //    }
 //
-    private void handleImage(String replyToken, ImageMessageContent content) throws LineBotAPIException {
-        String messageId = content.getId();
-        try {
-            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
-                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
-                         messageId)
-            ) {
-                String path = saveContent("image", messageContent);
-                String previewPath = saveContent("image-preview", previewMessageContent);
-
-                // TODO
-//                lineBotClient.sendImage(mid, path, previewPath);
-            }
-        } catch (IOException e) {
-            log.error("Cannot save item '{}'(mid: '{}')", e.getMessage(), messageId, e);
-        }
-    }
+//    private void handleImage(String replyToken, ImageMessageContent content) throws LineBotAPIException {
+//        String messageId = content.getId();
+//        try {
+//            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
+//                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
+//                         messageId)
+//            ) {
+//                String path = saveContent("image", messageContent);
+//                String previewPath = saveContent("image-preview", previewMessageContent);
+//
+//                // TODO
+////                lineBotClient.sendImage(mid, path, previewPath);
+//            }
+//        } catch (IOException e) {
+//            log.error("Cannot save item '{}'(mid: '{}')", e.getMessage(), messageId, e);
+//        }
+//    }
 //
 //    private void handleAudio(AudioContent content) {
 //        String mid = content.getFrom();
@@ -206,16 +212,14 @@ public class KitchenSinkController {
 //        }
 //    }
 
-    private void handleSticker(String replyToken, StickerMessageContent content) throws LineBotAPIException {
-        // Bot can send some built-in stickers.
-        BotApiResponse apiResponse = lineBotClient.reply(replyToken, new StickerMessage(
+    private void handleSticker(String replyToken, StickerMessageContent content) throws IOException {
+        reply(replyToken, new StickerMessage(
                 content.getPackageId(), content.getStickerId())
         );
-        log.info("Sent messages: {}", apiResponse);
     }
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content)
-            throws LineBotAPIException {
+            throws IOException {
         String text = content.getText();
 
         log.info("Got text message from {}: {}", replyToken, text);
@@ -223,23 +227,40 @@ public class KitchenSinkController {
             case "profile": {
                 String userId = event.getSource().getUserId();
                 if (userId != null) {
-                    UserProfileResponse userProfile = lineBotClient.getUserProfile(
-                            Collections.singletonList(userId));
-                    this.replyText(replyToken, userProfile.toString());
-                    break;
+                    Response<UserProfileResponse> response = lineMessagingService
+                            .getProfile(Collections.singletonList(userId))
+                            .execute();
+                    if (response.isSuccessful()) {
+                        List<Profile> profiles = response.body().getProfiles();
+                        if (!profiles.isEmpty()) {
+                            this.reply(
+                                    replyToken,
+                                    Arrays.asList(new TextMessage(
+                                                          "Display name: " + profiles.get(0).getDisplayName()),
+                                                  new TextMessage("Status message: " + profiles.get(0)
+                                                                                               .getStatusMessage()))
+                            );
+                        } else {
+                            this.replyText(replyToken, "Can't get profile");
+                        }
+                    } else {
+                        this.replyText(replyToken, response.errorBody().string());
+                    }
                 } else {
                     this.replyText(replyToken, "Bot can't use profile API without user ID");
-                    break;
                 }
+                break;
             }
             case "bye": {
                 Source source = event.getSource();
                 if (source instanceof GroupSource) {
                     this.replyText(replyToken, "Leaving group");
-                    lineBotClient.leaveGroup(((GroupSource) source).getGroupId());
+                    lineMessagingService.leaveGroup(((GroupSource) source).getGroupId())
+                                        .execute();
                 } else if (source instanceof RoomSource) {
                     this.replyText(replyToken, "Leaving room");
-                    lineBotClient.leaveRoom(((RoomSource) source).getRoomId());
+                    lineMessagingService.leaveRoom(((RoomSource) source).getRoomId())
+                                        .execute();
                 } else {
                     this.replyText(replyToken, "Bot can't leave from 1:1 chat");
                 }

@@ -8,8 +8,6 @@ import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.linecorp.bot.client.exception.LineBotAPIException;
-
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -25,8 +23,7 @@ public class LineSignatureValidator {
         this.mac.init(secretKeySpec);
     }
 
-    public boolean validateSignature(@NonNull byte[] content, @NonNull String headerSignature)
-            throws LineBotAPIException {
+    public boolean validateSignature(@NonNull byte[] content, @NonNull String headerSignature) {
         final byte[] signature = generateSignature(content);
         final byte[] decodeHeaderSignature = Base64.getDecoder().decode(headerSignature);
         return MessageDigest.isEqual(decodeHeaderSignature, signature);

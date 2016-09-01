@@ -30,6 +30,8 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
     compile 'org.slf4j:slf4j-api:1.7.16'
     compile "org.apache.httpcomponents:httpclient:4.5.2"
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-jackson:2.1.0'
 
     optional "org.projectlombok:lombok:1.16.8"
 

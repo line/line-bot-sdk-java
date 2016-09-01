@@ -44,14 +44,16 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
     compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
-    compile 'org.springframework:spring-webmvc:4.2.5.RELEASE'
     compile 'org.springframework.boot:spring-boot-autoconfigure'
-    compile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.squareup.retrofit2:converter-jackson:2.1.0'
 
     optional 'javax.validation:validation-api:1.1.0.Final'
     optional 'org.springframework.boot:spring-boot-configuration-processor'
     optional 'org.projectlombok:lombok:1.16.4'
     optional 'org.slf4j:slf4j-api:1.7.16'
+
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'junit:junit:4.12'
     testCompile 'commons-logging:commons-logging:1.1.1'
