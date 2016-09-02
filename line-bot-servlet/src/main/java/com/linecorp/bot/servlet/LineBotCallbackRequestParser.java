@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
@@ -37,6 +36,12 @@ public class LineBotCallbackRequestParser {
     private final LineSignatureValidator lineSignatureValidator;
     private final ObjectMapper objectMapper;
 
+    /**
+     * Create new instance
+     *
+     * @param lineSignatureValidator LINE messaging API's signature validator
+     * @param objectMapper Jackson's JSON parser object
+     */
     public LineBotCallbackRequestParser(
             @NonNull LineSignatureValidator lineSignatureValidator,
             @NonNull ObjectMapper objectMapper) {
@@ -44,12 +49,18 @@ public class LineBotCallbackRequestParser {
         this.objectMapper = objectMapper;
     }
 
-    public CallbackRequest handle(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    /**
+     * Parse request.
+     *
+     * @param req HTTP servlet request.
+     * @return Parsed result. If there's an error, this method sends response.
+     * @throws LineBotCallbackException There's an error around signature.
+     */
+    public CallbackRequest handle(HttpServletRequest req) throws LineBotCallbackException, IOException {
         // validate signature
         String signature = req.getHeader("X-Line-Signature");
         if (signature == null || signature.length() == 0) {
-            sendError(resp, "Missing 'X-Line-Signature' header");
-            return null;
+            throw new LineBotCallbackException("Missing 'X-Line-Signature' header");
         }
 
         final byte[] json = IOUtils.toByteArray(req.getInputStream());
@@ -58,23 +69,14 @@ public class LineBotCallbackRequestParser {
         }
 
         if (!lineSignatureValidator.validateSignature(json, signature)) {
-            sendError(resp, "Invalid API signature");
-            return null;
+            throw new LineBotCallbackException("Invalid API signature");
         }
 
         final CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
         if (callbackRequest == null || callbackRequest.getEvents() == null) {
-            sendError(resp, "Invalid content");
-            return null;
+            throw new LineBotCallbackException("Invalid content");
         }
         return callbackRequest;
     }
 
-    private static void sendError(HttpServletResponse resp, String message) throws IOException {
-        log.warn(message);
-        resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                       message);
-        resp.setContentType("text/plain; charset=utf-8");
-        resp.getWriter().write(message);
-    }
 }
