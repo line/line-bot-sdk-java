@@ -17,9 +17,7 @@
 package com.linecorp.bot.spring.boot;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,14 +28,12 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -55,21 +51,18 @@ import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.spring.boot.IntegrationTest.Configuration;
 import com.linecorp.bot.spring.boot.IntegrationTest.MyController;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.Request;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 
 // integration test
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { IntegrationTest.class, Configuration.class, MyController.class })
+@SpringBootTest(classes = { IntegrationTest.class, MyController.class })
 @WebAppConfiguration
 @SpringBootApplication
 public class IntegrationTest {
@@ -85,6 +78,7 @@ public class IntegrationTest {
     private LineMessagingService lineMessagingService;
 
     private MockMvc mockMvc;
+    private static MockWebServer server;
 
     @RestController
     @Slf4j
@@ -101,42 +95,35 @@ public class IntegrationTest {
             }
         }
 
-        private void handleEvent(Event event) {
+        private void handleEvent(Event event) throws IOException {
             if (event instanceof MessageEvent) {
                 MessageContent content = ((MessageEvent) event).getMessage();
                 if (content instanceof TextMessageContent) {
                     String text = ((TextMessageContent) content).getText();
                     lineMessagingService.reply(
                             new ReplyMessage(((MessageEvent) event).getReplyToken(),
-                                             new TextMessage(text)));
+                                             new TextMessage(text)))
+                                        .execute();
                 }
             } else if (event instanceof FollowEvent) {
                 lineMessagingService.reply(
                         new ReplyMessage(((FollowEvent) event).getReplyToken(),
-                                         new TextMessage("follow")));
+                                         new TextMessage("follow")))
+                                    .execute();
             }
         }
+    }
+
+    @BeforeClass
+    public static void beforeClass() {
+        server = new MockWebServer();
+        System.setProperty("line.bot.apiEndPoint", server.url("/").toString());
     }
 
     @Before
     public void before() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac)
                                       .build();
-    }
-
-    @org.springframework.context.annotation.Configuration
-    public static class Configuration {
-        @Mock
-        private LineMessagingService lineMessagingService;
-
-        public Configuration() {
-            MockitoAnnotations.initMocks(this);
-        }
-
-        @Bean
-        public LineMessagingService lineMessagingService() {
-            return lineMessagingService;
-        }
     }
 
     @Test
@@ -150,49 +137,13 @@ public class IntegrationTest {
 
     @Test
     public void validCallbackTest() throws Exception {
+        server.enqueue(new MockResponse().setBody("{\"requestId\":\"hogehoge\"}"));
+        server.enqueue(new MockResponse().setBody("{\"requestId\":\"hogehoge\"}"));
+
         String signature = "ECezgIpQNUEp4OSHYd7xGSuFG7e66MLPkCkK1Y28XTU=";
 
         InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
         byte[] json = IOUtils.toByteArray(resource);
-
-        Call<BotApiResponse> call = new Call<BotApiResponse>() {
-            @Override
-            public Response<BotApiResponse> execute() {
-                return null;
-            }
-
-            @Override
-            public void enqueue(Callback<BotApiResponse> callback) {
-
-            }
-
-            @Override
-            public boolean isExecuted() {
-                return false;
-            }
-
-            @Override
-            public void cancel() {
-
-            }
-
-            @Override
-            public boolean isCanceled() {
-                return false;
-            }
-
-            @Override
-            public Call<BotApiResponse> clone() {
-                return this;
-            }
-
-            @Override
-            public Request request() {
-                return null;
-            }
-        };
-        when(lineMessagingService.reply(any(ReplyMessage.class)))
-                .thenReturn(call);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/callback")
                                               .header("X-Line-Signature", signature)
@@ -200,11 +151,20 @@ public class IntegrationTest {
                .andDo(print())
                .andExpect(status().isOk());
 
-        verify(lineMessagingService).reply(
-                new ReplyMessage("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
-                                 new TextMessage("Hello, world")));
-        verify(lineMessagingService).reply(
-                new ReplyMessage("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
-                                 new TextMessage("follow")));
+        // Test request 1
+        RecordedRequest request1 = server.takeRequest();
+        assertEquals("/v2/bot/message/reply", request1.getPath());
+        assertEquals("Bearer TOKEN", request1.getHeader("Authorization"));
+        assertEquals(
+                "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"text\":\"Hello, world\",\"type\":\"text\"}]}",
+                request1.getBody().readUtf8());
+
+        // Test request 2
+        RecordedRequest request2 = server.takeRequest();
+        assertEquals("/v2/bot/message/reply", request2.getPath());
+        assertEquals("Bearer TOKEN", request2.getHeader("Authorization"));
+        assertEquals(
+                "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"text\":\"follow\",\"type\":\"text\"}]}",
+                request2.getBody().readUtf8());
     }
 }

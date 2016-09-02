@@ -54,6 +54,7 @@ dependencies {
     optional 'org.projectlombok:lombok:1.16.10'
     optional 'org.slf4j:slf4j-api:1.7.16'
 
+    testCompile 'com.squareup.okhttp3:mockwebserver:3.4.1'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'junit:junit:4.12'
     testCompile 'commons-logging:commons-logging:1.1.1'
