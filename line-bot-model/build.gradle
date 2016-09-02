@@ -28,7 +28,7 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-databind:2.7.3"
     compile "com.fasterxml.jackson.core:jackson-annotations:2.7.3"
 
-    compileOnly 'org.projectlombok:lombok:1.16.8'
+    compileOnly 'org.projectlombok:lombok:1.16.10'
 
     testCompile 'junit:junit:4.11'
     testCompile 'commons-io:commons-io:2.4'

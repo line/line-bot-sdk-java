@@ -29,7 +29,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
     compile 'commons-io:commons-io:2.4'
 
-    optional 'org.projectlombok:lombok:1.16.8'
+    optional 'org.projectlombok:lombok:1.16.10'
     optional 'org.slf4j:slf4j-api:1.7.16'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'

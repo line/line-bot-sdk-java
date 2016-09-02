@@ -51,7 +51,7 @@ dependencies {
 
     optional 'javax.validation:validation-api:1.1.0.Final'
     optional 'org.springframework.boot:spring-boot-configuration-processor'
-    optional 'org.projectlombok:lombok:1.16.4'
+    optional 'org.projectlombok:lombok:1.16.10'
     optional 'org.slf4j:slf4j-api:1.7.16'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
