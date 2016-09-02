@@ -29,6 +29,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.client.AuthorizationHeaderInterceptor;
 import com.linecorp.bot.client.LineMessagingService;
 import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
@@ -36,7 +37,6 @@ import com.linecorp.bot.spring.boot.interceptor.LineBotServerInterceptor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
 
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -50,21 +50,15 @@ public class LineBotAutoConfiguration {
 
     @Bean
     public LineMessagingService lineMessagingService(ObjectMapper objectMapper) {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        AuthorizationHeaderInterceptor authorizationInterceptor =
+                new AuthorizationHeaderInterceptor(lineBotProperties.getChannelToken());
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .addInterceptor(chain -> {
-                    Request request = chain.request().newBuilder()
-                                           // will be deprecate
-                                           .addHeader("X-LINE-ChannelToken",
-                                                      lineBotProperties.getChannelToken())
-                                           .addHeader("Authorization",
-                                                      "Bearer " + lineBotProperties.getChannelToken())
-                                           .build();
-                    return chain.proceed(request);
-                })
+                .addInterceptor(httpLoggingInterceptor)
+                .addInterceptor(authorizationInterceptor)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
