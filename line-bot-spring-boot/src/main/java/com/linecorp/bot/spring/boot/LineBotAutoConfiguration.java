@@ -19,6 +19,7 @@ package com.linecorp.bot.spring.boot;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -59,6 +60,9 @@ public class LineBotAutoConfiguration {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)
                 .addInterceptor(authorizationInterceptor)
+                .connectTimeout(lineBotProperties.getConnectTimeout(), TimeUnit.MILLISECONDS)
+                .readTimeout(lineBotProperties.getReadTimeout(), TimeUnit.MILLISECONDS)
+                .writeTimeout(lineBotProperties.getWriteTimeout(), TimeUnit.MILLISECONDS)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()

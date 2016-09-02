@@ -44,15 +44,25 @@ public class LineBotProperties {
     @NotNull
     private String apiEndPoint = "https://api.line.me/";
 
+    /**
+     * Connection timeout in milliseconds
+     */
     @Valid
     @NotNull
-    private int connectTimeout;
+    private long connectTimeout = 10_000;
 
+    /**
+     * Read timeout in milliseconds
+     */
     @Valid
     @NotNull
-    private int connectionRequestTimeout;
+    private long readTimeout = 10_000;
 
+    /**
+     * Write timeout in milliseconds
+     */
     @Valid
     @NotNull
-    private int socketTimeout;
+    private long writeTimeout = 10_000;
+
 }
