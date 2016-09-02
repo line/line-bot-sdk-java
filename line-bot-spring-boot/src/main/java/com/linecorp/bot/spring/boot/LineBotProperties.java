@@ -16,8 +16,6 @@
 
 package com.linecorp.bot.spring.boot;
 
-import java.util.regex.Pattern;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -28,19 +26,16 @@ import lombok.Data;
 @Data
 @ConfigurationProperties(prefix = "line.bot")
 public class LineBotProperties {
-    private static final Pattern TRAILING_SLASH = Pattern.compile("/$");
-
-    // TODO This maybe deprecated.
-    @Deprecated
-    private String channelMid;
-
-    @Deprecated
-    private String channelId;
-
+    /**
+     * Channel acccess token.
+     */
     @Valid
     @NotNull
     private String channelToken;
 
+    /**
+     * Channel secret
+     */
     @Valid
     @NotNull
     private String channelSecret;
