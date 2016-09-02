@@ -16,10 +16,10 @@
 
 package com.linecorp.bot.servlet;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -78,13 +78,10 @@ public class LineBotCallbackRequestParserTest {
     @Test
     public void testMissingHeader() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        lineBotCallbackRequestParser.handle(
-                request,
-                response
-        );
 
-        verify(response).sendError(HttpServletResponse.SC_BAD_REQUEST,
-                                   "Missing 'X-Line-Signature' header");
+        assertThatThrownBy(() -> lineBotCallbackRequestParser.handle(request))
+                .isInstanceOf(LineBotCallbackException.class)
+                .hasMessage("Missing 'X-Line-Signature' header");
     }
 
     @Test
@@ -92,13 +89,10 @@ public class LineBotCallbackRequestParserTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("X-Line-Signature", "SSSSIGNATURE");
         request.setContent("{}".getBytes(StandardCharsets.UTF_8));
-        lineBotCallbackRequestParser.handle(
-                request,
-                response
-        );
 
-        verify(response).sendError(HttpServletResponse.SC_BAD_REQUEST,
-                                   "Invalid API signature");
+        assertThatThrownBy(() -> lineBotCallbackRequestParser.handle(request))
+                .isInstanceOf(LineBotCallbackException.class)
+                .hasMessage("Invalid API signature");
     }
 
     @Test
@@ -111,13 +105,9 @@ public class LineBotCallbackRequestParserTest {
 
         doReturn(true).when(lineSignatureValidator).validateSignature(requestBody, "SSSSIGNATURE");
 
-        lineBotCallbackRequestParser.handle(
-                request,
-                response
-        );
-
-        verify(response).sendError(HttpServletResponse.SC_BAD_REQUEST,
-                                   "Invalid content");
+        assertThatThrownBy(() -> lineBotCallbackRequestParser.handle(request))
+                .isInstanceOf(LineBotCallbackException.class)
+                .hasMessage("Invalid content");
     }
 
     @Test
@@ -132,8 +122,7 @@ public class LineBotCallbackRequestParserTest {
         doReturn(true).when(lineSignatureValidator).validateSignature(requestBody, "SSSSIGNATURE");
 
         CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(
-                request,
-                response
+                request
         );
         Assert.assertNotNull(callbackRequest);
 

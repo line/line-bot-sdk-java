@@ -35,4 +35,5 @@ dependencies {
     testCompile 'org.mockito:mockito-all:1.10.19'
     // MockHttpServletRequest
     testCompile 'org.springframework:spring-test:4.2.5.RELEASE'
+    testCompile "org.assertj:assertj-core:3.5.2"
 }
