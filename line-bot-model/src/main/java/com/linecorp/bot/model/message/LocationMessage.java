@@ -5,7 +5,7 @@ import lombok.Value;
 @Value
 public class LocationMessage implements Message {
 
-    public static final String TYPE = "location";
+    private static final String TYPE = "location";
 
     private String title;
     private String address;

@@ -9,7 +9,7 @@ import lombok.Value;
 @Value
 public class ImageMapMessage implements Message {
 
-    public static final String TYPE = "imagemap";
+    private static final String TYPE = "imagemap";
 
     private String baseUrl;
     private String altText;

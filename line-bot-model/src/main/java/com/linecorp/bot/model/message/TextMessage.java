@@ -5,7 +5,7 @@ import lombok.Value;
 @Value
 public class TextMessage implements Message {
 
-    public static final String TYPE = "text";
+    private static final String TYPE = "text";
 
     private String text;
 

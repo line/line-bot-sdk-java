@@ -7,7 +7,7 @@ import lombok.Value;
 @Value
 public class TemplateMessage implements Message {
 
-    public static final String TYPE = "template";
+    private static final String TYPE = "template";
 
     private String altText;
     private Template template;
