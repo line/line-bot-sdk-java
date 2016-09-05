@@ -53,6 +53,7 @@ import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
+import com.linecorp.bot.model.message.LocationMessage;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
@@ -99,7 +100,13 @@ public class KitchenSinkController {
             } else if (message instanceof StickerMessageContent) {
                 handleSticker(replyToken, (StickerMessageContent) message);
             } else if (message instanceof LocationMessageContent) {
-                // TODO
+                LocationMessageContent locationMessage = (LocationMessageContent) message;
+                reply(replyToken, new LocationMessage(
+                        locationMessage.getTitle(),
+                        locationMessage.getAddress(),
+                        locationMessage.getLatitude(),
+                        locationMessage.getLongitude()
+                ));
             } else if (message instanceof ImageMessageContent) {
                 // TODO
 //                handleImage(replyToken, (ImageMessageContent) message);

@@ -6,7 +6,7 @@ import lombok.Value;
 @Value
 public class StickerMessage implements Message {
 
-    public static final String TYPE = "sticker";
+    private static final String TYPE = "sticker";
 
     @NonNull
     private final String packageId;
