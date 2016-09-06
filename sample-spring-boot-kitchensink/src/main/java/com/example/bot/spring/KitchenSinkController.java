@@ -53,11 +53,16 @@ import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
+import com.linecorp.bot.model.message.ImageMapMessage;
 import com.linecorp.bot.model.message.LocationMessage;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.imagemap.ImageMapArea;
+import com.linecorp.bot.model.message.imagemap.ImageMapBaseSize;
+import com.linecorp.bot.model.message.imagemap.MessageImageMapAction;
+import com.linecorp.bot.model.message.imagemap.URIImageMapAction;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
@@ -316,23 +321,39 @@ public class KitchenSinkController {
                 this.reply(replyToken, templateMessage);
                 break;
             }
-            case "rich":
-//                final RichMessage richMessage =
-//                        SimpleRichMessageBuilder.create(1040, 1040)
-//                        .addWebAction(0, 0, 520, 520, "manga", "https://store.line.me/family/manga/en")
-//                        .addWebAction(520, 0, 520, 520, "music", "https://store.line.me/family/music/en")
-//                        .addWebAction(0, 520, 520, 520, "play", "https://store.line.me/family/play/en")
-//                        .addWebAction(520, 520, 520, 520, "fortune", "https://store.line.me/family/uranai/en")
-//                        .build();
-
-//                lineBotClient.sendRichMessage(
-//                        replyToken,
-//                        createUri("/static/rich"),
-//                        "This is alt text.",
-//                        richMessage
-//                );
+            case "imagemap":
+                this.reply(replyToken, new ImageMapMessage(
+                        createUri("/static/rich"),
+                        "This is alt text",
+                        new ImageMapBaseSize(1040, 1040),
+                        Arrays.asList(
+                                new URIImageMapAction(
+                                        "https://store.line.me/family/manga/en",
+                                        new ImageMapArea(
+                                                0, 0, 520, 520
+                                        )
+                                ),
+                                new URIImageMapAction(
+                                        "https://store.line.me/family/music/en",
+                                        new ImageMapArea(
+                                                520, 0, 520, 520
+                                        )
+                                ),
+                                new URIImageMapAction(
+                                        "https://store.line.me/family/play/en",
+                                        new ImageMapArea(
+                                                0, 520, 520, 520
+                                        )
+                                ),
+                                new MessageImageMapAction(
+                                        "URANAI!",
+                                        new ImageMapArea(
+                                                520, 520, 520, 520
+                                        )
+                                )
+                        )
+                ));
                 break;
-            // TODO html messages
             default:
                 log.info("Returns echo message {}: {}", replyToken, text);
                 this.replyText(

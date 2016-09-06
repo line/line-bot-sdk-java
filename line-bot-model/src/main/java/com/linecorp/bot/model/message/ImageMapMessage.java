@@ -2,7 +2,8 @@ package com.linecorp.bot.model.message;
 
 import java.util.List;
 
-import com.linecorp.bot.model.action.Action;
+import com.linecorp.bot.model.message.imagemap.ImageMapAction;
+import com.linecorp.bot.model.message.imagemap.ImageMapBaseSize;
 
 import lombok.Value;
 
@@ -13,17 +14,12 @@ public class ImageMapMessage implements Message {
 
     private String baseUrl;
     private String altText;
-    private BaseSize baseSize;
-    private List<Action> actions;
+    private ImageMapBaseSize baseSize;
+    private List<ImageMapAction> actions;
 
     @Override
     public String getType() {
         return TYPE;
     }
 
-    @Value
-    public static class BaseSize {
-        private int height;
-        private int width;
-    }
 }
