@@ -1,10 +1,12 @@
 package com.linecorp.bot.model.message.imagemap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
 
 @Value
+@JsonTypeName("message")
 public class MessageImageMapAction implements ImageMapAction {
     @JsonProperty("text")
     private String text;
@@ -16,10 +18,5 @@ public class MessageImageMapAction implements ImageMapAction {
                                  @JsonProperty("area") ImageMapArea area) {
         this.text = text;
         this.area = area;
-    }
-
-    @Override
-    public String getType() {
-        return "uri";
     }
 }

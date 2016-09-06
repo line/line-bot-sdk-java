@@ -61,7 +61,8 @@ import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.imagemap.ImageMapArea;
 import com.linecorp.bot.model.message.imagemap.ImageMapBaseSize;
-import com.linecorp.bot.model.message.imagemap.UriImageMapAction;
+import com.linecorp.bot.model.message.imagemap.MessageImageMapAction;
+import com.linecorp.bot.model.message.imagemap.URIImageMapAction;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
@@ -326,26 +327,26 @@ public class KitchenSinkController {
                         "This is alt text",
                         new ImageMapBaseSize(1040, 1040),
                         Arrays.asList(
-                                new UriImageMapAction(
+                                new URIImageMapAction(
                                         "https://store.line.me/family/manga/en",
                                         new ImageMapArea(
                                                 0, 0, 520, 520
                                         )
                                 ),
-                                new UriImageMapAction(
+                                new URIImageMapAction(
                                         "https://store.line.me/family/music/en",
                                         new ImageMapArea(
                                                 520, 0, 520, 520
                                         )
                                 ),
-                                new UriImageMapAction(
+                                new URIImageMapAction(
                                         "https://store.line.me/family/play/en",
                                         new ImageMapArea(
                                                 0, 520, 520, 520
                                         )
                                 ),
-                                new UriImageMapAction(
-                                        "https://store.line.me/family/uranai/en",
+                                new MessageImageMapAction(
+                                        "URANAI!",
                                         new ImageMapArea(
                                                 520, 520, 520, 520
                                         )
