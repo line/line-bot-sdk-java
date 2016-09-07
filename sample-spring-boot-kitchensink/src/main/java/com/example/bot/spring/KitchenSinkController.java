@@ -282,10 +282,9 @@ public class KitchenSinkController {
             case "confirm": {
                 ConfirmTemplate confirmTemplate = new ConfirmTemplate(
                         "Do it?",
-                        Arrays.asList(
-                                new MessageAction("Yes", "Yes!"),
-                                new MessageAction("No", "No!")
-                        ));
+                        new MessageAction("Yes", "Yes!"),
+                        new MessageAction("No", "No!")
+                );
                 TemplateMessage templateMessage = new TemplateMessage("Confirm alt text", confirmTemplate);
                 this.reply(replyToken, templateMessage);
                 break;

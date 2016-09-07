@@ -5,6 +5,7 @@
 
 package com.linecorp.bot.model.message.template;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -25,5 +26,9 @@ public class ConfirmTemplate implements Template {
     public ConfirmTemplate(@JsonProperty("text") String text, @JsonProperty("actions") List<Action> actions) {
         this.text = text;
         this.actions = actions;
+    }
+
+    public ConfirmTemplate(String text, Action left, Action right) {
+        this(text, Arrays.asList(left, right));
     }
 }
