@@ -15,4 +15,9 @@ public class UserSource implements Source {
     public UserSource(@JsonProperty("userId") String userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String getSenderId() {
+        return userId;
+    }
 }

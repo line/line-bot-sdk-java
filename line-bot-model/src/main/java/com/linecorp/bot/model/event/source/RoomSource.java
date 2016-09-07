@@ -17,4 +17,9 @@ public class RoomSource implements Source {
         this.userId = userId;
         this.roomId = roomId;
     }
+
+    @Override
+    public String getSenderId() {
+        return roomId;
+    }
 }
