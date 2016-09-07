@@ -25,4 +25,9 @@ public class GroupSource implements Source {
         this.groupId = groupId;
         this.userId = userId;
     }
+
+    @Override
+    public String getSenderId() {
+        return groupId;
+    }
 }

@@ -16,4 +16,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 )
 public interface Source {
     String getUserId();
+
+    /**
+     * message/event sender id. It might be userId/roomId/roomId.
+     * @return message/event sender id
+     */
+    String getSenderId();
 }
