@@ -17,7 +17,6 @@
 package com.example.bot.spring.echo;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +66,7 @@ public class EchoApplication {
                                      : source.getUserId();
                         BotApiResponse apiResponse = lineMessagingService.push(
                                 new PushMessage(
-                                        Collections.singletonList(mid),
+                                        mid,
                                         new TextMessage(textMessageContent.getText()
                                         ))).execute()
                                                                          .body();
