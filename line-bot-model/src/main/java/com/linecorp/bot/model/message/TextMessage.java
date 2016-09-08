@@ -1,16 +1,11 @@
 package com.linecorp.bot.model.message;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import lombok.Value;
 
 @Value
+@JsonTypeName("text")
 public class TextMessage implements Message {
-
-    private static final String TYPE = "text";
-
     private String text;
-
-    @Override
-    public String getType() {
-        return TYPE;
-    }
 }

@@ -1,13 +1,13 @@
 package com.linecorp.bot.model.message;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import lombok.NonNull;
 import lombok.Value;
 
 @Value
+@JsonTypeName("sticker")
 public class StickerMessage implements Message {
-
-    private static final String TYPE = "sticker";
-
     @NonNull
     private final String packageId;
 
@@ -17,10 +17,5 @@ public class StickerMessage implements Message {
     public StickerMessage(String packageId, String stickerId) {
         this.packageId = packageId;
         this.stickerId = stickerId;
-    }
-
-    @Override
-    public String getType() {
-        return TYPE;
     }
 }

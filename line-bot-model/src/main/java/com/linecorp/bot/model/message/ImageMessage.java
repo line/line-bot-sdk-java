@@ -1,16 +1,12 @@
 package com.linecorp.bot.model.message;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import lombok.Value;
 
 @Value
+@JsonTypeName("image")
 public class ImageMessage implements Message {
-    private static final String TYPE = "image";
-
     private String originalContentUrl;
     private String previewImageUrl;
-
-    @Override
-    public String getType() {
-        return TYPE;
-    }
 }
