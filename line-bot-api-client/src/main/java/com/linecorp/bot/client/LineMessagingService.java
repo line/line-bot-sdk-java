@@ -1,7 +1,5 @@
 package com.linecorp.bot.client;
 
-import java.util.List;
-
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.UserProfileResponse;
@@ -13,7 +11,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 
 public interface LineMessagingService {
@@ -30,8 +27,8 @@ public interface LineMessagingService {
     /**
      * The profile information of any specified user can be obtained.
      */
-    @GET("/v2/bot/profile")
-    Call<UserProfileResponse> getProfile(@Query("userId") List<String> userId);
+    @GET("/v2/bot/profile/{userId}")
+    Call<UserProfileResponse> getProfile(@Path("userId") String userId);
 
     @POST("/v2/bot/group/{groupId}/leave")
     Call<BotApiResponse> leaveGroup(@Path("groupId") String groupId);
