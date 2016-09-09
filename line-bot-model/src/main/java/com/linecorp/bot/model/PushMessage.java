@@ -11,10 +11,10 @@ import lombok.Value;
 @Value
 @AllArgsConstructor
 public class PushMessage {
-    private final List<String> to;
+    private final String to;
     private final List<Message> messages;
 
-    public PushMessage(List<String> to, Message message) {
+    public PushMessage(String to, Message message) {
         this.to = to;
         this.messages = Collections.singletonList(message);
     }
