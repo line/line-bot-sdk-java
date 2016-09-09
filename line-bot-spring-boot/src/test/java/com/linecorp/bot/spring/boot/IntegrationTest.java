@@ -156,7 +156,7 @@ public class IntegrationTest {
         assertEquals("/v2/bot/message/reply", request1.getPath());
         assertEquals("Bearer TOKEN", request1.getHeader("Authorization"));
         assertEquals(
-                "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"text\":\"Hello, world\",\"type\":\"text\"}]}",
+                "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"Hello, world\"}]}",
                 request1.getBody().readUtf8());
 
         // Test request 2
@@ -164,7 +164,7 @@ public class IntegrationTest {
         assertEquals("/v2/bot/message/reply", request2.getPath());
         assertEquals("Bearer TOKEN", request2.getHeader("Authorization"));
         assertEquals(
-                "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"text\":\"follow\",\"type\":\"text\"}]}",
+                "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"follow\"}]}",
                 request2.getBody().readUtf8());
     }
 }
