@@ -1,11 +1,7 @@
 {
-  "requestId": "1231feaadc...",
-  "profiles": [
-    {
-      "displayName": "BOT API",
-      "userId": "U0047556f2e40dba2456887320ba7c76d",
-      "pictureUrl": "http://dl.profile.line.naver.jp/abcdefghijklmn",
-      "statusMessage": "Hello, LINE!"
-    }
-  ]
+  "displayName": "Tester",
+  "userId": "Uc6a5e7b3d4d08c33dd8d530fb3c02762",
+  "pictureUrl": null,
+  "statusMessage": "映画",
+  "requestId": "ccf61e72-ecaf-4037-97b8-68b9a8d7d64d"
 }

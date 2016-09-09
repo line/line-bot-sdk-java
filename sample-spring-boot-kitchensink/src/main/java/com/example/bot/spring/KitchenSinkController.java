@@ -74,7 +74,6 @@ import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
-import com.linecorp.bot.model.profile.Profile;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
@@ -239,21 +238,17 @@ public class KitchenSinkController {
                 String userId = event.getSource().getUserId();
                 if (userId != null) {
                     Response<UserProfileResponse> response = lineMessagingService
-                            .getProfile(Collections.singletonList(userId))
+                            .getProfile(userId)
                             .execute();
                     if (response.isSuccessful()) {
-                        List<Profile> profiles = response.body().getProfiles();
-                        if (!profiles.isEmpty()) {
-                            this.reply(
-                                    replyToken,
-                                    Arrays.asList(new TextMessage(
-                                                          "Display name: " + profiles.get(0).getDisplayName()),
-                                                  new TextMessage("Status message: " + profiles.get(0)
-                                                                                               .getStatusMessage()))
-                            );
-                        } else {
-                            this.replyText(replyToken, "Can't get profile");
-                        }
+                        UserProfileResponse profiles = response.body();
+                        this.reply(
+                                replyToken,
+                                Arrays.asList(new TextMessage(
+                                                      "Display name: " + profiles.getDisplayName()),
+                                              new TextMessage("Status message: "
+                                                              + profiles.getStatusMessage()))
+                        );
                     } else {
                         this.replyText(replyToken, response.errorBody().string());
                     }
