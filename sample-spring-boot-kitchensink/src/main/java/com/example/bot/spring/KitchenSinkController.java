@@ -18,6 +18,7 @@ package com.example.bot.spring;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +34,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.linecorp.bot.client.CloseableMessageContent;
 import com.linecorp.bot.client.LineMessagingService;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
+import com.linecorp.bot.model.event.BeaconEvent;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
@@ -45,20 +47,25 @@ import com.linecorp.bot.model.event.LeaveEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
+import com.linecorp.bot.model.event.message.AudioMessageContent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.message.VideoMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
+import com.linecorp.bot.model.message.AudioMessage;
 import com.linecorp.bot.model.message.ImageMapMessage;
+import com.linecorp.bot.model.message.ImageMessage;
 import com.linecorp.bot.model.message.LocationMessage;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.VideoMessage;
 import com.linecorp.bot.model.message.imagemap.ImageMapArea;
 import com.linecorp.bot.model.message.imagemap.ImageMapBaseSize;
 import com.linecorp.bot.model.message.imagemap.MessageImageMapAction;
@@ -73,7 +80,9 @@ import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 import lombok.NonNull;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 @RestController
@@ -114,10 +123,43 @@ public class KitchenSinkController {
                         locationMessage.getLongitude()
                 ));
             } else if (message instanceof ImageMessageContent) {
-                // TODO
-//                handleImage(replyToken, (ImageMessageContent) message);
+                // You need to install ImageMagick
+                handleHeavyContent(
+                        replyToken,
+                        message.getId(),
+                        responseBody -> {
+                            DownloadedContent jpg = saveContent("jpg", responseBody);
+                            DownloadedContent previewImg = createTempFile("jpg");
+                            system(
+                                    "convert",
+                                    "-resize", "240x",
+                                    jpg.path.toString(),
+                                    previewImg.path.toString());
+                            reply(replyToken, new ImageMessage(jpg.getUri(), jpg.getUri()));
+                        });
+            } else if (message instanceof AudioMessageContent) {
+                handleHeavyContent(
+                        replyToken,
+                        message.getId(),
+                        responseBody -> {
+                            DownloadedContent mp4 = saveContent("mp4", responseBody);
+                            reply(replyToken, new AudioMessage(mp4.getUri(), 100));
+                        });
+            } else if (message instanceof VideoMessageContent) {
+                // You need to install ffmpeg and ImageMagick.
+                handleHeavyContent(
+                        replyToken,
+                        message.getId(),
+                        responseBody -> {
+                            DownloadedContent mp4 = saveContent("mp4", responseBody);
+                            DownloadedContent previewImg = createTempFile("jpg");
+                            system("convert",
+                                   mp4.path.toString(),
+                                   previewImg.path.toString());
+                            reply(replyToken,
+                                  new VideoMessage(mp4.getUri(), previewImg.uri));
+                        });
             }
-//        TODO     @JsonSubTypes.Type(ImageMessageContent.class),
         } else if (event instanceof UnfollowEvent) {
             log.info("unfollowed this bot: {}", event);
         } else if (event instanceof FollowEvent) {
@@ -133,27 +175,31 @@ public class KitchenSinkController {
             String replyToken = ((PostbackEvent) event).getReplyToken();
             this.replyText(replyToken,
                            "Got postback " + ((PostbackEvent) event).getPostbackContent().getData());
+        } else if (event instanceof BeaconEvent) {
+            String replyToken = ((BeaconEvent) event).getReplyToken();
+            this.replyText(replyToken,
+                           "Got beacon message " + ((BeaconEvent) event).getBeaconContent().getHwid());
         } else {
-            // TODO BeaconEvent
-//         TODO    @JsonSubTypes.Type(PostbackEvent.class)
-            log.info("Received message(Ignored): {}",
-                     event);
+            log.info("Received message(Ignored): {}", event);
         }
     }
 
-    private void reply(@NonNull String replyToken, @NonNull Message message) throws IOException {
+    private void reply(@NonNull String replyToken, @NonNull Message message) {
         reply(replyToken, Collections.singletonList(message));
     }
 
-    private void reply(@NonNull String replyToken, @NonNull List<Message> messages) throws IOException {
-        Response<BotApiResponse> apiResponse = lineMessagingService
-                .reply(new ReplyMessage(replyToken, messages))
-                .execute();
-        log.info("Sent messages: {}", apiResponse);
+    private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
+        try {
+            Response<BotApiResponse> apiResponse = lineMessagingService
+                    .reply(new ReplyMessage(replyToken, messages))
+                    .execute();
+            log.info("Sent messages: {}", apiResponse);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
-    private void replyText(@NonNull String replyToken, @NonNull String message)
-            throws IOException {
+    private void replyText(@NonNull String replyToken, @NonNull String message) {
         if (replyToken.isEmpty()) {
             throw new IllegalArgumentException("replyToken must not be empty");
         }
@@ -163,69 +209,21 @@ public class KitchenSinkController {
         this.reply(replyToken, new TextMessage(message));
     }
 
-    //    private void handleVideo(VideoContent content) {
-//        String mid = content.getFrom();
-//        String messageId = content.getId();
-//        try {
-//            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
-//                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
-//                         messageId)
-//            ) {
-//                String path = saveContent("video", messageContent);
-//                String previewPath = saveContent("video-preview", previewMessageContent);
-//
-//                // FIXME
-////                lineBotClient.sendVideo(mid, path, previewPath);
-//            }
-//        } catch (IOException e) {
-//            log.error("Cannot save item '{}'(mid: '{}')",
-//                      e.getMessage(),
-//                      messageId, e);
-//        } catch (LineBotAPIException e) {
-//            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
-//                      e.getMessage(),
-//                      messageId, e);
-//        }
-//    }
-//
-//    private void handleImage(String replyToken, ImageMessageContent content) throws LineBotAPIException {
-//        String messageId = content.getId();
-//        try {
-//            try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId);
-//                 CloseableMessageContent previewMessageContent = lineBotClient.getPreviewMessageContent(
-//                         messageId)
-//            ) {
-//                String path = saveContent("image", messageContent);
-//                String previewPath = saveContent("image-preview", previewMessageContent);
-//
-//                // TODO
-////                lineBotClient.sendImage(mid, path, previewPath);
-//            }
-//        } catch (IOException e) {
-//            log.error("Cannot save item '{}'(mid: '{}')", e.getMessage(), messageId, e);
-//        }
-//    }
-//
-//    private void handleAudio(AudioContent content) {
-//        String mid = content.getFrom();
-//        AudioContentMetadata contentMetadata = content.getContentMetadata();
-//        String messageId = content.getId();
-//        try (CloseableMessageContent messageContent = lineBotClient.getMessageContent(messageId)) {
-//            String path = saveContent("audio", messageContent);
-//            // TODO
-////            lineBotClient.sendAudio(mid, path, contentMetadata.getAudlen());
-//        } catch (IOException e) {
-//            log.error("Cannot save image '{}'(mid: '{}')",
-//                      e.getMessage(),
-//                      messageId, e);
-//        } catch (LineBotAPIException e) {
-//            log.error("Error in LINE BOT API: '{}'(mid: '{}')",
-//                      e.getMessage(),
-//                      messageId, e);
-//        }
-//    }
+    private void handleHeavyContent(String replyToken, String messageId,
+                                    Consumer<ResponseBody> messageConsumer) throws IOException {
+        Response<ResponseBody> response = lineMessagingService.getContent(messageId)
+                                                              .execute();
+        if (response.isSuccessful()) {
+            try (ResponseBody body = response.body()) {
+                messageConsumer.accept(body);
+            }
+        } else {
+            reply(replyToken, new TextMessage("Cannot get image: " + response.message()));
+        }
 
-    private void handleSticker(String replyToken, StickerMessageContent content) throws IOException {
+    }
+
+    private void handleSticker(String replyToken, StickerMessageContent content) {
         reply(replyToken, new StickerMessage(
                 content.getPackageId(), content.getStickerId())
         );
@@ -381,15 +379,44 @@ public class KitchenSinkController {
                                           .toUriString();
     }
 
-    private static String saveContent(String type, CloseableMessageContent messageContent) throws IOException {
-        log.info("Got filename: {}", messageContent.getFileName());
-        String path = LocalDateTime.now().toString() + '-' + UUID.randomUUID().toString();
-        Path tempFile = KitchenSinkApplication.downloadedContentDir.resolve(path);
+    private void system(String... args) {
+        ProcessBuilder processBuilder = new ProcessBuilder(args);
+        try {
+            Process start = processBuilder.start();
+            int i = start.waitFor();
+            log.info("result: {} =>  {}", Arrays.toString(args), i);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        } catch (InterruptedException e) {
+            log.info("Interrupted", e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private static DownloadedContent saveContent(String ext, ResponseBody responseBody) {
+        log.info("Got filename: {}", responseBody.contentType());
+        DownloadedContent tempFile = createTempFile(ext);
+        try (OutputStream outputStream = Files.newOutputStream(tempFile.path)) {
+            IOUtils.copy(responseBody.byteStream(), outputStream);
+            log.info("Saved {}: {}", ext, tempFile);
+            return tempFile;
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    private static DownloadedContent createTempFile(String ext) {
+        String fileName = LocalDateTime.now().toString() + '-' + UUID.randomUUID().toString() + '.' + ext;
+        Path tempFile = KitchenSinkApplication.downloadedContentDir.resolve(fileName);
         tempFile.toFile().deleteOnExit();
-        OutputStream outputStream = Files.newOutputStream(tempFile);
-        IOUtils.copy(messageContent.getContent(),
-                     outputStream);
-        log.info("Saved {}: {}", type, tempFile);
-        return createUri("/downloaded/" + path);
+        return new DownloadedContent(
+                tempFile,
+                createUri("/downloaded/" + tempFile.getFileName()));
+    }
+
+    @Value
+    public static class DownloadedContent {
+        Path path;
+        String uri;
     }
 }
