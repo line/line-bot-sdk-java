@@ -29,7 +29,7 @@ public class UserProfileResponse {
     private final String statusMessage;
 
     public UserProfileResponse(
-            @JsonProperty("requestIsd") String requestId,
+            @JsonProperty("requestId") String requestId,
             @JsonProperty("displayName") String displayName,
             @JsonProperty("userId") String userId,
             @JsonProperty("pictureUrl") String pictureUrl,
