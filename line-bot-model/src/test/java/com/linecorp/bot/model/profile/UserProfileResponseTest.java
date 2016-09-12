@@ -16,7 +16,6 @@ public class UserProfileResponseTest {
             ObjectMapper objectMapper = new ObjectMapper();
             UserProfileResponse userProfileResponse = objectMapper.readValue(resourceAsStream,
                                                                              UserProfileResponse.class);
-            Assert.assertNotNull(userProfileResponse.getRequestId());
             Assert.assertNotNull(userProfileResponse.getDisplayName());
         }
     }
