@@ -9,13 +9,13 @@ import lombok.Value;
 
 @Value
 public class BotApiResponse {
-    private final String requestId;
     private final String message;
     private final List<String> details;
 
-    public BotApiResponse(@JsonProperty("requestId") String requestId, @JsonProperty("message") String message,
-                          @JsonProperty("details") List<String> details) {
-        this.requestId = requestId;
+    public BotApiResponse(
+            @JsonProperty("message") String message,
+            @JsonProperty("details") List<String> details
+    ) {
         this.message = message;
         this.details = details == null ? Collections.emptyList() : details;
     }

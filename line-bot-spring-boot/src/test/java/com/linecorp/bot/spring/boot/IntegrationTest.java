@@ -137,8 +137,8 @@ public class IntegrationTest {
 
     @Test
     public void validCallbackTest() throws Exception {
-        server.enqueue(new MockResponse().setBody("{\"requestId\":\"hogehoge\"}"));
-        server.enqueue(new MockResponse().setBody("{\"requestId\":\"hogehoge\"}"));
+        server.enqueue(new MockResponse().setBody("{}"));
+        server.enqueue(new MockResponse().setBody("{}"));
 
         String signature = "ECezgIpQNUEp4OSHYd7xGSuFG7e66MLPkCkK1Y28XTU=";
 
