@@ -19,7 +19,6 @@ package com.linecorp.bot.spring.boot;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -30,17 +29,12 @@ import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.client.AuthorizationHeaderInterceptor;
 import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
 import com.linecorp.bot.spring.boot.interceptor.LineBotServerInterceptor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Configuration
 @AutoConfigureAfter(LineBotWebMvcConfigurer.class)
@@ -50,28 +44,14 @@ public class LineBotAutoConfiguration {
     private LineBotProperties lineBotProperties;
 
     @Bean
-    public LineMessagingService lineMessagingService(ObjectMapper objectMapper) {
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        AuthorizationHeaderInterceptor authorizationInterceptor =
-                new AuthorizationHeaderInterceptor(lineBotProperties.getChannelToken());
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .addInterceptor(authorizationInterceptor)
-                .connectTimeout(lineBotProperties.getConnectTimeout(), TimeUnit.MILLISECONDS)
-                .readTimeout(lineBotProperties.getReadTimeout(), TimeUnit.MILLISECONDS)
-                .writeTimeout(lineBotProperties.getWriteTimeout(), TimeUnit.MILLISECONDS)
+    public LineMessagingService lineMessagingService() {
+        return LineMessagingServiceBuilder
+                .create(lineBotProperties.getChannelToken())
+                .apiEndPoint(lineBotProperties.getApiEndPoint())
+                .connectTimeout(lineBotProperties.getConnectTimeout())
+                .readTimeout(lineBotProperties.getReadTimeout())
+                .writeTimeout(lineBotProperties.getWriteTimeout())
                 .build();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(lineBotProperties.getApiEndPoint())
-                .client(okHttpClient)
-                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-                .build();
-
-        return retrofit.create(LineMessagingService.class);
     }
 
     @Bean
