@@ -35,7 +35,10 @@ import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
+@Slf4j
 public class LineBotServerInterceptor implements HandlerInterceptor {
     @Autowired
     private LineBotCallbackRequestParser lineBotCallbackRequestParser;
@@ -52,6 +55,7 @@ public class LineBotServerInterceptor implements HandlerInterceptor {
                     LineBotServerArgumentProcessor.setValue(request, callbackRequest);
                     return true;
                 } catch (LineBotCallbackException e) {
+                    log.info("LINE Bot callback exception: {}", e.getMessage());
                     response.sendError(HttpStatus.SC_BAD_REQUEST);
                     try (PrintWriter writer = response.getWriter()) {
                         writer.println(e.getMessage());
