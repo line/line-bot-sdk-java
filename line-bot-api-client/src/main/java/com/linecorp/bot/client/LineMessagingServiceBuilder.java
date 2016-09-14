@@ -32,7 +32,7 @@ public final class LineMessagingServiceBuilder {
      * @param channelToken
      * @return
      */
-    public static LineMessagingServiceBuilder create(String channelToken) {
+    public static LineMessagingServiceBuilder create(@NonNull String channelToken) {
         return new LineMessagingServiceBuilder(channelToken);
     }
 
