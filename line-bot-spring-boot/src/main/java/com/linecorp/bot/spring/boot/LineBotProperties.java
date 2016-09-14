@@ -21,6 +21,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import com.linecorp.bot.client.LineMessagingServiceBuilder;
+
 import lombok.Data;
 
 @Data
@@ -42,27 +44,26 @@ public class LineBotProperties {
 
     @Valid
     @NotNull
-    private String apiEndPoint = "https://api.line.me/";
+    private String apiEndPoint = LineMessagingServiceBuilder.DEFAULT_API_END_POINT;
 
     /**
      * Connection timeout in milliseconds
      */
     @Valid
     @NotNull
-    private long connectTimeout = 10_000;
+    private long connectTimeout = LineMessagingServiceBuilder.DEFAULT_CONNECT_TIMEOUT;
 
     /**
      * Read timeout in milliseconds
      */
     @Valid
     @NotNull
-    private long readTimeout = 10_000;
+    private long readTimeout = LineMessagingServiceBuilder.DEFAULT_READ_TIMEOUT;
 
     /**
      * Write timeout in milliseconds
      */
     @Valid
     @NotNull
-    private long writeTimeout = 10_000;
-
+    private long writeTimeout = LineMessagingServiceBuilder.DEFAULT_WRITE_TIMEOUT;
 }

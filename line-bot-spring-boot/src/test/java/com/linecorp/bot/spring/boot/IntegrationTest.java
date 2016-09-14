@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
@@ -152,7 +153,7 @@ public class IntegrationTest {
                .andExpect(status().isOk());
 
         // Test request 1
-        RecordedRequest request1 = server.takeRequest();
+        RecordedRequest request1 = server.takeRequest(3, TimeUnit.SECONDS);
         assertEquals("/v2/bot/message/reply", request1.getPath());
         assertEquals("Bearer TOKEN", request1.getHeader("Authorization"));
         assertEquals(
@@ -160,7 +161,7 @@ public class IntegrationTest {
                 request1.getBody().readUtf8());
 
         // Test request 2
-        RecordedRequest request2 = server.takeRequest();
+        RecordedRequest request2 = server.takeRequest(3, TimeUnit.SECONDS);
         assertEquals("/v2/bot/message/reply", request2.getPath());
         assertEquals("Bearer TOKEN", request2.getHeader("Authorization"));
         assertEquals(
