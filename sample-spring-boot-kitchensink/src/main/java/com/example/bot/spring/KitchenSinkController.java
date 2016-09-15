@@ -305,7 +305,7 @@ public class KitchenSinkController {
             }
             case "carousel": {
                 String imageUrl = createUri("/static/buttons/1040.jpg");
-                CarouselTemplate buttonsTemplate = new CarouselTemplate(
+                CarouselTemplate carouselTemplate = new CarouselTemplate(
                         Arrays.asList(
                                 new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
                                         new URIAction("Go to line.me",
@@ -321,7 +321,7 @@ public class KitchenSinkController {
                                                           "Rice=米")
                                 ))
                         ));
-                TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
+                TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);
                 this.reply(replyToken, templateMessage);
                 break;
             }
