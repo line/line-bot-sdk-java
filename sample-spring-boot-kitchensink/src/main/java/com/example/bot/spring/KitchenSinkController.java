@@ -153,7 +153,7 @@ public class KitchenSinkController {
                             DownloadedContent mp4 = saveContent("mp4", responseBody);
                             DownloadedContent previewImg = createTempFile("jpg");
                             system("convert",
-                                   mp4.path.toString(),
+                                   mp4.path + "[0]",
                                    previewImg.path.toString());
                             reply(replyToken,
                                   new VideoMessage(mp4.getUri(), previewImg.uri));
