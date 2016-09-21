@@ -136,8 +136,8 @@ public final class LineMessagingServiceBuilder {
                 new AuthorizationHeaderInterceptor(channelToken);
 
         return new OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .addInterceptor(authorizationInterceptor);
+                .addInterceptor(authorizationInterceptor)
+                .addInterceptor(httpLoggingInterceptor);
     }
 
     private Retrofit.Builder createDefaultRetrofitBuilder() {
