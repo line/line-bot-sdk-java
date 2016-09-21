@@ -23,8 +23,10 @@ buildscript {
         maven { url 'http://repo.spring.io/plugins-release' }
     }
     dependencies {
+        classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17'
+        classpath 'io.spring.gradle:dependency-management-plugin:0.5.1.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
         classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
-        classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.11'
     }
 }
 
@@ -49,6 +51,10 @@ if (hasProperty('release')) {
 }
 
 subprojects {
+    repositories {
+        mavenCentral();
+    }
+
     apply plugin: 'propdeps'
     apply plugin: 'propdeps-maven'
     apply plugin: 'propdeps-idea'
@@ -56,12 +62,42 @@ subprojects {
     apply plugin: 'findbugs'
     apply plugin: 'java'
     apply plugin: 'com.gorylenko.gradle-git-properties'
+    apply plugin: 'io.spring.dependency-management'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
     group = rootProject.group
     version = rootProject.version
+
+    dependencyManagement {
+        imports {
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:1.4.0.RELEASE'
+        }
+
+        dependencies {
+            dependency 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+            dependency 'com.squareup.okhttp3:mockwebserver:3.4.1'
+            dependency 'com.squareup.retrofit2:converter-jackson:2.1.0'
+            dependency 'com.squareup.retrofit2:retrofit:2.1.0'
+            dependency 'commons-io:commons-io:2.4'
+            dependency 'javax.validation:validation-api:1.1.0.Final'
+            dependency 'org.assertj:assertj-core:3.5.2'
+            dependency 'org.hibernate:hibernate-validator:5.2.4.Final'
+            dependency 'org.projectlombok:lombok:1.16.10'
+            dependency 'org.apache.httpcomponents:httpclient:4.5.2'
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        testCompileOnly 'org.projectlombok:lombok'
+
+        testCompile 'com.squareup.okhttp3:mockwebserver'
+        testCompile 'org.hibernate:hibernate-validator'
+        testCompile 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
+        testRuntime 'org.springframework.boot:spring-boot-starter-logging'
+    }
 
     jar {
         manifest {
@@ -86,6 +122,12 @@ subprojects {
 
     artifacts {
         archives javadocJar, sourcesJar
+    }
+
+    project.plugins.withType(org.springframework.boot.gradle.plugin.SpringBootPlugin) {
+        bootRun {
+            systemProperties System.properties
+        }
     }
 }
 
