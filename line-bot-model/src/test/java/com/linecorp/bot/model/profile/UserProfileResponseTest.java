@@ -22,14 +22,18 @@ import java.io.InputStream;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class UserProfileResponseTest {
     @Test
     public void test() throws IOException {
-        try (InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(
-                "user-profiles.json")) {
-            ObjectMapper objectMapper = new ObjectMapper();
+        try (InputStream resourceAsStream = ClassLoader.getSystemResourceAsStream("user-profiles.json")) {
+            ObjectMapper objectMapper = new ObjectMapper()
+                    .registerModule(new JavaTimeModule())
+                    .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+
             UserProfileResponse userProfileResponse = objectMapper.readValue(resourceAsStream,
                                                                              UserProfileResponse.class);
             Assert.assertNotNull(userProfileResponse.getDisplayName());

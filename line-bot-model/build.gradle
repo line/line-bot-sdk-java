@@ -30,6 +30,7 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok:1.16.10'
 
+    testCompile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.3"
     testCompile 'junit:junit:4.11'
     testCompile 'commons-io:commons-io:2.4'
     testCompile 'org.assertj:assertj-core:3.4.1'

@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.event;
 
+import java.time.Instant;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -29,13 +31,13 @@ import lombok.Value;
 public class JoinEvent implements Event {
     private final String replyToken;
     private final GroupSource source;
-    private final long timestamp;
+    private final Instant timestamp;
 
     @JsonCreator
     public JoinEvent(
             @JsonProperty("replyToken") String replyToken,
             @JsonProperty("source") GroupSource source,
-            @JsonProperty("timestamp") long timestamp) {
+            @JsonProperty("timestamp") Instant timestamp) {
         this.replyToken = replyToken;
         this.source = source;
         this.timestamp = timestamp;

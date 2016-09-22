@@ -21,12 +21,14 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Instant;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
@@ -46,6 +48,8 @@ public class CallbackRequestTest {
             String json = IOUtils.toString(resource);
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            objectMapper.registerModule(new JavaTimeModule())
+                        .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
             CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
 
             callback.call(callbackRequest);
@@ -117,6 +121,8 @@ public class CallbackRequestTest {
                     .isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId())
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
 
             MessageEvent messageEvent = (MessageEvent) event;
             assertThat(messageEvent.getReplyToken())
@@ -140,6 +146,8 @@ public class CallbackRequestTest {
                     .isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId())
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
 
             MessageEvent messageEvent = (MessageEvent) event;
             assertThat(messageEvent.getReplyToken())
@@ -165,6 +173,8 @@ public class CallbackRequestTest {
                     .isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId())
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
 
             FollowEvent followEvent = (FollowEvent) event;
             assertThat(followEvent.getReplyToken())
@@ -182,6 +192,8 @@ public class CallbackRequestTest {
                     .isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId())
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
         });
     }
 
@@ -195,6 +207,8 @@ public class CallbackRequestTest {
                     .isInstanceOf(GroupSource.class);
             assertThat(((GroupSource) event.getSource()).getGroupId())
                     .isEqualTo("cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
         });
     }
 
@@ -208,6 +222,8 @@ public class CallbackRequestTest {
                     .isInstanceOf(GroupSource.class);
             assertThat(((GroupSource) event.getSource()).getGroupId())
                     .isEqualTo("cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
         });
     }
 
@@ -221,6 +237,8 @@ public class CallbackRequestTest {
                     .isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId())
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
 
             PostbackEvent postbackEvent = (PostbackEvent) event;
             assertThat(postbackEvent.getPostbackContent().getData())
@@ -238,6 +256,8 @@ public class CallbackRequestTest {
                     .isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId())
                     .isEqualTo("U012345678901234567890123456789ab");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
 
             BeaconEvent postbackEvent = (BeaconEvent) event;
             assertThat(postbackEvent.getBeaconContent().getHwid())
