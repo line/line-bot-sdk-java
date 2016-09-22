@@ -19,33 +19,33 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://plugins.gradle.org/m2/' }
         maven { url 'http://repo.spring.io/plugins-release' }
     }
     dependencies {
         classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
-        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.11"
+        classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.11'
     }
 }
 
 apply plugin: 'idea'
 
-group = "com.linecorp.bot"
+group = 'com.linecorp.bot'
 version = '0.2.0'
 
 //set build variables based on build type (release, continuous integration, development)
 def isDevBuild
 def isReleaseBuild
 def sonatypeRepositoryUrl
-if (hasProperty("release")) {
+if (hasProperty('release')) {
     isReleaseBuild = true
-    sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-} else if (hasProperty("ci")) {
-    version += "-SNAPSHOT"
-    sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+    sonatypeRepositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+} else if (hasProperty('ci')) {
+    version += '-SNAPSHOT'
+    sonatypeRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
 } else {
     isDevBuild = true
-    version += "-SNAPSHOT"
+    version += '-SNAPSHOT'
 }
 
 subprojects {
@@ -55,7 +55,7 @@ subprojects {
     apply plugin: 'propdeps-eclipse'
     apply plugin: 'findbugs'
     apply plugin: 'java'
-    apply plugin: "com.gorylenko.gradle-git-properties"
+    apply plugin: 'com.gorylenko.gradle-git-properties'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -120,9 +120,9 @@ subprojects {
                             url 'https://github.com/line/line-bot-sdk-java'
 
                             scm {
-                                url "scm:git@github.com:line/line-bot-sdk-java.git"
-                                connection "scm:git@github.com:line/line-bot-sdk-java.git"
-                                developerConnection "scm:git@github.com:line/line-bot-sdk-java.git"
+                                url 'scm:git@github.com:line/line-bot-sdk-java.git'
+                                connection 'scm:git@github.com:line/line-bot-sdk-java.git'
+                                developerConnection 'scm:git@github.com:line/line-bot-sdk-java.git'
                             }
                             licenses {
                                 license {

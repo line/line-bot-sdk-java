@@ -19,7 +19,7 @@ buildscript {
         mavenCentral();
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE')
     }
 }
 
@@ -51,7 +51,7 @@ dependencies {
 
     optional 'javax.validation:validation-api:1.1.0.Final'
     optional 'org.springframework.boot:spring-boot-configuration-processor'
-    optional 'org.projectlombok:lombok:1.16.10'
+    optional 'org.projectlombok:lombok:1.16.10' // TODO Compile only
     optional 'org.slf4j:slf4j-api:1.7.16'
 
     testCompile 'com.squareup.okhttp3:mockwebserver:3.4.1'

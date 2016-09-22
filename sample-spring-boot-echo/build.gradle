@@ -35,11 +35,12 @@ bootRepackage {
 
 dependencies {
     compile project(':line-bot-spring-boot')
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compileOnly "org.projectlombok:lombok:1.16.10"
-    compile "com.fasterxml.jackson.core:jackson-core:2.7.3"
-    compile "com.fasterxml.jackson.core:jackson-databind:2.7.3"
-    compile "com.fasterxml.jackson.core:jackson-annotations:2.7.3"
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
+
+    compileOnly 'org.projectlombok:lombok:1.16.10'
 
     testCompile 'junit:junit:4.11'
 }
