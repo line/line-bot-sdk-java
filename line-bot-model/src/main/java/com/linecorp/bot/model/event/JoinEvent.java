@@ -29,9 +29,9 @@ import lombok.Value;
 @Value
 @JsonTypeName("join")
 public class JoinEvent implements Event {
-    private final String replyToken;
-    private final GroupSource source;
-    private final Instant timestamp;
+    String replyToken;
+    GroupSource source;
+    Instant timestamp;
 
     @JsonCreator
     public JoinEvent(

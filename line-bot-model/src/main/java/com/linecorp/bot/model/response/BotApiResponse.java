@@ -25,8 +25,8 @@ import lombok.Value;
 
 @Value
 public class BotApiResponse {
-    private final String message;
-    private final List<String> details;
+    String message;
+    List<String> details;
 
     public BotApiResponse(
             @JsonProperty("message") String message,

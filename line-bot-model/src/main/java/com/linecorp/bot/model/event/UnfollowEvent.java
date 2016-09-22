@@ -29,8 +29,8 @@ import lombok.Value;
 @Value
 @JsonTypeName("unfollow")
 public class UnfollowEvent implements Event {
-    private final Source source;
-    private final Instant timestamp;
+    Source source;
+    Instant timestamp;
 
     @JsonCreator
     public UnfollowEvent(

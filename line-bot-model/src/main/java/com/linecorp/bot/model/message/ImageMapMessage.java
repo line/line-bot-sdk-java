@@ -28,8 +28,8 @@ import lombok.Value;
 @Value
 @JsonTypeName("imagemap")
 public class ImageMapMessage implements Message {
-    private String baseUrl;
-    private String altText;
-    private ImageMapBaseSize baseSize;
-    private List<ImageMapAction> actions;
+    String baseUrl;
+    String altText;
+    ImageMapBaseSize baseSize;
+    List<ImageMapAction> actions;
 }

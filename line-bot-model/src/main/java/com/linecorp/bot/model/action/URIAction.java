@@ -21,14 +21,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import lombok.Getter;
+import lombok.Value;
 
-@Getter
+@Value
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("uri")
 public class URIAction implements Action {
-    private final String label;
-    private final String uri;
+    String label;
+    String uri;
 
     @JsonCreator
     public URIAction(

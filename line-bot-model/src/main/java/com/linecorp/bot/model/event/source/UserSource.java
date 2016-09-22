@@ -25,7 +25,7 @@ import lombok.Value;
 @Value
 @JsonTypeName("user")
 public class UserSource implements Source {
-    private final String userId;
+    String userId;
 
     @JsonCreator
     public UserSource(@JsonProperty("userId") String userId) {

@@ -23,6 +23,6 @@ import lombok.Value;
 @Value
 @JsonTypeName("audio")
 public class AudioMessage implements Message {
-    private String originalContentUrl;
-    private Integer duration;
+    String originalContentUrl;
+    Integer duration;
 }

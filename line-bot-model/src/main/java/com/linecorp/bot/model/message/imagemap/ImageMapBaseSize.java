@@ -20,6 +20,6 @@ import lombok.Value;
 
 @Value
 public class ImageMapBaseSize {
-    private int height;
-    private int width;
+    int height;
+    int width;
 }

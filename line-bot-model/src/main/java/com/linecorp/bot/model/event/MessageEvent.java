@@ -30,10 +30,10 @@ import lombok.Value;
 @Value
 @JsonTypeName("message")
 public class MessageEvent implements Event {
-    private final String replyToken;
-    private final Source source;
-    private final MessageContent message;
-    private final Instant timestamp;
+    String replyToken;
+    Source source;
+    MessageContent message;
+    Instant timestamp;
 
     @JsonCreator
     public MessageEvent(

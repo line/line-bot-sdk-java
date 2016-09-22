@@ -22,8 +22,8 @@ import lombok.Value;
 
 @Value
 public class BeaconContent {
-    private final String hwid;
-    private final String type;
+    String hwid;
+    String type;
 
     public BeaconContent(
             @JsonProperty("hwid") String hwid,

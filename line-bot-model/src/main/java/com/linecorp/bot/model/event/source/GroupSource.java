@@ -25,8 +25,8 @@ import lombok.Value;
 @Value
 @JsonTypeName("group")
 public class GroupSource implements Source {
-    private final String groupId;
-    private final String userId;
+    String groupId;
+    String userId;
 
     /**
      * Create new instance.

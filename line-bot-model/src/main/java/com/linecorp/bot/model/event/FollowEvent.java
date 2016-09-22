@@ -29,9 +29,9 @@ import lombok.Value;
 @Value
 @JsonTypeName("follow")
 public class FollowEvent implements Event {
-    private final String replyToken;
-    private final Source source;
-    private final Instant timestamp;
+    String replyToken;
+    Source source;
+    Instant timestamp;
 
     @JsonCreator
     public FollowEvent(

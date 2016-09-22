@@ -19,16 +19,12 @@ package com.linecorp.bot.model.event.postback;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
-@Getter
-@ToString
-@EqualsAndHashCode
+@Value
 public class PostbackContent {
-    private final String data;
-    private final Object params;
+    String data;
+    Object params;
 
     @JsonCreator
     public PostbackContent(
