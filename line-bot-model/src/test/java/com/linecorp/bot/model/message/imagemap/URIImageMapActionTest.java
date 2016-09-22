@@ -20,7 +20,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class URIImageMapActionTest {
     @Test
@@ -28,7 +30,9 @@ public class URIImageMapActionTest {
         URIImageMapAction imageMapAction = new URIImageMapAction("http://example.com",
                                                                  new ImageMapArea(1, 2, 3, 4));
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
         String s = objectMapper.writeValueAsString(imageMapAction);
         assertThat(s).contains("\"type\":\"uri\"");
     }

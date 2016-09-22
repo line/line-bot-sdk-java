@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
@@ -143,6 +144,10 @@ public final class LineMessagingServiceBuilder {
     private Retrofit.Builder createDefaultRetrofitBuilder() {
         final ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        // Register JSR-310(java.time.temporal.*) module and read number as millsec.
+        objectMapper.registerModule(new JavaTimeModule())
+                    .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
 
         return new Retrofit.Builder()
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper));
