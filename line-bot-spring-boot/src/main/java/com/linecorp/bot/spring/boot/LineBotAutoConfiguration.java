@@ -17,8 +17,6 @@
 package com.linecorp.bot.spring.boot;
 
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -68,8 +66,7 @@ public class LineBotAutoConfiguration {
 
     @Bean
     @ConditionalOnWebApplication
-    public LineSignatureValidator lineSignatureValidator()
-            throws InvalidKeyException, NoSuchAlgorithmException {
+    public LineSignatureValidator lineSignatureValidator() {
         return new LineSignatureValidator(
                 lineBotProperties.getChannelSecret().getBytes(StandardCharsets.US_ASCII));
     }
