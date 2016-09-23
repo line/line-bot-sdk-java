@@ -262,6 +262,8 @@ public class CallbackRequestTest {
             BeaconEvent postbackEvent = (BeaconEvent) event;
             assertThat(postbackEvent.getBeaconContent().getHwid())
                     .isEqualTo("374591320");
+            assertThat(postbackEvent.getBeaconContent().getType())
+                    .isEqualTo("enter");
         });
     }
 }
