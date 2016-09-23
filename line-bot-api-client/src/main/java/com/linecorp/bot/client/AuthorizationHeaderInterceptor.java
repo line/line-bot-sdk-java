@@ -35,8 +35,6 @@ public class AuthorizationHeaderInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request().newBuilder()
-                               // will be deprecate
-                               .addHeader("X-LINE-ChannelToken", channelToken)
                                .addHeader("Authorization", "Bearer " + channelToken)
                                .build();
         return chain.proceed(request);
