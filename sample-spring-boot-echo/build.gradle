@@ -18,8 +18,9 @@ apply plugin: 'spring-boot'
 
 dependencies {
     compile project(':line-bot-spring-boot')
-    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'com.fasterxml.jackson.core:jackson-annotations'
     compile 'com.fasterxml.jackson.core:jackson-core'
     compile 'com.fasterxml.jackson.core:jackson-databind'
-    compile 'com.fasterxml.jackson.core:jackson-annotations'
+    compile 'com.google.guava:guava'
+    compile 'org.springframework.boot:spring-boot-starter-web'
 }

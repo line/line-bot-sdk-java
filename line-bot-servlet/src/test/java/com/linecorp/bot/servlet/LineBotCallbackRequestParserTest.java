@@ -32,7 +32,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +44,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.google.common.io.ByteStreams;
 
 import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.event.CallbackRequest;
@@ -116,7 +116,7 @@ public class LineBotCallbackRequestParserTest {
     @Test
     public void testCallRequest() throws Exception {
         InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
-        byte[] requestBody = IOUtils.toByteArray(resource);
+        byte[] requestBody = ByteStreams.toByteArray(resource);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("X-Line-Signature", "SSSSIGNATURE");

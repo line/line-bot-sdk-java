@@ -21,9 +21,8 @@ import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.IOUtils;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.io.ByteStreams;
 
 import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.event.CallbackRequest;
@@ -63,7 +62,7 @@ public class LineBotCallbackRequestParser {
             throw new LineBotCallbackException("Missing 'X-Line-Signature' header");
         }
 
-        final byte[] json = IOUtils.toByteArray(req.getInputStream());
+        final byte[] json = ByteStreams.toByteArray(req.getInputStream());
         if (log.isDebugEnabled()) {
             log.debug("got: {}", new String(json, StandardCharsets.UTF_8));
         }
