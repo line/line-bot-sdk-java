@@ -14,26 +14,11 @@
  * under the License.
  */
 
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     compile project(':line-bot-api-client')
-    optional 'javax.servlet:javax.servlet-api:3.1.0'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
-    compile 'commons-io:commons-io:2.4'
+    compile 'com.fasterxml.jackson.core:jackson-databind'
+    compile 'commons-io:commons-io'
 
-    optional 'org.projectlombok:lombok:1.16.10' // TODO Compile Only
-    optional 'org.slf4j:slf4j-api:1.7.16'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-all:1.10.19'
-    // MockHttpServletRequest
-    testCompile 'org.springframework:spring-test:4.2.5.RELEASE'
-    testCompile 'org.assertj:assertj-core:3.5.2'
+    optional 'javax.servlet:javax.servlet-api'
+    optional 'org.slf4j:slf4j-api'
 }
