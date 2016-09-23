@@ -32,7 +32,7 @@ public class LineSignatureValidator {
     private static final String HASH_ALGORITHM = "HmacSHA256";
     private final SecretKeySpec secretKeySpec;
 
-    public LineSignatureValidator(byte[] channelSecret) throws NoSuchAlgorithmException, InvalidKeyException {
+    public LineSignatureValidator(byte[] channelSecret) {
         this.secretKeySpec = new SecretKeySpec(channelSecret, HASH_ALGORITHM);
     }
 
