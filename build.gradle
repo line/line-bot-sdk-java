@@ -25,7 +25,7 @@ buildscript {
     dependencies {
         classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17'
         classpath 'io.spring.gradle:dependency-management-plugin:0.5.1.RELEASE'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE'
         classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
     }
 }
@@ -72,7 +72,7 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom 'org.springframework.boot:spring-boot-dependencies:1.4.0.RELEASE'
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:1.4.1.RELEASE'
         }
 
         dependencies {
