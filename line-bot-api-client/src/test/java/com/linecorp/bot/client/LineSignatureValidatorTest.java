@@ -22,8 +22,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.nio.charset.StandardCharsets;
 
-import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
+import org.springframework.util.Base64Utils;
 
 public class LineSignatureValidatorTest {
     private static final String channelSecret = "SECRET";
@@ -54,7 +54,7 @@ public class LineSignatureValidatorTest {
                 .generateSignature(httpRequestBody.getBytes(StandardCharsets.UTF_8));
 
         assertEquals("3q8QXTAGaey18yL8FWTqdVlbMr6hcuNvM4tefa0o9nA=",
-                     Base64.encodeBase64String(headerSignature));
+                     Base64Utils.encodeToString(headerSignature));
     }
 
 }

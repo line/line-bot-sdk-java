@@ -23,7 +23,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-jackson'
     compile 'com.squareup.retrofit2:retrofit'
 
-    testCompile 'org.apache.httpcomponents:httpclient'
-
     optional 'org.slf4j:slf4j-api'
 }

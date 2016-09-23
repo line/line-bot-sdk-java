@@ -85,7 +85,6 @@ subprojects {
             dependency 'org.assertj:assertj-core:3.5.2'
             dependency 'org.hibernate:hibernate-validator:5.2.4.Final'
             dependency 'org.projectlombok:lombok:1.16.10'
-            dependency 'org.apache.httpcomponents:httpclient:4.5.2'
         }
     }
 
