@@ -76,11 +76,11 @@ subprojects {
         }
 
         dependencies {
+            dependency 'com.google.guava:guava:19.0' // TODO replace by spring-io-dependency
             dependency 'com.squareup.okhttp3:logging-interceptor:3.4.1'
             dependency 'com.squareup.okhttp3:mockwebserver:3.4.1'
             dependency 'com.squareup.retrofit2:converter-jackson:2.1.0'
             dependency 'com.squareup.retrofit2:retrofit:2.1.0'
-            dependency 'commons-io:commons-io:2.4'
             dependency 'javax.validation:validation-api:1.1.0.Final'
             dependency 'org.assertj:assertj-core:3.5.2'
             dependency 'org.hibernate:hibernate-validator:5.2.4.Final'
@@ -92,6 +92,7 @@ subprojects {
         compileOnly 'org.projectlombok:lombok'
         testCompileOnly 'org.projectlombok:lombok'
 
+        testCompile 'com.google.guava:guava'
         testCompile 'com.squareup.okhttp3:mockwebserver'
         testCompile 'org.hibernate:hibernate-validator'
         testCompile 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest

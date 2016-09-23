@@ -28,11 +28,12 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.google.common.io.ByteStreams;
 
 import com.linecorp.bot.client.LineMessagingService;
 import com.linecorp.bot.model.ReplyMessage;
@@ -392,7 +393,7 @@ public class KitchenSinkController {
         log.info("Got filename: {}", responseBody.contentType());
         DownloadedContent tempFile = createTempFile(ext);
         try (OutputStream outputStream = Files.newOutputStream(tempFile.path)) {
-            IOUtils.copy(responseBody.byteStream(), outputStream);
+            ByteStreams.copy(responseBody.byteStream(), outputStream);
             log.info("Saved {}: {}", ext, tempFile);
             return tempFile;
         } catch (IOException e) {

@@ -27,7 +27,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -40,9 +39,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.google.common.io.ByteStreams;
 
 import com.linecorp.bot.client.LineMessagingService;
 import com.linecorp.bot.model.ReplyMessage;
@@ -144,7 +146,7 @@ public class IntegrationTest {
         String signature = "ECezgIpQNUEp4OSHYd7xGSuFG7e66MLPkCkK1Y28XTU=";
 
         InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
-        byte[] json = IOUtils.toByteArray(resource);
+        byte[] json = ByteStreams.toByteArray(resource);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/callback")
                                               .header("X-Line-Signature", signature)
