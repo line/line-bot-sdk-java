@@ -24,8 +24,8 @@ buildscript {
     }
     dependencies {
         classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17'
-        classpath 'io.spring.gradle:dependency-management-plugin:0.5.1.RELEASE'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
+        classpath 'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE'
         classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
     }
 }
@@ -70,21 +70,20 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
+    ext['guava.version'] = '19.0' // Update from Spring IO default "17.0" (by Athens-RELEASE)
+    ext['okhttp3.version'] = '3.4.1' // Update from Spring IO default "3.3.1" (by Athens-RELEASE)
+
     dependencyManagement {
         imports {
-            mavenBom 'org.springframework.boot:spring-boot-dependencies:1.4.0.RELEASE'
+            mavenBom 'io.spring.platform:platform-bom:Athens-RELEASE'
         }
 
         dependencies {
-            dependency 'com.google.guava:guava:19.0' // TODO replace by spring-io-dependency
-            dependency 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-            dependency 'com.squareup.okhttp3:mockwebserver:3.4.1'
+            dependency 'com.squareup.okhttp3:logging-interceptor:' + ext['okhttp3.version']
+            dependency 'com.squareup.okhttp3:mockwebserver:' + ext['okhttp3.version'] // Additional okhttp3 modules. Using Spring IO version variable.
             dependency 'com.squareup.retrofit2:converter-jackson:2.1.0'
             dependency 'com.squareup.retrofit2:retrofit:2.1.0'
-            dependency 'javax.validation:validation-api:1.1.0.Final'
-            dependency 'org.assertj:assertj-core:3.5.2'
-            dependency 'org.hibernate:hibernate-validator:5.2.4.Final'
-            dependency 'org.projectlombok:lombok:1.16.10'
+            dependency 'org.assertj:assertj-core:3.5.2' // Update from 2.5.0 (by Spring-Boot and Spring IO)
         }
     }
 
