@@ -29,10 +29,10 @@ import lombok.Value;
 @Value
 @JsonTypeName("beacon")
 public class BeaconEvent implements Event {
-    private final Instant timestamp;
     private final String replyToken;
     private final Source source;
     private final BeaconContent beaconContent;
+    private final Instant timestamp;
 
     @JsonCreator
     public BeaconEvent(

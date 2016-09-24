@@ -30,21 +30,20 @@ import lombok.Value;
 @Value
 @JsonTypeName("postback")
 public class PostbackEvent implements Event {
-    private final Instant timestamp;
     private final String replyToken;
     private final Source source;
     private final PostbackContent postbackContent;
+    private final Instant timestamp;
 
     @JsonCreator
     public PostbackEvent(
             @JsonProperty("replyToken") String replyToken,
             @JsonProperty("source") Source source,
-            @JsonProperty("timestamp") Instant timestamp,
-            @JsonProperty("postback") PostbackContent postbackContent
-    ) {
+            @JsonProperty("postback") PostbackContent postbackContent,
+            @JsonProperty("timestamp") Instant timestamp) {
         this.replyToken = replyToken;
         this.source = source;
-        this.timestamp = timestamp;
         this.postbackContent = postbackContent;
+        this.timestamp = timestamp;
     }
 }
