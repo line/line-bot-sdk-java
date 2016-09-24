@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.event;
+package com.linecorp.bot.model.event.beacon;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -27,8 +27,7 @@ public class BeaconContent {
 
     public BeaconContent(
             @JsonProperty("hwid") String hwid,
-            @JsonProperty("type") String type
-    ) {
+            @JsonProperty("type") String type) {
         this.hwid = hwid;
         this.type = type;
     }

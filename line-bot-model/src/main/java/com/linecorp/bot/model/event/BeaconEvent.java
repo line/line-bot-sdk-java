@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import com.linecorp.bot.model.event.beacon.BeaconContent;
 import com.linecorp.bot.model.event.source.Source;
 
 import lombok.Value;
