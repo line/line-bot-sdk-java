@@ -28,6 +28,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -41,9 +42,6 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.common.io.ByteStreams;
 
 import com.linecorp.bot.client.LineSignatureValidator;
@@ -70,12 +68,7 @@ public class LineBotCallbackRequestParserTest {
     public void before() throws IOException {
         when(response.getWriter())
                 .thenReturn(mock(PrintWriter.class));
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.registerModule(new JavaTimeModule())
-                    .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
-        this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(
-                lineSignatureValidator, objectMapper);
+        this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(lineSignatureValidator);
     }
 
     @Test
@@ -131,10 +124,12 @@ public class LineBotCallbackRequestParserTest {
 
         final List<Event> result = callbackRequest.getEvents();
 
-        final TextMessageContent text = (TextMessageContent) ((MessageEvent) result.get(0)).getMessage();
+        final MessageEvent messageEvent = (MessageEvent) result.get(0);
+        final TextMessageContent text = (TextMessageContent) messageEvent.getMessage();
         assertEquals("Hello, world", text.getText());
 
-        final String followedUserId = result.get(0).getSource().getUserId();
+        final String followedUserId = messageEvent.getSource().getUserId();
         assertEquals("u206d25c2ea6bd87c17655609a1c37cb8", followedUserId);
+        assertEquals(Instant.parse("2016-05-07T13:57:59.859Z"), messageEvent.getTimestamp());
     }
 }
