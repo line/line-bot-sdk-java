@@ -21,9 +21,9 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -56,7 +56,7 @@ public class LineBotServerInterceptor implements HandlerInterceptor {
                     return true;
                 } catch (LineBotCallbackException e) {
                     log.info("LINE Bot callback exception: {}", e.getMessage());
-                    response.sendError(HttpStatus.SC_BAD_REQUEST);
+                    response.sendError(HttpStatus.BAD_REQUEST.value());
                     try (PrintWriter writer = response.getWriter()) {
                         writer.println(e.getMessage());
                     }

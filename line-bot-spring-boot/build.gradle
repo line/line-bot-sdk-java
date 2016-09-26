@@ -24,7 +24,6 @@ dependencies {
     compile 'com.google.guava:guava'
     compile 'com.squareup.okhttp3:logging-interceptor'
     compile 'com.squareup.retrofit2:converter-jackson'
-    compile 'org.apache.httpcomponents:httpclient'
     compile 'org.springframework.boot:spring-boot-autoconfigure'
     compile 'org.springframework.boot:spring-boot-starter-web'
 
