@@ -31,10 +31,10 @@ import retrofit2.http.Streaming;
 
 public interface LineMessagingService {
     @POST("/v2/bot/message/reply")
-    Call<BotApiResponse> reply(@Body ReplyMessage replyMessage);
+    Call<BotApiResponse> replyMessage(@Body ReplyMessage replyMessage);
 
     @POST("/v2/bot/message/push")
-    Call<BotApiResponse> push(@Body PushMessage pushMessage);
+    Call<BotApiResponse> pushMessage(@Body PushMessage pushMessage);
 
     @Streaming
     @GET("/v2/bot/message/{messageId}/content")

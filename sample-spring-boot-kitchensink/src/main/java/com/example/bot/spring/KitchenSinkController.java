@@ -191,7 +191,7 @@ public class KitchenSinkController {
     private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
         try {
             Response<BotApiResponse> apiResponse = lineMessagingService
-                    .reply(new ReplyMessage(replyToken, messages))
+                    .replyMessage(new ReplyMessage(replyToken, messages))
                     .execute();
             log.info("Sent messages: {}", apiResponse);
         } catch (IOException e) {

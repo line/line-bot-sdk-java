@@ -61,7 +61,7 @@ public class EchoApplication {
                         String mid = source instanceof GroupSource
                                      ? ((GroupSource) source).getGroupId()
                                      : source.getUserId();
-                        BotApiResponse apiResponse = lineMessagingService.push(
+                        BotApiResponse apiResponse = lineMessagingService.pushMessage(
                                 new PushMessage(
                                         mid,
                                         new TextMessage(textMessageContent.getText()
