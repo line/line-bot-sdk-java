@@ -1,15 +1,16 @@
 # line-bot-api-client
 
-LINE bot API client for Java 8.
+LINE bot API client for Java 8+.
 
 ## SYNOPSIS
 
-        LineBotClient client = LineBotClientBuilder
-                .create("YOUR_CHANNEL_ID", "YOUR_CHANNEL_SECRET", "YOUR_CHANNEL_MID")
-                .build();
-        client.sendText("USER_MID", "Hello");
+```java
+LineMessagingService client LineMessagingServiceBuilder
+        .create("YOUR_CHANNEL_TOKEN")
+        .build();
+```
 
 ## DESCRIPTION
 
-This library provides API client for LINE bot API.
+This module provides API client for LINE Messaging API.
 

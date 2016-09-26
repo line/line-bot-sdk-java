@@ -37,10 +37,7 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
-import lombok.extern.slf4j.Slf4j;
-
 @SpringBootApplication
-@Slf4j
 public class EchoApplication {
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
@@ -54,11 +51,11 @@ public class EchoApplication {
         @PostMapping("/callback")
         public void callback(@LineBotMessages List<Event> events) throws IOException {
             for (Event event : events) {
-                log.info("event: {}", event);
+                System.out.println("event: " + event);
                 if (event instanceof MessageEvent) {
                     MessageContent message = ((MessageEvent) event).getMessage();
                     if (message instanceof TextMessageContent) {
-                        log.info("Sending reply message");
+                        System.out.println("Sending reply message");
                         TextMessageContent textMessageContent = (TextMessageContent) message;
                         Source source = event.getSource();
                         String mid = source instanceof GroupSource
@@ -70,7 +67,7 @@ public class EchoApplication {
                                         new TextMessage(textMessageContent.getText()
                                         ))).execute()
                                                                          .body();
-                        log.info("Sent messages: {}", apiResponse);
+                        System.out.println("Sent messages: " + apiResponse);
                     }
                 }
             }
