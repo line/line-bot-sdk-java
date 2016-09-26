@@ -22,7 +22,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.linecorp.bot.client.LineMessagingService;
@@ -51,7 +51,7 @@ public class EchoApplication {
         @Autowired
         private LineMessagingService lineMessagingService;
 
-        @RequestMapping("/callback")
+        @PostMapping("/callback")
         public void callback(@LineBotMessages List<Event> events) throws IOException {
             for (Event event : events) {
                 log.info("event: {}", event);
