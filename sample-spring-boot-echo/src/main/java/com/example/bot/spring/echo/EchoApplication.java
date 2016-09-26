@@ -26,13 +26,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.linecorp.bot.client.LineMessagingService;
-import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
-import com.linecorp.bot.model.event.source.GroupSource;
-import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
@@ -57,16 +55,11 @@ public class EchoApplication {
                     if (message instanceof TextMessageContent) {
                         System.out.println("Sending reply message");
                         TextMessageContent textMessageContent = (TextMessageContent) message;
-                        Source source = event.getSource();
-                        String mid = source instanceof GroupSource
-                                     ? ((GroupSource) source).getGroupId()
-                                     : source.getUserId();
-                        BotApiResponse apiResponse = lineMessagingService.pushMessage(
-                                new PushMessage(
-                                        mid,
+                        BotApiResponse apiResponse = lineMessagingService.replyMessage(
+                                new ReplyMessage(
+                                        ((MessageEvent) event).getReplyToken(),
                                         new TextMessage(textMessageContent.getText()
-                                        ))).execute()
-                                                                         .body();
+                                        ))).execute().body();
                         System.out.println("Sent messages: " + apiResponse);
                     }
                 }
