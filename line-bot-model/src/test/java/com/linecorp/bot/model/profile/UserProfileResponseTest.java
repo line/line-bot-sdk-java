@@ -16,10 +16,11 @@
 
 package com.linecorp.bot.model.profile;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -36,7 +37,7 @@ public class UserProfileResponseTest {
 
             UserProfileResponse userProfileResponse = objectMapper.readValue(resourceAsStream,
                                                                              UserProfileResponse.class);
-            Assert.assertNotNull(userProfileResponse.getDisplayName());
+            assertThat(userProfileResponse.getDisplayName()).isNotNull();
         }
     }
 }
