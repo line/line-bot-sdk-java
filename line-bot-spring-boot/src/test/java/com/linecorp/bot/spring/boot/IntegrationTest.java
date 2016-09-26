@@ -39,7 +39,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
@@ -103,13 +102,13 @@ public class IntegrationTest {
                 MessageContent content = ((MessageEvent) event).getMessage();
                 if (content instanceof TextMessageContent) {
                     String text = ((TextMessageContent) content).getText();
-                    lineMessagingService.reply(
+                    lineMessagingService.replyMessage(
                             new ReplyMessage(((MessageEvent) event).getReplyToken(),
                                              new TextMessage(text)))
                                         .execute();
                 }
             } else if (event instanceof FollowEvent) {
-                lineMessagingService.reply(
+                lineMessagingService.replyMessage(
                         new ReplyMessage(((FollowEvent) event).getReplyToken(),
                                          new TextMessage("follow")))
                                     .execute();
