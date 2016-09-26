@@ -21,7 +21,7 @@ public final class LineMessagingServiceBuilder {
     public static final long DEFAULT_READ_TIMEOUT = 10_000;
     public static final long DEFAULT_WRITE_TIMEOUT = 10_000;
 
-    final private String channelToken;
+    private final String channelToken;
 
     private String apiEndPoint = DEFAULT_API_END_POINT;
     private long connectTimeout = DEFAULT_CONNECT_TIMEOUT;
