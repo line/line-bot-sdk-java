@@ -138,8 +138,8 @@ public final class LineMessagingServiceBuilder {
                 new HttpLoggingInterceptor(message -> slf4jLogger.info("{}", message));
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        final AuthorizationHeaderInterceptor authorizationInterceptor =
-                new AuthorizationHeaderInterceptor(channelToken);
+        final HeaderInterceptor authorizationInterceptor =
+                new HeaderInterceptor(channelToken);
 
         return new OkHttpClient.Builder()
                 .addInterceptor(authorizationInterceptor)
