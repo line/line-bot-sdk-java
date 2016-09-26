@@ -2,6 +2,9 @@ package com.linecorp.bot.client;
 
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -130,7 +133,9 @@ public final class LineMessagingServiceBuilder {
     }
 
     private OkHttpClient.Builder createDefaultOkHttpClientBuilder() {
-        final HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        final Logger slf4jLogger = LoggerFactory.getLogger("com.linecorp.bot.client.wire");
+        final HttpLoggingInterceptor httpLoggingInterceptor =
+                new HttpLoggingInterceptor(message -> slf4jLogger.info("{}", message));
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         final AuthorizationHeaderInterceptor authorizationInterceptor =
