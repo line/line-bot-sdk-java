@@ -34,20 +34,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class LineBotCallbackRequestParser {
-    private final ObjectMapper objectMapper;
-
-    {
-        final ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        // Register JSR-310(java.time.temporal.*) module and read number as millsec.
-        objectMapper.registerModule(new JavaTimeModule())
-                    .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
-
-        this.objectMapper = objectMapper;
-    }
-
     private final LineSignatureValidator lineSignatureValidator;
+    private final ObjectMapper objectMapper;
 
     /**
      * Create new instance
@@ -57,6 +45,7 @@ public class LineBotCallbackRequestParser {
     public LineBotCallbackRequestParser(
             @NonNull LineSignatureValidator lineSignatureValidator) {
         this.lineSignatureValidator = lineSignatureValidator;
+        this.objectMapper = buildObjectMapper();
     }
 
     /**
@@ -89,4 +78,13 @@ public class LineBotCallbackRequestParser {
         return callbackRequest;
     }
 
+    private static ObjectMapper buildObjectMapper() {
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        // Register JSR-310(java.time.temporal.*) module and read number as millsec.
+        objectMapper.registerModule(new JavaTimeModule())
+                    .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+        return objectMapper;
+    }
 }
