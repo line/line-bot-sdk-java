@@ -21,7 +21,9 @@ import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.common.io.ByteStreams;
 
 import com.linecorp.bot.client.LineSignatureValidator;
@@ -39,13 +41,11 @@ public class LineBotCallbackRequestParser {
      * Create new instance
      *
      * @param lineSignatureValidator LINE messaging API's signature validator
-     * @param objectMapper Jackson's JSON parser object
      */
     public LineBotCallbackRequestParser(
-            @NonNull LineSignatureValidator lineSignatureValidator,
-            @NonNull ObjectMapper objectMapper) {
+            @NonNull LineSignatureValidator lineSignatureValidator) {
         this.lineSignatureValidator = lineSignatureValidator;
-        this.objectMapper = objectMapper;
+        this.objectMapper = buildObjectMapper();
     }
 
     /**
@@ -78,4 +78,13 @@ public class LineBotCallbackRequestParser {
         return callbackRequest;
     }
 
+    private static ObjectMapper buildObjectMapper() {
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        // Register JSR-310(java.time.temporal.*) module and read number as millsec.
+        objectMapper.registerModule(new JavaTimeModule())
+                    .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+        return objectMapper;
+    }
 }
