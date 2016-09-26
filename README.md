@@ -7,63 +7,44 @@
 
 ## What's this?
 
-This is a client library for the LINE Bot API.
+This is a Java SDK for the LINE Messaging API.
 
-## About LINE Bot API
+## About LINE Messaging API
 
 Please refer to the official api documents for details.
 
-en: http://line.github.io/line-bot-api-doc/en/
+en:  https://devdocs.line.me/en/
 
-ja: http://line.github.io/line-bot-api-doc/ja/
-
-## Create a LINE Bot client
-
-The main entry point is `LineBotClient`. You can create an instance via `LineBotClientBuilder`.
-
-```
- LineBotClient client = LineBotClientBuilder
-                          .create("YOUR_CHANNEL_ID", "YOUR_CHANNEL_SECRET", "YOUR_CHANNEL_MID")
-                          .build();
-```
-
-## Client usage
-
-You can use `LineBotClient` to receive/send events from/to your followers.
-The following sketch shows a naive echo bot example.
-
-```
-String requestBody = yourWebFramework.getRequestbody();
-String signature = yourWebFramework.getRequestHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE);
-
-// parsing callback request
-CallbackRequest callbackRequest = client.readCallbackRequest(requestBody);
-
-// signature validation
-if (!client.validateSignature(requestBody, signature)) {
-    log.error(...);
-    return;
-}
-
-// processing received events
-for (Event event : callbackRequest.getResult()) {
-    Content content = event.getContent();
-
-    // handle text message
-    if (content instanceof TextContent) {
-        TextContent text = (TextContent) content;
-        // reply back same text
-        client.sendText(text.getFrom(), text.getText());
-    }
-}
-
-```
+ja:  https://devdocs.line.me/ja/
 
 ## Spring Boot Integration
 
-line-bot-spring-boot provides a way to build your bot apps as a Spring Boot Application.
+line-bot-spring-boot module provides a way to build your bot apps as a Spring Boot Application.
 
-```
+```java
+package com.example.bot.spring.echo;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.MessageContent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.Source;
+import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
+
 @SpringBootApplication
 public class EchoApplication {
     public static void main(String[] args) {
@@ -73,15 +54,32 @@ public class EchoApplication {
     @RestController
     public static class MyController {
         @Autowired
-        private LineBotClient lineBotClient;
+        private LineMessagingService lineMessagingService;
 
-        @RequestMapping("/callback")
-        public void callback(@LineBotMessages List<Event> events) throws LineBotAPIException {
+        /**
+         * @param events received webhook event
+         */
+        @PostMapping("/callback")
+        public void callback(@LineBotMessages List<Event> events) throws IOException {
             for (Event event : events) {
-                Content content = event.getContent();
-                if (content instanceof TextContent) {
-                    TextContent text = (TextContent) content;
-                    lineBotClient.sendText(text.getFrom(), text.getText());
+                System.out.println("event: " + event);
+                if (event instanceof MessageEvent) {
+                    MessageContent message = ((MessageEvent) event).getMessage();
+                    if (message instanceof TextMessageContent) {
+                        System.out.println("Sending reply message");
+                        TextMessageContent textMessageContent = (TextMessageContent) message;
+                        Source source = event.getSource();
+                        String mid = source instanceof GroupSource
+                                     ? ((GroupSource) source).getGroupId()
+                                     : source.getUserId();
+                        BotApiResponse apiResponse = lineMessagingService.push(
+                                new PushMessage(
+                                        mid,
+                                        new TextMessage(textMessageContent.getText()
+                                        ))).execute()
+                                                                         .body();
+                        System.out.println("Sent messages: " + apiResponse);
+                    }
                 }
             }
         }

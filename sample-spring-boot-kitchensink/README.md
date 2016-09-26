@@ -2,8 +2,16 @@
 
 ## What's this?
 
-This is a full featured sample application for LINE Bot API.
+This is a full featured sample application for LINE Messaging API.
 
-## How do I run this application?
+## Usage
 
-    ../gradlew bootRun -Dline.bot.channelId=YOUR_CHANNEL_ID -Dline.bot.channelMid=YOUR_CHANNEL_MID -Dline.bot.channelSecret=YOUR_CHANNEL_SECRET
+You can run this sample bot via gradle.
+
+    ../gradlew bootRun -Dline.bot.channelToken=YOUR_CHANNEL_TOKEN \
+                       -Dline.bot.channelSecret=YOUR_CHANNEL_SECRET
+
+ You need to path following 2 options.
+
+  * line.bot.channelToken: Your channel access token
+  * line.bot.channelSecret: Your channel secret
