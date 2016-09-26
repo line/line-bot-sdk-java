@@ -32,7 +32,7 @@ import lombok.Value;
 public class BeaconEvent implements Event {
     private final String replyToken;
     private final Source source;
-    private final BeaconContent beaconContent;
+    private final BeaconContent beacon;
     private final Instant timestamp;
 
     @JsonCreator
@@ -40,11 +40,11 @@ public class BeaconEvent implements Event {
             @JsonProperty("replyToken") String replyToken,
             @JsonProperty("source") Source source,
             @JsonProperty("timestamp") Instant timestamp,
-            @JsonProperty("beacon") BeaconContent beaconContent
+            @JsonProperty("beacon") BeaconContent beacon
     ) {
         this.replyToken = replyToken;
         this.source = source;
         this.timestamp = timestamp;
-        this.beaconContent = beaconContent;
+        this.beacon = beacon;
     }
 }

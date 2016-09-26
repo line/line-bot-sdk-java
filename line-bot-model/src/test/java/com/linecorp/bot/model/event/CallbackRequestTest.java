@@ -260,10 +260,10 @@ public class CallbackRequestTest {
             assertThat(event.getTimestamp())
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
 
-            BeaconEvent postbackEvent = (BeaconEvent) event;
-            assertThat(postbackEvent.getBeaconContent().getHwid())
+            BeaconEvent beaconEvent = (BeaconEvent) event;
+            assertThat(beaconEvent.getBeacon().getHwid())
                     .isEqualTo("374591320");
-            assertThat(postbackEvent.getBeaconContent().getType())
+            assertThat(beaconEvent.getBeacon().getType())
                     .isEqualTo("enter");
         });
     }
