@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
                       @JsonSubTypes.Type(StickerMessage.class),
                       @JsonSubTypes.Type(LocationMessage.class),
                       @JsonSubTypes.Type(AudioMessage.class),
-                      @JsonSubTypes.Type(ImageMapMessage.class),
+                      @JsonSubTypes.Type(ImagemapMessage.class),
                       @JsonSubTypes.Type(TemplateMessage.class)
               })
 public interface Message {

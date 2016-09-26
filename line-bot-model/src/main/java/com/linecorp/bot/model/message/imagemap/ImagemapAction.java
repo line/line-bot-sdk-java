@@ -16,12 +16,20 @@
 
 package com.linecorp.bot.model.message.imagemap;
 
-import lombok.Value;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
-@Value
-public class ImageMapArea {
-    private final int x;
-    private final int y;
-    private final int width;
-    private final int height;
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = As.PROPERTY,
+        property = "type",
+        visible = true
+)
+@JsonSubTypes({
+                      @JsonSubTypes.Type(MessageImagemapAction.class),
+                      @JsonSubTypes.Type(URIImagemapAction.class)
+              })
+public interface ImagemapAction {
+    ImagemapArea getArea();
 }

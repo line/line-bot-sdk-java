@@ -14,22 +14,22 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.message.imagemap;
+package com.linecorp.bot.model.message;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import java.util.List;
 
-import org.junit.Test;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.linecorp.bot.model.message.imagemap.ImagemapAction;
+import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
 
-public class MessageImageMapActionTest {
-    @Test
-    public void getText() throws Exception {
-        MessageImageMapAction imageMapAction = new MessageImageMapAction("hoge", new ImageMapArea(1, 2, 3, 4));
+import lombok.Value;
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String s = objectMapper.writeValueAsString(imageMapAction);
-        assertThat(s).contains("\"type\":\"message\"");
-    }
-
+@Value
+@JsonTypeName("imagemap")
+public class ImagemapMessage implements Message {
+    private final String baseUrl;
+    private final String altText;
+    private final ImagemapBaseSize baseSize;
+    private final List<ImagemapAction> actions;
 }

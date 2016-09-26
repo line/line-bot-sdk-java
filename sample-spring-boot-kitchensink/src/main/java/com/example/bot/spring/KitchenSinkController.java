@@ -59,18 +59,18 @@ import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.message.AudioMessage;
-import com.linecorp.bot.model.message.ImageMapMessage;
 import com.linecorp.bot.model.message.ImageMessage;
+import com.linecorp.bot.model.message.ImagemapMessage;
 import com.linecorp.bot.model.message.LocationMessage;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.VideoMessage;
-import com.linecorp.bot.model.message.imagemap.ImageMapArea;
-import com.linecorp.bot.model.message.imagemap.ImageMapBaseSize;
-import com.linecorp.bot.model.message.imagemap.MessageImageMapAction;
-import com.linecorp.bot.model.message.imagemap.URIImageMapAction;
+import com.linecorp.bot.model.message.imagemap.ImagemapArea;
+import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
+import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
+import com.linecorp.bot.model.message.imagemap.URIImagemapAction;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
@@ -327,32 +327,32 @@ public class KitchenSinkController {
                 break;
             }
             case "imagemap":
-                this.reply(replyToken, new ImageMapMessage(
+                this.reply(replyToken, new ImagemapMessage(
                         createUri("/static/rich"),
                         "This is alt text",
-                        new ImageMapBaseSize(1040, 1040),
+                        new ImagemapBaseSize(1040, 1040),
                         Arrays.asList(
-                                new URIImageMapAction(
+                                new URIImagemapAction(
                                         "https://store.line.me/family/manga/en",
-                                        new ImageMapArea(
+                                        new ImagemapArea(
                                                 0, 0, 520, 520
                                         )
                                 ),
-                                new URIImageMapAction(
+                                new URIImagemapAction(
                                         "https://store.line.me/family/music/en",
-                                        new ImageMapArea(
+                                        new ImagemapArea(
                                                 520, 0, 520, 520
                                         )
                                 ),
-                                new URIImageMapAction(
+                                new URIImagemapAction(
                                         "https://store.line.me/family/play/en",
-                                        new ImageMapArea(
+                                        new ImagemapArea(
                                                 0, 520, 520, 520
                                         )
                                 ),
-                                new MessageImageMapAction(
+                                new MessageImagemapAction(
                                         "URANAI!",
-                                        new ImageMapArea(
+                                        new ImagemapArea(
                                                 520, 520, 520, 520
                                         )
                                 )

@@ -16,10 +16,20 @@
 
 package com.linecorp.bot.model.message.imagemap;
 
-import lombok.Value;
+import static org.assertj.core.api.Java6Assertions.assertThat;
 
-@Value
-public class ImageMapBaseSize {
-    private final int height;
-    private final int width;
+import org.junit.Test;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class MessageImagemapActionTest {
+    @Test
+    public void getText() throws Exception {
+        MessageImagemapAction imageMapAction = new MessageImagemapAction("hoge", new ImagemapArea(1, 2, 3, 4));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s = objectMapper.writeValueAsString(imageMapAction);
+        assertThat(s).contains("\"type\":\"message\"");
+    }
+
 }

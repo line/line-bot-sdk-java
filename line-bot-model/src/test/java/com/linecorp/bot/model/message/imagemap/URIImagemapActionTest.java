@@ -24,11 +24,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-public class URIImageMapActionTest {
+public class URIImagemapActionTest {
     @Test
     public void getLinkUri() throws Exception {
-        URIImageMapAction imageMapAction = new URIImageMapAction("http://example.com",
-                                                                 new ImageMapArea(1, 2, 3, 4));
+        URIImagemapAction imageMapAction = new URIImagemapAction("http://example.com",
+                                                                 new ImagemapArea(1, 2, 3, 4));
 
         ObjectMapper objectMapper = new ObjectMapper()
                 .registerModule(new JavaTimeModule())
