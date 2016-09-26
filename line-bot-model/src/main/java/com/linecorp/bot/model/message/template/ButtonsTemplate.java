@@ -25,11 +25,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.action.Action;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
-@Getter
-@ToString(callSuper = true)
+@Value
 @JsonTypeName("buttons")
 public class ButtonsTemplate implements Template {
     private final String thumbnailImageUrl;

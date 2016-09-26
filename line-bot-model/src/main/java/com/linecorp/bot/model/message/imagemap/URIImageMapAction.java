@@ -24,10 +24,7 @@ import lombok.Value;
 @Value
 @JsonTypeName("uri")
 public class URIImageMapAction implements ImageMapAction {
-    @JsonProperty("linkUri")
     private final String linkUri;
-
-    @JsonProperty("area")
     private final ImageMapArea area;
 
     public URIImageMapAction(@JsonProperty("linkUri") String linkUri,

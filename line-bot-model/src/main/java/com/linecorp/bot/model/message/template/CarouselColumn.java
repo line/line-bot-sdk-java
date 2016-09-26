@@ -24,13 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.linecorp.bot.model.action.Action;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
-@Getter
-@ToString
-@EqualsAndHashCode
+@Value
 public class CarouselColumn {
     private final String thumbnailImageUrl;
     private final String title;

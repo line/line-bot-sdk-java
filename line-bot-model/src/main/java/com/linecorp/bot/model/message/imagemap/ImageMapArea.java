@@ -20,8 +20,8 @@ import lombok.Value;
 
 @Value
 public class ImageMapArea {
-    int x;
-    int y;
-    int width;
-    int height;
+    private final int x;
+    private final int y;
+    private final int width;
+    private final int height;
 }

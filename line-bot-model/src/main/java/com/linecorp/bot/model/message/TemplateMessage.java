@@ -25,6 +25,6 @@ import lombok.Value;
 @Value
 @JsonTypeName("template")
 public class TemplateMessage implements Message {
-    private String altText;
-    private Template template;
+    private final String altText;
+    private final Template template;
 }

@@ -23,6 +23,6 @@ import lombok.Value;
 @Value
 @JsonTypeName("image")
 public class ImageMessage implements Message {
-    private String originalContentUrl;
-    private String previewImageUrl;
+    private final String originalContentUrl;
+    private final String previewImageUrl;
 }
