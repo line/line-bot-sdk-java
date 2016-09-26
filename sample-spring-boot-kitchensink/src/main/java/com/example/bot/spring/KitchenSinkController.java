@@ -178,7 +178,7 @@ public class KitchenSinkController {
         } else if (event instanceof BeaconEvent) {
             String replyToken = ((BeaconEvent) event).getReplyToken();
             this.replyText(replyToken,
-                           "Got beacon message " + ((BeaconEvent) event).getBeaconContent().getHwid());
+                           "Got beacon message " + ((BeaconEvent) event).getBeacon().getHwid());
         } else {
             log.info("Received message(Ignored): {}", event);
         }
