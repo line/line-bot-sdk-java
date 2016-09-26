@@ -22,10 +22,10 @@ import lombok.Value;
 
 @Value
 public class UserProfileResponse {
-    String displayName;
-    String userId;
-    String pictureUrl;
-    String statusMessage;
+    private final String displayName;
+    private final String userId;
+    private final String pictureUrl;
+    private final String statusMessage;
 
     public UserProfileResponse(
             @JsonProperty("displayName") String displayName,

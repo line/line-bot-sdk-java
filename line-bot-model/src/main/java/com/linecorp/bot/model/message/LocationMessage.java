@@ -23,8 +23,8 @@ import lombok.Value;
 @Value
 @JsonTypeName("location")
 public class LocationMessage implements Message {
-    String title;
-    String address;
-    double latitude;
-    double longitude;
+    private final String title;
+    private final String address;
+    private final double latitude;
+    private final double longitude;
 }

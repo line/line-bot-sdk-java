@@ -27,7 +27,7 @@ import lombok.Value;
 @Value
 @JsonTypeName("carousel")
 public class CarouselTemplate implements Template {
-    List<CarouselColumn> columns;
+    private final List<CarouselColumn> columns;
 
     @JsonCreator
     public CarouselTemplate(@JsonProperty("columns") List<CarouselColumn> columns) {

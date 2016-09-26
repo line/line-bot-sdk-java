@@ -27,8 +27,8 @@ import lombok.Value;
 @Value
 @AllArgsConstructor
 public class ReplyMessage {
-    String replyToken;
-    List<Message> messages;
+    private final String replyToken;
+    private final List<Message> messages;
 
     public ReplyMessage(String replyToken, Message message) {
         this(replyToken, Collections.singletonList(message));

@@ -25,8 +25,8 @@ import lombok.Value;
 @Value
 @JsonTypeName("image")
 public class ImageMessageContent implements MessageContent {
-    String id;
-    String url;
+    private final String id;
+    private final String url;
 
     @JsonCreator
     public ImageMessageContent(

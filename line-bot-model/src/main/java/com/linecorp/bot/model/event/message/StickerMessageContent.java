@@ -25,9 +25,9 @@ import lombok.Value;
 @Value
 @JsonTypeName("sticker")
 public class StickerMessageContent implements MessageContent {
-    String id;
-    String packageId;
-    String stickerId;
+    private final String id;
+    private final String packageId;
+    private final String stickerId;
 
     @JsonCreator
     public StickerMessageContent(

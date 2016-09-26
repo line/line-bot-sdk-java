@@ -25,8 +25,8 @@ import lombok.Value;
 @JsonTypeName("sticker")
 public class StickerMessage implements Message {
     @NonNull
-    String packageId;
+    private final String packageId;
 
     @NonNull
-    String stickerId;
+    private final String stickerId;
 }

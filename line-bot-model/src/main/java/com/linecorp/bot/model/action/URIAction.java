@@ -27,8 +27,8 @@ import lombok.Value;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("uri")
 public class URIAction implements Action {
-    String label;
-    String uri;
+    private final String label;
+    private final String uri;
 
     @JsonCreator
     public URIAction(

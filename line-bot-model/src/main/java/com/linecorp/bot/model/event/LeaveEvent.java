@@ -29,9 +29,9 @@ import lombok.Value;
 @Value
 @JsonTypeName("leave")
 public class LeaveEvent implements Event {
-    String replyToken;
-    GroupSource source;
-    Instant timestamp;
+    private final String replyToken;
+    private final GroupSource source;
+    private final Instant timestamp;
 
     @JsonCreator
     public LeaveEvent(

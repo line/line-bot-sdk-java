@@ -25,8 +25,8 @@ import lombok.Value;
 @Value
 @JsonTypeName("text")
 public class TextMessageContent implements MessageContent {
-    String id;
-    String text;
+    private final String id;
+    private final String text;
 
     @JsonCreator
     public TextMessageContent(

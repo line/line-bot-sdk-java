@@ -24,7 +24,7 @@ import lombok.Value;
 
 @Value
 public class CallbackRequest {
-    List<Event> events;
+    private final List<Event> events;
 
     public CallbackRequest(@JsonProperty("events") List<Event> events) {
         this.events = events;
