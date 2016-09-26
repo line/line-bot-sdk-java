@@ -25,10 +25,10 @@ import okhttp3.Response;
 /**
  * This interceptor injects Authorization header
  */
-public class AuthorizationHeaderInterceptor implements Interceptor {
+class AuthorizationHeaderInterceptor implements Interceptor {
     private final String channelToken;
 
-    public AuthorizationHeaderInterceptor(String channelToken) {
+    AuthorizationHeaderInterceptor(String channelToken) {
         this.channelToken = channelToken;
     }
 
