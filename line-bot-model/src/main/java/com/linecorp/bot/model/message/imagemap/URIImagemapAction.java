@@ -22,14 +22,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Value;
 
 @Value
-@JsonTypeName("message")
-public class MessageImageMapAction implements ImageMapAction {
-    private final String text;
-    private final ImageMapArea area;
+@JsonTypeName("uri")
+public class URIImagemapAction implements ImagemapAction {
+    private final String linkUri;
+    private final ImagemapArea area;
 
-    public MessageImageMapAction(@JsonProperty("text") String text,
-                                 @JsonProperty("area") ImageMapArea area) {
-        this.text = text;
+    public URIImagemapAction(@JsonProperty("linkUri") String linkUri,
+                             @JsonProperty("area") ImagemapArea area) {
+        this.linkUri = linkUri;
         this.area = area;
     }
 }

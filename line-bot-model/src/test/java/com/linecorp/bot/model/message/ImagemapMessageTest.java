@@ -27,24 +27,24 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import com.linecorp.bot.model.message.imagemap.ImageMapArea;
-import com.linecorp.bot.model.message.imagemap.ImageMapBaseSize;
-import com.linecorp.bot.model.message.imagemap.MessageImageMapAction;
+import com.linecorp.bot.model.message.imagemap.ImagemapArea;
+import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
+import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
 
-public class ImageMapMessageTest {
+public class ImagemapMessageTest {
     @Test
     public void test() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper()
                 .registerModule(new JavaTimeModule())
                 .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
-        ImageMapMessage imageMapMessage = new ImageMapMessage(
+        ImagemapMessage imagemapMessage = new ImagemapMessage(
                 "https://example.com", "hoge",
-                new ImageMapBaseSize(1040, 1040),
+                new ImagemapBaseSize(1040, 1040),
                 Collections.singletonList(
-                        new MessageImageMapAction("hoge",
-                                                  new ImageMapArea(0, 0, 20, 20))));
+                        new MessageImagemapAction("hoge",
+                                                  new ImagemapArea(0, 0, 20, 20))));
 
-        String s = objectMapper.writeValueAsString(imageMapMessage);
+        String s = objectMapper.writeValueAsString(imagemapMessage);
         assertThat(s).contains("\"type\":\"imagemap\"");
     }
 }

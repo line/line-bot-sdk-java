@@ -14,22 +14,22 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.message;
+package com.linecorp.bot.model.message.imagemap;
 
-import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
-import com.linecorp.bot.model.message.imagemap.ImageMapAction;
-import com.linecorp.bot.model.message.imagemap.ImageMapBaseSize;
 
 import lombok.Value;
 
 @Value
-@JsonTypeName("imagemap")
-public class ImageMapMessage implements Message {
-    private final String baseUrl;
-    private final String altText;
-    private final ImageMapBaseSize baseSize;
-    private final List<ImageMapAction> actions;
+@JsonTypeName("message")
+public class MessageImagemapAction implements ImagemapAction {
+    private final String text;
+    private final ImagemapArea area;
+
+    public MessageImagemapAction(@JsonProperty("text") String text,
+                                 @JsonProperty("area") ImagemapArea area) {
+        this.text = text;
+        this.area = area;
+    }
 }

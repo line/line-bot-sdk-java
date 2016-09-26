@@ -16,20 +16,12 @@
 
 package com.linecorp.bot.model.message.imagemap;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-
 import lombok.Value;
 
 @Value
-@JsonTypeName("uri")
-public class URIImageMapAction implements ImageMapAction {
-    private final String linkUri;
-    private final ImageMapArea area;
-
-    public URIImageMapAction(@JsonProperty("linkUri") String linkUri,
-                             @JsonProperty("area") ImageMapArea area) {
-        this.linkUri = linkUri;
-        this.area = area;
-    }
+public class ImagemapArea {
+    private final int x;
+    private final int y;
+    private final int width;
+    private final int height;
 }
