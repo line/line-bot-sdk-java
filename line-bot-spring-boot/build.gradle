@@ -18,12 +18,9 @@ dependencies {
     compile project(':line-bot-api-client')
     compile project(':line-bot-model')
     compile project(':line-bot-servlet')
-    compile 'com.fasterxml.jackson.core:jackson-annotations'
+    compile 'com.fasterxml.jackson.core:jackson-annotations' // TODO: ObjectMapper の生成が line-bot-servlet に閉じれば消したい
     compile 'com.fasterxml.jackson.core:jackson-core'
     compile 'com.fasterxml.jackson.core:jackson-databind'
-    compile 'com.google.guava:guava'
-    compile 'com.squareup.okhttp3:logging-interceptor'
-    compile 'com.squareup.retrofit2:converter-jackson'
     compile 'org.springframework.boot:spring-boot-autoconfigure'
     compile 'org.springframework.boot:spring-boot-starter-web'
 
