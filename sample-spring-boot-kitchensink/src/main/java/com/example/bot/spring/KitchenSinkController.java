@@ -169,8 +169,7 @@ public class KitchenSinkController {
             String replyToken = ((JoinEvent) event).getReplyToken();
             this.replyText(replyToken, "Joined " + event.getSource());
         } else if (event instanceof LeaveEvent) {
-            String replyToken = ((LeaveEvent) event).getReplyToken();
-            this.replyText(replyToken, "Leaved " + event.getSource());
+            log.info("Bot leaved: {}", event.getSource());
         } else if (event instanceof PostbackEvent) {
             String replyToken = ((PostbackEvent) event).getReplyToken();
             this.replyText(replyToken,
