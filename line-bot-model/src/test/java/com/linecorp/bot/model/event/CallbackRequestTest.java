@@ -266,4 +266,23 @@ public class CallbackRequestTest {
                     .isEqualTo("enter");
         });
     }
+
+    // Event, that has brand new eventType
+    @Test
+    public void testUnknown() throws IOException {
+        parse("callback/unknown.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents().size())
+                    .isEqualTo(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(UnknownEvent.class);
+            assertThat(event.getSource())
+                    .isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId())
+                    .isEqualTo("U012345678901234567890123456789ab");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(((UnknownEvent) event).getType())
+                    .isEqualTo("greatNewFeature");
+        });
+    }
 }

@@ -36,6 +36,7 @@ import com.linecorp.bot.model.event.source.Source;
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "type",
+        defaultImpl = UnknownEvent.class,
         visible = true
 )
 public interface Event {
