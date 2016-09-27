@@ -120,7 +120,11 @@ subprojects {
     }
 
     compileJava {
-        options.compilerArgs << '-XDignore.symbol.file' << '-Xlint:all'
+        options.compilerArgs << '-Xlint:all' << '-Xlint:-processing'
+
+        if (!isDevBuild) {
+            options.compilerArgs << '-Werror'
+        }
     }
 
     artifacts {
