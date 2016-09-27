@@ -211,7 +211,7 @@ public class KitchenSinkController {
 
     private void handleHeavyContent(String replyToken, String messageId,
                                     Consumer<ResponseBody> messageConsumer) throws IOException {
-        Response<ResponseBody> response = lineMessagingService.getContent(messageId)
+        Response<ResponseBody> response = lineMessagingService.getMessageContent(messageId)
                                                               .execute();
         if (response.isSuccessful()) {
             try (ResponseBody body = response.body()) {

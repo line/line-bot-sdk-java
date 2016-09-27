@@ -38,7 +38,7 @@ public interface LineMessagingService {
 
     @Streaming
     @GET("/v2/bot/message/{messageId}/content")
-    Call<ResponseBody> getContent(@Path("messageId") String messageId);
+    Call<ResponseBody> getMessageContent(@Path("messageId") String messageId);
 
     /**
      * The profile information of any specified user can be obtained.
