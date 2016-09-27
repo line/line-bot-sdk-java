@@ -16,8 +16,8 @@
 
 package com.linecorp.bot.spring.boot;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -155,18 +155,18 @@ public class IntegrationTest {
 
         // Test request 1
         RecordedRequest request1 = server.takeRequest(3, TimeUnit.SECONDS);
-        assertEquals("/v2/bot/message/reply", request1.getPath());
-        assertEquals("Bearer TOKEN", request1.getHeader("Authorization"));
-        assertEquals(
-                "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"Hello, world\"}]}",
-                request1.getBody().readUtf8());
+        assertThat(request1.getPath()).isEqualTo("/v2/bot/message/reply");
+        assertThat(request1.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
+        assertThat(request1.getBody().readUtf8())
+                .isEqualTo(
+                        "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"Hello, world\"}]}");
 
         // Test request 2
         RecordedRequest request2 = server.takeRequest(3, TimeUnit.SECONDS);
-        assertEquals("/v2/bot/message/reply", request2.getPath());
-        assertEquals("Bearer TOKEN", request2.getHeader("Authorization"));
-        assertEquals(
-                "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"follow\"}]}",
-                request2.getBody().readUtf8());
+        assertThat(request2.getPath()).isEqualTo("/v2/bot/message/reply");
+        assertThat(request2.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
+        assertThat(request2.getBody().readUtf8())
+                .isEqualTo(
+                        "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"follow\"}]}");
     }
 }

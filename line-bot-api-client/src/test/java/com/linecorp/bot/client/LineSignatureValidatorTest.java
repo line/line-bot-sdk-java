@@ -16,9 +16,7 @@
 
 package com.linecorp.bot.client;
 
-import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.charset.StandardCharsets;
 
@@ -34,14 +32,14 @@ public class LineSignatureValidatorTest {
                 channelSecret.getBytes(StandardCharsets.UTF_8));
 
         String httpRequestBody = "{}";
-        assertTrue(lineSignatureValidator
+        assertThat(lineSignatureValidator
                            .validateSignature(httpRequestBody.getBytes(StandardCharsets.UTF_8),
-                                              "3q8QXTAGaey18yL8FWTqdVlbMr6hcuNvM4tefa0o9nA="
-                           ));
-        assertFalse(lineSignatureValidator
-                            .validateSignature(httpRequestBody.getBytes(StandardCharsets.UTF_8),
-                                               "596359635963"
-                            ));
+                                              "3q8QXTAGaey18yL8FWTqdVlbMr6hcuNvM4tefa0o9nA="))
+                .isTrue();
+        assertThat(lineSignatureValidator
+                           .validateSignature(httpRequestBody.getBytes(StandardCharsets.UTF_8),
+                                              "596359635963"))
+                .isFalse();
     }
 
     @Test
@@ -53,8 +51,8 @@ public class LineSignatureValidatorTest {
         byte[] headerSignature = lineSignatureValidator
                 .generateSignature(httpRequestBody.getBytes(StandardCharsets.UTF_8));
 
-        assertEquals("3q8QXTAGaey18yL8FWTqdVlbMr6hcuNvM4tefa0o9nA=",
-                     Base64Utils.encodeToString(headerSignature));
+        assertThat(Base64Utils.encodeToString(headerSignature))
+                .isEqualTo("3q8QXTAGaey18yL8FWTqdVlbMr6hcuNvM4tefa0o9nA=");
     }
 
 }

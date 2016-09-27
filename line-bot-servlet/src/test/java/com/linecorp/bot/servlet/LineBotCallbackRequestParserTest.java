@@ -16,8 +16,8 @@
 
 package com.linecorp.bot.servlet;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -33,7 +33,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -117,19 +116,18 @@ public class LineBotCallbackRequestParserTest {
 
         doReturn(true).when(lineSignatureValidator).validateSignature(requestBody, "SSSSIGNATURE");
 
-        CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(
-                request
-        );
-        Assert.assertNotNull(callbackRequest);
+        CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(request);
+
+        assertThat(callbackRequest).isNotNull();
 
         final List<Event> result = callbackRequest.getEvents();
 
         final MessageEvent messageEvent = (MessageEvent) result.get(0);
         final TextMessageContent text = (TextMessageContent) messageEvent.getMessage();
-        assertEquals("Hello, world", text.getText());
+        assertThat(text.getText()).isEqualTo("Hello, world");
 
         final String followedUserId = messageEvent.getSource().getUserId();
-        assertEquals("u206d25c2ea6bd87c17655609a1c37cb8", followedUserId);
-        assertEquals(Instant.parse("2016-05-07T13:57:59.859Z"), messageEvent.getTimestamp());
+        assertThat(followedUserId).isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+        assertThat(messageEvent.getTimestamp()).isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
     }
 }
