@@ -124,6 +124,9 @@ public class KitchenSinkController {
                 ));
             } else if (message instanceof ImageMessageContent) {
                 // You need to install ImageMagick
+
+                // This is sample code. This code may not secure.
+                // DO NOT USE IN PRODUCTION!
                 handleHeavyContent(
                         replyToken,
                         message.getId(),
@@ -133,7 +136,7 @@ public class KitchenSinkController {
                             system(
                                     "convert",
                                     "-resize", "240x",
-                                    jpg.path.toString(),
+                                    "jpeg:" + jpg.path.toString(),
                                     previewImg.path.toString());
                             reply(replyToken, new ImageMessage(jpg.getUri(), jpg.getUri()));
                         });
@@ -147,6 +150,9 @@ public class KitchenSinkController {
                         });
             } else if (message instanceof VideoMessageContent) {
                 // You need to install ffmpeg and ImageMagick.
+
+                // This is sample code. This code may not secure.
+                // DO NOT USE IN PRODUCTION!
                 handleHeavyContent(
                         replyToken,
                         message.getId(),
@@ -154,7 +160,7 @@ public class KitchenSinkController {
                             DownloadedContent mp4 = saveContent("mp4", responseBody);
                             DownloadedContent previewImg = createTempFile("jpg");
                             system("convert",
-                                   mp4.path + "[0]",
+                                   "mp4:" + mp4.path + "[0]",
                                    previewImg.path.toString());
                             reply(replyToken,
                                   new VideoMessage(mp4.getUri(), previewImg.uri));
