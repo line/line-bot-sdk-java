@@ -125,7 +125,7 @@ public class KitchenSinkController {
             } else if (message instanceof ImageMessageContent) {
                 // You need to install ImageMagick
 
-                // This is sample code. This code may not secure.
+                // This is sample code. You should consider about security and scalability.
                 // DO NOT USE IN PRODUCTION!
                 handleHeavyContent(
                         replyToken,
@@ -151,7 +151,7 @@ public class KitchenSinkController {
             } else if (message instanceof VideoMessageContent) {
                 // You need to install ffmpeg and ImageMagick.
 
-                // This is sample code. This code may not secure.
+                // This is sample code. You should consider about security and scalability.
                 // DO NOT USE IN PRODUCTION!
                 handleHeavyContent(
                         replyToken,
