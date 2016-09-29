@@ -20,63 +20,71 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.google.common.io.ByteStreams;
 
-import com.linecorp.bot.client.LineBotAPIHeaders;
-import com.linecorp.bot.client.LineBotClient;
-import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.client.exception.LineBotAPIJsonProcessingException;
-import com.linecorp.bot.model.callback.CallbackRequest;
+import com.linecorp.bot.client.LineSignatureValidator;
+import com.linecorp.bot.model.event.CallbackRequest;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class LineBotCallbackRequestParser {
-    private final LineBotClient lineBotClient;
+    private final LineSignatureValidator lineSignatureValidator;
+    private final ObjectMapper objectMapper;
 
-    public LineBotCallbackRequestParser(LineBotClient lineBotClient) {
-        this.lineBotClient = lineBotClient;
+    /**
+     * Create new instance
+     *
+     * @param lineSignatureValidator LINE messaging API's signature validator
+     */
+    public LineBotCallbackRequestParser(
+            @NonNull LineSignatureValidator lineSignatureValidator) {
+        this.lineSignatureValidator = lineSignatureValidator;
+        this.objectMapper = buildObjectMapper();
     }
 
-    public CallbackRequest handle(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    /**
+     * Parse request.
+     *
+     * @param req HTTP servlet request.
+     * @return Parsed result. If there's an error, this method sends response.
+     * @throws LineBotCallbackException There's an error around signature.
+     */
+    public CallbackRequest handle(HttpServletRequest req) throws LineBotCallbackException, IOException {
         // validate signature
-        String signature = req.getHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE);
+        String signature = req.getHeader("X-Line-Signature");
         if (signature == null || signature.length() == 0) {
-            sendError(resp, "Missing 'X-Line-ChannelSignature' header");
-            return null;
+            throw new LineBotCallbackException("Missing 'X-Line-Signature' header");
         }
 
-        final byte[] json = IOUtils.toByteArray(req.getInputStream());
+        final byte[] json = ByteStreams.toByteArray(req.getInputStream());
         if (log.isDebugEnabled()) {
             log.debug("got: {}", new String(json, StandardCharsets.UTF_8));
         }
 
-        try {
-            if (!lineBotClient.validateSignature(json, signature)) {
-                sendError(resp, "Invalid API signature");
-                return null;
-            }
-        } catch (LineBotAPIException e) {
-            log.warn("Invalid API signature", e);
-            sendError(resp, "Internal serve error: " + e.getMessage());
-            return null;
+        if (!lineSignatureValidator.validateSignature(json, signature)) {
+            throw new LineBotCallbackException("Invalid API signature");
         }
 
-        try {
-            return lineBotClient.readCallbackRequest(json);
-        } catch (LineBotAPIJsonProcessingException e) {
-            sendError(resp, "Invalid Callback");
-            return null;
+        final CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
+        if (callbackRequest == null || callbackRequest.getEvents() == null) {
+            throw new LineBotCallbackException("Invalid content");
         }
+        return callbackRequest;
     }
 
-    private void sendError(HttpServletResponse resp, String message) throws IOException {
-        log.warn(message);
-        resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                       message);
-        resp.setContentType("text/plain; charset=utf-8");
-        resp.getWriter().write(message);
+    private static ObjectMapper buildObjectMapper() {
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        // Register JSR-310(java.time.temporal.*) module and read number as millsec.
+        objectMapper.registerModule(new JavaTimeModule())
+                    .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+        return objectMapper;
     }
 }

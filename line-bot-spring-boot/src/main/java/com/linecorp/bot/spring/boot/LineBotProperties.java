@@ -16,60 +16,54 @@
 
 package com.linecorp.bot.spring.boot;
 
-import java.util.regex.Pattern;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import com.linecorp.bot.client.DefaultLineBotClient;
+import com.linecorp.bot.client.LineMessagingServiceBuilder;
 
 import lombok.Data;
 
 @Data
 @ConfigurationProperties(prefix = "line.bot")
 public class LineBotProperties {
-    private static final Pattern TRAILING_SLASH = Pattern.compile("/$");
-
+    /**
+     * Channel acccess token.
+     */
     @Valid
     @NotNull
-    private String channelMid;
+    private String channelToken;
 
-    @Valid
-    @NotNull
-    private String channelId;
-
+    /**
+     * Channel secret
+     */
     @Valid
     @NotNull
     private String channelSecret;
 
     @Valid
     @NotNull
-    private String apiEndPoint = DefaultLineBotClient.DEFAULT_API_END_POINT;
+    private String apiEndPoint = LineMessagingServiceBuilder.DEFAULT_API_END_POINT;
 
+    /**
+     * Connection timeout in milliseconds
+     */
     @Valid
     @NotNull
-    private int connectTimeout;
+    private long connectTimeout = LineMessagingServiceBuilder.DEFAULT_CONNECT_TIMEOUT;
 
+    /**
+     * Read timeout in milliseconds
+     */
     @Valid
     @NotNull
-    private int connectionRequestTimeout;
+    private long readTimeout = LineMessagingServiceBuilder.DEFAULT_READ_TIMEOUT;
 
+    /**
+     * Write timeout in milliseconds
+     */
     @Valid
     @NotNull
-    private int socketTimeout;
-
-    @Valid
-    @NotNull
-    private Long sendingMessageChannelId = DefaultLineBotClient.DEFAULT_SENDING_MESSAGE_CHANNEL_ID;
-
-    @Valid
-    @NotNull
-    private String sendingMessageEventId = DefaultLineBotClient.DEFAULT_SENDING_MESSAGE_EVENT_ID;
-
-    @Valid
-    @NotNull
-    private String sendingMultipleMessagesEventId =
-            DefaultLineBotClient.DEFAULT_SENDING_MULTIPLE_MESSAGES_EVENT_ID;
+    private long writeTimeout = LineMessagingServiceBuilder.DEFAULT_WRITE_TIMEOUT;
 }

@@ -16,19 +16,23 @@
 
 package com.example.bot.spring.echo;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.linecorp.bot.client.LineBotClient;
-import com.linecorp.bot.client.exception.LineBotAPIException;
-import com.linecorp.bot.model.callback.Event;
-import com.linecorp.bot.model.content.Content;
-import com.linecorp.bot.model.content.TextContent;
+import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.MessageContent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 @SpringBootApplication
@@ -40,16 +44,24 @@ public class EchoApplication {
     @RestController
     public static class MyController {
         @Autowired
-        private LineBotClient lineBotClient;
+        private LineMessagingService lineMessagingService;
 
-        @RequestMapping("/callback")
-        public void callback(@LineBotMessages List<Event> events) throws LineBotAPIException {
+        @PostMapping("/callback")
+        public void callback(@LineBotMessages List<Event> events) throws IOException {
             for (Event event : events) {
-                Content content = event.getContent();
-                if (content instanceof TextContent) {
-                    TextContent textContent = (TextContent) content;
-                    lineBotClient.sendText(textContent.getFrom(),
-                                           textContent.getText());
+                System.out.println("event: " + event);
+                if (event instanceof MessageEvent) {
+                    MessageContent message = ((MessageEvent) event).getMessage();
+                    if (message instanceof TextMessageContent) {
+                        System.out.println("Sending reply message");
+                        TextMessageContent textMessageContent = (TextMessageContent) message;
+                        BotApiResponse apiResponse = lineMessagingService.replyMessage(
+                                new ReplyMessage(
+                                        ((MessageEvent) event).getReplyToken(),
+                                        new TextMessage(textMessageContent.getText()
+                                        ))).execute().body();
+                        System.out.println("Sent messages: " + apiResponse);
+                    }
                 }
             }
         }

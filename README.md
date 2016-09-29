@@ -7,63 +7,58 @@
 
 ## What's this?
 
-This is a client library for the LINE Bot API.
+This is a Java SDK for the LINE Messaging API.
 
-## About LINE Bot API
+## About LINE Messaging API
 
 Please refer to the official api documents for details.
 
-en: http://line.github.io/line-bot-api-doc/en/
+en:  https://devdocs.line.me/en/
 
-ja: http://line.github.io/line-bot-api-doc/ja/
-
-## Create a LINE Bot client
-
-The main entry point is `LineBotClient`. You can create an instance via `LineBotClientBuilder`.
-
-```
- LineBotClient client = LineBotClientBuilder
-                          .create("YOUR_CHANNEL_ID", "YOUR_CHANNEL_SECRET", "YOUR_CHANNEL_MID")
-                          .build();
-```
-
-## Client usage
-
-You can use `LineBotClient` to receive/send events from/to your followers.
-The following sketch shows a naive echo bot example.
-
-```
-String requestBody = yourWebFramework.getRequestbody();
-String signature = yourWebFramework.getRequestHeader(LineBotAPIHeaders.X_LINE_CHANNEL_SIGNATURE);
-
-// parsing callback request
-CallbackRequest callbackRequest = client.readCallbackRequest(requestBody);
-
-// signature validation
-if (!client.validateSignature(requestBody, signature)) {
-    log.error(...);
-    return;
-}
-
-// processing received events
-for (Event event : callbackRequest.getResult()) {
-    Content content = event.getContent();
-
-    // handle text message
-    if (content instanceof TextContent) {
-        TextContent text = (TextContent) content;
-        // reply back same text
-        client.sendText(text.getFrom(), text.getText());
-    }
-}
-
-```
+ja:  https://devdocs.line.me/ja/
 
 ## Spring Boot Integration
 
-line-bot-spring-boot provides a way to build your bot apps as a Spring Boot Application.
+line-bot-spring-boot module provides a way to build your bot apps as a Spring Boot Application.
 
-```
+```java
+/*
+ * Copyright 2016 LINE Corporation
+ *
+ * LINE Corporation licenses this file to you under the Apache License,
+ * version 2.0 (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at:
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+package com.example.bot.spring.echo;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.MessageContent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
+
 @SpringBootApplication
 public class EchoApplication {
     public static void main(String[] args) {
@@ -73,15 +68,24 @@ public class EchoApplication {
     @RestController
     public static class MyController {
         @Autowired
-        private LineBotClient lineBotClient;
+        private LineMessagingService lineMessagingService;
 
-        @RequestMapping("/callback")
-        public void callback(@LineBotMessages List<Event> events) throws LineBotAPIException {
+        @PostMapping("/callback")
+        public void callback(@LineBotMessages List<Event> events) throws IOException {
             for (Event event : events) {
-                Content content = event.getContent();
-                if (content instanceof TextContent) {
-                    TextContent text = (TextContent) content;
-                    lineBotClient.sendText(text.getFrom(), text.getText());
+                System.out.println("event: " + event);
+                if (event instanceof MessageEvent) {
+                    MessageContent message = ((MessageEvent) event).getMessage();
+                    if (message instanceof TextMessageContent) {
+                        System.out.println("Sending reply message");
+                        TextMessageContent textMessageContent = (TextMessageContent) message;
+                        BotApiResponse apiResponse = lineMessagingService.replyMessage(
+                                new ReplyMessage(
+                                        ((MessageEvent) event).getReplyToken(),
+                                        new TextMessage(textMessageContent.getText()
+                                        ))).execute().body();
+                        System.out.println("Sent messages: " + apiResponse);
+                    }
                 }
             }
         }
@@ -115,4 +119,16 @@ See http://semver.org/.
 
 ## LICENSE
 
-See LICENSE.txt
+   Copyright (C) 2016 LINE Corp.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.

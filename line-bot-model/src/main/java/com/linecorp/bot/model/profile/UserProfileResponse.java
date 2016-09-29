@@ -16,56 +16,25 @@
 
 package com.linecorp.bot.model.profile;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Value;
 
-/**
- * Response object to get user's profile information
- */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@ToString
-@Getter
+@Value
 public class UserProfileResponse {
-    /**
-     * Container of profile information for 0 friends and above.
-     */
-    private final List<UserProfileResponseContact> contacts;
-
-    /**
-     * No. of results in this response.
-     */
-    private final Long count;
-
-    /**
-     * Total no. of results that match the specified conditions.
-     */
-    private final Long total;
-
-    /**
-     * Starting index specified in the request.
-     */
-    private final Long start;
-
-    /**
-     * Display parameter value specified in the request.
-     */
-    private final Long display;
+    private final String displayName;
+    private final String userId;
+    private final String pictureUrl;
+    private final String statusMessage;
 
     public UserProfileResponse(
-            @JsonProperty("contacts") List<UserProfileResponseContact> contacts,
-            @JsonProperty("count") Long count,
-            @JsonProperty("total") Long total,
-            @JsonProperty("start") Long start,
-            @JsonProperty("display") Long display) {
-        this.contacts = contacts;
-        this.count = count;
-        this.total = total;
-        this.start = start;
-        this.display = display;
+            @JsonProperty("displayName") String displayName,
+            @JsonProperty("userId") String userId,
+            @JsonProperty("pictureUrl") String pictureUrl,
+            @JsonProperty("statusMessage") String statusMessage) {
+        this.displayName = displayName;
+        this.userId = userId;
+        this.pictureUrl = pictureUrl;
+        this.statusMessage = statusMessage;
     }
 }

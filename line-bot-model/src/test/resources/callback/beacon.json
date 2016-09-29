@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "beacon",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "user",
+        "userId": "U012345678901234567890123456789ab"
+      },
+      "beacon": {
+        "hwid": "374591320",
+        "type": "enter"
+      }
+    }
+  ]
+}

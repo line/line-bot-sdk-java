@@ -14,23 +14,10 @@
  * under the License.
  */
 
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    compile "com.fasterxml.jackson.core:jackson-core:2.7.3"
-    compile "com.fasterxml.jackson.core:jackson-databind:2.7.3"
-    compile "com.fasterxml.jackson.core:jackson-annotations:2.7.3"
+    compile 'com.fasterxml.jackson.core:jackson-core'
+    compile 'com.fasterxml.jackson.core:jackson-databind'
+    compile 'com.fasterxml.jackson.core:jackson-annotations'
 
-    compileOnly 'org.projectlombok:lombok:1.16.8'
-
-    testCompile 'junit:junit:4.11'
-    testCompile 'commons-io:commons-io:2.4'
-    testCompile "org.assertj:assertj-core:3.4.1"
+    testCompile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 }

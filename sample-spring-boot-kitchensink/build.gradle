@@ -14,39 +14,8 @@
  * under the License.
  */
 
-buildscript {
-    repositories {
-        mavenCentral();
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
-    }
-}
-
-apply plugin: 'java'
 apply plugin: 'spring-boot'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
-
-bootRepackage {
-    executable = true
-}
 
 dependencies {
     compile project(':line-bot-spring-boot')
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compileOnly "org.projectlombok:lombok:1.16.8"
-    compile "com.fasterxml.jackson.core:jackson-core:2.7.3"
-    compile "com.fasterxml.jackson.core:jackson-databind:2.7.3"
-    compile "com.fasterxml.jackson.core:jackson-annotations:2.7.3"
-
-    testCompile 'junit:junit:4.11'
-}
-
-bootRun {
-    systemProperties System.properties
 }

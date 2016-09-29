@@ -16,22 +16,29 @@
 
 package com.linecorp.bot.spring.boot.interceptor;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.linecorp.bot.model.callback.CallbackRequest;
+import com.linecorp.bot.model.event.CallbackRequest;
+import com.linecorp.bot.servlet.LineBotCallbackException;
 import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
+@Slf4j
 public class LineBotServerInterceptor implements HandlerInterceptor {
     @Autowired
     private LineBotCallbackRequestParser lineBotCallbackRequestParser;
@@ -43,12 +50,18 @@ public class LineBotServerInterceptor implements HandlerInterceptor {
         MethodParameter[] methodParameters = hm.getMethodParameters();
         for (MethodParameter methodParameter : methodParameters) {
             if (methodParameter.getParameterAnnotation(LineBotMessages.class) != null) {
-                CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(request, response);
-                if (callbackRequest == null) {
-                    return false; // validation failed
+                try {
+                    CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(request);
+                    LineBotServerArgumentProcessor.setValue(request, callbackRequest);
+                    return true;
+                } catch (LineBotCallbackException e) {
+                    log.info("LINE Bot callback exception: {}", e.getMessage());
+                    response.sendError(HttpStatus.BAD_REQUEST.value());
+                    try (PrintWriter writer = response.getWriter()) {
+                        writer.println(e.getMessage());
+                    }
+                    return false;
                 }
-                LineBotServerArgumentProcessor.setValue(request, callbackRequest);
-                return true;
             }
         }
         return true;

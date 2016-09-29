@@ -26,7 +26,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.linecorp.bot.model.callback.CallbackRequest;
+import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
 @Component
@@ -40,11 +40,12 @@ public class LineBotServerArgumentProcessor implements HandlerMethodArgumentReso
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory)
+            throws Exception {
         return webRequest.getAttribute(PROPERTY_NAME, RequestAttributes.SCOPE_REQUEST);
     }
 
     public static void setValue(HttpServletRequest request, CallbackRequest callbackRequest) {
-        request.setAttribute(PROPERTY_NAME, callbackRequest.getResult());
+        request.setAttribute(PROPERTY_NAME, callbackRequest.getEvents());
     }
 }

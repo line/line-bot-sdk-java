@@ -16,21 +16,18 @@
 
 package com.linecorp.bot.spring.boot;
 
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.HttpClientBuilder;
+import java.nio.charset.StandardCharsets;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.linecorp.bot.client.LineBotClient;
-import com.linecorp.bot.client.LineBotClientBuilder;
+import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.client.LineMessagingServiceBuilder;
+import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
 import com.linecorp.bot.spring.boot.interceptor.LineBotServerInterceptor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
@@ -43,30 +40,13 @@ public class LineBotAutoConfiguration {
     private LineBotProperties lineBotProperties;
 
     @Bean
-    @ConditionalOnMissingBean(LineBotClient.class)
-    public LineBotClient lineBotClient() {
-        RequestConfig requestConfig = RequestConfig
-                .custom()
-                .setConnectTimeout(lineBotProperties.getConnectTimeout())
-                .setConnectionRequestTimeout(lineBotProperties.getConnectionRequestTimeout())
-                .setSocketTimeout(lineBotProperties.getSocketTimeout())
-                .build();
-
-        HttpClientBuilder httpClientBuilder = HttpClientBuilder
-                .create()
-                .disableAutomaticRetries()
-                .setDefaultRequestConfig(requestConfig)
-                .setUserAgent("line-botsdk-java/" + this.getClass().getPackage().getImplementationVersion());
-
-        return LineBotClientBuilder
-                .create(lineBotProperties.getChannelId(),
-                        lineBotProperties.getChannelSecret(),
-                        lineBotProperties.getChannelMid())
+    public LineMessagingService lineMessagingService() {
+        return LineMessagingServiceBuilder
+                .create(lineBotProperties.getChannelToken())
                 .apiEndPoint(lineBotProperties.getApiEndPoint())
-                .sendingMessageChannelId(lineBotProperties.getSendingMessageChannelId())
-                .sendingMessageEventId(lineBotProperties.getSendingMessageEventId())
-                .sendingMultipleMessagesEventId(lineBotProperties.getSendingMultipleMessagesEventId())
-                .httpClientBuilder(httpClientBuilder)
+                .connectTimeout(lineBotProperties.getConnectTimeout())
+                .readTimeout(lineBotProperties.getReadTimeout())
+                .writeTimeout(lineBotProperties.getWriteTimeout())
                 .build();
     }
 
@@ -84,7 +64,15 @@ public class LineBotAutoConfiguration {
 
     @Bean
     @ConditionalOnWebApplication
-    public LineBotCallbackRequestParser lineBotCallbackServletUtils(LineBotClient lineBotClient) {
-        return new LineBotCallbackRequestParser(lineBotClient);
+    public LineSignatureValidator lineSignatureValidator() {
+        return new LineSignatureValidator(
+                lineBotProperties.getChannelSecret().getBytes(StandardCharsets.US_ASCII));
+    }
+
+    @Bean
+    @ConditionalOnWebApplication
+    public LineBotCallbackRequestParser lineBotCallbackRequestParser(
+            LineSignatureValidator lineSignatureValidator) {
+        return new LineBotCallbackRequestParser(lineSignatureValidator);
     }
 }

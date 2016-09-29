@@ -14,46 +14,12 @@
  * under the License.
  */
 
-buildscript {
-    repositories {
-        mavenCentral();
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
-    }
-}
-
-apply plugin: 'java'
-apply plugin: 'spring-boot'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
-
-bootRepackage {
-    enabled = false
-}
-
 dependencies {
     compile project(':line-bot-api-client')
     compile project(':line-bot-model')
     compile project(':line-bot-servlet')
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
-    compile 'org.springframework:spring-webmvc:4.2.5.RELEASE'
     compile 'org.springframework.boot:spring-boot-autoconfigure'
-    compile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'org.springframework.boot:spring-boot-starter-web'
 
-    optional 'javax.validation:validation-api:1.1.0.Final'
-    optional 'org.springframework.boot:spring-boot-configuration-processor'
-    optional 'org.projectlombok:lombok:1.16.4'
-    optional 'org.slf4j:slf4j-api:1.7.16'
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
-    testCompile 'junit:junit:4.12'
-    testCompile 'commons-logging:commons-logging:1.1.1'
-    testCompile 'org.hibernate:hibernate-validator:5.2.4.Final'
+    optional 'javax.validation:validation-api'
 }
