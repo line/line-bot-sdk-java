@@ -4,47 +4,61 @@ This is a spring-boot autoconfigurer for LINE bot API.
 
 ## Synopsis
 
-    package com.example.bot.spring.echo;
-    
-    import java.util.List;
+```java
+package com.example.bot.spring.echo;
 
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.boot.SpringApplication;
-    import org.springframework.boot.autoconfigure.SpringBootApplication;
-    import org.springframework.web.bind.annotation.RequestMapping;
-    import org.springframework.web.bind.annotation.RestController;
+import java.io.IOException;
+import java.util.List;
 
-    import com.linecorp.bot.client.LineBotClient;
-    import com.linecorp.bot.client.exception.LineBotAPIException;
-    import com.linecorp.bot.model.deprecated.callback.Event;
-    import com.linecorp.bot.model.deprecated.content.Content;
-    import com.linecorp.bot.model.deprecated.content.TextContent;
-    import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
-    
-    @SpringBootApplication
-    public class EchoApplication {
-        public static void main(String[] args) {
-            SpringApplication.run(EchoApplication.class, args);
-        }
-    
-        @RestController
-        public static class MyController {
-            @Autowired
-            private LineBotClient lineBotClient;
-    
-            @RequestMapping("/callback")
-            public void callback(@LineBotMessages List<Event> events) throws LineBotAPIException {
-                for (Event event : events) {
-                    Content content = event.getContent();
-                    if (content instanceof TextContent) {
-                        TextContent textContent = (TextContent) content;
-                        lineBotClient.sendText(textContent.getFrom(),
-                                               textContent.getText());
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.MessageContent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
+
+@SpringBootApplication
+public class EchoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(EchoApplication.class, args);
+    }
+
+    @RestController
+    public static class MyController {
+        @Autowired
+        private LineMessagingService lineMessagingService;
+
+        @PostMapping("/callback")
+        public void callback(@LineBotMessages List<Event> events) throws IOException {
+            for (Event event : events) {
+                System.out.println("event: " + event);
+                if (event instanceof MessageEvent) {
+                    MessageContent message = ((MessageEvent) event).getMessage();
+                    if (message instanceof TextMessageContent) {
+                        System.out.println("Sending reply message");
+                        TextMessageContent textMessageContent = (TextMessageContent) message;
+                        BotApiResponse apiResponse = lineMessagingService.replyMessage(
+                                new ReplyMessage(
+                                        ((MessageEvent) event).getReplyToken(),
+                                        new TextMessage(textMessageContent.getText()
+                                        ))).execute().body();
+                        System.out.println("Sent messages: " + apiResponse);
                     }
                 }
             }
         }
     }
+}
+```
 
 ## Usage
 
@@ -52,17 +66,27 @@ Add this library as a dependency of your project.
 
 Then, you can get a parsed messages like following code:
 
-    @RequestMapping("/callback")
-    public void callback(@LineBotMessages List<Event> events) throws LineBotAPIException {
-        for (Event event : events) {
-            Content content = event.getContent();
-            if (content instanceof TextContent) {
-                TextContent textContent = (TextContent) content;
-                lineBotClient.sendText(textContent.getFrom(),
-                                       textContent.getText());
+```java
+@PostMapping("/callback")
+public void callback(@LineBotMessages List<Event> events) throws IOException {
+    for (Event event : events) {
+        System.out.println("event: " + event);
+        if (event instanceof MessageEvent) {
+            MessageContent message = ((MessageEvent) event).getMessage();
+            if (message instanceof TextMessageContent) {
+                System.out.println("Sending reply message");
+                TextMessageContent textMessageContent = (TextMessageContent) message;
+                BotApiResponse apiResponse = lineMessagingService.replyMessage(
+                        new ReplyMessage(
+                                ((MessageEvent) event).getReplyToken(),
+                                new TextMessage(textMessageContent.getText()
+                                ))).execute().body();
+                System.out.println("Sent messages: " + apiResponse);
             }
         }
     }
+}
+```
 
 You need to use `@LineBotMessages` annotation for getting messages.
 
@@ -70,13 +94,9 @@ You need to use `@LineBotMessages` annotation for getting messages.
 
 LINE bot SDK automatically configured by system properties. There's following parameters:
 
-### line.bot.channelMid
+### line.bot.channelToken
 
-Channel MID for bot server.
-
-### line.bot.channelId
-
-Channel ID for bot server.
+Channel access token for bot server.
 
 ### line.bot.channelSecret
 
@@ -86,10 +106,10 @@ Channel secret for bot server.
 
 Connecting timeout in milli seconds.
 
-### line.bot.connectionRequestTimeout
+### line.bot.readTimeout
 
-Connection request timeout in milli seconds.
+Read timeout in milli seconds.
 
-### line.bot.socketTimeout
+### line.bot.writeTimeout
 
-Connecting timeout in milli seconds.
+Write timeout in milli seconds.
