@@ -29,8 +29,6 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.google.common.io.ByteStreams;
@@ -44,14 +42,12 @@ import com.linecorp.bot.model.event.BeaconEvent;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
-import com.linecorp.bot.model.event.LeaveEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
 import com.linecorp.bot.model.event.message.AudioMessageContent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
-import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.message.VideoMessageContent;
@@ -77,7 +73,10 @@ import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
+import com.linecorp.bot.spring.boot.annotation.DefaultEventMapping;
+import com.linecorp.bot.spring.boot.annotation.EventMapping;
+import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+import com.linecorp.bot.spring.boot.annotation.MessageEventMapping;
 
 import lombok.NonNull;
 import lombok.Value;
@@ -85,108 +84,113 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
-@RestController
 @Slf4j
+@LineMessageHandler
 public class KitchenSinkController {
     @Autowired
     private LineMessagingService lineMessagingService;
 
-    @RequestMapping("/callback")
-    public void callback(@NonNull @LineBotMessages List<Event> events) {
-        log.info("Got request: {}", events);
-
-        for (Event event : events) {
-            try {
-                this.handleEvent(event);
-            } catch (IOException e) {
-                log.error("LINE server returns '{}'({})",
-                          e.getMessage(),
-                          event, e);
-            }
-        }
+    @MessageEventMapping(TextMessageContent.class)
+    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws IOException {
+        TextMessageContent message = event.getMessage();
+        handleTextContent(event.getReplyToken(), event, message);
     }
 
-    private void handleEvent(Event event) throws IOException {
-        if (event instanceof MessageEvent) {
-            String replyToken = ((MessageEvent) event).getReplyToken();
-            MessageContent message = ((MessageEvent) event).getMessage();
-            if (message instanceof TextMessageContent) {
-                handleTextContent(replyToken, event, (TextMessageContent) message);
-            } else if (message instanceof StickerMessageContent) {
-                handleSticker(replyToken, (StickerMessageContent) message);
-            } else if (message instanceof LocationMessageContent) {
-                LocationMessageContent locationMessage = (LocationMessageContent) message;
-                reply(replyToken, new LocationMessage(
-                        locationMessage.getTitle(),
-                        locationMessage.getAddress(),
-                        locationMessage.getLatitude(),
-                        locationMessage.getLongitude()
-                ));
-            } else if (message instanceof ImageMessageContent) {
-                // You need to install ImageMagick
+    @MessageEventMapping(StickerMessageContent.class)
+    public void handleStickerMessageEvent(MessageEvent<StickerMessageContent> event) {
+        handleSticker(event.getReplyToken(), event.getMessage());
+    }
 
-                // This is sample code. You should consider about security and scalability.
-                // DO NOT USE IN PRODUCTION!
-                handleHeavyContent(
-                        replyToken,
-                        message.getId(),
-                        responseBody -> {
-                            DownloadedContent jpg = saveContent("jpg", responseBody);
-                            DownloadedContent previewImg = createTempFile("jpg");
-                            system(
-                                    "convert",
-                                    "-resize", "240x",
-                                    "jpeg:" + jpg.path.toString(),
-                                    previewImg.path.toString());
-                            reply(replyToken, new ImageMessage(jpg.getUri(), jpg.getUri()));
-                        });
-            } else if (message instanceof AudioMessageContent) {
-                handleHeavyContent(
-                        replyToken,
-                        message.getId(),
-                        responseBody -> {
-                            DownloadedContent mp4 = saveContent("mp4", responseBody);
-                            reply(replyToken, new AudioMessage(mp4.getUri(), 100));
-                        });
-            } else if (message instanceof VideoMessageContent) {
-                // You need to install ffmpeg and ImageMagick.
+    @MessageEventMapping(LocationMessageContent.class)
+    public void handleLocationMessageEvent(MessageEvent<LocationMessageContent> event) {
+        LocationMessageContent locationMessage = event.getMessage();
+        reply(event.getReplyToken(), new LocationMessage(
+                locationMessage.getTitle(),
+                locationMessage.getAddress(),
+                locationMessage.getLatitude(),
+                locationMessage.getLongitude()
+        ));
+    }
 
-                // This is sample code. You should consider about security and scalability.
-                // DO NOT USE IN PRODUCTION!
-                handleHeavyContent(
-                        replyToken,
-                        message.getId(),
-                        responseBody -> {
-                            DownloadedContent mp4 = saveContent("mp4", responseBody);
-                            DownloadedContent previewImg = createTempFile("jpg");
-                            system("convert",
-                                   "mp4:" + mp4.path + "[0]",
-                                   previewImg.path.toString());
-                            reply(replyToken,
-                                  new VideoMessage(mp4.getUri(), previewImg.uri));
-                        });
-            }
-        } else if (event instanceof UnfollowEvent) {
-            log.info("unfollowed this bot: {}", event);
-        } else if (event instanceof FollowEvent) {
-            String replyToken = ((FollowEvent) event).getReplyToken();
-            this.replyText(replyToken, "Got followed event");
-        } else if (event instanceof JoinEvent) {
-            String replyToken = ((JoinEvent) event).getReplyToken();
-            this.replyText(replyToken, "Joined " + event.getSource());
-        } else if (event instanceof LeaveEvent) {
-            log.info("Bot leaved: {}", event.getSource());
-        } else if (event instanceof PostbackEvent) {
-            String replyToken = ((PostbackEvent) event).getReplyToken();
-            this.replyText(replyToken,
-                           "Got postback " + ((PostbackEvent) event).getPostbackContent().getData());
-        } else if (event instanceof BeaconEvent) {
-            String replyToken = ((BeaconEvent) event).getReplyToken();
-            this.replyText(replyToken,
-                           "Got beacon message " + ((BeaconEvent) event).getBeacon().getHwid());
-        } else {
-            log.info("Received message(Ignored): {}", event);
-        }
+    @MessageEventMapping(ImageMessageContent.class)
+    public void handleImageMessageEvent(MessageEvent<ImageMessageContent> event) throws IOException {
+        // You need to install ImageMagick
+        handleHeavyContent(
+                event.getReplyToken(),
+                event.getMessage().getId(),
+                responseBody -> {
+                    DownloadedContent jpg = saveContent("jpg", responseBody);
+                    DownloadedContent previewImg = createTempFile("jpg");
+                    system(
+                            "convert",
+                            "-resize", "240x",
+                            jpg.path.toString(),
+                            previewImg.path.toString());
+                    reply(((MessageEvent) event).getReplyToken(),
+                          new ImageMessage(jpg.getUri(), jpg.getUri()));
+                });
+    }
+
+    @MessageEventMapping(AudioMessageContent.class)
+    public void handleAudioMessageEvent(MessageEvent<AudioMessageContent> event) throws IOException {
+        handleHeavyContent(
+                event.getReplyToken(),
+                event.getMessage().getId(),
+                responseBody -> {
+                    DownloadedContent mp4 = saveContent("mp4", responseBody);
+                    reply(event.getReplyToken(), new AudioMessage(mp4.getUri(), 100));
+                });
+    }
+
+    @MessageEventMapping(VideoMessageContent.class)
+    public void handleVideoMessageEvent(MessageEvent<VideoMessageContent> event) throws IOException {
+        // You need to install ffmpeg and ImageMagick.
+        handleHeavyContent(
+                event.getReplyToken(),
+                event.getMessage().getId(),
+                responseBody -> {
+                    DownloadedContent mp4 = saveContent("mp4", responseBody);
+                    DownloadedContent previewImg = createTempFile("jpg");
+                    system("convert",
+                           mp4.path + "[0]",
+                           previewImg.path.toString());
+                    reply(((MessageEvent) event).getReplyToken(),
+                          new VideoMessage(mp4.getUri(), previewImg.uri));
+                });
+    }
+
+    @EventMapping(UnfollowEvent.class)
+    public void handleUnfollowEvent(UnfollowEvent event) {
+        log.info("unfollowed this bot: {}", event);
+    }
+
+    @EventMapping(FollowEvent.class)
+    public void handleFollowEvent(FollowEvent event) {
+        String replyToken = event.getReplyToken();
+        this.replyText(replyToken, "Got followed event");
+    }
+
+    @EventMapping(JoinEvent.class)
+    public void handleJoinEvent(JoinEvent event) {
+        String replyToken = event.getReplyToken();
+        this.replyText(replyToken, "Joined " + event.getSource());
+    }
+
+    @EventMapping(PostbackEvent.class)
+    public void handlePostbackEvent(PostbackEvent event) {
+        String replyToken = event.getReplyToken();
+        this.replyText(replyToken, "Got postback " + event.getPostbackContent().getData());
+    }
+
+    @EventMapping(BeaconEvent.class)
+    public void handleBeaconEvent(BeaconEvent event) {
+        String replyToken = event.getReplyToken();
+        this.replyText(replyToken, "Got beacon message " + event.getBeacon().getHwid());
+    }
+
+    @DefaultEventMapping
+    public void handleOtherEvent(Event event) {
+        log.info("Received message(Ignored): {}", event);
     }
 
     private void reply(@NonNull String replyToken, @NonNull Message message) {
