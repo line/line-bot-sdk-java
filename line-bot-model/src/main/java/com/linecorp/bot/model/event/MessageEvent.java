@@ -29,17 +29,17 @@ import lombok.Value;
 
 @Value
 @JsonTypeName("message")
-public class MessageEvent implements Event {
+public class MessageEvent<T extends MessageContent> implements Event {
     private final String replyToken;
     private final Source source;
-    private final MessageContent message;
+    private final T message;
     private final Instant timestamp;
 
     @JsonCreator
     public MessageEvent(
             @JsonProperty("replyToken") String replyToken,
             @JsonProperty("source") Source source,
-            @JsonProperty("message") MessageContent message,
+            @JsonProperty("message") T message,
             @JsonProperty("timestamp") Instant timestamp) {
         this.replyToken = replyToken;
         this.source = source;

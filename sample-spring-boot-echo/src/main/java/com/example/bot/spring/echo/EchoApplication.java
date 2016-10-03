@@ -51,13 +51,13 @@ public class EchoApplication {
             for (Event event : events) {
                 System.out.println("event: " + event);
                 if (event instanceof MessageEvent) {
-                    MessageContent message = ((MessageEvent) event).getMessage();
+                    MessageContent message = ((MessageEvent<?>) event).getMessage();
                     if (message instanceof TextMessageContent) {
                         System.out.println("Sending reply message");
                         TextMessageContent textMessageContent = (TextMessageContent) message;
                         BotApiResponse apiResponse = lineMessagingService.replyMessage(
                                 new ReplyMessage(
-                                        ((MessageEvent) event).getReplyToken(),
+                                        ((MessageEvent<?>) event).getReplyToken(),
                                         new TextMessage(textMessageContent.getText()
                                         ))).execute().body();
                         System.out.println("Sent messages: " + apiResponse);
