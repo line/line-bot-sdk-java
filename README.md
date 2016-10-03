@@ -9,6 +9,12 @@
 
 This is a Java SDK for the LINE Messaging API.
 
+## How do I install this?
+
+We're uploaded this library on maven central. You can install modules via maven or gradle.
+
+http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.linecorp.bot%22
+
 ## About LINE Messaging API
 
 Please refer to the official api documents for details.
