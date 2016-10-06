@@ -123,6 +123,14 @@ This project respects semantic versioning.
 
 See http://semver.org/.
 
+## FAQ
+
+### How do I use proxy server?
+
+You can use `LineMessagingServiceBuilder` to configure a proxy server. It accepts your own OkHttpBuilder instance.
+
+(Note. You don't need to use IP fixing proxy servers like FIXIE to avoid server IP white list. LINE Messaging API no longer denies your API call if you don't put IPs on server IP white list.)
+
 ## LICENSE
 
     Copyright (C) 2016 LINE Corp.
