@@ -26,13 +26,9 @@ import lombok.Value;
 @JsonTypeName("audio")
 public class AudioMessageContent implements MessageContent {
     private final String id;
-    private final String url;
 
     @JsonCreator
-    public AudioMessageContent(
-            @JsonProperty("id") String id,
-            @JsonProperty("url") String url) {
+    public AudioMessageContent(@JsonProperty("id") String id) {
         this.id = id;
-        this.url = url;
     }
 }
