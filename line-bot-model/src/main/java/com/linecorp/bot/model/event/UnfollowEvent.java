@@ -26,10 +26,20 @@ import com.linecorp.bot.model.event.source.Source;
 
 import lombok.Value;
 
+/**
+ * Event object for when your account is blocked.
+ */
 @Value
 @JsonTypeName("unfollow")
 public class UnfollowEvent implements Event {
+    /**
+     * JSON object which contains the source of the event
+     */
     private final Source source;
+
+    /**
+     * Time of the event
+     */
     private final Instant timestamp;
 
     @JsonCreator

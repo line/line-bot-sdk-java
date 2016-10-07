@@ -20,11 +20,29 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
 
+/**
+ * Location message
+ */
 @Value
 @JsonTypeName("location")
 public class LocationMessage implements Message {
+    /**
+     * Title
+     */
     private final String title;
+
+    /**
+     * Address
+     */
     private final String address;
+
+    /**
+     * Latitude
+     */
     private final double latitude;
+
+    /**
+     * Longitude
+     */
     private final double longitude;
 }

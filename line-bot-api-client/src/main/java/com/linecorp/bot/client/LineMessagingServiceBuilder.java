@@ -33,8 +33,6 @@ public final class LineMessagingServiceBuilder {
 
     /**
      * Create a new {@link LineMessagingServiceBuilder} with specified channelToken.
-     * @param channelToken
-     * @return
      */
     public static LineMessagingServiceBuilder create(@NonNull String channelToken) {
         return new LineMessagingServiceBuilder(channelToken);
@@ -46,8 +44,6 @@ public final class LineMessagingServiceBuilder {
 
     /**
      * Set apiEndPoint.
-     * @param apiEndPoint
-     * @return
      */
     public LineMessagingServiceBuilder apiEndPoint(@NonNull String apiEndPoint) {
         this.apiEndPoint = apiEndPoint;
@@ -55,9 +51,7 @@ public final class LineMessagingServiceBuilder {
     }
 
     /**
-     * Set connectTimeout.
-     * @param connectTimeout
-     * @return
+     * Set connectTimeout in milliseconds.
      */
     public LineMessagingServiceBuilder connectTimeout(long connectTimeout) {
         this.connectTimeout = connectTimeout;
@@ -65,9 +59,7 @@ public final class LineMessagingServiceBuilder {
     }
 
     /**
-     * Set readTimeout.
-     * @param readTimeout
-     * @return
+     * Set readTimeout in milliseconds.
      */
     public LineMessagingServiceBuilder readTimeout(long readTimeout) {
         this.readTimeout = readTimeout;
@@ -75,9 +67,7 @@ public final class LineMessagingServiceBuilder {
     }
 
     /**
-     * Set writeTimeout.
-     * @param writeTimeout
-     * @return
+     * Set writeTimeout in milliseconds.
      */
     public LineMessagingServiceBuilder writeTimeout(long writeTimeout) {
         this.writeTimeout = writeTimeout;
@@ -88,8 +78,6 @@ public final class LineMessagingServiceBuilder {
      * <p>If you want to use your own setting, specify {@link OkHttpClient.Builder} instance.</p>
      *
      * <p>ref: {@link LineMessagingServiceBuilder#createDefaultOkHttpClientBuilder()}.</p>
-     * @param okHttpClientBuilder
-     * @return
      */
     public LineMessagingServiceBuilder okHttpClientBuilder(@NonNull OkHttpClient.Builder okHttpClientBuilder) {
         this.okHttpClientBuilder = okHttpClientBuilder;
@@ -100,8 +88,6 @@ public final class LineMessagingServiceBuilder {
      * <p>If you want to use your own setting, specify {@link Retrofit.Builder} instance.</p>
      *
      * <p>ref: {@link LineMessagingServiceBuilder#createDefaultRetrofitBuilder()} ()}.</p>
-     * @param retrofitBuilder
-     * @return
      */
     public LineMessagingServiceBuilder retrofitBuilder(@NonNull Retrofit.Builder retrofitBuilder) {
         this.retrofitBuilder = retrofitBuilder;
@@ -110,7 +96,6 @@ public final class LineMessagingServiceBuilder {
 
     /**
      * Creates a new {@link LineMessagingService}.
-     * @return
      */
     public LineMessagingService build() {
         if (okHttpClientBuilder == null) {
@@ -146,7 +131,7 @@ public final class LineMessagingServiceBuilder {
                 .addInterceptor(httpLoggingInterceptor);
     }
 
-    private Retrofit.Builder createDefaultRetrofitBuilder() {
+    private static Retrofit.Builder createDefaultRetrofitBuilder() {
         final ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 

@@ -22,7 +22,14 @@ import lombok.Value;
 
 @Value
 public class BeaconContent {
+    /**
+     * Hardware ID of the beacon that was detected
+     */
     private final String hwid;
+
+    /**
+     * Type of beacon event
+     */
     private final String type;
 
     public BeaconContent(

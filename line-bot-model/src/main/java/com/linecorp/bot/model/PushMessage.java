@@ -24,10 +24,21 @@ import com.linecorp.bot.model.message.Message;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
+/**
+ * Send messages to users, groups, and rooms at any time.
+ */
 @Value
 @AllArgsConstructor
 public class PushMessage {
+    /**
+     * ID of the receiver
+     */
     private final String to;
+
+    /**
+     * List of Message objects.<br>
+     * Max: 5
+     */
     private final List<Message> messages;
 
     public PushMessage(String to, Message message) {

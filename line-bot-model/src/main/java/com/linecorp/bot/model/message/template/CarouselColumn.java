@@ -26,11 +26,38 @@ import com.linecorp.bot.model.action.Action;
 
 import lombok.Value;
 
+/**
+ * Column object for carousel template
+ */
 @Value
 public class CarouselColumn {
+    /**
+     * Image URL
+     * <ul>
+     *     <li>HTTPS</li>
+     *     <li>JPEG or PNG</li>
+     *     <li>Aspect ratio: 1:1.51</li>
+     *     <li>Max width: 1024px</li>
+     *     <li>Max: 1 MB</li>
+     * </ul>
+     */
     private final String thumbnailImageUrl;
+
+    /**
+     * Title (Max: 40 characters)
+     */
     private final String title;
+
+    /**
+     * Message text<br>
+     * Max: 120 characters (no image or title)<br>
+     * Max: 60 characters (message with an image or title)
+     */
     private final String text;
+
+    /**
+     * Action when tapped(Max: 3)
+     */
     private final List<Action> actions;
 
     @JsonCreator

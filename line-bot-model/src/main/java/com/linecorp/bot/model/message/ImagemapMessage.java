@@ -25,11 +25,34 @@ import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
 
 import lombok.Value;
 
+/**
+ * Imagemaps are images with one or more links. You can assign one link for the entire image or multiple
+ * links which correspond to different regions of the image.
+ */
 @Value
 @JsonTypeName("imagemap")
 public class ImagemapMessage implements Message {
+    /**
+     * Base URL
+     *
+     * <ul>
+     *     <li>HTTPS required</li>
+     * </ul>
+     */
     private final String baseUrl;
+
+    /**
+     * Alternative text
+     */
     private final String altText;
+
+    /**
+     * Size of base image
+     */
     private final ImagemapBaseSize baseSize;
+
+    /**
+     * Action when tapped
+     */
     private final List<ImagemapAction> actions;
 }

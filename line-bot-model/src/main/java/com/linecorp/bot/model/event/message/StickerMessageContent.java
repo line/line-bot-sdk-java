@@ -22,10 +22,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
 
+/**
+ * Message content for sticker type.
+ */
 @Value
 @JsonTypeName("sticker")
 public class StickerMessageContent implements MessageContent {
     private final String id;
+
+    /**
+     *
+     */
     private final String packageId;
     private final String stickerId;
 

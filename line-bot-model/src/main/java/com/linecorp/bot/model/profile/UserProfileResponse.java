@@ -20,11 +20,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
 
+/**
+ * Response object for 'Get Profile' API.
+ */
 @Value
 public class UserProfileResponse {
+    /**
+     * Display name
+     */
     private final String displayName;
+
+    /**
+     * User ID
+     */
     private final String userId;
+
+    /**
+     * Image URL
+     */
     private final String pictureUrl;
+
+    /**
+     * Status message
+     */
     private final String statusMessage;
 
     public UserProfileResponse(
