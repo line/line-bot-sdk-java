@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
+/**
+ * Interface for Template message
+ */
 @JsonSubTypes({
                       @JsonSubTypes.Type(ButtonsTemplate.class),
                       @JsonSubTypes.Type(CarouselTemplate.class),

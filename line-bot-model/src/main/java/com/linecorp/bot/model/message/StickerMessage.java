@@ -21,12 +21,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.NonNull;
 import lombok.Value;
 
+/**
+ * Sticker message
+ */
 @Value
 @JsonTypeName("sticker")
 public class StickerMessage implements Message {
+    /**
+     * Package ID
+     */
     @NonNull
     private final String packageId;
 
+    /**
+     * Sticker ID
+     */
     @NonNull
     private final String stickerId;
 }

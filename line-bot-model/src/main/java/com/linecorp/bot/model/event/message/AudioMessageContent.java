@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
 
+/**
+ * Message content for audio type.
+ */
 @Value
 @JsonTypeName("audio")
 public class AudioMessageContent implements MessageContent {

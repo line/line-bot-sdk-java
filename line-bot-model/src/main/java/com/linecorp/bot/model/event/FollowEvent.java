@@ -26,11 +26,25 @@ import com.linecorp.bot.model.event.source.Source;
 
 import lombok.Value;
 
+/**
+ * Event object for when your account is added as a friend (or unblocked). You can reply to follow events.
+ */
 @Value
 @JsonTypeName("follow")
 public class FollowEvent implements Event {
+    /**
+     * Token for replying to this event
+     */
     private final String replyToken;
+
+    /**
+     * JSON object which contains the source of the event
+     */
     private final Source source;
+
+    /**
+     * Time of the event
+     */
     private final Instant timestamp;
 
     @JsonCreator

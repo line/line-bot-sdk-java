@@ -27,12 +27,30 @@ import com.linecorp.bot.model.event.source.Source;
 
 import lombok.Value;
 
+/**
+ * Event object for when a user performs an action on a template message which initiates a postback. You can reply to postback events.
+ */
 @Value
 @JsonTypeName("postback")
 public class PostbackEvent implements Event {
+    /**
+     * Token for replying to this event
+     */
     private final String replyToken;
+
+    /**
+     * JSON object which contains the source of the event
+     */
     private final Source source;
+
+    /**
+     * Content of the postback event.
+     */
     private final PostbackContent postbackContent;
+
+    /**
+     * Time of the event
+     */
     private final Instant timestamp;
 
     @JsonCreator

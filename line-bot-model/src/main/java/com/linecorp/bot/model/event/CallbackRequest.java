@@ -22,8 +22,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
 
+/**
+ * Request object for webhook.
+ */
 @Value
 public class CallbackRequest {
+    /**
+     * List of events.
+     */
     private final List<Event> events;
 
     public CallbackRequest(@JsonProperty("events") List<Event> events) {

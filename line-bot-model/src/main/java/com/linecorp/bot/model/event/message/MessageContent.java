@@ -19,6 +19,9 @@ package com.linecorp.bot.model.event.message;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+/**
+ * Abstract inteface of the message content
+ */
 @JsonSubTypes({
                       @JsonSubTypes.Type(TextMessageContent.class),
                       @JsonSubTypes.Type(ImageMessageContent.class),
@@ -34,5 +37,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         visible = true
 )
 public interface MessageContent {
+    /**
+     * Get the message ID
+     */
     String getId();
 }

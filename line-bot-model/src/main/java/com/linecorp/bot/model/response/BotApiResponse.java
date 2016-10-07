@@ -23,6 +23,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
 
+/**
+ * Generic response object for LINE Messaging API.
+ */
 @Value
 public class BotApiResponse {
     private final String message;

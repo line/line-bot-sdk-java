@@ -18,8 +18,18 @@ package com.linecorp.bot.model.message.imagemap;
 
 import lombok.Value;
 
+/**
+ * Size of base image.
+ */
 @Value
 public class ImagemapBaseSize {
+    /**
+     * Width of base image(Set to 1040px)
+     */
     private final int height;
+
+    /**
+     * Height of base image(set to the height that coresponds to a width of 1040px)
+     */
     private final int width;
 }

@@ -13,8 +13,19 @@ import lombok.Value;
  */
 @Value
 public class UnknownEvent implements Event {
+    /**
+     * Type of the event.
+     */
     private final String type;
+
+    /**
+     * JSON object which contains the source of the event
+     */
     private final Source source;
+
+    /**
+     * Time of the event
+     */
     private final Instant timestamp;
 
     public UnknownEvent(

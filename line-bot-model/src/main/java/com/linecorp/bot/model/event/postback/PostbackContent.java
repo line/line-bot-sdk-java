@@ -21,8 +21,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
 
+/**
+ * Content of the postback event.
+ */
 @Value
 public class PostbackContent {
+    /**
+     * Postback data
+     */
     private final String data;
     private final Object params;
 

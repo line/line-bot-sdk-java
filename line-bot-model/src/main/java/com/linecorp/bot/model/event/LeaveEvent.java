@@ -26,10 +26,20 @@ import com.linecorp.bot.model.event.source.GroupSource;
 
 import lombok.Value;
 
+/**
+ * Event object for when your account leaves a group.
+ */
 @Value
 @JsonTypeName("leave")
 public class LeaveEvent implements Event {
+    /**
+     * JSON object which contains the source of the event
+     */
     private final GroupSource source;
+
+    /**
+     * Time of the event
+     */
     private final Instant timestamp;
 
     @JsonCreator

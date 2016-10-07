@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
 
+/**
+ * Message content for image type.
+ */
 @Value
 @JsonTypeName("image")
 public class ImageMessageContent implements MessageContent {

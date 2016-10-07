@@ -27,12 +27,30 @@ import com.linecorp.bot.model.event.source.Source;
 
 import lombok.Value;
 
+/**
+ * Event object for when a user detects a LINE Beacon. You can reply to beacon events.
+ */
 @Value
 @JsonTypeName("beacon")
 public class BeaconEvent implements Event {
+    /**
+     * Token for replying to this event
+     */
     private final String replyToken;
+
+    /**
+     * JSON object which contains the source of the event
+     */
     private final Source source;
+
+    /**
+     * Content of the beacon event.
+     */
     private final BeaconContent beacon;
+
+    /**
+     * Time of the event
+     */
     private final Instant timestamp;
 
     @JsonCreator
