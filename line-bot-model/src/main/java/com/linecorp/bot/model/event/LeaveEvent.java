@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.Source;
 
 import lombok.Value;
 
@@ -35,7 +35,7 @@ public class LeaveEvent implements Event {
     /**
      * JSON object which contains the source of the event
      */
-    private final GroupSource source;
+    private final Source source;
 
     /**
      * Time of the event
@@ -44,7 +44,7 @@ public class LeaveEvent implements Event {
 
     @JsonCreator
     public LeaveEvent(
-            @JsonProperty("source") GroupSource source,
+            @JsonProperty("source") Source source,
             @JsonProperty("timestamp") Instant timestamp) {
         this.source = source;
         this.timestamp = timestamp;
