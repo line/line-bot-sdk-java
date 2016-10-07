@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.Source;
 
 import lombok.Value;
 
@@ -30,7 +31,7 @@ import lombok.Value;
 @JsonTypeName("join")
 public class JoinEvent implements Event {
     private final String replyToken;
-    private final GroupSource source;
+    private final Source source;
     private final Instant timestamp;
 
     @JsonCreator
