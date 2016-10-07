@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
 
+/**
+ * Image message
+ */
 @Value
 @JsonTypeName("image")
 public class ImageMessage implements Message {

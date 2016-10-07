@@ -24,9 +24,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
 
+/**
+ * Template message with multiple columns which can be cycled like a carousel.
+ */
 @Value
 @JsonTypeName("carousel")
 public class CarouselTemplate implements Template {
+    /**
+     * List of columns(Max: 5)
+     */
     private final List<CarouselColumn> columns;
 
     @JsonCreator

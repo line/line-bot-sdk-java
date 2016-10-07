@@ -22,9 +22,20 @@ import com.linecorp.bot.model.message.template.Template;
 
 import lombok.Value;
 
+/**
+ * Template messages are messages with predefined layouts which you can customize. There are three types of
+ * templates available that can be used to interact with users through your bot.
+ */
 @Value
 @JsonTypeName("template")
 public class TemplateMessage implements Message {
+    /**
+     * Alternative text
+     */
     private final String altText;
+
+    /**
+     * Object with the contents of the template.
+     */
     private final Template template;
 }

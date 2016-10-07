@@ -21,10 +21,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
 
+/**
+ *
+ */
 @Value
 @JsonTypeName("uri")
 public class URIImagemapAction implements ImagemapAction {
+    /**
+     * Webpage URL
+     */
     private final String linkUri;
+
+    /**
+     * Defined tappable area
+     */
     private final ImagemapArea area;
 
     public URIImagemapAction(@JsonProperty("linkUri") String linkUri,

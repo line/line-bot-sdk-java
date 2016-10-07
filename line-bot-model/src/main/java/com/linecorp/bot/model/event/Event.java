@@ -23,6 +23,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import com.linecorp.bot.model.event.source.Source;
 
+/**
+ * Abstract interface of events.
+ */
 @JsonSubTypes({
         @JsonSubTypes.Type(MessageEvent.class),
         @JsonSubTypes.Type(UnfollowEvent.class),
@@ -40,7 +43,13 @@ import com.linecorp.bot.model.event.source.Source;
         visible = true
 )
 public interface Event {
+    /**
+     * Get event source
+     */
     Source getSource();
 
+    /**
+     * Time of the event
+     */
     Instant getTimestamp();
 }

@@ -27,12 +27,31 @@ import com.linecorp.bot.model.event.source.Source;
 
 import lombok.Value;
 
+/**
+ * Event object which contains the sent message.
+ * The message field contains a message object which corresponds with the message type. You can reply to message events.
+ */
 @Value
 @JsonTypeName("message")
 public class MessageEvent<T extends MessageContent> implements Event {
+    /**
+     * Token for replying to this event
+     */
     private final String replyToken;
+
+    /**
+     * JSON object which contains the source of the event
+     */
     private final Source source;
+
+    /**
+     * Message body
+     */
     private final T message;
+
+    /**
+     * Time of the event
+     */
     private final Instant timestamp;
 
     @JsonCreator

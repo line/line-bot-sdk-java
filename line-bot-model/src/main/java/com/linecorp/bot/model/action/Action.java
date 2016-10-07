@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
+/**
+ * Abstract interface for Template message actions.
+ */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = As.PROPERTY,

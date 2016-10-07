@@ -24,7 +24,13 @@ import lombok.Value;
 @Value
 @JsonTypeName("message")
 public class MessageImagemapAction implements ImagemapAction {
+    /**
+     * Message to send
+     */
     private final String text;
+    /**
+     * Defined tappable area
+     */
     private final ImagemapArea area;
 
     public MessageImagemapAction(@JsonProperty("text") String text,

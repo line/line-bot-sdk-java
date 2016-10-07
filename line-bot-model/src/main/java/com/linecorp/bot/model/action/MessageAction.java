@@ -23,11 +23,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
 
+/**
+ * When this action is tapped, the string in the text field is sent as a message from the user.
+ */
 @Value
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("message")
 public class MessageAction implements Action {
+    /**
+     *Label for the action. Max 20 characters.
+     */
     private final String label;
+
+    /**
+     * Text sent when the action is performed
+     * Max: 300 characters
+     */
     private final String text;
 
     @JsonCreator

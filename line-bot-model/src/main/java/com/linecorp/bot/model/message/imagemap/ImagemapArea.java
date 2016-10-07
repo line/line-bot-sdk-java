@@ -18,10 +18,28 @@ package com.linecorp.bot.model.message.imagemap;
 
 import lombok.Value;
 
+/**
+ * Defines the size of the full imagemap with the width as 1040px. The top left is used as the origin of the area.
+ */
 @Value
 public class ImagemapArea {
+    /**
+     * Horizontal position of the tappable area
+     */
     private final int x;
+
+    /**
+     * Vertical position of the tappable area
+     */
     private final int y;
+
+    /**
+     * Width of the tappable area
+     */
     private final int width;
+
+    /**
+     * Height of the tappable area
+     */
     private final int height;
 }

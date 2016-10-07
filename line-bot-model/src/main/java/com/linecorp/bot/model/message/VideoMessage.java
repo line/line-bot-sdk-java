@@ -23,6 +23,25 @@ import lombok.Value;
 @Value
 @JsonTypeName("video")
 public class VideoMessage implements Message {
+    /**
+     * URL of video file
+     * <ul>
+     * <li>HTTPS</li>
+     * <li>mp4</li>
+     * <li>Less than 1 minute</li>
+     * <li>Max: 10 MB</li>
+     *  </ul>
+     */
     private final String originalContentUrl;
+
+    /**
+     * URL of preview image
+     * <ul>
+     *  <li>HTTPS</li>
+     *  <li>JPEG</li>
+     *  <li>Max: 240 x 240</li>
+     *  <li>Max: 1 MB</li>
+     * </ul>
+     */
     private final String previewImageUrl;
 }

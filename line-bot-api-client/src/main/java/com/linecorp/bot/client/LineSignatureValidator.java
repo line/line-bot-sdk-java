@@ -27,21 +27,40 @@ import javax.crypto.spec.SecretKeySpec;
 import lombok.NonNull;
 import lombok.ToString;
 
+/*
+ * This class validates value of the `X-LINE-Signature` header.
+ */
 @ToString
 public class LineSignatureValidator {
     private static final String HASH_ALGORITHM = "HmacSHA256";
     private final SecretKeySpec secretKeySpec;
 
+    /**
+     * Create new instance with channel secret.
+     */
     public LineSignatureValidator(byte[] channelSecret) {
         this.secretKeySpec = new SecretKeySpec(channelSecret, HASH_ALGORITHM);
     }
 
+    /**
+     * Validate signature.
+     *
+     * @param content Body of the http request in byte array.
+     * @param headerSignature Signature value from `X-LINE-Signature` HTTP header
+     * @return True if headerSignature matches signature of the content. False otherwise.
+     */
     public boolean validateSignature(@NonNull byte[] content, @NonNull String headerSignature) {
         final byte[] signature = generateSignature(content);
         final byte[] decodeHeaderSignature = Base64.getDecoder().decode(headerSignature);
         return MessageDigest.isEqual(decodeHeaderSignature, signature);
     }
 
+    /**
+     * Generate signature value.
+     *
+     * @param content Body of the http request.
+     * @return generated signature value.
+     */
     public byte[] generateSignature(@NonNull byte[] content) {
         try {
             Mac mac = Mac.getInstance(HASH_ALGORITHM);

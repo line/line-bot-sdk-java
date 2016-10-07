@@ -26,11 +26,25 @@ import com.linecorp.bot.model.event.source.Source;
 
 import lombok.Value;
 
+/**
+ * Event object for when your account joins a group or talk room. You can reply to join events.
+ */
 @Value
 @JsonTypeName("join")
 public class JoinEvent implements Event {
+    /**
+     * Token for replying to this event
+     */
     private final String replyToken;
+
+    /**
+     * JSON object which contains the source of the event
+     */
     private final Source source;
+
+    /**
+     * Time of the event
+     */
     private final Instant timestamp;
 
     @JsonCreator
