@@ -1,19 +1,17 @@
 package com.linecorp.bot.spring.boot.support;
 
-import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
-import static java.util.Collections.singletonList;
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.springframework.core.annotation.AnnotatedElementUtils.getMergedAnnotation;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -29,12 +27,11 @@ import com.google.common.collect.Ordering;
 
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
-import com.linecorp.bot.spring.boot.annotation.DefaultEventMapping;
+import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.spring.boot.annotation.EnableLineMessaging;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
-import com.linecorp.bot.spring.boot.annotation.MessageEventMapping;
 
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -52,8 +49,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * <ul>
  *     <li>Class annotated with {@link LineMessageHandler}</li>
- *     <li>Method annotated with {@link EventMapping}
- *     (or it's child like {@link MessageEventMapping} or {@link DefaultEventMapping})</li>
+ *     <li>Method annotated with {@link EventMapping}.</li>
  * </ul>
  */
 @Slf4j
@@ -93,11 +89,16 @@ public class LineMessageHandlerSupport {
                                     return null;
                                 }
 
-                                @SuppressWarnings("unchecked")
-                                final Class<? extends Event> supportEvent = mapping.value();
+                                Preconditions.checkState(method.getParameterCount() == 1,
+                                                         "Number of parameter should be 1. But {}",
+                                                         method.getParameterTypes());
+                                // TODO: Support more than 1 argument. Like MVC's argument resolver?
 
-                                final Predicate<Event> predicate = new EventPredicate(mapping);
-                                return new HandlerMethod(predicate, consumer, method, mapping.priority());
+                                final Type type = method.getGenericParameterTypes()[0];
+
+                                final Predicate<Event> predicate = new EventPredicate(type);
+                                return new HandlerMethod(predicate, consumer, method,
+                                                         getPriority(mapping, type));
                             })
                             .filter(Objects::nonNull);
                 })
@@ -108,6 +109,28 @@ public class LineMessageHandlerSupport {
                                          item.getHandler().toGenericString()));
 
         eventConsumerList = collect;
+    }
+
+    private int getPriority(final EventMapping mapping, final Type type) {
+        if (mapping.priority() != EventMapping.DEFAULT_PRIORITY_VALUE) {
+            return mapping.priority();
+        }
+
+        if (type == Event.class) {
+            return EventMapping.DEFAULT_PRIORITY_FOR_EVENT_IFACE;
+        }
+
+        if (type instanceof Class) {
+            return ((Class) type).isInterface()
+                   ? EventMapping.DEFAULT_PRIORITY_FOR_IFACE
+                   : EventMapping.DEFAULT_PRIORITY_FOR_CLASS;
+        }
+
+        if (type instanceof ParameterizedType) {
+            return EventMapping.DEFAULT_PRIORITY_FOR_PARAMETRIZED_TYPE;
+        }
+
+        throw new IllegalStateException();
     }
 
     @Value
@@ -144,53 +167,50 @@ public class LineMessageHandlerSupport {
     }
 
     private static class EventPredicate implements Predicate<Event> {
-        private final EventMapping mapping;
-        private final List<Class<? extends Event>> supportEvent;
+        private final Class<? extends Event> supportEvent;
+        private final Class<? extends MessageContent> messageContentType;
 
         @SuppressWarnings("unchecked")
-        EventPredicate(final EventMapping mapping) {
-            final Class<? extends Event> event = mapping.value();
-
-            if (mapping.message().length != 0) {
-                Preconditions.checkState(event == Event.class || event == MessageEvent.class,
-                                         "Message class specified but event class is not MessageEvent");
-                this.supportEvent = singletonList(MessageEvent.class);
+        EventPredicate(final Type mapping) {
+            if (mapping instanceof Class) {
+                Preconditions.checkState(Event.class.isAssignableFrom((Class<?>) mapping),
+                                         "Handler argument type should BE-A Event. But {}",
+                                         mapping.getClass());
+                supportEvent = (Class<? extends Event>) mapping;
+                messageContentType = null;
             } else {
-                this.supportEvent = asList(event);
+                final ParameterizedType parameterizedType = (ParameterizedType) mapping;
+                supportEvent = (Class<? extends Event>) parameterizedType.getRawType();
+                messageContentType =
+                        (Class<? extends MessageContent>)
+                                ((ParameterizedType) mapping).getActualTypeArguments()[0];
             }
-
-            this.mapping = mapping;
         }
 
         @Override
         public boolean test(final Event event) {
-            return supportEvent.stream().anyMatch(i -> i.isAssignableFrom(event.getClass()))
-                   && (mapping.message().length == 0 ||
+            return supportEvent.isAssignableFrom(event.getClass())
+                   && (messageContentType == null ||
                        event instanceof MessageEvent &&
-                       filterByType(mapping.message(), ((MessageEvent<?>) event).getMessage()));
+                       filterByType(messageContentType, ((MessageEvent<?>) event).getMessage()));
         }
 
-        private static boolean filterByType(final Class<?>[] clazz, final Object content) {
-            if (clazz.length == 0) {
-                return true;
-            }
+        private static boolean filterByType(final Class<?> clazz, final Object content) {
 
-            return stream(clazz)
-                    .anyMatch(messageClass -> messageClass
-                            .isAssignableFrom(content.getClass()));
+            return clazz.isAssignableFrom(content.getClass());
         }
 
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder("event = ");
 
-            if (mapping.message().length != 0) {
+            if (messageContentType != null) {
                 sb.append(MessageEvent.class.getSimpleName())
                   .append("<")
-                  .append(Stream.of(mapping.message()).map(Class::getSimpleName).collect(joining(" | ")))
+                  .append(messageContentType.getSimpleName())
                   .append(">");
             } else {
-                sb.append(supportEvent.stream().map(Class::getSimpleName).collect(joining(",")));
+                sb.append(supportEvent.getSimpleName());
             }
 
             return sb.toString();

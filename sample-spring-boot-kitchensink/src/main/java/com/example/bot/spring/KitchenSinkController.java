@@ -73,10 +73,8 @@ import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.spring.boot.annotation.DefaultEventMapping;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
-import com.linecorp.bot.spring.boot.annotation.MessageEventMapping;
 
 import lombok.NonNull;
 import lombok.Value;
@@ -90,18 +88,18 @@ public class KitchenSinkController {
     @Autowired
     private LineMessagingService lineMessagingService;
 
-    @MessageEventMapping(TextMessageContent.class)
+    @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws IOException {
         TextMessageContent message = event.getMessage();
         handleTextContent(event.getReplyToken(), event, message);
     }
 
-    @MessageEventMapping(StickerMessageContent.class)
+    @EventMapping
     public void handleStickerMessageEvent(MessageEvent<StickerMessageContent> event) {
         handleSticker(event.getReplyToken(), event.getMessage());
     }
 
-    @MessageEventMapping(LocationMessageContent.class)
+    @EventMapping
     public void handleLocationMessageEvent(MessageEvent<LocationMessageContent> event) {
         LocationMessageContent locationMessage = event.getMessage();
         reply(event.getReplyToken(), new LocationMessage(
@@ -112,7 +110,7 @@ public class KitchenSinkController {
         ));
     }
 
-    @MessageEventMapping(ImageMessageContent.class)
+    @EventMapping
     public void handleImageMessageEvent(MessageEvent<ImageMessageContent> event) throws IOException {
         // You need to install ImageMagick
         handleHeavyContent(
@@ -131,7 +129,7 @@ public class KitchenSinkController {
                 });
     }
 
-    @MessageEventMapping(AudioMessageContent.class)
+    @EventMapping
     public void handleAudioMessageEvent(MessageEvent<AudioMessageContent> event) throws IOException {
         handleHeavyContent(
                 event.getReplyToken(),
@@ -142,7 +140,7 @@ public class KitchenSinkController {
                 });
     }
 
-    @MessageEventMapping(VideoMessageContent.class)
+    @EventMapping
     public void handleVideoMessageEvent(MessageEvent<VideoMessageContent> event) throws IOException {
         // You need to install ffmpeg and ImageMagick.
         handleHeavyContent(
@@ -159,36 +157,36 @@ public class KitchenSinkController {
                 });
     }
 
-    @EventMapping(UnfollowEvent.class)
+    @EventMapping
     public void handleUnfollowEvent(UnfollowEvent event) {
         log.info("unfollowed this bot: {}", event);
     }
 
-    @EventMapping(FollowEvent.class)
+    @EventMapping
     public void handleFollowEvent(FollowEvent event) {
         String replyToken = event.getReplyToken();
         this.replyText(replyToken, "Got followed event");
     }
 
-    @EventMapping(JoinEvent.class)
+    @EventMapping
     public void handleJoinEvent(JoinEvent event) {
         String replyToken = event.getReplyToken();
         this.replyText(replyToken, "Joined " + event.getSource());
     }
 
-    @EventMapping(PostbackEvent.class)
+    @EventMapping
     public void handlePostbackEvent(PostbackEvent event) {
         String replyToken = event.getReplyToken();
         this.replyText(replyToken, "Got postback " + event.getPostbackContent().getData());
     }
 
-    @EventMapping(BeaconEvent.class)
+    @EventMapping
     public void handleBeaconEvent(BeaconEvent event) {
         String replyToken = event.getReplyToken();
         this.replyText(replyToken, "Got beacon message " + event.getBeacon().getHwid());
     }
 
-    @DefaultEventMapping
+    @EventMapping
     public void handleOtherEvent(Event event) {
         log.info("Received message(Ignored): {}", event);
     }

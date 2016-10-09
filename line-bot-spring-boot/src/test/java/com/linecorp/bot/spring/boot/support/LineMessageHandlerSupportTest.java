@@ -20,10 +20,8 @@ import com.google.common.collect.ImmutableMap;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
-import com.linecorp.bot.spring.boot.annotation.DefaultEventMapping;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
-import com.linecorp.bot.spring.boot.annotation.MessageEventMapping;
 import com.linecorp.bot.spring.boot.support.LineMessageHandlerSupport.HandlerMethod;
 
 public class LineMessageHandlerSupportTest {
@@ -81,18 +79,18 @@ public class LineMessageHandlerSupportTest {
 
     @LineMessageHandler
     public static class MessageHandler {
-        @EventMapping(MessageEvent.class)
+        @EventMapping
         public void generalMessageHandler(MessageEvent messageEvent) {
         }
     }
 
     @LineMessageHandler
     public static class AnotherMessageHandler {
-        @DefaultEventMapping
+        @EventMapping
         public void defaultEventHandler(Event event) {
         }
 
-        @MessageEventMapping(TextMessageContent.class)
+        @EventMapping
         public void textMessageEventHandler(MessageEvent<TextMessageContent> event) {
         }
     }
