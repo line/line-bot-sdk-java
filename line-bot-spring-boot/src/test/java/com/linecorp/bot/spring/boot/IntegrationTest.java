@@ -64,7 +64,8 @@ import okhttp3.mockwebserver.RecordedRequest;
 
 // integration test
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { IntegrationTest.class, MyController.class })
+@SpringBootTest(classes = { IntegrationTest.class, MyController.class },
+        properties = "line.bot.handler.enabled=false")
 @WebAppConfiguration
 @SpringBootApplication
 public class IntegrationTest {
