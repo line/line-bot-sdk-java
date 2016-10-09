@@ -22,12 +22,8 @@ import java.nio.file.Path;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
-
-import com.linecorp.bot.spring.boot.support.LineMessageHandlerSupport;
 
 @SpringBootApplication
-@Import(LineMessageHandlerSupport.class)
 public class KitchenSinkApplication {
     static Path downloadedContentDir;
 

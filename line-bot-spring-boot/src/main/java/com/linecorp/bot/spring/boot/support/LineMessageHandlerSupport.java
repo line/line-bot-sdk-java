@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.util.ReflectionUtils;
@@ -28,7 +28,6 @@ import com.google.common.collect.Ordering;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.MessageContent;
-import com.linecorp.bot.spring.boot.annotation.EnableLineMessaging;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
@@ -54,7 +53,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-@ConditionalOnBean(annotation = EnableLineMessaging.class)
+@ConditionalOnProperty(name = "line.bot.handler.enabled", havingValue = "true", matchIfMissing = true)
 public class LineMessageHandlerSupport {
     private final ConfigurableApplicationContext applicationContext;
 
@@ -141,7 +140,7 @@ public class LineMessageHandlerSupport {
         int priority;
     }
 
-    @PostMapping("${line.bot.callback-path:/callback}")
+    @PostMapping("${line.bot.handler.path:/callback}")
     public void callback(@LineBotMessages List<Event> events) {
         events.forEach(this::dispatch);
     }

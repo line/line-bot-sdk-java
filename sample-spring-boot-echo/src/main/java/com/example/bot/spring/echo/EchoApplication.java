@@ -29,12 +29,10 @@ import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.spring.boot.annotation.EnableLineMessaging;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
 @SpringBootApplication
-@EnableLineMessaging
 @LineMessageHandler
 public class EchoApplication {
     @Autowired
