@@ -110,7 +110,7 @@ This project contains following modules:
 
 There's some sample projects:
 
- * sample-spring-boot-echo: Simple echo server.
+ * sample-spring-boot-echo: Simple echo server. There's heroku button.
  * sample-spring-boot-kitchensink: Full featured sample code.
 
 ## Requirements
