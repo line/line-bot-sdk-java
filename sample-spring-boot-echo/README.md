@@ -22,7 +22,7 @@ You can deploy this module on heroku.
 
 You need to get channel access token and channel secret from LINE Developers.
 
-<img src="https://github.com/line/line-bot-sdk-java/blob/heroku/sample-spring-boot-echo/_assets/line-bot-configuration.png?raw=true">
+<img src="https://github.com/line/line-bot-sdk-java/blob/master/sample-spring-boot-echo/_assets/line-bot-configuration.png?raw=true">
 
 ### Step 2
 
@@ -34,11 +34,11 @@ Tap deploy button.
 
 Fill form and run your own instance.
 
-<img src="https://github.com/line/line-bot-sdk-java/blob/heroku/sample-spring-boot-echo/_assets/heroku.png?raw=true">
+<img src="https://github.com/line/line-bot-sdk-java/blob/master/sample-spring-boot-echo/_assets/heroku.png?raw=true">
 
 Then, tap "Manage app" button and take your heroku instance's name.
 
-<img src="https://github.com/line/line-bot-sdk-java/blob/heroku/sample-spring-boot-echo/_assets/heroku-app-name.png?raw=true">
+<img src="https://github.com/line/line-bot-sdk-java/blob/master/sample-spring-boot-echo/_assets/heroku-app-name.png?raw=true">
 
 ### Step 4
 
@@ -46,5 +46,5 @@ Put webhoook URL on LINE developers.
 
 Your webhook URL is: `https://${YOUR_HEROKU_APP_NAME}.herokuapp.com/callback`
 
-<img src="https://github.com/line/line-bot-sdk-java/blob/heroku/sample-spring-boot-echo/_assets/put-webhook-url.png?raw=true">
+<img src="https://github.com/line/line-bot-sdk-java/blob/master/sample-spring-boot-echo/_assets/put-webhook-url.png?raw=true">
 
