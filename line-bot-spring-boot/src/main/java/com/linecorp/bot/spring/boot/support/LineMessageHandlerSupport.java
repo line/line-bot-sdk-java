@@ -89,8 +89,9 @@ public class LineMessageHandlerSupport {
                 .sorted(HANDLER_METHOD_PRIORITY_COMPARATOR)
                 .collect(Collectors.toList());
 
-        collect.forEach(item -> log.info("{} > {}", item.getSupportType(),
-                                         item.getHandler().toGenericString()));
+        log.info("Registered LINE Messaging API event handler: count = {}", collect.size());
+        collect.forEach(item -> log.info("Mapped \"{}\" onto {}",
+                                         item.getSupportType(), item.getHandler().toGenericString()));
 
         eventConsumerList = collect;
     }
@@ -204,16 +205,18 @@ public class LineMessageHandlerSupport {
 
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder("event = ");
+            final StringBuilder sb = new StringBuilder();
 
+            sb.append('[');
             if (messageContentType != null) {
                 sb.append(MessageEvent.class.getSimpleName())
-                  .append("<")
+                  .append('<')
                   .append(messageContentType.getSimpleName())
-                  .append(">");
+                  .append('>');
             } else {
                 sb.append(supportEvent.getSimpleName());
             }
+            sb.append(']');
 
             return sb.toString();
         }
