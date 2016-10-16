@@ -74,7 +74,9 @@ public class LineBotProperties {
     /**
      * Configuration for {@link LineMessageHandler} and {@link EventMapping}.
      */
-    Handler handler = new Handler();
+    @Valid
+    @NotNull
+    private Handler handler = new Handler();
 
     @Data
     public static class Handler {
@@ -88,6 +90,7 @@ public class LineBotProperties {
         /**
          * REST endpoint path of dispatcher.
          */
+        @NotNull
         URI path = URI.create("/callback");
     }
 }
