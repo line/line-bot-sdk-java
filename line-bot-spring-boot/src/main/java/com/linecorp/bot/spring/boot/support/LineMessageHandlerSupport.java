@@ -1,22 +1,21 @@
 package com.linecorp.bot.spring.boot.support;
 
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toList;
-import static org.springframework.core.annotation.AnnotatedElementUtils.getMergedAnnotation;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,6 +54,8 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @ConditionalOnProperty(name = "line.bot.handler.enabled", havingValue = "true", matchIfMissing = true)
 public class LineMessageHandlerSupport {
+    private static final Ordering<HandlerMethod> HANDLER_METHOD_PRIORITY_COMPARATOR =
+            Ordering.natural().onResultOf(HandlerMethod::getPriority).reverse();
     private final ConfigurableApplicationContext applicationContext;
 
     volatile List<HandlerMethod> eventConsumerList;
@@ -77,37 +78,39 @@ public class LineMessageHandlerSupport {
 
         final List<HandlerMethod> collect = handlerBeanMap
                 .values().stream()
-                .flatMap((Object consumer) -> {
+                .flatMap((Object bean) -> {
                     final Method[] uniqueDeclaredMethods =
-                            ReflectionUtils.getUniqueDeclaredMethods(consumer.getClass());
+                            ReflectionUtils.getUniqueDeclaredMethods(bean.getClass());
 
-                    return stream(uniqueDeclaredMethods)
-                            .map((Method method) -> {
-                                final EventMapping mapping = getMergedAnnotation(method, EventMapping.class);
-                                if (mapping == null) {
-                                    return null;
-                                }
-
-                                Preconditions.checkState(method.getParameterCount() == 1,
-                                                         "Number of parameter should be 1. But {}",
-                                                         method.getParameterTypes());
-                                // TODO: Support more than 1 argument. Like MVC's argument resolver?
-
-                                final Type type = method.getGenericParameterTypes()[0];
-
-                                final Predicate<Event> predicate = new EventPredicate(type);
-                                return new HandlerMethod(predicate, consumer, method,
-                                                         getPriority(mapping, type));
-                            })
-                            .filter(Objects::nonNull);
+                    return Arrays.stream(uniqueDeclaredMethods)
+                                 .map(method -> getMethodHandlerMethodFunction(bean, method))
+                                 .filter(Objects::nonNull);
                 })
-                .sorted(Ordering.natural().onResultOf(HandlerMethod::getPriority).reverse())
-                .collect(toList());
+                .sorted(HANDLER_METHOD_PRIORITY_COMPARATOR)
+                .collect(Collectors.toList());
 
         collect.forEach(item -> log.info("{} > {}", item.getSupportType(),
                                          item.getHandler().toGenericString()));
 
         eventConsumerList = collect;
+    }
+
+    private HandlerMethod getMethodHandlerMethodFunction(Object consumer, Method method) {
+        final EventMapping mapping = AnnotatedElementUtils.getMergedAnnotation(method, EventMapping.class);
+        if (mapping == null) {
+            return null;
+        }
+
+        Preconditions.checkState(method.getParameterCount() == 1,
+                                 "Number of parameter should be 1. But {}",
+                                 method.getParameterTypes());
+        // TODO: Support more than 1 argument. Like MVC's argument resolver?
+
+        final Type type = method.getGenericParameterTypes()[0];
+
+        final Predicate<Event> predicate = new EventPredicate(type);
+        return new HandlerMethod(predicate, consumer, method,
+                                 getPriority(mapping, type));
     }
 
     private int getPriority(final EventMapping mapping, final Type type) {
@@ -120,7 +123,7 @@ public class LineMessageHandlerSupport {
         }
 
         if (type instanceof Class) {
-            return ((Class) type).isInterface()
+            return ((Class<?>) type).isInterface()
                    ? EventMapping.DEFAULT_PRIORITY_FOR_IFACE
                    : EventMapping.DEFAULT_PRIORITY_FOR_CLASS;
         }
