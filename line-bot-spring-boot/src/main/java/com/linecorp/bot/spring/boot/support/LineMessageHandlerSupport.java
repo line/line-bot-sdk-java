@@ -20,6 +20,7 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Ordering;
@@ -51,6 +52,7 @@ import lombok.extern.slf4j.Slf4j;
  * </ul>
  */
 @Slf4j
+@Beta
 @RestController
 @ConditionalOnProperty(name = "line.bot.handler.enabled", havingValue = "true", matchIfMissing = true)
 public class LineMessageHandlerSupport {

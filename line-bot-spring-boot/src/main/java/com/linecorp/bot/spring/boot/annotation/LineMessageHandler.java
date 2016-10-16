@@ -7,12 +7,15 @@ import java.lang.annotation.Target;
 
 import org.springframework.stereotype.Component;
 
+import com.google.common.annotations.Beta;
+
 /**
  * Indicates that an annotated class has a LINE Messaging Event Handler method.
  *
  * <p>This annotation serves as a specialization of {@link Component @Component},
  * allowing for implementation classes to be autodetected through classpath scanning.
  */
+@Beta
 @Target(ElementType.TYPE)
 @Component
 @Retention(RetentionPolicy.RUNTIME)
