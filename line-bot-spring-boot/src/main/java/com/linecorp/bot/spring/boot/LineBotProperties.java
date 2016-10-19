@@ -16,12 +16,16 @@
 
 package com.linecorp.bot.spring.boot;
 
+import java.net.URI;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
+import com.linecorp.bot.spring.boot.annotation.EventMapping;
+import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
 import lombok.Data;
 
@@ -66,4 +70,27 @@ public class LineBotProperties {
     @Valid
     @NotNull
     private long writeTimeout = LineMessagingServiceBuilder.DEFAULT_WRITE_TIMEOUT;
+
+    /**
+     * Configuration for {@link LineMessageHandler} and {@link EventMapping}.
+     */
+    @Valid
+    @NotNull
+    private Handler handler = new Handler();
+
+    @Data
+    public static class Handler {
+        /**
+         * Flag to enable/disable {@link LineMessageHandler} and {@link EventMapping}.
+         *
+         * Default: {@code true}
+         */
+        boolean enabled = true;
+
+        /**
+         * REST endpoint path of dispatcher.
+         */
+        @NotNull
+        URI path = URI.create("/callback");
+    }
 }
