@@ -21,13 +21,13 @@ import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.common.io.ByteStreams;
 
 import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.event.CallbackRequest;
+import com.linecorp.bot.parser.LineBotDeserializerOption;
+import com.linecorp.bot.parser.LineBotWebhookParseException;
+import com.linecorp.bot.parser.LineBotWebhookParser;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -35,17 +35,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LineBotCallbackRequestParser {
     private final LineSignatureValidator lineSignatureValidator;
-    private final ObjectMapper objectMapper;
+    private final LineBotWebhookParser lineBotWebhookParser;
 
     /**
      * Create new instance
      *
      * @param lineSignatureValidator LINE messaging API's signature validator
+     * @param lineBotDeserializerOption deserialize exception option
+     */
+    public LineBotCallbackRequestParser(
+            @NonNull LineSignatureValidator lineSignatureValidator,
+            @NonNull LineBotDeserializerOption lineBotDeserializerOption
+    ) {
+        this.lineSignatureValidator = lineSignatureValidator;
+        this.lineBotWebhookParser = new LineBotWebhookParser(lineBotDeserializerOption);
+    }
+
+    /**
+     * Create new instance with default deserialize option
+     *
+     * @param lineSignatureValidator LINE messaging API's signature validator
      */
     public LineBotCallbackRequestParser(
             @NonNull LineSignatureValidator lineSignatureValidator) {
-        this.lineSignatureValidator = lineSignatureValidator;
-        this.objectMapper = buildObjectMapper();
+        this(lineSignatureValidator, LineBotDeserializerOption.getDefault());
     }
 
     /**
@@ -57,7 +70,7 @@ public class LineBotCallbackRequestParser {
      */
     public CallbackRequest handle(HttpServletRequest req) throws LineBotCallbackException, IOException {
         // validate signature
-        String signature = req.getHeader("X-Line-Signature");
+        final String signature = req.getHeader("X-Line-Signature");
         if (signature == null || signature.length() == 0) {
             throw new LineBotCallbackException("Missing 'X-Line-Signature' header");
         }
@@ -71,20 +84,16 @@ public class LineBotCallbackRequestParser {
             throw new LineBotCallbackException("Invalid API signature");
         }
 
-        final CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
-        if (callbackRequest == null || callbackRequest.getEvents() == null) {
-            throw new LineBotCallbackException("Invalid content");
+        try {
+            final CallbackRequest callbackRequest = lineBotWebhookParser.parse(json);
+            if (callbackRequest == null || callbackRequest.getEvents() == null) {
+                throw new LineBotCallbackException("Invalid content");
+            }
+            return callbackRequest;
+        } catch (LineBotWebhookParseException e) {
+            // backward compatibility
+            throw new LineBotCallbackException("Invalid content: " + e.getMessage());
         }
-        return callbackRequest;
     }
 
-    private static ObjectMapper buildObjectMapper() {
-        final ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        // Register JSR-310(java.time.temporal.*) module and read number as millsec.
-        objectMapper.registerModule(new JavaTimeModule())
-                    .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
-        return objectMapper;
-    }
 }
