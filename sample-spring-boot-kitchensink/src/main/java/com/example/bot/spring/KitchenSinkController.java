@@ -397,7 +397,7 @@ public class KitchenSinkController {
     }
 
     private static DownloadedContent saveContent(String ext, ResponseBody responseBody) {
-        log.info("Got filename: {}", responseBody.contentType());
+        log.info("Got content-type: {}", responseBody.contentType());
         DownloadedContent tempFile = createTempFile(ext);
         try (OutputStream outputStream = Files.newOutputStream(tempFile.path)) {
             ByteStreams.copy(responseBody.byteStream(), outputStream);
