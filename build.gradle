@@ -88,6 +88,7 @@ subprojects {
             dependency 'com.squareup.okhttp3:mockwebserver:' + ext['okhttp3.version'] // Additional okhttp3 modules. Using Spring IO version variable.
             dependency 'com.squareup.retrofit2:converter-jackson:2.1.0'
             dependency 'com.squareup.retrofit2:retrofit:2.1.0'
+            dependency 'com.fasterxml.jackson.module:jackson-module-afterburner:2.8.4'
             dependency 'org.assertj:assertj-core:3.5.2' // Update from 2.5.0 (by Spring-Boot and Spring IO)
         }
     }

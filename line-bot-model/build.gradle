@@ -20,4 +20,5 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations'
 
     testCompile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    testCompile 'com.fasterxml.jackson.module:jackson-module-afterburner'
 }

@@ -29,6 +29,7 @@ import org.springframework.util.StreamUtils;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
@@ -50,6 +51,7 @@ public class CallbackRequestTest {
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             objectMapper.registerModule(new JavaTimeModule())
                         .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+            objectMapper.registerModule(new AfterburnerModule());
             CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
 
             callback.call(callbackRequest);
