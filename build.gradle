@@ -138,6 +138,17 @@ subprojects {
         }
     }
 
+    findbugs {
+        excludeFilter = file("${project.rootDir}/settings/findbugs/exclude_filter.xml")
+    }
+
+    tasks.withType(FindBugs) {
+        reports {
+            xml.enabled = false
+            html.enabled = true
+        }
+    }
+
     project.plugins.withType(org.springframework.boot.gradle.plugin.SpringBootPlugin) {
         bootRun {
             systemProperties System.properties

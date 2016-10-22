@@ -65,7 +65,9 @@ public class LineBotCallbackRequestParser {
      * Parse request.
      *
      * @param req HTTP servlet request.
+     *
      * @return Parsed result. If there's an error, this method sends response.
+     *
      * @throws LineBotCallbackException There's an error around signature.
      */
     public CallbackRequest handle(HttpServletRequest req) throws LineBotCallbackException, IOException {
