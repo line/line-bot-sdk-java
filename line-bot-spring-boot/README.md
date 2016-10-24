@@ -1,6 +1,6 @@
 # line-bot-spring-boot
 
-This is a spring-boot autoconfigurer for LINE bot API.
+This is a Spring Boot auto-configuration for the LINE Messaging API.
 
 ## Synopsis
 
@@ -64,7 +64,7 @@ public class EchoApplication {
 
 Add this library as a dependency of your project.
 
-Then, you can get a parsed messages like following code:
+You can then get parsed messages like the following:
 
 ```java
 @PostMapping("/callback")
@@ -88,28 +88,16 @@ public void callback(@LineBotMessages List<Event> events) throws IOException {
 }
 ```
 
-You need to use `@LineBotMessages` annotation for getting messages.
+Use the `@LineBotMessages` annotation for getting messages.
 
 ## Configuration
 
-LINE bot SDK automatically configured by system properties. There's following parameters:
+The Messaging API SDK is automatically configured by the system properties. The parameters are shown below.
 
-### line.bot.channelToken
-
-Channel access token for bot server.
-
-### line.bot.channelSecret
-
-Channel secret for bot server.
-
-### line.bot.connectTimeout
-
-Connecting timeout in milli seconds.
-
-### line.bot.readTimeout
-
-Read timeout in milli seconds.
-
-### line.bot.writeTimeout
-
-Write timeout in milli seconds.
+| Parameter | Description |
+| ----- | ------ |
+| line.bot.channelToken | Channel access token for the server |
+| line.bot.channelSecret | Channel secret for the server |
+| line.bot.connectTimeout | Connection timeout in milliseconds |
+| line.bot.readTimeout | Read timeout in milliseconds |
+| line.bot.writeTimeout | Write timeout in milliseconds |

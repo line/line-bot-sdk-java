@@ -1,8 +1,8 @@
 # line-bot-api-client
 
-LINE bot API client for Java 8+.
+LINE Messaging API client for Java 8 or later.
 
-## SYNOPSIS
+## Synopsis
 
 ```java
 LineMessagingService client LineMessagingServiceBuilder
@@ -10,7 +10,6 @@ LineMessagingService client LineMessagingServiceBuilder
         .build();
 ```
 
-## DESCRIPTION
+## Description
 
-This module provides API client for LINE Messaging API.
-
+This module provides an API client for the LINE Messaging API.
