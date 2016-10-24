@@ -1,31 +1,30 @@
-# The LINE bot SDK for Java
+# The Messaging API SDK for Java
 
 [![Build Status](https://travis-ci.org/line/line-bot-sdk-java.svg?branch=master)](https://travis-ci.org/line/line-bot-sdk-java)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.linecorp.bot/line-bot-model/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.linecorp.bot/line-bot-model)
 [![javadoc.io](https://javadocio-badges.herokuapp.com/com.linecorp.bot/line-bot-model/badge.svg)](https://javadocio-badges.herokuapp.com/com.linecorp.bot/line-bot-model)
 
 
-## What's this?
+## What is this?
 
 This is a Java SDK for the LINE Messaging API.
 
-## How do I install this?
+## How do I install it?
 
-We're uploaded this library on maven central. You can install modules via maven or gradle.
+We've uploaded this library to the Maven Central Repository. You can install the modules using Maven or Gradle.
 
 http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.linecorp.bot%22
 
-## About LINE Messaging API
+## About the LINE Messaging API
 
-Please refer to the official api documents for details.
+See the official API documentation for more information.
 
-en:  https://devdocs.line.me/en/
+English: https://devdocs.line.me/en/
+Japanese: https://devdocs.line.me/ja/
 
-ja:  https://devdocs.line.me/ja/
+## Spring Boot integration
 
-## Spring Boot Integration
-
-line-bot-spring-boot module provides a way to build your bot apps as a Spring Boot Application.
+The line-bot-spring-boot module lets you build a bot application as a Spring Boot application.
 
 ```java
 /*
@@ -91,16 +90,16 @@ public class EchoApplication {
 
 ## Modules
 
-This project contains following modules:
+This project contains the following modules:
 
- * line-bot-api-client: API client library for LINE Bot API
- * line-bot-model: Model classes for LINE Bot API
- * line-bot-servlet: Java servlet utilities for Bot servers
- * line-bot-spring-boot: spring-boot's auto configuration library for Bot servers
+ * line-bot-api-client: API client library for the Messaging API
+ * line-bot-model: Model classes for the Messaging API
+ * line-bot-servlet: Java servlet utilities for bot servers
+ * line-bot-spring-boot: Spring Boot auto configuration library for bot servers
 
-There's some sample projects:
+This project contains the following sample projects:
 
- * sample-spring-boot-echo: Simple echo server. There's heroku button.
+ * sample-spring-boot-echo: A simple echo server. It includes a Heroku button.
  * sample-spring-boot-kitchensink: Full featured sample code.
 
 ## Requirements
@@ -115,11 +114,11 @@ See http://semver.org/.
 
 ## FAQ
 
-### How do I use proxy server?
+### How do I use a proxy server?
 
 You can use `LineMessagingServiceBuilder` to configure a proxy server. It accepts your own OkHttpBuilder instance.
 
-(Note. You don't need to use IP fixing proxy servers like FIXIE to avoid server IP white list. LINE Messaging API no longer denies your API call if you don't put IPs on server IP white list.)
+Note: You don't need to use an add-on like Fixie to have static IP addresses for proxy servers. You can make API calls without entering IP addresses on the server IP whitelist.
 
 ## LICENSE
 

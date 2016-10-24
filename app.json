@@ -1,15 +1,15 @@
 {
     "name": "echo bot - LINE Messaging API",
-    "description": "This is a sample application for LINE Messaging API",
+    "description": "This is a sample application for the LINE Messaging API",
     "keywords": ["chatbot", "line", "java"],
     "env": {
         "LINE_BOT_CHANNEL_TOKEN": {
-            "description": "LINE Bot channel access token from LINE Developers",
+            "description": "LINE bot Channel access token from the Channel Console",
             "required":  true
         },
         "LINE_BOT_CHANNEL_SECRET": {
-            "description": "LINE Bot channel secret from LINE Developers",
+            "description": "LINE bot Channel secret from the Channel Console",
             "required":  true
         }
     }
-} 
+}
