@@ -35,7 +35,9 @@ import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.message.UnknownMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.UnknownSource;
 import com.linecorp.bot.model.event.source.UserSource;
 
 public class CallbackRequestTest {
@@ -271,18 +273,24 @@ public class CallbackRequestTest {
     @Test
     public void testUnknown() throws IOException {
         parse("callback/unknown.json", callbackRequest -> {
-            assertThat(callbackRequest.getEvents().size())
-                    .isEqualTo(1);
-            Event event = callbackRequest.getEvents().get(0);
-            assertThat(event).isInstanceOf(UnknownEvent.class);
-            assertThat(event.getSource())
+            assertThat(callbackRequest.getEvents()).hasSize(2);
+
+            Event event1 = callbackRequest.getEvents().get(0);
+            assertThat(event1).isInstanceOf(UnknownEvent.class);
+            assertThat(event1.getSource())
                     .isInstanceOf(UserSource.class);
-            assertThat(event.getSource().getUserId())
+            assertThat(event1.getSource().getUserId())
                     .isEqualTo("U012345678901234567890123456789ab");
-            assertThat(event.getTimestamp())
+            assertThat(event1.getTimestamp())
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
-            assertThat(((UnknownEvent) event).getType())
+            assertThat(((UnknownEvent) event1).getType())
                     .isEqualTo("greatNewFeature");
+
+            Event event2 = callbackRequest.getEvents().get(1);
+            assertThat(event2).isInstanceOf(MessageEvent.class);
+            assertThat(event2.getSource()).isInstanceOf(UnknownSource.class);
+            MessageEvent messageEvent = (MessageEvent) event2;
+            assertThat(messageEvent.getMessage()).isInstanceOf(UnknownMessageContent.class);
         });
     }
 }

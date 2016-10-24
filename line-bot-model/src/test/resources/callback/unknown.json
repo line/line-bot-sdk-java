@@ -8,6 +8,19 @@
         "type": "user",
         "userId": "U012345678901234567890123456789ab"
       }
+    },
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "message",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "unknownunknownuknown"
+      },
+      "message": {
+        "id": "325708",
+        "type": "unknownunknownuknown",
+        "unknown": "blah blah"
+      }
     }
   ]
 }

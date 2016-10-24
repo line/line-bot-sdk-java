@@ -34,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "type",
+        defaultImpl = UnknownMessageContent.class,
         visible = true
 )
 public interface MessageContent {
