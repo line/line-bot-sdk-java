@@ -62,10 +62,10 @@ subprojects {
     apply plugin: 'findbugs'
     apply plugin: 'java'
     if (new File("${project.rootDir}/.git").exists()) {
-        println("There's .git directory")
+        logger.info("There's .git directory. Create git.properties.")
         apply plugin: 'com.gorylenko.gradle-git-properties'
     } else {
-        println("There's no .git directory.");
+        logger.warn("There's no .git directory. Can't create git.properties.");
     }
     apply plugin: 'io.spring.dependency-management'
 
