@@ -1,5 +1,8 @@
 package com.linecorp.bot.client;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -10,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import lombok.NonNull;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -21,12 +25,11 @@ public final class LineMessagingServiceBuilder {
     public static final long DEFAULT_READ_TIMEOUT = 10_000;
     public static final long DEFAULT_WRITE_TIMEOUT = 10_000;
 
-    private final String channelToken;
-
     private String apiEndPoint = DEFAULT_API_END_POINT;
     private long connectTimeout = DEFAULT_CONNECT_TIMEOUT;
     private long readTimeout = DEFAULT_READ_TIMEOUT;
     private long writeTimeout = DEFAULT_WRITE_TIMEOUT;
+    private List<Interceptor> interceptors = new ArrayList<>();
 
     private OkHttpClient.Builder okHttpClientBuilder;
     private Retrofit.Builder retrofitBuilder;
@@ -35,11 +38,11 @@ public final class LineMessagingServiceBuilder {
      * Create a new {@link LineMessagingServiceBuilder} with specified channelToken.
      */
     public static LineMessagingServiceBuilder create(@NonNull String channelToken) {
-        return new LineMessagingServiceBuilder(channelToken);
+        return new LineMessagingServiceBuilder(defaultInterceptors(channelToken));
     }
 
-    private LineMessagingServiceBuilder(@NonNull String channelToken) {
-        this.channelToken = channelToken;
+    private LineMessagingServiceBuilder(List<Interceptor> interceptors) {
+        this.interceptors.addAll(interceptors);
     }
 
     /**
@@ -75,9 +78,23 @@ public final class LineMessagingServiceBuilder {
     }
 
     /**
+     * Add interceptor
+     */
+    public LineMessagingServiceBuilder addInterceptor(Interceptor interceptor) {
+        this.interceptors.add(interceptor);
+        return this;
+    }
+
+    /**
+     * Add interceptor first
+     */
+    public LineMessagingServiceBuilder addInterceptorFirst(Interceptor interceptor) {
+        this.interceptors.add(0, interceptor);
+        return this;
+    }
+
+    /**
      * <p>If you want to use your own setting, specify {@link OkHttpClient.Builder} instance.</p>
-     *
-     * <p>ref: {@link LineMessagingServiceBuilder#createDefaultOkHttpClientBuilder()}.</p>
      */
     public LineMessagingServiceBuilder okHttpClientBuilder(@NonNull OkHttpClient.Builder okHttpClientBuilder) {
         this.okHttpClientBuilder = okHttpClientBuilder;
@@ -99,7 +116,8 @@ public final class LineMessagingServiceBuilder {
      */
     public LineMessagingService build() {
         if (okHttpClientBuilder == null) {
-            okHttpClientBuilder = createDefaultOkHttpClientBuilder();
+            okHttpClientBuilder = new OkHttpClient.Builder();
+            interceptors.forEach(okHttpClientBuilder::addInterceptor);
         }
         okHttpClientBuilder
                 .connectTimeout(connectTimeout, TimeUnit.MILLISECONDS)
@@ -117,18 +135,16 @@ public final class LineMessagingServiceBuilder {
         return retrofit.create(LineMessagingService.class);
     }
 
-    private OkHttpClient.Builder createDefaultOkHttpClientBuilder() {
+    private static List<Interceptor> defaultInterceptors(String channelToken) {
         final Logger slf4jLogger = LoggerFactory.getLogger("com.linecorp.bot.client.wire");
         final HttpLoggingInterceptor httpLoggingInterceptor =
                 new HttpLoggingInterceptor(message -> slf4jLogger.info("{}", message));
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        final HeaderInterceptor authorizationInterceptor =
-                new HeaderInterceptor(channelToken);
-
-        return new OkHttpClient.Builder()
-                .addInterceptor(authorizationInterceptor)
-                .addInterceptor(httpLoggingInterceptor);
+        return Arrays.asList(
+                new HeaderInterceptor(channelToken),
+                httpLoggingInterceptor
+        );
     }
 
     private static Retrofit.Builder createDefaultRetrofitBuilder() {
