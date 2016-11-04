@@ -106,7 +106,7 @@ public class LineMessageHandlerSupport {
 
         Preconditions.checkState(method.getParameterCount() == 1,
                                  "Number of parameter should be 1. But {}",
-                                 method.getParameterTypes());
+                                 (Object[]) method.getParameterTypes());
         // TODO: Support more than 1 argument. Like MVC's argument resolver?
 
         final Type type = method.getGenericParameterTypes()[0];
