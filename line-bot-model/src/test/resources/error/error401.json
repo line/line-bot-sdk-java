@@ -1,0 +1,3 @@
+{
+  "message": "Authentication failed due to the following reason: invalid token. Confirm that the access token in the authorization header is valid."
+}

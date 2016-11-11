@@ -1,0 +1,10 @@
+{
+  "message": "The request body has 2 error(s)",
+  "details": [
+    { "message": "May not be empty", "property": "messages[0].text" },
+    {
+      "message": "Must be one of the following values: [text, image, video, audio, location, sticker, richmessage, template, imagemap]",
+      "property": "messages[1].type"
+    }
+  ]
+}
