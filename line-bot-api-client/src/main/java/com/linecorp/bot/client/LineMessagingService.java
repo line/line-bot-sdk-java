@@ -41,7 +41,7 @@ public interface LineMessagingService {
      * @see #pushMessage(PushMessage)
      * @see <a href="https://devdocs.line.me?java#reply-message">//devdocs.line.me#reply-message</a>
      */
-    @POST("/v2/bot/message/reply")
+    @POST("v2/bot/message/reply")
     Call<BotApiResponse> replyMessage(@Body ReplyMessage replyMessage);
 
     /**
@@ -52,7 +52,7 @@ public interface LineMessagingService {
      * @see #replyMessage(ReplyMessage)
      * @see <a href="https://devdocs.line.me?java#push-message">//devdocs.line.me#push-message</a>
      */
-    @POST("/v2/bot/message/push")
+    @POST("v2/bot/message/push")
     Call<BotApiResponse> pushMessage(@Body PushMessage pushMessage);
 
     /**
@@ -61,7 +61,7 @@ public interface LineMessagingService {
      * @see <a href="https://devdocs.line.me?java#get-content">//devdocs.line.me#get-content</a>
      */
     @Streaming
-    @GET("/v2/bot/message/{messageId}/content")
+    @GET("v2/bot/message/{messageId}/content")
     Call<ResponseBody> getMessageContent(@Path("messageId") String messageId);
 
     /**
@@ -69,7 +69,7 @@ public interface LineMessagingService {
      *
      * @see <a href="https://devdocs.line.me?java#bot-api-get-profile">//devdocs.line.me#bot-api-get-profile</a>
      */
-    @GET("/v2/bot/profile/{userId}")
+    @GET("v2/bot/profile/{userId}")
     Call<UserProfileResponse> getProfile(@Path("userId") String userId);
 
     /**
@@ -77,7 +77,7 @@ public interface LineMessagingService {
      *
      * @see <a href="https://devdocs.line.me?java#leave">//devdocs.line.me#leave</a>
      */
-    @POST("/v2/bot/group/{groupId}/leave")
+    @POST("v2/bot/group/{groupId}/leave")
     Call<BotApiResponse> leaveGroup(@Path("groupId") String groupId);
 
     /**
@@ -85,6 +85,6 @@ public interface LineMessagingService {
      *
      * @see <a href="https://devdocs.line.me?java#leave">//devdocs.line.me#leave</a>
      */
-    @POST("/v2/bot/room/{roomId}/leave")
+    @POST("v2/bot/room/{roomId}/leave")
     Call<BotApiResponse> leaveRoom(@Path("roomId") String roomId);
 }
