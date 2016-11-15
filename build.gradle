@@ -102,7 +102,7 @@ subprojects {
         testCompile 'com.squareup.okhttp3:mockwebserver'
         testCompile 'org.hibernate:hibernate-validator'
         testCompile 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
-        testRuntime 'org.springframework.boot:spring-boot-starter-logging'
+        testCompile 'org.springframework.boot:spring-boot-starter-logging'
     }
 
     compileJava.dependsOn(processResources) // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor

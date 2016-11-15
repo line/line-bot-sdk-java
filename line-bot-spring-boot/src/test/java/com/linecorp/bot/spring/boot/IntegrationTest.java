@@ -22,7 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -45,7 +44,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.google.common.io.ByteStreams;
 
-import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.FollowEvent;
@@ -77,8 +76,6 @@ public class IntegrationTest {
 
     @Autowired
     private WebApplicationContext wac;
-    @Autowired
-    private LineMessagingService lineMessagingService;
 
     private MockMvc mockMvc;
     private static MockWebServer server;
@@ -87,10 +84,10 @@ public class IntegrationTest {
     @Slf4j
     public static class MyController {
         @Autowired
-        private LineMessagingService lineMessagingService;
+        private LineMessagingClient lineMessagingClient;
 
         @PostMapping("/callback")
-        public void callback(@NonNull @LineBotMessages List<Event> events) throws IOException {
+        public void callback(@NonNull @LineBotMessages List<Event> events) throws Exception {
             log.info("Got request: {}", events);
 
             for (Event event : events) {
@@ -98,21 +95,21 @@ public class IntegrationTest {
             }
         }
 
-        private void handleEvent(Event event) throws IOException {
+        private void handleEvent(Event event) throws Exception {
             if (event instanceof MessageEvent) {
                 MessageContent content = ((MessageEvent) event).getMessage();
                 if (content instanceof TextMessageContent) {
                     String text = ((TextMessageContent) content).getText();
-                    lineMessagingService.replyMessage(
+                    lineMessagingClient.replyMessage(
                             new ReplyMessage(((MessageEvent) event).getReplyToken(),
                                              new TextMessage(text)))
-                                        .execute();
+                                       .get();
                 }
             } else if (event instanceof FollowEvent) {
-                lineMessagingService.replyMessage(
+                lineMessagingClient.replyMessage(
                         new ReplyMessage(((FollowEvent) event).getReplyToken(),
                                          new TextMessage("follow")))
-                                    .execute();
+                                   .get();
             }
         }
     }

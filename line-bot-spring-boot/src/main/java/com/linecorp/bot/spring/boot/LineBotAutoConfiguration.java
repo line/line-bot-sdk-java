@@ -26,6 +26,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.client.LineMessagingClientImpl;
 import com.linecorp.bot.client.LineMessagingService;
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.client.LineSignatureValidator;
@@ -51,6 +53,11 @@ public class LineBotAutoConfiguration {
                 .readTimeout(lineBotProperties.getReadTimeout())
                 .writeTimeout(lineBotProperties.getWriteTimeout())
                 .build();
+    }
+
+    @Bean
+    public LineMessagingClient lineMessagingClient(final LineMessagingService lineMessagingService) {
+        return new LineMessagingClientImpl(lineMessagingService);
     }
 
     @Bean
