@@ -51,7 +51,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -65,7 +65,7 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 @LineMessageHandler
 public class EchoApplication {
     @Autowired
-    private LineMessagingService lineMessagingService;
+    private LineMessagingClient lineMessagingClient;
 
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
@@ -74,10 +74,10 @@ public class EchoApplication {
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
         System.out.println("event: " + event);
-        final BotApiResponse apiResponse = lineMessagingService
+        final BotApiResponse apiResponse = lineMessagingClient
                 .replyMessage(new ReplyMessage(event.getReplyToken(),
                                                singletonList(new TextMessage(event.getMessage().getText()))))
-                .execute().body();
+                .get();
         System.out.println("Sent messages: " + apiResponse);
     }
 
