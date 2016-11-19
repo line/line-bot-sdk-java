@@ -155,7 +155,7 @@ public class LineMessageHandlerSupport {
     }
 
     @Value
-    public static class HandlerMethod {
+    static class HandlerMethod {
         Predicate<Event> supportType;
         Object object;
         Method handler;
