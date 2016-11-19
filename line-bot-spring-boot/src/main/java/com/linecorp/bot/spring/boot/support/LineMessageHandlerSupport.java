@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ReflectionUtils;
@@ -70,16 +71,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Beta
 @RestController
+@Import(ReplyByReturnValueConsumer.Factory.class)
 @ConditionalOnProperty(name = "line.bot.handler.enabled", havingValue = "true", matchIfMissing = true)
 public class LineMessageHandlerSupport {
     private static final Ordering<HandlerMethod> HANDLER_METHOD_PRIORITY_COMPARATOR =
             Ordering.natural().onResultOf(HandlerMethod::getPriority).reverse();
+    private final ReplyByReturnValueConsumer.Factory returnValueConsumerFactory;
     private final ConfigurableApplicationContext applicationContext;
 
     volatile List<HandlerMethod> eventConsumerList;
 
     @Autowired
-    public LineMessageHandlerSupport(final ConfigurableApplicationContext applicationContext) {
+    public LineMessageHandlerSupport(
+            final ReplyByReturnValueConsumer.Factory returnValueConsumerFactory,
+            final ConfigurableApplicationContext applicationContext) {
+        this.returnValueConsumerFactory = returnValueConsumerFactory;
         this.applicationContext = applicationContext;
 
         applicationContext.addApplicationListener(event -> {
@@ -167,7 +173,8 @@ public class LineMessageHandlerSupport {
         events.forEach(this::dispatch);
     }
 
-    private void dispatch(Event event) {
+    @VisibleForTesting
+    void dispatch(Event event) {
         try {
             dispatchInternal(event);
         } catch (InvocationTargetException e) {
@@ -184,7 +191,16 @@ public class LineMessageHandlerSupport {
                 .filter(consumer -> consumer.getSupportType().test(event))
                 .findFirst()
                 .orElseThrow(() -> new UnsupportedOperationException("Unsupported event type. " + event));
-        handlerMethod.getHandler().invoke(handlerMethod.getObject(), event);
+        final Object returnValue = handlerMethod.getHandler().invoke(handlerMethod.getObject(), event);
+
+        handleReturnValue(event, returnValue);
+    }
+
+    private void handleReturnValue(final Event event, final Object returnValue) {
+        if (returnValue != null) {
+            returnValueConsumerFactory.createForEvent(event)
+                                      .accept(returnValue);
+        }
     }
 
     private static class EventPredicate implements Predicate<Event> {

@@ -89,6 +89,7 @@ subprojects {
             dependency 'com.squareup.retrofit2:converter-jackson:2.1.0'
             dependency 'com.squareup.retrofit2:retrofit:2.1.0'
             dependency 'org.assertj:assertj-core:3.5.2' // Update from 2.5.0 (by Spring-Boot and Spring IO)
+            dependency 'com.github.stefanbirkner:system-rules:1.16.1'
         }
     }
 
@@ -99,6 +100,7 @@ subprojects {
         compileOnly "org.springframework.boot:spring-boot-configuration-processor" // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
 
         testCompile 'com.google.guava:guava'
+        testCompile 'com.github.stefanbirkner:system-rules'
         testCompile 'com.squareup.okhttp3:mockwebserver'
         testCompile 'org.hibernate:hibernate-validator'
         testCompile 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
