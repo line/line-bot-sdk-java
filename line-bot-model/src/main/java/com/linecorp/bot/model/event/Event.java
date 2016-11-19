@@ -52,4 +52,8 @@ public interface Event {
      * Time of the event
      */
     Instant getTimestamp();
+
+    interface ReplySupport extends Event {
+        String getReplyToken();
+    }
 }
