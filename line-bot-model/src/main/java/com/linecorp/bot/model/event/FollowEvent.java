@@ -31,7 +31,7 @@ import lombok.Value;
  */
 @Value
 @JsonTypeName("follow")
-public class FollowEvent implements Event {
+public class FollowEvent implements Event, Replayable {
     /**
      * Token for replying to this event
      */
