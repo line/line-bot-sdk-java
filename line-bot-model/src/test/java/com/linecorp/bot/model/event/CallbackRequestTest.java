@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import com.linecorp.bot.model.event.message.FileMessageContent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.MessageContent;
@@ -134,6 +135,31 @@ public class CallbackRequestTest {
             if (message instanceof LocationMessageContent) {
                 assertThat(((LocationMessageContent) message).getAddress())
                         .isEqualTo("〒150-0002 東京都渋谷区渋谷２丁目２１−１");
+            }
+        });
+    }
+
+    @Test
+    public void testFile() throws IOException {
+        parse("callback/file.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(MessageEvent.class);
+            assertThat(event.getSource())
+                    .isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId())
+                    .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+
+            MessageEvent messageEvent = (MessageEvent) event;
+            assertThat(messageEvent.getReplyToken())
+                    .isEqualTo("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA");
+            MessageContent message = messageEvent.getMessage();
+            assertThat(message).isInstanceOf(FileMessageContent.class);
+            if (message instanceof FileMessageContent) {
+                assertThat(((FileMessageContent) message).getFileName())
+                        .isEqualTo("sample.pdf");
+                assertThat(((FileMessageContent) message).getFileSize())
+                        .isEqualTo(22016);
             }
         });
     }
