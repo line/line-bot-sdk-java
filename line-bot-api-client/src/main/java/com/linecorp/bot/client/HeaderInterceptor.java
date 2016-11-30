@@ -23,8 +23,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 class HeaderInterceptor implements Interceptor {
-    private static final String USER_AGENT = "line-botsdk-java/" +
-                                     HeaderInterceptor.class.getPackage().getImplementationVersion();
+    private static final String USER_AGENT =
+            "line-botsdk-java/" + HeaderInterceptor.class.getPackage().getImplementationVersion();
     private final String channelToken;
 
     HeaderInterceptor(String channelToken) {
