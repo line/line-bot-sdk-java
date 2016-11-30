@@ -32,7 +32,7 @@ import lombok.Value;
  */
 @Value
 @JsonTypeName("beacon")
-public class BeaconEvent implements Event.ReplySupport {
+public class BeaconEvent implements Event, Replyable {
     /**
      * Token for replying to this event
      */

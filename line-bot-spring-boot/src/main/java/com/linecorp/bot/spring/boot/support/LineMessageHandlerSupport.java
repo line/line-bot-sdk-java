@@ -44,6 +44,7 @@ import com.google.common.collect.Ordering;
 
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.Replyable;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
@@ -204,12 +205,15 @@ public class LineMessageHandlerSupport {
     }
 
     private static class EventPredicate implements Predicate<Event> {
-        private final Class<? extends Event> supportEvent;
+        private final Class<?> supportEvent;
         private final Class<? extends MessageContent> messageContentType;
 
         @SuppressWarnings("unchecked")
         EventPredicate(final Type mapping) {
-            if (mapping instanceof Class) {
+            if (mapping == Replyable.class) {
+                supportEvent = Replyable.class;
+                messageContentType = null;
+            } else if (mapping instanceof Class) {
                 Preconditions.checkState(Event.class.isAssignableFrom((Class<?>) mapping),
                                          "Handler argument type should BE-A Event. But {}",
                                          mapping.getClass());

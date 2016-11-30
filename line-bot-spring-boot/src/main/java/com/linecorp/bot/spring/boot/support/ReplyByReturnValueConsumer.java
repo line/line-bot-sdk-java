@@ -15,7 +15,7 @@ import com.google.common.base.Preconditions;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.Event;
-import com.linecorp.bot.model.event.Event.ReplySupport;
+import com.linecorp.bot.model.event.Replyable;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.response.BotApiResponse;
 
@@ -85,8 +85,8 @@ class ReplyByReturnValueConsumer implements Consumer<Object> {
     }
 
     private void reply(final List<Message> messages) {
-        final Event.ReplySupport event = (ReplySupport) originalEvent;
-        lineMessagingClient.replyMessage(new ReplyMessage(event.getReplyToken(), messages))
+        final Replyable replyable = (Replyable) originalEvent;
+        lineMessagingClient.replyMessage(new ReplyMessage(replyable.getReplyToken(), messages))
                            .whenComplete(this::logging);
         // DO NOT BLOCK HERE, otherwise, next message processing will be BLOCKED.
     }
