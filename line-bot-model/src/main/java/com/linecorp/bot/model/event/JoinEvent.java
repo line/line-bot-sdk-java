@@ -31,7 +31,7 @@ import lombok.Value;
  */
 @Value
 @JsonTypeName("join")
-public class JoinEvent implements Event, Replyable {
+public class JoinEvent implements Event, ReplyEvent {
     /**
      * Token for replying to this event
      */

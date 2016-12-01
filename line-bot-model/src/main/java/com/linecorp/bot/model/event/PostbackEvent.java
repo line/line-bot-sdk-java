@@ -32,7 +32,7 @@ import lombok.Value;
  */
 @Value
 @JsonTypeName("postback")
-public class PostbackEvent implements Event, Replyable {
+public class PostbackEvent implements Event, ReplyEvent {
     /**
      * Token for replying to this event
      */

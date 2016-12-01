@@ -7,7 +7,7 @@ import com.linecorp.bot.model.ReplyMessage;
  *
  * @see Event
  */
-public interface Replyable {
+public interface ReplyEvent {
     /**
      * Token for replying to this event.
      *
