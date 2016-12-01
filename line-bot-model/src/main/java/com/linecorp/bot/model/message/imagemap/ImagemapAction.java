@@ -32,9 +32,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
         visible = true
 )
 @JsonSubTypes({
-                      @JsonSubTypes.Type(MessageImagemapAction.class),
-                      @JsonSubTypes.Type(URIImagemapAction.class)
-              })
+        @JsonSubTypes.Type(MessageImagemapAction.class),
+        @JsonSubTypes.Type(URIImagemapAction.class),
+})
 public interface ImagemapAction {
     ImagemapArea getArea();
 }

@@ -30,10 +30,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
         visible = true
 )
 @JsonSubTypes({
-                      @JsonSubTypes.Type(PostbackAction.class),
-                      @JsonSubTypes.Type(URIAction.class),
-                      @JsonSubTypes.Type(MessageAction.class)
-              })
+        @JsonSubTypes.Type(PostbackAction.class),
+        @JsonSubTypes.Type(URIAction.class),
+        @JsonSubTypes.Type(MessageAction.class),
+})
 public interface Action {
     String getLabel();
 }

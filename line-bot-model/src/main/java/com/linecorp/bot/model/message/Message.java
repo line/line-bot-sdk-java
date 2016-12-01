@@ -27,13 +27,13 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
         visible = true
 )
 @JsonSubTypes({
-                      @JsonSubTypes.Type(TextMessage.class),
-                      @JsonSubTypes.Type(ImageMessage.class),
-                      @JsonSubTypes.Type(StickerMessage.class),
-                      @JsonSubTypes.Type(LocationMessage.class),
-                      @JsonSubTypes.Type(AudioMessage.class),
-                      @JsonSubTypes.Type(ImagemapMessage.class),
-                      @JsonSubTypes.Type(TemplateMessage.class)
-              })
+        @JsonSubTypes.Type(TextMessage.class),
+        @JsonSubTypes.Type(ImageMessage.class),
+        @JsonSubTypes.Type(StickerMessage.class),
+        @JsonSubTypes.Type(LocationMessage.class),
+        @JsonSubTypes.Type(AudioMessage.class),
+        @JsonSubTypes.Type(ImagemapMessage.class),
+        @JsonSubTypes.Type(TemplateMessage.class),
+})
 public interface Message {
 }
