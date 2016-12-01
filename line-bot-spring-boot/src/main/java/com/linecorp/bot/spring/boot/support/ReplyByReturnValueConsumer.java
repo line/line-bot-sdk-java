@@ -19,7 +19,6 @@ import com.linecorp.bot.model.event.Replyable;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.response.BotApiResponse;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,9 +36,13 @@ class ReplyByReturnValueConsumer implements Consumer<Object> {
     private final Event originalEvent;
 
     @Component
-    @AllArgsConstructor(onConstructor = @__(@Autowired))
     public static class Factory {
         private final LineMessagingClient lineMessagingClient;
+
+        @Autowired
+        public Factory(final LineMessagingClient lineMessagingClient) {
+            this.lineMessagingClient = lineMessagingClient;
+        }
 
         ReplyByReturnValueConsumer createForEvent(final Event event) {
             return builder()
