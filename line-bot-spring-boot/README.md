@@ -7,44 +7,33 @@ This is a Spring Boot auto-configuration for the LINE Messaging API.
 ```java
 package com.example.bot.spring.echo;
 
-import static java.util.Collections.singletonList;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
 @SpringBootApplication
 @LineMessageHandler
 public class EchoApplication {
-    @Autowired
-    private LineMessagingClient lineMessagingClient;
-
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
     }
 
     @EventMapping
-    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
-        final BotApiResponse apiResponse = lineMessagingClient
-                .replyMessage(new ReplyMessage(event.getReplyToken(),
-                                               singletonList(new TextMessage(event.getMessage().getText()))))
-                .get();
-        System.out.println("Sent messages: " + apiResponse);
+        return new TextMessage(event.getMessage().getText());
     }
 
     @EventMapping
-    public void defaultMessageEvent(Event event) {
+    public void handleDefaultMessageEvent(Event event) {
         System.out.println("event: " + event);
     }
 }
@@ -60,13 +49,9 @@ You can then get parsed messages like the following:
 @LineMessageHandler
 public class EchoApplication {
     @EventMapping
-    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
         System.out.println("event: " + event);
-        final BotApiResponse apiResponse = lineMessagingClient
-                .replyMessage(new ReplyMessage(event.getReplyToken(),
-                                               singletonList(new TextMessage(event.getMessage().getText()))))
-                .get();
-        System.out.println("Sent messages: " + apiResponse);
+        return new TextMessage(event.getMessage().getText());
     }
 }
 ```
