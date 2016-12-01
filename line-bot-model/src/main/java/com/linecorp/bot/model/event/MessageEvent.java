@@ -33,7 +33,7 @@ import lombok.Value;
  */
 @Value
 @JsonTypeName("message")
-public class MessageEvent<T extends MessageContent> implements Event, Replyable {
+public class MessageEvent<T extends MessageContent> implements Event, ReplyEvent {
     /**
      * Token for replying to this event
      */

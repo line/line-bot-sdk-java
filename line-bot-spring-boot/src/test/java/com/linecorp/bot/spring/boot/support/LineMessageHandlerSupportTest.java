@@ -39,7 +39,7 @@ import com.google.common.collect.ImmutableMap;
 
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
-import com.linecorp.bot.model.event.Replyable;
+import com.linecorp.bot.model.event.ReplyEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
@@ -155,7 +155,7 @@ public class LineMessageHandlerSupportTest {
         private final String replyMessage;
 
         @EventMapping
-        public TextMessage reply(final Replyable replySupportEvent) {
+        public TextMessage reply(final ReplyEvent replySupportEvent) {
             return new TextMessage(replyMessage);
         }
     }

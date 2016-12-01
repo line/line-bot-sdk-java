@@ -44,7 +44,7 @@ import com.google.common.collect.Ordering;
 
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
-import com.linecorp.bot.model.event.Replyable;
+import com.linecorp.bot.model.event.ReplyEvent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
@@ -210,8 +210,8 @@ public class LineMessageHandlerSupport {
 
         @SuppressWarnings("unchecked")
         EventPredicate(final Type mapping) {
-            if (mapping == Replyable.class) {
-                supportEvent = Replyable.class;
+            if (mapping == ReplyEvent.class) {
+                supportEvent = ReplyEvent.class;
                 messageContentType = null;
             } else if (mapping instanceof Class) {
                 Preconditions.checkState(Event.class.isAssignableFrom((Class<?>) mapping),

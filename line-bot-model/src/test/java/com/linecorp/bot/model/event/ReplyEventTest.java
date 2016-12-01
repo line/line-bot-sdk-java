@@ -15,7 +15,7 @@ import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ReplyableTest {
+public class ReplyEventTest {
     @Test
     public void eventWithReplyTokenShouldBeImplementReplySupportTest() {
         final List<Class<?>> eventClasses = getAllEventClass();
@@ -27,7 +27,7 @@ public class ReplyableTest {
             final boolean hasReplyTokenMethod = ClassUtils.hasMethod(eventClass, "getReplyToken");
 
             if (hasReplyTokenMethod) {
-                assertThat(Replyable.class)
+                assertThat(ReplyEvent.class)
                         .isAssignableFrom(eventClass);
             }
         }
