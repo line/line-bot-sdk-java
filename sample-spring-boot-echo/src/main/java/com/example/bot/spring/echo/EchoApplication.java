@@ -16,10 +16,6 @@
 
 package com.example.bot.spring.echo;
 
-import static java.util.Collections.singletonList;
-
-import java.util.List;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -38,9 +34,9 @@ public class EchoApplication {
     }
 
     @EventMapping
-    public List<TextMessage> handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
-        return singletonList(new TextMessage(event.getMessage().getText()));
+        return new TextMessage(event.getMessage().getText());
     }
 
     @EventMapping
