@@ -15,9 +15,8 @@
  */
 
 dependencies {
-    compile project(':line-bot-webhook-parser')
-    compile 'com.google.guava:guava'
+    compile project(':line-bot-api-client')
+    compile 'com.fasterxml.jackson.core:jackson-databind'
 
-    optional 'javax.servlet:javax.servlet-api'
     optional 'org.slf4j:slf4j-api'
 }

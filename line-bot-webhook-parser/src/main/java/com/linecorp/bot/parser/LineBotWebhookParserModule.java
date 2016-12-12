@@ -14,10 +14,19 @@
  * under the License.
  */
 
-dependencies {
-    compile project(':line-bot-webhook-parser')
-    compile 'com.google.guava:guava'
+package com.linecorp.bot.parser;
 
-    optional 'javax.servlet:javax.servlet-api'
-    optional 'org.slf4j:slf4j-api'
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import com.linecorp.bot.model.event.CallbackRequest;
+
+class LineBotWebhookParserModule extends SimpleModule {
+    private static final long serialVersionUID = 1592842153305097463L;
+
+    LineBotWebhookParserModule(LineBotCallbackRequestDeserializer lineBotCallbackRequestDeserializer) {
+        super(new Version(0, 1, 0, null, null, null));
+
+        this.addDeserializer(CallbackRequest.class, lineBotCallbackRequestDeserializer);
+    }
 }

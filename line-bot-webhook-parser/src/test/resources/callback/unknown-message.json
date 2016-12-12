@@ -1,0 +1,46 @@
+{
+  "events": [
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "message",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "user",
+        "userId": "u00000000000000000000000000000000"
+      },
+      "message": {
+        "id": "325708",
+        "type": "text",
+        "text": "Hello, world"
+      }
+    },
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "message",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "user",
+        "userId": "u00000000000000000000000000000001"
+      },
+      "message": {
+        "id": "325708",
+        "type": "unknown",
+        "unknown": "blah blah"
+      }
+    },
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "message",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "user",
+        "userId": "u00000000000000000000000000000002"
+      },
+      "message": {
+        "id": "325708",
+        "type": "text",
+        "text": "Hello, world"
+      }
+    }
+  ]
+}

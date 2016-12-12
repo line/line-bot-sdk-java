@@ -14,10 +14,18 @@
  * under the License.
  */
 
-dependencies {
-    compile project(':line-bot-webhook-parser')
-    compile 'com.google.guava:guava'
+package com.linecorp.bot.parser;
 
-    optional 'javax.servlet:javax.servlet-api'
-    optional 'org.slf4j:slf4j-api'
+import java.io.IOException;
+
+public class LineBotWebhookParseException extends IOException {
+    private static final long serialVersionUID = -2288821098916603128L;
+
+    LineBotWebhookParseException(String message) {
+        super(message);
+    }
+
+    LineBotWebhookParseException(String message, Throwable th) {
+        super(message, th);
+    }
 }
