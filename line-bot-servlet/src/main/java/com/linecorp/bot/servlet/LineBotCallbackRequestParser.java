@@ -77,6 +77,36 @@ public class LineBotCallbackRequestParser {
         }
         return callbackRequest;
     }
+    
+    /**
+     * Parse request.
+     *
+     * @param signature X-Line-Signature header.
+     * @param payload Request body.
+     * @return Parsed result. If there's an error, this method sends response.
+     * @throws LineBotCallbackException There's an error around signature.
+     */
+    public CallbackRequest handle(String signature, String payload) throws LineBotCallbackException, IOException {
+        // validate signature
+        if (signature == null || signature.length() == 0) {
+            throw new LineBotCallbackException("Missing 'X-Line-Signature' header");
+        }
+        
+        if (log.isDebugEnabled()) {
+            log.debug("got: {}", payload);
+        }
+        final byte[] json = payload.getBytes(StandardCharsets.UTF_8);
+        
+        if (!lineSignatureValidator.validateSignature(json, signature)) {
+            throw new LineBotCallbackException("Invalid API signature");
+        }
+        
+        final CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
+        if (callbackRequest == null || callbackRequest.getEvents() == null) {
+            throw new LineBotCallbackException("Invalid content");
+        }
+        return callbackRequest;
+    }
 
     private static ObjectMapper buildObjectMapper() {
         final ObjectMapper objectMapper = new ObjectMapper();
