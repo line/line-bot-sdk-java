@@ -58,24 +58,8 @@ public class LineBotCallbackRequestParser {
     public CallbackRequest handle(HttpServletRequest req) throws LineBotCallbackException, IOException {
         // validate signature
         String signature = req.getHeader("X-Line-Signature");
-        if (signature == null || signature.length() == 0) {
-            throw new LineBotCallbackException("Missing 'X-Line-Signature' header");
-        }
-
         final byte[] json = ByteStreams.toByteArray(req.getInputStream());
-        if (log.isDebugEnabled()) {
-            log.debug("got: {}", new String(json, StandardCharsets.UTF_8));
-        }
-
-        if (!lineSignatureValidator.validateSignature(json, signature)) {
-            throw new LineBotCallbackException("Invalid API signature");
-        }
-
-        final CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
-        if (callbackRequest == null || callbackRequest.getEvents() == null) {
-            throw new LineBotCallbackException("Invalid content");
-        }
-        return callbackRequest;
+        return handle(signature, new String(json, StandardCharsets.UTF_8));
     }
     
     /**
