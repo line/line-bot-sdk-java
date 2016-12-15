@@ -58,14 +58,27 @@ public class LineBotCallbackRequestParser {
     public CallbackRequest handle(HttpServletRequest req) throws LineBotCallbackException, IOException {
         // validate signature
         String signature = req.getHeader("X-Line-Signature");
+        final byte[] json = ByteStreams.toByteArray(req.getInputStream());
+        return handle(signature, new String(json, StandardCharsets.UTF_8));
+    }
+    
+    /**
+     * Parse request.
+     *
+     * @param signature X-Line-Signature header.
+     * @param payload Request body.
+     * @return Parsed result. If there's an error, this method sends response.
+     * @throws LineBotCallbackException There's an error around signature.
+     */
+    public CallbackRequest handle(String signature, String payload) throws LineBotCallbackException, IOException {
+        // validate signature
         if (signature == null || signature.length() == 0) {
             throw new LineBotCallbackException("Missing 'X-Line-Signature' header");
         }
 
-        final byte[] json = ByteStreams.toByteArray(req.getInputStream());
-        if (log.isDebugEnabled()) {
-            log.debug("got: {}", new String(json, StandardCharsets.UTF_8));
-        }
+        log.debug("got: {}", payload);
+
+        final byte[] json = payload.getBytes(StandardCharsets.UTF_8);
 
         if (!lineSignatureValidator.validateSignature(json, signature)) {
             throw new LineBotCallbackException("Invalid API signature");
