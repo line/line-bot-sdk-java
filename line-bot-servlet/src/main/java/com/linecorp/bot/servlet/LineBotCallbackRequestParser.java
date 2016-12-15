@@ -75,16 +75,15 @@ public class LineBotCallbackRequestParser {
         if (signature == null || signature.length() == 0) {
             throw new LineBotCallbackException("Missing 'X-Line-Signature' header");
         }
-        
-        if (log.isDebugEnabled()) {
-            log.debug("got: {}", payload);
-        }
+
+        log.debug("got: {}", payload);
+
         final byte[] json = payload.getBytes(StandardCharsets.UTF_8);
-        
+
         if (!lineSignatureValidator.validateSignature(json, signature)) {
             throw new LineBotCallbackException("Invalid API signature");
         }
-        
+
         final CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
         if (callbackRequest == null || callbackRequest.getEvents() == null) {
             throw new LineBotCallbackException("Invalid content");
