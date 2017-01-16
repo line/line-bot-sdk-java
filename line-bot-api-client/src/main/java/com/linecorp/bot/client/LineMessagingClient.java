@@ -18,6 +18,7 @@ package com.linecorp.bot.client;
 
 import java.util.concurrent.CompletableFuture;
 
+import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.UserProfileResponse;
@@ -46,6 +47,17 @@ public interface LineMessagingClient {
      * @see <a href="https://devdocs.line.me?java#push-message">//devdocs.line.me#push-message</a>
      */
     CompletableFuture<BotApiResponse> pushMessage(PushMessage pushMessage);
+
+    /**
+     * Send messages to multiple users at any time. <strong>IDs of groups or rooms cannot be used.</strong>
+     *
+     * <p>INFO: Only available for plans which support push messages. Messages cannot be sent to groups or rooms.
+     * <p>INFO: Use IDs returned via the webhook event of source users. IDs of groups or rooms cannot be used.
+     * Do not use the LINE ID found on the LINE app.</p>
+     * @see #pushMessage(PushMessage)
+     * @see <a href="https://devdocs.line.me?java#multicast">//devdocs.line.me#multicast</a>
+     */
+    CompletableFuture<BotApiResponse> multicast(Multicast multicast);
 
     /**
      * Download image, video, and audio data sent from users.
