@@ -17,6 +17,7 @@
 package com.linecorp.bot.client;
 
 import static java.util.Collections.emptyList;
+import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.only;
@@ -34,6 +35,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.mockito.stubbing.OngoingStubbing;
 
+import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.message.TextMessage;
@@ -90,6 +92,21 @@ public class LineMessagingClientImplTest {
 
         // Verify
         verify(retrofitMock, only()).pushMessage(pushMessage);
+        assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
+    public void multicastTest() throws Exception {
+        whenCall(retrofitMock.multicast(any()),
+                 BOT_API_SUCCESS_RESPONSE);
+        final Multicast multicast = new Multicast(singleton("TO"), new TextMessage("text"));
+
+        // Do
+        final BotApiResponse botApiResponse =
+                target.multicast(multicast).get();
+
+        // Verify
+        verify(retrofitMock, only()).multicast(multicast);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
