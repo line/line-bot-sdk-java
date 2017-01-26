@@ -23,7 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 import com.google.common.io.ByteStreams;
 
 import com.linecorp.bot.client.LineSignatureValidator;
@@ -35,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LineBotCallbackRequestParser {
     private final LineSignatureValidator lineSignatureValidator;
-    private final ObjectMapper objectMapper;
+    private final ObjectReader callbackRequestObjectReader;
 
     /**
      * Create new instance
@@ -45,7 +47,7 @@ public class LineBotCallbackRequestParser {
     public LineBotCallbackRequestParser(
             @NonNull LineSignatureValidator lineSignatureValidator) {
         this.lineSignatureValidator = lineSignatureValidator;
-        this.objectMapper = buildObjectMapper();
+        this.callbackRequestObjectReader = buildCallbackRequestObjectReader();
     }
 
     /**
@@ -84,20 +86,21 @@ public class LineBotCallbackRequestParser {
             throw new LineBotCallbackException("Invalid API signature");
         }
 
-        final CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
+        final CallbackRequest callbackRequest = callbackRequestObjectReader.readValue(json);
         if (callbackRequest == null || callbackRequest.getEvents() == null) {
             throw new LineBotCallbackException("Invalid content");
         }
         return callbackRequest;
     }
 
-    private static ObjectMapper buildObjectMapper() {
+    private static ObjectReader buildCallbackRequestObjectReader() {
         final ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         // Register JSR-310(java.time.temporal.*) module and read number as millsec.
         objectMapper.registerModule(new JavaTimeModule())
                     .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
-        return objectMapper;
+        objectMapper.registerModule(new AfterburnerModule());
+        return objectMapper.readerFor(CallbackRequest.class);
     }
 }
