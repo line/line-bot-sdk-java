@@ -5,7 +5,7 @@ LINE Messaging API client for Java 8 or later.
 ## Synopsis
 
 ```java
-LineMessagingService client LineMessagingServiceBuilder
+LineMessagingService client = LineMessagingServiceBuilder
         .create("YOUR_CHANNEL_TOKEN")
         .build();
 ```
