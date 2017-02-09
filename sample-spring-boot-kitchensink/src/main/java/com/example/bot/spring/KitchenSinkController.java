@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.google.common.io.ByteStreams;
 
-import com.linecorp.bot.client.LineMessagingService;
+import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.client.MessageContentResponse;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
@@ -71,7 +73,6 @@ import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
-import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
@@ -79,17 +80,15 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 @Slf4j
 @LineMessageHandler
 public class KitchenSinkController {
     @Autowired
-    private LineMessagingService lineMessagingService;
+    private LineMessagingClient lineMessagingClient;
 
     @EventMapping
-    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws IOException {
+    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
         TextMessageContent message = event.getMessage();
         handleTextContent(event.getReplyToken(), event, message);
     }
@@ -197,12 +196,12 @@ public class KitchenSinkController {
 
     private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
         try {
-            Response<BotApiResponse> apiResponse = lineMessagingService
+            BotApiResponse apiResponse = lineMessagingClient
                     .replyMessage(new ReplyMessage(replyToken, messages))
-                    .execute();
+                    .get();
             log.info("Sent messages: {}", apiResponse);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -217,17 +216,16 @@ public class KitchenSinkController {
     }
 
     private void handleHeavyContent(String replyToken, String messageId,
-                                    Consumer<ResponseBody> messageConsumer) throws IOException {
-        Response<ResponseBody> response = lineMessagingService.getMessageContent(messageId)
-                                                              .execute();
-        if (response.isSuccessful()) {
-            try (ResponseBody body = response.body()) {
-                messageConsumer.accept(body);
-            }
-        } else {
-            reply(replyToken, new TextMessage("Cannot get image: " + response.message()));
+                                    Consumer<MessageContentResponse> messageConsumer) {
+        final MessageContentResponse response;
+        try {
+            response = lineMessagingClient.getMessageContent(messageId)
+                                          .get();
+        } catch (InterruptedException | ExecutionException e) {
+            reply(replyToken, new TextMessage("Cannot get image: " + e.getMessage()));
+            throw new RuntimeException(e);
         }
-
+        messageConsumer.accept(response);
     }
 
     private void handleSticker(String replyToken, StickerMessageContent content) {
@@ -237,7 +235,7 @@ public class KitchenSinkController {
     }
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content)
-            throws IOException {
+            throws Exception {
         String text = content.getText();
 
         log.info("Got text message from {}: {}", replyToken, text);
@@ -245,21 +243,23 @@ public class KitchenSinkController {
             case "profile": {
                 String userId = event.getSource().getUserId();
                 if (userId != null) {
-                    Response<UserProfileResponse> response = lineMessagingService
+                    lineMessagingClient
                             .getProfile(userId)
-                            .execute();
-                    if (response.isSuccessful()) {
-                        UserProfileResponse profiles = response.body();
-                        this.reply(
-                                replyToken,
-                                Arrays.asList(new TextMessage(
-                                                      "Display name: " + profiles.getDisplayName()),
-                                              new TextMessage("Status message: "
-                                                              + profiles.getStatusMessage()))
-                        );
-                    } else {
-                        this.replyText(replyToken, response.errorBody().string());
-                    }
+                            .whenComplete((profile, throwable) -> {
+                                if (throwable != null) {
+                                    this.replyText(replyToken, throwable.getMessage());
+                                    return;
+                                }
+
+                                this.reply(
+                                        replyToken,
+                                        Arrays.asList(new TextMessage(
+                                                              "Display name: " + profile.getDisplayName()),
+                                                      new TextMessage("Status message: "
+                                                                      + profile.getStatusMessage()))
+                                );
+
+                            });
                 } else {
                     this.replyText(replyToken, "Bot can't use profile API without user ID");
                 }
@@ -269,12 +269,10 @@ public class KitchenSinkController {
                 Source source = event.getSource();
                 if (source instanceof GroupSource) {
                     this.replyText(replyToken, "Leaving group");
-                    lineMessagingService.leaveGroup(((GroupSource) source).getGroupId())
-                                        .execute();
+                    lineMessagingClient.leaveGroup(((GroupSource) source).getGroupId()).get();
                 } else if (source instanceof RoomSource) {
                     this.replyText(replyToken, "Leaving room");
-                    lineMessagingService.leaveRoom(((RoomSource) source).getRoomId())
-                                        .execute();
+                    lineMessagingClient.leaveRoom(((RoomSource) source).getRoomId()).get();
                 } else {
                     this.replyText(replyToken, "Bot can't leave from 1:1 chat");
                 }
@@ -396,11 +394,12 @@ public class KitchenSinkController {
         }
     }
 
-    private static DownloadedContent saveContent(String ext, ResponseBody responseBody) {
-        log.info("Got content-type: {}", responseBody.contentType());
+    private static DownloadedContent saveContent(String ext, MessageContentResponse responseBody) {
+        log.info("Got content-type: {}", responseBody);
+
         DownloadedContent tempFile = createTempFile(ext);
         try (OutputStream outputStream = Files.newOutputStream(tempFile.path)) {
-            ByteStreams.copy(responseBody.byteStream(), outputStream);
+            ByteStreams.copy(responseBody.getStream(), outputStream);
             log.info("Saved {}: {}", ext, tempFile);
             return tempFile;
         } catch (IOException e) {
