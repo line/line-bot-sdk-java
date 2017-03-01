@@ -75,21 +75,21 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
-    ext['guava.version'] = '19.0' // Update from Spring IO default "17.0" (by Athens-SR2)
-    ext['okhttp3.version'] = '3.5.0' // Update from Spring IO default "3.3.1" (by Athens-SR2)
+    ext['guava.version'] = '21.0'
+    ext['okhttp3.version'] = '3.6.0'
 
     dependencyManagement {
         imports {
-            mavenBom 'io.spring.platform:platform-bom:Athens-SR2'
+            mavenBom 'io.spring.platform:platform-bom:Brussels-RELEASE'
         }
 
         dependencies {
             dependency 'com.github.stefanbirkner:system-rules:1.16.1'
             dependency 'com.squareup.okhttp3:logging-interceptor:' + ext['okhttp3.version']
-            dependency 'com.squareup.okhttp3:mockwebserver:' + ext['okhttp3.version'] // Additional okhttp3 modules. Using Spring IO version variable.
-            dependency 'com.squareup.retrofit2:converter-jackson:2.1.0'
-            dependency 'com.squareup.retrofit2:retrofit:2.1.0'
-            dependency 'org.assertj:assertj-core:3.6.1' // Update from 2.5.0 (by Spring-Boot and Spring IO)
+            dependency 'com.squareup.okhttp3:mockwebserver:' + ext['okhttp3.version']
+            dependency 'com.squareup.retrofit2:converter-jackson:2.2.0'
+            dependency 'com.squareup.retrofit2:retrofit:2.2.0'
+            dependency 'org.assertj:assertj-core:3.6.2'
             dependency 'org.projectlombok:lombok:1.16.12'
         }
     }
