@@ -22,6 +22,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
@@ -30,6 +31,7 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import lombok.Data;
 
 @Data
+@Validated
 @ConfigurationProperties(prefix = "line.bot")
 public class LineBotProperties {
     /**
