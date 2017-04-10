@@ -80,7 +80,7 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom 'io.spring.platform:platform-bom:Brussels-RELEASE'
+            mavenBom 'io.spring.platform:platform-bom:Brussels-SR1'
         }
 
         dependencies {
