@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -40,7 +41,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.annotations.Beta;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Ordering;
 
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -75,8 +75,8 @@ import lombok.extern.slf4j.Slf4j;
 @Import(ReplyByReturnValueConsumer.Factory.class)
 @ConditionalOnProperty(name = "line.bot.handler.enabled", havingValue = "true", matchIfMissing = true)
 public class LineMessageHandlerSupport {
-    private static final Ordering<HandlerMethod> HANDLER_METHOD_PRIORITY_COMPARATOR =
-            Ordering.natural().onResultOf(HandlerMethod::getPriority).reverse();
+    private static final Comparator<HandlerMethod> HANDLER_METHOD_PRIORITY_COMPARATOR =
+            Comparator.comparing(HandlerMethod::getPriority).reversed();
     private final ReplyByReturnValueConsumer.Factory returnValueConsumerFactory;
     private final ConfigurableApplicationContext applicationContext;
 
