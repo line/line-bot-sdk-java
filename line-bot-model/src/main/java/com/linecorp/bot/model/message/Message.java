@@ -20,11 +20,19 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
+/**
+ * Interface of Message object.
+ *
+ * <h2>JSON Deserialization</h2>
+ *
+ * <p>If you want serialize/deserialize of this object, please use Jackson's ObjectMapper with
+ *
+ * <pre>.registerModule(new <a href="https://github.com/FasterXML/jackson-modules-java8/tree/master/parameter-names">ParameterNamesModule</a>());</pre>
+ */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = As.PROPERTY,
-        property = "type",
-        visible = true
+        property = "type"
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(TextMessage.class),
@@ -32,6 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
         @JsonSubTypes.Type(StickerMessage.class),
         @JsonSubTypes.Type(LocationMessage.class),
         @JsonSubTypes.Type(AudioMessage.class),
+        @JsonSubTypes.Type(VideoMessage.class),
         @JsonSubTypes.Type(ImagemapMessage.class),
         @JsonSubTypes.Type(TemplateMessage.class),
 })

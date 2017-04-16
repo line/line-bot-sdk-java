@@ -19,5 +19,6 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind'
     compile 'com.fasterxml.jackson.core:jackson-annotations'
 
+    testCompile 'com.fasterxml.jackson.module:jackson-module-parameter-names'
     testCompile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 }
