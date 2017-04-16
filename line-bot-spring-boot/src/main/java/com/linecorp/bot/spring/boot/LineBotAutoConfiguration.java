@@ -20,12 +20,15 @@ import java.nio.charset.StandardCharsets;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.linecorp.bot.client.ChannelTokenSupplier;
+import com.linecorp.bot.client.FixedChannelTokenSupplier;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientImpl;
 import com.linecorp.bot.client.LineMessagingService;
@@ -45,14 +48,22 @@ public class LineBotAutoConfiguration {
     private LineBotProperties lineBotProperties;
 
     @Bean
-    public LineMessagingService lineMessagingService() {
+    public LineMessagingService lineMessagingService(
+            final ChannelTokenSupplier channelTokenSupplier) {
         return LineMessagingServiceBuilder
-                .create(lineBotProperties.getChannelToken())
+                .create(channelTokenSupplier)
                 .apiEndPoint(lineBotProperties.getApiEndPoint())
                 .connectTimeout(lineBotProperties.getConnectTimeout())
                 .readTimeout(lineBotProperties.getReadTimeout())
                 .writeTimeout(lineBotProperties.getWriteTimeout())
                 .build();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(ChannelTokenSupplier.class)
+    public ChannelTokenSupplier channelTokenSupplier() {
+        final String channelToken = lineBotProperties.getChannelToken();
+        return FixedChannelTokenSupplier.of(channelToken);
     }
 
     @Bean
