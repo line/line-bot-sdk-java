@@ -18,6 +18,8 @@ package com.linecorp.bot.servlet;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.AbstractMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -55,13 +57,13 @@ public class LineBotCallbackRequestParser {
      * @return Parsed result. If there's an error, this method sends response.
      * @throws LineBotCallbackException There's an error around signature.
      */
-    public CallbackRequest handle(HttpServletRequest req) throws LineBotCallbackException, IOException {
+    public Map.Entry<String, CallbackRequest> handle(HttpServletRequest req) throws LineBotCallbackException, IOException {
         // validate signature
         String signature = req.getHeader("X-Line-Signature");
         final byte[] json = ByteStreams.toByteArray(req.getInputStream());
         return handle(signature, new String(json, StandardCharsets.UTF_8));
     }
-    
+
     /**
      * Parse request.
      *
@@ -70,7 +72,7 @@ public class LineBotCallbackRequestParser {
      * @return Parsed result. If there's an error, this method sends response.
      * @throws LineBotCallbackException There's an error around signature.
      */
-    public CallbackRequest handle(String signature, String payload) throws LineBotCallbackException, IOException {
+    public Map.Entry<String, CallbackRequest> handle(String signature, String payload) throws LineBotCallbackException, IOException {
         // validate signature
         if (signature == null || signature.length() == 0) {
             throw new LineBotCallbackException("Missing 'X-Line-Signature' header");
@@ -80,7 +82,8 @@ public class LineBotCallbackRequestParser {
 
         final byte[] json = payload.getBytes(StandardCharsets.UTF_8);
 
-        if (!lineSignatureValidator.validateSignature(json, signature)) {
+        String secretKey = lineSignatureValidator.validateSignature(json, signature);
+        if (secretKey == null) {
             throw new LineBotCallbackException("Invalid API signature");
         }
 
@@ -88,7 +91,7 @@ public class LineBotCallbackRequestParser {
         if (callbackRequest == null || callbackRequest.getEvents() == null) {
             throw new LineBotCallbackException("Invalid content");
         }
-        return callbackRequest;
+        return new AbstractMap.SimpleEntry<String, CallbackRequest>(secretKey, callbackRequest);
     }
 
     private static ObjectMapper buildObjectMapper() {

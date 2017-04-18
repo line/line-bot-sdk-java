@@ -4,8 +4,10 @@ import static java.util.Collections.singletonList;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+import com.linecorp.bot.spring.boot.custom.LineMessagingClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,51 +33,51 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Builder
-class ReplyByReturnValueConsumer implements Consumer<Object> {
-    private final LineMessagingClient lineMessagingClient;
+class ReplyByReturnValueConsumer implements BiConsumer<String, Object> {
+    private final LineMessagingClientFactory lineMessagingClientFactory;
     private final Event originalEvent;
 
     @Component
     public static class Factory {
-        private final LineMessagingClient lineMessagingClient;
+        private final LineMessagingClientFactory lineMessagingClientFactory;
 
         @Autowired
-        public Factory(final LineMessagingClient lineMessagingClient) {
-            this.lineMessagingClient = lineMessagingClient;
+        public Factory(final LineMessagingClientFactory lineMessagingClientFactory) {
+            this.lineMessagingClientFactory = lineMessagingClientFactory;
         }
 
         ReplyByReturnValueConsumer createForEvent(final Event event) {
             return builder()
-                    .lineMessagingClient(lineMessagingClient)
+                    .lineMessagingClientFactory(lineMessagingClientFactory)
                     .originalEvent(event)
                     .build();
         }
     }
 
     @Override
-    public void accept(final Object returnValue) {
+    public void accept(final String secretKey, final Object returnValue) {
         if (returnValue instanceof CompletableFuture) {
             // accept when future complete.
             ((CompletableFuture<?>) returnValue)
-                    .whenComplete(this::whenComplete);
+                    .whenComplete((futureResult, throwable) -> whenComplete(secretKey, futureResult, throwable));
         } else {
             // accept immediately.
-            acceptResult(returnValue);
+            acceptResult(secretKey, returnValue);
         }
     }
 
-    private void whenComplete(final Object futureResult, final Throwable throwable) {
+    private void whenComplete(final String secretKey, final Object futureResult, final Throwable throwable) {
         if (throwable != null) {
             log.error("Method return value waited but exception occurred in CompletedFuture", throwable);
             return;
         }
 
-        acceptResult(futureResult);
+        acceptResult(secretKey, futureResult);
     }
 
-    private void acceptResult(final Object returnValue) {
+    private void acceptResult(final String secretKey, final Object returnValue) {
         if (returnValue instanceof Message) {
-            reply(singletonList((Message) returnValue));
+            reply(secretKey, singletonList((Message) returnValue));
         } else if (returnValue instanceof List) {
             List<?> returnValueAsList = (List<?>) returnValue;
 
@@ -83,13 +85,13 @@ class ReplyByReturnValueConsumer implements Consumer<Object> {
                 return;
             }
 
-            reply(checkListContents(returnValueAsList));
+            reply(secretKey, checkListContents(returnValueAsList));
         }
     }
 
-    private void reply(final List<Message> messages) {
+    private void reply(final String secretKey, final List<Message> messages) {
         final ReplyEvent replyEvent = (ReplyEvent) originalEvent;
-        lineMessagingClient.replyMessage(new ReplyMessage(replyEvent.getReplyToken(), messages))
+        lineMessagingClientFactory.get(secretKey).replyMessage(new ReplyMessage(replyEvent.getReplyToken(), messages))
                            .whenComplete(this::logging);
         // DO NOT BLOCK HERE, otherwise, next message processing will be BLOCKED.
     }

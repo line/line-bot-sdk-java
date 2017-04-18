@@ -17,6 +17,7 @@
 package com.linecorp.bot.spring.boot.interceptor;
 
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,7 +52,7 @@ public class LineBotServerInterceptor implements HandlerInterceptor {
         for (MethodParameter methodParameter : methodParameters) {
             if (methodParameter.getParameterAnnotation(LineBotMessages.class) != null) {
                 try {
-                    CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(request);
+                    Map.Entry<String, CallbackRequest> callbackRequest = lineBotCallbackRequestParser.handle(request);
                     LineBotServerArgumentProcessor.setValue(request, callbackRequest);
                     return true;
                 } catch (LineBotCallbackException e) {

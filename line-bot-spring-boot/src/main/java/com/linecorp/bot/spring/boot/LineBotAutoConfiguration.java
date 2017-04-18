@@ -16,8 +16,10 @@
 
 package com.linecorp.bot.spring.boot;
 
-import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 
+import com.linecorp.bot.client.*;
+import com.linecorp.bot.spring.boot.custom.LineMessagingClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -26,15 +28,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.client.LineMessagingClientImpl;
-import com.linecorp.bot.client.LineMessagingService;
-import com.linecorp.bot.client.LineMessagingServiceBuilder;
-import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
 import com.linecorp.bot.spring.boot.interceptor.LineBotServerInterceptor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
 import com.linecorp.bot.spring.boot.support.LineMessageHandlerSupport;
+import org.springframework.util.StringUtils;
 
 @Configuration
 @AutoConfigureAfter(LineBotWebMvcConfigurer.class)
@@ -45,19 +43,31 @@ public class LineBotAutoConfiguration {
     private LineBotProperties lineBotProperties;
 
     @Bean
-    public LineMessagingService lineMessagingService() {
-        return LineMessagingServiceBuilder
-                .create(lineBotProperties.getChannelToken())
-                .apiEndPoint(lineBotProperties.getApiEndPoint())
-                .connectTimeout(lineBotProperties.getConnectTimeout())
-                .readTimeout(lineBotProperties.getReadTimeout())
-                .writeTimeout(lineBotProperties.getWriteTimeout())
-                .build();
+    public LineMessagingClient lineMessagingClient(final LineMessagingClientFactory lineMessagingClientFactory) {
+        return lineMessagingClientFactory.get(lineBotProperties.getChannelSecret());
     }
 
     @Bean
-    public LineMessagingClient lineMessagingClient(final LineMessagingService lineMessagingService) {
-        return new LineMessagingClientImpl(lineMessagingService);
+    public LineMessagingClientFactory lineMessagingClientFactory()
+    {
+        return new LineMessagingClientFactory(
+            lineBotProperties.getAllBotList().stream()
+                    .filter(bot -> !StringUtils.isEmpty(bot.getChannelSecret()))
+                    .reduce(new HashMap<String, LineMessagingClient>(), (map, bot) -> {
+                        map.put(bot.getChannelSecret(),
+                                new LineMessagingClientImpl(LineMessagingServiceBuilder
+                                    .create(bot.getChannelToken())
+                                    .apiEndPoint(bot.getApiEndPoint())
+                                    .connectTimeout(bot.getConnectTimeout())
+                                    .readTimeout(bot.getReadTimeout())
+                                    .writeTimeout(bot.getWriteTimeout())
+                                    .build()));
+                        return map;
+                    },
+                    (map1, map2) -> {
+                        map1.putAll(map2);
+                        return map1;
+                    }));
     }
 
     @Bean
@@ -75,8 +85,9 @@ public class LineBotAutoConfiguration {
     @Bean
     @ConditionalOnWebApplication
     public LineSignatureValidator lineSignatureValidator() {
-        return new LineSignatureValidator(
-                lineBotProperties.getChannelSecret().getBytes(StandardCharsets.US_ASCII));
+        return new LineSignatureValidator(lineBotProperties.getAllBotList().stream()
+                .filter(bot -> !StringUtils.isEmpty(bot.getChannelSecret()))
+                .map(bot -> bot.getChannelSecret()));
     }
 
     @Bean

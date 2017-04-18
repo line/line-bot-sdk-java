@@ -16,62 +16,32 @@
 
 package com.linecorp.bot.spring.boot;
 
-import java.net.URI;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
+import com.linecorp.bot.spring.boot.annotation.EventMapping;
+import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-import com.linecorp.bot.client.LineMessagingServiceBuilder;
-import com.linecorp.bot.spring.boot.annotation.EventMapping;
-import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
-
-import lombok.Data;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Validated
 @ConfigurationProperties(prefix = "line.bot")
-public class LineBotProperties {
-    /**
-     * Channel acccess token.
-     */
-    @Valid
-    @NotNull
-    private String channelToken;
+public class LineBotProperties extends BotInfo
+{
+    private List<BotInfo> list = new ArrayList<>();
 
-    /**
-     * Channel secret
-     */
-    @Valid
-    @NotNull
-    private String channelSecret;
-
-    @Valid
-    @NotNull
-    private String apiEndPoint = LineMessagingServiceBuilder.DEFAULT_API_END_POINT;
-
-    /**
-     * Connection timeout in milliseconds
-     */
-    @Valid
-    @NotNull
-    private long connectTimeout = LineMessagingServiceBuilder.DEFAULT_CONNECT_TIMEOUT;
-
-    /**
-     * Read timeout in milliseconds
-     */
-    @Valid
-    @NotNull
-    private long readTimeout = LineMessagingServiceBuilder.DEFAULT_READ_TIMEOUT;
-
-    /**
-     * Write timeout in milliseconds
-     */
-    @Valid
-    @NotNull
-    private long writeTimeout = LineMessagingServiceBuilder.DEFAULT_WRITE_TIMEOUT;
+    public List<BotInfo> getAllBotList()
+    {
+        List<BotInfo> cloneList = new ArrayList<>();
+        cloneList.add(this);
+        cloneList.addAll(list);
+        return cloneList;
+    }
 
     /**
      * Configuration for {@link LineMessageHandler} and {@link EventMapping}.

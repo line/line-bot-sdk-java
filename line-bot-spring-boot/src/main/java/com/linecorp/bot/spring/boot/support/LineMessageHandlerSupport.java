@@ -21,10 +21,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.annotations.Beta;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Ordering;
 
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -52,6 +53,8 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Dispatcher for LINE Message Event Handling.
@@ -75,8 +78,8 @@ import lombok.extern.slf4j.Slf4j;
 @Import(ReplyByReturnValueConsumer.Factory.class)
 @ConditionalOnProperty(name = "line.bot.handler.enabled", havingValue = "true", matchIfMissing = true)
 public class LineMessageHandlerSupport {
-    private static final Comparator<HandlerMethod> HANDLER_METHOD_PRIORITY_COMPARATOR =
-            Comparator.comparing(HandlerMethod::getPriority).reversed();
+    private static final Ordering<HandlerMethod> HANDLER_METHOD_PRIORITY_COMPARATOR =
+            Ordering.natural().onResultOf(HandlerMethod::getPriority).reverse();
     private final ReplyByReturnValueConsumer.Factory returnValueConsumerFactory;
     private final ConfigurableApplicationContext applicationContext;
 
@@ -127,16 +130,16 @@ public class LineMessageHandlerSupport {
             return null;
         }
 
-        Preconditions.checkState(method.getParameterCount() == 1,
-                                 "Number of parameter should be 1. But {}",
+        Preconditions.checkState(method.getParameterCount() == 2 || method.getParameterCount() == 1,
+                                 "Number of parameter should be 1 or 2. But {}",
                                  (Object[]) method.getParameterTypes());
         // TODO: Support more than 1 argument. Like MVC's argument resolver?
 
         final Type type = method.getGenericParameterTypes()[0];
 
-        final Predicate<Event> predicate = new EventPredicate(type);
+        final BiPredicate<Event, String> predicate = new EventPredicate(type, mapping.secretKey());
         return new HandlerMethod(predicate, consumer, method,
-                                 getPriority(mapping, type));
+                                 getPriority(mapping, type), method.getParameterCount());
     }
 
     private int getPriority(final EventMapping mapping, final Type type) {
@@ -163,21 +166,22 @@ public class LineMessageHandlerSupport {
 
     @Value
     static class HandlerMethod {
-        Predicate<Event> supportType;
+        BiPredicate<Event, String> supportType;
         Object object;
         Method handler;
         int priority;
+        int parameterCount;
     }
 
     @PostMapping("${line.bot.handler.path:/callback}")
-    public void callback(@LineBotMessages List<Event> events) {
-        events.forEach(this::dispatch);
+    public void callback(HttpServletRequest req, @LineBotMessages List<Event> events) {
+        events.forEach(event -> dispatch(event, (String)req.getAttribute(LineBotServerArgumentProcessor.SECRET_KEY)));
     }
 
     @VisibleForTesting
-    void dispatch(Event event) {
+    void dispatch(Event event, String secretKey) {
         try {
-            dispatchInternal(event);
+            dispatchInternal(event, secretKey);
         } catch (InvocationTargetException e) {
             log.trace("InvocationTargetException occurred.", e);
             log.error(e.getCause().getMessage(), e.getCause());
@@ -186,30 +190,32 @@ public class LineMessageHandlerSupport {
         }
     }
 
-    private void dispatchInternal(final Event event) throws Exception {
+    private void dispatchInternal(final Event event, final String secretKey) throws Exception {
         final HandlerMethod handlerMethod = eventConsumerList
                 .stream()
-                .filter(consumer -> consumer.getSupportType().test(event))
+                .filter(consumer -> consumer.getSupportType().test(event, secretKey))
                 .findFirst()
                 .orElseThrow(() -> new UnsupportedOperationException("Unsupported event type. " + event));
-        final Object returnValue = handlerMethod.getHandler().invoke(handlerMethod.getObject(), event);
+        final Object returnValue = handlerMethod.getHandler().invoke(handlerMethod.getObject(), handlerMethod.getParameterCount() == 1 ? new Object[]{ event } : new Object[]{ event, secretKey });
 
-        handleReturnValue(event, returnValue);
+        handleReturnValue(event, secretKey, returnValue);
     }
 
-    private void handleReturnValue(final Event event, final Object returnValue) {
+    private void handleReturnValue(final Event event, final String secretKey,  final Object returnValue) {
         if (returnValue != null) {
             returnValueConsumerFactory.createForEvent(event)
-                                      .accept(returnValue);
+                    .accept(secretKey, returnValue);
         }
     }
 
-    private static class EventPredicate implements Predicate<Event> {
+    private static class EventPredicate implements BiPredicate<Event, String> {
         private final Class<?> supportEvent;
         private final Class<? extends MessageContent> messageContentType;
+        private final String secretKey;
 
         @SuppressWarnings("unchecked")
-        EventPredicate(final Type mapping) {
+        EventPredicate(final Type mapping, final String secretKey) {
+            this.secretKey = secretKey;
             if (mapping == ReplyEvent.class) {
                 supportEvent = ReplyEvent.class;
                 messageContentType = null;
@@ -229,15 +235,15 @@ public class LineMessageHandlerSupport {
         }
 
         @Override
-        public boolean test(final Event event) {
+        public boolean test(final Event event, final String secretKey) {
             return supportEvent.isAssignableFrom(event.getClass())
                    && (messageContentType == null ||
                        event instanceof MessageEvent &&
-                       filterByType(messageContentType, ((MessageEvent<?>) event).getMessage()));
+                       filterByType(messageContentType, ((MessageEvent<?>) event).getMessage()))
+                   && ("".equals(this.secretKey) || this.secretKey.equals(secretKey));
         }
 
         private static boolean filterByType(final Class<?> clazz, final Object content) {
-
             return clazz.isAssignableFrom(content.getClass());
         }
 

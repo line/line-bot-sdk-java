@@ -29,9 +29,12 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 
+import java.util.Map;
+
 @Component
 public class LineBotServerArgumentProcessor implements HandlerMethodArgumentResolver {
     private static final String PROPERTY_NAME = "com.linecorp.bot.spring.callbackRequest";
+    public static final String SECRET_KEY = "secretkey";
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -45,7 +48,8 @@ public class LineBotServerArgumentProcessor implements HandlerMethodArgumentReso
         return webRequest.getAttribute(PROPERTY_NAME, RequestAttributes.SCOPE_REQUEST);
     }
 
-    public static void setValue(HttpServletRequest request, CallbackRequest callbackRequest) {
-        request.setAttribute(PROPERTY_NAME, callbackRequest.getEvents());
+    public static void setValue(HttpServletRequest request, Map.Entry<String, CallbackRequest> callbackRequest) {
+        request.setAttribute(PROPERTY_NAME, callbackRequest.getValue().getEvents());
+        request.setAttribute(SECRET_KEY, callbackRequest.getKey());
     }
 }

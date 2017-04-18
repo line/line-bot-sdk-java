@@ -16,6 +16,12 @@
 
 package com.example.bot.spring.echo;
 
+import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.event.message.LocationMessageContent;
+import com.linecorp.bot.model.message.LocationMessage;
+import com.linecorp.bot.spring.boot.custom.LineMessagingClientFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -29,18 +35,40 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 @SpringBootApplication
 @LineMessageHandler
 public class EchoApplication {
+    @Autowired
+    private LineMessagingClientFactory lineMessagingClientFactory;
+
+    @Autowired
+    private LineMessagingClient lineMessagingClient;
+
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
     }
 
-    @EventMapping
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+    @EventMapping(priority = 1, secretKey = "${your-channel-secret-1}")
+    public void handleTextMessageEvent1(MessageEvent<TextMessageContent> event, String secretKey) {
         System.out.println("event: " + event);
-        return new TextMessage(event.getMessage().getText());
+        System.out.println("secretKey: " + secretKey);
+        lineMessagingClientFactory.get(secretKey).pushMessage(new PushMessage(event.getSource().getUserId(), new TextMessage("test")));
+    }
+
+    @EventMapping(priority = 1, secretKey = "${your-channel-secret-2}")
+    public void handleTextMessageEvent2(MessageEvent<TextMessageContent> event) {
+        System.out.println("event: " + event);
+        System.out.println("secretKey: " + new Object(){}.getClass().getEnclosingMethod().getAnnotation(EventMapping.class).secretKey());
+        lineMessagingClient.pushMessage(new PushMessage(event.getSource().getUserId(), new TextMessage("test")));
     }
 
     @EventMapping
-    public void handleDefaultMessageEvent(Event event) {
+    public void handleLocationMessageEvent(MessageEvent<LocationMessageContent> event)
+    {
         System.out.println("event: " + event);
+        lineMessagingClient.pushMessage(new PushMessage(event.getSource().getUserId(), new TextMessage("test")));
+    }
+
+    @EventMapping
+    public void handleDefaultMessageEvent(Event event, String secretKey) {
+        System.out.println("event: " + event);
+        System.out.println("secretKey: " + secretKey);
     }
 }

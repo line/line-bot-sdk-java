@@ -16,10 +16,16 @@
 
 package com.linecorp.bot.client;
 
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.AbstractMap;
 import java.util.Base64;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -33,13 +39,16 @@ import lombok.ToString;
 @ToString
 public class LineSignatureValidator {
     private static final String HASH_ALGORITHM = "HmacSHA256";
-    private final SecretKeySpec secretKeySpec;
+    private final List<Map.Entry<String,SecretKeySpec>> secretKeySpecList;
 
     /**
      * Create new instance with channel secret.
      */
-    public LineSignatureValidator(byte[] channelSecret) {
-        this.secretKeySpec = new SecretKeySpec(channelSecret, HASH_ALGORITHM);
+    public LineSignatureValidator(Stream<String> channelSecretList)
+    {
+        this.secretKeySpecList = channelSecretList.map(item ->
+                new AbstractMap.SimpleEntry<String, SecretKeySpec>(item, new SecretKeySpec(item.getBytes(StandardCharsets.US_ASCII), HASH_ALGORITHM))
+        ).collect(Collectors.toList());
     }
 
     /**
@@ -49,10 +58,14 @@ public class LineSignatureValidator {
      * @param headerSignature Signature value from `X-LINE-Signature` HTTP header
      * @return True if headerSignature matches signature of the content. False otherwise.
      */
-    public boolean validateSignature(@NonNull byte[] content, @NonNull String headerSignature) {
-        final byte[] signature = generateSignature(content);
-        final byte[] decodeHeaderSignature = Base64.getDecoder().decode(headerSignature);
-        return MessageDigest.isEqual(decodeHeaderSignature, signature);
+    public String validateSignature(@NonNull byte[] content, @NonNull String headerSignature) {
+        Map.Entry<String, SecretKeySpec> secret = this.secretKeySpecList.stream().filter(entry -> {
+            SecretKeySpec secretKeySpec = entry.getValue();
+            final byte[] signature = generateSignature(content, secretKeySpec);
+            final byte[] decodeHeaderSignature = Base64.getDecoder().decode(headerSignature);
+            return MessageDigest.isEqual(decodeHeaderSignature, signature);
+        }).findFirst().orElseGet(null);
+        return secret != null ? secret.getKey() : null;
     }
 
     /**
@@ -61,7 +74,7 @@ public class LineSignatureValidator {
      * @param content Body of the http request.
      * @return generated signature value.
      */
-    public byte[] generateSignature(@NonNull byte[] content) {
+    public byte[] generateSignature(@NonNull byte[] content, @NonNull SecretKeySpec secretKeySpec) {
         try {
             Mac mac = Mac.getInstance(HASH_ALGORITHM);
             mac.init(secretKeySpec);

@@ -43,4 +43,6 @@ public @interface EventMapping {
      * Priority of this mapping. Bigger mapping is preferentially searched and matched.
      */
     int priority() default DEFAULT_PRIORITY_VALUE;
+
+    String secretKey() default "";
 }
