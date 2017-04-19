@@ -44,35 +44,9 @@ import lombok.SneakyThrows;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
-public class LineMessagingClientImplWiremockTest {
-    static {
-        SLF4JBridgeHandler.install();
-        SLF4JBridgeHandler.removeHandlersForRootLogger();
-    }
-
-    private static final ObjectWriter ERROR_RESPONSE_READER = new ObjectMapper().writerFor(ErrorResponse.class);
-    private static final int ASYNC_TEST_TIMEOUT = 1_000;
-
+public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
     @Rule
     public final ExpectedException expectedException = ExpectedException.none();
-
-    private MockWebServer mockWebServer;
-    private LineMessagingClient lineMessagingClient;
-
-    @Before
-    public void setUp() {
-        mockWebServer = new MockWebServer();
-        LineMessagingService lineMessagingService =
-                LineMessagingServiceBuilder.create("token")
-                                           .apiEndPoint("http://localhost:" + mockWebServer.getPort())
-                                           .build();
-        lineMessagingClient = new LineMessagingClientImpl(lineMessagingService);
-    }
-
-    @After
-    public void shutDown() throws Exception {
-        mockWebServer.shutdown();
-    }
 
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void status400BadRequestTest() throws Exception {
@@ -157,14 +131,6 @@ public class LineMessagingClientImplWiremockTest {
 
         // Do
         lineMessagingClient.getMessageContent("TOKEN").get();
-    }
-
-    @SneakyThrows
-    private void mocking(final int responseCode, final ErrorResponse errorResponse) {
-        mockWebServer
-                .enqueue(new MockResponse()
-                                 .setResponseCode(responseCode)
-                                 .setBody(ERROR_RESPONSE_READER.writeValueAsString(errorResponse)));
     }
 
     private CustomTypeSafeMatcher<LineMessagingException> errorResponseIs(final ErrorResponse errorResponse) {

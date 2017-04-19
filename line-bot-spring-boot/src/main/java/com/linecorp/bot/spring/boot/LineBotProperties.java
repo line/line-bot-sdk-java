@@ -25,6 +25,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
+import com.linecorp.bot.spring.boot.BotPropertiesValidator.ValidBotProperties;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
@@ -32,13 +33,22 @@ import lombok.Data;
 
 @Data
 @Validated
+@ValidBotProperties
 @ConfigurationProperties(prefix = "line.bot")
 public class LineBotProperties {
+    /**
+     * Channel token supply mode.
+     *
+     * @see ChannelTokenSupplyMode
+     */
+    @Valid
+    @NotNull
+    private ChannelTokenSupplyMode channelTokenSupplyMode = ChannelTokenSupplyMode.FIXED;
+
     /**
      * Channel acccess token.
      */
     @Valid
-    @NotNull
     private String channelToken;
 
     /**
@@ -94,5 +104,20 @@ public class LineBotProperties {
          */
         @NotNull
         URI path = URI.create("/callback");
+    }
+
+    enum ChannelTokenSupplyMode {
+        /**
+         * Use fixed channel token for public API user.
+         */
+        FIXED,
+
+        /**
+         * Supply channel token via channel token supplier for specific business partners.
+         *
+         * @see <a href="https://devdocs.line.me/#issue-channel-access-token"
+         * >//devdocs.line.me/#issue-channel-access-token</a>
+         */
+        SUPPLIER,
     }
 }

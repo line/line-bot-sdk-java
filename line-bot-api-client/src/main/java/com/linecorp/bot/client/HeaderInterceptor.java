@@ -18,21 +18,20 @@ package com.linecorp.bot.client;
 
 import java.io.IOException;
 
+import lombok.AllArgsConstructor;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
+@AllArgsConstructor(staticName = "forChannelTokenSupplier")
 class HeaderInterceptor implements Interceptor {
     private static final String USER_AGENT =
             "line-botsdk-java/" + HeaderInterceptor.class.getPackage().getImplementationVersion();
-    private final String channelToken;
-
-    HeaderInterceptor(String channelToken) {
-        this.channelToken = channelToken;
-    }
+    private final ChannelTokenSupplier channelTokenSupplier;
 
     @Override
     public Response intercept(Chain chain) throws IOException {
+        final String channelToken = channelTokenSupplier.get();
         Request request = chain.request().newBuilder()
                                .addHeader("Authorization", "Bearer " + channelToken)
                                .addHeader("User-Agent", USER_AGENT)

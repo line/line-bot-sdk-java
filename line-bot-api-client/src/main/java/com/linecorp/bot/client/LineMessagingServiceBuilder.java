@@ -51,10 +51,17 @@ public final class LineMessagingServiceBuilder {
     private Retrofit.Builder retrofitBuilder;
 
     /**
-     * Create a new {@link LineMessagingServiceBuilder} with specified channelToken.
+     * Create a new {@link LineMessagingServiceBuilder} with specified given fixed channelToken.
      */
-    public static LineMessagingServiceBuilder create(@NonNull String channelToken) {
-        return new LineMessagingServiceBuilder(defaultInterceptors(channelToken));
+    public static LineMessagingServiceBuilder create(@NonNull String fixedChannelToken) {
+        return create(FixedChannelTokenSupplier.of(fixedChannelToken));
+    }
+
+    /**
+     * Create a new {@link LineMessagingServiceBuilder} with specified {@link ChannelTokenSupplier}.
+     */
+    public static LineMessagingServiceBuilder create(@NonNull ChannelTokenSupplier channelTokenSupplier) {
+        return new LineMessagingServiceBuilder(defaultInterceptors(channelTokenSupplier));
     }
 
     private LineMessagingServiceBuilder(List<Interceptor> interceptors) {
@@ -151,14 +158,14 @@ public final class LineMessagingServiceBuilder {
         return retrofit.create(LineMessagingService.class);
     }
 
-    private static List<Interceptor> defaultInterceptors(String channelToken) {
+    private static List<Interceptor> defaultInterceptors(final ChannelTokenSupplier channelTokenSupplier) {
         final Logger slf4jLogger = LoggerFactory.getLogger("com.linecorp.bot.client.wire");
         final HttpLoggingInterceptor httpLoggingInterceptor =
                 new HttpLoggingInterceptor(message -> slf4jLogger.info("{}", message));
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         return Arrays.asList(
-                new HeaderInterceptor(channelToken),
+                HeaderInterceptor.forChannelTokenSupplier(channelTokenSupplier),
                 httpLoggingInterceptor
         );
     }
