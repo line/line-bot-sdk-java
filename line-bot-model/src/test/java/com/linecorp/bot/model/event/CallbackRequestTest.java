@@ -292,6 +292,36 @@ public class CallbackRequestTest {
                     .isEqualTo("374591320");
             assertThat(beaconEvent.getBeacon().getType())
                     .isEqualTo("enter");
+            assertThat(beaconEvent.getBeacon().getDeviceMessage())
+                    .isNull();
+            assertThat(beaconEvent.getBeacon().getDeviceMessageAsHex())
+                    .isNull();
+        });
+    }
+
+    @Test
+    public void testBeaconWithDeviceMessage() throws IOException {
+        parse("callback/beacon_with_dm.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(BeaconEvent.class);
+
+            BeaconEvent beaconEvent = (BeaconEvent) event;
+
+            assertThat(beaconEvent.getSource())
+                    .isInstanceOf(UserSource.class);
+            assertThat(beaconEvent.getSource().getUserId())
+                    .isEqualTo("U012345678901234567890123456789ab");
+            assertThat(beaconEvent.getTimestamp())
+                    .isEqualTo(Instant.parse("2017-04-24T00:00:00Z"));
+            assertThat(beaconEvent.getBeacon().getHwid())
+                    .isEqualTo("374591320");
+            assertThat(beaconEvent.getBeacon().getType())
+                    .isEqualTo("enter");
+            assertThat(beaconEvent.getBeacon().getDeviceMessage())
+                    .containsExactly(0x12, 0x34, 0x56, 0x78, 0x90, 0xab, 0xcd, 0xef);
+            assertThat(beaconEvent.getBeacon().getDeviceMessageAsHex())
+                    .isEqualTo("1234567890abcdef");
         });
     }
 
