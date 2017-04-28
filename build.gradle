@@ -134,7 +134,7 @@ subprojects {
     }
 
     compileJava {
-        options.compilerArgs << '-Xlint:all' << '-Xlint:-processing'
+        options.compilerArgs << '-Xlint:all' << '-Xlint:-processing' << '-parameters'
 
         if (!isDevBuild) {
             options.compilerArgs << '-Werror'
