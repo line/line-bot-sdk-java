@@ -91,6 +91,7 @@ subprojects {
             dependency 'com.squareup.retrofit2:retrofit:2.2.0'
             dependency 'org.assertj:assertj-core:3.6.2'
             dependency 'org.projectlombok:lombok:1.16.12'
+            dependency 'com.fasterxml.jackson.core:jackson-databind:2.8.8.1'
         }
     }
 
