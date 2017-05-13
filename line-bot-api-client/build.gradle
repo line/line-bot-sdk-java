@@ -18,8 +18,9 @@ dependencies {
     compile project(':line-bot-model')
     compile 'com.fasterxml.jackson.core:jackson-core'
     compile 'com.fasterxml.jackson.core:jackson-databind'
-    compile 'com.squareup.okhttp3:logging-interceptor'
-    compile 'com.squareup.retrofit2:converter-jackson'
-    compile 'com.squareup.retrofit2:retrofit'
     compile 'org.slf4j:slf4j-api'
+
+    implementation 'com.squareup.okhttp3:logging-interceptor'
+    implementation 'com.squareup.retrofit2:converter-jackson'
+    implementation 'com.squareup.retrofit2:retrofit'
 }
