@@ -129,6 +129,7 @@ public final class LineMessagingServiceBuilder {
      *
      * @deprecated use {@link #okHttpClientBuilder(OkHttpClient.Builder, boolean)} instead.
      */
+    @Deprecated
     public LineMessagingServiceBuilder okHttpClientBuilder(
             @NonNull final OkHttpClient.Builder okHttpClientBuilder) {
         return okHttpClientBuilder(okHttpClientBuilder, false);
