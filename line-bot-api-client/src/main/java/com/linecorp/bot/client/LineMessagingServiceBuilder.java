@@ -117,10 +117,36 @@ public final class LineMessagingServiceBuilder {
     }
 
     /**
-     * <p>If you want to use your own setting, specify {@link OkHttpClient.Builder} instance.</p>
+     * Remove all interceptors
      */
-    public LineMessagingServiceBuilder okHttpClientBuilder(@NonNull OkHttpClient.Builder okHttpClientBuilder) {
+    public LineMessagingServiceBuilder removeAllInterceptors() {
+        this.interceptors.clear();
+        return this;
+    }
+
+    /**
+     * <p>If you want to use your own setting, specify {@link OkHttpClient.Builder} instance.</p>
+     *
+     * @deprecated use {@link #okHttpClientBuilder(OkHttpClient.Builder, boolean)} instead.
+     */
+    public LineMessagingServiceBuilder okHttpClientBuilder(
+            @NonNull final OkHttpClient.Builder okHttpClientBuilder) {
+        return okHttpClientBuilder(okHttpClientBuilder, false);
+    }
+
+    /**
+     * <p>If you want to use your own setting, specify {@link OkHttpClient.Builder} instance.</p>
+     *
+     * @param resetDefaultInterceptors If true, all default okhttp interceptors ignored.
+     * You should insert authentication headers yourself.
+     */
+    public LineMessagingServiceBuilder okHttpClientBuilder(
+            @NonNull final OkHttpClient.Builder okHttpClientBuilder,
+            final boolean resetDefaultInterceptors) {
         this.okHttpClientBuilder = okHttpClientBuilder;
+        if (resetDefaultInterceptors) {
+            this.removeAllInterceptors();
+        }
         return this;
     }
 
@@ -140,12 +166,14 @@ public final class LineMessagingServiceBuilder {
     public LineMessagingService build() {
         if (okHttpClientBuilder == null) {
             okHttpClientBuilder = new OkHttpClient.Builder();
-            interceptors.forEach(okHttpClientBuilder::addInterceptor);
         }
+
+        interceptors.forEach(okHttpClientBuilder::addInterceptor);
         okHttpClientBuilder
                 .connectTimeout(connectTimeout, TimeUnit.MILLISECONDS)
                 .readTimeout(readTimeout, TimeUnit.MILLISECONDS)
                 .writeTimeout(writeTimeout, TimeUnit.MILLISECONDS);
+
         final OkHttpClient okHttpClient = okHttpClientBuilder.build();
 
         if (retrofitBuilder == null) {
