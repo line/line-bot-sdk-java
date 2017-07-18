@@ -81,9 +81,16 @@ import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.URI;
+
 @Slf4j
 @LineMessageHandler
 public class KitchenSinkController {
+	
+	
+	private static final String username = System.getenv("ITSC_LOGIN");
+
+	
     @Autowired
     private LineMessagingClient lineMessagingClient;
 
@@ -210,9 +217,9 @@ public class KitchenSinkController {
             throw new IllegalArgumentException("replyToken must not be empty");
         }
         if (message.length() > 1000) {
-            message = message.substring(0, 1000 - 2) + "……";
+            message = message.substring(0, 1000 - 2) + "â€¦â€¦";
         }
-        this.reply(replyToken, new TextMessage(message));
+        this.reply(replyToken, new TextMessage(username + " says " + message));
     }
 
     private void handleHeavyContent(String replyToken, String messageId,
@@ -298,12 +305,12 @@ public class KitchenSinkController {
                                 new URIAction("Go to line.me",
                                               "https://line.me"),
                                 new PostbackAction("Say hello1",
-                                                   "hello こんにちは"),
-                                new PostbackAction("言 hello2",
-                                                   "hello こんにちは",
-                                                   "hello こんにちは"),
+                                                   "hello ã�“ã‚“ã�«ã�¡ã�¯"),
+                                new PostbackAction("è¨€ hello2",
+                                                   "hello ã�“ã‚“ã�«ã�¡ã�¯",
+                                                   "hello ã�“ã‚“ã�«ã�¡ã�¯"),
                                 new MessageAction("Say message",
-                                                  "Rice=米")
+                                                  "Rice=ç±³")
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
                 this.reply(replyToken, templateMessage);
@@ -317,14 +324,14 @@ public class KitchenSinkController {
                                         new URIAction("Go to line.me",
                                                       "https://line.me"),
                                         new PostbackAction("Say hello1",
-                                                           "hello こんにちは")
+                                                           "hello ã�“ã‚“ã�«ã�¡ã�¯")
                                 )),
                                 new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
-                                        new PostbackAction("言 hello2",
-                                                           "hello こんにちは",
-                                                           "hello こんにちは"),
+                                        new PostbackAction("è¨€ hello2",
+                                                           "hello ã�“ã‚“ã�«ã�¡ã�¯",
+                                                           "hello ã�“ã‚“ã�«ã�¡ã�¯"),
                                         new MessageAction("Say message",
-                                                          "Rice=米")
+                                                          "Rice=ç±³")
                                 ))
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);

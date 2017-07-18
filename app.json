@@ -10,6 +10,10 @@
         "LINE_BOT_CHANNEL_SECRET": {
             "description": "LINE bot Channel secret from the Channel Console",
             "required":  true
+        },
+        "ITSC LOGIN": {
+            "description": "For Grading",
+            "required":  true
         }
     }
 }
