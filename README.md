@@ -1,3 +1,7 @@
+# 2017F COMP3111/3111H Software Engineering Project github 
+
+This is actually part of the course website of Hong Kong University of Science and Technology (HKUST) software enginnering course. 
+
 # The Messaging API SDK for Java
 
 [![Build Status](https://travis-ci.org/line/line-bot-sdk-java.svg?branch=master)](https://travis-ci.org/line/line-bot-sdk-java)
@@ -7,7 +11,19 @@
 
 ## What is this?
 
-This is a Java SDK for the LINE Messaging API.
+This is a repository forked from https://github.com/line/line-bot-sdk-java. You should use this as a starting point to complete your lab.
+
+## How should I read this?
+
+There are several folders in this repository labeled as [Lab 1], [Lab2], or [Project]. Click inside each folder and read the README.md file. This files specifics all the requirements. 
+
+Because this project requires quite a lot of unseen technologies you may need to learn them offline. There is a folder called [Tutorials] which contains some background information that you may want to read. Shall there be any problem in reading those documents, please consult the TA Kevin Wang via (khwang0).
+
+## How do I download it?
+
+If you are familiar with github, straight forward, just fork it.
+
+
 
 ## How do I install it?
 
