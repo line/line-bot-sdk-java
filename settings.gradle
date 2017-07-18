@@ -21,5 +21,5 @@ include 'line-bot-spring-boot'
 
 // samples
 include 'sample-spring-boot-kitchensink'
-include 'sample-spring-boot-echo'
+//include 'sample-spring-boot-echo'
 

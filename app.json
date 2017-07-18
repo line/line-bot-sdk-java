@@ -1,6 +1,6 @@
 {
-    "name": "echo bot - LINE Messaging API",
-    "description": "This is a sample application for the LINE Messaging API",
+    "name": "COMP3111 Lab 1 - Faulty Bot",
+    "description": "This is a simple but faulty application for the LINE Messaging API",
     "keywords": ["chatbot", "line", "java"],
     "env": {
         "LINE_BOT_CHANNEL_TOKEN": {

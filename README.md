@@ -99,7 +99,13 @@ This project respects semantic versioning.
 
 See http://semver.org/.
 
+
+
 ## FAQ
+
+### How to skip task in STS
+
+https://stackoverflow.com/questions/25145162/running-gradle-build-from-eclipse-without-test
 
 ### How do I use a proxy server?
 
