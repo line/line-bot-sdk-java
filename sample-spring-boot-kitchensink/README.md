@@ -1,23 +1,34 @@
-# sample-spring-boot-kitchensink
+## Deploy on Heroku
 
-## What is this?
+Deploy this module on Heroku.
 
-This is a full-featured sample application for the LINE Messaging API.
+### Step 1
 
-## Usage
+Get the Channel access token and Channel secret from the Channel Console.
 
-Run this sample bot using Gradle.
+<img src="https://github.com/khwang0/Line-chatbot-for-COMP3111/blob/master/sample-spring-boot-kitchensink/_assets/line-bot-configuration.png?raw=true">
 
-    ../gradlew bootRun -Dline.bot.channelToken=YOUR_CHANNEL_TOKEN \
-                       -Dline.bot.channelSecret=YOUR_CHANNEL_SECRET
+### Step 2
 
-or if you finished create `src/main/resources/application.yml` file based on `src/main/resources/application-template.yml`. You can start configured web server just hitting
+Tap the deploy button.
 
-    ../gradlew bootRun
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/khwang0/Line-chatbot-for-COMP3111)
 
- You need to pass the following options.
+### Step 3
 
-  * line.bot.channelToken: Your Channel access token
-  * line.bot.channelSecret: Your Channel secret
+Fill in the form and run your instance.
 
-For more information about configuration way, refer [Spring Boot Reference - 24. Externalized Configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html).
+<img src="https://github.com/line/line-bot-sdk-java/blob/master/sample-spring-boot-echo/_assets/heroku.png?raw=true">
+
+### Step 4
+
+Tap the **Manage App** button and copy the name of your Heroku instance.
+
+<img src="https://github.com/line/line-bot-sdk-java/blob/master/sample-spring-boot-echo/_assets/heroku-app-name.png?raw=true">
+
+### Step 5
+
+Set the webhook URL for your Channel on the Channel Console using the following URL:
+`https://${YOUR_HEROKU_APP_NAME}.herokuapp.com/callback`
+
+<img src="https://github.com/line/line-bot-sdk-java/blob/master/sample-spring-boot-echo/_assets/put-webhook-url.png?raw=true">
