@@ -86,13 +86,10 @@ import java.net.URI;
 @Slf4j
 @LineMessageHandler
 public class KitchenSinkController {
-	
-	
-	//private static final String username = System.getenv("ITSC_LOGIN");
 	private String username;
 	
 	public KitchenSinkController() {
-		username = "abc";
+		username = System.getenv("ITSC_LOGIN");
 	}
 	
     @Autowired
