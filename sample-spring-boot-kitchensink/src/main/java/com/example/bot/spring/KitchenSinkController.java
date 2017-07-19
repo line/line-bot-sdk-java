@@ -88,8 +88,12 @@ import java.net.URI;
 public class KitchenSinkController {
 	
 	
-	private static final String username = System.getenv("ITSC_LOGIN");
-
+	//private static final String username = System.getenv("ITSC_LOGIN");
+	private String username;
+	
+	public KitchenSinkController() {
+		username = "abc";
+	}
 	
     @Autowired
     private LineMessagingClient lineMessagingClient;
