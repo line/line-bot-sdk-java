@@ -87,6 +87,8 @@ import java.net.URI;
 @Slf4j
 @LineMessageHandler
 public class KitchenSinkController {
+	
+	//an inner class
 	class ProfileGetter implements BiConsumer<UserProfileResponse, Throwable> {
 		private KitchenSinkController ksc;
 		private String replyToken;
@@ -95,6 +97,7 @@ public class KitchenSinkController {
 			this.ksc = ksc;
 			this.replyToken = replyToken;
 		}
+		@Override
     	public void accept(UserProfileResponse profile, Throwable throwable) {
     		if (throwable != null) {
             	ksc.replyText(replyToken, throwable.getMessage());
@@ -110,11 +113,7 @@ public class KitchenSinkController {
     	}
     }
 	
-	private String itscLOGIN;
-
-	public KitchenSinkController() {
-		itscLOGIN = System.getenv("ITSC_LOGIN");
-	}
+	
 
 	@Autowired
 	private LineMessagingClient lineMessagingClient;
@@ -220,26 +219,11 @@ public class KitchenSinkController {
 			throw new IllegalArgumentException("replyToken must not be empty");
 		}
 		if (message.length() > 1000) {
-			message = message.substring(0, 1000 - 2) + "â€¦â€¦";
+			message = message.substring(0, 1000 - 2) + "..";
 		}
 		this.reply(replyToken, new TextMessage(message));
 	}
 
-	private void replyImageContent(String replyToken, String messageId) {
-
-	}
-	
-	private void handleHeavyContent(String replyToken, String messageId,
-			Consumer<MessageContentResponse> messageConsumer) {
-		final MessageContentResponse response;
-		try {
-			response = lineMessagingClient.getMessageContent(messageId).get();
-		} catch (InterruptedException | ExecutionException e) {
-			reply(replyToken, new TextMessage("Cannot get image: " + e.getMessage()));
-			throw new RuntimeException(e);
-		}
-		messageConsumer.accept(response);
-	}
 
 	private void handleSticker(String replyToken, StickerMessageContent content) {
 		reply(replyToken, new StickerMessage(content.getPackageId(), content.getStickerId()));
@@ -296,10 +280,16 @@ public class KitchenSinkController {
             }
 
             default:
-                log.info("Returns echo message {}: {}", replyToken, text);
+            	String reply = null;
+            	try {
+            		reply = database.search(text);
+            	} catch (Exception e) {
+            		reply = text;
+            	}
+                log.info("Returns echo message {}: {}", replyToken, reply);
                 this.replyText(
                         replyToken,
-                        itscLOGIN + " says " + text
+                        itscLOGIN + " says " + reply
                 );
                 break;
         }
@@ -343,6 +333,22 @@ public class KitchenSinkController {
 		return new DownloadedContent(tempFile, createUri("/downloaded/" + tempFile.getFileName()));
 	}
 
+
+	
+
+
+	public KitchenSinkController() {
+		database = new DatabaseEngine();
+		itscLOGIN = System.getenv("ITSC_LOGIN");
+	}
+
+	private DatabaseEngine database;
+	private String itscLOGIN;
+	
+
+	//The annontation @Value is from the package lombok.Value
+	//Basically what it does is to generate constructor and getter for the class below
+	//See https://projectlombok.org/features/Value
 	@Value
 	public static class DownloadedContent {
 		Path path;
