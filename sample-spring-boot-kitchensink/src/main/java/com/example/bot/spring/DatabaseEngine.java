@@ -3,6 +3,7 @@ package com.example.bot.spring;
 import java.util.Arrays;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,10 +13,16 @@ public class DatabaseEngine {
 		String result = null;
 		BufferedReader br = null;
 		FileReader fr = null;
+		InputStreamReader isr = null;
 		try {
-			fr = new FileReader(KitchenSinkController.createUri(FILENAME));
-   		    br = new BufferedReader(fr);
+			//fr = new FileReader(KitchenSinkController.createUri(dbFile));
+//			fr = new FileReader(FILENAME);
+//   		    br = new BufferedReader(fr);
+			isr = new InputStreamReader(
+                    this.getClass().getResourceAsStream(FILENAME));
+			br = new BufferedReader(isr);
 			String sCurrentLine;
+			
 			while (result != null && (sCurrentLine = br.readLine()) != null) {
 				String[] parts = sCurrentLine.split(":");
 				if (text.toLowerCase().equals(parts[0].toLowerCase())) {
@@ -28,8 +35,8 @@ public class DatabaseEngine {
 			try {
 				if (br != null)
 					br.close();
-				if (fr != null)
-					fr.close();
+				if (isr != null)
+					isr.close();
 			} catch (IOException ex) {
 				log.info("IOException while closing file: {}", ex.toString());
 			}
@@ -38,5 +45,12 @@ public class DatabaseEngine {
 			return result;
 		throw new Exception("NOT FOUND");
     }
+	
+	DatabaseEngine() {
+		 //Resource resource = resourceLoader.getResource("classpath:" + FILENAME);
+		 
+	}
+
 	private final String FILENAME = "/static/database.txt";
+
 }
