@@ -25,6 +25,7 @@ public class DatabaseEngine {
 			
 			while (result != null && (sCurrentLine = br.readLine()) != null) {
 				String[] parts = sCurrentLine.split(":");
+				log.info("Pair {} + {}", parts[0], parts[1]);
 				if (text.toLowerCase().equals(parts[0].toLowerCase())) {
 					result = parts[1];
 					log.info("Result Found");
