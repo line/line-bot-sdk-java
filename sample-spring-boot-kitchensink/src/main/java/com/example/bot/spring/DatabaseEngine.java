@@ -27,6 +27,7 @@ public class DatabaseEngine {
 				String[] parts = sCurrentLine.split(":");
 				if (text.toLowerCase().equals(parts[0].toLowerCase())) {
 					result = parts[1];
+					log.info("Result Found");
 				}
 			}
 		} catch (IOException e) {
@@ -43,6 +44,7 @@ public class DatabaseEngine {
 		}
 		if (result != null)
 			return result;
+		log.info("Result Not Found");
 		throw new Exception("NOT FOUND");
     }
 	
