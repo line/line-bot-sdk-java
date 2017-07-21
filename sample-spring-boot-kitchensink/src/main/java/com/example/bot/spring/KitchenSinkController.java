@@ -55,7 +55,6 @@ import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
-import com.linecorp.bot.model.event.message.VideoMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
@@ -67,7 +66,6 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.message.VideoMessage;
 import com.linecorp.bot.model.message.imagemap.ImagemapArea;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
 import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
@@ -112,10 +110,10 @@ public class KitchenSinkController {
     	}
     }
 	
-	private String username;
+	private String itscLOGIN;
 
 	public KitchenSinkController() {
-		username = System.getenv("ITSC_LOGIN");
+		itscLOGIN = System.getenv("ITSC_LOGIN");
 	}
 
 	@Autowired
@@ -141,32 +139,33 @@ public class KitchenSinkController {
 
 	@EventMapping
 	public void handleImageMessageEvent(MessageEvent<ImageMessageContent> event) throws IOException {
-		// You need to install ImageMagick
-		handleHeavyContent(event.getReplyToken(), event.getMessage().getId(), responseBody -> {
-			DownloadedContent jpg = saveContent("jpg", responseBody);
-//			DownloadedContent previewImg = createTempFile("jpg");
-//			system("convert", "-resize", "240x", jpg.path.toString(), previewImg.path.toString());
-			reply(((MessageEvent) event).getReplyToken(), new ImageMessage(jpg.getUri(), jpg.getUri()));
-		});
+		final MessageContentResponse response;
+		String replyToken = event.getReplyToken();
+		String messageId = event.getMessage().getId();
+		try {
+			response = lineMessagingClient.getMessageContent(messageId).get();
+		} catch (InterruptedException | ExecutionException e) {
+			reply(replyToken, new TextMessage("Cannot get image: " + e.getMessage()));
+			throw new RuntimeException(e);
+		}
+		DownloadedContent jpg = saveContent("jpg", response);
+		reply(((MessageEvent) event).getReplyToken(), new ImageMessage(jpg.getUri(), jpg.getUri()));
+
 	}
 
 	@EventMapping
 	public void handleAudioMessageEvent(MessageEvent<AudioMessageContent> event) throws IOException {
-		handleHeavyContent(event.getReplyToken(), event.getMessage().getId(), responseBody -> {
-			DownloadedContent mp4 = saveContent("mp4", responseBody);
-			reply(event.getReplyToken(), new AudioMessage(mp4.getUri(), 100));
-		});
-	}
-
-	@EventMapping
-	public void handleVideoMessageEvent(MessageEvent<VideoMessageContent> event) throws IOException {
-		// You need to install ffmpeg and ImageMagick.
-		handleHeavyContent(event.getReplyToken(), event.getMessage().getId(), responseBody -> {
-			DownloadedContent mp4 = saveContent("mp4", responseBody);
-			DownloadedContent previewImg = createTempFile("jpg");
-			system("convert", mp4.path + "[0]", previewImg.path.toString());
-			reply(((MessageEvent) event).getReplyToken(), new VideoMessage(mp4.getUri(), previewImg.uri));
-		});
+		final MessageContentResponse response;
+		String replyToken = event.getReplyToken();
+		String messageId = event.getMessage().getId();
+		try {
+			response = lineMessagingClient.getMessageContent(messageId).get();
+		} catch (InterruptedException | ExecutionException e) {
+			reply(replyToken, new TextMessage("Cannot get image: " + e.getMessage()));
+			throw new RuntimeException(e);
+		}
+		DownloadedContent mp4 = saveContent("mp4", response);
+		reply(event.getReplyToken(), new AudioMessage(mp4.getUri(), 100));
 	}
 
 	@EventMapping
@@ -226,6 +225,10 @@ public class KitchenSinkController {
 		this.reply(replyToken, new TextMessage(message));
 	}
 
+	private void replyImageContent(String replyToken, String messageId) {
+
+	}
+	
 	private void handleHeavyContent(String replyToken, String messageId,
 			Consumer<MessageContentResponse> messageConsumer) {
 		final MessageContentResponse response;
@@ -296,7 +299,7 @@ public class KitchenSinkController {
                 log.info("Returns echo message {}: {}", replyToken, text);
                 this.replyText(
                         replyToken,
-                        username + " says " + text
+                        itscLOGIN + " says " + text
                 );
                 break;
         }
