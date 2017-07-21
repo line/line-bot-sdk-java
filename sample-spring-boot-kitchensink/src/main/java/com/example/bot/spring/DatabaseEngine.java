@@ -23,7 +23,7 @@ public class DatabaseEngine {
 			br = new BufferedReader(isr);
 			String sCurrentLine;
 			
-			while (result != null && (sCurrentLine = br.readLine()) != null) {
+			while (result == null && (sCurrentLine = br.readLine()) != null) {
 				String[] parts = sCurrentLine.split(":");
 				log.info("Pair {} + {}", parts[0], parts[1]);
 				if (text.toLowerCase().equals(parts[0].toLowerCase())) {
