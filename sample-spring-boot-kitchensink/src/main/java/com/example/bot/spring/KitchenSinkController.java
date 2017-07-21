@@ -295,7 +295,7 @@ public class KitchenSinkController {
         }
     }
 
-	private static String createUri(String path) {
+	static String createUri(String path) {
 		return ServletUriComponentsBuilder.fromCurrentContextPath().path(path).build().toUriString();
 	}
 

@@ -13,7 +13,7 @@ public class DatabaseEngine {
 		BufferedReader br = null;
 		FileReader fr = null;
 		try {
-			fr = new FileReader(FILENAME);
+			fr = new FileReader(KitchenSinkController.createUri(FILENAME));
    		    br = new BufferedReader(fr);
 			String sCurrentLine;
 			while (result != null && (sCurrentLine = br.readLine()) != null) {
