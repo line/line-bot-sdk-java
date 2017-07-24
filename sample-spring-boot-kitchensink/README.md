@@ -20,7 +20,7 @@ Tap the deploy button.
 
 Fill in the form and run your instance.
 
-<img src="../docs/img/labs/deploy.png">
+<img src="../docs/img/lab1/deploy.png">
 
 ### Step 4
 
