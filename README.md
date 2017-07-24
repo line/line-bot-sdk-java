@@ -13,9 +13,19 @@ This is actually part of the course website of Hong Kong University of Science a
 
 This is a repository forked from https://github.com/line/line-bot-sdk-java. You should use this as a starting point to complete your lab.
 
+
+# Labs Schedule
+
+| Lab | Week | Topic | Type |
+|-----|------|-------|------|
+| 1   | 1-2  | [Chatbot Deployment](./lab1.md) |  Individual |
+| 2   | 3    | [Fixing a bug](./lab2.md)       |  Individual |
+| 3   | 4    | [Building a database](./lab3.md)|  Group      |
+
+
 ## How should I read this?
 
-There are several folders in this repository labeled as [Lab 1], [Lab2], or [Project]. Click inside each folder and read the README.md file. This files specifics all the requirements. 
+There are several folders in this repository labeled as [Lab 1](./lab1), [Lab2], or [Project]. Click inside each folder and read the README.md file. This files specifics all the requirements. 
 
 Because this project requires quite a lot of unseen technologies you may need to learn them offline. There is a folder called [Tutorials] which contains some background information that you may want to read. Shall there be any problem in reading those documents, please consult the TA Kevin Wang via (khwang0).
 

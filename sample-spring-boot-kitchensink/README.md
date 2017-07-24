@@ -1,3 +1,5 @@
+# The Messaging API SDK for Java
+
 ## Deploy on Heroku
 
 Deploy this module on Heroku.
@@ -18,7 +20,7 @@ Tap the deploy button.
 
 Fill in the form and run your instance.
 
-<img src="https://github.com/line/line-bot-sdk-java/blob/master/sample-spring-boot-echo/_assets/heroku.png?raw=true">
+<img src="../docs/img/labs/deploy.png">
 
 ### Step 4
 

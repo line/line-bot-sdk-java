@@ -88,38 +88,16 @@ import java.net.URI;
 @LineMessageHandler
 public class KitchenSinkController {
 	
-	//an inner class
-	class ProfileGetter implements BiConsumer<UserProfileResponse, Throwable> {
-		private KitchenSinkController ksc;
-		private String replyToken;
-		
-		public ProfileGetter(KitchenSinkController ksc, String replyToken) {
-			this.ksc = ksc;
-			this.replyToken = replyToken;
-		}
-		@Override
-    	public void accept(UserProfileResponse profile, Throwable throwable) {
-    		if (throwable != null) {
-            	ksc.replyText(replyToken, throwable.getMessage());
-            	return;
-        	}
-        	ksc.reply(
-                	replyToken,
-                	Arrays.asList(new TextMessage(
-                		"Display name: " + profile.getDisplayName()),
-                              	new TextMessage("Status message: "
-                            		  + profile.getStatusMessage()))
-        	);
-    	}
-    }
-	
-	
+
 
 	@Autowired
 	private LineMessagingClient lineMessagingClient;
 
 	@EventMapping
 	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+		log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		log.info("This is your entry point:");
+		log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		TextMessageContent message = event.getMessage();
 		handleTextContent(event.getReplyToken(), event, message);
 	}
@@ -354,4 +332,33 @@ public class KitchenSinkController {
 		Path path;
 		String uri;
 	}
+
+
+	//an inner class that gets the user profile and status message
+	class ProfileGetter implements BiConsumer<UserProfileResponse, Throwable> {
+		private KitchenSinkController ksc;
+		private String replyToken;
+		
+		public ProfileGetter(KitchenSinkController ksc, String replyToken) {
+			this.ksc = ksc;
+			this.replyToken = replyToken;
+		}
+		@Override
+    	public void accept(UserProfileResponse profile, Throwable throwable) {
+    		if (throwable != null) {
+            	ksc.replyText(replyToken, throwable.getMessage());
+            	return;
+        	}
+        	ksc.reply(
+                	replyToken,
+                	Arrays.asList(new TextMessage(
+                		"Display name: " + profile.getDisplayName()),
+                              	new TextMessage("Status message: "
+                            		  + profile.getStatusMessage()))
+        	);
+    	}
+    }
+	
+	
+
 }

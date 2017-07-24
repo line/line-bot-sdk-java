@@ -2,33 +2,42 @@ package com.example.bot.spring;
 
 import java.util.Arrays;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
+
+////
+// The following code contains a bug in it. You need to fix it in Lab 2 in 
+// order to make it work.
+// After you fix the code, the bot should be able to response based on 
+// database.txt located in 
+// sample-spring-boot-kitchensink/resources/static/database.txt.
+//
+// This file contains a few lines with the format <input>:<output>.
+// The program below wish to perform an exact word match the input text
+// against the <input> against each line. The bot should replys 
+// "XXX says <output>"
+// For instance, if the client sends "abc", the bot should reply 
+// "kevinw says def" 
+// If you registered your ITSC login as kevinw.
+////
 
 @Slf4j
 public class DatabaseEngine {
 	String search(String text) throws Exception {
 		String result = null;
 		BufferedReader br = null;
-		FileReader fr = null;
 		InputStreamReader isr = null;
 		try {
-			//fr = new FileReader(KitchenSinkController.createUri(dbFile));
-//			fr = new FileReader(FILENAME);
-//   		    br = new BufferedReader(fr);
 			isr = new InputStreamReader(
                     this.getClass().getResourceAsStream(FILENAME));
 			br = new BufferedReader(isr);
 			String sCurrentLine;
 			
-			while (result == null && (sCurrentLine = br.readLine()) != null) {
+			while (result != null && (sCurrentLine = br.readLine()) != null) {
 				String[] parts = sCurrentLine.split(":");
-				log.info("Pair {} + {}", parts[0], parts[1]);
 				if (text.toLowerCase().equals(parts[0].toLowerCase())) {
 					result = parts[1];
-					log.info("Result Found");
 				}
 			}
 		} catch (IOException e) {
@@ -45,15 +54,9 @@ public class DatabaseEngine {
 		}
 		if (result != null)
 			return result;
-		log.info("Result Not Found");
 		throw new Exception("NOT FOUND");
     }
 	
-	DatabaseEngine() {
-		 //Resource resource = resourceLoader.getResource("classpath:" + FILENAME);
-		 
-	}
-
 	private final String FILENAME = "/static/database.txt";
 
 }
