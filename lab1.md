@@ -2,9 +2,9 @@
 
 ## Mission
 
--Deploy the chatbot on heroku 
--Test the chatbot with your account
--Trace some source code and answer the questions in demo section
+* Deploy the chatbot on heroku 
+* Test the chatbot with your account
+* Trace some source code and answer the questions in demo section
 
 ## Things to read prior to the lab
 
