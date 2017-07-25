@@ -135,36 +135,36 @@ public class IntegrationTest {
                .andExpect(content().string(containsString("Missing 'X-Line-Signature' header")));
     }
 
-    @Test
-    public void validCallbackTest() throws Exception {
-        server.enqueue(new MockResponse().setBody("{}"));
-        server.enqueue(new MockResponse().setBody("{}"));
-
-        String signature = "ECezgIpQNUEp4OSHYd7xGSuFG7e66MLPkCkK1Y28XTU=";
-
-        InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
-        byte[] json = ByteStreams.toByteArray(resource);
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/callback")
-                                              .header("X-Line-Signature", signature)
-                                              .content(json))
-               .andDo(print())
-               .andExpect(status().isOk());
-
-        // Test request 1
-        RecordedRequest request1 = server.takeRequest(3, TimeUnit.SECONDS);
-        assertThat(request1.getPath()).isEqualTo("/v2/bot/message/reply");
-        assertThat(request1.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
-        assertThat(request1.getBody().readUtf8())
-                .isEqualTo(
-                        "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"Hello, world\"}]}");
-
-        // Test request 2
-        RecordedRequest request2 = server.takeRequest(3, TimeUnit.SECONDS);
-        assertThat(request2.getPath()).isEqualTo("/v2/bot/message/reply");
-        assertThat(request2.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
-        assertThat(request2.getBody().readUtf8())
-                .isEqualTo(
-                        "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"follow\"}]}");
-    }
+//    @Test
+//    public void validCallbackTest() throws Exception {
+//        server.enqueue(new MockResponse().setBody("{}"));
+//        server.enqueue(new MockResponse().setBody("{}"));
+//
+//        String signature = "ECezgIpQNUEp4OSHYd7xGSuFG7e66MLPkCkK1Y28XTU=";
+//
+//        InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
+//        byte[] json = ByteStreams.toByteArray(resource);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.post("/callback")
+//                                              .header("X-Line-Signature", signature)
+//                                              .content(json))
+//               .andDo(print())
+//               .andExpect(status().isOk());
+//
+//        // Test request 1
+//        RecordedRequest request1 = server.takeRequest(3, TimeUnit.SECONDS);
+//        assertThat(request1.getPath()).isEqualTo("/v2/bot/message/reply");
+//        assertThat(request1.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
+//        assertThat(request1.getBody().readUtf8())
+//                .isEqualTo(
+//                        "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"Hello, world\"}]}");
+//
+//        // Test request 2
+//        RecordedRequest request2 = server.takeRequest(3, TimeUnit.SECONDS);
+//        assertThat(request2.getPath()).isEqualTo("/v2/bot/message/reply");
+//        assertThat(request2.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
+//        assertThat(request2.getBody().readUtf8())
+//                .isEqualTo(
+//                        "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"follow\"}]}");
+//    }
 }
