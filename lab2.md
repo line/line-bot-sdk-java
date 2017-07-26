@@ -65,11 +65,28 @@ gradlew build
 
 ## Upload to your Heroku
 
+For some reasons it takes some extra effort to login to heroku with command line. Before you can upload or even communicate with heroku, do the following with your heroku CLI. At lab, you can use `L:\apps\comp3111\heroku\bin\heroku.exe` 
+to replace the command heroku below
+
+```
+> heroku login
+# it prompts for username and password
+# ...
+
+> heroku auth:token
+850xxxxb-bxx3-4xx5-axx6-xxxxxxxxxx83
+```
+
+Next, when you are prompted with username and password again, type the word `blank` in the username and paste the token obtained from `heroku auth:token` in the password.
+
 You need to associate your git folder to the Heroku project repository created in Lab 1. Assume your Heroku project website is `https://git.heroku.com/red-waters-31111.git`. In your git folder type
 ```
 git remote add heroku https://git.heroku.com/red-waters-31111.git
 ```
 This will add an remote repository to your git folder.
+
+
+
 
 You are doing debugging and testing at the moment, you don't want to corrupt the project. Thus, you should also create a branch `test` by
 ```
