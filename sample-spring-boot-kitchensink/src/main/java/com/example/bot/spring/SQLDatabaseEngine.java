@@ -18,9 +18,6 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	
 	private Connection getConnection() throws URISyntaxException, SQLException {
 		Connection connection;
-
-		
-		log.info ("System.getenv() : {}", System.getenv("DATABASE_URL"));
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
 		String username = dbUri.getUserInfo().split(":")[0];
