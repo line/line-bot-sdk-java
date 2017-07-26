@@ -19,87 +19,100 @@
 
 In this rather inefficient and insecure to use a static file to maintain your keywords and responses. A better way to do it is to employ a database system. Before going to this lab, you need to read the offline tutorial about database and install suitable software on your machine.
 
-
-## Registration
-
-You need a github account.
+In this lab you are going to add a PostgreSQL database to your chatbot. The database is also hosted on heroku (technically it is hosted somewhere else but you don't need to worry about it). You will be using command line tools to create a database table and insert data. You should create a class inherit `DatabaseEngine` that connects to the PostgreSQL database and do the searching. 
 
 ## Installation
 
-You are recommended to install the following software in your machine. They are also avaliable at the lab machine. For `Heroku CLI`, `Eclipse STS with Buildship 2.0` are stored at `L:\apps\comp3111`.
+You are recommended to install the following software in your machine. This is available at lab `L:\apps\comp3111\pgsql\bin`.
 
-* [Java SDK 1.8 64-bits](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-* [Eclipse STS 3.9.0 or above](https://spring.io/tools/sts/all) -- On Windows the executable is located at `sts-bundle\sts-3.9.0.RELEASE\STS.exe`
-* [Gradle (STS) 3.8.x+1.0.x](https://marketplace.eclipse.org/content/gradle-ide-pack) -- You should install this in Eclipse STS by clicking `Help` -> `Eclipse Marketplace..` -> Type `Gradle IDE Pack` in the search box and install. You need to reboot your STS after install. 
-* [git command line tools (Latest)] (https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) -- build in on macOS and most Linux Distribution
-* [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+* [PostgreSQL Client 9.5.7 or above](https://www.postgresql.org/download/)
 
-## Cloning the repository and Starts Eclipse STS
+> Note: we are not running PostgreSQL server in our machine but you need a command line client to access the database. You may try some third party psql clients but we have not tested it.
 
-You need to fork the git project from our github webpage. Then you need to clone the project in your local repository. 
-**Do not clone our project directly or you would not be able to save your work on github.** Open a terminal and type
+> To test if your installation is complete, type `psql` in terminal.
+
+
+## Creating a database on heroku
+
+Follow the steps below to create a PostgreSQL on heroku.
+
+1. Go to [heroku dashboard](https://dashboard.heroku.com/) and select your app. 
+2. Click Resource and search for `Heroku Postgres`.
+
+![Create DB](docs/img/lab3/addDB.png)
+
+3. Click to add a `Heroku Postgres` data resource. Please be reminded to select a free plan.
+4. Try to locate your newly added data resource on the webpage and select `View Credential`.
+
+![Credential](docs/img/lab3/viewCredential.png)
+
+5. You should find the details of your credential
+
+
+![Credential](docs/img/lab3/credential.png)
+
+You will need your `URI` and `Heroku CLI` later.
+
+After these steps, you have already created a Database and registered a user and password already. Referring to the offline tutorial, you have completed Section 3 already.
+
+
+
+
+## Operating the database in command line mode.
+
+Open your terminal and paste the `Heroku CLI` you have copied previously. This will command the Heroku to connect to the database. You need to install the `Heroku CLI` to do it (avaliable on L:\apps\comp3111\heroku\bin).
 ```
-git clone https://github.com/YOUR_GITHUB_ID/Line-chatbot-for-COMP3111 
-```
-
-
-Follow the steps below to open your project.
-
-1. Launch `Eclipse STS`
-2. Select a workspace which is preferable the parent directory of where your github project is located.
-3. Click `File` from the menu -> `Open Projects from File System..` and a dialog titled `Import Projects from File System or Archive` will be prompted.
-4. Click `Directory` and select your project folder cloned from github and click `Finish`.
-5. In the `Package Explorer` panel or `Project Explorer` panel you shall see some projects, with errors. Right click and select `Configure` -> `Convert to Gradle (STS) Project`. The errors should go away. 
-6. Right click the project in `Package Explorer` panal or `Project Explorer` panel and select `Gradle (STS)` -> `Task Quick Launcher`, type `build` and press enter. This will build and test your project locally.
-
-> In case you cannot see Package Explorer or Project Explorer, you can find it from `View` of the menu.
-
-### Contingency
-
-In case you can't start the Eclipse STS or can't use it to compile the project, you can read and edit the java file using any editor (e.g. notepad). Then you can compile your code locally using the following command in the terminal.
-
-```
-gradlew build 
-```
-
-## Upload to your Heroku
-
-You need to associate your git folder to the Heroku project repository created in Lab 1. Assume your Heroku project website is `https://git.heroku.com/red-waters-31111.git`. In your git folder type
-```
-git remote add heroku https://git.heroku.com/red-waters-31111.git
-```
-This will add an remote repository to your git folder.
-
-You are doing debugging and testing at the moment, you don't want to corrupt the project. Thus, you should also create a branch `test` by
-```
-git checkout -b test
+# Replace the xxxxx with your Heroku CLI
+L:\apps\comp3111\heroku\bin\heroku pg:psql postgresql-xxxxxxx-xxxxx --app xxxxx-xxxxx-xxxxxx 
 ```
 
-After you have fixed the Java bug and you want to test it on heroku, type
+> :exclamation: Contingency: in case the Heroku CLI does not work, you can use the URI to connect directly with your psql.
+> ``` psql YOUR_URI  ```
+
+
+Referring the instruction in the offline tutorial to create a table and insert at least 5 pairs of keyword-response records.
+
+
+## Working with your BOT
+
+It is very similar to Section 5 of the offline tutorial that you need to create a Connection, a PreparedStatement, execute the query, and obtain the result. The file `SQLDatabaseEngine.java` is a skeleton code that contains the private method `Connection getConnection()`. With that you can construct your `String search(String)` method.
+
+## Unit Test
+
+Of course you need to perform Unit Test on your SQLDatabaseEngine. Edit the file `KitchenSinkTester.java` and replace the following line as below. It is to inform the Tester to test SQLDatabaseEngine instead.
 ```
-git commit -am "Test #1"    
-git push -f heroku test:master # this means push your test branch on your local repository to heroku:master
+//@SpringBootTest(classes = { KitchenSinkTester.class, DatabaseEngine.class })
+@SpringBootTest(classes = { KitchenSinkTester.class, SQLDatabaseEngine.class })
 ```
 
-Heroku will build the project automatically. You are advised to look at your app Log on Heroku web site. Test your bot using the LINE client.
+When you deploy the code on heroku, the `URI` can be obtained from the environment variable `DATABASE_URL`. When you perform local test you need to specify the `URI` in your environment variable in your gradle configuration file. Gradle is a dependence management software like makefile, but it is more advanced. Open `sample-spring-boot-kitchensink/build.gradle` in your Eclipse STS. you should see something like
 
-When you are all done so that your local branch test contain a good copy, you need to merge it with the master
 ```
-git checkout master
-git merge test
-git push -f origin master # push this to github
-```
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    compile project(':line-bot-spring-boot')
+    compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
+}
+
+test {
+    environment "DATABASE_URL", "PUT_YOUR_URI_HERE" 
+}
+``` 
+
+The first line says this project is a spring boot project where our project is building on this framework. The dependencies block specifies that the line-bot-spring-boot project needs to be built in order to build this KitchenSink. Also it requires the package `postgresql` with a specific version. During the compliation gradle will download the postgresql package from a public repository. The test block states that when the task `test` is execute, it sets the environment variable "DATABASE_URL" as your URI. You need to paste the URI you copied from web earlier to here. 
 
 
 # TODO Tasks and Demo
 
-1. You need to fix the Java bug as mentioned above.
-2. Test your code locally that generates no error.
-3. Deploy your repository to heroku.
+1. Create a database on heroku and insert data into it.
+2. Complete the SQLDatabaseEngine so that it responses like Lab 2 except the result is stated in the database. (For COMP3111H student partial match should be implemented.)
+3. Test SQLDatabaseEngine locally and pass all test cases.
+
 
 ## For COMP3111H student
 
-4. **Partial Match:** You should modify the program so that the text containing a keyword would be considered as a match. For instance, `Do you know what comes after abc?` should replies `kevinw says def`. In case a sentence contains more than one keywords, do what ever you want.
+4. Store the number of hits of keyword into the Database. Append this number in your response.
 
 After you have completed this task, raise your hand and demo it to your TA. Please understand that there are so many students in the room and we have limited manpower. Pick a seat closer to the screen to have an earlier demo.
 

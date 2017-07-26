@@ -18,4 +18,9 @@ apply plugin: 'org.springframework.boot'
 
 dependencies {
     compile project(':line-bot-spring-boot')
+    compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
+}
+
+test {
+    environment "DATABASE_URL", "PUT YOUR URI HERE" 
 }
