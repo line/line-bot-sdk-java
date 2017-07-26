@@ -9,7 +9,7 @@
 ## Things to read prior to the lab
 
 1. Offline-tutorial 1: Using Github
-2. Offline-tutorial 2: Introduction to Java
+2. Offline-tutorial 2: Conversion from C++ to Java
 
 ## Description
 

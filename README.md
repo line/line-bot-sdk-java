@@ -19,8 +19,8 @@ This is a repository forked from https://github.com/line/line-bot-sdk-java. You 
 | Lab | Week | Topic | Type |
 |-----|------|-------|------|
 | 1   | 1-2  | [Chatbot Deployment](./lab1.md) |  Individual |
-| 2   | 3    | [Fixing a bug](./lab2.md)       |  Individual |
-| 3   | 4    | [Building a database](./lab3.md)|  Group      |
+| 2   | 3    | [Chatbot with static file Database](./lab2.md)       |  Individual |
+| 3   | 4    | [Chatbot with SQL Database](./lab3.md)|  Group      |
 
 
 ## How should I read this?

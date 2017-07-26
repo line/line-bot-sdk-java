@@ -1,25 +1,24 @@
-# Lab 2 - Chatbot with static file Database
+# Lab 3 - Chatbot with SQL Database
 
 ## Mission
 
-* Manipulate two repositories using git.
-* Fix the bug in DatabaseEngine.java.
-* Add a new feature to your bot.
-* Test your code locally using Eclipse STS.
-* Deploy your code onto Heroku using command line git.
+* Creating a database on heroku.
+* Accessing the database locally.
+* Accessing the database on heroku.
+* Create a unit test for your database Engine.
+* Make your bot connected to the Database.
+
 
 ## Things to read prior to the lab
 
 1. Offline-tutorial 1: Using Github
 2. Offline-tutorial 2: Conversion from C++ to Java
+3. Offline-tutorial 3: A Brief Introduction to DBMS and PostgreSQL
 
 ## Description
 
-In this lab you will taste how to develop a Java program on a server by bug fixing. We have purposely injected a bug into the `DatabaseEngine.java`. Follow the guideline below and fix the bug so that the bot will response a customed text to a pre-defined input. The input-response definition is stored in a static file `/sample-spring-boot-kitchensink/resources/static/database.txt`. 
+In this rather inefficient and insecure to use a static file to maintain your keywords and responses. A better way to do it is to employ a database system. Before going to this lab, you need to read the offline tutorial about database and install suitable software on your machine.
 
-During the debugging process, you will be using Eclipse STS to compile the code locally so that it is syntax-error free. After then you will deploy it on Heroku and try it with your line client.
-
-Despite you may not have forked and cloned the project after completing Lab 1, it is required to do it as you are going to make changes. Besides, you are working on two remote repositories (git / heroku) at the same time.
 
 ## Registration
 
@@ -96,13 +95,11 @@ git push -f origin master # push this to github
 
 1. You need to fix the Java bug as mentioned above.
 2. Test your code locally that generates no error.
-3. Follow the code in KitchenSinkTester.java create another test case.
-4. Deploy your repository to heroku.
+3. Deploy your repository to heroku.
 
 ## For COMP3111H student
 
-5. **Partial Match:** You should modify the program so that the text containing a keyword would be considered as a match. For instance, `Do you know what comes after abc?` should replies `kevinw says def`. In case a sentence contains more than one keywords, do what ever you want.
-6. Create a test case for this feature.
+4. **Partial Match:** You should modify the program so that the text containing a keyword would be considered as a match. For instance, `Do you know what comes after abc?` should replies `kevinw says def`. In case a sentence contains more than one keywords, do what ever you want.
 
 After you have completed this task, raise your hand and demo it to your TA. Please understand that there are so many students in the room and we have limited manpower. Pick a seat closer to the screen to have an earlier demo.
 
