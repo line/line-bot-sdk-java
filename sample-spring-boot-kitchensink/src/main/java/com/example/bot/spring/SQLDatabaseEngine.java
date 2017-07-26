@@ -12,7 +12,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	@Override
 	String search(String text) throws Exception {
 		//Write your code here
-
+		return NULL;
 	}
 	
 	

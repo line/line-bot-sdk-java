@@ -75,7 +75,9 @@ Referring the instruction in the offline tutorial to create a table and insert a
 
 ## Working with your BOT
 
-It is very similar to Section 5 of the offline tutorial that you need to create a Connection, a PreparedStatement, execute the query, and obtain the result. The file `SQLDatabaseEngine.java` is a skeleton code that contains the private method `Connection getConnection()`. With that you can construct your `String search(String)` method.
+It is very similar to Section 5 of the offline tutorial that you need to create a Connection, a PreparedStatement, execute the query, and obtain the result. The file `SQLDatabaseEngine.java` is a skeleton code that contains the private method `Connection getConnection()`. With that you can construct your `String search(String)` method. 
+
+> Don't forget to change the constructor of KitchenSinkController so that SQLDatabaseEngine will replace DatabaseEngine.
 
 ## Unit Test
 
