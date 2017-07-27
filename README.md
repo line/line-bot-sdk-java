@@ -1,11 +1,15 @@
 # 2017F COMP3111/3111H Software Engineering Project github 
 
-This is actually part of the course website of Hong Kong University of Science and Technology (HKUST) software enginnering course. 
+This is actually part of the course website of Hong Kong University of Science and Technology (HKUST) software enginnering course. The ultimate goal for this cohort students is to develop a chatbot (chatting robot) running on the instance messager LINE. 
 
 
 ## What is this?
 
 This is a repository forked from https://github.com/line/line-bot-sdk-java. You should use this as a starting point to complete your lab.
+
+# Offline Tutorials
+
+You need to have some backgrounds on Java/Database/git in order to complete the labs. Unfortunately it is unaffortable to cover them in the lecture or at the lab. Some [offline tutorials](./docs/tutorials/) are available for bridging the gap.
 
 
 # Labs Schedule
