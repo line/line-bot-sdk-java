@@ -9,7 +9,7 @@ This is a repository forked from https://github.com/line/line-bot-sdk-java. You 
 
 # Offline Tutorials
 
-You need to have some backgrounds on Java/Database/git in order to complete the labs. Unfortunately it is unaffortable to cover them in the lecture or at the lab. Some [offline tutorials](./docs/tutorials/) are available for bridging the gap.
+You need to have some backgrounds on Java/Database/git in order to complete the labs. Unfortunately it is unaffortable to cover them in the lecture or at the lab. Some [offline tutorials](./docs/tutorial/) are available for bridging the gap.
 
 
 # Labs Schedule
