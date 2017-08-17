@@ -89,6 +89,6 @@ public class CallbackAdaptorTest {
         assertThat(target).isCompletedExceptionally();
         assertThat(target.handle((ignored, e) -> e).get())
                 .isInstanceOf(GeneralLineMessagingException.class)
-                .withFailMessage("Message");
+                .hasMessageContaining("Message");
     }
 }
