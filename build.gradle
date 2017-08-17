@@ -24,9 +24,9 @@ buildscript {
     }
     dependencies {
         classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17'
-        classpath 'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE'
-        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.2.RELEASE'
+        classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE'
     }
 }
 
@@ -80,18 +80,18 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom 'io.spring.platform:platform-bom:Brussels-SR1'
+            mavenBom 'io.spring.platform:platform-bom:Brussels-SR2'
         }
 
         dependencies {
+            dependency 'com.fasterxml.jackson.core:jackson-databind:2.8.8.1'
             dependency 'com.github.stefanbirkner:system-rules:1.16.1'
             dependency 'com.squareup.okhttp3:logging-interceptor:' + ext['okhttp3.version']
             dependency 'com.squareup.okhttp3:mockwebserver:' + ext['okhttp3.version']
             dependency 'com.squareup.retrofit2:converter-jackson:2.2.0'
             dependency 'com.squareup.retrofit2:retrofit:2.2.0'
-            dependency 'org.assertj:assertj-core:3.6.2'
-            dependency 'org.projectlombok:lombok:1.16.12'
-            dependency 'com.fasterxml.jackson.core:jackson-databind:2.8.8.1'
+            dependency 'org.assertj:assertj-core:3.7.0'
+            dependency 'org.projectlombok:lombok:1.16.16'
         }
     }
 
@@ -99,7 +99,8 @@ subprojects {
         compileOnly 'org.projectlombok:lombok'
         testCompileOnly 'org.projectlombok:lombok'
 
-        compileOnly "org.springframework.boot:spring-boot-configuration-processor" // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
+        compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+        // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
 
         testCompile 'com.google.guava:guava'
         testCompile 'com.github.stefanbirkner:system-rules'
@@ -109,7 +110,8 @@ subprojects {
         testCompile 'org.springframework.boot:spring-boot-starter-logging'
     }
 
-    compileJava.dependsOn(processResources) // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
+    compileJava.dependsOn(processResources)
+    // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
 
     jar {
         manifest {
