@@ -86,6 +86,21 @@ public interface LineMessagingService {
     Call<UserProfileResponse> getProfile(@Path("userId") String userId);
 
     /**
+     * Get Group/Room member profile.
+     *
+     * @param sourceType "room" or "group".
+     * @param senderId Identifier of the group/room.
+     * @param userId Identifier of the user.
+     *
+     * @see <a href="https://devdocs.line.me?java#get-group-room-member-profile">//devdocs.line.me#get-group-room-member-profile</a>
+     */
+    @GET("v2/bot/{sourceType}/{senderId}/member/{userId}")
+    Call<UserProfileResponse> getMemberProfile(
+            @Path("sourceType") String sourceType,
+            @Path("senderId") String senderId,
+            @Path("userId") String userId);
+
+    /**
      * Leave a group.
      *
      * @see <a href="https://devdocs.line.me?java#leave">//devdocs.line.me#leave</a>
