@@ -2,9 +2,9 @@
 
 ## Mission
 
-* Creating a database on heroku.
-* Accessing the database locally.
-* Accessing the database on heroku.
+* Create a database on heroku.
+* Access the database locally.
+* Access the database on heroku.
 * Create a unit test for your database Engine.
 * Make your bot connected to the Database.
 
@@ -62,8 +62,8 @@ After these steps, you have already created a Database and registered a user and
 
 Open your terminal and paste the `Heroku CLI` you have copied previously. This will command the Heroku to connect to the database. You need to install the `Heroku CLI` to do it (avaliable on L:\apps\comp3111\heroku\bin).
 ```
-# Replace the xxxxx with your Heroku CLI
-L:\apps\comp3111\heroku\bin\heroku pg:psql postgresql-xxxxxxx-xxxxx --app xxxxx-xxxxx-xxxxxx 
+# Replace the xxxxx and yyyyy with your Heroku CLI
+L:\apps\comp3111\heroku\bin\heroku pg:psql postgresql-xxxxxxx-xxxxx --app yyyyyy-yyyyyy-yyyyyy 
 ```
 
 > :exclamation: Contingency: in case the Heroku CLI does not work, you can use the URI to connect directly with your psql.
@@ -114,7 +114,7 @@ The first line says this project is a spring boot project where our project is b
 
 ## For COMP3111H student
 
-4. Store the number of hits of keyword into the Database. Append this number in your response.
+4. Store the number of hits of keyword into the Database. Append this number in your response. You may assume there is only one keyword per message.
 
 After you have completed this task, raise your hand and demo it to your TA. Please understand that there are so many students in the room and we have limited manpower. Pick a seat closer to the screen to have an earlier demo.
 
