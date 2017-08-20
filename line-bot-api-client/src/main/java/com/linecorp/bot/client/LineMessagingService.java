@@ -19,6 +19,7 @@ package com.linecorp.bot.client;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 
@@ -28,6 +29,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 
 public interface LineMessagingService {
@@ -99,6 +101,26 @@ public interface LineMessagingService {
             @Path("sourceType") String sourceType,
             @Path("senderId") String senderId,
             @Path("userId") String userId);
+
+    /**
+     * Get group/room member IDs.
+     *
+     * <p>Get group and room member IDs request example
+     * <p>Gets the user IDs of the members of a group or a room that the bot is in. This includes the user IDs of users who have not added the bot as a friend or has blocked the bot.
+     *
+     * <p><strong>INFO</strong> This feature is only available for LINE@ Approved accounts or official accounts.
+     *
+     * @param sourceType "room" or "group".
+     * @param senderId Identifier of the group/room.
+     * @param start continuationToken to next page.
+     *
+     * @see <a href="https://devdocs.line.me?java#get-group-room-member-profile">//devdocs.line.me#get-group-room-member-profile</a>
+     */
+    @GET("v2/bot/{sourceType}/{senderId}/members/ids")
+    Call<MembersIdsResponse> getMembersIds(
+            @Path("sourceType") String sourceType,
+            @Path("senderId") String senderId,
+            @Query("start") String start);
 
     /**
      * Leave a group.
