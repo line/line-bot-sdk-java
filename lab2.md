@@ -30,7 +30,7 @@ You need a github account.
 You are recommended to install the following software in your machine. They are also avaliable at the lab machine. For `Heroku CLI`, `Eclipse STS with Buildship 2.0` are stored at `L:\apps\comp3111`.
 
 * [Java SDK 1.8 64-bits](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-* [Eclipse STS 3.9.0 or above](https://spring.io/tools/sts/all) -- On Windows the executable is located at `sts-bundle\sts-3.9.0.RELEASE\STS.exe`
+* [Eclipse STS 3.8.4 or above](https://spring.io/tools/sts/all) -- On Windows the executable is located at `L:\apps\COMP3111\STS_64\sts-bundle\sts-3.8.4.RELEASE\STS.exe`
 * [Gradle (STS) 3.8.x+1.0.x](https://marketplace.eclipse.org/content/gradle-ide-pack) -- You should install this in Eclipse STS by clicking `Help` -> `Eclipse Marketplace..` -> Type `Gradle IDE Pack` in the search box and install. You need to reboot your STS after install. 
 * [git command line tools (Latest)](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) -- build in on macOS and most Linux Distribution
 * [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
