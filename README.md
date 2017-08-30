@@ -14,12 +14,12 @@ You need to have some backgrounds on Java/Database/git in order to complete the 
 
 # Labs Schedule
 
-| Lab | Week | Topic | Type |
+| Lab | Week | Topic | Status |
 |-----|------|-------|------|
 |     | 1  | No lab at week 1 |  |
-| 1   | 2  | [Chatbot Deployment](./lab1.md) |  Individual |
-| 2   | 3    | [Chatbot with static file Database](./lab2.md)       |  Individual |
-| 3   | 4    | [Chatbot with SQL Database](./lab3.md)|  Individual      |
+| 1   | 2  | [Chatbot Deployment](./lab1.md) |  Under Review |
+| 2   | 3    | [Chatbot with static file Database](./lab2.md)       |  Under Review |
+| 3   | 4    | [Chatbot with SQL Database](./lab3.md)|  Under Review |
 
 
 # How does the Lab works
