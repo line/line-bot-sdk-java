@@ -16,23 +16,26 @@
 
 package com.linecorp.bot.model.message.template;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import lombok.Value;
+
+import java.util.List;
 
 /**
- * Interface for Template message
+ * Template message with multiple columns which can be cycled like a carousel.
  */
-@JsonSubTypes({
-        @JsonSubTypes.Type(ButtonsTemplate.class),
-        @JsonSubTypes.Type(CarouselTemplate.class),
-        @JsonSubTypes.Type(ConfirmTemplate.class),
-        @JsonSubTypes.Type(ImageCarouselTemplate.class),
-})
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = As.PROPERTY,
-        property = "type"
-)
-public interface Template {
+@Value
+@JsonTypeName("image_carousel")
+public class ImageCarouselTemplate implements Template {
+    /**
+     * List of columns(Max: 5)
+     */
+    private final List<ImageCarouselColumn> columns;
+
+    @JsonCreator
+    public ImageCarouselTemplate(@JsonProperty("columns") List<ImageCarouselColumn> columns) {
+        this.columns = columns;
+    }
 }
