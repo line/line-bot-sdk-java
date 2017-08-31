@@ -51,7 +51,7 @@ Follow the steps below to open your project.
 3. Click `File` from the menu -> `Open Projects from File System..` and a dialog titled `Import Projects from File System or Archive` will be prompted.
 4. Click `Directory` and select your project folder cloned from github and click `Finish`.
 5. In the `Package Explorer` panel or `Project Explorer` panel you shall see some projects, with errors. Right click and select `Configure` -> `Convert to Gradle (STS) Project`. The errors should go away. 
-6. Right click the project in `Package Explorer` panal or `Project Explorer` panel and select `Gradle (STS)` -> `Task Quick Launcher`, type `build` and press enter. This will build and test your project locally.
+6. Right click the project in `Package Explorer` panal or `Project Explorer` panel and select `Gradle (STS)` -> `Task Quick Launcher`, type `build` and press enter. This will attempt to build and test your project locally.
 
 > In case you cannot see Package Explorer or Project Explorer, you can find it from `View` of the menu.
 
@@ -63,7 +63,43 @@ In case you can't start the Eclipse STS or can't use it to compile the project, 
 gradlew build 
 ```
 
+If you are follow the steps correctly, the build will be success but the test will be failed. The STS console should log:
+
+```
+....
+:sample-spring-boot-kitchensink:testClasses
+:sample-spring-boot-kitchensink:test
+
+com.example.bot.spring.KitchenSinkTester > testFound FAILED
+    java.lang.NullPointerException at KitchenSinkTester.java:75
+2017-08-31 10:03:46.897  INFO 108388 --- [       Thread-4] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@1dc9f7de: startup date [Thu Aug 31 10:03:46 CST 2017]; root of context hierarchy
+
+2 tests completed, 1 failed
+:sample-spring-boot-kitchensink:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':sample-spring-boot-kitchensink:test'.
+> There were failing tests. See the report at: file:///c:/temp/git-line-bot/sample-spring-boot-kitchensink/build/reports/tests/test/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+....
+```
+
+> You can open the file `sample-spring-boot-kitchensink/build/reports/tests/test/index.html` to start your debug task.
+
 ## Upload to your Heroku
+
+Next you are deploying it to Heroku and testing it with your mobile phone. Heroku supports git. What you need to do is to add your Heroku repository as your *remote repository* and push the project to it. **Logically** it looks like below:
+
+1. git add remote heroku HEROKU\_URL # add your heroku git to your remote repository
+2. git commit -am "after fixing the bug" # commit
+3. git push heroku master # push to heroku
+4. Let heroku handle the rest
 
 For some reasons it takes some extra effort to login to heroku with command line. Before you can upload or even communicate with heroku, do the following with your heroku CLI. At lab, you can use `L:\apps\comp3111\heroku\bin\heroku.exe` 
 to replace the command heroku below
@@ -85,7 +121,7 @@ git remote add heroku https://git.heroku.com/red-waters-31111.git
 ```
 This will add an remote repository to your git folder.
 
-
+> Hint. To switch a folder in terminal, you type `cd your_path`. For example, you want to change to `c:\temp\mygitfolder`, you type `cd c:\temp\mygitfolder`. If you want to access your E drive for example, you should type `e:` in the terminal. For macOS and linux, it is very similar except the folder separate symbol is `/`.
 
 
 You are doing debugging and testing at the moment, you don't want to corrupt the project. Thus, you should also create a branch `test` by
