@@ -29,6 +29,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
+import com.linecorp.bot.model.message.template.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -69,10 +70,6 @@ import com.linecorp.bot.model.message.imagemap.ImagemapArea;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
 import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
 import com.linecorp.bot.model.message.imagemap.URIImagemapAction;
-import com.linecorp.bot.model.message.template.ButtonsTemplate;
-import com.linecorp.bot.model.message.template.CarouselColumn;
-import com.linecorp.bot.model.message.template.CarouselTemplate;
-import com.linecorp.bot.model.message.template.ConfirmTemplate;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
@@ -328,6 +325,28 @@ public class KitchenSinkController {
                                 ))
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);
+                this.reply(replyToken, templateMessage);
+                break;
+            }
+            case "image_carousel": {
+                String imageUrl = createUri("/static/buttons/1040.jpg");
+                ImageCarouselTemplate imageCarouselTemplate = new ImageCarouselTemplate(
+                        Arrays.asList(
+                                new ImageCarouselColumn(imageUrl,
+                                        new URIAction("Goto line.me",
+                                                "https://line.me")
+                                ),
+                                new ImageCarouselColumn(imageUrl,
+                                        new MessageAction("Say message",
+                                                "Rice=米")
+                                ),
+                                new ImageCarouselColumn(imageUrl,
+                                        new PostbackAction("言 hello2",
+                                                "hello こんにちは",
+                                                "hello こんにちは")
+                                )
+                        ));
+                TemplateMessage templateMessage = new TemplateMessage("ImageCarousel alt text", imageCarouselTemplate);
                 this.reply(replyToken, templateMessage);
                 break;
             }
