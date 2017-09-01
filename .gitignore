@@ -1,6 +1,7 @@
 # Build output
 target/
 build/
+out/
 
 # gradle
 /.gradle/

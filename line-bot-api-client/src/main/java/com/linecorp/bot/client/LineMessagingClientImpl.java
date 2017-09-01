@@ -65,6 +65,18 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
+    public CompletableFuture<UserProfileResponse> getGroupMemberProfile(
+            final String groupId, final String userId) {
+        return toFuture(retrofitImpl.getMemberProfile("group", groupId, userId));
+    }
+
+    @Override
+    public CompletableFuture<UserProfileResponse> getRoomMemberProfile(
+            final String roomId, final String userId) {
+        return toFuture(retrofitImpl.getMemberProfile("room", roomId, userId));
+    }
+
+    @Override
     public CompletableFuture<BotApiResponse> leaveGroup(final String groupId) {
         return toFuture(retrofitImpl.leaveGroup(groupId));
     }

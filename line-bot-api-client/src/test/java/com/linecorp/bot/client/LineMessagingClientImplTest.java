@@ -140,6 +140,21 @@ public class LineMessagingClientImplTest {
     }
 
     @Test
+    public void getProfileOfGroupMemberTest() throws Exception {
+        final UserProfileResponse mockUserProfileResponse =
+                new UserProfileResponse("displayName", "userId", "pictureUrl", null);
+        whenCall(retrofitMock.getMemberProfile(any(), any(), any()),
+                 mockUserProfileResponse);
+
+        // Do
+        final UserProfileResponse response = target.getGroupMemberProfile("GROUP_ID", "USER_ID").get();
+
+        // Verify
+        verify(retrofitMock, only()).getMemberProfile("group", "GROUP_ID", "USER_ID");
+        assertThat(response).isEqualTo(mockUserProfileResponse);
+    }
+
+    @Test
     public void leaveGroupTest() throws Exception {
         whenCall(retrofitMock.leaveGroup(any()),
                  BOT_API_SUCCESS_RESPONSE);
