@@ -1,5 +1,5 @@
 {
-    "name": "COMP3111 Lab 1 - Faulty Bot",
+    "name": "COMP3111 Lab 1 Faulty Bot",
     "description": "This is a simple but faulty application for the LINE Messaging API",
     "keywords": ["chatbot", "line", "java"],
     "env": {
