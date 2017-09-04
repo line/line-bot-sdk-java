@@ -32,6 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
         @JsonSubTypes.Type(PostbackAction.class),
         @JsonSubTypes.Type(URIAction.class),
         @JsonSubTypes.Type(MessageAction.class),
+        @JsonSubTypes.Type(DatetimePickerAction.class),
 })
 public interface Action {
     String getLabel();
