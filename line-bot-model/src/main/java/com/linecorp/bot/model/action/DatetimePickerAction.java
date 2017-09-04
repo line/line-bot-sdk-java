@@ -22,11 +22,7 @@ import lombok.Value;
 
 /**
  * <p>
- * When this action is tapped, a postback event is returned via webhook with the specified string in the data field.
- * </p>
- *
- * <p>
- * If you have included the text field, the string in the text field is sent as a message from the user.
+ * When this action is tapped, a postback event is returned via webhook with the date and time selected by the user from the date and time selection dialog.
  * </p>
  */
 @Value
