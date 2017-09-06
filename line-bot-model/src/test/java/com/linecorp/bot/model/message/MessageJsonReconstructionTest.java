@@ -23,17 +23,25 @@ import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.ImmutableList;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.action.CameraAction;
 import com.linecorp.bot.model.action.CameraRollAction;
+import com.linecorp.bot.model.action.DatetimePickerAction;
+import com.linecorp.bot.model.action.DatetimePickerAction.OfLocalDate;
+import com.linecorp.bot.model.action.DatetimePickerAction.OfLocalDatetime;
+import com.linecorp.bot.model.action.DatetimePickerAction.OfLocalTime;
 import com.linecorp.bot.model.action.LocationAction;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
@@ -183,6 +191,42 @@ public class MessageJsonReconstructionTest {
         final Broadcast broadcast = new Broadcast(singletonList(new TextMessage("text")), true);
 
         test(broadcast);
+    }
+
+    @Test
+    public void datetimePickerActionTest() {
+        final DatetimePickerAction<LocalDate> datePickerAction =
+                OfLocalDate.builder()
+                           .label("labal")
+                           .data("postback")
+                           .initial(LocalDate.of(2017, 9, 8))
+                           .min(LocalDate.of(2017, 9, 8))
+                           .max(LocalDate.of(2017, 9, 8))
+                           .build();
+
+        final DatetimePickerAction<LocalTime> timePickerAction =
+                OfLocalTime.builder()
+                           .label("labal")
+                           .data("postback")
+                           .initial(LocalTime.of(14, 55))
+                           .max(LocalTime.of(14, 55))
+                           .min(LocalTime.of(14, 55))
+                           .build();
+
+        final DatetimePickerAction<LocalDateTime> datetimePickerAction =
+                OfLocalDatetime.builder()
+                               .label("labal")
+                               .data("postback")
+                               .initial(LocalDateTime.of(2017, 9, 8, 14, 55))
+                               .max(LocalDateTime.of(2017, 9, 8, 14, 55))
+                               .min(LocalDateTime.of(2017, 9, 8, 14, 55))
+                               .build();
+
+        final ButtonsTemplate buttonsTemplate =
+                new ButtonsTemplate(URI.create("https://example.com"), "title", "text",
+                                    ImmutableList.of(datePickerAction, timePickerAction, datetimePickerAction));
+
+        test(new TemplateMessage("ALT_TEXT", buttonsTemplate));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////

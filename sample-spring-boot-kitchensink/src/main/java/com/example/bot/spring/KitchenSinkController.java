@@ -22,7 +22,9 @@ import java.io.UncheckedIOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -233,15 +235,15 @@ public class KitchenSinkController {
     public void handleMemberJoined(MemberJoinedEvent event) {
         String replyToken = event.getReplyToken();
         this.replyText(replyToken, "Got memberJoined message " + event.getJoined().getMembers()
-                .stream().map(Source::getUserId)
-                .collect(Collectors.joining(",")));
+                                                                      .stream().map(Source::getUserId)
+                                                                      .collect(Collectors.joining(",")));
     }
 
     @EventMapping
     public void handleMemberLeft(MemberLeftEvent event) {
         log.info("Got memberLeft message: {}", event.getLeft().getMembers()
-                .stream().map(Source::getUserId)
-                .collect(Collectors.joining(",")));
+                                                    .stream().map(Source::getUserId)
+                                                    .collect(Collectors.joining(",")));
     }
 
     @EventMapping
@@ -414,24 +416,30 @@ public class KitchenSinkController {
                                 )),
                                 new CarouselColumn(imageUrl, "Datetime Picker",
                                                    "Please select a date, time or datetime", Arrays.asList(
-                                        new DatetimePickerAction("Datetime",
-                                                                 "action=sel",
-                                                                 "datetime",
-                                                                 "2017-06-18T06:15",
-                                                                 "2100-12-31T23:59",
-                                                                 "1900-01-01T00:00"),
-                                        new DatetimePickerAction("Date",
-                                                                 "action=sel&only=date",
-                                                                 "date",
-                                                                 "2017-06-18",
-                                                                 "2100-12-31",
-                                                                 "1900-01-01"),
-                                        new DatetimePickerAction("Time",
-                                                                 "action=sel&only=time",
-                                                                 "time",
-                                                                 "06:15",
-                                                                 "23:59",
-                                                                 "00:00")
+                                        DatetimePickerAction.OfLocalDatetime
+                                                .builder()
+                                                .label("Datetime")
+                                                .data("action=sel")
+                                                .initial(LocalDateTime.parse("2017-06-18T06:15"))
+                                                .min(LocalDateTime.parse("1900-01-01T00:00"))
+                                                .max(LocalDateTime.parse("2100-12-31T23:59"))
+                                                .build(),
+                                        DatetimePickerAction.OfLocalDate
+                                                .builder()
+                                                .label("Date")
+                                                .data("action=sel&only=date")
+                                                .initial(LocalDate.parse("2017-06-18"))
+                                                .min(LocalDate.parse("1900-01-01"))
+                                                .max(LocalDate.parse("2100-12-31"))
+                                                .build(),
+                                        DatetimePickerAction.OfLocalTime
+                                                .builder()
+                                                .label("Time")
+                                                .data("action=sel&only=time")
+                                                .initial(LocalTime.parse("06:15"))
+                                                .min(LocalTime.parse("00:00"))
+                                                .max(LocalTime.parse("23:59"))
+                                                .build()
                                 ))
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);
