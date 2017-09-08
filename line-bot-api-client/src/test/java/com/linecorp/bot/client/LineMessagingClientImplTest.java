@@ -39,6 +39,7 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 
@@ -152,6 +153,32 @@ public class LineMessagingClientImplTest {
         // Verify
         verify(retrofitMock, only()).getMemberProfile("group", "GROUP_ID", "USER_ID");
         assertThat(response).isEqualTo(mockUserProfileResponse);
+    }
+
+    @Test
+    public void getGroupMembersIdsTest() throws Exception {
+        final MembersIdsResponse membersIdsResponse = new MembersIdsResponse(emptyList(), "TOKEN");
+        whenCall(retrofitMock.getMembersIds(any(), any(), any()), membersIdsResponse);
+
+        // Do
+        final MembersIdsResponse response = target.getGroupMembersIds("GROUP_ID", "USER_ID").get();
+
+        // Verify
+        verify(retrofitMock, only()).getMembersIds("group", "GROUP_ID", "USER_ID");
+        assertThat(response).isSameAs(membersIdsResponse);
+    }
+
+    @Test
+    public void getRoomMembersIdsTest() throws Exception {
+        final MembersIdsResponse membersIdsResponse = new MembersIdsResponse(emptyList(), "TOKEN");
+        whenCall(retrofitMock.getMembersIds(any(), any(), any()), membersIdsResponse);
+
+        // Do
+        final MembersIdsResponse response = target.getRoomMembersIds("ROOM_ID", "USER_ID").get();
+
+        // Verify
+        verify(retrofitMock, only()).getMembersIds("room", "ROOM_ID", "USER_ID");
+        assertThat(response).isSameAs(membersIdsResponse);
     }
 
     @Test
