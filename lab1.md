@@ -45,8 +45,8 @@ LINE@ account allows you to manage a LINE account for your business. We advise y
 1. In the LINE Business Center, select Messaging API under the “Service” category at the top of the page.
 2. Select either Start using Messaging API or Start Developer Trial. For more information on the Developer Trial plan, see Messaging API.
 3. Enter the required information (account name, business type) for your new LINE@ account. Confirm the information.
-4. Click the LINE@ MANAGER button at the bottom of the confirmation page to go to the `Bot Settings` (Latest version shall be called `Message API Setting` page of the LINE@ Manager.
-5. On the `Bot Settings` (or `Message API Setting`) page, click Enable API.
+4. Click the LINE@ MANAGER button at the bottom of the confirmation page to go to the ~~`Bot Settings`~~ (Latest version shall be called `Messaging API Settings` page of the LINE@ Manager.
+5. On the `Messaging API Settings` page, click Enable API.
 6. Configure your bot by following the steps in [Configure your bot](https://developers.line.me/messaging-api/getting-started#set_up_bot).
 
 #### Configure your LINE@ account
@@ -55,8 +55,8 @@ To respond to messages from your users using the Messaging API, you first need t
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/9BOHT-vpUVs/0.jpg)](https://www.youtube.com/watch?v=9BOHT-vpUVs)
 
-1. In the LINE@ Manager, go to the Bot Settings page, which can be found under “Settings” on the side menu
-1. To reply to messages using webhooks, select Allow for “Use webhooks” under “Request Settings”
+1. In the LINE@ Manager, go to the `Messaging API Settings` page, which can be found under “Settings” on the side menu
+1. To reply to messages using webhooks, select Allow for “Use webhooks” under “Request Settings”. Make sure your `Auto Reply Message` is left as `Don't allow` to avoid the default greeting message.
 
 #### Channel Console
 
