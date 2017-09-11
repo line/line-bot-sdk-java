@@ -17,7 +17,7 @@ You need to have some backgrounds on Java/Database/git in order to complete the 
 | Lab | Week | Topic | Status |
 |-----|------|-------|------|
 |     | 1  | No lab at week 1 |  |
-| 1   | 2  | [Chatbot Deployment](./lab1.md) |  Under Review |
+| 1   | 2  | [Chatbot Deployment](./lab1.md) |  Released |
 | 2   | 3    | [Chatbot with static file Database](./lab2.md)       |  Under Review |
 | 3   | 4    | [Chatbot with SQL Database](./lab3.md)|  Under Review |
 
