@@ -41,7 +41,6 @@ public class LineBotProperties {
      *
      * @see ChannelTokenSupplyMode
      */
-    @Valid
     @NotNull
     private ChannelTokenSupplyMode channelTokenSupplyMode = ChannelTokenSupplyMode.FIXED;
 
