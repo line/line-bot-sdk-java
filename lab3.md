@@ -70,14 +70,22 @@ L:\apps\comp3111\heroku\bin\heroku pg:psql postgresql-xxxxxxx-xxxxx --app yyyyyy
 > ``` psql YOUR_URI  ```
 
 
-Referring the instruction in the offline tutorial to create a table and insert at least 5 pairs of keyword-response records.
+### TODO
+1. Create a Table in the database that contains two columns `keyword` and `response`.
+2. Insert 5 pairs of keywords and response into the table. Later when the user enter a keyword in LINE the bot should reply the corresponding response.
+
+Referring the instruction in the `offline tutorial - database` to do the task using command line SQL.
+
+or
+
+Referring the instruction in the `Tutorial Slide T3.pdf` to do it with ORM.
 
 
 ## Working with your BOT
 
-It is very similar to Section 5 of the offline tutorial that you need to create a Connection, a PreparedStatement, execute the query, and obtain the result. The file `SQLDatabaseEngine.java` is a skeleton code that contains the private method `Connection getConnection()`. With that you can construct your `String search(String)` method. 
+It is very similar to Section 5 of the offline tutorial that you need to create a Connection, a PreparedStatement, execute the query, and obtain the result. The file `SQLDatabaseEngine.java` is a skeleton code that contains the private method `Connection getConnection()`. With that you can construct your `public String search(String)` method. You need to refer to its parent class `DatabaseEngine` about how to return value and throw exception in `search(String)`.
 
-> Don't forget to change the constructor of KitchenSinkController so that SQLDatabaseEngine will replace DatabaseEngine.
+> Don't forget to change the constructor of `KitchenSinkController` so that `SQLDatabaseEngine` will replace `DatabaseEngine`.
 
 ## Unit Test
 
@@ -110,11 +118,17 @@ The first line says this project is a spring boot project where our project is b
 1. Create a database on heroku and insert data into it.
 2. Complete the SQLDatabaseEngine so that it responses like Lab 2 except the result is stated in the database. (For COMP3111H student partial match should be implemented.)
 3. Test SQLDatabaseEngine locally and pass all test cases.
-
+4. Push it to Heroku.
 
 ## For COMP3111H student
 
-4. Store the number of hits of keyword into the Database. Append this number in your response. You may assume there is only one keyword per message.
+5. Store the number of hits of keyword into the Database. Append this number in your response. You may assume there is only one keyword per message.
+
+## DEMO
+
+1. Show us your phone with an input that matches with the database
+2. Show us the build report that you have passed your test locally.
+
 
 After you have completed this task, raise your hand and demo it to your TA. Please understand that there are so many students in the room and we have limited manpower. Pick a seat closer to the screen to have an earlier demo.
 
