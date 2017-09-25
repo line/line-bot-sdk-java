@@ -60,7 +60,16 @@ After these steps, you have already created a Database and registered a user and
 
 ## Operating the database in command line mode.
 
+> # Lab machine Users. #
+> If you are using the lab machine to do this lab, you may want to configure you path first by typing the following in the command prompt
+> ```
+> set PATH=%PATH%;L:\apps\comp3111\pgsql\bin\;L:\apps\comp3111\heroku\bin\;
+> ```
+> Type `PATH` before and after to confirm you have successfully add these path in to your environment.
+
+
 Open your terminal and paste the `Heroku CLI` you have copied previously. This will command the Heroku to connect to the database. You need to install the `Heroku CLI` to do it (avaliable on L:\apps\comp3111\heroku\bin).
+
 ```
 # Replace the xxxxx and yyyyy with your Heroku CLI
 L:\apps\comp3111\heroku\bin\heroku pg:psql postgresql-xxxxxxx-xxxxx --app yyyyyy-yyyyyy-yyyyyy 
