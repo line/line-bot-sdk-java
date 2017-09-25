@@ -34,6 +34,8 @@ You are recommended to install the following software in your machine. This is a
 
 ## Creating a database on heroku
 
+
+
 Follow the steps below to create a PostgreSQL on heroku.
 
 1. Go to [heroku dashboard](https://dashboard.heroku.com/) and select your app. 
@@ -58,17 +60,12 @@ After these steps, you have already created a Database and registered a user and
 
 
 
+
 ## Operating the database in command line mode.
 
-> # Lab machine Users. #
-> If you are using the lab machine to do this lab, you may want to configure you path first by typing the following in the command prompt
-> ```
-> set PATH=%PATH%;L:\apps\comp3111\pgsql\bin\;L:\apps\comp3111\heroku\bin\;
-> ```
-> Type `PATH` before and after to confirm you have successfully add these path in to your environment.
+### For laptop users
 
-
-Open your terminal and paste the `Heroku CLI` you have copied previously. This will command the Heroku to connect to the database. You need to install the `Heroku CLI` to do it (avaliable on L:\apps\comp3111\heroku\bin).
+Open your terminal and paste the `Heroku CLI` you have copied previously. This will command the Heroku to connect to the database. You need to install the `Heroku CLI` to do it.
 
 ```
 # Replace the xxxxx and yyyyy with your Heroku CLI
@@ -77,6 +74,28 @@ c:\myProjectFolder\>heroku pg:psql postgresql-xxxxxxx-xxxxx --app yyyyyy-yyyyyy-
 
 > :exclamation: Contingency: in case the Heroku CLI does not work, you can use the URI to connect directly with your psql.
 > ``` psql YOUR_URI  ```
+
+
+### For people who are using lab machines
+
+Our lab has blocked the port access so you would not be able to connect to the database from your desktop. We recommend the following.
+
+1. Use the `Edge browser` to login to your Heroku dashboard.
+2. Click to your app (not the database)
+3. Click `More` button at your top-right-corner
+4. Click `Run Console`
+5. type `bash` next to the box `heroku run` and type run.
+6. type `psql YOUR_URI` 
+
+You shall be able to login to your database like
+```
+~ $ psql postgres://wzmmmrtguvgtwa:53c08d0ea19aa736008251c20516b6615421428e8@ec2-54-163-252-55.compute-1.amazonaws.com:5432/dba0cfojvl                                                                               
+psql (9.6.4, server 9.6.1)    
+SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off) 
+Type "help" for help.
+
+dba0cfojvl=>
+```
 
 
 ### TODO
