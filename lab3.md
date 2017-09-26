@@ -102,7 +102,7 @@ dba0cfojvl=>
 1. Create a Table in the database that contains two columns `keyword` and `response`.
 2. Insert 5 pairs of keywords and response into the table. Later when the user enter a keyword in LINE the bot should reply the corresponding response.
 
-Referring the instruction in the `offline tutorial - database` to do the task using command line SQL.
+Referring the instruction in the `offline tutorial - database Section 4` to do the task using command line SQL.
 
 or
 
@@ -140,6 +140,8 @@ test {
 
 The first line says this project is a spring boot project where our project is building on this framework. The dependencies block specifies that the line-bot-spring-boot project needs to be built in order to build this KitchenSink. Also it requires the package `postgresql` with a specific version. During the compliation gradle will download the postgresql package from a public repository. The test block states that when the task `test` is execute, it sets the environment variable "DATABASE_URL" as your URI. You need to paste the URI you copied from web earlier to here. 
 
+> # Lab machine Users
+> Our lab blocks the port 5432 so you would not be able to connect to the remote database. Please try this part at home.
 
 # TODO Tasks and Demo
 
@@ -155,7 +157,7 @@ The first line says this project is a spring boot project where our project is b
 ## DEMO
 
 1. Show us your phone with an input that matches with the database
-2. Show us the build report that you have passed your test locally.
+~~2. Show us the build report that you have passed your test locally.~~
 
 
 After you have completed this task, raise your hand and demo it to your TA. Please understand that there are so many students in the room and we have limited manpower. Pick a seat closer to the screen to have an earlier demo.
