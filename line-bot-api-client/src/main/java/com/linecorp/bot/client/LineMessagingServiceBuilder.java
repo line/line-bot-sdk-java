@@ -35,7 +35,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public final class LineMessagingServiceBuilder {
+public class LineMessagingServiceBuilder {
     public static final String DEFAULT_API_END_POINT = "https://api.line.me/";
     public static final long DEFAULT_CONNECT_TIMEOUT = 10_000;
     public static final long DEFAULT_READ_TIMEOUT = 10_000;
@@ -164,6 +164,7 @@ public final class LineMessagingServiceBuilder {
     /**
      * Creates a new {@link LineMessagingService}.
      */
+    @SuppressWarnings("deprecation")
     public LineMessagingService build() {
         if (okHttpClientBuilder == null) {
             okHttpClientBuilder = new OkHttpClient.Builder();

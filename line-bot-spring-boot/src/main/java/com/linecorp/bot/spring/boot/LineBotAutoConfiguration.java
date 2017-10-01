@@ -31,7 +31,6 @@ import com.linecorp.bot.client.ChannelTokenSupplier;
 import com.linecorp.bot.client.FixedChannelTokenSupplier;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientImpl;
-import com.linecorp.bot.client.LineMessagingService;
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
@@ -48,7 +47,8 @@ public class LineBotAutoConfiguration {
     private LineBotProperties lineBotProperties;
 
     @Bean
-    public LineMessagingService lineMessagingService(
+    @SuppressWarnings("deprecation")
+    public com.linecorp.bot.client.LineMessagingService lineMessagingService(
             final ChannelTokenSupplier channelTokenSupplier) {
         return LineMessagingServiceBuilder
                 .create(channelTokenSupplier)
@@ -67,7 +67,9 @@ public class LineBotAutoConfiguration {
     }
 
     @Bean
-    public LineMessagingClient lineMessagingClient(final LineMessagingService lineMessagingService) {
+    public LineMessagingClient lineMessagingClient(
+            @SuppressWarnings("deprecation")
+            final com.linecorp.bot.client.LineMessagingService lineMessagingService) {
         return new LineMessagingClientImpl(lineMessagingService);
     }
 
