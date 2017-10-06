@@ -18,8 +18,10 @@ You need to have some backgrounds on Java/Database/git in order to complete the 
 |-----|------|-------|------|
 |     | 1  | No lab at week 1 |  |
 | 1   | 2  | [Chatbot Deployment](./lab1.md) |  Released |
-| 2   | 3    | [Chatbot with static file Database](./lab2.md)       |  Under Review |
-| 3   | 4    | [Chatbot with SQL Database](./lab3.md)|  Under Review |
+| 2   | 3    | [Chatbot with static file Database](./lab2.md)       |  Released |
+| 3   | 4    | [Chatbot with SQL Database](./lab3.md)|  Released |
+|     | 5    | No lab at week 5 | |
+| 4   | 6    | [UML](./lab_UML.pdf) | Released |
 
 
 # How does the Lab works
