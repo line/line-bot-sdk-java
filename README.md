@@ -21,7 +21,7 @@ You need to have some backgrounds on Java/Database/git in order to complete the 
 | 2   | 3    | [Chatbot with static file Database](./lab2.md)       |  Released |
 | 3   | 4    | [Chatbot with SQL Database](./lab3.md)|  Released |
 |     | 5    | No lab at week 5 | |
-| 4   | 6    | [UML](./lab_UML.pdf) | Released |
+| 4   | 6    | [UML](./lab_UML.pdf) | [Solution](./uml_lab_sample_answer.pdf) |
 
 
 # How does the Lab works
