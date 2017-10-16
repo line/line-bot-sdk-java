@@ -32,6 +32,10 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 
+/**
+ * @deprecated Please use {@link LineMessagingClient} instead.
+ */
+@Deprecated
 public interface LineMessagingService {
     /**
      * Reply to messages from users.

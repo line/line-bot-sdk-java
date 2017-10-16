@@ -35,12 +35,13 @@ import retrofit2.Response;
 /**
  * Proxy implementation of {@link LineMessagingClient} to hind internal implementation.
  */
-@AllArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@SuppressWarnings("deprecation")))
 public class LineMessagingClientImpl implements LineMessagingClient {
     private static final ExceptionConverter EXCEPTION_CONVERTER = new ExceptionConverter();
     private static final String ORG_TYPE_GROUP = "group"; // TODO Enum
     private static final String ORG_TYPE_ROOM = "room";
 
+    @SuppressWarnings("deprecation")
     private final LineMessagingService retrofitImpl;
 
     @Override
