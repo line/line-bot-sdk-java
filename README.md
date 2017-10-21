@@ -23,7 +23,7 @@ You need to have some backgrounds on Java/Database/git in order to complete the 
 |     | 5    | No lab at week 5 | |
 | 4   | 6    | [UML](./lab_UML.pdf) | [Solution](./uml_lab_sample_answer.pdf) |
 |     | 7    | No lab at week 7 | |
-| 5   | 8    | [UML](./lab6/lab_design_pattern.pdf) |
+| 5   | 8    | [Design Pattern](./lab6/lab_design_pattern.pdf) |
 
 
 # How does the Lab works
