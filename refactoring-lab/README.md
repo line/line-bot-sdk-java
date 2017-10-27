@@ -86,7 +86,7 @@ Semester GPA: 3.70
 *   Was anything lacking in the code? Did you find yourself repeating
 yourself? Was the code easy to maintain? (These problems are often
 referred to as "code smells").
-*	  Propose and implement a fix to the problem. Why is it better?
+*   Propose and implement a fix to the problem. Why is it better?
 
 ### Task 2: Use 2 spaces for indentations, instead of 4.
 
