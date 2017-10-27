@@ -66,20 +66,57 @@ suggesting simple ways to fix these problems. For example, pulling out
 literals as member variables or blocks of code as methods can be excellent
 ways to improve your code.
 
-1.	Update the code that center-aligns the text to use "-" instead of spaces
-	*	Was anything lacking in the code? Did you find yourself repeating
-		yourself? Was the code easy to maintain? (These problems are often
-		referred to as "code smells").
-	*	Propose and implement a fix to the problem. Why is it better?
-2.	Update the code such that indentations only use 2 spaces, instead of 4.
-	*	Did you remember to also update the `transcriptHeightForWidth` method?
-	*	What code smells did you encounter here?
-	*	Propose and implement a fix to the problem. Why is it better?
-3.	As one might expect, the `transcriptHeightForWidth` and
-	`generateTranscriptForWidth` classes are structurally similar - after all,
-	they're describing the same transcript structure.
-	*	Propose and implement some changes that consolidate or improve code
-		reuse between the two methods. What are some advantages and
-		disadvantages to your approach?
-	* 	Bonus: are there any design patterns that *make sense* with respect to
-		consolidating these two methods?
+### Task 1: Use dashes ("-") instead of spaces (" ") to center-align the header
+
+```
+-----John Chan------
+------21039408------
+-------2017F--------
+
+COMP3111
+    Software Engineering
+    4.00 4
+COMP3311
+    Database Management Systems
+    3.30 3
+
+Semester GPA: 3.70
+```
+
+*   Was anything lacking in the code? Did you find yourself repeating
+yourself? Was the code easy to maintain? (These problems are often
+referred to as "code smells").
+*	  Propose and implement a fix to the problem. Why is it better?
+
+### Task 2: Use 2 spaces for indentations, instead of 4.
+
+```
+-----John Chan------
+------21039408------
+-------2017F--------
+
+COMP3111
+  Software Engineering
+  4.00 4
+COMP3311
+  Database Management Systems
+  3.30 3
+
+Semester GPA: 3.70
+```
+
+*   Did you remember to also update the `transcriptHeightForWidth` method?
+*   What code smells did you encounter here?
+*   Propose and implement a fix to the problem. Why is it better?
+
+### Task 3: Consolidate the `transcriptHeightForWidth` and `generateTranscriptforWidth` methods
+
+As one might expect, the `transcriptHeightForWidth` and
+`generateTranscriptForWidth` classes are structurally similar - after all,
+they're describing the same transcript structure.
+
+*   Propose and implement some changes that consolidate or improve code
+reuse between the two methods. What are some advantages and
+disadvantages to your approach?
+*   Bonus: are there any design patterns that *make sense* with respect to
+consolidating these two methods?
