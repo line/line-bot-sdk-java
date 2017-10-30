@@ -63,7 +63,7 @@ class Transcript {
      *    relative to the provided width.
      * 2. Next, each class result is printed on a separate line. In the case that a line will
      *    exceed the width limit, the word is shifted to the next line with four-space indentation:
-     *    
+     *
      *        COMP3111
      *            Software Engineering
      *            4.00 4
@@ -120,7 +120,7 @@ class Transcript {
                 transcriptBuilder.append(" ");
                 currentLength++;
             }
-            
+
             transcriptBuilder.append(result.className());
             currentLength += result.className().length();
 
@@ -132,7 +132,7 @@ class Transcript {
                 transcriptBuilder.append(" ");
                 currentLength++;
             }
-            
+
             transcriptBuilder.append(gradePointsString);
             currentLength += gradePointsString.length();
 
@@ -144,13 +144,13 @@ class Transcript {
                 transcriptBuilder.append(" ");
                 currentLength++;
             }
-            
+
             transcriptBuilder.append(creditsString);
             currentLength += creditsString.length();
 
             transcriptBuilder.append("\n");
         }
-        
+
         // Newline between the transcript and the summary.
         transcriptBuilder.append("\n");
 
@@ -172,7 +172,7 @@ class Transcript {
     public int transcriptHeightForWidth(int width) {
         // The header consists of studentName, studentId, semesterName, and separating newline.
         int totalLines = 4;
-        
+
         for (ClassResult result : classResults) {
             int currentLength = result.classCode().length();
             if (currentLength + 1 + result.className().length() > width) {
@@ -184,7 +184,7 @@ class Transcript {
             } else {
                 currentLength++;
             }
-            
+
             currentLength += result.className().length();
 
             String gradePointsString = String.format("%.2f", result.gradePoints());
@@ -194,7 +194,7 @@ class Transcript {
             } else {
                 currentLength++;
             }
-            
+
             currentLength += gradePointsString.length();
 
             String creditsString = String.format("%d", result.credits());
@@ -208,7 +208,7 @@ class Transcript {
             currentLength += creditsString.length();
             totalLines++;
         }
-        
+
         // The footer consists of the line separating the transcript body and the line indicating
         // the semester GPA.
         totalLines += 2;
@@ -223,7 +223,9 @@ public class RefactoringLab {
             new ClassResult("COMP3311", "Database Management Systems", 3.3, 3),
         };
         Transcript transcript = new Transcript("John Chan", "21039408", "2017F", classResults);
-        transcript.generateTranscriptForWidth(20);
+
+        // We call transcriptHeightForWidth first to figure out how large it's going to be.
         System.out.println("Total lines: " + transcript.transcriptHeightForWidth(20));
+        transcript.generateTranscriptForWidth(20);
     }
 }
