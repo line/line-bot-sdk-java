@@ -166,6 +166,6 @@ consolidating these two methods?
     ```java
     class SomeExampleClass {
       // GOOD: All-caps clarifies that the field is a constant.
-      static final double PI = 3.14159;
+      public static final double PI = 3.14159;
     }
     ```
