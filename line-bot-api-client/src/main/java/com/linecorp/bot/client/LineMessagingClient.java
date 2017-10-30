@@ -26,6 +26,10 @@ import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.richmenu.RichMenu;
+import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
+import com.linecorp.bot.model.richmenu.RichMenuListResponse;
+import com.linecorp.bot.model.richmenu.RichMenuResponse;
 
 public interface LineMessagingClient {
     /**
@@ -129,6 +133,73 @@ public interface LineMessagingClient {
      * @see <a href="https://devdocs.line.me?java#leave">//devdocs.line.me#leave</a>
      */
     CompletableFuture<BotApiResponse> leaveRoom(String roomId);
+
+    /**
+     * Get a rich menu.
+     *
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#get-rich-menu"
+     * >//developers.line.me/en/docs/messaging-api/reference/#get-rich-menu</a>
+     */
+    CompletableFuture<RichMenuResponse> getRichMenu(String richMenuId);
+
+    /**
+     * Creates a rich menu.
+     *
+     * <p>Note: You must upload a rich menu image and link the rich menu to a user for the rich menu to be displayed. You can create up to 10 rich menus for one bot.
+     *
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#create-rich-menu"
+     * >//developers.line.me/en/docs/messaging-api/reference/#create-rich-menu</a>
+     */
+    CompletableFuture<RichMenuIdResponse> createRichMenu(RichMenu richMenu);
+
+    /**
+     * Deletes a rich menu.
+     */
+    CompletableFuture<BotApiResponse> deleteRichMenu(String richMenuId);
+
+    /**
+     * Get rich menu ID of user
+     */
+    CompletableFuture<RichMenuIdResponse> getRichMenuIdOfUser(String userId);
+
+    /**
+     * Link rich menu to user
+     *
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#link-rich-menu-to-user"
+     * >//developers.line.me/en/docs/messaging-api/reference/#link-rich-menu-to-user</a>
+     */
+    CompletableFuture<BotApiResponse> linkRichMenuIdToUser(String userId, String richMenuId);
+
+    /**
+     * Unlink rich menu from user
+     *
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#unlink-rich-menu-from-user"
+     * >//developers.line.me/en/docs/messaging-api/reference/#unlink-rich-menu-from-user</a>
+     */
+    CompletableFuture<BotApiResponse> unlinkRichMenuIdFromUser(String userId);
+
+    /**
+     * Download rich menu image
+     *
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image"
+     * >//developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image</a>
+     */
+    CompletableFuture<MessageContentResponse> getRichMenuImage(String richMenuId);
+
+    /**
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image"
+     * >//developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image</a>
+     */
+    CompletableFuture<BotApiResponse> setRichMenuImage(
+            String richMenuId, String contentType, byte[] content);
+
+    /**
+     * Gets a list of all uploaded rich menus.
+     *
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#get-rich-menu-list"
+     * >//developers.line.me/en/docs/messaging-api/reference/#get-rich-menu-list</a>
+     */
+    CompletableFuture<RichMenuListResponse> getRichMenuList();
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return new LineMessagingClientBuilder(channelToken);

@@ -22,10 +22,16 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.richmenu.RichMenu;
+import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
+import com.linecorp.bot.model.richmenu.RichMenuListResponse;
+import com.linecorp.bot.model.richmenu.RichMenuResponse;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -141,4 +147,35 @@ public interface LineMessagingService {
      */
     @POST("v2/bot/room/{roomId}/leave")
     Call<BotApiResponse> leaveRoom(@Path("roomId") String roomId);
+
+    @GET("v2/bot/richmenu/{richMenuId}")
+    Call<RichMenuResponse> getRichMenu(@Path("richMenuId") String richMenuId);
+
+    @POST("v2/bot/richmenu")
+    Call<RichMenuIdResponse> createRichMenu(@Body RichMenu richMenu);
+
+    @DELETE("v2/bot/richmenu/{richMenuId}")
+    Call<Void> deleteRichMenu(@Path("richMenuId") String richMenuId);
+
+    @GET("v2/bot/user/{userId}/richmenu")
+    Call<RichMenuIdResponse> getRichMenuIdOfUser(@Path("userId") String userId);
+
+    @POST("v2/bot/user/{userId}/richmenu/{richMenuId}")
+    Call<Void> linkRichMenuToUser(
+            @Path("userId") String userId,
+            @Path("richMenuId") String richMenuId);
+
+    @DELETE("v2/bot/user/{userId}/richmenu")
+    Call<Void> unlinkRichMenuIdFromUser(@Path("userId") String userId);
+
+    @GET("v2/bot/richmenu/{richMenuId}/content")
+    Call<ResponseBody> getRichMenuImage(@Path("richMenuId") String richMenuId);
+
+    @POST("v2/bot/richmenu/{richMenuId}/content")
+    Call<Void> uploadRichMenuImage(
+            @Path("richMenuId") String richMenuId,
+            @Body RequestBody requestBody);
+
+    @GET("v2/bot/richmenu/list")
+    Call<RichMenuListResponse> getRichMenuList();
 }

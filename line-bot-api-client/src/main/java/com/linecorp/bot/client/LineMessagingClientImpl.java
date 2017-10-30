@@ -16,7 +16,10 @@
 
 package com.linecorp.bot.client;
 
+import static java.util.Collections.emptyList;
+
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
 import com.linecorp.bot.model.Multicast;
@@ -25,8 +28,15 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.richmenu.RichMenu;
+import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
+import com.linecorp.bot.model.richmenu.RichMenuListResponse;
+import com.linecorp.bot.model.richmenu.RichMenuResponse;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,11 +45,15 @@ import retrofit2.Response;
 /**
  * Proxy implementation of {@link LineMessagingClient} to hind internal implementation.
  */
+@Slf4j
 @AllArgsConstructor(onConstructor = @__(@SuppressWarnings("deprecation")))
 public class LineMessagingClientImpl implements LineMessagingClient {
     private static final ExceptionConverter EXCEPTION_CONVERTER = new ExceptionConverter();
     private static final String ORG_TYPE_GROUP = "group"; // TODO Enum
     private static final String ORG_TYPE_ROOM = "room";
+    private static final BotApiResponse BOT_API_SUCCESS_RESPONSE = new BotApiResponse("", emptyList());
+    private static final Function<Void, BotApiResponse>
+            VOID_TO_BOT_API_SUCCESS_RESPONSE = ignored -> BOT_API_SUCCESS_RESPONSE;
 
     @SuppressWarnings("deprecation")
     private final LineMessagingService retrofitImpl;
@@ -103,10 +117,64 @@ public class LineMessagingClientImpl implements LineMessagingClient {
         return toFuture(retrofitImpl.leaveRoom(roomId));
     }
 
+    @Override
+    public CompletableFuture<RichMenuResponse> getRichMenu(final String richMenuId) {
+        return toFuture(retrofitImpl.getRichMenu(richMenuId));
+    }
+
+    @Override
+    public CompletableFuture<RichMenuIdResponse> createRichMenu(final RichMenu richMenu) {
+        return toFuture(retrofitImpl.createRichMenu(richMenu));
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> deleteRichMenu(final String richMenuId) {
+        return toBotApiFuture(retrofitImpl.deleteRichMenu(richMenuId));
+    }
+
+    @Override
+    public CompletableFuture<RichMenuIdResponse> getRichMenuIdOfUser(final String userId) {
+        return toFuture(retrofitImpl.getRichMenuIdOfUser(userId));
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> linkRichMenuIdToUser(
+            final String userId, final String richMenuId) {
+        return toBotApiFuture(retrofitImpl.linkRichMenuToUser(userId, richMenuId));
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> unlinkRichMenuIdFromUser(final String userId) {
+        return toBotApiFuture(retrofitImpl.unlinkRichMenuIdFromUser(userId));
+    }
+
+    @Override
+    public CompletableFuture<MessageContentResponse> getRichMenuImage(final String richMenuId) {
+        return toMessageContentResponseFuture(retrofitImpl.getRichMenuImage(richMenuId));
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> setRichMenuImage(
+            final String richMenuId, final String contentType, final byte[] content) {
+        final RequestBody requestBody = RequestBody.create(MediaType.parse(contentType), content);
+        return toBotApiFuture(retrofitImpl.uploadRichMenuImage(richMenuId, requestBody));
+    }
+
+    @Override
+    public CompletableFuture<RichMenuListResponse> getRichMenuList() {
+        return toFuture(retrofitImpl.getRichMenuList());
+    }
+
     private static <T> CompletableFuture<T> toFuture(Call<T> callToWrap) {
         final CallbackAdaptor<T> completableFuture = new CallbackAdaptor<>();
         callToWrap.enqueue(completableFuture);
         return completableFuture;
+    }
+
+    private static CompletableFuture<BotApiResponse> toBotApiFuture(Call<Void> callToWrap) {
+        final CallbackAdaptor<Void> completableFuture = new CallbackAdaptor<>();
+        callToWrap.enqueue(completableFuture);
+        return completableFuture.thenApply(VOID_TO_BOT_API_SUCCESS_RESPONSE);
     }
 
     private static CompletableFuture<MessageContentResponse> toMessageContentResponseFuture(
