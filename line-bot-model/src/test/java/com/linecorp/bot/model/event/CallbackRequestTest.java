@@ -26,9 +26,7 @@ import java.time.Instant;
 import org.junit.Test;
 import org.springframework.util.StreamUtils;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import com.linecorp.bot.model.event.message.FileMessageContent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
@@ -40,6 +38,7 @@ import com.linecorp.bot.model.event.message.UnknownMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.UnknownSource;
 import com.linecorp.bot.model.event.source.UserSource;
+import com.linecorp.bot.model.testutil.TestUtil;
 
 public class CallbackRequestTest {
     interface RequestTester {
@@ -49,10 +48,7 @@ public class CallbackRequestTest {
     private void parse(String resourceName, RequestTester callback) throws IOException {
         try (InputStream resource = getClass().getClassLoader().getResourceAsStream(resourceName)) {
             String json = StreamUtils.copyToString(resource, StandardCharsets.UTF_8);
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            objectMapper.registerModule(new JavaTimeModule())
-                        .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+            ObjectMapper objectMapper = TestUtil.objectMapperWithProductionConfiguration(false);
             CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
 
             callback.call(callbackRequest);
