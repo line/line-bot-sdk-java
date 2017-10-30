@@ -22,27 +22,18 @@ import static org.hamcrest.CoreMatchers.isA;
 import java.util.concurrent.ExecutionException;
 
 import org.hamcrest.CustomTypeSafeMatcher;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.slf4j.bridge.SLF4JBridgeHandler;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
 import com.linecorp.bot.client.exception.BadRequestException;
 import com.linecorp.bot.client.exception.ForbiddenException;
 import com.linecorp.bot.client.exception.LineMessagingException;
 import com.linecorp.bot.client.exception.LineServerException;
+import com.linecorp.bot.client.exception.NotFoundException;
 import com.linecorp.bot.client.exception.TooManyRequestsException;
 import com.linecorp.bot.client.exception.UnauthorizedException;
 import com.linecorp.bot.model.error.ErrorResponse;
-
-import lombok.SneakyThrows;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 
 public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
     @Rule
@@ -93,6 +84,23 @@ public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
         // Expect
         expectedException.expect(ExecutionException.class);
         expectedException.expectCause(isA(ForbiddenException.class));
+        expectedException.expectCause(errorResponseIs(errorResponse));
+
+        // Do
+        lineMessagingClient.getMessageContent("TOKEN").get();
+    }
+
+    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    public void status404NotFoundTest() throws Exception {
+        final ErrorResponse errorResponse =
+                new ErrorResponse("Not found.", null);
+
+        // Mocking
+        mocking(404, errorResponse);
+
+        // Expect
+        expectedException.expect(ExecutionException.class);
+        expectedException.expectCause(isA(NotFoundException.class));
         expectedException.expectCause(errorResponseIs(errorResponse));
 
         // Do
