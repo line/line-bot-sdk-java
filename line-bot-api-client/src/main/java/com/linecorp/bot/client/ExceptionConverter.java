@@ -27,6 +27,7 @@ import com.linecorp.bot.client.exception.ForbiddenException;
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
 import com.linecorp.bot.client.exception.LineMessagingException;
 import com.linecorp.bot.client.exception.LineServerException;
+import com.linecorp.bot.client.exception.NotFoundException;
 import com.linecorp.bot.client.exception.TooManyRequestsException;
 import com.linecorp.bot.client.exception.UnauthorizedException;
 import com.linecorp.bot.model.error.ErrorResponse;
@@ -59,6 +60,9 @@ class ExceptionConverter implements Function<Response<?>, LineMessagingException
                         errorResponse.getMessage(), errorResponse);
             case 403:
                 return new ForbiddenException(
+                        errorResponse.getMessage(), errorResponse);
+            case 404:
+                return new NotFoundException(
                         errorResponse.getMessage(), errorResponse);
             case 429:
                 return new TooManyRequestsException(
