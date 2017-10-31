@@ -23,20 +23,17 @@ import java.util.Collections;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import com.linecorp.bot.model.message.imagemap.ImagemapArea;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
 import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
+import com.linecorp.bot.model.testutil.TestUtil;
 
 public class ImagemapMessageTest {
     @Test
     public void test() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper()
-                .registerModule(new JavaTimeModule())
-                .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+        ObjectMapper objectMapper = TestUtil.objectMapperWithProductionConfiguration(false);
         ImagemapMessage imagemapMessage = new ImagemapMessage(
                 "https://example.com", "hoge",
                 new ImagemapBaseSize(1040, 1040),

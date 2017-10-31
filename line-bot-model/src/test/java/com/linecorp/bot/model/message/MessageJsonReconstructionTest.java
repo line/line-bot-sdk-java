@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
@@ -18,6 +17,7 @@ import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
+import com.linecorp.bot.model.testutil.TestUtil;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +36,7 @@ public class MessageJsonReconstructionTest {
 
     @Before
     public void setUp() throws Exception {
-        objectMapper = new ObjectMapper()
-                .registerModule(new ParameterNamesModule());
+        objectMapper = TestUtil.objectMapperWithProductionConfiguration(false);
     }
 
     @Test
