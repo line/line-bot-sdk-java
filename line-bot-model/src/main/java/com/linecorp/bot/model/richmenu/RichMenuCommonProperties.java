@@ -2,7 +2,7 @@ package com.linecorp.bot.model.richmenu;
 
 import java.util.List;
 
-public interface RichMenuCommomProperties {
+public interface RichMenuCommonProperties {
     /**
      * {@link RichMenuSize} object which contains the width and height of the rich menu displayed in the chat.
      *
