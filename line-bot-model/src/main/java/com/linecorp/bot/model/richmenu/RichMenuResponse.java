@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Value;
 
 @Value
-public class RichMenuResponse implements RichMenuCommomProperties {
+public class RichMenuResponse implements RichMenuCommonProperties {
     /** Rich menu ID */
     String richMenuId;
 

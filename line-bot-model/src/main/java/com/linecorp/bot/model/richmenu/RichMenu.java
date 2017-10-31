@@ -7,7 +7,7 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class RichMenu implements RichMenuCommomProperties {
+public class RichMenu implements RichMenuCommonProperties {
     /**
      * {@link RichMenuSize} object which contains the width and height of the rich menu displayed in the chat.
      *
