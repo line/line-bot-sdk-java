@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 import com.linecorp.bot.model.action.Action;
 
-import lombok.AllArgsConstructor;
 import lombok.Value;
 
 @Value
-@AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class RichMenuArea {
     /**
      * Object describing the boundaries of the area in pixels.
@@ -21,4 +19,10 @@ public class RichMenuArea {
      * Note: The label field is not supported for actions in rich menus.
      */
     Action action;
+
+    @JsonCreator
+    public RichMenuArea(final RichMenuBounds bounds, final Action action) {
+        this.bounds = bounds;
+        this.action = action;
+    }
 }

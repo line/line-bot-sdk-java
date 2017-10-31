@@ -2,11 +2,9 @@ package com.linecorp.bot.model.richmenu;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-import lombok.AllArgsConstructor;
 import lombok.Value;
 
 @Value
-@AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class RichMenuBounds {
     /** Horizontal position relative to the top-left corner of the area. */
     int x;
@@ -19,4 +17,12 @@ public class RichMenuBounds {
 
     /** Height of the area. */
     int height;
+
+    @JsonCreator
+    public RichMenuBounds(final int x, final int y, final int width, final int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
 }

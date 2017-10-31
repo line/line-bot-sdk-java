@@ -4,11 +4,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-import lombok.AllArgsConstructor;
 import lombok.Value;
 
 @Value
-@AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class RichMenuResponse implements RichMenuCommomProperties {
     /** Rich menu ID */
     String richMenuId;
@@ -43,4 +41,15 @@ public class RichMenuResponse implements RichMenuCommomProperties {
      * <p>Maximum of 20 area objects.
      */
     List<RichMenuArea> areas;
+
+    @JsonCreator
+    public RichMenuResponse(final String richMenuId, final RichMenuSize size, final boolean selected,
+                            final String name, final String chatBarText, final List<RichMenuArea> areas) {
+        this.richMenuId = richMenuId;
+        this.size = size;
+        this.selected = selected;
+        this.name = name;
+        this.chatBarText = chatBarText;
+        this.areas = areas;
+    }
 }
