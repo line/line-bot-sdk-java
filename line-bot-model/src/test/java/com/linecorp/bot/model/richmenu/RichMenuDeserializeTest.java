@@ -71,10 +71,10 @@ public class RichMenuDeserializeTest {
                 new RichMenuArea(new RichMenuBounds(0, 0, 2500, 1686),
                                  new PostbackAction(null, "action=buy&itemid=123"));
 
-        assertThat(target.getRichmenus()).hasSize(1);
+        assertThat(target.getRichMenus()).hasSize(1);
         assertThat(target.toString()).contains("{richMenuId}");
 
-        final RichMenuResponse richMenuResponse = target.getRichmenus().get(0);
+        final RichMenuResponse richMenuResponse = target.getRichMenus().get(0);
 
         assertThat(richMenuResponse.getRichMenuId()).isEqualTo("{richMenuId}");
         assertThat(richMenuResponse.getAreas()).isEqualTo(singletonList(richMenuAreaReference));
