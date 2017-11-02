@@ -36,21 +36,21 @@ import com.linecorp.bot.client.exception.UnauthorizedException;
 import com.linecorp.bot.model.error.ErrorResponse;
 
 public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
+    static final ErrorResponse ERROR_RESPONSE =
+            new ErrorResponse(null, "Error Message", null);
+
     @Rule
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void status400BadRequestTest() throws Exception {
-        final ErrorResponse errorResponse =
-                new ErrorResponse("Problem with the request", null);
-
         // Mocking
-        mocking(400, errorResponse);
+        mocking(400, ERROR_RESPONSE);
 
         // Expect
         expectedException.expect(ExecutionException.class);
         expectedException.expectCause(isA(BadRequestException.class));
-        expectedException.expectCause(errorResponseIs(errorResponse));
+        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
         // Do
         lineMessagingClient.getMessageContent("TOKEN").get();
@@ -58,16 +58,13 @@ public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
 
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void status401UnauthorizedTest() throws Exception {
-        final ErrorResponse errorResponse =
-                new ErrorResponse("Valid Channel access token is not specified", null);
-
         // Mocking
-        mocking(401, errorResponse);
+        mocking(401, ERROR_RESPONSE);
 
         // Expect
         expectedException.expect(ExecutionException.class);
         expectedException.expectCause(isA(UnauthorizedException.class));
-        expectedException.expectCause(errorResponseIs(errorResponse));
+        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
         // Do
         lineMessagingClient.getMessageContent("TOKEN").get();
@@ -75,16 +72,13 @@ public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
 
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void status403ForbiddenTest() throws Exception {
-        final ErrorResponse errorResponse =
-                new ErrorResponse("Not authorized to use the API.", null);
-
         // Mocking
-        mocking(403, errorResponse);
+        mocking(403, ERROR_RESPONSE);
 
         // Expect
         expectedException.expect(ExecutionException.class);
         expectedException.expectCause(isA(ForbiddenException.class));
-        expectedException.expectCause(errorResponseIs(errorResponse));
+        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
         // Do
         lineMessagingClient.getMessageContent("TOKEN").get();
@@ -92,16 +86,13 @@ public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
 
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void status404NotFoundTest() throws Exception {
-        final ErrorResponse errorResponse =
-                new ErrorResponse("Not found.", null);
-
         // Mocking
-        mocking(404, errorResponse);
+        mocking(404, ERROR_RESPONSE);
 
         // Expect
         expectedException.expect(ExecutionException.class);
         expectedException.expectCause(isA(NotFoundException.class));
-        expectedException.expectCause(errorResponseIs(errorResponse));
+        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
         // Do
         lineMessagingClient.getMessageContent("TOKEN").get();
@@ -109,16 +100,13 @@ public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
 
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void status429TooManyRequestsTest() throws Exception {
-        final ErrorResponse errorResponse =
-                new ErrorResponse("Exceeded the rate limit for API calls", null);
-
         // Mocking
-        mocking(429, errorResponse);
+        mocking(429, ERROR_RESPONSE);
 
         // Expect
         expectedException.expect(ExecutionException.class);
         expectedException.expectCause(isA(TooManyRequestsException.class));
-        expectedException.expectCause(errorResponseIs(errorResponse));
+        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
         // Do
         lineMessagingClient.getMessageContent("TOKEN").get();
@@ -126,16 +114,13 @@ public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
 
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void status500InternalServerErrorTest() throws Exception {
-        final ErrorResponse errorResponse =
-                new ErrorResponse("Error on the internal server", null);
-
         // Mocking
-        mocking(500, errorResponse);
+        mocking(500, ERROR_RESPONSE);
 
         // Expect
         expectedException.expect(ExecutionException.class);
         expectedException.expectCause(isA(LineServerException.class));
-        expectedException.expectCause(errorResponseIs(errorResponse));
+        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
         // Do
         lineMessagingClient.getMessageContent("TOKEN").get();

@@ -16,9 +16,12 @@
 
 package com.linecorp.bot.client;
 
+import static java.util.Collections.singletonMap;
+
 import java.io.IOException;
 import java.util.function.Function;
 
+import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 
@@ -40,16 +43,23 @@ class ExceptionConverter implements Function<Response<?>, LineMessagingException
 
     @Override
     public LineMessagingException apply(Response<?> response) {
+        final String requestId = response.headers().get("x-line-request-id");
         try {
-            return applyInternal(response.code(), response.errorBody());
+            return applyInternal(requestId, response);
         } catch (Exception e) {
-            return new GeneralLineMessagingException(e.getMessage(), null, e);
+            final ErrorResponse errorResponse = new ErrorResponse(requestId, null, null);
+            return new GeneralLineMessagingException(e.getMessage(), errorResponse, e);
         }
     }
 
-    private static LineMessagingException applyInternal(final int code, final ResponseBody responseBody)
+    private static LineMessagingException applyInternal(final String requestId, final Response<?> response)
             throws IOException {
-        final ErrorResponse errorResponse = OBJECT_READER.readValue(responseBody.byteStream());
+        final int code = response.code();
+        final ResponseBody responseBody = response.errorBody();
+
+        final ErrorResponse errorResponse = OBJECT_READER
+                .with(new InjectableValues.Std(singletonMap("requestId", requestId)))
+                .readValue(responseBody.byteStream());
 
         switch (code) {
             case 400:
