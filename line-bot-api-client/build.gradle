@@ -18,8 +18,6 @@ dependencies {
     compile project(':line-bot-model')
     compile 'com.fasterxml.jackson.core:jackson-core'
     compile 'com.fasterxml.jackson.core:jackson-databind'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    compile 'com.fasterxml.jackson.module:jackson-module-parameter-names'
     compile 'com.squareup.okhttp3:logging-interceptor'
     compile 'com.squareup.retrofit2:converter-jackson'
     compile 'com.squareup.retrofit2:retrofit'
