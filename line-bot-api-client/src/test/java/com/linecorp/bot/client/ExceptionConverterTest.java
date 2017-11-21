@@ -27,6 +27,9 @@ import com.linecorp.bot.client.exception.LineMessagingException;
 import com.linecorp.bot.client.exception.UnauthorizedException;
 
 import okhttp3.MediaType;
+import okhttp3.Protocol;
+import okhttp3.Request;
+import okhttp3.Response.Builder;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
@@ -67,5 +70,30 @@ public class ExceptionConverterTest {
 
         assertThat(result)
                 .isInstanceOf(GeneralLineMessagingException.class);
+    }
+
+    @Test
+    public void requestIdDeserializationTest() {
+        final ResponseBody responseBody =
+                ResponseBody.create(MediaType.parse("application/json"),
+                                    "{\"message\":\"Invalid reply token\"}");
+
+        final okhttp3.Response rawResponse = new Builder()
+                .code(400)
+                .message("")
+                .request(new Request.Builder().get().url("https://api.line.me/v2/bot/message/reply").build())
+                .addHeader("X-Line-Request-Id", "5ac44e02-e6be-49c3-a55f-6b2a29bc3aa4")
+                .protocol(Protocol.HTTP_1_1)
+                .build();
+
+        // Precondition
+        assertThat(rawResponse.header("X-Line-Request-Id")).isEqualTo("5ac44e02-e6be-49c3-a55f-6b2a29bc3aa4");
+
+        // Do
+        final LineMessagingException result =
+                target.apply(Response.error(responseBody, rawResponse));
+
+        // Verify
+        assertThat(result.getErrorResponse().getRequestId()).isEqualTo("5ac44e02-e6be-49c3-a55f-6b2a29bc3aa4");
     }
 }
