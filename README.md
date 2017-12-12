@@ -19,8 +19,8 @@ http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.linecorp.bot%22
 
 See the official API documentation for more information.
 
-English: https://devdocs.line.me/en/
-Japanese: https://devdocs.line.me/ja/
+- English: https://developers.line.me/en/docs/messaging-api/reference/
+- Japanese: https://developers.line.me/ja/docs/messaging-api/reference/
 
 ## Spring Boot integration
 
