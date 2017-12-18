@@ -25,12 +25,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.action.Action;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Template message with an image, title, text, and multiple action buttons.
  */
 @Value
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("buttons")
 public class ButtonsTemplate implements Template {
     /**
@@ -45,6 +50,37 @@ public class ButtonsTemplate implements Template {
      * </ul>
      */
     private final String thumbnailImageUrl;
+
+    /**
+     * Aspect ratio of the image. Specify one of the following values:
+     *
+     * <ul>
+     *     <li>rectangle: 1.51:1</li>
+     *     <li>square: 1:1</li>
+     * </ul>
+     *
+     * The default value is {@code rectangle}.
+     */
+    private final String imageAspectRatio;
+
+    /**
+     * Size of the image. Specify one of the following values:
+     *
+     * <ul>
+     *     <li>cover: The image fills the entire image area. Parts of the image that do not fit in the area are not displayed.</li>
+     *     <li>contain: The entire image is displayed in the image area. A background is displayed in the unused areas to the left and right of vertical images and in the areas above and below horizontal images.</li>
+     * </ul>
+     *
+     * The default value is {@code cover}.
+     */
+    private final String imageSize;
+
+    /**
+     * Background color of image.
+     *
+     * <p>Specify a RGB color value. The default value is {@code #FFFFFF} (white).
+     */
+    private final String imageBackgroundColor;
 
     /**
      * Title(Max 40 characters)
@@ -76,5 +112,8 @@ public class ButtonsTemplate implements Template {
         this.title = title;
         this.text = text;
         this.actions = actions != null ? actions : Collections.emptyList();
+        this.imageAspectRatio = null;
+        this.imageSize = null;
+        this.imageBackgroundColor = null;
     }
 }
