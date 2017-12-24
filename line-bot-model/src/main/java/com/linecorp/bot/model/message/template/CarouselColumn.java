@@ -24,12 +24,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.linecorp.bot.model.action.Action;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Column object for carousel template
+ *
+ * @see CarouselColumnBuilder
  */
 @Value
+@Builder
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class CarouselColumn {
     /**
      * Image URL
@@ -42,6 +49,13 @@ public class CarouselColumn {
      * </ul>
      */
     private final String thumbnailImageUrl;
+
+    /**
+     * Background color of image.
+     *
+     * <p>Specify a RGB color value. The default value is <code>#FFFFFF</code> (white).
+     */
+    private final String imageBackgroundColor;
 
     /**
      * Title (Max: 40 characters)
@@ -70,5 +84,6 @@ public class CarouselColumn {
         this.title = title;
         this.text = text;
         this.actions = actions != null ? actions : Collections.emptyList();
+        this.imageBackgroundColor = null;
     }
 }
