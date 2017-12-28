@@ -16,12 +16,12 @@
 
 package com.linecorp.bot.model.event.beacon;
 
-import javax.xml.bind.DatatypeConverter;
-
 final class BeaconContentUtil {
     private BeaconContentUtil() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
+
+    private static final char[] HEX_CODE = "0123456789abcdef".toCharArray();
 
     /**
      * @throws IllegalArgumentException occurred when arguments is not null and illegal hex string.
@@ -29,16 +29,38 @@ final class BeaconContentUtil {
     static byte[] parseBytesOrNull(final String deviceMessageAsHex) {
         if (deviceMessageAsHex == null) {
             return null;
-        } else {
-            return DatatypeConverter.parseHexBinary(deviceMessageAsHex);
         }
+
+        final int length = deviceMessageAsHex.length();
+        final int resultSize = length / 2;
+
+        if (length % 2 != 0) {
+            throw new IllegalArgumentException("hex string needs to be even-length: " + deviceMessageAsHex);
+        }
+
+        final byte[] bytes = new byte[resultSize];
+
+        for (int pos = 0; pos < resultSize; pos++) {
+            bytes[pos] = (byte) Integer.parseInt(deviceMessageAsHex.substring(pos * 2, pos * 2 + 2), 16);
+            // Byte.parseByte doesn't support >= 0x80.
+        }
+
+        return bytes;
     }
 
     static String printHexBinary(final byte[] deviceMessage) {
         if (deviceMessage == null) {
             return null;
-        } else {
-            return DatatypeConverter.printHexBinary(deviceMessage).toLowerCase();
         }
+
+        final StringBuilder sb = new StringBuilder(deviceMessage.length * 2);
+
+        for (byte byteValue : deviceMessage) {
+            final int intValue = Byte.toUnsignedInt(byteValue);
+            sb.append(HEX_CODE[intValue >>> 4]);
+            sb.append(HEX_CODE[intValue & 0xf]);
+        }
+
+        return sb.toString();
     }
 }
