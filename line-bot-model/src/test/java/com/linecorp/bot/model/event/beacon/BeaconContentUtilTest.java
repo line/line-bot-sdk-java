@@ -93,15 +93,13 @@ public class BeaconContentUtilTest {
             String stringResult = BeaconContentUtil.printHexBinary(originalBytes);
 
             // Verify
-            assertThat(stringResult)
-                    .isEqualTo(String.format("%02x", i));
+            assertThat(stringResult).isEqualTo(String.format("%02x", i));
 
             // Do
             byte[] deConverted = BeaconContentUtil.parseBytesOrNull(stringResult);
 
             // Verify
-            assertThat(deConverted)
-                    .isEqualTo(originalBytes);
+            assertThat(deConverted).isEqualTo(originalBytes);
         }
     }
 }
