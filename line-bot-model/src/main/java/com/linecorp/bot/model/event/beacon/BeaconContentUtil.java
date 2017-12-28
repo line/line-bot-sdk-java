@@ -21,7 +21,8 @@ final class BeaconContentUtil {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
-    private static final char[] HEX_CODE = "0123456789abcdef".toCharArray();
+    private static final char[] HEX_CODE =
+            { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
     /**
      * @throws IllegalArgumentException occurred when arguments is not null and illegal hex string.
