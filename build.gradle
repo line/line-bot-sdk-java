@@ -24,9 +24,9 @@ buildscript {
     }
     dependencies {
         classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17'
-        classpath 'io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE'
         classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.6.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE'
     }
 }
 
@@ -75,21 +75,21 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
-    ext['guava.version'] = '23.0'
-    ext['okhttp3.version'] = '3.8.1'
+    ext['guava.version'] = '23.6-jre'
+    ext['okhttp3.version'] = '3.9.1'
 
     dependencyManagement {
         imports {
-            mavenBom 'io.spring.platform:platform-bom:Brussels-SR4'
+            mavenBom 'io.spring.platform:platform-bom:Brussels-SR6'
         }
 
         dependencies {
-            dependency 'com.github.stefanbirkner:system-rules:1.16.1'
+            dependency 'com.github.stefanbirkner:system-rules:1.17.0'
             dependency 'com.squareup.okhttp3:logging-interceptor:' + ext['okhttp3.version']
             dependency 'com.squareup.okhttp3:mockwebserver:' + ext['okhttp3.version']
             dependency 'com.squareup.retrofit2:converter-jackson:2.3.0'
             dependency 'com.squareup.retrofit2:retrofit:2.3.0'
-            dependency 'org.assertj:assertj-core:3.8.0'
+            dependency 'org.assertj:assertj-core:3.9.0'
             dependency 'org.projectlombok:lombok:1.16.18'
         }
     }
