@@ -23,6 +23,7 @@ buildscript {
         maven { url 'https://repo.spring.io/plugins-release' }
     }
     dependencies {
+        classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.2'
         classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE'
         classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
@@ -56,11 +57,11 @@ subprojects {
         mavenCentral();
     }
 
+    apply plugin: 'com.github.spotbugs'
     apply plugin: 'propdeps'
     apply plugin: 'propdeps-maven'
     apply plugin: 'propdeps-idea'
     apply plugin: 'propdeps-eclipse'
-    apply plugin: 'findbugs'
     apply plugin: 'java'
     apply plugin: 'io.franzbecker.gradle-lombok'
     if (new File("${project.rootDir}/.git").exists()) {
