@@ -90,7 +90,7 @@ subprojects {
             dependency 'com.squareup.retrofit2:converter-jackson:2.3.0'
             dependency 'com.squareup.retrofit2:retrofit:2.3.0'
             dependency 'org.assertj:assertj-core:3.9.0'
-            dependency 'org.projectlombok:lombok:1.16.18'
+            dependency 'org.projectlombok:lombok:1.16.20'
         }
     }
 
