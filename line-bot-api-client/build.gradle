@@ -23,6 +23,5 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor'
     compile 'com.squareup.retrofit2:converter-jackson'
     compile 'com.squareup.retrofit2:retrofit'
-
-    optional 'org.slf4j:slf4j-api'
+    compile 'org.slf4j:slf4j-api'
 }
