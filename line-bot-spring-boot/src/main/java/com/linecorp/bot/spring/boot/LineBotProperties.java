@@ -93,7 +93,7 @@ public class LineBotProperties {
     public static class Handler {
         /**
          * Flag to enable/disable {@link LineMessageHandler} and {@link EventMapping}.
-         *
+         * <p>
          * Default: {@code true}
          */
         boolean enabled = true;
@@ -105,7 +105,7 @@ public class LineBotProperties {
         URI path = URI.create("/callback");
     }
 
-    enum ChannelTokenSupplyMode {
+    public enum ChannelTokenSupplyMode {
         /**
          * Use fixed channel token for public API user.
          */
