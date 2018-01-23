@@ -138,6 +138,7 @@ subprojects {
         javadoc {
             dependsOn delombok
             source = delombok.outputDir
+            options.locale = 'en_US'
             options.addStringOption('Xdoclint:none', '-quiet')
             // To create javadoc for generated method&constructor, delombok & run javadoc on delombok.outputDir.
         }
