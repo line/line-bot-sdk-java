@@ -70,10 +70,18 @@ public class CarouselColumn {
     private final String text;
 
     /**
+     * Optional: Action when image is tapped; set for the entire image, title, and text area
+     */
+    private final Action defaultAction;
+
+    /**
      * Action when tapped(Max: 3)
      */
     private final List<Action> actions;
 
+    /**
+     * @see {@link #builder()} also.
+     */
     @JsonCreator
     public CarouselColumn(
             @JsonProperty("thumbnailImageUrl") String thumbnailImageUrl,
@@ -83,6 +91,7 @@ public class CarouselColumn {
         this.thumbnailImageUrl = thumbnailImageUrl;
         this.title = title;
         this.text = text;
+        this.defaultAction = null;
         this.actions = actions != null ? actions : Collections.emptyList();
         this.imageBackgroundColor = null;
     }
