@@ -33,15 +33,25 @@ public class EchoApplication {
         SpringApplication.run(EchoApplication.class, args);
     }
 
-    @EventMapping
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
-        System.out.println("event: " + event);
-        return new TextMessage(event.getMessage().getText()+"   誰偷放屁? 王馨卉!");
-    }
+//    @EventMapping
+//    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+//        System.out.println("event: " + event);
+//        return new TextMessage(event.getMessage().getText()+"   誰偷放屁? 王馨卉!");
+//    }
 
     @EventMapping
     public void handleDefaultMessageEvent(Event event) {
         System.out.println("event: " + event);
+    }
+    
+    @EventMapping
+    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+    	System.out.println("event: " + event);
+        
+        TextMessageContent message = event.getMessage();
+        handleTextContent(event.getReplyToken(), event, message);
+        
+        return new TextMessage(event.getMessage().getText()+"   謹遵您的命令!主人!");
     }
     
     private void handleTextContent(String replyToken, Event event, TextMessageContent content)
