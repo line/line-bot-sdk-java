@@ -36,7 +36,7 @@ public class EchoApplication {
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
-        return new TextMessage(event.getMessage().getText());
+        return new TextMessage(event.getMessage().getText()+"   誰偷放屁? 王馨卉!");
     }
 
     @EventMapping
