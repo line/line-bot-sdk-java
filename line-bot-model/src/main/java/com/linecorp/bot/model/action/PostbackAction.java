@@ -55,6 +55,12 @@ public class PostbackAction implements Action {
      * Text sent when the action is performed<br>
      * Max: 300 characters
      */
+    private final String displayText;
+
+    /**
+     * Deprecated. Text sent when the action is performed<br>
+     * Max: 300 characters
+     */
     private final String text;
 
     /**
@@ -62,19 +68,28 @@ public class PostbackAction implements Action {
      * @param label Label for the action. Max: 20 characters.
      * @param data String returned via webhook in the postback.data property of the postback event.
      *              Max: 300 characters.
+     * @param displayText text message (optional)
+     *                     Can not be used at the same time with text.
      * @param text text message (optional)
+     *              Can not be used at the same time with displayText.
      */
     @JsonCreator
     public PostbackAction(
             @JsonProperty("label") String label,
             @JsonProperty("data") String data,
+            @JsonProperty("displayText") String displayText,
             @JsonProperty("text") String text) {
         this.label = label;
         this.data = data;
+        this.displayText = displayText;
         this.text = text;
     }
 
+    public PostbackAction(String label, String data, String text) {
+        this(label, data, null, text);
+    }
+
     public PostbackAction(String label, String data) {
-        this(label, data, null);
+        this(label, data, null, null);
     }
 }
