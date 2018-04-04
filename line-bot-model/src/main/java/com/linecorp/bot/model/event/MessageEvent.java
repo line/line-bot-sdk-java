@@ -19,7 +19,6 @@ package com.linecorp.bot.model.event;
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.event.message.MessageContent;
@@ -56,10 +55,10 @@ public class MessageEvent<T extends MessageContent> implements Event, ReplyEvent
 
     @JsonCreator
     public MessageEvent(
-            @JsonProperty("replyToken") String replyToken,
-            @JsonProperty("source") Source source,
-            @JsonProperty("message") T message,
-            @JsonProperty("timestamp") Instant timestamp) {
+            final String replyToken,
+            final Source source,
+            final T message,
+            final Instant timestamp) {
         this.replyToken = replyToken;
         this.source = source;
         this.message = message;

@@ -46,6 +46,7 @@ public class PostbackEvent implements Event, ReplyEvent {
     /**
      * Content of the postback event.
      */
+    @JsonProperty("postback")
     private final PostbackContent postbackContent;
 
     /**
@@ -55,10 +56,10 @@ public class PostbackEvent implements Event, ReplyEvent {
 
     @JsonCreator
     public PostbackEvent(
-            @JsonProperty("replyToken") String replyToken,
-            @JsonProperty("source") Source source,
-            @JsonProperty("postback") PostbackContent postbackContent,
-            @JsonProperty("timestamp") Instant timestamp) {
+            final String replyToken,
+            final Source source,
+            final PostbackContent postbackContent,
+            final Instant timestamp) {
         this.replyToken = replyToken;
         this.source = source;
         this.postbackContent = postbackContent;

@@ -68,12 +68,12 @@ public class BeaconContent {
     }
 
     public BeaconContent(
-            @JsonProperty("hwid") String hwid,
-            @JsonProperty("type") String type,
-            @JsonProperty("dm") String deviceMessageAsHex) {
+            final String hwid,
+            final String type,
+            @JsonProperty("dm") final String deviceMessage) {
         this.hwid = hwid;
         this.type = type;
-        this.deviceMessage = BeaconContentUtil.parseBytesOrNull(deviceMessageAsHex);
+        this.deviceMessage = BeaconContentUtil.parseBytesOrNull(deviceMessage);
     }
 
     // Delombok for byte[] pretty print.

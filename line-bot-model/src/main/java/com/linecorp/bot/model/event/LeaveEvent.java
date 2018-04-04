@@ -19,7 +19,6 @@ package com.linecorp.bot.model.event;
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.event.source.Source;
@@ -44,8 +43,8 @@ public class LeaveEvent implements Event {
 
     @JsonCreator
     public LeaveEvent(
-            @JsonProperty("source") Source source,
-            @JsonProperty("timestamp") Instant timestamp) {
+            final Source source,
+            final Instant timestamp) {
         this.source = source;
         this.timestamp = timestamp;
     }

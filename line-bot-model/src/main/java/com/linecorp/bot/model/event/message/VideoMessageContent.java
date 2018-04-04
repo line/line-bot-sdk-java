@@ -17,7 +17,6 @@
 package com.linecorp.bot.model.event.message;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
@@ -30,8 +29,8 @@ public class VideoMessageContent implements MessageContent {
 
     @JsonCreator
     public VideoMessageContent(
-            @JsonProperty("id") String id,
-            @JsonProperty("url") String url) {
+            final String id,
+            final String url) {
         this.id = id;
         this.url = url;
     }

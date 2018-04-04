@@ -17,7 +17,6 @@
 package com.linecorp.bot.model.event.source;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
@@ -35,9 +34,8 @@ public class GroupSource implements Source {
      */
     @JsonCreator
     public GroupSource(
-            @JsonProperty("groupId") String groupId,
-            @JsonProperty("userId") String userId
-    ) {
+            final String groupId,
+            final String userId) {
         this.groupId = groupId;
         this.userId = userId;
     }
