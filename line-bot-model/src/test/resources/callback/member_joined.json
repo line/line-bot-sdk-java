@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "memberJoined",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "group",
+        "groupId": "cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "members": [
+        {
+          "type": "user",
+          "userId": "Uxxxx"
+        }, {
+          "type": "user",
+          "userId": "Uyyyy"
+        }
+      ]
+    }
+  ]
+}

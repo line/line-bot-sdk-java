@@ -30,6 +30,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 import com.linecorp.bot.model.action.DatetimePickerAction;
+import com.linecorp.bot.model.event.*;
 import com.linecorp.bot.model.message.template.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -42,13 +43,6 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
-import com.linecorp.bot.model.event.BeaconEvent;
-import com.linecorp.bot.model.event.Event;
-import com.linecorp.bot.model.event.FollowEvent;
-import com.linecorp.bot.model.event.JoinEvent;
-import com.linecorp.bot.model.event.MessageEvent;
-import com.linecorp.bot.model.event.PostbackEvent;
-import com.linecorp.bot.model.event.UnfollowEvent;
 import com.linecorp.bot.model.event.message.AudioMessageContent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
@@ -169,6 +163,12 @@ public class KitchenSinkController {
     public void handleJoinEvent(JoinEvent event) {
         String replyToken = event.getReplyToken();
         this.replyText(replyToken, "Joined " + event.getSource());
+    }
+
+    @EventMapping
+    public void handleMemberJoinedEvent(MemberJoinedEvent event) {
+        String replyToken = event.getReplyToken();
+        this.replyText(replyToken, "MemberJoined " + event.getSource());
     }
 
     @EventMapping
