@@ -1,0 +1,21 @@
+{
+  "events": [
+    {
+      "type": "memberLeft",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "group",
+        "groupId": "cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "members": [
+        {
+          "type": "user",
+          "userId": "Uxxxx"
+        }, {
+          "type": "user",
+          "userId": "Uyyyy"
+        }
+      ]
+    }
+  ]
+}

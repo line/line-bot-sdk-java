@@ -252,6 +252,44 @@ public class CallbackRequestTest {
     }
 
     @Test
+    public void testMemberJoined() throws IOException {
+        parse("callback/member_joined.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(MemberJoinedEvent.class);
+            assertThat(event.getSource())
+                    .isInstanceOf(GroupSource.class);
+            assertThat(((GroupSource) event.getSource()).getGroupId())
+                    .isEqualTo("cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            MemberJoinedEvent memberJoinedEvent = (MemberJoinedEvent) event;
+            assertThat(memberJoinedEvent.getReplyToken())
+                    .isEqualTo("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA");
+            assertThat(memberJoinedEvent.getMembers())
+                    .contains(new UserSource("Uxxxx"), new UserSource("Uyyyy"));
+        });
+    }
+
+    @Test
+    public void testMemberLeft() throws IOException {
+        parse("callback/member_left.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(MemberLeftEvent.class);
+            assertThat(event.getSource())
+                    .isInstanceOf(GroupSource.class);
+            assertThat(((GroupSource) event.getSource()).getGroupId())
+                    .isEqualTo("cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            MemberLeftEvent memberLeftEvent = (MemberLeftEvent) event;
+            assertThat(memberLeftEvent.getMembers())
+                    .contains(new UserSource("Uxxxx"), new UserSource("Uyyyy"));
+        });
+    }
+
+    @Test
     public void testPostback() throws IOException {
         parse("callback/postback.json", callbackRequest -> {
             assertThat(callbackRequest.getEvents()).hasSize(1);
