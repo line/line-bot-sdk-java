@@ -77,22 +77,22 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
-    ext['guava.version'] = '23.6-jre'
-    ext['okhttp3.version'] = '3.9.1'
+    ext['guava.version'] = '25.1-jre'
+    ext['okhttp3.version'] = '3.10.0'
 
     dependencyManagement {
         imports {
-            mavenBom 'io.spring.platform:platform-bom:Brussels-SR6'
+            mavenBom 'io.spring.platform:platform-bom:Brussels-SR10'
         }
 
         dependencies {
-            dependency 'com.github.stefanbirkner:system-rules:1.17.0'
+            dependency 'com.github.stefanbirkner:system-rules:1.18.0'
             dependency 'com.squareup.okhttp3:logging-interceptor:' + ext['okhttp3.version']
             dependency 'com.squareup.okhttp3:mockwebserver:' + ext['okhttp3.version']
-            dependency 'com.squareup.retrofit2:converter-jackson:2.3.0'
-            dependency 'com.squareup.retrofit2:retrofit:2.3.0'
-            dependency 'org.assertj:assertj-core:3.9.0'
-            dependency 'org.projectlombok:lombok:1.16.20'
+            dependency 'com.squareup.retrofit2:converter-jackson:2.4.0'
+            dependency 'com.squareup.retrofit2:retrofit:2.4.0'
+            dependency 'org.assertj:assertj-core:3.10.0'
+            dependency 'org.projectlombok:lombok:1.18.0'
         }
     }
 
@@ -122,7 +122,7 @@ subprojects {
     }
 
     lombok {
-        version = '1.16.18'
+        version = '1.18.0'
     }
 
     if (!project.name.startsWith('sample-')) {
