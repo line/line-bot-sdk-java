@@ -37,18 +37,18 @@ public class Button implements FlexComponent {
 
     public enum ButtonStyle {
         @JsonProperty("primary")
-        Primary,
+        PRIMARY,
         @JsonProperty("secondary")
-        Secondary,
+        SECONDARY,
         @JsonProperty("link")
-        Link,
+        LINK,
     }
 
     public enum ButtonHeight {
         @JsonProperty("md")
-        Medium,
+        MEDIUM,
         @JsonProperty("sm")
-        Small,
+        SMALL,
     }
 
     private Integer flex;

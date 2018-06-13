@@ -36,11 +36,11 @@ public class Icon implements FlexComponent {
 
     public enum IconAspectRatio {
         @JsonProperty("1:1")
-        R1to1,
+        R1TO1,
         @JsonProperty("2:1")
-        R2to1,
+        R2TO1,
         @JsonProperty("3:1")
-        R3to1,
+        R3TO1,
     }
 
     private final String url;

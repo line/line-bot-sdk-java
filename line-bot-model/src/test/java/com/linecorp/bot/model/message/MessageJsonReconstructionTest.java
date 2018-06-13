@@ -220,15 +220,15 @@ public class MessageJsonReconstructionTest {
             final Spacer spacer = Spacer.builder().size(FlexMarginSize.SM).build();
             final Button callAction =
                     Button.builder()
-                          .style(ButtonStyle.Link)
-                          .height(ButtonHeight.Small)
+                          .style(ButtonStyle.LINK)
+                          .height(ButtonHeight.SMALL)
                           .action(new URIAction("CALL", "tell:000000"))
                           .build();
             final Separator separator = Separator.builder().build();
             final Button websiteAction =
                     Button.builder()
-                          .style(ButtonStyle.Link)
-                          .height(ButtonHeight.Small)
+                          .style(ButtonStyle.LINK)
+                          .height(ButtonHeight.SMALL)
                           .action(new URIAction("WEBSITE", "http://example.com"))
                           .build();
 
