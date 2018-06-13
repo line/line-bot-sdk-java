@@ -44,7 +44,7 @@ public class FlexMessage implements Message {
     @JsonCreator
     public FlexMessage(
             @JsonProperty("altText") String altText,
-            @JsonProperty("container") FlexContainer contents) {
+            @JsonProperty("contents") FlexContainer contents) {
         this.altText = altText;
         this.contents = contents;
     }
