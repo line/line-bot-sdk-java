@@ -22,8 +22,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import com.linecorp.bot.model.message.flex.unit.FxFontSize;
-import com.linecorp.bot.model.message.flex.unit.FxMarginSize;
+import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
+import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
 import lombok.Builder;
 import lombok.Value;
@@ -45,18 +45,18 @@ public class Icon implements FlexComponent {
 
     private final String url;
 
-    private final FxFontSize size;
+    private final FlexFontSize size;
 
     private final IconAspectRatio aspectRatio;
 
-    private final FxMarginSize margin;
+    private final FlexMarginSize margin;
 
     @JsonCreator
     public Icon(
             @JsonProperty("url") String url,
-            @JsonProperty("size") FxFontSize size,
+            @JsonProperty("size") FlexFontSize size,
             @JsonProperty("aspectRatio") IconAspectRatio aspectRatio,
-            @JsonProperty("margin") FxMarginSize margin) {
+            @JsonProperty("margin") FlexMarginSize margin) {
         this.url = url;
         this.size = size;
         this.aspectRatio = aspectRatio;

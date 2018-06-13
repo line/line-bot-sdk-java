@@ -25,9 +25,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import com.linecorp.bot.model.action.Action;
-import com.linecorp.bot.model.message.flex.unit.FxLayout;
-import com.linecorp.bot.model.message.flex.unit.FxMarginSize;
+import com.linecorp.bot.model.message.flex.unit.FlexLayout;
+import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
 import lombok.Builder;
 import lombok.Value;
@@ -38,23 +37,23 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class Box implements FlexComponent {
 
-    private final FxLayout layout;
+    private final FlexLayout layout;
 
     private final Integer flex;
 
     private final List<FlexComponent> contents;
 
-    private final FxMarginSize spacing;
+    private final FlexMarginSize spacing;
 
-    private final FxMarginSize margin;
+    private final FlexMarginSize margin;
 
     @JsonCreator
     public Box(
-            @JsonProperty("layout") FxLayout layout,
+            @JsonProperty("layout") FlexLayout layout,
             @JsonProperty("flex") Integer flex,
             @JsonProperty("contents") List<FlexComponent> contents,
-            @JsonProperty("spacing") FxMarginSize spacing,
-            @JsonProperty("margin") FxMarginSize margin) {
+            @JsonProperty("spacing") FlexMarginSize spacing,
+            @JsonProperty("margin") FlexMarginSize margin) {
         this.layout = layout;
         this.flex = flex;
         this.contents = contents != null ? contents : Collections.emptyList();

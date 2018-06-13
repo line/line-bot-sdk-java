@@ -18,21 +18,25 @@ package com.linecorp.bot.model.message.flex.unit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum FxMarginSize {
-    @JsonProperty("default")
-    Default,
-    @JsonProperty("none")
-    None,
+public enum FlexFontSize {
+    @JsonProperty("xxs")
+    XXS,
     @JsonProperty("xs")
-    Xs,
+    XS,
     @JsonProperty("sm")
-    Sm,
+    SM,
     @JsonProperty("md")
     Md,
     @JsonProperty("lg")
-    Lg,
+    LG,
     @JsonProperty("xl")
-    Xl,
+    XL,
     @JsonProperty("xxl")
-    Xxl;
+    XXL,
+    @JsonProperty("3xl")
+    XXXL,
+    @JsonProperty("4xl")
+    XXXXL,
+    @JsonProperty("5xl")
+    XXXXXL,
 }

@@ -18,11 +18,21 @@ package com.linecorp.bot.model.message.flex.unit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum FxAlign {
-    @JsonProperty("start")
-    Start,
-    @JsonProperty("end")
-    End,
-    @JsonProperty("center")
-    Center,
+public enum FlexMarginSize {
+    @JsonProperty("default")
+    DEFAULT,
+    @JsonProperty("none")
+    NONE,
+    @JsonProperty("xs")
+    XS,
+    @JsonProperty("sm")
+    SM,
+    @JsonProperty("md")
+    MD,
+    @JsonProperty("lg")
+    LG,
+    @JsonProperty("xl")
+    XL,
+    @JsonProperty("xxl")
+    XXL;
 }

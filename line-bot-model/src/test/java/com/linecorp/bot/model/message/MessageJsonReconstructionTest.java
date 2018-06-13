@@ -28,9 +28,9 @@ import com.linecorp.bot.model.message.flex.component.Spacer;
 import com.linecorp.bot.model.message.flex.component.Text;
 import com.linecorp.bot.model.message.flex.component.Text.TextWeight;
 import com.linecorp.bot.model.message.flex.container.Bubble;
-import com.linecorp.bot.model.message.flex.unit.FxFontSize;
-import com.linecorp.bot.model.message.flex.unit.FxLayout;
-import com.linecorp.bot.model.message.flex.unit.FxMarginSize;
+import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
+import com.linecorp.bot.model.message.flex.unit.FlexLayout;
+import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
@@ -121,8 +121,8 @@ public class MessageJsonReconstructionTest {
         final Image heroBlock =
                 Image.builder()
                      .url("https://example.com/cafe.jpg")
-                     .size(ImageSize.FullWidth)
-                     .aspectRatio(ImageAspectRatio.R20to13)
+                     .size(ImageSize.FULL_WIDTH)
+                     .aspectRatio(ImageAspectRatio.R20TO13)
                      .aspectMode(ImageAspectMode.Cover)
                      .action(new URIAction("label", "http://example.com"))
                      .build();
@@ -130,26 +130,26 @@ public class MessageJsonReconstructionTest {
         final Box bodyBlock;
         {
             final Text title =
-                    Text.builder().text("Brown Cafe").weight(TextWeight.Bold).size(FxFontSize.Xl).build();
+                    Text.builder().text("Brown Cafe").weight(TextWeight.BOLD).size(FlexFontSize.XL).build();
 
             final Box review;
             {
                 final Icon goldStar =
-                        Icon.builder().size(FxFontSize.Sm).url("https://example.com/gold_star.png").build();
+                        Icon.builder().size(FlexFontSize.SM).url("https://example.com/gold_star.png").build();
                 final Icon grayStar =
-                        Icon.builder().size(FxFontSize.Sm).url("https://example.com/gray_star.png").build();
+                        Icon.builder().size(FlexFontSize.SM).url("https://example.com/gray_star.png").build();
                 final Text point =
                         Text.builder()
                             .text("4.0")
-                            .size(FxFontSize.Sm)
+                            .size(FlexFontSize.SM)
                             .color("#999999")
-                            .margin(FxMarginSize.Md)
+                            .margin(FlexMarginSize.MD)
                             .flex(0)
                             .build();
 
                 review = Box.builder()
-                            .layout(FxLayout.Baseline)
-                            .margin(FxMarginSize.Md)
+                            .layout(FlexLayout.BASELINE)
+                            .margin(FlexMarginSize.MD)
                             .contents(Arrays.asList(goldStar, goldStar, goldStar, goldStar, grayStar, point))
                             .build();
             }
@@ -158,21 +158,21 @@ public class MessageJsonReconstructionTest {
             {
                 final Box place =
                         Box.builder()
-                           .layout(FxLayout.Baseline)
-                           .spacing(FxMarginSize.Sm)
+                           .layout(FlexLayout.BASELINE)
+                           .spacing(FlexMarginSize.SM)
                            .contents(
                                    Arrays.asList(
                                            Text.builder()
                                                .text("Place")
                                                .color("#aaaaaa")
-                                               .size(FxFontSize.Sm)
+                                               .size(FlexFontSize.SM)
                                                .flex(1)
                                                .build(),
                                            Text.builder()
                                                .text("Shinjuku, Tokyo")
                                                .wrap(true)
                                                .color("#666666")
-                                               .size(FxFontSize.Sm)
+                                               .size(FlexFontSize.SM)
                                                .flex(5)
                                                .build()
                                    )
@@ -180,21 +180,21 @@ public class MessageJsonReconstructionTest {
                            .build();
                 final Box time =
                         Box.builder()
-                           .layout(FxLayout.Baseline)
-                           .spacing(FxMarginSize.Sm)
+                           .layout(FlexLayout.BASELINE)
+                           .spacing(FlexMarginSize.SM)
                            .contents(
                                    Arrays.asList(
                                            Text.builder()
                                                .text("Time")
                                                .color("#aaaaaa")
-                                               .size(FxFontSize.Sm)
+                                               .size(FlexFontSize.SM)
                                                .flex(1)
                                                .build(),
                                            Text.builder()
                                                .text("10:00 - 23:00")
                                                .wrap(true)
                                                .color("#666666")
-                                               .size(FxFontSize.Sm)
+                                               .size(FlexFontSize.SM)
                                                .flex(5)
                                                .build()
                                    )
@@ -202,22 +202,22 @@ public class MessageJsonReconstructionTest {
                            .build();
 
                 info = Box.builder()
-                          .layout(FxLayout.Vertical)
-                          .margin(FxMarginSize.Lg)
-                          .spacing(FxMarginSize.Sm)
+                          .layout(FlexLayout.VERTICAL)
+                          .margin(FlexMarginSize.LG)
+                          .spacing(FlexMarginSize.SM)
                           .contents(Arrays.asList(place, time))
                           .build();
             }
 
             bodyBlock = Box.builder()
-                      .layout(FxLayout.Vertical)
+                      .layout(FlexLayout.VERTICAL)
                       .contents(Arrays.asList(title, review, info))
                       .build();
         }
 
         final Box footerBlock;
         {
-            final Spacer spacer = Spacer.builder().size(FxMarginSize.Sm).build();
+            final Spacer spacer = Spacer.builder().size(FlexMarginSize.SM).build();
             final Button callAction =
                     Button.builder()
                           .style(ButtonStyle.Link)
@@ -233,8 +233,8 @@ public class MessageJsonReconstructionTest {
                           .build();
 
             footerBlock = Box.builder()
-                        .layout(FxLayout.Vertical)
-                        .spacing(FxMarginSize.Sm)
+                        .layout(FlexLayout.VERTICAL)
+                        .spacing(FlexMarginSize.SM)
                         .contents(Arrays.asList(spacer, callAction, separator, websiteAction))
                         .build();
         }

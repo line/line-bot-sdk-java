@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import com.linecorp.bot.model.message.flex.unit.FxMarginSize;
+import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
 import lombok.Builder;
 import lombok.Value;
@@ -33,13 +33,13 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class Separator implements FlexComponent {
 
-    private final FxMarginSize margin;
+    private final FlexMarginSize margin;
 
     private final String color;
 
     @JsonCreator
     public Separator(
-            @JsonProperty("margin") FxMarginSize margin,
+            @JsonProperty("margin") FlexMarginSize margin,
             @JsonProperty("color") String color) {
         this.margin = margin;
         this.color = color;

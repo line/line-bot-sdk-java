@@ -23,10 +23,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.action.Action;
-import com.linecorp.bot.model.message.flex.unit.FxAlign;
-import com.linecorp.bot.model.message.flex.unit.FxFontSize;
-import com.linecorp.bot.model.message.flex.unit.FxGravity;
-import com.linecorp.bot.model.message.flex.unit.FxMarginSize;
+import com.linecorp.bot.model.message.flex.unit.FlexAlign;
+import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
+import com.linecorp.bot.model.message.flex.unit.FlexGravity;
+import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
 import lombok.Builder;
 import lombok.Value;
@@ -39,20 +39,20 @@ public class Text implements FlexComponent {
 
     public enum TextWeight {
         @JsonProperty("regular")
-        Regular,
+        REGULAR,
         @JsonProperty("bold")
-        Bold,
+        BOLD,
     }
 
     private final Integer flex;
 
     private final String text;
 
-    private final FxFontSize size;
+    private final FlexFontSize size;
 
-    private final FxAlign align;
+    private final FlexAlign align;
 
-    private final FxGravity gravity;
+    private final FlexGravity gravity;
 
     private final String color;
 
@@ -60,7 +60,7 @@ public class Text implements FlexComponent {
 
     private final Boolean wrap;
 
-    private final FxMarginSize margin;
+    private final FlexMarginSize margin;
 
     private final Action action;
 
@@ -68,13 +68,13 @@ public class Text implements FlexComponent {
     public Text(
             @JsonProperty("flex") Integer flex,
             @JsonProperty("text") String text,
-            @JsonProperty("size") FxFontSize size,
-            @JsonProperty("align") FxAlign align,
-            @JsonProperty("gravity") FxGravity gravity,
+            @JsonProperty("size") FlexFontSize size,
+            @JsonProperty("align") FlexAlign align,
+            @JsonProperty("gravity") FlexGravity gravity,
             @JsonProperty("color") String color,
             @JsonProperty("weight") TextWeight weight,
             @JsonProperty("wrap") Boolean wrap,
-            @JsonProperty("margin") FxMarginSize margin,
+            @JsonProperty("margin") FlexMarginSize margin,
             @JsonProperty("action") Action action) {
         this.flex = flex;
         this.text = text;

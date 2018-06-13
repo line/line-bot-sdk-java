@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import com.linecorp.bot.model.message.flex.unit.FxMarginSize;
+import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
 import lombok.Builder;
 import lombok.Value;
@@ -33,11 +33,11 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class Spacer implements FlexComponent {
 
-    private final FxMarginSize size;
+    private final FlexMarginSize size;
 
     @JsonCreator
     public Spacer(
-            @JsonProperty("size") FxMarginSize size) {
+            @JsonProperty("size") FlexMarginSize size) {
         this.size = size;
     }
 }

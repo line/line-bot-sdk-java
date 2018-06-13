@@ -18,9 +18,11 @@ package com.linecorp.bot.model.message.flex.unit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum FxDirection {
-    @JsonProperty("ltr")
-    LTR,
-    @JsonProperty("rtl")
-    RTL
+public enum FlexLayout {
+    @JsonProperty("horizontal")
+    HORIZONTAL,
+    @JsonProperty("vertical")
+    VERTICAL,
+    @JsonProperty("baseline")
+    BASELINE,
 }

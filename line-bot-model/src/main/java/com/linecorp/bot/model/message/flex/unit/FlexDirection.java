@@ -18,25 +18,9 @@ package com.linecorp.bot.model.message.flex.unit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum FxFontSize {
-    @JsonProperty("xxs")
-    XXs,
-    @JsonProperty("xs")
-    Xs,
-    @JsonProperty("sm")
-    Sm,
-    @JsonProperty("md")
-    Md,
-    @JsonProperty("lg")
-    Lg,
-    @JsonProperty("xl")
-    Xl,
-    @JsonProperty("xxl")
-    XXl,
-    @JsonProperty("3xl")
-    XXXl,
-    @JsonProperty("4xl")
-    XXXXl,
-    @JsonProperty("5xl")
-    XXXXXl,
+public enum FlexDirection {
+    @JsonProperty("ltr")
+    LTR,
+    @JsonProperty("rtl")
+    RTL
 }

@@ -23,8 +23,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.action.Action;
-import com.linecorp.bot.model.message.flex.unit.FxGravity;
-import com.linecorp.bot.model.message.flex.unit.FxMarginSize;
+import com.linecorp.bot.model.message.flex.unit.FlexGravity;
+import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
 import lombok.Builder;
 import lombok.Value;
@@ -59,9 +59,9 @@ public class Button implements FlexComponent {
 
     private Action action;
 
-    private FxGravity gravity;
+    private FlexGravity gravity;
 
-    private FxMarginSize margin;
+    private FlexMarginSize margin;
 
     private ButtonHeight height;
 
@@ -71,8 +71,8 @@ public class Button implements FlexComponent {
             @JsonProperty("color") String color,
             @JsonProperty("style") ButtonStyle style,
             @JsonProperty("action") Action action,
-            @JsonProperty("gravity") FxGravity gravity,
-            @JsonProperty("margin") FxMarginSize margin,
+            @JsonProperty("gravity") FlexGravity gravity,
+            @JsonProperty("margin") FlexMarginSize margin,
             @JsonProperty("height") ButtonHeight height) {
         this.flex = flex;
         this.color = color;

@@ -23,9 +23,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.action.Action;
-import com.linecorp.bot.model.message.flex.unit.FxAlign;
-import com.linecorp.bot.model.message.flex.unit.FxGravity;
-import com.linecorp.bot.model.message.flex.unit.FxMarginSize;
+import com.linecorp.bot.model.message.flex.unit.FlexAlign;
+import com.linecorp.bot.model.message.flex.unit.FlexGravity;
+import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
 import lombok.Builder;
 import lombok.Value;
@@ -38,54 +38,54 @@ public class Image implements FlexComponent {
 
     public enum ImageSize {
         @JsonProperty("xxs")
-        XXs,
+        XXS,
         @JsonProperty("xs")
-        Xs,
+        XS,
         @JsonProperty("sm")
-        Sm,
+        SM,
         @JsonProperty("md")
-        Md,
+        MD,
         @JsonProperty("lg")
-        Lg,
+        LG,
         @JsonProperty("xl")
-        Xl,
+        XL,
         @JsonProperty("xxl")
-        XXl,
+        XXL,
         @JsonProperty("3xl")
-        XXXl,
+        XXXL,
         @JsonProperty("4xl")
-        XXXXl,
+        XXXXL,
         @JsonProperty("5xl")
-        XXXXXl,
+        XXXXXL,
         @JsonProperty("full")
-        FullWidth,
+        FULL_WIDTH,
     }
 
     public enum ImageAspectRatio {
         @JsonProperty("1:1")
-        R1to1,
+        R1TO1,
         @JsonProperty("20:13")
-        R20to13,
+        R20TO13,
         @JsonProperty("1.91:1")
-        R1_91to1,
+        R1_91TO1,
         @JsonProperty("4:3")
-        R4to3,
+        R4TO3,
         @JsonProperty("16:9")
-        R16to9,
+        R16TO9,
         @JsonProperty("2:1")
-        R2to1,
+        R2TO1,
         @JsonProperty("3:1")
-        R3to1,
+        R3TO1,
         @JsonProperty("3:4")
-        R3to4,
+        R3TO4,
         @JsonProperty("9:16")
-        R9to16,
+        R9TO16,
         @JsonProperty("1:2")
-        R1to2,
+        R1TO2,
         @JsonProperty("1:3")
-        R1to3,
+        R1TO3,
         @JsonProperty("1.51:1")
-        R1_51to1,
+        R1_51TO1,
     }
 
     public enum ImageAspectMode {
@@ -107,13 +107,13 @@ public class Image implements FlexComponent {
 
     private final String backgroundColor;
 
-    private final FxAlign align;
+    private final FlexAlign align;
 
     private final Action action;
 
-    private final FxGravity gravity;
+    private final FlexGravity gravity;
 
-    private final FxMarginSize margin;
+    private final FlexMarginSize margin;
 
     @JsonCreator
     public Image(
@@ -123,10 +123,10 @@ public class Image implements FlexComponent {
             @JsonProperty("aspectRatio") ImageAspectRatio aspectRatio,
             @JsonProperty("aspectMode") ImageAspectMode aspectMode,
             @JsonProperty("backgroundColor") String backgroundColor,
-            @JsonProperty("align") FxAlign align,
+            @JsonProperty("align") FlexAlign align,
             @JsonProperty("action") Action action,
-            @JsonProperty("gravity") FxGravity gravity,
-            @JsonProperty("margin") FxMarginSize margin) {
+            @JsonProperty("gravity") FlexGravity gravity,
+            @JsonProperty("margin") FlexMarginSize margin) {
         this.flex = flex;
         this.url = url;
         this.size = size;

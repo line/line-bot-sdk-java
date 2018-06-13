@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.message.flex.component.Box;
 import com.linecorp.bot.model.message.flex.component.Image;
-import com.linecorp.bot.model.message.flex.unit.FxDirection;
+import com.linecorp.bot.model.message.flex.unit.FlexDirection;
 
 import lombok.Builder;
 import lombok.Value;
@@ -35,7 +35,7 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class Bubble implements FlexContainer {
 
-    private final FxDirection direction;
+    private final FlexDirection direction;
 
     private final BubbleStyles styles;
 
@@ -49,7 +49,7 @@ public class Bubble implements FlexContainer {
 
     @JsonCreator
     public Bubble(
-            @JsonProperty("direction") FxDirection direction,
+            @JsonProperty("direction") FlexDirection direction,
             @JsonProperty("styles") BubbleStyles styles,
             @JsonProperty("header") Box header,
             @JsonProperty("hero") Image hero,
