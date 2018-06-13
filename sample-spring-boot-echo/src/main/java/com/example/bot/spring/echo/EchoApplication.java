@@ -22,6 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
@@ -34,9 +35,17 @@ public class EchoApplication {
     }
 
     @EventMapping
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+    public Message handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+
         System.out.println("event: " + event);
-        return new TextMessage(event.getMessage().getText());
+        final String originalMessageText = event.getMessage().getText();
+
+        switch (originalMessageText.toUpperCase()) {
+            case "FLEX":
+                return new ExampleFlexMessageSupplier().get();
+            default:
+                return new TextMessage(originalMessageText);
+        }
     }
 
     @EventMapping
