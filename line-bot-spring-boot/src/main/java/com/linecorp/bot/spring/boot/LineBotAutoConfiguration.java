@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.linecorp.bot.client.ChannelManagementSyncClient;
 import com.linecorp.bot.client.ChannelTokenSupplier;
 import com.linecorp.bot.client.FixedChannelTokenSupplier;
 import com.linecorp.bot.client.LineMessagingClient;
@@ -67,5 +68,12 @@ public class LineBotAutoConfiguration {
             @SuppressWarnings("deprecation")
             final com.linecorp.bot.client.LineMessagingService lineMessagingService) {
         return new LineMessagingClientImpl(lineMessagingService);
+    }
+
+    @Bean
+    public ChannelManagementSyncClient channelManagementClient(
+            final ChannelTokenSupplier channelTokenSupplier) {
+        return ChannelManagementSyncClient.builder(channelTokenSupplier)
+                                          .build();
     }
 }
