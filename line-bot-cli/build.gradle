@@ -18,7 +18,7 @@ apply plugin: 'org.springframework.boot'
 
 bootRepackage {
     executable = true
-    embeddedLaunchScript = new File('src/main/resources/launch.script')
+    embeddedLaunchScript = file('src/main/resources/launch.script')
     // Custom Launch Script avoid https://github.com/spring-projects/spring-boot/issues/5164
 }
 
