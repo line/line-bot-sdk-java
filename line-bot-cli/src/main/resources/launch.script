@@ -1,0 +1,19 @@
+#!/bin/bash
+# Custom Launch Script avoid https://github.com/spring-projects/spring-boot/issues/5164
+
+[[ -n "$DEBUG" ]] && set -x
+
+JAR_LOCATION=$0
+
+# Find Java
+if [[ -x "$JAVA_HOME/bin/java" ]]; then
+    JAVA="$JAVA_HOME/bin/java"
+elif which java > /dev/null 2>&1; then
+    JAVA=$(which java)
+else
+    echo "Unable to find Java"
+    exit 1
+fi
+
+$JAVA -Dsun.misc.URLClassPath.disableJarChecking=true $JAVA_OPTS -jar $JAR_LOCATION $RUN_ARGS "$@"
+exit $?;
