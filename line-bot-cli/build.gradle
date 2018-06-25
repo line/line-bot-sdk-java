@@ -16,13 +16,25 @@
 
 apply plugin: 'org.springframework.boot'
 
-bootRepackage {
-    executable = true
-    embeddedLaunchScript = file('src/main/resources/launch.script')
-    // Custom Launch Script avoid https://github.com/spring-projects/spring-boot/issues/5164
-}
-
 dependencies {
     compile project(':line-bot-spring-boot')
     compile 'com.google.guava:guava'
+}
+
+// Default bootRepackage & signArchives has task dependency issue.
+// Manually define new `execBootRepackage` task and make dependency from signArchives to execBootRepackage.
+bootRepackage.enabled = false
+task execBootRepackage(type: BootRepackage, dependsOn: jar) {
+    enabled = true
+    executable = true
+    // Custom Launch Script avoid https://github.com/spring-projects/spring-boot/issues/5164
+    embeddedLaunchScript = file('src/main/resources/launch.script')
+    withJarTask = jar
+    mainClass = 'com.linecorp.bot.cli.Application'
+}
+
+signArchives.dependsOn execBootRepackage
+
+artifacts {
+    archives sourcesJar, javadocJar, file("$buildDir/libs/${project.name}-${project.version}.jar")
 }

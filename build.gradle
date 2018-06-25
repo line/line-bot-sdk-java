@@ -169,7 +169,7 @@ subprojects {
     }
 }
 
-[':line-bot-api-client', ':line-bot-model', ':line-bot-servlet', ':line-bot-spring-boot'].each { projectName ->
+[':line-bot-api-client', ':line-bot-model', ':line-bot-servlet', ':line-bot-spring-boot', ':line-bot-cli'].each { projectName ->
     project(projectName) { project ->
         apply plugin: 'signing'
         apply plugin: 'maven'
