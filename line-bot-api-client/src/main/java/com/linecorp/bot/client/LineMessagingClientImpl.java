@@ -165,7 +165,8 @@ public class LineMessagingClientImpl implements LineMessagingClient {
         return toFuture(retrofitImpl.getRichMenuList());
     }
 
-    private static <T> CompletableFuture<T> toFuture(Call<T> callToWrap) {
+    // TODO: Extract this method.
+    static <T> CompletableFuture<T> toFuture(Call<T> callToWrap) {
         final CallbackAdaptor<T> completableFuture = new CallbackAdaptor<>();
         callToWrap.enqueue(completableFuture);
         return completableFuture;

@@ -140,7 +140,7 @@ public class LineMessagingServiceBuilder {
      * <p>If you want to use your own setting, specify {@link OkHttpClient.Builder} instance.</p>
      *
      * @param resetDefaultInterceptors If true, all default okhttp interceptors ignored.
-     * You should insert authentication headers yourself.
+     *         You should insert authentication headers yourself.
      */
     public LineMessagingServiceBuilder okHttpClientBuilder(
             @NonNull final OkHttpClient.Builder okHttpClientBuilder,
@@ -189,7 +189,8 @@ public class LineMessagingServiceBuilder {
         return retrofit.create(LineMessagingService.class);
     }
 
-    private static List<Interceptor> defaultInterceptors(final ChannelTokenSupplier channelTokenSupplier) {
+    // TODO: Split this method.
+    static List<Interceptor> defaultInterceptors(final ChannelTokenSupplier channelTokenSupplier) {
         final Logger slf4jLogger = LoggerFactory.getLogger("com.linecorp.bot.client.wire");
         final HttpLoggingInterceptor httpLoggingInterceptor =
                 new HttpLoggingInterceptor(message -> slf4jLogger.info("{}", message));
@@ -201,7 +202,8 @@ public class LineMessagingServiceBuilder {
         );
     }
 
-    private static Retrofit.Builder createDefaultRetrofitBuilder() {
+    // TODO: Split this method.
+    static Retrofit.Builder createDefaultRetrofitBuilder() {
         final ObjectMapper objectMapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 // Register ParameterNamesModule to read parameter name from lombok generated constructor.
