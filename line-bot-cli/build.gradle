@@ -21,20 +21,26 @@ dependencies {
     compile 'com.google.guava:guava'
 }
 
-// Default bootRepackage & signArchives has task dependency issue.
-// Manually define new `execBootRepackage` task and make dependency from signArchives to execBootRepackage.
-bootRepackage.enabled = false
-task execBootRepackage(type: BootRepackage, dependsOn: jar) {
+bootRepackage {
     enabled = true
     executable = true
     // Custom Launch Script avoid https://github.com/spring-projects/spring-boot/issues/5164
     embeddedLaunchScript = file('src/main/resources/launch.script')
     withJarTask = jar
+    classifier = 'exec'
     mainClass = 'com.linecorp.bot.cli.Application'
 }
 
-signArchives.dependsOn execBootRepackage
+// Reset bootRepackage dependency to remove dependency from bootRepackage to signArchives.
+// This causes circular dependency.
+//
+// Memo: By default, bootRepackage dependsOn the all tasks creating jar including signArchives task.
+// But signArchives should be after repackages.
+bootRepackage.dependsOn.clear()
+bootRepackage.dependsOn jar, findMainClass
+signArchives.dependsOn bootRepackage
 
-artifacts {
-    archives sourcesJar, javadocJar, file("$buildDir/libs/${project.name}-${project.version}.jar")
+// Add exec jar into archives to be uploaded.
+artifacts.add('archives', file("$buildDir/libs/${project.name}-${project.version}-${bootRepackage.classifier}.jar")) {
+    classifier = bootRepackage.classifier
 }
