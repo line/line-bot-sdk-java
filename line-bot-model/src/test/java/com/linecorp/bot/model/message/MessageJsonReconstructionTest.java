@@ -1,6 +1,7 @@
 package com.linecorp.bot.model.message;
 
 import static java.util.Collections.emptyList;
+import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
@@ -243,19 +245,27 @@ public class MessageJsonReconstructionTest {
         test(new FlexMessage("ALT", bubble));
     }
 
+    @Test
+    public void multicastTest() {
+        final Multicast multicast =
+                new Multicast(singleton("LINE_ID"), singletonList(new TextMessage("text")));
+
+        test(multicast);
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void test(final Message original) {
-        final Message reconstructed = serializeThenDeserialize(original);
+    void test(final Object original) {
+        final Object reconstructed = serializeThenDeserialize(original);
         assertThat(reconstructed).isEqualTo(original);
     }
 
     @SneakyThrows
-    Message serializeThenDeserialize(final Message original) {
+    Object serializeThenDeserialize(final Object original) {
         log.info("Original:      {}", original);
         final String asJson = objectMapper.writeValueAsString(original);
         log.info("AS JSON:       {}", asJson);
-        final Message reconstructed = objectMapper.readValue(asJson, Message.class);
+        final Object reconstructed = objectMapper.readValue(asJson, original.getClass());
         log.info("Reconstructed: {}", reconstructed);
 
         return reconstructed;

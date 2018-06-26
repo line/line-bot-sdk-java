@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import com.linecorp.bot.model.message.Message;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +15,7 @@ import lombok.Value;
  * Send messages to multiple users, groups, and rooms at any time.
  */
 @Value
-@AllArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class Multicast {
     /**
      * IDs of the receivers.<br />
