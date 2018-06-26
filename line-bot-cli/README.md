@@ -70,6 +70,25 @@ Then you can run
 |  --yaml  |  YAML file path to be sent. |
 |  --data  |  Raw json data to be sent. |
 
+## message-push
+
+Push message for specific user(s). (Internally use multicast API)
+
+```
+% cat message-push.json
+{
+  "to": [ "Ue87f273e325cd42ad2dd65946347f07f" ],
+  "messages": [
+    {
+      "type": "text",
+      "text": "Hello, Workd!"
+    }
+  ]
+}
+% ./line-bot-cli.jar --command=message-push --json=message-push.json
+...
+18:47:47  INFO - c.l.bot.client.wire  : <-- 200 https://api.line.me/v2/bot/message/multicast (367ms)
+```
 
 ## liff-create
 Create LIFF App.
