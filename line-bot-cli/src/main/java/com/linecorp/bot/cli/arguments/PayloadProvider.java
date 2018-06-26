@@ -62,7 +62,7 @@ public class PayloadProvider {
 
         if (arguments.getYaml() != null) {
             final Object yamlAsObject;
-            try (FileInputStream is = new FileInputStream(arguments.getJson())) {
+            try (FileInputStream is = new FileInputStream(arguments.getYaml())) {
                 yamlAsObject = YAML.load(is);
             }
             log.debug("{}", yamlAsObject);
