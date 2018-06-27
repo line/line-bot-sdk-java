@@ -1,7 +1,11 @@
 package com.linecorp.bot.cli.arguments;
 
 import static com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_COMMENTS;
+import static com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_SINGLE_QUOTES;
 import static com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES;
+import static com.fasterxml.jackson.databind.DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY;
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,7 +17,6 @@ import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 
@@ -31,7 +34,10 @@ public class PayloadProvider {
             .createNewObjectMapper()
             .configure(ALLOW_UNQUOTED_FIELD_NAMES, true)
             .configure(ALLOW_COMMENTS, true)
-            .configure(SerializationFeature.INDENT_OUTPUT, true);
+            .configure(ALLOW_SINGLE_QUOTES, true)
+            .configure(ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
+            .configure(FAIL_ON_UNKNOWN_PROPERTIES, true)
+            .configure(INDENT_OUTPUT, true);
     private static final Yaml YAML = new Yaml();
     private final PayloadArguments arguments;
 
