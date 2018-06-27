@@ -28,8 +28,6 @@ import com.linecorp.bot.client.ChannelManagementSyncClient;
 import com.linecorp.bot.client.ChannelTokenSupplier;
 import com.linecorp.bot.client.FixedChannelTokenSupplier;
 import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.client.LineMessagingClientImpl;
-import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.spring.boot.support.LineMessageHandlerSupport;
 
 /**
@@ -44,19 +42,6 @@ public class LineBotAutoConfiguration {
     private LineBotProperties lineBotProperties;
 
     @Bean
-    @SuppressWarnings("deprecation")
-    public com.linecorp.bot.client.LineMessagingService lineMessagingService(
-            final ChannelTokenSupplier channelTokenSupplier) {
-        return LineMessagingServiceBuilder
-                .create(channelTokenSupplier)
-                .apiEndPoint(lineBotProperties.getApiEndPoint())
-                .connectTimeout(lineBotProperties.getConnectTimeout())
-                .readTimeout(lineBotProperties.getReadTimeout())
-                .writeTimeout(lineBotProperties.getWriteTimeout())
-                .build();
-    }
-
-    @Bean
     @ConditionalOnMissingBean(ChannelTokenSupplier.class)
     public ChannelTokenSupplier channelTokenSupplier() {
         final String channelToken = lineBotProperties.getChannelToken();
@@ -65,9 +50,14 @@ public class LineBotAutoConfiguration {
 
     @Bean
     public LineMessagingClient lineMessagingClient(
-            @SuppressWarnings("deprecation")
-            final com.linecorp.bot.client.LineMessagingService lineMessagingService) {
-        return new LineMessagingClientImpl(lineMessagingService);
+            final ChannelTokenSupplier channelTokenSupplier) {
+        return LineMessagingClient
+                .builder(channelTokenSupplier)
+                .apiEndPoint(lineBotProperties.getApiEndPoint())
+                .connectTimeout(lineBotProperties.getConnectTimeout())
+                .readTimeout(lineBotProperties.getReadTimeout())
+                .writeTimeout(lineBotProperties.getWriteTimeout())
+                .build();
     }
 
     @Bean

@@ -46,7 +46,7 @@ import retrofit2.Response;
  * Proxy implementation of {@link LineMessagingClient} to hind internal implementation.
  */
 @Slf4j
-@AllArgsConstructor(onConstructor = @__(@SuppressWarnings("deprecation")))
+@AllArgsConstructor
 public class LineMessagingClientImpl implements LineMessagingClient {
     private static final ExceptionConverter EXCEPTION_CONVERTER = new ExceptionConverter();
     private static final String ORG_TYPE_GROUP = "group"; // TODO Enum
@@ -55,7 +55,6 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     private static final Function<Void, BotApiResponse>
             VOID_TO_BOT_API_SUCCESS_RESPONSE = ignored -> BOT_API_SUCCESS_RESPONSE;
 
-    @SuppressWarnings("deprecation")
     private final LineMessagingService retrofitImpl;
 
     @Override
