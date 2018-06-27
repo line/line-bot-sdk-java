@@ -13,4 +13,12 @@ import lombok.experimental.FieldDefaults;
 @ConfigurationProperties
 public class Arguments {
     String liffId;
+
+    String richMenuId;
+
+    String userId;
+
+    String out;
+
+    String image;
 }

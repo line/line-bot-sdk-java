@@ -45,6 +45,15 @@ public class Application {
 
     void printSupportCommand() {
         for (Class<?> clazz : new Class<?>[] {
+                RichMenuCreateCommand.class,
+                RichMenuGetCommand.class,
+                RichMenuDeleteCommand.class,
+                RichMenuListCommand.class,
+                RichMenuImageUploadCommand.class,
+                RichMenuImageDownloadCommand.class,
+                RichMenuLinkRichMenuIdToUserCommand.class,
+                RichMenuUnlinkRichMenuIdFromUserCommand.class,
+                RichMenuGetRichMenuIdOfUserCommand.class,
                 LiffCreateCommand.class,
                 LiffDeleteCommand.class,
                 LiffListCommand.class,

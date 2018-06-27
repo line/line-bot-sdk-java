@@ -121,6 +121,90 @@ List your LIFF Apps.
 16:41:30  INFO - .c.LiffUpdateCommand : Successfully finished.
 ```
 
+##  richmenu-create
+```
+% cat richmenu-create.yml
+size:
+  width: 2500
+  height: 1686
+selected: false
+name: From CLI
+chatBarText: CHAT
+areas:
+  - bounds: {x: 0, y: 0, width: 2500, height: 1686}
+    action: {type: message, label: LABEL, text: TEXT}
+% ./line-bot-cli.jar --command=richmenu-create --yaml=richmenu-create.yml
+...
+21:06:57  INFO - ichMenuCreateCommand : Successfully finished. RichMenuIdResponse(richMenuId=richmenu-0591a1ce01bda78f85213d347f0a966f) 
+```
+
+## richmenu-get
+```
+% ./line-bot-cli.jar --command=richmenu-get --rich-menu-id=richmenu-0591a1ce01bda78f85213d347f0a966f
+...
+12:12:22  INFO - c.RichMenuGetCommand : response = RichMenuResponse(richMenuId=richmenu-0591a1ce01bda78f85213d347f0a966f, size=RichMenuSize(width=2500, height=1686), selected=false, name=From CLI, chatBarText=CHAT, areas=[RichMenuArea(bounds=RichMenuBounds(x=0, y=0, width=2500, height=1686), action=MessageAction(label=LABEL, text=TEXT))])
+```
+
+## richmenu-delete
+```
+% ./line-bot-cli.jar --command=richmenu-delete --rich-menu-id=richmenu-0591a1ce01bda78f85213d347f0a966f
+...
+12:13:35  INFO - ichMenuDeleteCommand : Successfully finished. BotApiResponse(message=, details=[])
+```
+
+## richmenu-list
+```
+% ./line-bot-cli.jar --command=richmenu-list
+...
+12:17:12  INFO - .RichMenuListCommand : You have 3 RichMenues
+12:17:12  INFO - .RichMenuListCommand : RichMenuResponse(richMenuId=richmenu-0591a1ce01bda78f85213d347f0a966f, size=RichMenuSize(width=2500, height=1686), selected=false, name=From CLI, chatBarText=CHAT, areas=[RichMenuArea(bounds=RichMenuBounds(x=0, y=0, width=2500, height=1686), action=MessageAction(label=LABEL, text=TEXT))])
+... (+2 rich menues)
+```
+
+## richmenu-upload
+```
+% ./line-bot-cli.jar --command=richmenu-upload --command=richmenu-upload --rich-menu-id=richmenu-00e97da3ae27b54bd603cf42b9fc7672 --image=image.jpeg
+...
+12:19:43  INFO - c.l.bot.client.wire  : --> POST https://api.line.me/v2/bot/richmenu/richmenu-00e97da3ae27b54bd603cf42b9fc7672/content
+...
+12:19:43  INFO - c.l.bot.client.wire  : <-- 200 https://api.line.me/v2/bot/richmenu/richmenu-00e97da3ae27b54bd603cf42b9fc7672/content (836ms)
+...
+12:19:43  INFO - nuImageUploadCommand : Request Successfully finished. BotApiResponse(message=, details=[])
+```
+
+## richmenu-download
+```
+% ./line-bot-cli.jar --command=richmenu-download --rich-menu-id=richmenu-00e97da3ae27b54bd603cf42b9fc7672 --out=out.jpeg
+...
+12:23:04  INFO - c.l.bot.client.wire  : --> GET https://api.line.me/v2/bot/richmenu/richmenu-00e97da3ae27b54bd603cf42b9fc7672/content
+...
+12:23:05  INFO - c.l.bot.client.wire  : <-- 200 https://api.line.me/v2/bot/richmenu/richmenu-00e97da3ae27b54bd603cf42b9fc7672/content (892ms)
+...
+12:23:05  INFO - ImageDownloadCommand : Successfully finished. Output = out.jpeg
+```
+
+## richmenu-link
+```
+% ./line-bot-cli.jar --command=richmenu-link --rich-menu-id=richmenu-00e97da3ae27b54bd603cf42b9fc7672 --user-id=Ue87f273e325cd42ad2dd65946347f07f
+...
+12:25:14  INFO - hMenuIdToUserCommand : response = BotApiResponse(message=, details=[])
+```
+
+## richmenu-getrichmenuidofuser
+```
+% ./line-bot-cli.jar --command=richmenu-getrichmenuidofuser --user-id=Ue87f273e325cd42ad2dd65946347f07f
+...
+12:26:20  INFO - hMenuIdOfUserCommand : response = RichMenuIdResponse(richMenuId=richmenu-00e97da3ae27b54bd603cf42b9fc7672)
+```
+
+## richmenu-unlink
+```
+% ./line-bot-cli.jar --command=richmenu-unlink --user-id=Ue87f273e325cd42ad2dd65946347f07f
+...
+12:27:01  INFO - enuIdFromUserCommand : response = BotApiResponse(message=, details=[])
+```
+
+
 # Tips
 ## Handling multiple bots.
 
