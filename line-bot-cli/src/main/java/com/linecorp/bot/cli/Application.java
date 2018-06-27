@@ -57,7 +57,8 @@ public class Application {
                 LiffCreateCommand.class,
                 LiffDeleteCommand.class,
                 LiffListCommand.class,
-                LiffUpdateCommand.class
+                LiffUpdateCommand.class,
+                MessagePushCommand.class
         }) {
             final ConditionalOnProperty conditionalOnProperty =
                     clazz.getAnnotation(ConditionalOnProperty.class);
