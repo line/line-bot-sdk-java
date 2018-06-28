@@ -6,6 +6,11 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
 public class LineMessagingClientBuilder {
+    public static final String DEFAULT_API_END_POINT = "https://api.line.me/";
+    public static final long DEFAULT_CONNECT_TIMEOUT = 10_000;
+    public static final long DEFAULT_READ_TIMEOUT = 10_000;
+    public static final long DEFAULT_WRITE_TIMEOUT = 10_000;
+
     //TODO: Move into all builder logic into this class from LineMessagingClientBuilder.
     private final LineMessagingServiceBuilder delegate;
 

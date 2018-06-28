@@ -39,10 +39,10 @@ import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 
 /**
- * @deprecated Please use {@link LineMessagingClient} instead.
+ * Since 2018-06. This class is package private. Please use {@link LineMessagingClient} instead.
+ * It's implementation free.
  */
-@Deprecated
-public interface LineMessagingService {
+interface LineMessagingService {
     /**
      * Reply to messages from users.
      *
@@ -74,6 +74,7 @@ public interface LineMessagingService {
      * <p>INFO: Only available for plans which support push messages. Messages cannot be sent to groups or rooms.
      * <p>INFO: Use IDs returned via the webhook event of source users. IDs of groups or rooms cannot be used.
      * Do not use the LINE ID found on the LINE app.</p>
+     *
      * @see #pushMessage(PushMessage)
      * @see <a href="https://devdocs.line.me?java#multicast">//devdocs.line.me#multicast</a>
      */
