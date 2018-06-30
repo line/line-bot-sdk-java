@@ -19,8 +19,6 @@ package com.linecorp.bot.servlet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +34,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -51,9 +48,6 @@ import com.linecorp.bot.model.event.message.TextMessageContent;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LineBotCallbackRequestParserTest {
-    @Mock
-    private HttpServletResponse response;
-
     @Spy
     private LineSignatureValidator lineSignatureValidator = new LineSignatureValidator(
             "SECRET".getBytes(StandardCharsets.UTF_8));
@@ -65,8 +59,6 @@ public class LineBotCallbackRequestParserTest {
 
     @Before
     public void before() throws IOException {
-        when(response.getWriter())
-                .thenReturn(mock(PrintWriter.class));
         this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(lineSignatureValidator);
     }
 
