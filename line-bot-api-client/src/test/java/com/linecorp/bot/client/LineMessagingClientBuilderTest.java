@@ -10,9 +10,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import okhttp3.Interceptor;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -33,7 +33,7 @@ public class LineMessagingClientBuilderTest extends AbstractWiremockTest {
     public void setUp() throws Exception {
         builder = LineMessagingClient.builder("FIXED_TOKEN");
 
-        Whitebox.setInternalState(builder, "delegate", delegateMock);
+        ReflectionTestUtils.setField(builder, "delegate", delegateMock);
     }
 
     @Test
