@@ -1,0 +1,23 @@
+dependencyManagement {
+    imports {
+        mavenBom 'io.spring.platform:platform-bom:Cairo-SR2'
+    }
+}
+
+dependencies {
+    testCompile project(':line-bot-spring-boot')
+    testRuntime project(':line-bot-model').sourceSets.test.output
+    testRuntime project(':line-bot-api-client').sourceSets.test.output
+    testRuntime project(':line-bot-servlet').sourceSets.test.output
+    testRuntime project(':line-bot-spring-boot').sourceSets.test.output
+}
+
+test {
+    setTestClassesDirs(files(
+        project.sourceSets.test.output.classesDir, // Default
+        project(':line-bot-model').sourceSets.test.output,
+        project(':line-bot-api-client').sourceSets.test.output,
+        project(':line-bot-servlet').sourceSets.test.output,
+        project(':line-bot-spring-boot').sourceSets.test.output
+    ))
+}
