@@ -72,7 +72,9 @@ Then you can run
 
 ## message-push
 
-Push message for specific user(s). (Internally use multicast API)
+Push message for specific user(s).
+
+(Multiple "to" is supported, and multicast API is used in this case)
 
 ```
 % cat message-push.json
