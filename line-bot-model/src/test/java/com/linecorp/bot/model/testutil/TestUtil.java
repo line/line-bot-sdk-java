@@ -27,6 +27,7 @@ import lombok.experimental.UtilityClass;
 public class TestUtil {
     /**
      * ObjectMapper which same configuration for production except failOnUnknownProperties is configurable.
+     *
      * @param failOnUnknownProperties for testing, if true, exception thrown when unknown properties found.
      */
     public static ObjectMapper objectMapperWithProductionConfiguration(final boolean failOnUnknownProperties) {

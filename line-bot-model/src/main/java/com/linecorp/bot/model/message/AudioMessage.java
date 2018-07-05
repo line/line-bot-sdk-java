@@ -26,10 +26,10 @@ public class AudioMessage implements Message {
     /**
      * URL of audio file
      * <ul>
-     *     <li>HTTPS</li>
-     *     <li>m4a</li>
-     *     <li>Less than 1 minute</li>
-     *     <li>Max 10 MB</li>
+     * <li>HTTPS</li>
+     * <li>m4a</li>
+     * <li>Less than 1 minute</li>
+     * <li>Max 10 MB</li>
      * </ul>
      */
     private final String originalContentUrl;

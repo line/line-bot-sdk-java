@@ -29,6 +29,7 @@ public class GroupSource implements Source {
 
     /**
      * Create new instance.
+     *
      * @param groupId group ID
      * @param userId user id may be null
      */

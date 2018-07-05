@@ -31,7 +31,7 @@ import lombok.Value;
 @JsonTypeName("message")
 public class MessageAction implements Action {
     /**
-     *Label for the action. Max 20 characters.
+     * Label for the action. Max 20 characters.
      */
     private final String label;
 

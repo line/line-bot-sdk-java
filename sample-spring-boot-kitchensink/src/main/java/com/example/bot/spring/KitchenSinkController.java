@@ -29,8 +29,6 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
-import com.linecorp.bot.model.action.DatetimePickerAction;
-import com.linecorp.bot.model.message.template.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -39,6 +37,7 @@ import com.google.common.io.ByteStreams;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.MessageContentResponse;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.action.DatetimePickerAction;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
@@ -71,6 +70,12 @@ import com.linecorp.bot.model.message.imagemap.ImagemapArea;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
 import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
 import com.linecorp.bot.model.message.imagemap.URIImagemapAction;
+import com.linecorp.bot.model.message.template.ButtonsTemplate;
+import com.linecorp.bot.model.message.template.CarouselColumn;
+import com.linecorp.bot.model.message.template.CarouselTemplate;
+import com.linecorp.bot.model.message.template.ConfirmTemplate;
+import com.linecorp.bot.model.message.template.ImageCarouselColumn;
+import com.linecorp.bot.model.message.template.ImageCarouselTemplate;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
@@ -174,7 +179,9 @@ public class KitchenSinkController {
     @EventMapping
     public void handlePostbackEvent(PostbackEvent event) {
         String replyToken = event.getReplyToken();
-        this.replyText(replyToken, "Got postback data " + event.getPostbackContent().getData() + ", param " + event.getPostbackContent().getParams().toString());
+        this.replyText(replyToken,
+                       "Got postback data " + event.getPostbackContent().getData() + ", param " + event
+                               .getPostbackContent().getParams().toString());
     }
 
     @EventMapping
@@ -315,7 +322,7 @@ public class KitchenSinkController {
                                         new URIAction("Go to line.me",
                                                       "https://line.me"),
                                         new URIAction("Go to line.me",
-                                                "https://line.me"),
+                                                      "https://line.me"),
                                         new PostbackAction("Say hello1",
                                                            "hello こんにちは")
                                 )),
@@ -324,30 +331,31 @@ public class KitchenSinkController {
                                                            "hello こんにちは",
                                                            "hello こんにちは"),
                                         new PostbackAction("言 hello2",
-                                                "hello こんにちは",
-                                                "hello こんにちは"),
+                                                           "hello こんにちは",
+                                                           "hello こんにちは"),
                                         new MessageAction("Say message",
                                                           "Rice=米")
                                 )),
-                                new CarouselColumn(imageUrl, "Datetime Picker", "Please select a date, time or datetime", Arrays.asList(
+                                new CarouselColumn(imageUrl, "Datetime Picker",
+                                                   "Please select a date, time or datetime", Arrays.asList(
                                         new DatetimePickerAction("Datetime",
-                                                "action=sel",
-                                                "datetime",
-                                                "2017-06-18T06:15",
-                                                "2100-12-31T23:59",
-                                                "1900-01-01T00:00"),
+                                                                 "action=sel",
+                                                                 "datetime",
+                                                                 "2017-06-18T06:15",
+                                                                 "2100-12-31T23:59",
+                                                                 "1900-01-01T00:00"),
                                         new DatetimePickerAction("Date",
-                                                "action=sel&only=date",
-                                                "date",
-                                                "2017-06-18",
-                                                "2100-12-31",
-                                                "1900-01-01"),
+                                                                 "action=sel&only=date",
+                                                                 "date",
+                                                                 "2017-06-18",
+                                                                 "2100-12-31",
+                                                                 "1900-01-01"),
                                         new DatetimePickerAction("Time",
-                                                "action=sel&only=time",
-                                                "time",
-                                                "06:15",
-                                                "23:59",
-                                                "00:00")
+                                                                 "action=sel&only=time",
+                                                                 "time",
+                                                                 "06:15",
+                                                                 "23:59",
+                                                                 "00:00")
                                 ))
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);
@@ -359,20 +367,21 @@ public class KitchenSinkController {
                 ImageCarouselTemplate imageCarouselTemplate = new ImageCarouselTemplate(
                         Arrays.asList(
                                 new ImageCarouselColumn(imageUrl,
-                                        new URIAction("Goto line.me",
-                                                "https://line.me")
+                                                        new URIAction("Goto line.me",
+                                                                      "https://line.me")
                                 ),
                                 new ImageCarouselColumn(imageUrl,
-                                        new MessageAction("Say message",
-                                                "Rice=米")
+                                                        new MessageAction("Say message",
+                                                                          "Rice=米")
                                 ),
                                 new ImageCarouselColumn(imageUrl,
-                                        new PostbackAction("言 hello2",
-                                                "hello こんにちは",
-                                                "hello こんにちは")
+                                                        new PostbackAction("言 hello2",
+                                                                           "hello こんにちは",
+                                                                           "hello こんにちは")
                                 )
                         ));
-                TemplateMessage templateMessage = new TemplateMessage("ImageCarousel alt text", imageCarouselTemplate);
+                TemplateMessage templateMessage = new TemplateMessage("ImageCarousel alt text",
+                                                                      imageCarouselTemplate);
                 this.reply(replyToken, templateMessage);
                 break;
             }

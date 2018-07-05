@@ -16,8 +16,13 @@
 
 package com.linecorp.bot.model.action;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import lombok.Value;
 
 /**
@@ -70,15 +75,16 @@ public class DatetimePickerAction implements Action {
 
     /**
      * Create new instance.
+     *
      * @param label Label for the action. Max: 20 characters.
      * @param data String returned via webhook in the postback.data property of the postback event.
-     *              Max: 300 characters.
+     *         Max: 300 characters.
      * @param mode Action mode. One of 'date', 'time', 'datetime'.
      * @param initial Initial value of date or time (optional)
      * @param max Largest date or time value that can be selected.
-     *             Must be greater than the min value. (optional)
+     *         Must be greater than the min value. (optional)
      * @param min Smallest date or time value that can be selected.
-     *             Must be less than the max value. (optional)
+     *         Must be less than the max value. (optional)
      */
     @JsonCreator
     public DatetimePickerAction(
