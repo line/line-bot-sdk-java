@@ -46,8 +46,8 @@ public class CarouselTemplate implements Template {
      * Aspect ratio of the image. Specify one of the following values:
      *
      * <ul>
-     *     <li>rectangle: 1.51:1</li>
-     *     <li>square: 1:1</li>
+     * <li>rectangle: 1.51:1</li>
+     * <li>square: 1:1</li>
      * </ul>
      *
      * The default value is {@code rectangle}.
@@ -58,8 +58,8 @@ public class CarouselTemplate implements Template {
      * Size of the image. Specify one of the following values:
      *
      * <ul>
-     *     <li>cover: The image fills the entire image area. Parts of the image that do not fit in the area are not displayed.</li>
-     *     <li>contain: The entire image is displayed in the image area. A background is displayed in the unused areas to the left and right of vertical images and in the areas above and below horizontal images.</li>
+     * <li>cover: The image fills the entire image area. Parts of the image that do not fit in the area are not displayed.</li>
+     * <li>contain: The entire image is displayed in the image area. A background is displayed in the unused areas to the left and right of vertical images and in the areas above and below horizontal images.</li>
      * </ul>
      *
      * The default value is {@code cover}.

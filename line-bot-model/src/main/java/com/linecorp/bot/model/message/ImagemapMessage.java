@@ -36,7 +36,7 @@ public class ImagemapMessage implements Message {
      * Base URL
      *
      * <ul>
-     *     <li>HTTPS required</li>
+     * <li>HTTPS required</li>
      * </ul>
      */
     private final String baseUrl;

@@ -30,17 +30,17 @@ public class VideoMessage implements Message {
      * <li>mp4</li>
      * <li>Less than 1 minute</li>
      * <li>Max: 10 MB</li>
-     *  </ul>
+     * </ul>
      */
     private final String originalContentUrl;
 
     /**
      * URL of preview image
      * <ul>
-     *  <li>HTTPS</li>
-     *  <li>JPEG</li>
-     *  <li>Max: 240 x 240</li>
-     *  <li>Max: 1 MB</li>
+     * <li>HTTPS</li>
+     * <li>JPEG</li>
+     * <li>Max: 240 x 240</li>
+     * <li>Max: 1 MB</li>
      * </ul>
      */
     private final String previewImageUrl;

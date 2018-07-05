@@ -41,11 +41,11 @@ public class CarouselColumn {
     /**
      * Image URL
      * <ul>
-     *     <li>HTTPS</li>
-     *     <li>JPEG or PNG</li>
-     *     <li>Aspect ratio: 1:1.51</li>
-     *     <li>Max width: 1024px</li>
-     *     <li>Max: 1 MB</li>
+     * <li>HTTPS</li>
+     * <li>JPEG or PNG</li>
+     * <li>Aspect ratio: 1:1.51</li>
+     * <li>Max width: 1024px</li>
+     * <li>Max: 1 MB</li>
      * </ul>
      */
     private final String thumbnailImageUrl;

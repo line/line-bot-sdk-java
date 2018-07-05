@@ -16,12 +16,13 @@
 
 package com.linecorp.bot.model.message.template;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import lombok.Value;
 
-import java.util.List;
+import lombok.Value;
 
 /**
  * Template message with multiple columns which can be cycled like a carousel.

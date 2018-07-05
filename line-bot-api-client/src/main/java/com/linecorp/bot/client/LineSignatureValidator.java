@@ -47,6 +47,7 @@ public class LineSignatureValidator {
      *
      * @param content Body of the http request in byte array.
      * @param headerSignature Signature value from `X-LINE-Signature` HTTP header
+     *
      * @return True if headerSignature matches signature of the content. False otherwise.
      */
     public boolean validateSignature(@NonNull byte[] content, @NonNull String headerSignature) {
@@ -59,6 +60,7 @@ public class LineSignatureValidator {
      * Generate signature value.
      *
      * @param content Body of the http request.
+     *
      * @return generated signature value.
      */
     public byte[] generateSignature(@NonNull byte[] content) {

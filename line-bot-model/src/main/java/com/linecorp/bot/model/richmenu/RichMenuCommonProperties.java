@@ -22,7 +22,8 @@ public interface RichMenuCommonProperties {
     /**
      * {@link RichMenuSize} object which contains the width and height of the rich menu displayed in the chat.
      *
-     * <p>Rich menu images must be one of the following sizes: 2500x1686, 2500x843. */
+     * <p>Rich menu images must be one of the following sizes: 2500x1686, 2500x843.
+     */
     RichMenuSize getSize();
 
     /** true to display the rich menu by default. Otherwise, false. */

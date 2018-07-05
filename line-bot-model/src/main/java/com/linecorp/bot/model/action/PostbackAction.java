@@ -65,13 +65,14 @@ public class PostbackAction implements Action {
 
     /**
      * Create new instance.
+     *
      * @param label Label for the action. Max: 20 characters.
      * @param data String returned via webhook in the postback.data property of the postback event.
-     *              Max: 300 characters.
+     *         Max: 300 characters.
      * @param displayText text message (optional)
-     *                     Can not be used at the same time with text.
+     *         Can not be used at the same time with text.
      * @param text text message (optional)
-     *              Can not be used at the same time with displayText.
+     *         Can not be used at the same time with displayText.
      */
     @JsonCreator
     public PostbackAction(

@@ -65,8 +65,8 @@ import lombok.extern.slf4j.Slf4j;
  * The class and method with following rules are collected by LINE Messaging Event handler.
  *
  * <ul>
- *     <li>Class annotated with {@link LineMessageHandler}</li>
- *     <li>Method annotated with {@link EventMapping}.</li>
+ * <li>Class annotated with {@link LineMessageHandler}</li>
+ * <li>Method annotated with {@link EventMapping}.</li>
  * </ul>
  */
 @Slf4j

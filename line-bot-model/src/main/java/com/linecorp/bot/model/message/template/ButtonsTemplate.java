@@ -41,12 +41,12 @@ public class ButtonsTemplate implements Template {
     /**
      * Image URL
      * <ul>
-     *  <li>HTTPS</li>
-     *  <li>HTTPS</li>
-     *  <li>JPEG or PNG</li>
-     *  <li>Aspect ratio: 1:1.51</li>
-     *  <li>Max width: 1024px</li>
-     *  <li>Max: 1 MB</li>
+     * <li>HTTPS</li>
+     * <li>HTTPS</li>
+     * <li>JPEG or PNG</li>
+     * <li>Aspect ratio: 1:1.51</li>
+     * <li>Max width: 1024px</li>
+     * <li>Max: 1 MB</li>
      * </ul>
      */
     private final String thumbnailImageUrl;
@@ -55,8 +55,8 @@ public class ButtonsTemplate implements Template {
      * Aspect ratio of the image. Specify one of the following values:
      *
      * <ul>
-     *     <li>rectangle: 1.51:1</li>
-     *     <li>square: 1:1</li>
+     * <li>rectangle: 1.51:1</li>
+     * <li>square: 1:1</li>
      * </ul>
      *
      * The default value is {@code rectangle}.
@@ -67,8 +67,8 @@ public class ButtonsTemplate implements Template {
      * Size of the image. Specify one of the following values:
      *
      * <ul>
-     *     <li>cover: The image fills the entire image area. Parts of the image that do not fit in the area are not displayed.</li>
-     *     <li>contain: The entire image is displayed in the image area. A background is displayed in the unused areas to the left and right of vertical images and in the areas above and below horizontal images.</li>
+     * <li>cover: The image fills the entire image area. Parts of the image that do not fit in the area are not displayed.</li>
+     * <li>contain: The entire image is displayed in the image area. A background is displayed in the unused areas to the left and right of vertical images and in the areas above and below horizontal images.</li>
      * </ul>
      *
      * The default value is {@code cover}.
@@ -91,8 +91,8 @@ public class ButtonsTemplate implements Template {
      * Message text
      *
      * <ul>
-     *     <li>Max: 160 characters(no image or title)</li>
-     *     <li>Max: 60 characters (message with an image or title)</li>
+     * <li>Max: 160 characters(no image or title)</li>
+     * <li>Max: 60 characters (message with an image or title)</li>
      * </ul>
      */
     private final String text;

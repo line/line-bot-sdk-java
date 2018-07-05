@@ -228,9 +228,9 @@ public class MessageJsonReconstructionTest {
             }
 
             bodyBlock = Box.builder()
-                      .layout(FlexLayout.VERTICAL)
-                      .contents(Arrays.asList(title, review, info))
-                      .build();
+                           .layout(FlexLayout.VERTICAL)
+                           .contents(Arrays.asList(title, review, info))
+                           .build();
         }
 
         final Box footerBlock;
@@ -251,10 +251,10 @@ public class MessageJsonReconstructionTest {
                           .build();
 
             footerBlock = Box.builder()
-                        .layout(FlexLayout.VERTICAL)
-                        .spacing(FlexMarginSize.SM)
-                        .contents(Arrays.asList(spacer, callAction, separator, websiteAction))
-                        .build();
+                             .layout(FlexLayout.VERTICAL)
+                             .spacing(FlexMarginSize.SM)
+                             .contents(Arrays.asList(spacer, callAction, separator, websiteAction))
+                             .build();
         }
 
         final Bubble bubble = Bubble.builder().hero(heroBlock).body(bodyBlock).footer(footerBlock).build();

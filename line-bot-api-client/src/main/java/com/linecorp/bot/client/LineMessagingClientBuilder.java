@@ -116,7 +116,7 @@ public class LineMessagingClientBuilder {
      * <p>If you want to use your own setting, specify {@link OkHttpClient.Builder} instance.</p>
      *
      * @param resetDefaultInterceptors If true, all default okhttp interceptors ignored.
-     * You should insert authentication headers yourself.
+     *         You should insert authentication headers yourself.
      */
     public LineMessagingClientBuilder okHttpClientBuilder(
             @NonNull final OkHttpClient.Builder okHttpClientBuilder,
