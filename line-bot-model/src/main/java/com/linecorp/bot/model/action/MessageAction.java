@@ -36,8 +36,9 @@ public class MessageAction implements Action {
     private final String label;
 
     /**
-     * Text sent when the action is performed
-     * Max: 300 characters
+     * Text sent when the action is performed.
+     *
+     * <p>Max: 300 characters
      */
     private final String text;
 

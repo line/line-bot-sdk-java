@@ -22,10 +22,10 @@ import lombok.Value;
 
 @Value
 public class ErrorDetail {
-    /** Details of the error */
+    /** Details of the error. */
     String message;
 
-    /** Position of the error occurred */
+    /** Position of the error occurred. */
     String property;
 
     public ErrorDetail(

@@ -31,14 +31,16 @@ import lombok.Value;
 @JsonTypeName("uri")
 public class URIAction implements Action {
     /**
-     * Label for the action<br>
-     * Max: 20 characters
+     * Label for the action.
+     *
+     * <p>Max: 20 characters
      */
     private final String label;
 
     /**
-     * URI opened when the action is performed<br>
-     * http, https, tel
+     * URI opened when the action is performed.
+     *
+     * <p>Available values are: http, https, tel
      */
     private final String uri;
 

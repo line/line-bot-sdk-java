@@ -28,10 +28,6 @@ import lombok.Value;
 @JsonTypeName("sticker")
 public class StickerMessageContent implements MessageContent {
     private final String id;
-
-    /**
-     *
-     */
     private final String packageId;
     private final String stickerId;
 

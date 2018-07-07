@@ -31,7 +31,9 @@ import lombok.Value;
 @JsonTypeName("image_carousel")
 public class ImageCarouselTemplate implements Template {
     /**
-     * List of columns(Max: 5)
+     * List of columns.
+     *
+     * <p>Max: 5.
      */
     private final List<ImageCarouselColumn> columns;
 

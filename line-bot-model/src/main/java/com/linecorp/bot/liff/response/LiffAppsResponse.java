@@ -28,6 +28,6 @@ import lombok.Value;
 @Value
 @AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class LiffAppsResponse {
-    /** Array of LIFF app objects */
+    /** Array of LIFF app objects. */
     List<LiffApp> apps;
 }

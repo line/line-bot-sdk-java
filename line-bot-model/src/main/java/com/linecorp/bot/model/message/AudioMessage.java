@@ -24,7 +24,8 @@ import lombok.Value;
 @JsonTypeName("audio")
 public class AudioMessage implements Message {
     /**
-     * URL of audio file
+     * URL of audio file.
+     *
      * <ul>
      * <li>HTTPS</li>
      * <li>m4a</li>
@@ -35,7 +36,7 @@ public class AudioMessage implements Message {
     private final String originalContentUrl;
 
     /**
-     * Length of audio file (milliseconds)
+     * Length of audio file (milliseconds).
      */
     private final Integer duration;
 }

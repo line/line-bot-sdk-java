@@ -30,7 +30,7 @@ import lombok.Builder;
 import lombok.Value;
 
 /**
- * Column object for carousel template
+ * Column object for carousel template.
  *
  * @see CarouselColumnBuilder
  */
@@ -39,7 +39,8 @@ import lombok.Value;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class CarouselColumn {
     /**
-     * Image URL
+     * Image URL.
+     *
      * <ul>
      * <li>HTTPS</li>
      * <li>JPEG or PNG</li>
@@ -58,29 +59,36 @@ public class CarouselColumn {
     private final String imageBackgroundColor;
 
     /**
-     * Title (Max: 40 characters)
+     * Title.
+     *
+     * <p>Max: 40 characters
      */
     private final String title;
 
     /**
-     * Message text<br>
-     * Max: 120 characters (no image or title)<br>
+     * Message text.
+     *
+     * <p>Max: 120 characters (no image or title)<br>
      * Max: 60 characters (message with an image or title)
      */
     private final String text;
 
     /**
-     * Optional: Action when image is tapped; set for the entire image, title, and text area
+     * Optional: Action when image is tapped; set for the entire image, title, and text area.
      */
     private final Action defaultAction;
 
     /**
-     * Action when tapped(Max: 3)
+     * Action when tapped.
+     *
+     * <p>Max: 3</p>
      */
     private final List<Action> actions;
 
     /**
-     * @see {@link #builder()} also.
+     * Constructor for standard properties. Use {@link #builder()} for fully-customized instance.
+     *
+     * @see #builder()
      */
     @JsonCreator
     public CarouselColumn(

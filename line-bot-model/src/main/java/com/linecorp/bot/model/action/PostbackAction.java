@@ -26,13 +26,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Value;
 
 /**
- * <p>
- * When this action is tapped, a postback event is returned via webhook with the specified string in the data field.
- * </p>
+ * Postback's Action.
  *
- * <p>
- * If you have included the text field, the string in the text field is sent as a message from the user.
- * </p>
+ * <p>When this action is tapped, a postback event is returned via webhook
+ * with the specified string in the data field.
+ *
+ * <p>If you have included the text field, the string in the text field is sent as a message from the user.
  */
 @Value
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -40,26 +39,30 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class PostbackAction implements Action {
     /**
-     * Label for the action<br>
-     * Max: 20 characters
+     * Label for the action.
+     *
+     * <p>Max: 20 characters
      */
     private final String label;
 
     /**
-     * String returned via webhook in the postback.data property of the postback event<br>
-     * Max: 300 characters
+     * String returned via webhook in the postback.data property of the postback event.
+     *
+     * <p>Max: 300 characters
      */
     private final String data;
 
     /**
-     * Text sent when the action is performed<br>
-     * Max: 300 characters
+     * Text sent when the action is performed.
+     *
+     * <p>Max: 300 characters
      */
     private final String displayText;
 
     /**
-     * Deprecated. Text sent when the action is performed<br>
-     * Max: 300 characters
+     * Deprecated. Text sent when the action is performed.
+     *
+     * <p>Max: 300 characters
      */
     private final String text;
 

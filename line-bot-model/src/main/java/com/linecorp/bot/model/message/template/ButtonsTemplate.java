@@ -39,7 +39,8 @@ import lombok.Value;
 @JsonTypeName("buttons")
 public class ButtonsTemplate implements Template {
     /**
-     * Image URL
+     * Image URL.
+     *
      * <ul>
      * <li>HTTPS</li>
      * <li>HTTPS</li>
@@ -52,26 +53,33 @@ public class ButtonsTemplate implements Template {
     private final String thumbnailImageUrl;
 
     /**
-     * Aspect ratio of the image. Specify one of the following values:
+     * Aspect ratio of the image.
+     *
+     * <p>Specify one of the following values:</p>
      *
      * <ul>
      * <li>rectangle: 1.51:1</li>
      * <li>square: 1:1</li>
      * </ul>
      *
-     * The default value is {@code rectangle}.
+     * <p>The default value is {@code rectangle}.
      */
     private final String imageAspectRatio;
 
     /**
-     * Size of the image. Specify one of the following values:
+     * Size of the image.
+     *
+     * <p>Specify one of the following values:</p>
      *
      * <ul>
-     * <li>cover: The image fills the entire image area. Parts of the image that do not fit in the area are not displayed.</li>
-     * <li>contain: The entire image is displayed in the image area. A background is displayed in the unused areas to the left and right of vertical images and in the areas above and below horizontal images.</li>
+     * <li>cover: The image fills the entire image area.
+     * Parts of the image that do not fit in the area are not displayed.</li>
+     * <li>contain: The entire image is displayed in the image area.
+     * A background is displayed in the unused areas to the left and right of vertical images
+     * and in the areas above and below horizontal images.</li>
      * </ul>
      *
-     * The default value is {@code cover}.
+     * <p>The default value is {@code cover}.
      */
     private final String imageSize;
 
@@ -83,12 +91,14 @@ public class ButtonsTemplate implements Template {
     private final String imageBackgroundColor;
 
     /**
-     * Title(Max 40 characters)
+     * Title.
+     *
+     * <p>Max 40 characters.
      */
     private final String title;
 
     /**
-     * Message text
+     * Message text.
      *
      * <ul>
      * <li>Max: 160 characters(no image or title)</li>
@@ -98,17 +108,21 @@ public class ButtonsTemplate implements Template {
     private final String text;
 
     /**
-     * Optional: Action when image is tapped; set for the entire image, title, and text area
+     * Optional: Action when image is tapped; set for the entire image, title, and text area.
      */
     private final Action defaultAction;
 
     /**
-     * Action when tapped(Max: 4)
+     * Action when tapped.
+     *
+     * <p>Max: 4
      */
     private final List<Action> actions;
 
     /**
-     * @see {@link #builder()} also.
+     * Constructor for basic use. Use {@link #builder()} to use full attributes.
+     *
+     * @see #builder()
      */
     @JsonCreator
     public ButtonsTemplate(
