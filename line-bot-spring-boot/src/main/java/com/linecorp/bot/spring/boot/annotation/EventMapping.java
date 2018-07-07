@@ -26,7 +26,7 @@ import com.google.common.annotations.Beta;
 /**
  * Indicates that an annotated method is a LINE Messaging Event Handler.
  *
- * Note: Only {@link EventMapping @EventMapping} annotated method
+ * <p>Note: Only {@link EventMapping @EventMapping} annotated method
  * in the class annotated by {@link LineMessageHandler @LineMessageHandler} is enabled.
  */
 @Beta

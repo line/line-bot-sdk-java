@@ -37,7 +37,7 @@ public class LineBotCallbackRequestParser {
     private final LineSignatureValidator lineSignatureValidator;
 
     /**
-     * Create new instance
+     * Create new instance.
      *
      * @param lineSignatureValidator LINE messaging API's signature validator
      */
