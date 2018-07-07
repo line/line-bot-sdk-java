@@ -97,7 +97,7 @@ class LineMessagingServiceBuilder {
     }
 
     /**
-     * Add interceptor
+     * Add interceptor.
      */
     public LineMessagingServiceBuilder addInterceptor(Interceptor interceptor) {
         this.interceptors.add(interceptor);
@@ -105,7 +105,7 @@ class LineMessagingServiceBuilder {
     }
 
     /**
-     * Add interceptor first
+     * Add interceptor first.
      */
     public LineMessagingServiceBuilder addInterceptorFirst(Interceptor interceptor) {
         this.interceptors.add(0, interceptor);
@@ -113,7 +113,7 @@ class LineMessagingServiceBuilder {
     }
 
     /**
-     * Remove all interceptors
+     * Remove all interceptors.
      */
     public LineMessagingServiceBuilder removeAllInterceptors() {
         this.interceptors.clear();
