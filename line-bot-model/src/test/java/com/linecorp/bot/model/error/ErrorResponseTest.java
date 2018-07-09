@@ -54,8 +54,9 @@ public class ErrorResponseTest {
         assertThat(result.getDetails()).containsExactly(
                 new ErrorDetail("May not be empty",
                                 "messages[0].text"),
-                new ErrorDetail("Must be one of the following values: " +
-                                "[text, image, video, audio, location, sticker, richmessage, template, imagemap]",
+                new ErrorDetail("Must be one of the following values: "
+                                + "[text, image, video, audio, location, sticker,"
+                                + " richmessage, template, imagemap]",
                                 "messages[1].type"));
     }
 }

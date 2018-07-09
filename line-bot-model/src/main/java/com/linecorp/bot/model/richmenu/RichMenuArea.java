@@ -32,7 +32,7 @@ public class RichMenuArea {
     /**
      * Action performed when the area is tapped. See {@link Action} objects.
      *
-     * Note: The label field is not supported for actions in rich menus.
+     * <p>Note: The label field is not supported for actions in rich menus.
      */
     Action action;
 

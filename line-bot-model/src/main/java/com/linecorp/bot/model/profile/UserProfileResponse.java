@@ -26,22 +26,22 @@ import lombok.Value;
 @Value
 public class UserProfileResponse {
     /**
-     * Display name
+     * Display name.
      */
     private final String displayName;
 
     /**
-     * User ID
+     * User ID.
      */
     private final String userId;
 
     /**
-     * Image URL
+     * Image URL.
      */
     private final String pictureUrl;
 
     /**
-     * Status message
+     * Status message.
      */
     private final String statusMessage;
 

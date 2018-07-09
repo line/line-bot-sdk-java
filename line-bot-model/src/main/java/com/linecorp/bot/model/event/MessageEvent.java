@@ -28,28 +28,29 @@ import lombok.Value;
 
 /**
  * Event object which contains the sent message.
- * The message field contains a message object which corresponds with the message type. You can reply to message events.
+ * The message field contains a message object which corresponds with the message type.
+ * You can reply to message events.
  */
 @Value
 @JsonTypeName("message")
 public class MessageEvent<T extends MessageContent> implements Event, ReplyEvent {
     /**
-     * Token for replying to this event
+     * Token for replying to this event.
      */
     private final String replyToken;
 
     /**
-     * JSON object which contains the source of the event
+     * JSON object which contains the source of the event.
      */
     private final Source source;
 
     /**
-     * Message body
+     * Message body.
      */
     private final T message;
 
     /**
-     * Time of the event
+     * Time of the event.
      */
     private final Instant timestamp;
 

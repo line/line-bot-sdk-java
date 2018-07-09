@@ -27,6 +27,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
 
 /**
+ * Response body of MembersIdsResponse.
+ *
  * @see <a href="https://devdocs.line.me?java#get-group-room-member-ids">//devdocs.line.me#get-group-room-member-ids</a>
  */
 @Value

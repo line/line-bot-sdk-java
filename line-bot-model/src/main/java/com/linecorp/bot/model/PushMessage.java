@@ -31,13 +31,14 @@ import lombok.Value;
 @AllArgsConstructor
 public class PushMessage {
     /**
-     * ID of the receiver
+     * ID of the receiver.
      */
     private final String to;
 
     /**
-     * List of Message objects.<br>
-     * Max: 5
+     * List of Message objects.
+     *
+     * <p>Max: 5
      */
     private final List<Message> messages;
 

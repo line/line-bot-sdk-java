@@ -30,7 +30,7 @@ import lombok.Value;
 @JsonTypeName("template")
 public class TemplateMessage implements Message {
     /**
-     * Alternative text
+     * Alternative text.
      */
     private final String altText;
 

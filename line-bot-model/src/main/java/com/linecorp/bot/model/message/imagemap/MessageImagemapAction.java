@@ -21,15 +21,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
 
+/**
+ * MessageImagemapAction - When a region is tapped, the message specified in message is sent.
+ */
 @Value
 @JsonTypeName("message")
 public class MessageImagemapAction implements ImagemapAction {
     /**
-     * Message to send
+     * Message to send.
      */
     private final String text;
+
     /**
-     * Defined tappable area
+     * Defined tappable area.
      */
     private final ImagemapArea area;
 

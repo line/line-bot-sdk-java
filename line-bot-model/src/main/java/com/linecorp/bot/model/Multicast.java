@@ -34,16 +34,18 @@ import lombok.Value;
 @AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class Multicast {
     /**
-     * IDs of the receivers.<br />
-     * Max: 150
+     * IDs of the receivers.
      *
-     * <p>INFO: Use IDs returned via the webhook event of source users. IDs of groups or rooms cannot be used.</p>
+     * <p>Max: 150
+     *
+     * <p>INFO: Use IDs returned via the webhook event of source users. IDs of groups or rooms cannot be used.
      */
     private final Set<String> to;
 
     /**
-     * List of Message objects.<br />
-     * Max: 5
+     * List of Message objects.
+     *
+     * <p>Max: 5
      */
     private final List<Message> messages;
 

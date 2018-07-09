@@ -24,12 +24,13 @@ import com.linecorp.bot.model.action.Action;
 import lombok.Value;
 
 /**
- * Column object for carousel template
+ * Column object for carousel template.
  */
 @Value
 public class ImageCarouselColumn {
     /**
-     * Image URL
+     * Image URL.
+     *
      * <ul>
      * <li>Max 1000 characters HTTPS URL</li>
      * <li>JPEG or PNG</li>
@@ -41,7 +42,7 @@ public class ImageCarouselColumn {
     private final String imageUrl;
 
     /**
-     * Action when tapped
+     * Action when tapped.
      */
     private final Action action;
 

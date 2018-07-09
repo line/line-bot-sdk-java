@@ -31,7 +31,7 @@ import lombok.Value;
  */
 @Value
 public class ErrorResponse {
-    /** Request ID in response header */
+    /** Request ID in response header. */
     String requestId;
 
     /** Summary or details of the error. */
@@ -40,7 +40,7 @@ public class ErrorResponse {
     /**
      * Details of the error.
      *
-     * In this class, always non-null but can be empty.
+     * <p>Always non-null but can be empty.
      */
     List<ErrorDetail> details;
 

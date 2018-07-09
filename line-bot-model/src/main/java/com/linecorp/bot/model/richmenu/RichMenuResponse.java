@@ -24,7 +24,9 @@ import lombok.Value;
 
 @Value
 public class RichMenuResponse implements RichMenuCommonProperties {
-    /** Rich menu ID */
+    /**
+     * Rich menu ID.
+     */
     String richMenuId;
 
     /**
@@ -38,7 +40,8 @@ public class RichMenuResponse implements RichMenuCommonProperties {
     boolean selected;
 
     /**
-     * Name of the rich menu. This value can be used to help manage your rich menus and is not displayed to users.
+     * Name of the rich menu.
+     * This value can be used to help manage your rich menus and is not displayed to users.
      *
      * <p>Maximum of 300 characters.
      */

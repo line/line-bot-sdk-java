@@ -24,6 +24,6 @@ import lombok.Value;
 @Value
 @AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class LiffAppAddResponse {
-    /** LIFF app ID */
+    /** LIFF app ID. */
     String liffId;
 }

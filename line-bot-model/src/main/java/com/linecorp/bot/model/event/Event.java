@@ -43,13 +43,9 @@ import com.linecorp.bot.model.event.source.Source;
         visible = true
 )
 public interface Event {
-    /**
-     * Get event source
-     */
+    /** Get event source. */
     Source getSource();
 
-    /**
-     * Time of the event
-     */
+    /** Time of the event. */
     Instant getTimestamp();
 }
