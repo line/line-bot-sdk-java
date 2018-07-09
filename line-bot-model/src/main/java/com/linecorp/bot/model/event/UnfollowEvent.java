@@ -32,12 +32,12 @@ import lombok.Value;
 @JsonTypeName("unfollow")
 public class UnfollowEvent implements Event {
     /**
-     * JSON object which contains the source of the event
+     * JSON object which contains the source of the event.
      */
     private final Source source;
 
     /**
-     * Time of the event
+     * Time of the event.
      */
     private final Instant timestamp;
 

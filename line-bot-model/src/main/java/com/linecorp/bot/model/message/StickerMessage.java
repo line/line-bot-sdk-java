@@ -22,19 +22,19 @@ import lombok.NonNull;
 import lombok.Value;
 
 /**
- * Sticker message
+ * Sticker message.
  */
 @Value
 @JsonTypeName("sticker")
 public class StickerMessage implements Message {
     /**
-     * Package ID
+     * Package ID.
      */
     @NonNull
     private final String packageId;
 
     /**
-     * Sticker ID
+     * Sticker ID.
      */
     @NonNull
     private final String stickerId;

@@ -41,6 +41,10 @@ public class LineBotAutoConfiguration {
     @Autowired
     private LineBotProperties lineBotProperties;
 
+    /**
+     * Expose {@link FixedChannelTokenSupplier} as {@link Bean}
+     * in case of no other definition for {@link ChannelTokenSupplier} type.
+     */
     @Bean
     @ConditionalOnMissingBean(ChannelTokenSupplier.class)
     public ChannelTokenSupplier channelTokenSupplier() {
@@ -48,6 +52,9 @@ public class LineBotAutoConfiguration {
         return FixedChannelTokenSupplier.of(channelToken);
     }
 
+    /**
+     * Expose {@link LineMessagingClient} as {@link Bean}.
+     */
     @Bean
     public LineMessagingClient lineMessagingClient(
             final ChannelTokenSupplier channelTokenSupplier) {
@@ -60,6 +67,9 @@ public class LineBotAutoConfiguration {
                 .build();
     }
 
+    /**
+     * Expose {@link ChannelManagementSyncClient} as {@link Bean}.
+     */
     @Bean
     public ChannelManagementSyncClient channelManagementClient(
             final ChannelTokenSupplier channelTokenSupplier) {

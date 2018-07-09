@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 /**
  * Special {@link Supplier} for Channel Access Token.
  *
- * You can implement it to return same channel tokens.
+ * <p>You can implement it to return same channel tokens.
  * Or refresh tokens internally.
  */
 @FunctionalInterface

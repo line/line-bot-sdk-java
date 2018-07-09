@@ -156,15 +156,15 @@ public class IntegrationTest {
         assertThat(request1.getPath()).isEqualTo("/v2/bot/message/reply");
         assertThat(request1.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
         assertThat(request1.getBody().readUtf8())
-                .isEqualTo(
-                        "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"Hello, world\"}]}");
+                .isEqualTo("{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\","
+                           + "\"messages\":[{\"type\":\"text\",\"text\":\"Hello, world\"}]}");
 
         // Test request 2
         RecordedRequest request2 = server.takeRequest(3, TimeUnit.SECONDS);
         assertThat(request2.getPath()).isEqualTo("/v2/bot/message/reply");
         assertThat(request2.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
         assertThat(request2.getBody().readUtf8())
-                .isEqualTo(
-                        "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\",\"messages\":[{\"type\":\"text\",\"text\":\"follow\"}]}");
+                .isEqualTo("{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\","
+                           + "\"messages\":[{\"type\":\"text\",\"text\":\"follow\"}]}");
     }
 }

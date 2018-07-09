@@ -22,18 +22,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Value;
 
 /**
- *
+ * URLImagemapAction - When a region is tapped, the user is redirected to the URI specified.
  */
 @Value
 @JsonTypeName("uri")
 public class URIImagemapAction implements ImagemapAction {
     /**
-     * Webpage URL
+     * Webpage URL.
      */
     private final String linkUri;
 
     /**
-     * Defined tappable area
+     * Defined tappable area.
      */
     private final ImagemapArea area;
 

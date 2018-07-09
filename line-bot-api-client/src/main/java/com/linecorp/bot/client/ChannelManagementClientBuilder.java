@@ -42,6 +42,9 @@ public class ChannelManagementClientBuilder {
                 .channelTokenSupplier(channelTokenSupplier);
     }
 
+    /**
+     * Build a new {@link ChannelManagementSyncClient}.
+     */
     public ChannelManagementSyncClient build() {
         final Builder okHttpClientBuilder = new Builder();
 

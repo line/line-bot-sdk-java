@@ -41,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Internal class to send message as reply.
  *
- * Basically, message contents are from return value of handler method.
+ * <p>Basically, message contents are from return value of handler method.
  *
  * @see LineMessageHandlerSupport#handleReturnValue(Event, Object)
  */
@@ -52,11 +52,11 @@ class ReplyByReturnValueConsumer implements Consumer<Object> {
     private final Event originalEvent;
 
     @Component
-    public static class Factory {
+    static class Factory {
         private final LineMessagingClient lineMessagingClient;
 
         @Autowired
-        public Factory(final LineMessagingClient lineMessagingClient) {
+        Factory(final LineMessagingClient lineMessagingClient) {
             this.lineMessagingClient = lineMessagingClient;
         }
 

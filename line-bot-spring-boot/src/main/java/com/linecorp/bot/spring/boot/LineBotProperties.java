@@ -51,7 +51,7 @@ public class LineBotProperties {
     private String channelToken;
 
     /**
-     * Channel secret
+     * Channel secret.
      */
     @Valid
     @NotNull
@@ -62,21 +62,21 @@ public class LineBotProperties {
     private String apiEndPoint = LineMessagingClientBuilder.DEFAULT_API_END_POINT;
 
     /**
-     * Connection timeout in milliseconds
+     * Connection timeout in milliseconds.
      */
     @Valid
     @NotNull
     private long connectTimeout = LineMessagingClientBuilder.DEFAULT_CONNECT_TIMEOUT;
 
     /**
-     * Read timeout in milliseconds
+     * Read timeout in milliseconds.
      */
     @Valid
     @NotNull
     private long readTimeout = LineMessagingClientBuilder.DEFAULT_READ_TIMEOUT;
 
     /**
-     * Write timeout in milliseconds
+     * Write timeout in milliseconds.
      */
     @Valid
     @NotNull
@@ -93,8 +93,8 @@ public class LineBotProperties {
     public static class Handler {
         /**
          * Flag to enable/disable {@link LineMessageHandler} and {@link EventMapping}.
-         * <p>
-         * Default: {@code true}
+         *
+         * <p>Default: {@code true}
          */
         boolean enabled = true;
 

@@ -32,7 +32,7 @@ import lombok.Value;
 @JsonTypeName("flex")
 public class FlexMessage implements Message {
     /**
-     * Alternative text
+     * Alternative text.
      */
     private final String altText;
 

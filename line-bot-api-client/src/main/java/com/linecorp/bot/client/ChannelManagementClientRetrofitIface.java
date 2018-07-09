@@ -32,7 +32,8 @@ import retrofit2.http.Path;
 /**
  * Package private interface for Retrofit binding.
  *
- * You can use LIFF API via {@link ChannelManagementSyncClient}. It's independent from Retrofit implementation.
+ * <p>You can use LIFF API via {@link ChannelManagementSyncClient}.
+ * It's independent from Retrofit implementation.
  */
 interface ChannelManagementClientRetrofitIface {
     @POST("liff/v1/apps")

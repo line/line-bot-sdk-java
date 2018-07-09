@@ -64,8 +64,10 @@ import lombok.extern.slf4j.Slf4j;
  *
  * <p>This is not a part of SDK SPEC but please check it is expected/unavoidable or not when any test is broken.
  *
- * <p><strong>IMPORTANT</strong>: Message serialization/deserialization by JSON is to be able to create a proof of concept in simple.
- * This test do not intended serialization format stability. Serialized JSON format may be different depending on the version.
+ * <p><strong>IMPORTANT</strong>: Message serialization/deserialization by JSON
+ * is to be able to create a proof of concept in simple.
+ * This test do not intended serialization format stability.
+ * Serialized JSON format may be different depending on the version.
  */
 @Slf4j
 public class MessageJsonReconstructionTest {

@@ -33,7 +33,7 @@ import lombok.Value;
 @JsonTypeName("imagemap")
 public class ImagemapMessage implements Message {
     /**
-     * Base URL
+     * Base URL.
      *
      * <ul>
      * <li>HTTPS required</li>
@@ -42,17 +42,17 @@ public class ImagemapMessage implements Message {
     private final String baseUrl;
 
     /**
-     * Alternative text
+     * Alternative text.
      */
     private final String altText;
 
     /**
-     * Size of base image
+     * Size of base image.
      */
     private final ImagemapBaseSize baseSize;
 
     /**
-     * Action when tapped
+     * Action when tapped.
      */
     private final List<ImagemapAction> actions;
 }

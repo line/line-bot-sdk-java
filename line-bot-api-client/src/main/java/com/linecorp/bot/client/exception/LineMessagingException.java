@@ -28,7 +28,7 @@ public abstract class LineMessagingException extends Exception {
     /**
      * Original error response from server.
      *
-     * Null when error response is not exist.
+     * <p>Null when error response is not exist.
      */
     private final ErrorResponse errorResponse;
 

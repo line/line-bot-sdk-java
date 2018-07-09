@@ -30,22 +30,22 @@ public class LocationMessageContent implements MessageContent {
     private final String id;
 
     /**
-     * Title
+     * Title.
      */
     private final String title;
 
     /**
-     * Address
+     * Address.
      */
     private final String address;
 
     /**
-     * Latitude
+     * Latitude.
      */
     private final double latitude;
 
     /**
-     * Longitude
+     * Longitude.
      */
     private final double longitude;
 

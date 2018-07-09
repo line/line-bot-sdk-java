@@ -24,7 +24,8 @@ import lombok.Value;
 @JsonTypeName("video")
 public class VideoMessage implements Message {
     /**
-     * URL of video file
+     * URL of video file.
+     *
      * <ul>
      * <li>HTTPS</li>
      * <li>mp4</li>
@@ -35,7 +36,8 @@ public class VideoMessage implements Message {
     private final String originalContentUrl;
 
     /**
-     * URL of preview image
+     * URL of preview image.
+     *
      * <ul>
      * <li>HTTPS</li>
      * <li>JPEG</li>

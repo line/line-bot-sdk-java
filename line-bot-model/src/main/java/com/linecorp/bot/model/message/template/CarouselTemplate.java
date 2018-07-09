@@ -38,31 +38,40 @@ import lombok.Value;
 @JsonTypeName("carousel")
 public class CarouselTemplate implements Template {
     /**
-     * List of columns(Max: 5)
+     * List of columns.
+     *
+     * <p>Max: 5
      */
     private final List<CarouselColumn> columns;
 
     /**
-     * Aspect ratio of the image. Specify one of the following values:
+     * Aspect ratio of the image.
+     *
+     * <p>Specify one of the following values:
      *
      * <ul>
      * <li>rectangle: 1.51:1</li>
      * <li>square: 1:1</li>
      * </ul>
      *
-     * The default value is {@code rectangle}.
+     * <p>The default value is {@code rectangle}.
      */
     private final String imageAspectRatio;
 
     /**
-     * Size of the image. Specify one of the following values:
+     * Size of the image.
+     *
+     * <p>Specify one of the following values:</p>
      *
      * <ul>
-     * <li>cover: The image fills the entire image area. Parts of the image that do not fit in the area are not displayed.</li>
-     * <li>contain: The entire image is displayed in the image area. A background is displayed in the unused areas to the left and right of vertical images and in the areas above and below horizontal images.</li>
+     * <li>cover: The image fills the entire image area.
+     * Parts of the image that do not fit in the area are not displayed.</li>
+     * <li>contain: The entire image is displayed in the image area.
+     * A background is displayed in the unused areas to the left and right of vertical images
+     * and in the areas above and below horizontal images.</li>
      * </ul>
      *
-     * The default value is {@code cover}.
+     * <p>The default value is {@code cover}.
      */
     private final String imageSize;
 

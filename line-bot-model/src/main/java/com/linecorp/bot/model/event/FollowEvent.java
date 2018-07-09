@@ -32,17 +32,17 @@ import lombok.Value;
 @JsonTypeName("follow")
 public class FollowEvent implements Event, ReplyEvent {
     /**
-     * Token for replying to this event
+     * Token for replying to this event.
      */
     private final String replyToken;
 
     /**
-     * JSON object which contains the source of the event
+     * JSON object which contains the source of the event.
      */
     private final Source source;
 
     /**
-     * Time of the event
+     * Time of the event.
      */
     private final Instant timestamp;
 

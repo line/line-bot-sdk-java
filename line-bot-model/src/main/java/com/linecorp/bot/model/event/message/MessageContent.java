@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
- * Abstract inteface of the message content
+ * Abstract interface of the message content.
  */
 @JsonSubTypes({
         @JsonSubTypes.Type(TextMessageContent.class),
@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 )
 public interface MessageContent {
     /**
-     * Get the message ID
+     * Get the message ID.
      */
     String getId();
 }

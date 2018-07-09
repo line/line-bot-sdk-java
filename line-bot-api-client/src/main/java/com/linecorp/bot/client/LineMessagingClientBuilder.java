@@ -77,7 +77,7 @@ public class LineMessagingClientBuilder {
     }
 
     /**
-     * Add interceptor
+     * Add interceptor.
      */
     public LineMessagingClientBuilder addInterceptor(Interceptor interceptor) {
         delegate.addInterceptor(interceptor);
@@ -85,7 +85,7 @@ public class LineMessagingClientBuilder {
     }
 
     /**
-     * Add interceptor first
+     * Add interceptor first.
      */
     public LineMessagingClientBuilder addInterceptorFirst(Interceptor interceptor) {
         delegate.addInterceptorFirst(interceptor);
@@ -93,7 +93,7 @@ public class LineMessagingClientBuilder {
     }
 
     /**
-     * Remove all interceptors
+     * Remove all interceptors.
      */
     public LineMessagingClientBuilder removeAllInterceptors() {
         delegate.removeAllInterceptors();

@@ -34,22 +34,34 @@ public class LineBotWebMvcBeans {
     @Autowired
     private LineBotProperties lineBotProperties;
 
+    /**
+     * Expose {@link LineBotServerArgumentProcessor} as {@link Bean}.
+     */
     @Bean
     public LineBotServerArgumentProcessor lineBotServerArgumentProcessor() {
         return new LineBotServerArgumentProcessor();
     }
 
+    /**
+     * Expose {@link LineBotServerInterceptor} as {@link Bean}.
+     */
     @Bean
     public LineBotServerInterceptor lineBotServerInterceptor() {
         return new LineBotServerInterceptor();
     }
 
+    /**
+     * Expose {@link LineSignatureValidator} as {@link Bean}.
+     */
     @Bean
     public LineSignatureValidator lineSignatureValidator() {
         return new LineSignatureValidator(
                 lineBotProperties.getChannelSecret().getBytes(StandardCharsets.US_ASCII));
     }
 
+    /**
+     * Expose {@link LineBotCallbackRequestParser} as {@link Bean}.
+     */
     @Bean
     public LineBotCallbackRequestParser lineBotCallbackRequestParser(
             LineSignatureValidator lineSignatureValidator) {

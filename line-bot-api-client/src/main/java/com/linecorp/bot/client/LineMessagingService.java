@@ -48,6 +48,7 @@ interface LineMessagingService {
      *
      * <p>Webhooks are used to notify you when an event occurs. For events that you can respond to,
      * a replyToken is issued for replying to messages.
+     *
      * <p>Because the replyToken becomes invalid after a certain period of time,
      * responses should be sent as soon as a message is received. Reply tokens can only be used once.
      *
@@ -71,7 +72,9 @@ interface LineMessagingService {
     /**
      * Send messages to multiple users at any time. <strong>IDs of groups or rooms cannot be used.</strong>
      *
-     * <p>INFO: Only available for plans which support push messages. Messages cannot be sent to groups or rooms.
+     * <p>INFO: Only available for plans which support push messages.
+     * Messages cannot be sent to groups or rooms.
+     *
      * <p>INFO: Use IDs returned via the webhook event of source users. IDs of groups or rooms cannot be used.
      * Do not use the LINE ID found on the LINE app.</p>
      *
@@ -116,8 +119,10 @@ interface LineMessagingService {
     /**
      * Get group/room member IDs.
      *
-     * <p>Get group and room member IDs request example
-     * <p>Gets the user IDs of the members of a group or a room that the bot is in. This includes the user IDs of users who have not added the bot as a friend or has blocked the bot.
+     * <p>Get group and room member IDs request example.
+     *
+     * <p>Gets the user IDs of the members of a group or a room that the bot is in.
+     * This includes the user IDs of users who have not added the bot as a friend or has blocked the bot.
      *
      * <p><strong>INFO</strong> This feature is only available for LINE@ Approved accounts or official accounts.
      *

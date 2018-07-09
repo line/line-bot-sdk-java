@@ -16,9 +16,17 @@
 
 package com.linecorp.bot.cli;
 
+/**
+ * Interface of CLI Command. All Command should implement this interface and annotated with
+ * {@link org.springframework.stereotype.Component}.
+ *
+ * @see LiffListCommand LiffListCommand for example
+ */
 public interface CliCommand {
     /**
-     * @throws Exception
+     * Performs actual command body.
+     *
+     * @throws Exception Command implementation can throws Exception. Exception thrown is logged in caller.
      */
-    abstract void execute() throws Exception;
+    void execute() throws Exception;
 }
