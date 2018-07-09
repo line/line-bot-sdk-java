@@ -116,8 +116,8 @@ public class LineBotCallbackRequestParserTest {
         final String signature = "SSSSIGNATURE";
         final String content = "null";
 
-        doReturn(true).when(lineSignatureValidator).validateSignature(content.getBytes(StandardCharsets.UTF_8),
-                                                                      signature);
+        doReturn(true).when(lineSignatureValidator)
+                      .validateSignature(content.getBytes(StandardCharsets.UTF_8), signature);
 
         assertThatThrownBy(() -> lineBotCallbackRequestParser.handle(signature, content))
                 .isInstanceOf(LineBotCallbackException.class)
@@ -161,9 +161,8 @@ public class LineBotCallbackRequestParserTest {
 
         doReturn(true).when(lineSignatureValidator).validateSignature(requestBody, "SSSSIGNATURE");
 
-        CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle("SSSSIGNATURE",
-                                                                              new String(requestBody,
-                                                                                         StandardCharsets.UTF_8));
+        CallbackRequest callbackRequest = lineBotCallbackRequestParser
+                .handle("SSSSIGNATURE", new String(requestBody, StandardCharsets.UTF_8));
 
         assertThat(callbackRequest).isNotNull();
 

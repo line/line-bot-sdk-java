@@ -57,6 +57,9 @@ public class PayloadProvider {
     private static final Yaml YAML = new Yaml();
     private final PayloadArguments arguments;
 
+    /**
+     * Reads --body, --json or --yaml data as specific class instance.
+     */
     public <T> T read(Class<T> clazz) {
         try {
             return readInternal(clazz);
