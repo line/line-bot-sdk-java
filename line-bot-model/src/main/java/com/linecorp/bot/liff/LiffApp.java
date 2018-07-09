@@ -24,9 +24,13 @@ import lombok.Value;
 @Value
 @AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class LiffApp {
-    /** LIFF app ID. */
+    /**
+     * LIFF app ID.
+     */
     String liffId;
 
-    /** {@link LiffView} object which contains the URL and view size of the LIFF app. */
+    /**
+     * {@link LiffView} object which contains the URL and view size of the LIFF app.
+     */
     LiffView view;
 }

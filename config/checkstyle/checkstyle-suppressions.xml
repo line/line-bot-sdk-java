@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+  "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+  "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+  <!-- Suppress Javadoc-related checks in test directories -->
+  <suppress checks="JavadocPackage" files="[\\/](jmh|test|internal|example)[\\/]" />
+  <suppress checks="JavadocMethod" files="[\\/](jmh|test|internal|example)[\\/]" />
+  <suppress checks="VisibilityModifier" files="[\\/](jmh|test|internal|example)[\\/]" />
+
+  <!-- Suppress all checks in generated sources -->
+  <suppress checks=".*" files="[\\/]gen-src[\\/]" />
+</suppressions>
