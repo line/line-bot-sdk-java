@@ -37,6 +37,7 @@ public interface LineMessagingClient {
      *
      * <p>Webhooks are used to notify you when an event occurs. For events that you can respond to,
      * a replyToken is issued for replying to messages.
+     *
      * <p>Because the replyToken becomes invalid after a certain period of time,
      * responses should be sent as soon as a message is received. Reply tokens can only be used once.
      *
@@ -58,7 +59,9 @@ public interface LineMessagingClient {
     /**
      * Send messages to multiple users at any time. <strong>IDs of groups or rooms cannot be used.</strong>
      *
-     * <p>INFO: Only available for plans which support push messages. Messages cannot be sent to groups or rooms.
+     * <p>INFO: Only available for plans which support push messages.
+     * Messages cannot be sent to groups or rooms.
+     *
      * <p>INFO: Use IDs returned via the webhook event of source users. IDs of groups or rooms cannot be used.
      * Do not use the LINE ID found on the LINE app.</p>
      *
@@ -146,7 +149,9 @@ public interface LineMessagingClient {
     /**
      * Creates a rich menu.
      *
-     * <p>Note: You must upload a rich menu image and link the rich menu to a user for the rich menu to be displayed. You can create up to 10 rich menus for one bot.
+     * <p>Note: You must upload a rich menu image
+     * and link the rich menu to a user for the rich menu to be displayed.
+     * You can create up to 10 rich menus for one bot.
      *
      * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#create-rich-menu"
      *         >//developers.line.me/en/docs/messaging-api/reference/#create-rich-menu</a>
@@ -159,12 +164,12 @@ public interface LineMessagingClient {
     CompletableFuture<BotApiResponse> deleteRichMenu(String richMenuId);
 
     /**
-     * Get rich menu ID of user
+     * Get rich menu ID of user.
      */
     CompletableFuture<RichMenuIdResponse> getRichMenuIdOfUser(String userId);
 
     /**
-     * Link rich menu to user
+     * Link rich menu to user.
      *
      * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#link-rich-menu-to-user"
      *         >//developers.line.me/en/docs/messaging-api/reference/#link-rich-menu-to-user</a>
@@ -172,7 +177,7 @@ public interface LineMessagingClient {
     CompletableFuture<BotApiResponse> linkRichMenuIdToUser(String userId, String richMenuId);
 
     /**
-     * Unlink rich menu from user
+     * Unlink rich menu from user.
      *
      * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#unlink-rich-menu-from-user"
      *         >//developers.line.me/en/docs/messaging-api/reference/#unlink-rich-menu-from-user</a>
@@ -180,7 +185,7 @@ public interface LineMessagingClient {
     CompletableFuture<BotApiResponse> unlinkRichMenuIdFromUser(String userId);
 
     /**
-     * Download rich menu image
+     * Download rich menu image.
      *
      * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image"
      *         >//developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image</a>
@@ -188,6 +193,8 @@ public interface LineMessagingClient {
     CompletableFuture<MessageContentResponse> getRichMenuImage(String richMenuId);
 
     /**
+     * Set RichMenu image.
+     *
      * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image"
      *         >//developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image</a>
      */
