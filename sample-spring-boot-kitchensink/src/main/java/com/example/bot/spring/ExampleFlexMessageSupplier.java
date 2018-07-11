@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package com.example.bot.spring.echo;
+package com.example.bot.spring;
 
 import static java.util.Arrays.asList;
 

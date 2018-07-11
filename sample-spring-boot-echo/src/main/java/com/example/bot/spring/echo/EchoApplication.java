@@ -36,16 +36,9 @@ public class EchoApplication {
 
     @EventMapping
     public Message handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
-
         System.out.println("event: " + event);
         final String originalMessageText = event.getMessage().getText();
-
-        switch (originalMessageText.toUpperCase()) {
-            case "FLEX":
-                return new ExampleFlexMessageSupplier().get();
-            default:
-                return new TextMessage(originalMessageText);
-        }
+        return new TextMessage(originalMessageText);
     }
 
     @EventMapping
