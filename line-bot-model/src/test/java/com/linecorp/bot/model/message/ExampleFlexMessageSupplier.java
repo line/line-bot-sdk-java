@@ -14,14 +14,13 @@
  * under the License.
  */
 
-package com.example.bot.spring.echo;
+package com.linecorp.bot.model.message;
 
 import static java.util.Arrays.asList;
 
 import java.util.function.Supplier;
 
 import com.linecorp.bot.model.action.URIAction;
-import com.linecorp.bot.model.message.FlexMessage;
 import com.linecorp.bot.model.message.flex.component.Box;
 import com.linecorp.bot.model.message.flex.component.Button;
 import com.linecorp.bot.model.message.flex.component.Button.ButtonHeight;
@@ -40,6 +39,7 @@ import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
 import com.linecorp.bot.model.message.flex.unit.FlexLayout;
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
+// TODO: Extract (commonalize) this with sample-spring-boot-echo's
 public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
     @Override
     public FlexMessage get() {
