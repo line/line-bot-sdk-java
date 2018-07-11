@@ -418,6 +418,9 @@ public class KitchenSinkController {
                         )
                 ));
                 break;
+            case "flex":
+                this.reply(replyToken, new ExampleFlexMessageSupplier().get());
+                break;
             default:
                 log.info("Returns echo message {}: {}", replyToken, text);
                 this.replyText(
