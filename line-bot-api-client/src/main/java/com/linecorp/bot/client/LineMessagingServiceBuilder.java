@@ -37,10 +37,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 class LineMessagingServiceBuilder {
-    private String apiEndPoint = LineMessagingClientBuilder.DEFAULT_API_END_POINT;
-    private long connectTimeout = LineMessagingClientBuilder.DEFAULT_CONNECT_TIMEOUT;
-    private long readTimeout = LineMessagingClientBuilder.DEFAULT_READ_TIMEOUT;
-    private long writeTimeout = LineMessagingClientBuilder.DEFAULT_WRITE_TIMEOUT;
+    private String apiEndPoint = LineClientConstants.DEFAULT_API_END_POINT;
+    private long connectTimeout = LineClientConstants.DEFAULT_CONNECT_TIMEOUT_MILLIS;
+    private long readTimeout = LineClientConstants.DEFAULT_READ_TIMEOUT_MILLIS;
+    private long writeTimeout = LineClientConstants.DEFAULT_WRITE_TIMEOUT_MILLIS;
     private List<Interceptor> interceptors = new ArrayList<>();
 
     private OkHttpClient.Builder okHttpClientBuilder;
