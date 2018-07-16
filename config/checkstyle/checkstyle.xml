@@ -51,6 +51,12 @@
     <property name="format" value="[^\r\n](?:\r?\n){3,}" />
     <property name="message" value="consecutive empty lines" />
   </module>
+  <!-- Test classes -->
+  <module name="RegexpSingleline">
+    <property name="format" value="org.assertj.core.api.Java6Assertions" />
+    <property name="message"
+              value="Java6Assertions must not be used with Java8. Use org.assertj.core.api.Assertions instead." />
+  </module>
 
   <module name="TreeWalker">
     <module name="SuppressWarningsHolder" />
