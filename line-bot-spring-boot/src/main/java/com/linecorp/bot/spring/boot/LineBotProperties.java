@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-import com.linecorp.bot.client.LineMessagingClientBuilder;
+import com.linecorp.bot.client.LineClientConstants;
 import com.linecorp.bot.spring.boot.BotPropertiesValidator.ValidBotProperties;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
@@ -59,28 +59,28 @@ public class LineBotProperties {
 
     @Valid
     @NotNull
-    private String apiEndPoint = LineMessagingClientBuilder.DEFAULT_API_END_POINT;
+    private String apiEndPoint = LineClientConstants.DEFAULT_API_END_POINT;
 
     /**
      * Connection timeout in milliseconds.
      */
     @Valid
     @NotNull
-    private long connectTimeout = LineMessagingClientBuilder.DEFAULT_CONNECT_TIMEOUT;
+    private long connectTimeout = LineClientConstants.DEFAULT_CONNECT_TIMEOUT_MILLIS;
 
     /**
      * Read timeout in milliseconds.
      */
     @Valid
     @NotNull
-    private long readTimeout = LineMessagingClientBuilder.DEFAULT_READ_TIMEOUT;
+    private long readTimeout = LineClientConstants.DEFAULT_READ_TIMEOUT_MILLIS;
 
     /**
      * Write timeout in milliseconds.
      */
     @Valid
     @NotNull
-    private long writeTimeout = LineMessagingClientBuilder.DEFAULT_WRITE_TIMEOUT;
+    private long writeTimeout = LineClientConstants.DEFAULT_WRITE_TIMEOUT_MILLIS;
 
     /**
      * Configuration for {@link LineMessageHandler} and {@link EventMapping}.

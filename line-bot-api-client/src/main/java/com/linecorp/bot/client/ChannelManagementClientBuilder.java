@@ -31,7 +31,7 @@ import retrofit2.Retrofit;
 @Setter
 @Accessors(fluent = true)
 public class ChannelManagementClientBuilder {
-    private URI apiEndPoint = URI.create("https://api.line.me/");
+    private URI apiEndPoint = URI.create(LineClientConstants.DEFAULT_API_END_POINT);
     private ChannelTokenSupplier channelTokenSupplier;
 
     /**
