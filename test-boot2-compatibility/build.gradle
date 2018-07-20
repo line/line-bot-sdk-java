@@ -14,7 +14,7 @@ dependencies {
 
 test {
     setTestClassesDirs(files(
-        project.sourceSets.test.output.classesDir, // Default
+        project.sourceSets.test.java.outputDir, // Default
         project(':line-bot-model').sourceSets.test.output,
         project(':line-bot-api-client').sourceSets.test.output,
         project(':line-bot-servlet').sourceSets.test.output,
