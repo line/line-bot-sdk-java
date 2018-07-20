@@ -22,6 +22,6 @@ include 'test-boot2-compatibility'
  */
 
 // samples
-include 'sample-spring-boot-kitchensink'
 include 'sample-spring-boot-echo'
-
+include 'sample-spring-boot-echo-kotlin'
+include 'sample-spring-boot-kitchensink'
