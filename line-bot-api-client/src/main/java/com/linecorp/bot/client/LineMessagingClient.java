@@ -210,10 +210,10 @@ public interface LineMessagingClient {
     CompletableFuture<RichMenuListResponse> getRichMenuList();
 
     static LineMessagingClientBuilder builder(String channelToken) {
-        return new LineMessagingClientBuilder(channelToken);
+        return builder(FixedChannelTokenSupplier.of(channelToken));
     }
 
     static LineMessagingClientBuilder builder(ChannelTokenSupplier channelTokenSupplier) {
-        return new LineMessagingClientBuilder(channelTokenSupplier);
+        return new LineMessagingClientBuilder().channelTokenSupplier(channelTokenSupplier);
     }
 }

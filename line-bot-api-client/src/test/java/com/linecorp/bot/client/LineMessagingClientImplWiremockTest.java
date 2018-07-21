@@ -26,6 +26,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.linecorp.bot.client.exception.BadRequestException;
 import com.linecorp.bot.client.exception.ForbiddenException;
 import com.linecorp.bot.client.exception.LineMessagingException;
@@ -34,6 +36,10 @@ import com.linecorp.bot.client.exception.NotFoundException;
 import com.linecorp.bot.client.exception.TooManyRequestsException;
 import com.linecorp.bot.client.exception.UnauthorizedException;
 import com.linecorp.bot.model.error.ErrorResponse;
+import com.linecorp.bot.model.profile.UserProfileResponse;
+
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.RecordedRequest;
 
 public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
     static final ErrorResponse ERROR_RESPONSE =
@@ -124,6 +130,38 @@ public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
 
         // Do
         lineMessagingClient.getMessageContent("TOKEN").get();
+    }
+
+    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    public void relativeRequestTest() throws Exception {
+        final String apiEndPoint =
+                "http://" + mockWebServer.getHostName() + ':' + mockWebServer.getPort()
+                + "/CanContainsRelative/";
+
+        lineMessagingClient = LineMessagingClient
+                .builder("SECRET")
+                .apiEndPoint(apiEndPoint)
+                .build();
+
+        final UserProfileResponse profileResponseMock =
+                new UserProfileResponse("name", "userId",
+                                        "https://line.me/picture_url",
+                                        "Status message");
+
+        mockWebServer.enqueue(new MockResponse()
+                                      .setResponseCode(200)
+                                      .setBody(new ObjectMapper()
+                                                       .writeValueAsString(profileResponseMock)));
+
+        // Do
+        final UserProfileResponse actualResponse =
+                lineMessagingClient.getProfile("USER_TOKEN").get();
+
+        // Verify
+        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertThat(recordedRequest.getPath())
+                .isEqualTo("/CanContainsRelative/v2/bot/profile/USER_TOKEN");
+        assertThat(actualResponse).isEqualTo(profileResponseMock);
     }
 
     private CustomTypeSafeMatcher<LineMessagingException> errorResponseIs(final ErrorResponse errorResponse) {

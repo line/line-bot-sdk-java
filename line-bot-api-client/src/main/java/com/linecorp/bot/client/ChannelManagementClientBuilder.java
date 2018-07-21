@@ -16,8 +16,9 @@
 
 package com.linecorp.bot.client;
 
-import static com.linecorp.bot.client.LineMessagingServiceBuilder.createDefaultRetrofitBuilder;
-import static com.linecorp.bot.client.LineMessagingServiceBuilder.defaultInterceptors;
+import static com.linecorp.bot.client.LineMessagingClientBuilder.buildAuthenticationInterceptor;
+import static com.linecorp.bot.client.LineMessagingClientBuilder.buildLoggingInterceptor;
+import static com.linecorp.bot.client.LineMessagingClientBuilder.createDefaultRetrofitBuilder;
 
 import java.net.URI;
 
@@ -48,7 +49,9 @@ public class ChannelManagementClientBuilder {
     public ChannelManagementSyncClient build() {
         final Builder okHttpClientBuilder = new Builder();
 
-        defaultInterceptors(channelTokenSupplier).forEach(okHttpClientBuilder::addInterceptor);
+        okHttpClientBuilder
+                .addInterceptor(buildAuthenticationInterceptor(channelTokenSupplier))
+                .addInterceptor(buildLoggingInterceptor());
 
         final OkHttpClient okHttpClient = okHttpClientBuilder.build();
 
