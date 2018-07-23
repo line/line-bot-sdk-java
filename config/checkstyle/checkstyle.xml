@@ -25,7 +25,7 @@
 
   <!-- Copyright headers -->
   <module name="RegexpSingleline">
-    <property name="format" value="^ \* Copyright 2018 LINE Corporation$" />
+    <property name="format" value="^ \* Copyright \d{4} LINE Corporation$" />
     <property name="minimum" value="1" />
     <property name="maximum" value="1" />
     <property name="message" value="missing copyright header" />
