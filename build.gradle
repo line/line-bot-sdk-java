@@ -30,7 +30,7 @@ buildscript {
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE'
         classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE'
-        classpath 'io.franzbecker:gradle-lombok:1.6'
+        classpath 'io.franzbecker:gradle-lombok:1.14'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -102,9 +102,6 @@ subprojects {
     }
 
     dependencies {
-        annotationProcessor 'org.projectlombok:lombok'
-        testAnnotationProcessor 'org.projectlombok:lombok'
-
         compileOnly "org.springframework.boot:spring-boot-configuration-processor"
         // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
 
