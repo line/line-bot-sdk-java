@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -14,39 +14,38 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.message;
+package com.linecorp.bot.model.action;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import com.linecorp.bot.model.message.quickreply.QuickReply;
-
 import lombok.Builder;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
+/**
+ * When a button associated with this action is tapped, the camera screen in the LINE app is opened.
+ *
+ * <p>This action can be configured only with quick reply buttons.
+ *
+ * @see <a href="https://developers.line.me/en/reference/messaging-api/#camera-action">//developers.line.me/en/reference/messaging-api/#camera-action</a>
+ */
 @Value
 @Builder(toBuilder = true)
-@JsonTypeName("text")
-@RequiredArgsConstructor
-@JsonDeserialize(builder = TextMessage.TextMessageBuilder.class)
-public class TextMessage implements Message {
-    @NonNull
-    private final String text;
-    private final QuickReply quickReply;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeName("camera")
+@JsonDeserialize(builder = CameraAction.CameraActionBuilder.class)
+public class CameraAction implements Action {
     /**
-     * Constructor without {@link #quickReply} parameter.
-     *
-     * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
+     * Label for the action. Max: 20 characters
      */
-    public TextMessage(final String text) {
-        this.text = text;
-        this.quickReply = null;
+    private final String label;
+
+    public static CameraAction withLabel(final String label) {
+        return builder().label(label).build();
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class TextMessageBuilder {}
+    public static class CameraActionBuilder {}
 }

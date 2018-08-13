@@ -17,14 +17,24 @@
 package com.linecorp.bot.model.message;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.message.quickreply.QuickReply;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Location message.
  */
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("location")
+@JsonDeserialize(builder = LocationMessage.LocationMessageBuilder.class)
 public class LocationMessage implements Message {
     /**
      * Title.
@@ -45,4 +55,19 @@ public class LocationMessage implements Message {
      * Longitude.
      */
     private final double longitude;
+
+    private final QuickReply quickReply;
+
+    /**
+     * Constructor without {@link #quickReply} parameter.
+     *
+     * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
+     */
+    public LocationMessage(
+            final String title, final String address, final double latitude, final double longitude) {
+        this(title, address, latitude, longitude, null);
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class LocationMessageBuilder {}
 }

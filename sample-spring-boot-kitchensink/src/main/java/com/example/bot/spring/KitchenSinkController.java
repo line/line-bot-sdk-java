@@ -421,6 +421,9 @@ public class KitchenSinkController {
             case "flex":
                 this.reply(replyToken, new ExampleFlexMessageSupplier().get());
                 break;
+            case "quickreply":
+                this.reply(replyToken, new MessageWithQuickReplySupplier().get());
+                break;
             default:
                 log.info("Returns echo message {}: {}", replyToken, text);
                 this.replyText(

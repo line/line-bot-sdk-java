@@ -17,9 +17,15 @@
 package com.linecorp.bot.model.message;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.message.quickreply.QuickReply;
 import com.linecorp.bot.model.message.template.Template;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
@@ -27,7 +33,10 @@ import lombok.Value;
  * templates available that can be used to interact with users through your bot.
  */
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("template")
+@JsonDeserialize(builder = TemplateMessage.TemplateMessageBuilder.class)
 public class TemplateMessage implements Message {
     /**
      * Alternative text.
@@ -38,4 +47,18 @@ public class TemplateMessage implements Message {
      * Object with the contents of the template.
      */
     private final Template template;
+
+    private final QuickReply quickReply;
+
+    /**
+     * Constructor without {@link #quickReply} parameter.
+     *
+     * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
+     */
+    public TemplateMessage(final String altText, final Template template) {
+        this(altText, template, null);
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class TemplateMessageBuilder {}
 }

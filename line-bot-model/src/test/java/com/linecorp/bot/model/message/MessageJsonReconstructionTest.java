@@ -16,10 +16,14 @@
 
 package com.linecorp.bot.model.message;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.net.URI;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,10 +31,15 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.model.Multicast;
+import com.linecorp.bot.model.action.CameraAction;
+import com.linecorp.bot.model.action.CameraRollAction;
+import com.linecorp.bot.model.action.LocationAction;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
+import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.quickreply.QuickReplyItem;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
@@ -65,6 +74,30 @@ public class MessageJsonReconstructionTest {
     }
 
     @Test
+    public void textMessageWithQuickReplyTest() {
+        List<QuickReplyItem> items = asList(
+                QuickReplyItem.builder()
+                              .action(CameraAction.withLabel("Camera Action Label"))
+                              .imageUrl(URI.create("https://example.com/image.png"))
+                              .build(),
+                QuickReplyItem.builder()
+                              .action(CameraRollAction.withLabel("Camera Roll Action Label"))
+                              .build(),
+                QuickReplyItem.builder()
+                              .action(LocationAction.withLabel("Location Action"))
+                              .build()
+        );
+
+        TextMessage target = TextMessage
+                .builder()
+                .text("TEST")
+                .quickReply(QuickReply.items(items))
+                .build();
+
+        test(target);
+    }
+
+    @Test
     public void stickerMessageTest() {
         test(new StickerMessage("123", "456"));
     }
@@ -81,13 +114,22 @@ public class MessageJsonReconstructionTest {
 
     @Test
     public void imagemapMessageTest() {
-        test(new ImagemapMessage("baseUrl", "altText", new ImagemapBaseSize(1040, 1040),
-                                 emptyList()));
+        test(ImagemapMessage.builder()
+                            .baseUrl("baseUrl")
+                            .altText("altText")
+                            .baseSize(new ImagemapBaseSize(1040, 1040))
+                            .actions(emptyList())
+                            .build());
     }
 
     @Test
     public void locationMessageTest() {
-        test(new LocationMessage("title", "address", 135.0, 0.0));
+        test(LocationMessage.builder()
+                            .title("title")
+                            .address("address")
+                            .longitude(135.0)
+                            .latitude(0.0)
+                            .build());
     }
 
     @Test

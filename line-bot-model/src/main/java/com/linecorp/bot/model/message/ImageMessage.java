@@ -17,15 +17,38 @@
 package com.linecorp.bot.model.message;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.message.quickreply.QuickReply;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Image message.
  */
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("image")
+@JsonDeserialize(builder = ImageMessage.ImageMessageBuilder.class)
 public class ImageMessage implements Message {
     private final String originalContentUrl;
     private final String previewImageUrl;
+    private final QuickReply quickReply;
+
+    /**
+     * Constructor without {@link #quickReply} parameter.
+     *
+     * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
+     */
+    public ImageMessage(final String originalContentUrl, final String previewImageUrl) {
+        this(originalContentUrl, previewImageUrl, null);
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class ImageMessageBuilder {}
 }

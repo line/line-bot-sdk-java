@@ -17,11 +17,21 @@
 package com.linecorp.bot.model.message;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.message.quickreply.QuickReply;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("audio")
+@JsonDeserialize(builder = AudioMessage.AudioMessageBuilder.class)
 public class AudioMessage implements Message {
     /**
      * URL of audio file.
@@ -39,4 +49,18 @@ public class AudioMessage implements Message {
      * Length of audio file (milliseconds).
      */
     private final Integer duration;
+
+    private final QuickReply quickReply;
+
+    /**
+     * Constructor without {@link #quickReply} parameter.
+     *
+     * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
+     */
+    public AudioMessage(final String originalContentUrl, final Integer duration) {
+        this(originalContentUrl, duration, null);
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class AudioMessageBuilder {}
 }

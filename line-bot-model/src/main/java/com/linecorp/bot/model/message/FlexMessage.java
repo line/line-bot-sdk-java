@@ -16,12 +16,16 @@
 
 package com.linecorp.bot.model.message;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.flex.container.FlexContainer;
+import com.linecorp.bot.model.message.quickreply.QuickReply;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
@@ -29,7 +33,10 @@ import lombok.Value;
  * buttons, images, etc.
  */
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("flex")
+@JsonDeserialize(builder = FlexMessage.FlexMessageBuilder.class)
 public class FlexMessage implements Message {
     /**
      * Alternative text.
@@ -41,11 +48,19 @@ public class FlexMessage implements Message {
      */
     private final FlexContainer contents;
 
-    @JsonCreator
+    private final QuickReply quickReply;
+
+    /**
+     * Constructor without {@link #quickReply} parameter.
+     *
+     * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
+     */
     public FlexMessage(
-            @JsonProperty("altText") String altText,
-            @JsonProperty("contents") FlexContainer contents) {
-        this.altText = altText;
-        this.contents = contents;
+            final String altText,
+            final FlexContainer contents) {
+        this(altText, contents, null);
     }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class FlexMessageBuilder {}
 }
