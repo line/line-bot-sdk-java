@@ -16,9 +16,8 @@
 
 package com.linecorp.bot.model.message;
 
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Collections;
 
 import org.junit.Test;
 
@@ -34,12 +33,14 @@ public class ImagemapMessageTest {
     @Test
     public void test() throws JsonProcessingException {
         ObjectMapper objectMapper = TestUtil.objectMapperWithProductionConfiguration(false);
-        ImagemapMessage imagemapMessage = new ImagemapMessage(
-                "https://example.com", "hoge",
-                new ImagemapBaseSize(1040, 1040),
-                Collections.singletonList(
-                        new MessageImagemapAction("hoge",
-                                                  new ImagemapArea(0, 0, 20, 20))));
+
+        ImagemapMessage imagemapMessage = ImagemapMessage
+                .builder()
+                .baseUrl("https://example.com")
+                .altText("hoge")
+                .baseSize(new ImagemapBaseSize(1040, 1040))
+                .actions(singletonList(new MessageImagemapAction("hoge", new ImagemapArea(0, 0, 20, 20))))
+                .build();
 
         String s = objectMapper.writeValueAsString(imagemapMessage);
         assertThat(s).contains("\"type\":\"imagemap\"");

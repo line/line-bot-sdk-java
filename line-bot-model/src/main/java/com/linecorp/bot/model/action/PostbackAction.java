@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import lombok.Builder;
 import lombok.Value;
 
 /**
@@ -34,6 +35,7 @@ import lombok.Value;
  * <p>If you have included the text field, the string in the text field is sent as a message from the user.
  */
 @Value
+@Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("postback")
 @JsonInclude(Include.NON_NULL)
