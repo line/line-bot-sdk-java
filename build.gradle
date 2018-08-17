@@ -38,7 +38,7 @@ buildscript {
 apply plugin: 'idea'
 
 group = 'com.linecorp.bot'
-version = '1.21.0'
+version = '2.0.0'
 
 //set build variables based on build type (release, continuous integration, development)
 def isDevBuild
