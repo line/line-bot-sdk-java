@@ -44,7 +44,7 @@ public class MessageWithQuickReplySupplier implements Supplier<Message> {
                               .action(CameraRollAction.withLabel("CemeraRollAction"))
                               .build(),
                 QuickReplyItem.builder()
-                              .action(LocationAction.withLabel(""))
+                              .action(LocationAction.withLabel("Location"))
                               .build(),
                 QuickReplyItem.builder()
                               .action(PostbackAction.builder()
