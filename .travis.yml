@@ -2,4 +2,8 @@ language: java
 sudo: false
 jdk:
   - oraclejdk8
-install: ./gradlew check
+script:
+  - ./gradlew check
+  - ./gradlew codeCoverageReport
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

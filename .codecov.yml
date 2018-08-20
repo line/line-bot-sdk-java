@@ -1,0 +1,34 @@
+codecov:
+  notify:
+    require_ci_to_pass: no
+
+ignore:
+  - 'line-bot-model/src/test' # Workaround for line-bot-model's test source is wrongly included by coverage report.
+
+coverage:
+  range: 50..100
+  round: down
+  precision: 2
+  status:
+    patch:
+      default:
+        # basic
+        target: auto
+        threshold: null
+        base: auto
+        # advanced
+        branches: null
+        if_no_uploads: error
+        if_not_found: success
+        if_ci_failed: error
+        only_pulls: false
+        flags: null
+        paths: null
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: false  # if true: only post the comment if coverage changes
+  require_base: no        # [yes :: must have a base report to post]
+  require_head: no        # [yes :: must have a head report to post]
+  branches: null
