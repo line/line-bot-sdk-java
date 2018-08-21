@@ -43,7 +43,7 @@ public class CallbackAdaptorTest {
     public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Rule
-    public final Timeout timeoutRule = Timeout.seconds(1);
+    public final Timeout timeoutRule = Timeout.seconds(10);
 
     @Mock
     private Call<Object> call;
