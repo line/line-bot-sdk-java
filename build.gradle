@@ -36,6 +36,7 @@ buildscript {
 }
 
 apply plugin: 'idea'
+apply plugin: 'jacoco'
 
 group = 'com.linecorp.bot'
 version = '2.1.0-SNAPSHOT'
@@ -55,11 +56,13 @@ if (hasProperty('release')) {
     version += '-SNAPSHOT'
 }
 
-subprojects {
+allprojects {
     repositories {
         mavenCentral();
     }
+}
 
+subprojects {
     apply plugin: 'com.github.spotbugs'
     apply plugin: 'propdeps'
     apply plugin: 'propdeps-maven'
@@ -175,8 +178,25 @@ subprojects {
     }
 }
 
+task codeCoverageReport(type: JacocoReport) {
+    onlyIf = { true }
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    [':line-bot-api-client', ':line-bot-model', ':line-bot-servlet', ':line-bot-spring-boot', ':line-bot-cli'].each {
+        sourceSets(project(it).sourceSets.main)
+    }
+
+    reports {
+        xml.enabled true
+        xml.destination "${buildDir}/reports/jacoco/report.xml"
+        html.enabled true
+        csv.enabled false
+    }
+}
+
 [':line-bot-api-client', ':line-bot-model', ':line-bot-servlet', ':line-bot-spring-boot', ':line-bot-cli'].each { projectName ->
     project(projectName) { project ->
+        apply plugin: 'jacoco'
         apply plugin: 'signing'
         apply plugin: 'maven'
 
