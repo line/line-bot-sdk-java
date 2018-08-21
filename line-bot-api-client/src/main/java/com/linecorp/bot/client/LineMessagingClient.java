@@ -42,7 +42,7 @@ public interface LineMessagingClient {
      * responses should be sent as soon as a message is received. Reply tokens can only be used once.
      *
      * @see #pushMessage(PushMessage)
-     * @see <a href="https://devdocs.line.me?java#reply-message">//devdocs.line.me#reply-message</a>
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#send-reply-message">//developers.line.me/en/reference/messaging-api/#send-reply-message</a>
      */
     CompletableFuture<BotApiResponse> replyMessage(ReplyMessage replyMessage);
 
@@ -52,7 +52,7 @@ public interface LineMessagingClient {
      * <p>INFO: Use of the Push Message API is limited to certain plans.
      *
      * @see #replyMessage(ReplyMessage)
-     * @see <a href="https://devdocs.line.me?java#push-message">//devdocs.line.me#push-message</a>
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#send-push-message">//developers.line.me/en/reference/messaging-api/#send-push-message</a>
      */
     CompletableFuture<BotApiResponse> pushMessage(PushMessage pushMessage);
 
@@ -66,41 +66,41 @@ public interface LineMessagingClient {
      * Do not use the LINE ID found on the LINE app.</p>
      *
      * @see #pushMessage(PushMessage)
-     * @see <a href="https://devdocs.line.me?java#multicast">//devdocs.line.me#multicast</a>
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#send-multicast-messages">//developers.line.me/en/reference/messaging-api/#send-multicast-messages</a>
      */
     CompletableFuture<BotApiResponse> multicast(Multicast multicast);
 
     /**
      * Download image, video, and audio data sent from users.
      *
-     * @see <a href="https://devdocs.line.me?java#get-content">//devdocs.line.me#get-content</a>
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-content">//developers.line.me/en/reference/messaging-api/#get-content</a>
      */
     CompletableFuture<MessageContentResponse> getMessageContent(String messageId);
 
     /**
      * Get user profile information.
      *
-     * @see <a href="https://devdocs.line.me?java#bot-api-get-profile">//devdocs.line.me#bot-api-get-profile</a>
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-profile">//developers.line.me/en/reference/messaging-api/#get-profile</a>
      */
     CompletableFuture<UserProfileResponse> getProfile(String userId);
 
     /**
-     * Get room member profile.
+     * Get group member profile.
      *
      * @param groupId Identifier of the group. Can be get by {@link GroupSource#getGroupId()}.
      * @param userId Identifier of the user.
      *
-     * @see <a href="https://devdocs.line.me?java#get-group-room-member-profile">//devdocs.line.me#get-group-room-member-profile</a>
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-group-member-profile">//developers.line.me/en/reference/messaging-api/#get-group-member-profile</a>
      */
     CompletableFuture<UserProfileResponse> getGroupMemberProfile(String groupId, String userId);
 
     /**
-     * Get group member profile.
+     * Get room member profile.
      *
      * @param roomId Identifier of the group. Can be get by {@link RoomSource#getRoomId()}.
      * @param userId Identifier of the user.
      *
-     * @see <a href="https://devdocs.line.me?java#get-group-room-member-profile">//devdocs.line.me#get-group-room-member-profile</a>
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-room-member-profile">//developers.line.me/en/reference/messaging-api/#get-room-member-profile</a>
      */
     CompletableFuture<UserProfileResponse> getRoomMemberProfile(String roomId, String userId);
 
@@ -109,6 +109,7 @@ public interface LineMessagingClient {
      *
      * @param start nullable continuationToken which can be get {@link MembersIdsResponse#getNext()}
      *
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-group-member-user-ids">//developers.line.me/en/reference/messaging-api/#get-group-member-user-ids</a>
      * @see MembersIdsResponse#getNext()
      */
     CompletableFuture<MembersIdsResponse> getGroupMembersIds(
@@ -119,6 +120,7 @@ public interface LineMessagingClient {
      *
      * @param start nullable continuationToken which can be get {@link MembersIdsResponse#getNext()}
      *
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-room-member-user-ids">//developers.line.me/en/reference/messaging-api/#get-room-member-user-ids</a>
      * @see MembersIdsResponse#getNext()
      */
     CompletableFuture<MembersIdsResponse> getRoomMembersIds(
@@ -127,22 +129,21 @@ public interface LineMessagingClient {
     /**
      * Leave a group.
      *
-     * @see <a href="https://devdocs.line.me?java#leave">//devdocs.line.me#leave</a>
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#leave-group">//developers.line.me/en/reference/messaging-api/#leave-group</a>
      */
     CompletableFuture<BotApiResponse> leaveGroup(String groupId);
 
     /**
      * Leave a room.
      *
-     * @see <a href="https://devdocs.line.me?java#leave">//devdocs.line.me#leave</a>
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#leave-room">//developers.line.me/en/reference/messaging-api/#leave-room</a>
      */
     CompletableFuture<BotApiResponse> leaveRoom(String roomId);
 
     /**
      * Get a rich menu.
      *
-     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#get-rich-menu"
-     *         >//developers.line.me/en/docs/messaging-api/reference/#get-rich-menu</a>
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#get-rich-menu">//developers.line.me/en/docs/messaging-api/reference/#get-rich-menu</a>
      */
     CompletableFuture<RichMenuResponse> getRichMenu(String richMenuId);
 
@@ -153,50 +154,49 @@ public interface LineMessagingClient {
      * and link the rich menu to a user for the rich menu to be displayed.
      * You can create up to 10 rich menus for one bot.
      *
-     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#create-rich-menu"
-     *         >//developers.line.me/en/docs/messaging-api/reference/#create-rich-menu</a>
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#create-rich-menu">//developers.line.me/en/docs/messaging-api/reference/#create-rich-menu</a>
      */
     CompletableFuture<RichMenuIdResponse> createRichMenu(RichMenu richMenu);
 
     /**
      * Deletes a rich menu.
+     *
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#delete-rich-menu">//developers.line.me/en/reference/messaging-api/#delete-rich-menu</a>
      */
     CompletableFuture<BotApiResponse> deleteRichMenu(String richMenuId);
 
     /**
      * Get rich menu ID of user.
+     *
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-rich-menu-id-of-user">//developers.line.me/en/reference/messaging-api/#get-rich-menu-id-of-user</a>
      */
     CompletableFuture<RichMenuIdResponse> getRichMenuIdOfUser(String userId);
 
     /**
      * Link rich menu to user.
      *
-     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#link-rich-menu-to-user"
-     *         >//developers.line.me/en/docs/messaging-api/reference/#link-rich-menu-to-user</a>
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#link-rich-menu-to-user">//developers.line.me/en/docs/messaging-api/reference/#link-rich-menu-to-user</a>
      */
     CompletableFuture<BotApiResponse> linkRichMenuIdToUser(String userId, String richMenuId);
 
     /**
      * Unlink rich menu from user.
      *
-     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#unlink-rich-menu-from-user"
-     *         >//developers.line.me/en/docs/messaging-api/reference/#unlink-rich-menu-from-user</a>
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#unlink-rich-menu-from-user">//developers.line.me/en/docs/messaging-api/reference/#unlink-rich-menu-from-user</a>
      */
     CompletableFuture<BotApiResponse> unlinkRichMenuIdFromUser(String userId);
 
     /**
      * Download rich menu image.
      *
-     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image"
-     *         >//developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image</a>
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image">//developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image</a>
      */
     CompletableFuture<MessageContentResponse> getRichMenuImage(String richMenuId);
 
     /**
      * Set RichMenu image.
      *
-     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image"
-     *         >//developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image</a>
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image">//developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image</a>
      */
     CompletableFuture<BotApiResponse> setRichMenuImage(
             String richMenuId, String contentType, byte[] content);
@@ -204,8 +204,7 @@ public interface LineMessagingClient {
     /**
      * Gets a list of all uploaded rich menus.
      *
-     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#get-rich-menu-list"
-     *         >//developers.line.me/en/docs/messaging-api/reference/#get-rich-menu-list</a>
+     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#get-rich-menu-list">//developers.line.me/en/docs/messaging-api/reference/#get-rich-menu-list</a>
      */
     CompletableFuture<RichMenuListResponse> getRichMenuList();
 

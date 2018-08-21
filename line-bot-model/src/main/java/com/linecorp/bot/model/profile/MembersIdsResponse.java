@@ -29,7 +29,8 @@ import lombok.Value;
 /**
  * Response body of MembersIdsResponse.
  *
- * @see <a href="https://devdocs.line.me?java#get-group-room-member-ids">//devdocs.line.me#get-group-room-member-ids</a>
+ * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-group-member-user-ids">//developers.line.me/en/reference/messaging-api/#get-group-member-user-ids</a>
+ * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-room-member-user-ids">//developers.line.me/en/reference/messaging-api/#get-room-member-user-ids</a>
  */
 @Value
 public class MembersIdsResponse {

@@ -27,7 +27,7 @@ import lombok.Value;
 /**
  * Error response from LINE Messaging Server.
  *
- * @see <a href="https://devdocs.line.me/#error-response">//devdocs.line.me/#error-response</a>
+ * @see <a href="https://developers.line.me/en/reference/messaging-api/#error-responses">//developers.line.me/en/reference/messaging-api/#error-responses</a>
  */
 @Value
 public class ErrorResponse {
