@@ -25,12 +25,10 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import lombok.NonNull;
-import lombok.ToString;
 
 /*
  * This class validates value of the `X-LINE-Signature` header.
  */
-@ToString
 public class LineSignatureValidator {
     private static final String HASH_ALGORITHM = "HmacSHA256";
     private final SecretKeySpec secretKeySpec;
