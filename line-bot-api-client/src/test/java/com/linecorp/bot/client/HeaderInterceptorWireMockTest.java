@@ -58,11 +58,9 @@ public class HeaderInterceptorWireMockTest extends AbstractWiremockTest {
     }
 
     @Override
-    protected LineMessagingClientImpl createLineMessagingClient(final MockWebServer mockWebServer) {
-        LineMessagingService lineMessagingService =
-                LineMessagingServiceBuilder.create(channelTokenSupplier)
-                                           .apiEndPoint("http://localhost:" + mockWebServer.getPort())
-                                           .build();
-        return new LineMessagingClientImpl(lineMessagingService);
+    protected LineMessagingClient createLineMessagingClient(final MockWebServer mockWebServer) {
+        return LineMessagingClient.builder(channelTokenSupplier)
+                                  .apiEndPoint("http://localhost:" + mockWebServer.getPort())
+                                  .build();
     }
 }

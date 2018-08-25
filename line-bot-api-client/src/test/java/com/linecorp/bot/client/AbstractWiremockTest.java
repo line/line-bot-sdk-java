@@ -64,12 +64,10 @@ public abstract class AbstractWiremockTest {
                                  .setBody(ERROR_RESPONSE_READER.writeValueAsString(errorResponse)));
     }
 
-    protected LineMessagingClientImpl createLineMessagingClient(final MockWebServer mockWebServer) {
-        LineMessagingService lineMessagingService =
-                LineMessagingServiceBuilder.create("token")
-                                           .apiEndPoint("http://localhost:" + mockWebServer.getPort())
-                                           .build();
-        return new LineMessagingClientImpl(lineMessagingService);
+    protected LineMessagingClient createLineMessagingClient(final MockWebServer mockWebServer) {
+        return LineMessagingClient.builder("token")
+                                  .apiEndPoint("http://localhost:" + mockWebServer.getPort())
+                                  .build();
     }
 
     protected ChannelManagementSyncClient createChannelManagementSyncClient(final MockWebServer mockWebServer) {

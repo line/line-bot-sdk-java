@@ -31,14 +31,14 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
-public class LineMessagingServiceTest {
+public class LineMessagingClientTest {
     static {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
     }
 
     private MockWebServer mockWebServer;
-    private LineMessagingService target;
+    private LineMessagingClient target;
 
     @Before
     public void setUp() throws Exception {
@@ -46,8 +46,8 @@ public class LineMessagingServiceTest {
         final String apiEndPoint =
                 "http://" + mockWebServer.getHostName() + ':' + mockWebServer.getPort()
                 + "/CanContainsRelative/";
-        target = LineMessagingServiceBuilder
-                .create("SECRET")
+        target = LineMessagingClient
+                .builder("SECRET")
                 .apiEndPoint(apiEndPoint)
                 .build();
     }
@@ -71,7 +71,7 @@ public class LineMessagingServiceTest {
 
         // Do
         final UserProfileResponse actualResponse =
-                target.getProfile("USER_TOKEN").execute().body();
+                target.getProfile("USER_TOKEN").get();
 
         // Verify
         final RecordedRequest recordedRequest = mockWebServer.takeRequest();
