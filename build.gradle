@@ -17,7 +17,7 @@
 // ./gradlew clean && ./gradlew uploadArchives -Prelease
 
 buildscript {
-    ext.kotlin_version = '1.2.51'
+    ext.kotlin_version = '1.2.61'
 
     repositories {
         mavenCentral()
@@ -27,9 +27,9 @@ buildscript {
     dependencies {
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.2'
         classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17'
-        classpath 'io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
         classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.15.RELEASE'
         classpath 'io.franzbecker:gradle-lombok:1.14'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -86,11 +86,11 @@ subprojects {
     version = rootProject.version
 
     ext['guava.version'] = '25.1-jre'
-    ext['okhttp3.version'] = '3.10.0'
+    ext['okhttp3.version'] = '3.11.0'
 
     dependencyManagement {
         imports {
-            mavenBom 'io.spring.platform:platform-bom:Brussels-SR10'
+            mavenBom 'io.spring.platform:platform-bom:Brussels-SR12'
         }
 
         dependencies {
@@ -99,8 +99,8 @@ subprojects {
             dependency 'com.squareup.okhttp3:mockwebserver:' + ext['okhttp3.version']
             dependency 'com.squareup.retrofit2:converter-jackson:2.4.0'
             dependency 'com.squareup.retrofit2:retrofit:2.4.0'
-            dependency 'org.assertj:assertj-core:3.10.0'
-            dependency 'org.projectlombok:lombok:1.18.0'
+            dependency 'org.assertj:assertj-core:3.11.0'
+            dependency 'org.projectlombok:lombok:1.18.2'
         }
     }
 
@@ -127,7 +127,7 @@ subprojects {
     }
 
     lombok {
-        version = '1.18.0'
+        version = '1.18.2'
     }
 
     if (!project.name.startsWith('sample-')) {
