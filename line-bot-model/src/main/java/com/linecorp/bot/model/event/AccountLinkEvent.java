@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -16,12 +16,14 @@
 
 package com.linecorp.bot.model.event;
 
+import java.time.Instant;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import com.linecorp.bot.model.event.link.LinkContent;
 import com.linecorp.bot.model.event.source.Source;
-import lombok.Value;
 
-import java.time.Instant;
+import lombok.Value;
 
 /**
  * Event object for when a user has linked his/her LINE account with a provider's service account.

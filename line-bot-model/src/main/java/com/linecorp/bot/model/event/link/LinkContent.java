@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.event.link;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Value;
 
 /**
@@ -25,13 +27,22 @@ import lombok.Value;
 public class LinkContent {
     /**
      * One of the following values to indicate whether the link was successful or not.
-     * ok    : Indicates the link was successful.
-     * failed: Indicates the link failed for any reason, such as due to a user impersonation.
+     *
+     * @see Result
      */
-    private final String result;
+    private final Result result;
 
     /**
-     * Specified nonce when verifying the user ID
+     * Specified nonce when verifying the user ID.
      */
     private final String nonce;
+
+    public enum Result {
+        /** Indicates the link was successful. */
+        @JsonProperty("ok")
+        OK,
+        /** Indicates the link failed for any reason, such as due to a user impersonation. */
+        @JsonProperty("failed")
+        FAILED,
+    }
 }

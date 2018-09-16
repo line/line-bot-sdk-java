@@ -28,6 +28,7 @@ import org.springframework.util.StreamUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.model.event.link.LinkContent;
 import com.linecorp.bot.model.event.message.FileMessageContent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
@@ -336,7 +337,7 @@ public class CallbackRequestTest {
 
             AccountLinkEvent accountLinkEvent = (AccountLinkEvent) event;
             assertThat(accountLinkEvent.getLink().getResult())
-                    .isEqualTo("ok");
+                    .isEqualTo(LinkContent.Result.OK);
             assertThat(accountLinkEvent.getLink().getNonce())
                     .isEqualTo("xxxxxxxxxxxxxxx");
         });
