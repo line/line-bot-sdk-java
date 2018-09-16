@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "accountLink",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "user",
+        "userId": "U012345678901234567890123456789ab"
+      },
+      "link": {
+        "result": "ok",
+        "nonce": "xxxxxxxxxxxxxxx"
+      }
+    }
+  ]
+}

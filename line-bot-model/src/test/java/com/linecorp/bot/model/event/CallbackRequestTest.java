@@ -28,6 +28,7 @@ import org.springframework.util.StreamUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.model.event.link.LinkContent;
 import com.linecorp.bot.model.event.message.FileMessageContent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
@@ -318,6 +319,27 @@ public class CallbackRequestTest {
                     .containsExactly(0x12, 0x34, 0x56, 0x78, 0x90, 0xab, 0xcd, 0xef);
             assertThat(beaconEvent.getBeacon().getDeviceMessageAsHex())
                     .isEqualTo("1234567890abcdef");
+        });
+    }
+
+    @Test
+    public void testAccountLink() throws IOException {
+        parse("callback/account_link.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(AccountLinkEvent.class);
+            assertThat(event.getSource())
+                    .isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId())
+                    .isEqualTo("U012345678901234567890123456789ab");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+
+            AccountLinkEvent accountLinkEvent = (AccountLinkEvent) event;
+            assertThat(accountLinkEvent.getLink().getResult())
+                    .isEqualTo(LinkContent.Result.OK);
+            assertThat(accountLinkEvent.getLink().getNonce())
+                    .isEqualTo("xxxxxxxxxxxxxxx");
         });
     }
 
