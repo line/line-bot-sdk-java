@@ -321,6 +321,27 @@ public class CallbackRequestTest {
         });
     }
 
+    @Test
+    public void testAccountLink() throws IOException {
+        parse("callback/account_link.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(AccountLinkEvent.class);
+            assertThat(event.getSource())
+                    .isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId())
+                    .isEqualTo("U012345678901234567890123456789ab");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+
+            AccountLinkEvent accountLinkEvent = (AccountLinkEvent) event;
+            assertThat(accountLinkEvent.getLink().getResult())
+                    .isEqualTo("ok");
+            assertThat(accountLinkEvent.getLink().getNonce())
+                    .isEqualTo("xxxxxxxxxxxxxxx");
+        });
+    }
+
     // Event, that has brand new eventType
     @Test
     public void testUnknown() throws IOException {

@@ -33,7 +33,8 @@ import com.linecorp.bot.model.event.source.Source;
         @JsonSubTypes.Type(JoinEvent.class),
         @JsonSubTypes.Type(LeaveEvent.class),
         @JsonSubTypes.Type(PostbackEvent.class),
-        @JsonSubTypes.Type(BeaconEvent.class)
+        @JsonSubTypes.Type(BeaconEvent.class),
+        @JsonSubTypes.Type(AccountLinkEvent.class)
 })
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
