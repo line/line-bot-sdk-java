@@ -26,6 +26,10 @@ import lombok.Builder;
 import lombok.Value;
 
 /**
+ * Quick reply items object.
+ *
+ * <p>This is a container that contains quick reply buttons.
+ *
  * @see <a href="https://developers.line.me/en/reference/messaging-api/#quick-reply-button-object">//developers.line.me/en/reference/messaging-api/#quick-reply-button-object</a>
  */
 @Value
@@ -37,6 +41,18 @@ public class QuickReplyItem {
     }
 
     /**
+     * URL of the icon that is displayed at the beginning of the button.
+     *
+     * <ul>
+     * <li>Max: 1000 characters</li>
+     * <li>URL scheme: https</li>
+     * <li>Image format: PNG</li>
+     * <li>Aspect ratio: 1:1</li>
+     * <li>Data size: Up to 1 MB</li>
+     * </ul>
+     *
+     * <p>There is no limit on the image size.
+     *
      * @see <a href="https://developers.line.me/en/docs/messaging-api/using-quick-reply/">//developers.line.me/en/docs/messaging-api/using-quick-reply/</a>
      */
     URI imageUrl;
