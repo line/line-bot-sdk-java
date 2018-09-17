@@ -1,6 +1,6 @@
 dependencyManagement {
     imports {
-        mavenBom 'io.spring.platform:platform-bom:Cairo-SR3'
+        mavenBom 'io.spring.platform:platform-bom:Cairo-SR4'
     }
 }
 
