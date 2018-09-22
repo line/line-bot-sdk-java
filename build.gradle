@@ -40,7 +40,7 @@ apply plugin: 'idea'
 apply plugin: 'jacoco'
 
 group = 'com.linecorp.bot'
-version = '2.1.0-SNAPSHOT'
+version = '2.1.0'
 
 //set build variables based on build type (release, continuous integration, development)
 def isDevBuild
