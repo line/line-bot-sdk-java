@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
 import com.linecorp.bot.client.LineSignatureValidator;
@@ -30,25 +31,10 @@ import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
 
 @Component
 @ConditionalOnWebApplication
+@Import({LineBotServerInterceptor.class, LineBotServerArgumentProcessor.class})
 public class LineBotWebMvcBeans {
     @Autowired
     private LineBotProperties lineBotProperties;
-
-    /**
-     * Expose {@link LineBotServerArgumentProcessor} as {@link Bean}.
-     */
-    @Bean
-    public LineBotServerArgumentProcessor lineBotServerArgumentProcessor() {
-        return new LineBotServerArgumentProcessor();
-    }
-
-    /**
-     * Expose {@link LineBotServerInterceptor} as {@link Bean}.
-     */
-    @Bean
-    public LineBotServerInterceptor lineBotServerInterceptor() {
-        return new LineBotServerInterceptor();
-    }
 
     /**
      * Expose {@link LineSignatureValidator} as {@link Bean}.

@@ -3,7 +3,7 @@ include 'line-bot-model'
 include 'line-bot-servlet'
 include 'line-bot-spring-boot'
 include 'line-bot-cli'
-include 'test-boot2-compatibility'
+include 'test-boot1-compatibility'
 
 /*
  * Copyright 2016 LINE Corporation

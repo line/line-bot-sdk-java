@@ -29,7 +29,7 @@ public class SpringBoot2CompatibilityTestPrecondition {
                 SpringBootApplication.class.getPackage().getImplementationVersion();
 
         assertThat(springBootVersion)
-                .isEqualTo("2.0.5.RELEASE");
+                .isEqualTo("1.5.16.RELEASE");
     }
 
     @Test
@@ -38,6 +38,6 @@ public class SpringBoot2CompatibilityTestPrecondition {
                 Controller.class.getPackage().getImplementationVersion();
 
         assertThat(springVersion)
-                .isEqualTo("5.0.9.RELEASE");
+                .isEqualTo("4.3.19.RELEASE");
     }
 }
