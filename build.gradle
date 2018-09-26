@@ -248,6 +248,11 @@ task codeCoverageReport(type: JacocoReport) {
                                     name 'Tokuhiro Matsuno'
                                     email 'tokuhirom@gmail.com'
                                 }
+                                developer {
+                                    id 'kazuki-ma'
+                                    name 'Kazuki MATSUDA'
+                                    email 'matsuda.kazuki@gmail.com'
+                                }
                             }
                         }
                     }
