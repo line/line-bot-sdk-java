@@ -96,7 +96,7 @@ Push message for specific user(s).
 Create LIFF App.
 
 ```
-% cat liff.json                                                                                                         [liff-api *+$=] /Users/JP20217/github.com/line/line-bot-sdk-java/line-bot-cli/build
+% cat liff.json
 {
     "type": "full",
     "url": "https://example.com"
@@ -110,7 +110,7 @@ Create LIFF App.
 Delete LIFF App.
 
 ```
-% ./line-bot-cli.jar --command=liff-delete --liff-id=1506753437-Xx5J85Ky                           [liff-api *+$=] /Users/JP20217/github.com/line/line-bot-sdk-java/line-bot-cli/build
+% ./line-bot-cli.jar --command=liff-delete --liff-id=1506753437-Xx5J85Ky
 ...
 16:39:10  INFO - .c.LiffDeleteCommand : Successfully finished.
 ```
@@ -120,7 +120,7 @@ Delete LIFF App.
 List your LIFF Apps.
 
 ```
-% ./line-bot-cli.jar --command=liff-list                                                           [liff-api *+$=] /Users/JP20217/github.com/line/line-bot-sdk-java/line-bot-cli/build
+% ./line-bot-cli.jar --command=liff-list
 ...
 16:40:05  INFO - .b.c.LiffListCommand : Successfully finished.
 16:40:05  INFO - .b.c.LiffListCommand : You have 3 LIFF apps.
@@ -130,7 +130,7 @@ List your LIFF Apps.
 
 ## liff-update
 ```
-% cat liff.json                                                                                                         [liff-api *+$=] /Users/JP20217/github.com/line/line-bot-sdk-java/line-bot-cli/build
+% cat liff.json
 {
     "type": "full",
     "url": "https://example.com"
