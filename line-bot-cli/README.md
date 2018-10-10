@@ -2,6 +2,17 @@
 
 Command LINE interface based on line-bot-api-client.
 
+## Build
+```
+% ../gradlew clean build
+
+> Task :line-bot-cli:bootRepackage
+
+BUILD SUCCESSFUL in ...
+```
+
+The executable file in `./build/libs/line-bot-cli-2.2.0-SNAPSHOT-exec.jar`
+
 ## Usage
 ```
 % cat application.yml
@@ -48,7 +59,7 @@ line.bot:
 Then you can run 
 
 ```bash
-% ./line-bot-cli-1.19.0-SNAPSHOT.jar --command=liff-list
+% ./line-bot-cli-2.2.0-SNAPSHOT.jar --command=liff-list
 # configuration loaded from ./application.yml
 ```
 
@@ -56,7 +67,7 @@ Then you can run
 ```bash
 % export LINE_BOT_CHANNEL_TOKEN='your token'
 % export LINE_BOT_CHANNEL_SECRET='your secret'
-% ./line-bot-cli-1.19.0-SNAPSHOT.jar --command=list-liff
+% ./line-bot-cli-2.2.0-SNAPSHOT.jar --command=list-liff
 ```
 
 # Synopsis
