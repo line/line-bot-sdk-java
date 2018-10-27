@@ -116,6 +116,7 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                             .color("#aaaaaa")
                             .size(FlexFontSize.SM)
                             .flex(1)
+                            .maxLines(10)
                             .build(),
                         Text.builder()
                             .text("Shinjuku, Tokyo")
@@ -123,6 +124,7 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                             .color("#666666")
                             .size(FlexFontSize.SM)
                             .flex(5)
+                            .maxLines(10)
                             .build()
                 ))
                 .build();
@@ -136,6 +138,7 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                                .color("#aaaaaa")
                                .size(FlexFontSize.SM)
                                .flex(1)
+                               .maxLines(10)
                                .build(),
                            Text.builder()
                                .text("10:00 - 23:00")
@@ -143,8 +146,10 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                                .color("#666666")
                                .size(FlexFontSize.SM)
                                .flex(5)
+                               .maxLines(10)
                                .build()
                    ))
+                   .action(new URIAction("url", "https://example.com/"))
                    .build();
 
         return Box.builder()
@@ -152,6 +157,7 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                   .margin(FlexMarginSize.LG)
                   .spacing(FlexMarginSize.SM)
                   .contents(asList(place, time))
+                  .action(new URIAction("url", "https://example.com/"))
                   .build();
     }
 
@@ -167,6 +173,7 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                     .color("#999999")
                     .margin(FlexMarginSize.MD)
                     .flex(0)
+                    .maxLines(10)
                     .build();
 
         return Box.builder()
