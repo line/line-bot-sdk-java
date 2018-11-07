@@ -18,6 +18,7 @@ package com.linecorp.bot.client;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singleton;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -26,7 +27,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.net.URI;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
+import java.util.Map;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -402,7 +406,42 @@ public class LineMessagingClientImplTest {
         // Verify
         verify(retrofitMock, only()).getRichMenuList();
         assertThat(richMenuListResponse.getRichMenus()).isEmpty();
+    }
 
+    @Test
+    public void getTest() throws Exception {
+        whenCall(retrofitMock.get(any(), any()),
+                 ResponseBody.create(MediaType.parse("application/json"), "{\"key\":\"response\"}"));
+
+        // Do
+        @SuppressWarnings({ "rawtype", "unchecked" })
+        final Map<String, Object> richMenuListResponse =
+                target.get(URI.create("v3/newapi"), singletonMap("key", "request"), Map.class).get();
+
+        // Verify
+        verify(retrofitMock, only()).get(any(), any());
+        assertThat(richMenuListResponse)
+                .hasSize(1)
+                .containsOnly(new SimpleEntry<>("key", "response"));
+    }
+
+    @Test
+    public void postTest() throws Exception {
+        whenCall(retrofitMock.post(any(), any(), any()),
+                 ResponseBody.create(MediaType.parse("application/json"), "{\"key\":\"response\"}"));
+
+        final Map<String, String> postBody = singletonMap("key", "body");
+
+        // Do
+        @SuppressWarnings({ "rawtype", "unchecked" })
+        final Map<String, Object> richMenuListResponse =
+                target.post(URI.create("v3/newapi"), singletonMap("key", "request"), postBody, Map.class).get();
+
+        // Verify
+        verify(retrofitMock, only()).post(any(), any(), eq(postBody));
+        assertThat(richMenuListResponse)
+                .hasSize(1)
+                .containsOnly(new SimpleEntry<>("key", "response"));
     }
 
     @Test

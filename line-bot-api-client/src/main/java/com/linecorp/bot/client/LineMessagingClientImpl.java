@@ -18,14 +18,21 @@ package com.linecorp.bot.client;
 
 import static java.util.Collections.emptyList;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -59,6 +66,7 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     private static final BotApiResponse BOT_API_SUCCESS_RESPONSE = new BotApiResponse("", emptyList());
     private static final Function<Void, BotApiResponse>
             VOID_TO_BOT_API_SUCCESS_RESPONSE = ignored -> BOT_API_SUCCESS_RESPONSE;
+    private static final ObjectMapper OBJECT_MAPPER = ModelObjectMapper.createNewObjectMapper();
 
     private final LineMessagingService retrofitImpl;
 
@@ -195,6 +203,24 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
+    public <T> CompletableFuture<T> get(URI path, Object queryParameter, Class<T> clazz) {
+        @SuppressWarnings({ "unchecked", "rawtype" })
+        final Map<String, Object> queryParameterMap = OBJECT_MAPPER.convertValue(queryParameter, Map.class);
+
+        return toFuture(retrofitImpl.get(path, queryParameterMap))
+                .thenApply(v -> convertResponseBody(v, clazz));
+    }
+
+    @Override
+    public <T> CompletableFuture<T> post(URI path, Object queryParameter, Object jsonBody, Class<T> clazz) {
+        @SuppressWarnings({ "unchecked", "rawtype" })
+        final Map<String, Object> queryParameterMap = OBJECT_MAPPER.convertValue(queryParameter, Map.class);
+
+        return toFuture(retrofitImpl.post(path, queryParameterMap, jsonBody))
+                .thenApply(v -> convertResponseBody(v, clazz));
+    }
+
+    @Override
     public CompletableFuture<RichMenuListResponse> getRichMenuList() {
         return toFuture(retrofitImpl.getRichMenuList());
     }
@@ -237,6 +263,14 @@ public class LineMessagingClientImpl implements LineMessagingClient {
         final ResponseBodyCallbackAdaptor future = new ResponseBodyCallbackAdaptor();
         callToWrap.enqueue(future);
         return future;
+    }
+
+    private static <T> T convertResponseBody(ResponseBody v, Class<T> clazz) {
+        try {
+            return OBJECT_MAPPER.readValue(v.byteStream(), clazz);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     static class CallbackAdaptor<T> extends CompletableFuture<T> implements Callback<T> {

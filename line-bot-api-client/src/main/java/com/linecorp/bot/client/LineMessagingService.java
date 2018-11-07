@@ -16,7 +16,9 @@
 
 package com.linecorp.bot.client;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
@@ -42,6 +44,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import retrofit2.http.Streaming;
 
 /**
@@ -283,4 +286,25 @@ interface LineMessagingService {
      */
     @POST("v2/bot/user/{userId}/linkToken")
     Call<IssueLinkTokenResponse> issueLinkToken(@Path("userId") String userId);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#get(URI, Object, Class)
+     */
+    @GET("{path}")
+    Call<ResponseBody> get(
+            @Path(value = "path", encoded = true) URI path,
+            @QueryMap Map<String, Object> queryMap);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#post(URI, Object, Object, Class)
+     */
+    @POST("{path}")
+    Call<ResponseBody> post(
+            @Path(value = "path", encoded = true) URI path,
+            @QueryMap Map<String, Object> queryMap,
+            @Body Object postBody);
 }

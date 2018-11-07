@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 import com.linecorp.bot.model.error.ErrorResponse;
+import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 
 import lombok.SneakyThrows;
 import okhttp3.mockwebserver.MockResponse;
@@ -33,6 +34,7 @@ import okhttp3.mockwebserver.MockWebServer;
 
 public abstract class AbstractWiremockTest {
     public static final int ASYNC_TEST_TIMEOUT = 1_000;
+    private static final ObjectWriter RESPONSE_WRITER = ModelObjectMapper.createNewObjectMapper().writer();
     private static final ObjectWriter ERROR_RESPONSE_READER = new ObjectMapper().writerFor(ErrorResponse.class);
 
     static {
@@ -62,6 +64,14 @@ public abstract class AbstractWiremockTest {
                 .enqueue(new MockResponse()
                                  .setResponseCode(responseCode)
                                  .setBody(ERROR_RESPONSE_READER.writeValueAsString(errorResponse)));
+    }
+
+    @SneakyThrows
+    public void mocking(final int responseCode, final Object responseBodyObject) {
+        mockWebServer
+                .enqueue(new MockResponse()
+                                 .setResponseCode(responseCode)
+                                 .setBody(RESPONSE_WRITER.writeValueAsString(responseBodyObject)));
     }
 
     protected LineMessagingClient createLineMessagingClient(final MockWebServer mockWebServer) {

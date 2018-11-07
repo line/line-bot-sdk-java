@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.client;
 
+import java.net.URI;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -281,6 +282,26 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#issue-link-token">Issue link token</a>
      */
     CompletableFuture<IssueLinkTokenResponse> issueLinkToken(String userId);
+
+    /**
+     * Execute GET request to supplied path.
+     *
+     * @param path relative path from api basePath.
+     * @param queryParameter query parameter objects. Basically supplied as Map.
+     *         But otherwise convert to key=value as POJO.
+     * @param clazz result class.
+     */
+    <T> CompletableFuture<T> get(URI path, Object queryParameter, Class<T> clazz);
+
+    /**
+     * Execute POST request to supplied path.
+     *
+     * @param path see {@link #get(URI, Object, Class)}
+     * @param queryParameter see {@link #get(URI, Object, Class)}
+     * @param jsonBody Request body. Converted to JSON.
+     * @param clazz see {@link #get(URI, Object, Class)}
+     */
+    <T> CompletableFuture<T> post(URI path, Object queryParameter, Object jsonBody, Class<T> clazz);
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));
