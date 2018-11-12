@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.message.flex.unit.FlexLayout;
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
@@ -47,17 +48,21 @@ public class Box implements FlexComponent {
 
     private final FlexMarginSize margin;
 
+    private final Action action;
+
     @JsonCreator
     public Box(
             @JsonProperty("layout") FlexLayout layout,
             @JsonProperty("flex") Integer flex,
             @JsonProperty("contents") List<FlexComponent> contents,
             @JsonProperty("spacing") FlexMarginSize spacing,
-            @JsonProperty("margin") FlexMarginSize margin) {
+            @JsonProperty("margin") FlexMarginSize margin,
+            @JsonProperty("action") Action action) {
         this.layout = layout;
         this.flex = flex;
         this.contents = contents != null ? contents : Collections.emptyList();
         this.spacing = spacing;
         this.margin = margin;
+        this.action = action;
     }
 }

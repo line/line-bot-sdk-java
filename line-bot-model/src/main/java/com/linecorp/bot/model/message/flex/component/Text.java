@@ -64,6 +64,8 @@ public class Text implements FlexComponent {
 
     private final Action action;
 
+    private final Integer maxLines;
+
     @JsonCreator
     public Text(
             @JsonProperty("flex") Integer flex,
@@ -75,7 +77,8 @@ public class Text implements FlexComponent {
             @JsonProperty("weight") TextWeight weight,
             @JsonProperty("wrap") Boolean wrap,
             @JsonProperty("margin") FlexMarginSize margin,
-            @JsonProperty("action") Action action) {
+            @JsonProperty("action") Action action,
+            @JsonProperty("maxLines") Integer maxLines) {
         this.flex = flex;
         this.text = text;
         this.size = size;
@@ -86,5 +89,6 @@ public class Text implements FlexComponent {
         this.wrap = wrap;
         this.margin = margin;
         this.action = action;
+        this.maxLines = maxLines;
     }
 }
