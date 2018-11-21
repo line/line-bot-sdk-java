@@ -26,12 +26,14 @@ import lombok.Value;
 public class VideoMessageContent implements MessageContent {
     private final String id;
     private final String url;
+    private final ContentProvider contentProvider;
 
     @JsonCreator
-    public VideoMessageContent(
-            final String id,
-            final String url) {
+    public VideoMessageContent(final String id,
+                               final String url,
+                               final ContentProvider contentProvider) {
         this.id = id;
         this.url = url;
+        this.contentProvider = contentProvider;
     }
 }

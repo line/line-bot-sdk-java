@@ -52,6 +52,7 @@ import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
 import com.linecorp.bot.model.event.message.AudioMessageContent;
+import com.linecorp.bot.model.event.message.ContentProvider;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
@@ -124,15 +125,23 @@ public class KitchenSinkController {
                 event.getReplyToken(),
                 event.getMessage().getId(),
                 responseBody -> {
-                    DownloadedContent jpg = saveContent("jpg", responseBody);
-                    DownloadedContent previewImg = createTempFile("jpg");
-                    system(
-                            "convert",
-                            "-resize", "240x",
-                            jpg.path.toString(),
-                            previewImg.path.toString());
+                    final ContentProvider provider = event.getMessage().getContentProvider();
+                    final DownloadedContent jpg;
+                    final DownloadedContent previewImg;
+                    if (provider.isExternal()) {
+                        jpg = new DownloadedContent(null, provider.getOriginalContentUrl());
+                        previewImg = new DownloadedContent(null, provider.getPreviewImageUrl());
+                    } else {
+                        jpg = saveContent("jpg", responseBody);
+                        previewImg = createTempFile("jpg");
+                        system(
+                                "convert",
+                                "-resize", "240x",
+                                jpg.path.toString(),
+                                previewImg.path.toString());
+                    }
                     reply(event.getReplyToken(),
-                          new ImageMessage(jpg.getUri(), jpg.getUri()));
+                          new ImageMessage(jpg.getUri(), previewImg.getUri()));
                 });
     }
 
@@ -142,7 +151,13 @@ public class KitchenSinkController {
                 event.getReplyToken(),
                 event.getMessage().getId(),
                 responseBody -> {
-                    DownloadedContent mp4 = saveContent("mp4", responseBody);
+                    final ContentProvider provider = event.getMessage().getContentProvider();
+                    final DownloadedContent mp4;
+                    if (provider.isExternal()) {
+                        mp4 = new DownloadedContent(null, provider.getOriginalContentUrl());
+                    } else {
+                        mp4 = saveContent("mp4", responseBody);
+                    }
                     reply(event.getReplyToken(), new AudioMessage(mp4.getUri(), 100));
                 });
     }
@@ -154,11 +169,19 @@ public class KitchenSinkController {
                 event.getReplyToken(),
                 event.getMessage().getId(),
                 responseBody -> {
-                    DownloadedContent mp4 = saveContent("mp4", responseBody);
-                    DownloadedContent previewImg = createTempFile("jpg");
-                    system("convert",
-                           mp4.path + "[0]",
-                           previewImg.path.toString());
+                    final ContentProvider provider = event.getMessage().getContentProvider();
+                    final DownloadedContent mp4;
+                    final DownloadedContent previewImg;
+                    if (provider.isExternal()) {
+                        mp4 = new DownloadedContent(null, provider.getOriginalContentUrl());
+                        previewImg = new DownloadedContent(null, provider.getPreviewImageUrl());
+                    } else {
+                        mp4 = saveContent("mp4", responseBody);
+                        previewImg = createTempFile("jpg");
+                        system("convert",
+                               mp4.path + "[0]",
+                               previewImg.path.toString());
+                    }
                     reply(event.getReplyToken(),
                           new VideoMessage(mp4.getUri(), previewImg.uri));
                 });
