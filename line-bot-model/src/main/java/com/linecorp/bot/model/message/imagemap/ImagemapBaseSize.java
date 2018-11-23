@@ -24,14 +24,14 @@ import lombok.Value;
 @Value
 public class ImagemapBaseSize {
     /**
-     * Width of base image. Must be 1040px fixed.
+     * Height of base image.
+     *
+     * <p>Set to the height that corresponds to a width of 1040px.
      */
     private final int height;
 
     /**
-     * Height of base image.
-     *
-     * <p>Set to the height that corresponds to a width of 1040px.
+     * Width of base image. Must be 1040px fixed.
      */
     private final int width;
 }
