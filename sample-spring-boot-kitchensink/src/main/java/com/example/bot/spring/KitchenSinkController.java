@@ -430,11 +430,13 @@ public class KitchenSinkController {
                         .baseSize(new ImagemapBaseSize(722, 1040))
                         .video(
                                 ImagemapVideo.builder()
-                                        .originalContentUrl(createUri("/static/imagemap_video/originalContent.mp4"))
+                                        .originalContentUrl(
+                                                createUri("/static/imagemap_video/originalContent.mp4"))
                                         .previewImageUrl(createUri("/static/imagemap_video/previewImage.jpg"))
                                         .area(new ImagemapArea(40, 46, 952, 536))
                                         .externalLink(
-                                                new ImagemapExternalLink("https://example.com/see_more.html", "See More")
+                                                new ImagemapExternalLink(
+                                                        "https://example.com/see_more.html", "See More")
                                         )
                                         .build()
                         )
