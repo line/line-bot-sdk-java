@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -68,6 +70,8 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.VideoMessage;
 import com.linecorp.bot.model.message.imagemap.ImagemapArea;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
+import com.linecorp.bot.model.message.imagemap.ImagemapExternalLink;
+import com.linecorp.bot.model.message.imagemap.ImagemapVideo;
 import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
 import com.linecorp.bot.model.message.imagemap.URIImagemapAction;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
@@ -417,6 +421,29 @@ public class KitchenSinkController {
                                 )
                         )
                 ));
+                break;
+            case "imagemap_video":
+                this.reply(replyToken, ImagemapMessage
+                        .builder()
+                        .baseUrl(createUri("/static/imagemap_video"))
+                        .altText("This is an imagemap with video")
+                        .baseSize(new ImagemapBaseSize(722, 1040))
+                        .video(
+                                ImagemapVideo.builder()
+                                        .originalContentUrl(createUri("/static/imagemap_video/originalContent.mp4"))
+                                        .previewImageUrl(createUri("/static/imagemap_video/previewImage.jpg"))
+                                        .area(new ImagemapArea(40, 46, 952, 536))
+                                        .externalLink(
+                                                new ImagemapExternalLink("https://example.com/see_more.html", "See More")
+                                        )
+                                        .build()
+                        )
+                        .actions(Stream.of(
+                                new MessageImagemapAction(
+                                        "NIXIE CLOCK",
+                                        new ImagemapArea(260, 600, 450, 86)
+                                )).collect(Collectors.toList()))
+                        .build());
                 break;
             case "flex":
                 this.reply(replyToken, new ExampleFlexMessageSupplier().get());
