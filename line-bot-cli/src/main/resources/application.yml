@@ -1,6 +1,6 @@
 spring:
   main:
-    web-environment: false
+    web-application-type: none
     banner-mode: 'off'
 
 line.bot:

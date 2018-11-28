@@ -21,14 +21,18 @@ dependencies {
     compile 'com.google.guava:guava'
 }
 
-bootRepackage {
+jar {
     enabled = true
-    executable = true
+}
+
+bootJar {
+    enabled = true
     // Custom Launch Script avoid https://github.com/spring-projects/spring-boot/issues/5164
-    embeddedLaunchScript = file('src/main/resources/launch.script')
-    withJarTask = jar
+    launchScript {
+        script = file('src/main/resources/launch.script')
+    }
     classifier = 'exec'
-    mainClass = 'com.linecorp.bot.cli.Application'
+    mainClassName = 'com.linecorp.bot.cli.Application'
 }
 
 // Reset bootRepackage dependency to remove dependency from bootRepackage to signArchives.
@@ -36,11 +40,11 @@ bootRepackage {
 //
 // Memo: By default, bootRepackage dependsOn the all tasks creating jar including signArchives task.
 // But signArchives should be after repackages.
-bootRepackage.dependsOn.clear()
-bootRepackage.dependsOn jar, findMainClass
-signArchives.dependsOn bootRepackage
+bootJar.dependsOn.clear()
+bootJar.dependsOn jar
+signArchives.dependsOn bootJar
 
 // Add exec jar into archives to be uploaded.
-artifacts.add('archives', file("$buildDir/libs/${project.name}-${project.version}-${bootRepackage.classifier}.jar")) {
-    classifier = bootRepackage.classifier
+artifacts.add('archives', file("$buildDir/libs/${project.name}-${project.version}-${bootJar.classifier}.jar")) {
+    classifier = bootJar.classifier
 }

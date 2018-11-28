@@ -24,15 +24,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.linecorp.bot.spring.boot.interceptor.LineBotServerInterceptor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
 
+@SuppressWarnings("deprecation"
+        /* WebMvcConfigurerAdapter is deprecated in 5.x. TODO: Migrate to WebMvcConfigurer */)
 @Configuration
 @Import(LineBotWebMvcBeans.class)
 @ConditionalOnWebApplication
-public class LineBotWebMvcConfigurer extends WebMvcConfigurerAdapter {
+public class LineBotWebMvcConfigurer
+        extends org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter {
     @Autowired
     private LineBotServerInterceptor lineBotServerInterceptor;
     @Autowired
