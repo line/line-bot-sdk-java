@@ -16,7 +16,7 @@
 
 package com.linecorp.bot.model.message.imagemap;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.net.URI;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class ImagemapVideo {
      * Note: A very wide or tall video may be cropped when played in some environments.
      * </p>
      */
-    private final String originalContentUrl;
+    private final URI originalContentUrl;
 
     /**
      * URL of the preview image (Max: 1000 characters).
@@ -54,7 +54,7 @@ public class ImagemapVideo {
      * <li>Max: 1 MB</li>
      * </ul>
      */
-    private final String previewImageUrl;
+    private final URI previewImageUrl;
 
     /**
      * please see {@link ImagemapArea}.
@@ -70,14 +70,4 @@ public class ImagemapVideo {
      * </p>
      */
     private final ImagemapExternalLink externalLink;
-
-    public ImagemapVideo(
-            @JsonProperty("originalContentUrl") String originalContentUrl,
-            @JsonProperty("previewImageUrl") String previewImageUrl,
-            @JsonProperty("area") ImagemapArea area) {
-        this.originalContentUrl = originalContentUrl;
-        this.previewImageUrl = previewImageUrl;
-        this.area = area;
-        this.externalLink = null;
-    }
 }

@@ -71,16 +71,25 @@ public class ImagemapMessage implements Message {
     private final QuickReply quickReply;
 
     /**
-     * Constructor without {@link #video}, {@link #quickReply} parameter.
+     * Constructor without {@link #quickReply} parameter.
      *
-     * <p>If you want use {@link ImagemapVideo} or {@link QuickReply}, please use {@link #builder()} instead.
+     * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
     public ImagemapMessage(
             final String baseUrl,
             final String altText,
             final ImagemapBaseSize imagemapBaseSize,
+            final List<ImagemapAction> actions,
+            final ImagemapVideo imagemapVideo) {
+        this(baseUrl, altText, imagemapBaseSize, actions, imagemapVideo, null);
+    }
+
+    public ImagemapMessage(
+            final String baseUrl,
+            final String altText,
+            final ImagemapBaseSize imagemapBaseSize,
             final List<ImagemapAction> actions) {
-        this(baseUrl, altText, imagemapBaseSize, actions, null, null);
+        this(baseUrl, altText, imagemapBaseSize, actions, null);
     }
 
     @JsonPOJOBuilder(withPrefix = "")

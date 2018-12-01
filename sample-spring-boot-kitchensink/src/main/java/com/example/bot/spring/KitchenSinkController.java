@@ -19,6 +19,7 @@ package com.example.bot.spring;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -430,13 +431,14 @@ public class KitchenSinkController {
                         .baseSize(new ImagemapBaseSize(722, 1040))
                         .video(
                                 ImagemapVideo.builder()
-                                        .originalContentUrl(
-                                                createUri("/static/imagemap_video/originalContent.mp4"))
-                                        .previewImageUrl(createUri("/static/imagemap_video/previewImage.jpg"))
+                                        .originalContentUrl(URI.create(
+                                                createUri("/static/imagemap_video/originalContent.mp4")))
+                                        .previewImageUrl(URI.create(
+                                                createUri("/static/imagemap_video/previewImage.jpg")))
                                         .area(new ImagemapArea(40, 46, 952, 536))
                                         .externalLink(
                                                 new ImagemapExternalLink(
-                                                        "https://example.com/see_more.html", "See More")
+                                                        URI.create("https://example.com/see_more.html"), "See More")
                                         )
                                         .build()
                         )

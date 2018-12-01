@@ -20,6 +20,7 @@ import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -37,20 +38,17 @@ public class ImagemapMessageWithVideoTest {
     @Test
     public void imagemapWithVideo_withoutExternalLink() throws IOException {
 
-        ImagemapMessage message = ImagemapMessage
-                .builder()
-                .baseUrl("https://example.com/path/to/baseUrl")
-                .altText("altText")
-                .baseSize(new ImagemapBaseSize(578, 1040))
-                .video(
-                        new ImagemapVideo(
-                                "https://example.com/path/to/originalContentUrl",
-                                "https://example.com/path/to/previewImageUrl",
-                                new ImagemapArea(0, 0, 1040, 578)
-                        )
-                )
-                .actions(singletonList(new MessageImagemapAction("text", new ImagemapArea(10, 20, 30, 40))))
-                .build();
+        ImagemapMessage message = new ImagemapMessage(
+                "https://example.com/path/to/baseUrl",
+                "altText",
+                new ImagemapBaseSize(578, 1040),
+                singletonList(new MessageImagemapAction("text", new ImagemapArea(10, 20, 30, 40))),
+                ImagemapVideo.builder()
+                        .originalContentUrl(URI.create("https://example.com/path/to/originalContentUrl"))
+                        .previewImageUrl(URI.create("https://example.com/path/to/previewImageUrl"))
+                        .area(new ImagemapArea(0, 0, 1040, 578))
+                        .build()
+        );
 
         String json = OBJECT_MAPPER.writeValueAsString(message);
         DocumentContext documentContext = JsonPath.parse(json);
@@ -118,11 +116,12 @@ public class ImagemapMessageWithVideoTest {
                 .baseSize(new ImagemapBaseSize(1040, 1040))
                 .video(
                         ImagemapVideo.builder()
-                                .originalContentUrl("https://example.com/video.mp4")
-                                .previewImageUrl("https://example.com/video_preview.jpg")
+                                .originalContentUrl(URI.create("https://example.com/video.mp4"))
+                                .previewImageUrl(URI.create("https://example.com/video_preview.jpg"))
                                 .area(new ImagemapArea(0, 0, 1040, 585))
                                 .externalLink(
-                                        new ImagemapExternalLink("https://example.com/see_more.html", "See More")
+                                        new ImagemapExternalLink(
+                                                URI.create("https://example.com/see_more.html"), "See More")
                                 )
                                 .build()
                 )

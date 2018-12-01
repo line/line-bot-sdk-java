@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.message.imagemap;
 
+import java.net.URI;
+
 import lombok.Value;
 
 /**
@@ -30,7 +32,7 @@ public class ImagemapExternalLink {
      * <li>Max: 1000 characters</li>
      * </ul>
      */
-    String linkUri;
+    private final URI linkUri;
 
     /**
      * Label. Displayed after the video is finished.
@@ -39,5 +41,5 @@ public class ImagemapExternalLink {
      * <li>Max: 30 characters</li>
      * </ul>
      */
-    String label;
+    private final String label;
 }
