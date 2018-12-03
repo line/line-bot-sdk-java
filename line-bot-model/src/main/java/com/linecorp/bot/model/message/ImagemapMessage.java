@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.imagemap.ImagemapAction;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
+import com.linecorp.bot.model.message.imagemap.ImagemapVideo;
 import com.linecorp.bot.model.message.quickreply.QuickReply;
 
 import lombok.AccessLevel;
@@ -65,6 +66,8 @@ public class ImagemapMessage implements Message {
      */
     private final List<ImagemapAction> actions;
 
+    private final ImagemapVideo video;
+
     private final QuickReply quickReply;
 
     /**
@@ -72,6 +75,15 @@ public class ImagemapMessage implements Message {
      *
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
+    public ImagemapMessage(
+            final String baseUrl,
+            final String altText,
+            final ImagemapBaseSize imagemapBaseSize,
+            final List<ImagemapAction> actions,
+            final ImagemapVideo imagemapVideo) {
+        this(baseUrl, altText, imagemapBaseSize, actions, imagemapVideo, null);
+    }
+
     public ImagemapMessage(
             final String baseUrl,
             final String altText,
