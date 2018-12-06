@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "things",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "user",
+        "userId": "U012345678901234567890123456789ab"
+      },
+      "things": {
+        "deviceId": "t016560bc3fb1e42b9fe9293ca6e2db71",
+        "type": "link"
+      }
+    }
+  ]
+}

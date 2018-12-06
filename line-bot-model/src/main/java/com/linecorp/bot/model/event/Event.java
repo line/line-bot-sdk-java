@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -34,7 +34,8 @@ import com.linecorp.bot.model.event.source.Source;
         @JsonSubTypes.Type(LeaveEvent.class),
         @JsonSubTypes.Type(PostbackEvent.class),
         @JsonSubTypes.Type(BeaconEvent.class),
-        @JsonSubTypes.Type(AccountLinkEvent.class)
+        @JsonSubTypes.Type(AccountLinkEvent.class),
+        @JsonSubTypes.Type(ThingsEvent.class)
 })
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
