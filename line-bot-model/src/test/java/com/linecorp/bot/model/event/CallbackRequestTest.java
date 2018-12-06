@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -39,6 +39,7 @@ import com.linecorp.bot.model.event.message.UnknownMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.UnknownSource;
 import com.linecorp.bot.model.event.source.UserSource;
+import com.linecorp.bot.model.event.things.ThingsContent;
 import com.linecorp.bot.model.testutil.TestUtil;
 
 public class CallbackRequestTest {
@@ -340,6 +341,48 @@ public class CallbackRequestTest {
                     .isEqualTo(LinkContent.Result.OK);
             assertThat(accountLinkEvent.getLink().getNonce())
                     .isEqualTo("xxxxxxxxxxxxxxx");
+        });
+    }
+
+    @Test
+    public void testLineThingsLink() throws IOException {
+        parse("callback/line-things-link.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(ThingsEvent.class);
+            assertThat(event.getSource())
+                    .isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId())
+                    .isEqualTo("U012345678901234567890123456789ab");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+
+            ThingsEvent thingsEvent = (ThingsEvent) event;
+            assertThat(thingsEvent.getThings().getDeviceId())
+                    .isEqualTo("t016560bc3fb1e42b9fe9293ca6e2db71");
+            assertThat(thingsEvent.getThings().getType())
+                    .isEqualTo(ThingsContent.ThingsType.LINK);
+        });
+    }
+
+    @Test
+    public void testLineThingsUnlink() throws IOException {
+        parse("callback/line-things-unlink.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(ThingsEvent.class);
+            assertThat(event.getSource())
+                    .isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId())
+                    .isEqualTo("U012345678901234567890123456789ab");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+
+            ThingsEvent thingsEvent = (ThingsEvent) event;
+            assertThat(thingsEvent.getThings().getDeviceId())
+                    .isEqualTo("t016560bc3fb1e42b9fe9293ca6e2db71");
+            assertThat(thingsEvent.getThings().getType())
+                    .isEqualTo(ThingsContent.ThingsType.UNLINK);
         });
     }
 
