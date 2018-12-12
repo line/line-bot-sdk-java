@@ -162,7 +162,7 @@ subprojects {
         version = '1.18.2'
     }
 
-    if (!project.name.startsWith('sample-')) {
+    if (!project.name.startsWith('sample-') && !project.name.startsWith('test-')) {
         task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: compileJava) {
             ext.outputDir = file("$buildDir/delombok")
             outputs.dir(outputDir)
