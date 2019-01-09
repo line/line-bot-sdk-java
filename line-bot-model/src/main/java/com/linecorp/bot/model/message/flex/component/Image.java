@@ -62,30 +62,28 @@ public class Image implements FlexComponent {
     }
 
     public enum ImageAspectRatio {
-        @JsonProperty("1:1")
-        R1TO1,
-        @JsonProperty("20:13")
-        R20TO13,
-        @JsonProperty("1.91:1")
-        R1_91TO1,
-        @JsonProperty("4:3")
-        R4TO3,
-        @JsonProperty("16:9")
-        R16TO9,
-        @JsonProperty("2:1")
-        R2TO1,
-        @JsonProperty("3:1")
-        R3TO1,
-        @JsonProperty("3:4")
-        R3TO4,
-        @JsonProperty("9:16")
-        R9TO16,
-        @JsonProperty("1:2")
-        R1TO2,
-        @JsonProperty("1:3")
-        R1TO3,
-        @JsonProperty("1.51:1")
-        R1_51TO1,
+        R1TO1("1:1"),
+        R20TO13("20:13"),
+        R1_91TO1("1.91:1"),
+        R4TO3("4:3"),
+        R16TO9("16:9"),
+        R2TO1("2:1"),
+        R3TO1("3:1"),
+        R3TO4("3:4"),
+        R9TO16("9:16"),
+        R1TO2("1:2"),
+        R1TO3("1:3"),
+        R1_51TO1("1.51:1");
+
+        private final String ratio;
+
+        ImageAspectRatio(String ratio) {
+            this.ratio = ratio;
+        }
+
+        public String getRatio() {
+            return ratio;
+        }
     }
 
     public enum ImageAspectMode {
@@ -101,7 +99,7 @@ public class Image implements FlexComponent {
 
     private final ImageSize size;
 
-    private final ImageAspectRatio aspectRatio;
+    private final String aspectRatio;
 
     private final ImageAspectMode aspectMode;
 
@@ -120,7 +118,7 @@ public class Image implements FlexComponent {
             @JsonProperty("flex") Integer flex,
             @JsonProperty("url") String url,
             @JsonProperty("size") ImageSize size,
-            @JsonProperty("aspectRatio") ImageAspectRatio aspectRatio,
+            @JsonProperty("aspectRatio") String aspectRatio,
             @JsonProperty("aspectMode") ImageAspectMode aspectMode,
             @JsonProperty("backgroundColor") String backgroundColor,
             @JsonProperty("align") FlexAlign align,
@@ -137,5 +135,38 @@ public class Image implements FlexComponent {
         this.action = action;
         this.gravity = gravity;
         this.margin = margin;
+    }
+
+    public Image(
+            Integer flex,
+            String url,
+            ImageSize size,
+            ImageAspectRatio aspectRatio,
+            ImageAspectMode aspectMode,
+            String backgroundColor,
+            FlexAlign align,
+            Action action,
+            FlexGravity gravity,
+            FlexMarginSize margin) {
+        this(flex, url, size, aspectRatio.getRatio(), aspectMode, backgroundColor, align, action,
+             gravity, margin);
+    }
+
+    public static class ImageBuilder {
+        /**
+         * Specify aspect ratio by keyword.
+         */
+        public ImageBuilder aspectRatio(ImageAspectRatio aspectRatio) {
+            this.aspectRatio = aspectRatio.getRatio();
+            return this;
+        }
+
+        /**
+         * Specify custom aspect ratio.
+         */
+        public ImageBuilder aspectRatio(String aspectRatio) {
+            this.aspectRatio = aspectRatio;
+            return this;
+        }
     }
 }
