@@ -28,12 +28,20 @@ import lombok.Value;
 @Value
 public class CallbackRequest {
     /**
+     * A user ID of a bot that should receive webhook events. The user ID value is
+     * a string that matches the regular expression, {@code U[0-9a-f]{32}}.
+     */
+    private final String destination;
+
+    /**
      * List of events.
      */
     private final List<Event> events;
 
     @JsonCreator
-    public CallbackRequest(final List<Event> events) {
+    public CallbackRequest(final List<Event> events,
+                           final String destination) {
         this.events = events;
+        this.destination = destination;
     }
 }
