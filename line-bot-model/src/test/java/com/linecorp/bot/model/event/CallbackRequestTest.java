@@ -29,6 +29,7 @@ import org.springframework.util.StreamUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.model.event.link.LinkContent;
+import com.linecorp.bot.model.event.message.ContentProvider;
 import com.linecorp.bot.model.event.message.FileMessageContent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
@@ -117,6 +118,12 @@ public class CallbackRequestTest {
                     .isEqualTo("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA");
             MessageContent message = messageEvent.getMessage();
             assertThat(message).isInstanceOf(ImageMessageContent.class);
+            ImageMessageContent image = (ImageMessageContent) message;
+            assertThat(image.getId()).isEqualTo("325708");
+            assertThat(image.getContentProvider()).isEqualTo(
+                    new ContentProvider("external",
+                                        "https://example.com/original.jpg",
+                                        "https://example.com/preview.jpg"));
         });
     }
 

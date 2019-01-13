@@ -11,7 +11,12 @@
       },
       "message": {
         "id": "325708",
-        "type": "image"
+        "type": "image",
+        "contentProvider": {
+          "type": "external",
+          "originalContentUrl": "https://example.com/original.jpg",
+          "previewImageUrl": "https://example.com/preview.jpg"
+        }
       }
     }
   ]
