@@ -22,6 +22,7 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
@@ -199,4 +200,11 @@ interface LineMessagingService {
      */
     @GET("v2/bot/richmenu/list")
     Call<RichMenuListResponse> getRichMenuList();
+
+    /**
+     * Issues a link token used for the account link feature.
+     * @see LineMessagingClient#issueLinkToken(String)
+     */
+    @POST("v2/bot/user/{userId}/linkToken")
+    Call<IssueLinkTokenResponse> issueLinkToken(@Path("userId") String userId);
 }

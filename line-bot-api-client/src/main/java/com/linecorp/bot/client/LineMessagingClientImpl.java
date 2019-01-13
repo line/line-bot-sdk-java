@@ -28,6 +28,7 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
@@ -162,6 +163,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<RichMenuListResponse> getRichMenuList() {
         return toFuture(retrofitImpl.getRichMenuList());
+    }
+
+    @Override
+    public CompletableFuture<IssueLinkTokenResponse> issueLinkToken(String userId) {
+        return toFuture(retrofitImpl.issueLinkToken(userId));
     }
 
     // TODO: Extract this method.

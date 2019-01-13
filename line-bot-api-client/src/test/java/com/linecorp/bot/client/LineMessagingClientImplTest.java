@@ -19,6 +19,7 @@ package com.linecorp.bot.client;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.only;
@@ -43,6 +44,7 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
@@ -64,7 +66,7 @@ public class LineMessagingClientImplTest {
     public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Rule
-    public final Timeout timeoutRule = Timeout.seconds(1);
+    public final Timeout timeoutRule = Timeout.seconds(5);
 
     @Mock
     private LineMessagingService retrofitMock;
@@ -335,6 +337,14 @@ public class LineMessagingClientImplTest {
         verify(retrofitMock, only()).getRichMenuList();
         assertThat(richMenuListResponse.getRichMenus()).isEmpty();
 
+    }
+
+    @Test
+    public void issueLinkToken() throws Exception {
+        whenCall(retrofitMock.issueLinkToken(anyString()), new IssueLinkTokenResponse("ID"));
+        final IssueLinkTokenResponse response = target.issueLinkToken("ID").get();
+        verify(retrofitMock, only()).issueLinkToken("ID");
+        assertThat(response).isEqualTo(new IssueLinkTokenResponse("ID"));
     }
 
     // Utility methods
