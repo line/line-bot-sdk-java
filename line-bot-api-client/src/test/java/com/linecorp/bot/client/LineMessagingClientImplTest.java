@@ -19,7 +19,6 @@ package com.linecorp.bot.client;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.only;
@@ -341,7 +340,7 @@ public class LineMessagingClientImplTest {
 
     @Test
     public void issueLinkToken() throws Exception {
-        whenCall(retrofitMock.issueLinkToken(anyString()), new IssueLinkTokenResponse("ID"));
+        whenCall(retrofitMock.issueLinkToken(any()), new IssueLinkTokenResponse("ID"));
         final IssueLinkTokenResponse response = target.issueLinkToken("ID").get();
         verify(retrofitMock, only()).issueLinkToken("ID");
         assertThat(response).isEqualTo(new IssueLinkTokenResponse("ID"));
