@@ -26,6 +26,7 @@ import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
@@ -207,6 +208,13 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#get-rich-menu-list">//developers.line.me/en/docs/messaging-api/reference/#get-rich-menu-list</a>
      */
     CompletableFuture<RichMenuListResponse> getRichMenuList();
+
+    /**
+     * Issues a link token used for the account link feature.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#issue-link-token">Issue link token</a>
+     */
+    CompletableFuture<IssueLinkTokenResponse> issueLinkToken(String userId);
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));
