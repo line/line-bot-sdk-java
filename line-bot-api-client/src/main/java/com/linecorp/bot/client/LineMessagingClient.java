@@ -210,6 +210,27 @@ public interface LineMessagingClient {
     CompletableFuture<RichMenuListResponse> getRichMenuList();
 
     /**
+     * Set default rich menu.
+     *
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#set-default-rich-menu">//developers.line.me/en/reference/messaging-api/#set-default-rich-menu</a>
+     */
+    CompletableFuture<BotApiResponse> setDefaultRichMenu(String richMenuId);
+
+    /**
+     * Get default rich menu ID
+     *
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-default-rich-menu-id">//developers.line.me/en/reference/messaging-api/#get-default-rich-menu-id</a>
+     */
+    CompletableFuture<RichMenuIdResponse> getDefaultRichMenuId();
+
+    /**
+     * Cancel default rich menu
+     *
+     * @see <a href="https://developers.line.me/en/reference/messaging-api/#cancel-default-rich-menu">//developers.line.me/en/reference/messaging-api/#cancel-default-rich-menu</a>
+     */
+    CompletableFuture<BotApiResponse> cancelDefaultRichMenu();
+
+    /**
      * Issues a link token used for the account link feature.
      *
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#issue-link-token">Issue link token</a>

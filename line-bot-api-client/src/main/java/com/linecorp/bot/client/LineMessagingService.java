@@ -202,9 +202,36 @@ interface LineMessagingService {
     Call<RichMenuListResponse> getRichMenuList();
 
     /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#setDefaultRichMenu(String)
+     */
+    @POST("/v2/bot/user/all/richmenu/{richMenuId}")
+    Call<Void> setDefaultRichMenu(@Path("richMenuId") String richMenuId);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#getDefaultRichMenuId()
+     */
+    @GET("/v2/bot/user/all/richmenu")
+    Call<RichMenuIdResponse> getDefaultRichMenuId();
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#cancelDefaultRichMenu()
+     */
+    @DELETE("/v2/bot/user/all/richmenu")
+    Call<Void> cancelDefaultRichMenu();
+
+    /**
      * Issues a link token used for the account link feature.
+     *
      * @see LineMessagingClient#issueLinkToken(String)
      */
     @POST("v2/bot/user/{userId}/linkToken")
     Call<IssueLinkTokenResponse> issueLinkToken(@Path("userId") String userId);
+
+
 }
