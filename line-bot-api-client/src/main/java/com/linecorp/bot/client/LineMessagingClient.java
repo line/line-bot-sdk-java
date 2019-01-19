@@ -217,14 +217,14 @@ public interface LineMessagingClient {
     CompletableFuture<BotApiResponse> setDefaultRichMenu(String richMenuId);
 
     /**
-     * Get default rich menu ID
+     * Get default rich menu ID.
      *
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-default-rich-menu-id">//developers.line.me/en/reference/messaging-api/#get-default-rich-menu-id</a>
      */
     CompletableFuture<RichMenuIdResponse> getDefaultRichMenuId();
 
     /**
-     * Cancel default rich menu
+     * Cancel default rich menu.
      *
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#cancel-default-rich-menu">//developers.line.me/en/reference/messaging-api/#cancel-default-rich-menu</a>
      */

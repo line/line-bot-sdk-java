@@ -232,6 +232,4 @@ interface LineMessagingService {
      */
     @POST("v2/bot/user/{userId}/linkToken")
     Call<IssueLinkTokenResponse> issueLinkToken(@Path("userId") String userId);
-
-
 }
