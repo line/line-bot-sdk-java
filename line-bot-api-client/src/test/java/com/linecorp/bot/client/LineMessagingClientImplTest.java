@@ -339,6 +339,45 @@ public class LineMessagingClientImplTest {
     }
 
     @Test
+    public void setDefaultRichMenuTest() throws Exception {
+        whenCall(retrofitMock.setDefaultRichMenu(any()), null);
+
+        // Do
+        final BotApiResponse botApiResponse = target.setDefaultRichMenu("ID").get();
+
+        // Verify
+        verify(retrofitMock, only())
+                .setDefaultRichMenu("ID");
+        assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+
+    }
+
+    @Test
+    public void getDefaultRichMenuIdTest() throws Exception {
+        whenCall(retrofitMock.getDefaultRichMenuId(), RICH_MENU_ID_RESPONSE);
+
+        // Do
+        final RichMenuIdResponse richMenuIdResponse = target.getDefaultRichMenuId().get();
+
+        // Verify
+        verify(retrofitMock, only()).getDefaultRichMenuId();
+        assertThat(richMenuIdResponse).isEqualTo(RICH_MENU_ID_RESPONSE);
+
+    }
+
+    @Test
+    public void cancelDefaultRichMenu() throws Exception {
+        whenCall(retrofitMock.cancelDefaultRichMenu(), null);
+
+        // Do
+        final BotApiResponse botApiResponse = target.cancelDefaultRichMenu().get();
+
+        // Verify
+        verify(retrofitMock, only()).cancelDefaultRichMenu();
+        assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
     public void issueLinkToken() throws Exception {
         whenCall(retrofitMock.issueLinkToken(any()), new IssueLinkTokenResponse("ID"));
         final IssueLinkTokenResponse response = target.issueLinkToken("ID").get();

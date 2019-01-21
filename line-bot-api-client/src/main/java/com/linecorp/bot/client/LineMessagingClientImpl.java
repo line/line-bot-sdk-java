@@ -166,6 +166,21 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
+    public CompletableFuture<BotApiResponse> setDefaultRichMenu(final String richMenuId) {
+        return toBotApiFuture(retrofitImpl.setDefaultRichMenu(richMenuId));
+    }
+
+    @Override
+    public CompletableFuture<RichMenuIdResponse> getDefaultRichMenuId() {
+        return toFuture(retrofitImpl.getDefaultRichMenuId());
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> cancelDefaultRichMenu() {
+        return toBotApiFuture(retrofitImpl.cancelDefaultRichMenu());
+    }
+
+    @Override
     public CompletableFuture<IssueLinkTokenResponse> issueLinkToken(String userId) {
         return toFuture(retrofitImpl.issueLinkToken(userId));
     }
