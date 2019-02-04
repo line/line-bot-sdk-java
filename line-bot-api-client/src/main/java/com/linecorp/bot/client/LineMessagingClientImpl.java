@@ -29,6 +29,7 @@ import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
+import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
@@ -76,6 +77,21 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<MessageContentResponse> getMessageContent(final String messageId) {
         return toMessageContentResponseFuture(retrofitImpl.getMessageContent(messageId));
+    }
+
+    @Override
+    public CompletableFuture<NumberOfMessagesResponse> getNumberOfSentReplyMessages(String date) {
+        return toFuture(retrofitImpl.getNumberOfSentReplyMessages(date));
+    }
+
+    @Override
+    public CompletableFuture<NumberOfMessagesResponse> getNumberOfSentPushMessages(String date) {
+        return toFuture(retrofitImpl.getNumberOfSentPushMessages(date));
+    }
+
+    @Override
+    public CompletableFuture<NumberOfMessagesResponse> getNumberOfSentMulticastMessages(String date) {
+        return toFuture(retrofitImpl.getNumberOfSentMulticastMessages(date));
     }
 
     @Override

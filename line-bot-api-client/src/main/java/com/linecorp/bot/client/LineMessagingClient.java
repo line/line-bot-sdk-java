@@ -27,6 +27,7 @@ import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
+import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
@@ -77,6 +78,33 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-content">//developers.line.me/en/reference/messaging-api/#get-content</a>
      */
     CompletableFuture<MessageContentResponse> getMessageContent(String messageId);
+
+    /**
+     * Gets the number of messages sent with the /bot/message/reply endpoint. Note that the number of messages
+     * retrieved by this operation does not include the number of messages sent from LINE@ Manager.
+     *
+     * @param date Date the messages were sent. The format should be {@code yyyyMMdd} (for Example:
+     *             {@literal "20191231"}) and the timezone should be UTC+9.
+     */
+    CompletableFuture<NumberOfMessagesResponse> getNumberOfSentReplyMessages(String date);
+
+    /**
+     * Gets the number of messages sent with the /bot/message/push endpoint. Note that the number of messages
+     * retrieved by this operation does not include the number of messages sent from LINE@ Manager.
+     *
+     * @param date Date the messages were sent. The format should be {@code yyyyMMdd} (for Example:
+     *             {@literal "20191231"}) and the timezone should be UTC+9.
+     */
+    CompletableFuture<NumberOfMessagesResponse> getNumberOfSentPushMessages(String date);
+
+    /**
+     * Gets the number of messages sent with the /bot/message/multicast endpoint. The number of messages
+     * retrieved by this operation does not include the number of messages sent from LINE@ Manager.
+     *
+     * @param date Date the messages were sent. The format should be {@code yyyyMMdd} (for Example:
+     *             {@literal "20191231"}) and the timezone should be UTC+9.
+     */
+    CompletableFuture<NumberOfMessagesResponse> getNumberOfSentMulticastMessages(String date);
 
     /**
      * Get user profile information.
