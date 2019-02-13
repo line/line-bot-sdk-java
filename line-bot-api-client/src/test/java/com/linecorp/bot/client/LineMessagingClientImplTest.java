@@ -44,6 +44,8 @@ import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
+import com.linecorp.bot.model.response.NumberOfMessagesResponse;
+import com.linecorp.bot.model.response.NumberOfMessagesResponse.Status;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
@@ -130,6 +132,39 @@ public class LineMessagingClientImplTest {
         verify(retrofitMock, only()).getMessageContent("ID");
         assertThat(contentResponse.getLength()).isEqualTo(0);
         assertThat(contentResponse.getMimeType()).isEqualTo("image/jpeg");
+    }
+
+    @Test
+    public void getNumberOfSentReplyMessages() {
+        whenCall(retrofitMock.getNumberOfSentReplyMessages(any()),
+                 new NumberOfMessagesResponse(Status.Ready, 1024));
+
+        NumberOfMessagesResponse response = target.getNumberOfSentReplyMessages("20181231").join();
+        verify(retrofitMock, only()).getNumberOfSentReplyMessages("20181231");
+        assertThat(response.getStatus()).isEqualTo(Status.Ready);
+        assertThat(response.getSuccess()).isEqualTo(1024);
+    }
+
+    @Test
+    public void getNumberOfSentPushMessages() {
+        whenCall(retrofitMock.getNumberOfSentPushMessages(any()),
+                 new NumberOfMessagesResponse(Status.Ready, 1024));
+
+        NumberOfMessagesResponse response = target.getNumberOfSentPushMessages("20181231").join();
+        verify(retrofitMock, only()).getNumberOfSentPushMessages("20181231");
+        assertThat(response.getStatus()).isEqualTo(Status.Ready);
+        assertThat(response.getSuccess()).isEqualTo(1024);
+    }
+
+    @Test
+    public void getNumberOfSentMulticastMessages() {
+        whenCall(retrofitMock.getNumberOfSentMulticastMessages(any()),
+                 new NumberOfMessagesResponse(Status.Ready, 1024));
+
+        NumberOfMessagesResponse response = target.getNumberOfSentMulticastMessages("20181231").join();
+        verify(retrofitMock, only()).getNumberOfSentMulticastMessages("20181231");
+        assertThat(response.getStatus()).isEqualTo(Status.Ready);
+        assertThat(response.getSuccess()).isEqualTo(1024);
     }
 
     @Test
