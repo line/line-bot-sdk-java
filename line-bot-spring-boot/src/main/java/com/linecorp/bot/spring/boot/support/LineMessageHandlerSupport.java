@@ -180,8 +180,8 @@ public class LineMessageHandlerSupport {
             dispatchInternal(event);
         } catch (InvocationTargetException e) {
             log.trace("InvocationTargetException occurred.", e);
-            log.error(e.getCause() == null ? e.getMessage() : e.getCause().getMessage(),
-                e.getCause() == null ? e : e.getCause());
+            final Throwable t = e.getCause() == null ? e : e.getCause();
+            log.error(t.getMessage(), t);
         } catch (Error | Exception e) {
             log.error(e.getMessage(), e);
         }
