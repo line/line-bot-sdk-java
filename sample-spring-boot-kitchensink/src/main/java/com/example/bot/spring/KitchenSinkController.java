@@ -48,6 +48,8 @@ import com.linecorp.bot.model.event.BeaconEvent;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
+import com.linecorp.bot.model.event.MemberJoinedEvent;
+import com.linecorp.bot.model.event.MemberLeftEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
@@ -216,6 +218,21 @@ public class KitchenSinkController {
     public void handleBeaconEvent(BeaconEvent event) {
         String replyToken = event.getReplyToken();
         this.replyText(replyToken, "Got beacon message " + event.getBeacon().getHwid());
+    }
+
+    @EventMapping
+    public void handleMemberJoined(MemberJoinedEvent event) {
+        String replyToken = event.getReplyToken();
+        this.replyText(replyToken, "Got memberJoined message " + event.getJoined().getMembers()
+                .stream().map(Source::getUserId)
+                .collect(Collectors.joining(",")));
+    }
+
+    @EventMapping
+    public void handleMemberLeft(MemberLeftEvent event) {
+        log.info("Got memberLeft message: {}", event.getLeft().getMembers()
+                .stream().map(Source::getUserId)
+                .collect(Collectors.joining(",")));
     }
 
     @EventMapping
