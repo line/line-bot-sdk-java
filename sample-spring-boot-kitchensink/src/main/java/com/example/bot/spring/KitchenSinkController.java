@@ -53,6 +53,7 @@ import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
 import com.linecorp.bot.model.event.message.AudioMessageContent;
 import com.linecorp.bot.model.event.message.ContentProvider;
+import com.linecorp.bot.model.event.message.FileMessageContent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
@@ -185,6 +186,14 @@ public class KitchenSinkController {
                     reply(event.getReplyToken(),
                           new VideoMessage(mp4.getUri(), previewImg.uri));
                 });
+    }
+
+    @EventMapping
+    public void handleFileMessageEvent(MessageEvent<FileMessageContent> event) {
+        this.reply(event.getReplyToken(),
+                new TextMessage(String.format("Received '%s'(%d bytes)",
+                        event.getMessage().getFileName(),
+                        event.getMessage().getFileSize())));
     }
 
     @EventMapping
