@@ -24,7 +24,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.stream.Collectors;
 
-import com.linecorp.bot.model.event.source.Source;
 import org.junit.Test;
 import org.springframework.util.StreamUtils;
 
@@ -40,6 +39,7 @@ import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.message.UnknownMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UnknownSource;
 import com.linecorp.bot.model.event.source.UserSource;
 import com.linecorp.bot.model.event.things.ThingsContent;
