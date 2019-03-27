@@ -37,13 +37,13 @@ public class MemberJoinedEvent implements Event, ReplyEvent {
     /**
      * User ID of users who joined
      */
-    private final JoinedObject joined;
+    private final JoinedMembers joined;
 
     @JsonCreator
     public MemberJoinedEvent(
             final String replyToken,
             final Source source,
-            final JoinedObject joined,
+            final JoinedMembers joined,
             final Instant timestamp) {
         this.replyToken = replyToken;
         this.source = source;
@@ -52,12 +52,12 @@ public class MemberJoinedEvent implements Event, ReplyEvent {
     }
 
     @Value
-    public static class JoinedObject {
+    public static class JoinedMembers {
         // User ID of users who joined
         List<Source> members;
 
         @JsonCreator
-        public JoinedObject(List<Source> members) {
+        public JoinedMembers(List<Source> members) {
             this.members = members;
         }
     }

@@ -30,12 +30,12 @@ public class MemberLeftEvent implements Event {
     /**
      * User ID of users who joined
      */
-    private final LeftObject left;
+    private final LeftMembers left;
 
     @JsonCreator
     public MemberLeftEvent(
             final Source source,
-            final LeftObject left,
+            final LeftMembers left,
             final Instant timestamp) {
         this.source = source;
         this.left = left;
@@ -43,12 +43,12 @@ public class MemberLeftEvent implements Event {
     }
 
     @Value
-    public static class LeftObject {
+    public static class LeftMembers {
         // User ID of users who joined
         List<Source> members;
 
         @JsonCreator
-        public LeftObject(List<Source> members) {
+        public LeftMembers(List<Source> members) {
             this.members = members;
         }
     }
