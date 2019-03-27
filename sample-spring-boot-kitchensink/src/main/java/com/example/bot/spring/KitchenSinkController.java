@@ -191,9 +191,9 @@ public class KitchenSinkController {
     @EventMapping
     public void handleFileMessageEvent(MessageEvent<FileMessageContent> event) {
         this.reply(event.getReplyToken(),
-                new TextMessage(String.format("Received '%s'(%d bytes)",
-                        event.getMessage().getFileName(),
-                        event.getMessage().getFileSize())));
+                   new TextMessage(String.format("Received '%s'(%d bytes)",
+                                                 event.getMessage().getFileName(),
+                                                 event.getMessage().getFileSize())));
     }
 
     @EventMapping
@@ -280,28 +280,50 @@ public class KitchenSinkController {
             throws Exception {
         String text = content.getText();
 
-        log.info("Got text message from {}: {}", replyToken, text);
+        log.info("Got text message from replyToken:{}: text:{}", replyToken, text);
         switch (text) {
             case "profile": {
+                log.info("Invoking 'profile' command: source:{}",
+                         event.getSource());
                 String userId = event.getSource().getUserId();
                 if (userId != null) {
-                    lineMessagingClient
-                            .getProfile(userId)
-                            .whenComplete((profile, throwable) -> {
-                                if (throwable != null) {
-                                    this.replyText(replyToken, throwable.getMessage());
-                                    return;
-                                }
+                    if (event.getSource() instanceof GroupSource) {
+                        lineMessagingClient
+                                .getGroupMemberProfile(((GroupSource) event.getSource()).getGroupId(), userId)
+                                .whenComplete((profile, throwable) -> {
+                                    if (throwable != null) {
+                                        this.replyText(replyToken, throwable.getMessage());
+                                        return;
+                                    }
 
-                                this.reply(
-                                        replyToken,
-                                        Arrays.asList(new TextMessage(
-                                                              "Display name: " + profile.getDisplayName()),
-                                                      new TextMessage("Status message: "
-                                                                      + profile.getStatusMessage()))
-                                );
+                                    this.reply(
+                                            replyToken,
+                                            Arrays.asList(new TextMessage("(from group)"),
+                                                          new TextMessage(
+                                                                  "Display name: " + profile.getDisplayName()),
+                                                          new ImageMessage(profile.getPictureUrl(),
+                                                                           profile.getPictureUrl()))
+                                    );
+                                });
+                    } else {
+                        lineMessagingClient
+                                .getProfile(userId)
+                                .whenComplete((profile, throwable) -> {
+                                    if (throwable != null) {
+                                        this.replyText(replyToken, throwable.getMessage());
+                                        return;
+                                    }
 
-                            });
+                                    this.reply(
+                                            replyToken,
+                                            Arrays.asList(new TextMessage(
+                                                                  "Display name: " + profile.getDisplayName()),
+                                                          new TextMessage("Status message: "
+                                                                          + profile.getStatusMessage()))
+                                    );
+
+                                });
+                    }
                 } else {
                     this.replyText(replyToken, "Bot can't use profile API without user ID");
                 }
@@ -463,16 +485,17 @@ public class KitchenSinkController {
                         .baseSize(new ImagemapBaseSize(722, 1040))
                         .video(
                                 ImagemapVideo.builder()
-                                        .originalContentUrl(URI.create(
-                                                createUri("/static/imagemap_video/originalContent.mp4")))
-                                        .previewImageUrl(URI.create(
-                                                createUri("/static/imagemap_video/previewImage.jpg")))
-                                        .area(new ImagemapArea(40, 46, 952, 536))
-                                        .externalLink(
-                                                new ImagemapExternalLink(
-                                                        URI.create("https://example.com/see_more.html"), "See More")
-                                        )
-                                        .build()
+                                             .originalContentUrl(URI.create(
+                                                     createUri("/static/imagemap_video/originalContent.mp4")))
+                                             .previewImageUrl(URI.create(
+                                                     createUri("/static/imagemap_video/previewImage.jpg")))
+                                             .area(new ImagemapArea(40, 46, 952, 536))
+                                             .externalLink(
+                                                     new ImagemapExternalLink(
+                                                             URI.create("https://example.com/see_more.html"),
+                                                             "See More")
+                                             )
+                                             .build()
                         )
                         .actions(Stream.of(
                                 new MessageImagemapAction(
