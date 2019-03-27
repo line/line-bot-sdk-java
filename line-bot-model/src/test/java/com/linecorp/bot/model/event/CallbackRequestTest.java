@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.springframework.util.StreamUtils;
@@ -38,6 +39,7 @@ import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.message.UnknownMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
+import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UnknownSource;
 import com.linecorp.bot.model.event.source.UserSource;
 import com.linecorp.bot.model.event.things.ThingsContent;
@@ -409,6 +411,36 @@ public class CallbackRequestTest {
                     .isEqualTo("t016560bc3fb1e42b9fe9293ca6e2db71");
             assertThat(thingsEvent.getThings().getType())
                     .isEqualTo(ThingsContent.ThingsType.UNLINK);
+        });
+    }
+
+    @Test
+    public void testMemberJoined() throws IOException {
+        parse("callback/member_joined.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event.getSource()).isInstanceOf(GroupSource.class);
+            assertThat(event).isInstanceOf(MemberJoinedEvent.class);
+            MemberJoinedEvent memberJoinedEvent = (MemberJoinedEvent) event;
+            String uids = memberJoinedEvent.getJoined().getMembers().stream()
+                    .map(Source::getUserId)
+                    .collect(Collectors.joining(","));
+            assertThat(uids).isEqualTo("U111111");
+        });
+    }
+
+    @Test
+    public void testMemberLeft() throws IOException {
+        parse("callback/member_left.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event.getSource()).isInstanceOf(GroupSource.class);
+            assertThat(event).isInstanceOf(MemberLeftEvent.class);
+            MemberLeftEvent memberLeftEvent = (MemberLeftEvent) event;
+            String uids = memberLeftEvent.getLeft().getMembers().stream()
+                    .map(Source::getUserId)
+                    .collect(Collectors.joining(","));
+            assertThat(uids).isEqualTo("U111111");
         });
     }
 
