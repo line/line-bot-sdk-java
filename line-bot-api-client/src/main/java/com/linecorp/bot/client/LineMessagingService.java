@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.client;
 
+import java.util.List;
+
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
@@ -25,6 +27,8 @@ import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
+import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
+import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
@@ -201,10 +205,26 @@ interface LineMessagingService {
     /**
      * Method for Retrofit.
      *
+     * @see LineMessagingClient#linkRichMenuIdToUsers(List, String)
+     */
+    @POST("v2/bot/richmenu/bulk/link")
+    Call<Void> linkRichMenuToUsers(@Body RichMenuBlukLinkRequest request);
+
+    /**
+     * Method for Retrofit.
+     *
      * @see LineMessagingClient#unlinkRichMenuIdFromUser(String)
      */
     @DELETE("v2/bot/user/{userId}/richmenu")
     Call<Void> unlinkRichMenuIdFromUser(@Path("userId") String userId);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#unlinkRichMenuIdFromUser(String)
+     */
+    @DELETE("v2/bot/richmenu/bulk/unlink")
+    Call<Void> unlinkRichMenuIdFromUsers(@Body RichMenuBlukUnlinkRequest request);
 
     /**
      * Method for Retrofit.

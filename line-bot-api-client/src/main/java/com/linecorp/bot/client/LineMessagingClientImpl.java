@@ -18,6 +18,7 @@ package com.linecorp.bot.client;
 
 import static java.util.Collections.emptyList;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -31,6 +32,8 @@ import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
+import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
+import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
@@ -160,8 +163,23 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
+    public CompletableFuture<BotApiResponse> linkRichMenuIdToUsers(List<String> userIds, String richMenuId) {
+        return toBotApiFuture(retrofitImpl.linkRichMenuToUsers(RichMenuBlukLinkRequest.builder()
+                                                                                      .richMenuId(richMenuId)
+                                                                                      .userIds(userIds)
+                                                                                      .build()));
+    }
+
+    @Override
     public CompletableFuture<BotApiResponse> unlinkRichMenuIdFromUser(final String userId) {
         return toBotApiFuture(retrofitImpl.unlinkRichMenuIdFromUser(userId));
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> unlinkRichMenuIdFromUsers(List<String> userIds) {
+        return toBotApiFuture(retrofitImpl.unlinkRichMenuIdFromUsers(RichMenuBlukUnlinkRequest.builder()
+                                                                                              .userIds(userIds)
+                                                                                              .build()));
     }
 
     @Override

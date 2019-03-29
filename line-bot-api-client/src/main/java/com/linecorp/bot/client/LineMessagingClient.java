@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.client;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.linecorp.bot.model.Multicast;
@@ -209,11 +210,27 @@ public interface LineMessagingClient {
     CompletableFuture<BotApiResponse> linkRichMenuIdToUser(String userId, String richMenuId);
 
     /**
+     * Link rich menu to users.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#link-rich-menu-to-users">
+     *     Link rich menu to multiple users</a>
+     */
+    CompletableFuture<BotApiResponse> linkRichMenuIdToUsers(List<String> userIds, String richMenuId);
+
+    /**
      * Unlink rich menu from user.
      *
      * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#unlink-rich-menu-from-user">//developers.line.me/en/docs/messaging-api/reference/#unlink-rich-menu-from-user</a>
      */
     CompletableFuture<BotApiResponse> unlinkRichMenuIdFromUser(String userId);
+
+    /**
+     * Unlink rich menu from users.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#unlink-rich-menu-from-users">
+     *     Unlink rich menu to multiple users</a>
+     */
+    CompletableFuture<BotApiResponse> unlinkRichMenuIdFromUsers(List<String> userIds);
 
     /**
      * Download rich menu image.
