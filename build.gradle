@@ -17,7 +17,7 @@
 // ./gradlew clean && ./gradlew uploadArchives -Prelease
 
 buildscript {
-    ext.kotlin_version = '1.3.20'
+    ext.kotlin_version = '1.3.21'
 
     repositories {
         mavenCentral()
@@ -25,15 +25,15 @@ buildscript {
         maven { url 'https://repo.spring.io/plugins-release' }
     }
     dependencies {
-        classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.6'
-        classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.5.2'
-        classpath 'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
+        classpath 'com.puppycrawl.tools:checkstyle:8.19'
+        classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.7.1'
+        classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:2.0.0'
+        classpath 'io.franzbecker:gradle-lombok:2.1'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.7.RELEASE'
         classpath 'io.spring.gradle:propdeps-plugin:0.0.10.RELEASE'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE'
-        classpath 'io.franzbecker:gradle-lombok:1.14'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.3.RELEASE'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.puppycrawl.tools:checkstyle:8.15'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
     }
 }
 
@@ -88,15 +88,15 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
-    ext['guava.version'] = '27.0.1-jre'
-    ext['okhttp3.version'] = '3.12.0'
+    ext['guava.version'] = '27.1-jre'
+    ext['okhttp3.version'] = '3.14.0'
     ext['retrofit.version'] = '2.5.0'
 
     dependencyManagement {
         if (project.name != 'test-boot1-compatibility') {
             imports {
                 mavenBom 'io.spring.platform:platform-bom:Cairo-RELEASE'
-                mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.1.RELEASE'
+                mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.3.RELEASE'
             }
         }
 
@@ -108,8 +108,8 @@ subprojects {
                 entry 'converter-jackson'
                 entry 'retrofit'
             }
-            dependency 'org.assertj:assertj-core:3.11.1'
-            dependency 'org.projectlombok:lombok:1.18.4'
+            dependency 'org.assertj:assertj-core:3.12.1'
+            dependency 'org.projectlombok:lombok:1.18.6'
         }
     }
 
@@ -200,7 +200,7 @@ subprojects {
 
     checkstyle {
         configProperties = [projectDir: rootProject.projectDir]
-        toolVersion = '8.15'
+        toolVersion = '8.19'
     }
 
     spotbugs {
