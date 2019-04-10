@@ -113,7 +113,7 @@ Community Q&A: https://www.line-community.me/questions
 
 News: https://developers.line.biz/en/news/
 
-Twitter: @LINE_DEV 
+Twitter: [@LINE_DEV](https://twitter.com/LINE_DEV) 
 
 
 ## Versioning
