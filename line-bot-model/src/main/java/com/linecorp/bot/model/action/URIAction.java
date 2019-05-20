@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.action;
 
+import java.net.URI;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -48,11 +50,37 @@ public class URIAction implements Action {
      */
     private final String uri;
 
+    /**
+     * URI that opened on LINE desktop clients when the action is performed. If this property is set,
+     * {@link #uri} is ignored on LINE for macOS and Windows.
+     */
+    private final AltUri altUri;
+
     @JsonCreator
     public URIAction(
             @JsonProperty("label") String label,
-            @JsonProperty("uri") String uri) {
+            @JsonProperty("uri") String uri,
+            @JsonProperty("altUri") AltUri altUri) {
         this.label = label;
         this.uri = uri;
+        this.altUri = altUri;
+    }
+
+    /**
+     * An optional uris that will be opened on LINE desktop clients.
+     */
+    @Value
+    public static class AltUri {
+        /**
+         * URI opened on LINE for macOS and Windows when the action is performed.
+         * The available schemes are http, https, line, and tel.
+         * (Max: 1000 characters).
+         */
+        URI desktop;
+
+        @JsonCreator
+        public AltUri(@JsonProperty("desktop") URI desktop) {
+            this.desktop = desktop;
+        }
     }
 }

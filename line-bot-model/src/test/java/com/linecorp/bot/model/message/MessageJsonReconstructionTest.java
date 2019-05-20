@@ -37,6 +37,7 @@ import com.linecorp.bot.model.action.LocationAction;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
+import com.linecorp.bot.model.action.URIAction.AltUri;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
 import com.linecorp.bot.model.message.quickreply.QuickReply;
 import com.linecorp.bot.model.message.quickreply.QuickReplyItem;
@@ -146,7 +147,8 @@ public class MessageJsonReconstructionTest {
     public void templateMessageWithConfirmTemplateTest() {
         final ConfirmTemplate confirmTemplate =
                 new ConfirmTemplate("text",
-                                    new URIAction("label", "http://example.com"),
+                                    new URIAction("label", "http://example.com",
+                                                  new AltUri(URI.create("http://example.com/desktop"))),
                                     new MessageAction("label", "text"));
         test(new TemplateMessage("ALT", confirmTemplate));
     }
