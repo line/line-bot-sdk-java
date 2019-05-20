@@ -18,9 +18,11 @@ package com.linecorp.bot.model.message;
 
 import static java.util.Arrays.asList;
 
+import java.net.URI;
 import java.util.function.Supplier;
 
 import com.linecorp.bot.model.action.URIAction;
+import com.linecorp.bot.model.action.URIAction.AltUri;
 import com.linecorp.bot.model.message.flex.component.Box;
 import com.linecorp.bot.model.message.flex.component.Button;
 import com.linecorp.bot.model.message.flex.component.Button.ButtonHeight;
@@ -49,7 +51,8 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                      .size(ImageSize.FULL_WIDTH)
                      .aspectRatio(ImageAspectRatio.R20TO13)
                      .aspectMode(ImageAspectMode.Cover)
-                     .action(new URIAction("label", "http://example.com"))
+                     .action(new URIAction("label", "http://example.com",
+                                           new AltUri(URI.create("http://example.com/desktop"))))
                      .build();
 
         final Box bodyBlock = createBodyBlock();
@@ -70,14 +73,16 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                 .builder()
                 .style(ButtonStyle.LINK)
                 .height(ButtonHeight.SMALL)
-                .action(new URIAction("CALL", "tel:000000"))
+                .action(new URIAction("CALL", "tel:000000",
+                                      new AltUri(URI.create("tel:111111"))))
                 .build();
         final Separator separator = Separator.builder().build();
         final Button websiteAction =
                 Button.builder()
                       .style(ButtonStyle.LINK)
                       .height(ButtonHeight.SMALL)
-                      .action(new URIAction("WEBSITE", "https://example.com"))
+                      .action(new URIAction("WEBSITE", "https://example.com",
+                                            new AltUri(URI.create("https://example.com/desktop"))))
                       .build();
 
         return Box.builder()
@@ -149,7 +154,8 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                                .maxLines(10)
                                .build()
                    ))
-                   .action(new URIAction("url", "https://example.com/"))
+                   .action(new URIAction("url", "https://example.com/",
+                                         new AltUri(URI.create("https://example.com/desktop"))))
                    .build();
 
         return Box.builder()
@@ -157,7 +163,8 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                   .margin(FlexMarginSize.LG)
                   .spacing(FlexMarginSize.SM)
                   .contents(asList(place, time))
-                  .action(new URIAction("url", "https://example.com/"))
+                  .action(new URIAction("url", "https://example.com/",
+                                        new AltUri(URI.create("https://example.com/desktop"))))
                   .build();
     }
 
