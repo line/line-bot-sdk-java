@@ -106,12 +106,10 @@ public class LineOAuthClientBuilder {
     private List<Interceptor> additionalInterceptors = new ArrayList<>();
 
     /**
-     * Set customized OkHttpClient.Builder.
+     * Set customized {@link OkHttpClient.Builder}.
      *
      * <p>In case of you need your own customized {@link OkHttpClient},
      * this builder allows specify {@link OkHttpClient.Builder} instance.
-     *
-     * <p>To use this method, please add dependency to 'com.squareup.retrofit2:retrofit'.
      */
     public LineOAuthClientBuilder okHttpClientBuilder(@NonNull OkHttpClient.Builder okHttpClientBuilder) {
         this.okHttpClientBuilder = okHttpClientBuilder;

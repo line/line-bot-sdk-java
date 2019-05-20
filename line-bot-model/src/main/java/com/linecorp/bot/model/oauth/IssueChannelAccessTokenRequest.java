@@ -23,7 +23,7 @@ import lombok.Value;
 @Builder
 public class IssueChannelAccessTokenRequest {
     /**
-     * Access token gran type.
+     * Access token grant type.
      */
     @Builder.Default
     String grantType = "client_credentials";
