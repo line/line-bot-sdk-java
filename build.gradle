@@ -17,7 +17,7 @@
 // ./gradlew clean && ./gradlew uploadArchives -Prelease
 
 buildscript {
-    ext.kotlin_version = '1.3.21'
+    ext.kotlin_version = '1.3.31'
 
     repositories {
         mavenCentral()
@@ -26,10 +26,10 @@ buildscript {
     }
     dependencies {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
-        classpath 'com.puppycrawl.tools:checkstyle:8.19'
-        classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.7.1'
+        classpath 'com.puppycrawl.tools:checkstyle:8.20'
+        classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:2.0.0'
         classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:2.0.0'
-        classpath 'io.franzbecker:gradle-lombok:2.1'
+        classpath 'io.franzbecker:gradle-lombok:3.0.0'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.7.RELEASE'
         classpath 'io.spring.gradle:propdeps-plugin:0.0.10.RELEASE'
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.3.RELEASE'
@@ -89,14 +89,14 @@ subprojects {
     version = rootProject.version
 
     ext['guava.version'] = '27.1-jre'
-    ext['okhttp3.version'] = '3.14.0'
+    ext['okhttp3.version'] = '3.14.2'
     ext['retrofit.version'] = '2.5.0'
 
     dependencyManagement {
         if (project.name != 'test-boot1-compatibility') {
             imports {
                 mavenBom 'io.spring.platform:platform-bom:Cairo-RELEASE'
-                mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.3.RELEASE'
+                mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.5.RELEASE'
             }
         }
 
@@ -109,7 +109,7 @@ subprojects {
                 entry 'retrofit'
             }
             dependency 'org.assertj:assertj-core:3.12.1'
-            dependency 'org.projectlombok:lombok:1.18.6'
+            dependency 'org.projectlombok:lombok:1.18.8'
         }
     }
 
@@ -162,7 +162,7 @@ subprojects {
     }
 
     lombok {
-        version = '1.18.4'
+        version = '1.18.8'
     }
 
     if (!project.name.startsWith('sample-') && !project.name.startsWith('test-')) {
@@ -200,7 +200,7 @@ subprojects {
 
     checkstyle {
         configProperties = [projectDir: rootProject.projectDir]
-        toolVersion = '8.19'
+        toolVersion = '8.20'
     }
 
     spotbugs {
