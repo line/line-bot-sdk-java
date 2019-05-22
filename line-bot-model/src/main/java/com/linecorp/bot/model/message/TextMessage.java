@@ -48,5 +48,6 @@ public class TextMessage implements Message {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class TextMessageBuilder {}
+    public static class TextMessageBuilder {
+    }
 }

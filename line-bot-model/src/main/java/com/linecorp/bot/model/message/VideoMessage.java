@@ -72,5 +72,6 @@ public class VideoMessage implements Message {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class VideoMessageBuilder {}
+    public static class VideoMessageBuilder {
+    }
 }

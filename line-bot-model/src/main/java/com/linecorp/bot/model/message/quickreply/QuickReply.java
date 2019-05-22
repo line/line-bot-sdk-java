@@ -48,5 +48,6 @@ public class QuickReply {
     List<QuickReplyItem> items;
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class QuickReplyBuilder {}
+    public static class QuickReplyBuilder {
+    }
 }

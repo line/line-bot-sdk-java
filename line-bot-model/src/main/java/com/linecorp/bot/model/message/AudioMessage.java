@@ -62,5 +62,6 @@ public class AudioMessage implements Message {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class AudioMessageBuilder {}
+    public static class AudioMessageBuilder {
+    }
 }

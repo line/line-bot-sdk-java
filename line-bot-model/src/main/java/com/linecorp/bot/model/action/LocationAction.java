@@ -47,5 +47,6 @@ public class LocationAction implements Action {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class LocationActionBuilder {}
+    public static class LocationActionBuilder {
+    }
 }

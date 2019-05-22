@@ -93,5 +93,6 @@ public class ImagemapMessage implements Message {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class ImagemapMessageBuilder {}
+    public static class ImagemapMessageBuilder {
+    }
 }

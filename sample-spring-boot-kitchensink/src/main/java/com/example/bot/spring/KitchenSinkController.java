@@ -377,7 +377,7 @@ public class KitchenSinkController {
                         "Hello, my button",
                         Arrays.asList(
                                 new URIAction("Go to line.me",
-                                              "https://line.me"),
+                                              "https://line.me", null),
                                 new PostbackAction("Say hello1",
                                                    "hello こんにちは"),
                                 new PostbackAction("言 hello2",
@@ -396,9 +396,9 @@ public class KitchenSinkController {
                         Arrays.asList(
                                 new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
                                         new URIAction("Go to line.me",
-                                                      "https://line.me"),
+                                                      "https://line.me", null),
                                         new URIAction("Go to line.me",
-                                                      "https://line.me"),
+                                                      "https://line.me", null),
                                         new PostbackAction("Say hello1",
                                                            "hello こんにちは")
                                 )),
@@ -444,7 +444,7 @@ public class KitchenSinkController {
                         Arrays.asList(
                                 new ImageCarouselColumn(imageUrl,
                                                         new URIAction("Goto line.me",
-                                                                      "https://line.me")
+                                                                      "https://line.me", null)
                                 ),
                                 new ImageCarouselColumn(imageUrl,
                                                         new MessageAction("Say message",
