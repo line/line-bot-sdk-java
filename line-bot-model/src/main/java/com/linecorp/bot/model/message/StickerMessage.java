@@ -61,5 +61,6 @@ public class StickerMessage implements Message {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class StickerMessageBuilder {}
+    public static class StickerMessageBuilder {
+    }
 }

@@ -62,5 +62,6 @@ public class FlexMessage implements Message {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class FlexMessageBuilder {}
+    public static class FlexMessageBuilder {
+    }
 }

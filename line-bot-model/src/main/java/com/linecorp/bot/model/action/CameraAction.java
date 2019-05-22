@@ -47,5 +47,6 @@ public class CameraAction implements Action {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class CameraActionBuilder {}
+    public static class CameraActionBuilder {
+    }
 }

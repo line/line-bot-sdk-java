@@ -50,5 +50,6 @@ public class ImageMessage implements Message {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class ImageMessageBuilder {}
+    public static class ImageMessageBuilder {
+    }
 }

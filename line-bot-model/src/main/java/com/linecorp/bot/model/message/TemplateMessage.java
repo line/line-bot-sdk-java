@@ -60,5 +60,6 @@ public class TemplateMessage implements Message {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class TemplateMessageBuilder {}
+    public static class TemplateMessageBuilder {
+    }
 }

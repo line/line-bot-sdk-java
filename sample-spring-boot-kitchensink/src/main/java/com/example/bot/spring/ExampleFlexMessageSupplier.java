@@ -49,7 +49,7 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                      .size(ImageSize.FULL_WIDTH)
                      .aspectRatio(ImageAspectRatio.R20TO13)
                      .aspectMode(ImageAspectMode.Cover)
-                     .action(new URIAction("label", "http://example.com"))
+                     .action(new URIAction("label", "http://example.com", null))
                      .build();
 
         final Box bodyBlock = createBodyBlock();
@@ -70,14 +70,14 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                 .builder()
                 .style(ButtonStyle.LINK)
                 .height(ButtonHeight.SMALL)
-                .action(new URIAction("CALL", "tel:000000"))
+                .action(new URIAction("CALL", "tel:000000", null))
                 .build();
         final Separator separator = Separator.builder().build();
         final Button websiteAction =
                 Button.builder()
                       .style(ButtonStyle.LINK)
                       .height(ButtonHeight.SMALL)
-                      .action(new URIAction("WEBSITE", "https://example.com"))
+                      .action(new URIAction("WEBSITE", "https://example.com", null))
                       .build();
 
         return Box.builder()

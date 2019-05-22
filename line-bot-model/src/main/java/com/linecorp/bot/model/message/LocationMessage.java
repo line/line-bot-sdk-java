@@ -69,5 +69,6 @@ public class LocationMessage implements Message {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class LocationMessageBuilder {}
+    public static class LocationMessageBuilder {
+    }
 }
