@@ -44,6 +44,13 @@ public class LineOAuthClientTest {
     }
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final String ISSUE_TOKEN_RESPONSE_JSON =
+            "{\"access_token\":\"accessToken\",\"expires_in\":30,\"token_type\":\"Bearer\"}";
+    private static final IssueChannelAccessTokenResponse ISSUE_TOKEN_RESPONSE =
+            IssueChannelAccessTokenResponse.builder()
+                                           .expiresInSecs(30)
+                                           .accessToken("accessToken")
+                                           .build();
 
     private MockWebServer mockWebServer;
     private LineOAuthClient target;
@@ -64,15 +71,10 @@ public class LineOAuthClientTest {
 
     @Test
     public void issueToken() throws Exception {
-        final IssueChannelAccessTokenResponse mockResponse =
-                IssueChannelAccessTokenResponse.builder()
-                                               .expiresInSecs(30)
-                                               .accessToken("accessToken")
-                                               .build();
 
         mockWebServer.enqueue(new MockResponse()
                                       .setResponseCode(200)
-                                      .setBody(OBJECT_MAPPER.writeValueAsString(mockResponse)));
+                                      .setBody(ISSUE_TOKEN_RESPONSE_JSON));
 
         // Do
         final IssueChannelAccessTokenResponse actualResponse =
@@ -88,7 +90,7 @@ public class LineOAuthClientTest {
                 .isEqualTo("/v2/oauth/accessToken");
         assertThat(recordedRequest.getBody().readUtf8())
                 .isEqualTo("grant_type=client_credentials&client_id=clientId&client_secret=clientSecret");
-        assertThat(actualResponse).isEqualTo(mockResponse);
+        assertThat(actualResponse).isEqualTo(ISSUE_TOKEN_RESPONSE);
     }
 
     @Test
