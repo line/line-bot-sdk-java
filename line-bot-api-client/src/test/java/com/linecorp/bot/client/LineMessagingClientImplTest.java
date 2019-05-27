@@ -47,6 +47,7 @@ import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse.Status;
+import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
@@ -138,6 +139,16 @@ public class LineMessagingClientImplTest {
     }
 
     @Test
+    public void getMessageQuotaConsumption() {
+        whenCall(retrofitMock.getMessageQuotaConsumption(),
+                 new QuotaConsumptionResponse(1024));
+
+        QuotaConsumptionResponse response = target.getMessageQuotaConsumption().join();
+        verify(retrofitMock, only()).getMessageQuotaConsumption();
+        assertThat(response.getTotalUsage()).isEqualTo(1024);
+    }
+
+    @Test
     public void getNumberOfSentReplyMessages() {
         whenCall(retrofitMock.getNumberOfSentReplyMessages(any()),
                  new NumberOfMessagesResponse(Status.Ready, 1024));
@@ -166,6 +177,17 @@ public class LineMessagingClientImplTest {
 
         NumberOfMessagesResponse response = target.getNumberOfSentMulticastMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentMulticastMessages("20181231");
+        assertThat(response.getStatus()).isEqualTo(Status.Ready);
+        assertThat(response.getSuccess()).isEqualTo(1024);
+    }
+
+    @Test
+    public void getNumberOfSentBroadcastMessages() {
+        whenCall(retrofitMock.getNumberOfSentBroadcastMessages(any()),
+                 new NumberOfMessagesResponse(Status.Ready, 1024));
+
+        NumberOfMessagesResponse response = target.getNumberOfSentBroadcastMessages("20181231").join();
+        verify(retrofitMock, only()).getNumberOfSentBroadcastMessages("20181231");
         assertThat(response.getStatus()).isEqualTo(Status.Ready);
         assertThat(response.getSuccess()).isEqualTo(1024);
     }

@@ -26,6 +26,7 @@ import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
+import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
@@ -83,6 +84,16 @@ interface LineMessagingService {
     Call<ResponseBody> getMessageContent(@Path("messageId") String messageId);
 
     /**
+     * Gets the number of messages sent in the current month. The number of messages retrieved by this
+     * operation includes the number of messages sent from LINE Official Account Manager. The number of
+     * messages retrieved by this operation is approximate. To get the correct number of sent messages,
+     * use LINE Official Account Manager or execute API operations for getting the number of sent messages.
+     * Note: LINE@ accounts cannot call this API endpoint.
+     */
+    @GET("v2/bot/message/quota/consumption")
+    Call<QuotaConsumptionResponse> getMessageQuotaConsumption();
+
+    /**
      * Gets the number of messages sent with the /bot/message/reply endpoint. Note that the number of messages
      * retrieved by this operation does not include the number of messages sent from LINE@ Manager.
      *
@@ -111,6 +122,20 @@ interface LineMessagingService {
      */
     @GET("v2/bot/message/delivery/multicast")
     Call<NumberOfMessagesResponse> getNumberOfSentMulticastMessages(@Query("date") String date);
+
+    /**
+     * Gets the number of messages sent with the {@code "/bot/message/broadcast"} endpoint. The number of
+     * messages retrieved by this operation does not include the number of messages sent from LINE Official
+     * Account Manager.
+     * Note: LINE@ accounts cannot call this API endpoint. Please migrate it to a LINE official account.
+     * For more information, see <a href="https://developers.line.biz/en/docs/messaging-api/migrating-line-at/">
+     * Migration of LINE@ accounts</a>.
+     *
+     * @param date Date the messages were sent. The format should be {@code yyyyMMdd} (for Example:
+     *             {@literal "20191231"}) and the timezone should be UTC+9.
+     */
+    @GET("v2/bot/message/delivery/broadcast")
+    Call<NumberOfMessagesResponse> getNumberOfSentBroadcastMessages(String date);
 
     /**
      * Method for Retrofit.
