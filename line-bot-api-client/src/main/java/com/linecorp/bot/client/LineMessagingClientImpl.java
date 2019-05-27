@@ -31,6 +31,7 @@ import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
+import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
@@ -83,6 +84,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
+    public CompletableFuture<QuotaConsumptionResponse> getMessageQuotaConsumption() {
+        return toFuture(retrofitImpl.getMessageQuotaConsumption());
+    }
+
+    @Override
     public CompletableFuture<NumberOfMessagesResponse> getNumberOfSentReplyMessages(String date) {
         return toFuture(retrofitImpl.getNumberOfSentReplyMessages(date));
     }
@@ -95,6 +101,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<NumberOfMessagesResponse> getNumberOfSentMulticastMessages(String date) {
         return toFuture(retrofitImpl.getNumberOfSentMulticastMessages(date));
+    }
+
+    @Override
+    public CompletableFuture<NumberOfMessagesResponse> getNumberOfSentBroadcastMessages(String date) {
+        return toFuture(retrofitImpl.getNumberOfSentBroadcastMessages(date));
     }
 
     @Override
