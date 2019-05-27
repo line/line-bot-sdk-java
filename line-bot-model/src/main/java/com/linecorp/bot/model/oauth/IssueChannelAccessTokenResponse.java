@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model.oauth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -31,17 +32,20 @@ public class IssueChannelAccessTokenResponse {
     /**
      * A short-lived channel access token. Valid for 30 days. Note: Channel access tokens cannot be refreshed.
      */
+    @JsonProperty("access_token")
     String accessToken;
 
     /**
      * Time until channel access token expires in seconds from time the token is issued.
      */
+    @JsonProperty("expires_in")
     int expiresInSecs;
 
     /**
      * A token type.
      */
     @Builder.Default
+    @JsonProperty("token_type")
     String tokenType = "Bearer";
 
     @JsonPOJOBuilder(withPrefix = "")
