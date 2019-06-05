@@ -19,6 +19,7 @@ package com.linecorp.bot.client;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
@@ -73,6 +74,14 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#send-multicast-messages">//developers.line.me/en/reference/messaging-api/#send-multicast-messages</a>
      */
     CompletableFuture<BotApiResponse> multicast(Multicast multicast);
+
+    /**
+     * Sends push messages to multiple users at any time.
+     * Note: LINE@ accounts cannot call this API endpoint. Please migrate it to a LINE official account.
+     * For more information, see <a href="https://developers.line.biz/en/docs/messaging-api/migrating-line-at/">
+     * Migration of LINE@ accounts</a>.
+     */
+    CompletableFuture<BotApiResponse> broadcast(Broadcast broadcast);
 
     /**
      * Download image, video, and audio data sent from users.

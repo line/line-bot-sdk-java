@@ -30,6 +30,7 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.action.CameraAction;
 import com.linecorp.bot.model.action.CameraRollAction;
@@ -173,6 +174,13 @@ public class MessageJsonReconstructionTest {
                 new Multicast(singleton("LINE_ID"), singletonList(new TextMessage("text")));
 
         test(multicast);
+    }
+
+    @Test
+    public void broadcast() {
+        final Broadcast broadcast = new Broadcast(singletonList(new TextMessage("text")), true);
+
+        test(broadcast);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
