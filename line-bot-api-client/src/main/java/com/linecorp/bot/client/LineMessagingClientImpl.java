@@ -30,6 +30,7 @@ import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
+import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
@@ -81,6 +82,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<MessageContentResponse> getMessageContent(final String messageId) {
         return toMessageContentResponseFuture(retrofitImpl.getMessageContent(messageId));
+    }
+
+    @Override
+    public CompletableFuture<MessageQuotaResponse> getMessageQuota() {
+        return toFuture(retrofitImpl.getMessageQuota());
     }
 
     @Override
