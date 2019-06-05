@@ -18,6 +18,7 @@ package com.linecorp.bot.client;
 
 import java.util.List;
 
+import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
@@ -74,6 +75,12 @@ interface LineMessagingService {
      */
     @POST("v2/bot/message/multicast")
     Call<BotApiResponse> multicast(@Body Multicast multicast);
+
+    /**
+     * Sends push messages to multiple users at any time.
+     */
+    @POST("v2/bot/message/broadcast")
+    Call<BotApiResponse> broadcast(@Body Broadcast broadcast);
 
     /**
      * Method for Retrofit.

@@ -37,6 +37,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.mockito.stubbing.OngoingStubbing;
 
+import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
@@ -123,6 +124,16 @@ public class LineMessagingClientImplTest {
 
         // Verify
         verify(retrofitMock, only()).multicast(multicast);
+        assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
+    public void broadcast() {
+        whenCall(retrofitMock.broadcast(any()), BOT_API_SUCCESS_RESPONSE);
+        final Broadcast broadcast = new Broadcast(Collections.singletonList(new TextMessage("text")), true);
+
+        final BotApiResponse botApiResponse = target.broadcast(broadcast).join();
+        verify(retrofitMock).broadcast(broadcast);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 

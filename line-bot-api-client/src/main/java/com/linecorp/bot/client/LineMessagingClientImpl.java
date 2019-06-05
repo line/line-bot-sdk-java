@@ -23,6 +23,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
+import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
@@ -77,6 +78,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<BotApiResponse> multicast(final Multicast multicast) {
         return toFuture(retrofitImpl.multicast(multicast));
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> broadcast(Broadcast broadcast) {
+        return toFuture(retrofitImpl.broadcast(broadcast));
     }
 
     @Override
