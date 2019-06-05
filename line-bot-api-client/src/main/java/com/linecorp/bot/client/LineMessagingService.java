@@ -25,6 +25,7 @@ import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
+import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
@@ -82,6 +83,16 @@ interface LineMessagingService {
     @Streaming
     @GET("v2/bot/message/{messageId}/content")
     Call<ResponseBody> getMessageContent(@Path("messageId") String messageId);
+
+    /**
+     * Gets the target limit for additional messages in the current month. The number of messages retrieved by
+     * this operation includes the number of messages sent from LINE Official Account Manager.
+     * Set a target limit with LINE Official Account Manager. For the procedures, refer to the LINE Official
+     * Account Manager manual.
+     * Note: LINE@ accounts cannot call this API endpoint.
+     */
+    @GET("v2/bot/message/quota")
+    Call<MessageQuotaResponse> getMessageQuota();
 
     /**
      * Gets the number of messages sent in the current month. The number of messages retrieved by this

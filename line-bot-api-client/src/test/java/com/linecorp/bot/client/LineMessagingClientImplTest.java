@@ -45,6 +45,8 @@ import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
+import com.linecorp.bot.model.response.MessageQuotaResponse;
+import com.linecorp.bot.model.response.MessageQuotaResponse.QuotaType;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse.Status;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
@@ -136,6 +138,32 @@ public class LineMessagingClientImplTest {
         verify(retrofitMock, only()).getMessageContent("ID");
         assertThat(contentResponse.getLength()).isEqualTo(0);
         assertThat(contentResponse.getMimeType()).isEqualTo("image/jpeg");
+    }
+
+    @Test
+    public void getMessageQuota() {
+        whenCall(retrofitMock.getMessageQuota(),
+                 MessageQuotaResponse.builder()
+                                     .type(QuotaType.none)
+                                     .build());
+
+        MessageQuotaResponse response = target.getMessageQuota().join();
+        verify(retrofitMock, only()).getMessageQuota();
+        assertThat(response.getType()).isEqualTo(QuotaType.none);
+    }
+
+    @Test
+    public void getMessageQuota_limited() {
+        whenCall(retrofitMock.getMessageQuota(),
+                 MessageQuotaResponse.builder()
+                                     .type(QuotaType.limited)
+                                     .value(100)
+                                     .build());
+
+        MessageQuotaResponse response = target.getMessageQuota().join();
+        verify(retrofitMock, only()).getMessageQuota();
+        assertThat(response.getType()).isEqualTo(QuotaType.limited);
+        assertThat(response.getValue()).isEqualTo(100);
     }
 
     @Test
