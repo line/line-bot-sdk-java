@@ -31,7 +31,6 @@ public class AudioMessageContent implements MessageContent {
     private final ContentProvider contentProvider;
     private final Integer duration;
 
-
     @JsonCreator
     public AudioMessageContent(final String id,
                                final Integer duration,
