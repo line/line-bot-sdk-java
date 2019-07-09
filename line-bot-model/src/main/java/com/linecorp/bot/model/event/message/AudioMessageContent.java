@@ -29,11 +29,15 @@ import lombok.Value;
 public class AudioMessageContent implements MessageContent {
     private final String id;
     private final ContentProvider contentProvider;
+    private final Integer duration;
+
 
     @JsonCreator
     public AudioMessageContent(final String id,
+                               final Integer duration,
                                final ContentProvider contentProvider) {
         this.id = id;
         this.contentProvider = contentProvider;
+        this.duration = duration;
     }
 }
