@@ -30,6 +30,7 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
@@ -240,6 +241,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<IssueLinkTokenResponse> issueLinkToken(String userId) {
         return toFuture(retrofitImpl.issueLinkToken(userId));
+    }
+
+    @Override
+    public CompletableFuture<GetNumberOfMessageDeliveriesResponse> getNumberOfMessageDeliveries(String date) {
+        return toFuture(retrofitImpl.getNumberOfMessageDeliveries(date));
     }
 
     // TODO: Extract this method.

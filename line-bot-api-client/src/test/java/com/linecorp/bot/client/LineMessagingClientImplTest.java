@@ -45,12 +45,13 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse.QuotaType;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
-import com.linecorp.bot.model.response.NumberOfMessagesResponse.Status;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.Status;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
@@ -511,6 +512,20 @@ public class LineMessagingClientImplTest {
         final IssueLinkTokenResponse response = target.issueLinkToken("ID").get();
         verify(retrofitMock, only()).issueLinkToken("ID");
         assertThat(response).isEqualTo(new IssueLinkTokenResponse("ID"));
+    }
+
+    @Test
+    public void getNumberOfMessageDeliveries() throws Exception {
+        final GetNumberOfMessageDeliveriesResponse response = GetNumberOfMessageDeliveriesResponse
+                .builder()
+                .status(Status.Ready)
+                .apiBroadcast(1L)
+                .build();
+        whenCall(retrofitMock.getNumberOfMessageDeliveries(any()), response);
+        final GetNumberOfMessageDeliveriesResponse actual =
+                target.getNumberOfMessageDeliveries("20190805").get();
+        verify(retrofitMock, only()).getNumberOfMessageDeliveries("20190805");
+        assertThat(actual).isEqualTo(response);
     }
 
     // Utility methods
