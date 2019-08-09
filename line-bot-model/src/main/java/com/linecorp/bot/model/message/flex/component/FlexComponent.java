@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
 @JsonSubTypes({
         @JsonSubTypes.Type(Text.class),
+        @JsonSubTypes.Type(Span.class),
         @JsonSubTypes.Type(Image.class),
         @JsonSubTypes.Type(Box.class),
         @JsonSubTypes.Type(Separator.class),

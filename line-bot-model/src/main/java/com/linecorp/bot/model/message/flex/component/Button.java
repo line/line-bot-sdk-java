@@ -25,6 +25,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.message.flex.unit.FlexGravity;
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
+import com.linecorp.bot.model.message.flex.unit.FlexOffsetSize;
+import com.linecorp.bot.model.message.flex.unit.FlexPosition;
 
 import lombok.Builder;
 import lombok.Value;
@@ -63,6 +65,16 @@ public class Button implements FlexComponent {
 
     private FlexMarginSize margin;
 
+    private FlexPosition position;
+
+    private String offsetTop;
+
+    private String offsetBottom;
+
+    private String offsetStart;
+
+    private String offsetEnd;
+
     private ButtonHeight height;
 
     @JsonCreator
@@ -73,6 +85,11 @@ public class Button implements FlexComponent {
             @JsonProperty("action") Action action,
             @JsonProperty("gravity") FlexGravity gravity,
             @JsonProperty("margin") FlexMarginSize margin,
+            @JsonProperty("position") FlexPosition position,
+            @JsonProperty("offsetTop") String offsetTop,
+            @JsonProperty("offsetBottom") String offsetBottom,
+            @JsonProperty("offsetStart") String offsetStart,
+            @JsonProperty("offsetEnd") String offsetEnd,
             @JsonProperty("height") ButtonHeight height) {
         this.flex = flex;
         this.color = color;
@@ -80,6 +97,55 @@ public class Button implements FlexComponent {
         this.action = action;
         this.gravity = gravity;
         this.margin = margin;
+        this.position = position;
+        this.offsetTop = offsetTop;
+        this.offsetBottom = offsetBottom;
+        this.offsetStart = offsetStart;
+        this.offsetEnd = offsetEnd;
         this.height = height;
+    }
+
+    public static class ButtonBuilder {
+
+        public ButtonBuilder offsetTop(FlexOffsetSize offset) {
+            offsetTop = offset.getPropertyValue();
+            return this;
+        }
+
+        public ButtonBuilder offsetTop(String offset) {
+            offsetTop = offset;
+            return this;
+        }
+
+        public ButtonBuilder offsetBottom(FlexOffsetSize offset) {
+            offsetBottom = offset.getPropertyValue();
+            return this;
+        }
+
+        public ButtonBuilder offsetBottom(String offset) {
+            offsetBottom = offset;
+            return this;
+        }
+
+        public ButtonBuilder offsetStart(FlexOffsetSize offset) {
+            offsetStart = offset.getPropertyValue();
+            return this;
+        }
+
+        public ButtonBuilder offsetStart(String offset) {
+            offsetStart = offset;
+            return this;
+        }
+
+        public ButtonBuilder offsetEnd(FlexOffsetSize offset) {
+            offsetEnd = offset.getPropertyValue();
+            return this;
+        }
+
+        public ButtonBuilder offsetEnd(String offset) {
+            offsetEnd = offset;
+            return this;
+        }
+
     }
 }

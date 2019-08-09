@@ -22,8 +22,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.message.flex.component.Box;
-import com.linecorp.bot.model.message.flex.component.Image;
+import com.linecorp.bot.model.message.flex.component.FlexComponent;
 import com.linecorp.bot.model.message.flex.unit.FlexDirection;
 
 import lombok.Builder;
@@ -35,31 +36,53 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class Bubble implements FlexContainer {
 
+    public enum BubbleSize {
+        @JsonProperty("nano")
+        NANO,
+        @JsonProperty("micro")
+        MICRO,
+        @JsonProperty("kilo")
+        KILO,
+        @JsonProperty("mega")
+        MEGA,
+        @JsonProperty("giga")
+        GIGA
+    }
+
     private final FlexDirection direction;
 
     private final BubbleStyles styles;
 
     private final Box header;
 
-    private final Image hero;
+    private final FlexComponent hero;
 
     private final Box body;
 
     private final Box footer;
+
+    private final BubbleSize size;
+
+    private final Action action;
 
     @JsonCreator
     public Bubble(
             @JsonProperty("direction") FlexDirection direction,
             @JsonProperty("styles") BubbleStyles styles,
             @JsonProperty("header") Box header,
-            @JsonProperty("hero") Image hero,
+            @JsonProperty("hero") FlexComponent hero,
             @JsonProperty("body") Box body,
-            @JsonProperty("footer") Box footer) {
+            @JsonProperty("footer") Box footer,
+            @JsonProperty("size") BubbleSize size,
+            @JsonProperty("action") Action action) {
         this.direction = direction;
         this.styles = styles;
         this.header = header;
         this.hero = hero;
         this.body = body;
         this.footer = footer;
+        this.size = size;
+        this.action = action;
     }
+
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 LINE Corporation
+ * Copyright 2019 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -14,31 +14,28 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.message.flex.component;
+package com.linecorp.bot.model.message.flex.unit;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Value
-@Builder
-@JsonTypeName("filler")
-@JsonInclude(Include.NON_NULL)
-public class Filler implements FlexComponent {
+@AllArgsConstructor
+@Getter
+public enum FlexBorderWidthSize {
+    @JsonProperty("none")
+    NONE("none"),
+    @JsonProperty("light")
+    LIGHT("light"),
+    @JsonProperty("normal")
+    NORMAL("normal"),
+    @JsonProperty("medium")
+    MEDIUM("medium"),
+    @JsonProperty("semi-bold")
+    SEMI_BOLD("semi-bold"),
+    @JsonProperty("bold")
+    BOLD("bold");
 
-    private Integer flex;
-
-    @JsonCreator
-    public Filler(@JsonProperty("flex") Integer flex) {
-        this.flex = flex;
-    }
-
-    public Filler() {
-        this(null);
-    }
+    private final String propertyValue;
 }
