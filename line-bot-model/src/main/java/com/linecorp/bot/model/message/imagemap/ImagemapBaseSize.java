@@ -16,6 +16,9 @@
 
 package com.linecorp.bot.model.message.imagemap;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Value;
 
 /**
@@ -34,4 +37,11 @@ public class ImagemapBaseSize {
      * Width of base image. Must be 1040px fixed.
      */
     private final int width;
+
+    @JsonCreator
+    public ImagemapBaseSize(@JsonProperty("height") int height,
+                            @JsonProperty("width") int width) {
+        this.height = height;
+        this.width = width;
+    }
 }

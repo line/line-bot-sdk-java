@@ -18,6 +18,7 @@ package com.linecorp.bot.model.event.message;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
 
@@ -46,7 +47,9 @@ public class ContentProvider {
     private final String previewImageUrl;
 
     @JsonCreator
-    public ContentProvider(String type, String originalContentUrl, String previewImageUrl) {
+    public ContentProvider(@JsonProperty("type") String type,
+                           @JsonProperty("originalContentUrl") String originalContentUrl,
+                           @JsonProperty("previewImageUrl") String previewImageUrl) {
         this.type = type;
         this.originalContentUrl = originalContentUrl;
         this.previewImageUrl = previewImageUrl;

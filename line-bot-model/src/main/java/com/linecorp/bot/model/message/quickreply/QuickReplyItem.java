@@ -19,6 +19,8 @@ package com.linecorp.bot.model.message.quickreply;
 import java.net.URI;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.action.Action;
 
@@ -34,6 +36,7 @@ import lombok.Value;
  */
 @Value
 @Builder
+@JsonDeserialize(builder = QuickReplyItem.QuickReplyItemBuilder.class)
 public class QuickReplyItem {
     @JsonProperty("type")
     public String getType() {
@@ -61,4 +64,8 @@ public class QuickReplyItem {
      * Action which is triggered when the quick reply button is tapped.
      */
     Action action;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class QuickReplyItemBuilder {
+    }
 }

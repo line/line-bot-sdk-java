@@ -17,6 +17,7 @@
 package com.linecorp.bot.model.event.message;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
@@ -32,9 +33,9 @@ public class AudioMessageContent implements MessageContent {
     private final Integer duration;
 
     @JsonCreator
-    public AudioMessageContent(final String id,
-                               final Integer duration,
-                               final ContentProvider contentProvider) {
+    public AudioMessageContent(@JsonProperty("id") final String id,
+                               @JsonProperty("duration") final Integer duration,
+                               @JsonProperty("contentProvider") final ContentProvider contentProvider) {
         this.id = id;
         this.contentProvider = contentProvider;
         this.duration = duration;

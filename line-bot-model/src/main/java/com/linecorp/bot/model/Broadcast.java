@@ -19,17 +19,16 @@ package com.linecorp.bot.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.linecorp.bot.model.message.Message;
 
-import lombok.AllArgsConstructor;
 import lombok.Value;
 
 /**
  * Sends push messages to multiple users at any time.
  */
 @Value
-@AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class Broadcast {
 
     /**
@@ -37,7 +36,7 @@ public class Broadcast {
      *
      * <p>Max: 5
      */
-    List<Message> messages;
+    private final List<Message> messages;
 
     /**
      * Whether sends a push notification to message receivers or not. If {@literal true}, the user doesn't
@@ -45,5 +44,12 @@ public class Broadcast {
      * notification when the message is sent (unless they have disabled push notifications in LINE and/or their
      * device).
      */
-    boolean notificationDisabled;
+    private final boolean notificationDisabled;
+
+    @JsonCreator
+    public Broadcast(@JsonProperty("messages") List<Message> messages,
+                     @JsonProperty("notificationDisabled") boolean notificationDisabled) {
+        this.messages = messages;
+        this.notificationDisabled = notificationDisabled;
+    }
 }

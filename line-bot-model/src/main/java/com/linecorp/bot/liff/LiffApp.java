@@ -17,20 +17,26 @@
 package com.linecorp.bot.liff;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.AllArgsConstructor;
 import lombok.Value;
 
 @Value
-@AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class LiffApp {
     /**
      * LIFF app ID.
      */
-    String liffId;
+    private final String liffId;
 
     /**
      * {@link LiffView} object which contains the URL and view size of the LIFF app.
      */
-    LiffView view;
+    private final LiffView view;
+
+    @JsonCreator
+    public LiffApp(@JsonProperty("liffId") String liffId,
+                   @JsonProperty("view") LiffView view) {
+        this.liffId = liffId;
+        this.view = view;
+    }
 }

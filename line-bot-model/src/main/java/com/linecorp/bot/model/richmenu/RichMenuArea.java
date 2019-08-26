@@ -17,6 +17,7 @@
 package com.linecorp.bot.model.richmenu;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.linecorp.bot.model.action.Action;
 
@@ -37,7 +38,8 @@ public class RichMenuArea {
     Action action;
 
     @JsonCreator
-    public RichMenuArea(final RichMenuBounds bounds, final Action action) {
+    public RichMenuArea(@JsonProperty("bounds") final RichMenuBounds bounds,
+                        @JsonProperty("action") final Action action) {
         this.bounds = bounds;
         this.action = action;
     }

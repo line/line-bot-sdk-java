@@ -18,6 +18,9 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.linecorp.bot.model.event.source.Source;
 
 import lombok.Value;
@@ -42,10 +45,11 @@ public class UnknownEvent implements Event {
      */
     private final Instant timestamp;
 
+    @JsonCreator
     public UnknownEvent(
-            final String type,
-            final Source source,
-            final Instant timestamp) {
+            @JsonProperty("type") final String type,
+            @JsonProperty("source") final Source source,
+            @JsonProperty("timestamp") final Instant timestamp) {
         this.type = type;
         this.source = source;
         this.timestamp = timestamp;

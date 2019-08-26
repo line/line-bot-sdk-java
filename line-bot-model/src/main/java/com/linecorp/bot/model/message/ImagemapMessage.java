@@ -74,7 +74,9 @@ public class ImagemapMessage implements Message {
      * Constructor without {@link #quickReply} parameter.
      *
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
+     * @deprecated Use {@link #builder()} instead.
      */
+    @Deprecated
     public ImagemapMessage(
             final String baseUrl,
             final String altText,
@@ -84,6 +86,11 @@ public class ImagemapMessage implements Message {
         this(baseUrl, altText, imagemapBaseSize, actions, imagemapVideo, null);
     }
 
+    /**
+     * Creates a {@link ImagemapMessage}.
+     * @deprecated Use {@link #builder()} instead.
+     */
+    @Deprecated
     public ImagemapMessage(
             final String baseUrl,
             final String altText,

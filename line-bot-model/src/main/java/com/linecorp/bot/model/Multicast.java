@@ -21,17 +21,16 @@ import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.linecorp.bot.model.message.Message;
 
-import lombok.AllArgsConstructor;
 import lombok.Value;
 
 /**
  * Send messages to multiple users, groups, and rooms at any time.
  */
 @Value
-@AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class Multicast {
     /**
      * IDs of the receivers.
@@ -49,8 +48,15 @@ public class Multicast {
      */
     private final List<Message> messages;
 
-    public Multicast(final Set<String> to, final Message message) {
+    public Multicast(final Set<String> to,
+                     final Message message) {
+        this(to, Collections.singletonList(message));
+    }
+
+    @JsonCreator
+    public Multicast(@JsonProperty("to") final Set<String> to,
+                     @JsonProperty("messages") final List<Message> messages) {
         this.to = to;
-        this.messages = Collections.singletonList(message);
+        this.messages = messages;
     }
 }

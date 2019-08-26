@@ -19,6 +19,7 @@ package com.linecorp.bot.model.richmenu;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
 
@@ -62,8 +63,12 @@ public class RichMenuResponse implements RichMenuCommonProperties {
     List<RichMenuArea> areas;
 
     @JsonCreator
-    public RichMenuResponse(final String richMenuId, final RichMenuSize size, final boolean selected,
-                            final String name, final String chatBarText, final List<RichMenuArea> areas) {
+    public RichMenuResponse(@JsonProperty("richMenuId") final String richMenuId,
+                            @JsonProperty("size") final RichMenuSize size,
+                            @JsonProperty("selected") final boolean selected,
+                            @JsonProperty("name") final String name,
+                            @JsonProperty("chatBarText") final String chatBarText,
+                            @JsonProperty("areas") final List<RichMenuArea> areas) {
         this.richMenuId = richMenuId;
         this.size = size;
         this.selected = selected;

@@ -18,6 +18,9 @@ package com.linecorp.bot.model.message.imagemap;
 
 import java.net.URI;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +29,7 @@ import lombok.Value;
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@JsonDeserialize(builder = ImagemapVideo.ImagemapVideoBuilder.class)
 public class ImagemapVideo {
 
     /**
@@ -70,4 +74,8 @@ public class ImagemapVideo {
      * </p>
      */
     private final ImagemapExternalLink externalLink;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class ImagemapVideoBuilder {
+    }
 }

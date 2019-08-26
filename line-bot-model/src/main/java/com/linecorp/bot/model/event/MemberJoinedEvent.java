@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.event.source.Source;
@@ -54,10 +55,10 @@ public class MemberJoinedEvent implements Event, ReplyEvent {
 
     @JsonCreator
     public MemberJoinedEvent(
-            final String replyToken,
-            final Source source,
-            final JoinedMembers joined,
-            final Instant timestamp) {
+            @JsonProperty("replyToken") final String replyToken,
+            @JsonProperty("source") final Source source,
+            @JsonProperty("joined") final JoinedMembers joined,
+            @JsonProperty("timestamp") final Instant timestamp) {
         this.replyToken = replyToken;
         this.source = source;
         this.joined = joined;
@@ -70,7 +71,7 @@ public class MemberJoinedEvent implements Event, ReplyEvent {
         List<Source> members;
 
         @JsonCreator
-        public JoinedMembers(List<Source> members) {
+        public JoinedMembers(@JsonProperty("members") List<Source> members) {
             this.members = members;
         }
     }

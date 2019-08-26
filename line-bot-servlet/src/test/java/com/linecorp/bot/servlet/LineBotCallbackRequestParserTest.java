@@ -20,19 +20,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.doReturn;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.google.common.io.ByteStreams;
@@ -43,24 +41,23 @@ import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 
-@RunWith(MockitoJUnitRunner.class)
 public class LineBotCallbackRequestParserTest {
+    @Rule
+    public final MockitoRule mockitoRule = MockitoJUnit.rule();
+
     @Spy
     private LineSignatureValidator lineSignatureValidator = new LineSignatureValidator(
             "SECRET".getBytes(StandardCharsets.UTF_8));
 
     private LineBotCallbackRequestParser lineBotCallbackRequestParser;
 
-    public LineBotCallbackRequestParserTest() throws InvalidKeyException, NoSuchAlgorithmException {
-    }
-
     @Before
-    public void before() throws IOException {
+    public void before() {
         this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(lineSignatureValidator);
     }
 
     @Test
-    public void testMissingHeader() throws Exception {
+    public void testMissingHeader() {
         MockHttpServletRequest request = new MockHttpServletRequest();
 
         assertThatThrownBy(() -> lineBotCallbackRequestParser.handle(request))
@@ -69,14 +66,14 @@ public class LineBotCallbackRequestParserTest {
     }
 
     @Test
-    public void testMissingHeader2() throws Exception {
+    public void testMissingHeader2() {
         assertThatThrownBy(() -> lineBotCallbackRequestParser.handle("", ""))
                 .isInstanceOf(LineBotCallbackException.class)
                 .hasMessage("Missing 'X-Line-Signature' header");
     }
 
     @Test
-    public void testInvalidSignature() throws Exception {
+    public void testInvalidSignature() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("X-Line-Signature", "SSSSIGNATURE");
         request.setContent("{}".getBytes(StandardCharsets.UTF_8));
@@ -87,7 +84,7 @@ public class LineBotCallbackRequestParserTest {
     }
 
     @Test
-    public void testInvalidSignature2() throws Exception {
+    public void testInvalidSignature2() {
         final String signature = "SSSSIGNATURE";
         final String content = "{}";
 
@@ -97,7 +94,7 @@ public class LineBotCallbackRequestParserTest {
     }
 
     @Test
-    public void testNullRequest() throws Exception {
+    public void testNullRequest() {
         final byte[] requestBody = "null".getBytes(StandardCharsets.UTF_8);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -112,7 +109,7 @@ public class LineBotCallbackRequestParserTest {
     }
 
     @Test
-    public void testNullRequest2() throws Exception {
+    public void testNullRequest2() {
         final String signature = "SSSSIGNATURE";
         final String content = "null";
 

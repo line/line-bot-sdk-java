@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model.event.link;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
@@ -24,7 +25,7 @@ import lombok.Value;
  * Content of the link account event.
  */
 @Value
-public class LinkContent {
+public final class LinkContent {
     /**
      * One of the following values to indicate whether the link was successful or not.
      *
@@ -36,6 +37,13 @@ public class LinkContent {
      * Specified nonce when verifying the user ID.
      */
     private final String nonce;
+
+    @JsonCreator
+    public LinkContent(@JsonProperty("result") Result result,
+                       @JsonProperty("nonce") String nonce) {
+        this.result = result;
+        this.nonce = nonce;
+    }
 
     public enum Result {
         /** Indicates the link was successful. */

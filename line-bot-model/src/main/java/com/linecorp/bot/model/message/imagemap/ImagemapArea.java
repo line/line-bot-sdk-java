@@ -16,6 +16,9 @@
 
 package com.linecorp.bot.model.message.imagemap;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Value;
 
 /**
@@ -43,4 +46,15 @@ public class ImagemapArea {
      * Height of the tappable area.
      */
     private final int height;
+
+    @JsonCreator
+    public ImagemapArea(@JsonProperty("x") int x,
+                        @JsonProperty("y") int y,
+                        @JsonProperty("width") int width,
+                        @JsonProperty("height") int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
 }

@@ -29,7 +29,7 @@ public class RichMenuListResponse {
     List<RichMenuResponse> richMenus;
 
     @JsonCreator
-    public RichMenuListResponse(final List<RichMenuResponse> richMenus) {
+    public RichMenuListResponse(@JsonProperty("richmenus") final List<RichMenuResponse> richMenus) {
         this.richMenus = richMenus;
     }
 }
