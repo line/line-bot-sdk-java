@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.message;
 
+import java.net.URI;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -45,7 +47,7 @@ public class VideoMessage implements Message {
      * </ul>
      */
     @NonNull
-    private final String originalContentUrl;
+    private final URI originalContentUrl;
 
     /**
      * URL of preview image.
@@ -58,7 +60,7 @@ public class VideoMessage implements Message {
      * </ul>
      */
     @NonNull
-    private final String previewImageUrl;
+    private final URI previewImageUrl;
 
     private final QuickReply quickReply;
 
@@ -67,7 +69,7 @@ public class VideoMessage implements Message {
      *
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
-    public VideoMessage(final String originalContentUrl, final String previewImageUrl) {
+    public VideoMessage(final URI originalContentUrl, final URI previewImageUrl) {
         this(originalContentUrl, previewImageUrl, null);
     }
 

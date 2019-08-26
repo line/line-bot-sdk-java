@@ -16,6 +16,9 @@
 
 package com.linecorp.bot.model.profile;
 
+import java.net.URI;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
@@ -38,17 +41,18 @@ public class UserProfileResponse {
     /**
      * Image URL.
      */
-    private final String pictureUrl;
+    private final URI pictureUrl;
 
     /**
      * Status message.
      */
     private final String statusMessage;
 
+    @JsonCreator
     public UserProfileResponse(
             @JsonProperty("displayName") String displayName,
             @JsonProperty("userId") String userId,
-            @JsonProperty("pictureUrl") String pictureUrl,
+            @JsonProperty("pictureUrl") URI pictureUrl,
             @JsonProperty("statusMessage") String statusMessage) {
         this.displayName = displayName;
         this.userId = userId;

@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model.message.template;
 
+import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class CarouselColumn {
      * <li>Max: 1 MB</li>
      * </ul>
      */
-    private final String thumbnailImageUrl;
+    private final URI thumbnailImageUrl;
 
     /**
      * Background color of image.
@@ -92,7 +93,7 @@ public class CarouselColumn {
      */
     @JsonCreator
     public CarouselColumn(
-            @JsonProperty("thumbnailImageUrl") String thumbnailImageUrl,
+            @JsonProperty("thumbnailImageUrl") URI thumbnailImageUrl,
             @JsonProperty("title") String title,
             @JsonProperty("text") String text,
             @JsonProperty("actions") List<Action> actions) {

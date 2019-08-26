@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model.message;
 
+import java.net.URI;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -49,7 +50,7 @@ public class ImagemapMessage implements Message {
      * <li>HTTPS required</li>
      * </ul>
      */
-    private final String baseUrl;
+    private final URI baseUrl;
 
     /**
      * Alternative text.
@@ -78,7 +79,7 @@ public class ImagemapMessage implements Message {
      */
     @Deprecated
     public ImagemapMessage(
-            final String baseUrl,
+            final URI baseUrl,
             final String altText,
             final ImagemapBaseSize imagemapBaseSize,
             final List<ImagemapAction> actions,
@@ -92,7 +93,7 @@ public class ImagemapMessage implements Message {
      */
     @Deprecated
     public ImagemapMessage(
-            final String baseUrl,
+            final URI baseUrl,
             final String altText,
             final ImagemapBaseSize imagemapBaseSize,
             final List<ImagemapAction> actions) {

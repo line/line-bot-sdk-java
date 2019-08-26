@@ -19,6 +19,7 @@ package com.linecorp.bot.client;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.isA;
 
+import java.net.URI;
 import java.util.concurrent.ExecutionException;
 
 import org.hamcrest.CustomTypeSafeMatcher;
@@ -145,7 +146,7 @@ public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
 
         final UserProfileResponse profileResponseMock =
                 new UserProfileResponse("name", "userId",
-                                        "https://line.me/picture_url",
+                                        URI.create("https://line.me/picture_url"),
                                         "Status message");
 
         mockWebServer.enqueue(new MockResponse()

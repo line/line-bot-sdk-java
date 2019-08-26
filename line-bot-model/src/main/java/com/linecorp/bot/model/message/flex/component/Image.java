@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model.message.flex.component;
 
+import java.net.URI;
 import java.text.DecimalFormat;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -99,7 +100,7 @@ public class Image implements FlexComponent {
 
     private final Integer flex;
 
-    private final String url;
+    private final URI url;
 
     private final ImageSize size;
 
@@ -130,7 +131,7 @@ public class Image implements FlexComponent {
     @JsonCreator
     public Image(
             @JsonProperty("flex") Integer flex,
-            @JsonProperty("url") String url,
+            @JsonProperty("url") URI url,
             @JsonProperty("size") ImageSize size,
             @JsonProperty("aspectRatio") String aspectRatio,
             @JsonProperty("aspectMode") ImageAspectMode aspectMode,

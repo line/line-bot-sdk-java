@@ -63,11 +63,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class MessageJsonReconstructionTest {
-    ObjectMapper objectMapper;
+    private static final ObjectMapper objectMapper =
+            TestUtil.objectMapperWithProductionConfiguration(false);
 
     @Before
     public void setUp() throws Exception {
-        objectMapper = TestUtil.objectMapperWithProductionConfiguration(false);
     }
 
     @Test
@@ -106,18 +106,19 @@ public class MessageJsonReconstructionTest {
 
     @Test
     public void audioMessageTest() {
-        test(new AudioMessage("originalUrl", 20));
+        test(new AudioMessage(URI.create("http://originalUrl"), 20));
     }
 
     @Test
     public void videoMessageTest() {
-        test(new VideoMessage("https://example.com/original", "https://example.com/preview"));
+        test(new VideoMessage(URI.create("https://example.com/original"),
+                              URI.create("https://example.com/preview")));
     }
 
     @Test
     public void imagemapMessageTest() {
         test(ImagemapMessage.builder()
-                            .baseUrl("baseUrl")
+                            .baseUrl(URI.create("baseUrl"))
                             .altText("altText")
                             .baseSize(new ImagemapBaseSize(1040, 1040))
                             .actions(emptyList())
@@ -138,7 +139,8 @@ public class MessageJsonReconstructionTest {
     public void templateMessageWithCarouselTemplateTest() {
         final PostbackAction postbackAction = new PostbackAction("postback", "data");
         final CarouselColumn carouselColumn =
-                new CarouselColumn("thumbnail", "title", "text", singletonList(postbackAction));
+                new CarouselColumn(URI.create("http://thumbnail"), "title", "text",
+                                   singletonList(postbackAction));
         final CarouselTemplate carouselTemplate = new CarouselTemplate(singletonList(carouselColumn));
 
         test(new TemplateMessage("ALT", carouselTemplate));
@@ -148,7 +150,7 @@ public class MessageJsonReconstructionTest {
     public void templateMessageWithConfirmTemplateTest() {
         final ConfirmTemplate confirmTemplate =
                 new ConfirmTemplate("text",
-                                    new URIAction("label", "http://example.com",
+                                    new URIAction("label", URI.create("http://example.com"),
                                                   new AltUri(URI.create("http://example.com/desktop"))),
                                     new MessageAction("label", "text"));
         test(new TemplateMessage("ALT", confirmTemplate));
@@ -157,7 +159,7 @@ public class MessageJsonReconstructionTest {
     @Test
     public void templateMessageWithButtonsTemplateTest() {
         final ButtonsTemplate buttonsTemplate =
-                new ButtonsTemplate("https://example.com", "title", "text",
+                new ButtonsTemplate(URI.create("https://example.com"), "title", "text",
                                     singletonList(new MessageAction("label", "text")));
         test(new TemplateMessage("ALT", buttonsTemplate));
     }

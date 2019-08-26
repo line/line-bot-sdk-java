@@ -26,6 +26,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Collections;
 
 import org.junit.Rule;
@@ -235,7 +236,8 @@ public class LineMessagingClientImplTest {
     @Test
     public void getProfileTest() throws Exception {
         final UserProfileResponse mockUserProfileResponse =
-                new UserProfileResponse("displayName", "userId", "pictureUrl", "statusMessage");
+                new UserProfileResponse("displayName", "userId",
+                                        URI.create("http://pictureUrl/"), "statusMessage");
         whenCall(retrofitMock.getProfile(any()),
                  mockUserProfileResponse);
 
@@ -250,7 +252,8 @@ public class LineMessagingClientImplTest {
     @Test
     public void getProfileOfGroupMemberTest() throws Exception {
         final UserProfileResponse mockUserProfileResponse =
-                new UserProfileResponse("displayName", "userId", "pictureUrl", null);
+                new UserProfileResponse("displayName", "userId",
+                                        URI.create("http://pictureUrl"), null);
         whenCall(retrofitMock.getMemberProfile(any(), any(), any()),
                  mockUserProfileResponse);
 

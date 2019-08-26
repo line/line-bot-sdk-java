@@ -18,6 +18,7 @@ package com.example.bot.spring;
 
 import static java.util.Arrays.asList;
 
+import java.net.URI;
 import java.util.function.Supplier;
 
 import com.linecorp.bot.model.action.URIAction;
@@ -45,11 +46,11 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
     public FlexMessage get() {
         final Image heroBlock =
                 Image.builder()
-                     .url("https://example.com/cafe.jpg")
+                     .url(URI.create("https://example.com/cafe.jpg"))
                      .size(ImageSize.FULL_WIDTH)
                      .aspectRatio(ImageAspectRatio.R20TO13)
                      .aspectMode(ImageAspectMode.Cover)
-                     .action(new URIAction("label", "http://example.com", null))
+                     .action(new URIAction("label", URI.create("http://example.com"), null))
                      .build();
 
         final Box bodyBlock = createBodyBlock();
@@ -70,14 +71,14 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                 .builder()
                 .style(ButtonStyle.LINK)
                 .height(ButtonHeight.SMALL)
-                .action(new URIAction("CALL", "tel:000000", null))
+                .action(new URIAction("CALL", URI.create("tel:000000"), null))
                 .build();
         final Separator separator = Separator.builder().build();
         final Button websiteAction =
                 Button.builder()
                       .style(ButtonStyle.LINK)
                       .height(ButtonHeight.SMALL)
-                      .action(new URIAction("WEBSITE", "https://example.com", null))
+                      .action(new URIAction("WEBSITE", URI.create("https://example.com"), null))
                       .build();
 
         return Box.builder()

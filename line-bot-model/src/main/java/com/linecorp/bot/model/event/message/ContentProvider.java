@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.event.message;
 
+import java.net.URI;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,17 +41,17 @@ public class ContentProvider {
     /**
      * URL of the resource. Only included when {@link #type} is {@link #EXTERNAL}.
      */
-    private final String originalContentUrl;
+    private final URI originalContentUrl;
 
     /**
      * URL of the preview resource. Only included when {@link #type} is {@link #EXTERNAL}.
      */
-    private final String previewImageUrl;
+    private final URI previewImageUrl;
 
     @JsonCreator
     public ContentProvider(@JsonProperty("type") String type,
-                           @JsonProperty("originalContentUrl") String originalContentUrl,
-                           @JsonProperty("previewImageUrl") String previewImageUrl) {
+                           @JsonProperty("originalContentUrl") URI originalContentUrl,
+                           @JsonProperty("previewImageUrl") URI previewImageUrl) {
         this.type = type;
         this.originalContentUrl = originalContentUrl;
         this.previewImageUrl = previewImageUrl;

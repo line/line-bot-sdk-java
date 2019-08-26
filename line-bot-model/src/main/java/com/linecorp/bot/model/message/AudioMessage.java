@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.message;
 
+import java.net.URI;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -43,7 +45,7 @@ public class AudioMessage implements Message {
      * <li>Max 10 MB</li>
      * </ul>
      */
-    private final String originalContentUrl;
+    private final URI originalContentUrl;
 
     /**
      * Length of audio file (milliseconds).
@@ -57,7 +59,7 @@ public class AudioMessage implements Message {
      *
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
-    public AudioMessage(final String originalContentUrl, final Integer duration) {
+    public AudioMessage(final URI originalContentUrl, final Integer duration) {
         this(originalContentUrl, duration, null);
     }
 

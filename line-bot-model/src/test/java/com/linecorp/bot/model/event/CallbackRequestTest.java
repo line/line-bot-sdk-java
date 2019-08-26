@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.stream.Collectors;
@@ -124,8 +125,8 @@ public class CallbackRequestTest {
             assertThat(image.getId()).isEqualTo("325708");
             assertThat(image.getContentProvider()).isEqualTo(
                     new ContentProvider("external",
-                                        "https://example.com/original.jpg",
-                                        "https://example.com/preview.jpg"));
+                                        URI.create("https://example.com/original.jpg"),
+                                        URI.create(("https://example.com/preview.jpg"))));
         });
     }
 
