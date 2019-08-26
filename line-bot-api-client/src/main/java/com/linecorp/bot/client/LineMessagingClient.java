@@ -325,11 +325,9 @@ public interface LineMessagingClient {
      */
     CompletableFuture<IssueLinkTokenResponse> issueLinkToken(String userId);
 
-
     /**
      * Get number of message deliveries.
-     *
-     * @see LineMessagingService#getNumberOfMessageDeliveries(String).
+     * @see LineMessagingService#getNumberOfMessageDeliveries(String)
      */
     CompletableFuture<GetNumberOfMessageDeliveriesResponse> getNumberOfMessageDeliveries(String date);
 

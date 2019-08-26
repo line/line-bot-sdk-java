@@ -29,6 +29,26 @@ import lombok.Value;
 @JsonDeserialize(builder = GetNumberOfMessageDeliveriesResponseBuilder.class)
 public class GetNumberOfMessageDeliveriesResponse {
     /**
+     * A status of current calculation.
+     */
+    public enum Status {
+        /**
+         * Calculation has finished; the numbers are up-to-date.
+         */
+        Ready,
+        /**
+         * We haven't finished calculating the number of sent messages for the specified date. Calculation
+         * usually takes about a day. Please try again later.
+         */
+        Unready,
+        /**
+         * The specified date is earlier than the date on which we first started calculating sent messages
+         * (March 1, 2017).
+         */
+        OutOfService
+    }
+
+    /**
      * Calculation status.
      */
     Status status;
