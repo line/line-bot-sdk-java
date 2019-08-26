@@ -25,6 +25,7 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
@@ -336,4 +337,12 @@ interface LineMessagingService {
      */
     @GET("v2/bot/insight/message/delivery?date={date}")
     Call<GetNumberOfMessageDeliveriesResponse> getNumberOfMessageDeliveries(@Query("date") String date);
+
+    /**
+     * Returns the number of users who have added the bot on or before a specified date.
+     * @param date Date for which to retrieve the number of followers. The format should be {@code yyyyMMdd}.
+     *             For example: {@literal "20191231"}) and the timezone should be UTC+9.
+     */
+    @GET("v2/bot/insight/message/delivery?date={date}")
+    Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
 }
