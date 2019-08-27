@@ -28,6 +28,7 @@ import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
@@ -330,6 +331,11 @@ public interface LineMessagingClient {
      * @see LineMessagingService#getNumberOfMessageDeliveries(String)
      */
     CompletableFuture<GetNumberOfMessageDeliveriesResponse> getNumberOfMessageDeliveries(String date);
+
+    /**
+     * Gets the number of users who have added the bot on or before a specified date.
+     */
+    CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowersResponse(String date);
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));

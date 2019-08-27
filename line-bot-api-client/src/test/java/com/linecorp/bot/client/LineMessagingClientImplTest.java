@@ -45,6 +45,7 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
@@ -524,6 +525,22 @@ public class LineMessagingClientImplTest {
         final GetNumberOfMessageDeliveriesResponse actual =
                 target.getNumberOfMessageDeliveries("20190805").get();
         verify(retrofitMock, only()).getNumberOfMessageDeliveries("20190805");
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void getNumberOfFollowers() throws Exception {
+        final GetNumberOfFollowersResponse response = GetNumberOfFollowersResponse
+                .builder()
+                .status(GetNumberOfFollowersResponse.Status.Ready)
+                .followers(3L)
+                .targetedReaches(2L)
+                .blocks(1L)
+                .build();
+        whenCall(retrofitMock.getNumberOfFollowers(any()), response);
+        final GetNumberOfFollowersResponse actual =
+                target.getNumberOfFollowersResponse("20190805").get();
+        verify(retrofitMock, only()).getNumberOfFollowers("20190805");
         assertThat(actual).isEqualTo(response);
     }
 
