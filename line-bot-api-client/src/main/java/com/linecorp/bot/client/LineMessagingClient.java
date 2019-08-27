@@ -28,6 +28,7 @@ import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
@@ -323,6 +324,12 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#issue-link-token">Issue link token</a>
      */
     CompletableFuture<IssueLinkTokenResponse> issueLinkToken(String userId);
+
+    /**
+     * Get number of message deliveries.
+     * @see LineMessagingService#getNumberOfMessageDeliveries(String)
+     */
+    CompletableFuture<GetNumberOfMessageDeliveriesResponse> getNumberOfMessageDeliveries(String date);
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));

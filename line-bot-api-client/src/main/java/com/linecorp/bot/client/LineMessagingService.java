@@ -25,6 +25,7 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
@@ -326,4 +327,13 @@ interface LineMessagingService {
      */
     @POST("v2/bot/user/{userId}/linkToken")
     Call<IssueLinkTokenResponse> issueLinkToken(@Path("userId") String userId);
+
+    /**
+     * Gets the number of messages sent on a specified day.
+     *
+     * @param date Date for which to retrieve number of sent messages. The format should be {@code yyyyMMdd}.
+     *             For example: {@literal "20191231"}) and the timezone should be UTC+9.
+     */
+    @GET("v2/bot/insight/message/delivery?date={date}")
+    Call<GetNumberOfMessageDeliveriesResponse> getNumberOfMessageDeliveries(@Query("date") String date);
 }

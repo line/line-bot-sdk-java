@@ -24,6 +24,9 @@ import lombok.Value;
 @Value
 @AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class NumberOfMessagesResponse {
+    /**
+     * A status of current calculation.
+     */
     public enum Status {
         /**
          * You can get the number of messages.
