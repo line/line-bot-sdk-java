@@ -32,7 +32,7 @@ buildscript {
         classpath 'io.franzbecker:gradle-lombok:3.1.0'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE'
         classpath 'io.spring.gradle:propdeps-plugin:0.0.10.RELEASE'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.5.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.7.RELEASE'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -93,11 +93,9 @@ subprojects {
     ext['retrofit.version'] = '2.6.0'
 
     dependencyManagement {
-        if (project.name != 'test-boot1-compatibility') {
-            imports {
-                mavenBom 'io.spring.platform:platform-bom:Cairo-RELEASE'
-                mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.5.RELEASE'
-            }
+        imports {
+            mavenBom 'io.spring.platform:platform-bom:Cairo-RELEASE'
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.7.RELEASE'
         }
 
         dependencies {
