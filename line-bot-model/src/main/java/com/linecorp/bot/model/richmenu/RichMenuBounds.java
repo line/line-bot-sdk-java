@@ -17,6 +17,7 @@
 package com.linecorp.bot.model.richmenu;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
 
@@ -35,7 +36,10 @@ public class RichMenuBounds {
     int height;
 
     @JsonCreator
-    public RichMenuBounds(final int x, final int y, final int width, final int height) {
+    public RichMenuBounds(@JsonProperty("x") final int x,
+                          @JsonProperty("y") final int y,
+                          @JsonProperty("width") final int width,
+                          @JsonProperty("height") final int height) {
         this.x = x;
         this.y = y;
         this.width = width;

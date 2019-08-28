@@ -18,6 +18,7 @@ package com.linecorp.bot.liff;
 
 import java.net.URI;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
@@ -47,10 +48,17 @@ public class LiffView {
     /**
      * Size of the LIFF app view. Specify one of the following values:
      */
-    Type type;
+    private final Type type;
 
     /**
      * URL of the LIFF app. The URL scheme must be https.
      */
-    URI url;
+    private final URI url;
+
+    @JsonCreator
+    public LiffView(@JsonProperty("type") Type type,
+                    @JsonProperty("url") URI url) {
+        this.type = type;
+        this.url = url;
+    }
 }

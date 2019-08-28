@@ -462,37 +462,30 @@ public class KitchenSinkController {
                 break;
             }
             case "imagemap":
-                this.reply(replyToken, new ImagemapMessage(
-                        createUri("/static/rich"),
-                        "This is alt text",
-                        new ImagemapBaseSize(1040, 1040),
-                        Arrays.asList(
+                //            final String baseUrl,
+                //            final String altText,
+                //            final ImagemapBaseSize imagemapBaseSize,
+                //            final List<ImagemapAction> actions) {
+                this.reply(replyToken, ImagemapMessage
+                        .builder()
+                        .baseUrl(createUri("/static/rich"))
+                        .altText("This is alt text")
+                        .baseSize(new ImagemapBaseSize(1040, 1040))
+                        .actions(Arrays.asList(
                                 new URIImagemapAction(
                                         "https://store.line.me/family/manga/en",
-                                        new ImagemapArea(
-                                                0, 0, 520, 520
-                                        )
-                                ),
+                                        new ImagemapArea(0, 0, 520, 520)),
                                 new URIImagemapAction(
                                         "https://store.line.me/family/music/en",
-                                        new ImagemapArea(
-                                                520, 0, 520, 520
-                                        )
-                                ),
+                                        new ImagemapArea(520, 0, 520, 520)),
                                 new URIImagemapAction(
                                         "https://store.line.me/family/play/en",
-                                        new ImagemapArea(
-                                                0, 520, 520, 520
-                                        )
-                                ),
+                                        new ImagemapArea(0, 520, 520, 520)),
                                 new MessageImagemapAction(
                                         "URANAI!",
-                                        new ImagemapArea(
-                                                520, 520, 520, 520
-                                        )
-                                )
-                        )
-                ));
+                                        new ImagemapArea(520, 520, 520, 520))
+                        ))
+                        .build());
                 break;
             case "imagemap_video":
                 this.reply(replyToken, ImagemapMessage

@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model.event.things;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
@@ -31,6 +32,13 @@ public class ThingsContent {
      * The event type of LINE Things.
      */
     private final ThingsType type;
+
+    @JsonCreator
+    public ThingsContent(@JsonProperty("deviceId") String deviceId,
+                         @JsonProperty("type") ThingsType type) {
+        this.deviceId = deviceId;
+        this.type = type;
+    }
 
     public enum ThingsType {
         /**

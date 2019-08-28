@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model.event.beacon;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
@@ -73,9 +74,10 @@ public class BeaconContent {
     /**
      * Create new {@link BeaconContent}.
      */
+    @JsonCreator
     public BeaconContent(
-            final String hwid,
-            final String type,
+            @JsonProperty("hwid") final String hwid,
+            @JsonProperty("type") final String type,
             @JsonProperty("dm") final String deviceMessage) {
         this.hwid = hwid;
         this.type = type;

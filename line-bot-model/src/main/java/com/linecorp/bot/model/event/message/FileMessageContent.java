@@ -17,6 +17,7 @@
 package com.linecorp.bot.model.event.message;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
@@ -30,9 +31,9 @@ public class FileMessageContent implements MessageContent {
 
     @JsonCreator
     public FileMessageContent(
-            final String id,
-            final String fileName,
-            final int fileSize) {
+            @JsonProperty("id") final String id,
+            @JsonProperty("fileName") final String fileName,
+            @JsonProperty("fileSize") final int fileSize) {
         this.id = id;
         this.fileName = fileName;
         this.fileSize = fileSize;

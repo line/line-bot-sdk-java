@@ -18,6 +18,9 @@ package com.linecorp.bot.model.message.imagemap;
 
 import java.net.URI;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Value;
 
 /**
@@ -42,4 +45,11 @@ public class ImagemapExternalLink {
      * </ul>
      */
     private final String label;
+
+    @JsonCreator
+    public ImagemapExternalLink(@JsonProperty("linkUri") URI linkUri,
+                                @JsonProperty("label") String label) {
+        this.linkUri = linkUri;
+        this.label = label;
+    }
 }

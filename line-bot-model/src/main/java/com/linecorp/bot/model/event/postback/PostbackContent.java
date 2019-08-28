@@ -19,6 +19,7 @@ package com.linecorp.bot.model.event.postback;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
 
@@ -35,8 +36,8 @@ public class PostbackContent {
 
     @JsonCreator
     public PostbackContent(
-            final String data,
-            final Map<String, String> params) {
+            @JsonProperty("data") final String data,
+            @JsonProperty("params") final Map<String, String> params) {
         this.data = data;
         this.params = params;
     }

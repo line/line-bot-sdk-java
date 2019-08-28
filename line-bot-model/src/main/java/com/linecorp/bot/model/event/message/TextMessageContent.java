@@ -17,6 +17,7 @@
 package com.linecorp.bot.model.event.message;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
@@ -36,8 +37,8 @@ public class TextMessageContent implements MessageContent {
 
     @JsonCreator
     public TextMessageContent(
-            final String id,
-            final String text) {
+            @JsonProperty("id") final String id,
+            @JsonProperty("text") final String text) {
         this.id = id;
         this.text = text;
     }

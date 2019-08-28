@@ -18,6 +18,8 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.event.link.LinkContent;
@@ -51,4 +53,16 @@ public class AccountLinkEvent implements Event, ReplyEvent {
      * Content of the account link event.
      */
     private final LinkContent link;
+
+    @JsonCreator
+    public AccountLinkEvent(
+            @JsonProperty("replyToken") String replyToken,
+            @JsonProperty("source") Source source,
+            @JsonProperty("timestamp") Instant timestamp,
+            @JsonProperty("link") LinkContent link) {
+        this.replyToken = replyToken;
+        this.source = source;
+        this.timestamp = timestamp;
+        this.link = link;
+    }
 }

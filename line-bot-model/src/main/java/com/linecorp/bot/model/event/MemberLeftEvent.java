@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.event.source.Source;
@@ -46,9 +47,9 @@ public class MemberLeftEvent implements Event {
 
     @JsonCreator
     public MemberLeftEvent(
-            final Source source,
-            final LeftMembers left,
-            final Instant timestamp) {
+            @JsonProperty("source") final Source source,
+            @JsonProperty("left") final LeftMembers left,
+            @JsonProperty("timestamp") final Instant timestamp) {
         this.source = source;
         this.left = left;
         this.timestamp = timestamp;
@@ -60,7 +61,7 @@ public class MemberLeftEvent implements Event {
         List<Source> members;
 
         @JsonCreator
-        public LeftMembers(List<Source> members) {
+        public LeftMembers(@JsonProperty("members") List<Source> members) {
             this.members = members;
         }
     }

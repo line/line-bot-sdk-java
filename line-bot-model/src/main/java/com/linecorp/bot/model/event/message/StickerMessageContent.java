@@ -17,6 +17,7 @@
 package com.linecorp.bot.model.event.message;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
@@ -33,9 +34,9 @@ public class StickerMessageContent implements MessageContent {
 
     @JsonCreator
     public StickerMessageContent(
-            final String id,
-            final String packageId,
-            final String stickerId) {
+            @JsonProperty("id") final String id,
+            @JsonProperty("packageId") final String packageId,
+            @JsonProperty("stickerId") final String stickerId) {
         this.id = id;
         this.packageId = packageId;
         this.stickerId = stickerId;

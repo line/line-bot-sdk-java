@@ -18,6 +18,8 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.event.source.Source;
@@ -51,4 +53,15 @@ public class ThingsEvent implements Event, ReplyEvent {
      */
     private final Instant timestamp;
 
+    @JsonCreator
+    public ThingsEvent(
+            @JsonProperty("replyToken") String replyToken,
+            @JsonProperty("source") Source source,
+            @JsonProperty("things") ThingsContent things,
+            @JsonProperty("timestamp") Instant timestamp) {
+        this.replyToken = replyToken;
+        this.source = source;
+        this.things = things;
+        this.timestamp = timestamp;
+    }
 }

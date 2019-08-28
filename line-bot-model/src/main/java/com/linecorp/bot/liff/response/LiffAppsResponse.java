@@ -19,15 +19,19 @@ package com.linecorp.bot.liff.response;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.linecorp.bot.liff.LiffApp;
 
-import lombok.AllArgsConstructor;
 import lombok.Value;
 
 @Value
-@AllArgsConstructor(onConstructor = @__(@JsonCreator))
 public class LiffAppsResponse {
     /** Array of LIFF app objects. */
-    List<LiffApp> apps;
+    private final List<LiffApp> apps;
+
+    @JsonCreator
+    public LiffAppsResponse(@JsonProperty("apps") List<LiffApp> apps) {
+        this.apps = apps;
+    }
 }

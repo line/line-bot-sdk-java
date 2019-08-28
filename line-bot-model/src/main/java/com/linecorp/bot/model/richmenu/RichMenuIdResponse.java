@@ -17,6 +17,7 @@
 package com.linecorp.bot.model.richmenu;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
 
@@ -25,7 +26,7 @@ public class RichMenuIdResponse {
     String richMenuId;
 
     @JsonCreator
-    public RichMenuIdResponse(final String richMenuId) {
+    public RichMenuIdResponse(@JsonProperty("richMenuId") final String richMenuId) {
         this.richMenuId = richMenuId;
     }
 }

@@ -17,6 +17,7 @@
 package com.linecorp.bot.model.event.message;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Value;
@@ -51,11 +52,11 @@ public class LocationMessageContent implements MessageContent {
 
     @JsonCreator
     public LocationMessageContent(
-            final String id,
-            final String title,
-            final String address,
-            final double latitude,
-            final double longitude) {
+            @JsonProperty("id") final String id,
+            @JsonProperty("title") final String title,
+            @JsonProperty("address") final String address,
+            @JsonProperty("latitude") final double latitude,
+            @JsonProperty("longitude") final double longitude) {
         this.id = id;
         this.title = title;
         this.address = address;
