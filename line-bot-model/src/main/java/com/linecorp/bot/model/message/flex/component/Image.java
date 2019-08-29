@@ -28,6 +28,8 @@ import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.message.flex.unit.FlexAlign;
 import com.linecorp.bot.model.message.flex.unit.FlexGravity;
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
+import com.linecorp.bot.model.message.flex.unit.FlexOffsetSize;
+import com.linecorp.bot.model.message.flex.unit.FlexPosition;
 
 import lombok.Builder;
 import lombok.Value;
@@ -115,6 +117,16 @@ public class Image implements FlexComponent {
 
     private final FlexMarginSize margin;
 
+    private final FlexPosition position;
+
+    private final String offsetTop;
+
+    private final String offsetBottom;
+
+    private final String offsetStart;
+
+    private final String offsetEnd;
+
     @JsonCreator
     public Image(
             @JsonProperty("flex") Integer flex,
@@ -126,7 +138,12 @@ public class Image implements FlexComponent {
             @JsonProperty("align") FlexAlign align,
             @JsonProperty("action") Action action,
             @JsonProperty("gravity") FlexGravity gravity,
-            @JsonProperty("margin") FlexMarginSize margin) {
+            @JsonProperty("margin") FlexMarginSize margin,
+            @JsonProperty("position") FlexPosition position,
+            @JsonProperty("offsetTop") String offsetTop,
+            @JsonProperty("offsetBottom") String offsetBottom,
+            @JsonProperty("offsetStart") String offsetStart,
+            @JsonProperty("offsetEnd") String offsetEnd) {
         this.flex = flex;
         this.url = url;
         this.size = size;
@@ -137,21 +154,11 @@ public class Image implements FlexComponent {
         this.action = action;
         this.gravity = gravity;
         this.margin = margin;
-    }
-
-    public Image(
-            Integer flex,
-            String url,
-            ImageSize size,
-            ImageAspectRatio aspectRatio,
-            ImageAspectMode aspectMode,
-            String backgroundColor,
-            FlexAlign align,
-            Action action,
-            FlexGravity gravity,
-            FlexMarginSize margin) {
-        this(flex, url, size, aspectRatio.getRatio(), aspectMode, backgroundColor, align, action,
-             gravity, margin);
+        this.position = position;
+        this.offsetTop = offsetTop;
+        this.offsetBottom = offsetBottom;
+        this.offsetStart = offsetStart;
+        this.offsetEnd = offsetEnd;
     }
 
     public static class ImageBuilder {
@@ -181,5 +188,46 @@ public class Image implements FlexComponent {
             this.aspectRatio = RATIO_FORMAT.format(width) + ":" + RATIO_FORMAT.format(height);
             return this;
         }
+
+        public ImageBuilder offsetTop(FlexOffsetSize offset) {
+            offsetTop = offset.getPropertyValue();
+            return this;
+        }
+
+        public ImageBuilder offsetTop(String offset) {
+            offsetTop = offset;
+            return this;
+        }
+
+        public ImageBuilder offsetBottom(FlexOffsetSize offset) {
+            offsetBottom = offset.getPropertyValue();
+            return this;
+        }
+
+        public ImageBuilder offsetBottom(String offset) {
+            offsetBottom = offset;
+            return this;
+        }
+
+        public ImageBuilder offsetStart(FlexOffsetSize offset) {
+            offsetStart = offset.getPropertyValue();
+            return this;
+        }
+
+        public ImageBuilder offsetStart(String offset) {
+            offsetStart = offset;
+            return this;
+        }
+
+        public ImageBuilder offsetEnd(FlexOffsetSize offset) {
+            offsetEnd = offset.getPropertyValue();
+            return this;
+        }
+
+        public ImageBuilder offsetEnd(String offset) {
+            offsetEnd = offset;
+            return this;
+        }
+
     }
 }

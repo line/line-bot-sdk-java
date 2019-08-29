@@ -24,6 +24,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
+import com.linecorp.bot.model.message.flex.unit.FlexOffsetSize;
+import com.linecorp.bot.model.message.flex.unit.FlexPosition;
 
 import lombok.Builder;
 import lombok.Value;
@@ -51,15 +53,79 @@ public class Icon implements FlexComponent {
 
     private final FlexMarginSize margin;
 
+    private final FlexPosition position;
+
+    private final String offsetTop;
+
+    private final String offsetBottom;
+
+    private final String offsetStart;
+
+    private final String offsetEnd;
+
     @JsonCreator
     public Icon(
             @JsonProperty("url") String url,
             @JsonProperty("size") FlexFontSize size,
             @JsonProperty("aspectRatio") IconAspectRatio aspectRatio,
-            @JsonProperty("margin") FlexMarginSize margin) {
+            @JsonProperty("margin") FlexMarginSize margin,
+            @JsonProperty("position") FlexPosition position,
+            @JsonProperty("offsetTop") String offsetTop,
+            @JsonProperty("offsetBottom") String offsetBottom,
+            @JsonProperty("offsetStart") String offsetStart,
+            @JsonProperty("offsetEnd") String offsetEnd) {
         this.url = url;
         this.size = size;
         this.aspectRatio = aspectRatio;
         this.margin = margin;
+        this.position = position;
+        this.offsetTop = offsetTop;
+        this.offsetBottom = offsetBottom;
+        this.offsetStart = offsetStart;
+        this.offsetEnd = offsetEnd;
+    }
+
+    public static class IconBuilder {
+
+        public IconBuilder offsetTop(FlexOffsetSize offset) {
+            offsetTop = offset.getPropertyValue();
+            return this;
+        }
+
+        public IconBuilder offsetTop(String offset) {
+            offsetTop = offset;
+            return this;
+        }
+
+        public IconBuilder offsetBottom(FlexOffsetSize offset) {
+            offsetBottom = offset.getPropertyValue();
+            return this;
+        }
+
+        public IconBuilder offsetBottom(String offset) {
+            offsetBottom = offset;
+            return this;
+        }
+
+        public IconBuilder offsetStart(FlexOffsetSize offset) {
+            offsetStart = offset.getPropertyValue();
+            return this;
+        }
+
+        public IconBuilder offsetStart(String offset) {
+            offsetStart = offset;
+            return this;
+        }
+
+        public IconBuilder offsetEnd(FlexOffsetSize offset) {
+            offsetEnd = offset.getPropertyValue();
+            return this;
+        }
+
+        public IconBuilder offsetEnd(String offset) {
+            offsetEnd = offset;
+            return this;
+        }
+
     }
 }
