@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.message.template;
 
+import java.net.URI;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -39,7 +41,7 @@ public class ImageCarouselColumn {
      * <li>Max: 1 MB</li>
      * </ul>
      */
-    private final String imageUrl;
+    private final URI imageUrl;
 
     /**
      * Action when tapped.
@@ -47,9 +49,8 @@ public class ImageCarouselColumn {
     private final Action action;
 
     @JsonCreator
-    public ImageCarouselColumn(
-            @JsonProperty("imageUrl") String imageUrl,
-            @JsonProperty("action") Action action) {
+    public ImageCarouselColumn(@JsonProperty("imageUrl") URI imageUrl,
+                               @JsonProperty("action") Action action) {
         this.imageUrl = imageUrl;
         this.action = action;
     }

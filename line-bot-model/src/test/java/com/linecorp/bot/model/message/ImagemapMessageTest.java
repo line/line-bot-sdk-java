@@ -19,6 +19,8 @@ package com.linecorp.bot.model.message;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.net.URI;
+
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -36,7 +38,7 @@ public class ImagemapMessageTest {
 
         ImagemapMessage imagemapMessage = ImagemapMessage
                 .builder()
-                .baseUrl("https://example.com")
+                .baseUrl(URI.create("https://example.com"))
                 .altText("hoge")
                 .baseSize(new ImagemapBaseSize(1040, 1040))
                 .actions(singletonList(new MessageImagemapAction("hoge", new ImagemapArea(0, 0, 20, 20))))

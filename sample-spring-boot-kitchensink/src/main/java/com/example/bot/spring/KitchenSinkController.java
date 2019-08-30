@@ -370,14 +370,14 @@ public class KitchenSinkController {
                 break;
             }
             case "buttons": {
-                String imageUrl = createUri("/static/buttons/1040.jpg");
+                URI imageUrl = createUri("/static/buttons/1040.jpg");
                 ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
                         imageUrl,
                         "My button sample",
                         "Hello, my button",
                         Arrays.asList(
                                 new URIAction("Go to line.me",
-                                              "https://line.me", null),
+                                              URI.create("https://line.me"), null),
                                 new PostbackAction("Say hello1",
                                                    "hello こんにちは"),
                                 new PostbackAction("言 hello2",
@@ -391,14 +391,14 @@ public class KitchenSinkController {
                 break;
             }
             case "carousel": {
-                String imageUrl = createUri("/static/buttons/1040.jpg");
+                URI imageUrl = createUri("/static/buttons/1040.jpg");
                 CarouselTemplate carouselTemplate = new CarouselTemplate(
                         Arrays.asList(
                                 new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
                                         new URIAction("Go to line.me",
-                                                      "https://line.me", null),
+                                                      URI.create("https://line.me"), null),
                                         new URIAction("Go to line.me",
-                                                      "https://line.me", null),
+                                                      URI.create("https://line.me"), null),
                                         new PostbackAction("Say hello1",
                                                            "hello こんにちは")
                                 )),
@@ -439,12 +439,12 @@ public class KitchenSinkController {
                 break;
             }
             case "image_carousel": {
-                String imageUrl = createUri("/static/buttons/1040.jpg");
+                URI imageUrl = createUri("/static/buttons/1040.jpg");
                 ImageCarouselTemplate imageCarouselTemplate = new ImageCarouselTemplate(
                         Arrays.asList(
                                 new ImageCarouselColumn(imageUrl,
                                                         new URIAction("Goto line.me",
-                                                                      "https://line.me", null)
+                                                                      URI.create("https://line.me"), null)
                                 ),
                                 new ImageCarouselColumn(imageUrl,
                                                         new MessageAction("Say message",
@@ -495,10 +495,10 @@ public class KitchenSinkController {
                         .baseSize(new ImagemapBaseSize(722, 1040))
                         .video(
                                 ImagemapVideo.builder()
-                                             .originalContentUrl(URI.create(
-                                                     createUri("/static/imagemap_video/originalContent.mp4")))
-                                             .previewImageUrl(URI.create(
-                                                     createUri("/static/imagemap_video/previewImage.jpg")))
+                                             .originalContentUrl(
+                                                     createUri("/static/imagemap_video/originalContent.mp4"))
+                                             .previewImageUrl(
+                                                     createUri("/static/imagemap_video/previewImage.jpg"))
                                              .area(new ImagemapArea(40, 46, 952, 536))
                                              .externalLink(
                                                      new ImagemapExternalLink(
@@ -530,10 +530,10 @@ public class KitchenSinkController {
         }
     }
 
-    private static String createUri(String path) {
+    private static URI createUri(String path) {
         return ServletUriComponentsBuilder.fromCurrentContextPath()
                                           .path(path).build()
-                                          .toUriString();
+                                          .toUri();
     }
 
     private void system(String... args) {
@@ -573,8 +573,8 @@ public class KitchenSinkController {
     }
 
     @Value
-    public static class DownloadedContent {
+    private static class DownloadedContent {
         Path path;
-        String uri;
+        URI uri;
     }
 }

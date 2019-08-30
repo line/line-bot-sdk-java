@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 
 import org.junit.Test;
 
@@ -41,7 +42,8 @@ public class ProfileResponseTest {
 
             assertThat(userProfileResponse.getDisplayName()).isEqualTo("Tester");
             assertThat(userProfileResponse.getUserId()).isEqualTo("Uc6a5e7b3d4d08c33dd8d530fb3c02762");
-            assertThat(userProfileResponse.getPictureUrl()).isEqualTo("https://example.com/picture.png");
+            assertThat(userProfileResponse.getPictureUrl())
+                    .isEqualTo(URI.create("https://example.com/picture.png"));
             assertThat(userProfileResponse.getStatusMessage()).isEqualTo("Movie");
         }
     }
@@ -58,7 +60,8 @@ public class ProfileResponseTest {
 
             assertThat(userProfileResponse.getDisplayName()).isEqualTo("Tester");
             assertThat(userProfileResponse.getUserId()).isEqualTo("Uc6a5e7b3d4d08c33dd8d530fb3c02762");
-            assertThat(userProfileResponse.getPictureUrl()).isEqualTo("https://example.com/picture.png");
+            assertThat(userProfileResponse.getPictureUrl())
+                    .isEqualTo(URI.create("https://example.com/picture.png"));
             assertThat(userProfileResponse.getStatusMessage()).isNull();
         }
     }

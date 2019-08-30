@@ -48,7 +48,7 @@ public class URIAction implements Action {
      *
      * <p>Available values are: http, https, tel
      */
-    private final String uri;
+    private final URI uri;
 
     /**
      * URI that opened on LINE desktop clients when the action is performed. If this property is set,
@@ -59,7 +59,7 @@ public class URIAction implements Action {
     @JsonCreator
     public URIAction(
             @JsonProperty("label") String label,
-            @JsonProperty("uri") String uri,
+            @JsonProperty("uri") URI uri,
             @JsonProperty("altUri") AltUri altUri) {
         this.label = label;
         this.uri = uri;

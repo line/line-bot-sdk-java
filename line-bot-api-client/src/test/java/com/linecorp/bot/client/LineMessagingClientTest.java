@@ -18,6 +18,8 @@ package com.linecorp.bot.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.net.URI;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,7 +63,7 @@ public class LineMessagingClientTest {
     public void relativeRequestTest() throws Exception {
         final UserProfileResponse profileResponseMock =
                 new UserProfileResponse("name", "userId",
-                                        "https://line.me/picture_url",
+                                        URI.create("https://line.me/picture_url"),
                                         "Status message");
 
         mockWebServer.enqueue(new MockResponse()

@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model.message.template;
 
+import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class ButtonsTemplate implements Template {
      * <li>Max: 1 MB</li>
      * </ul>
      */
-    private final String thumbnailImageUrl;
+    private final URI thumbnailImageUrl;
 
     /**
      * Aspect ratio of the image.
@@ -126,7 +127,7 @@ public class ButtonsTemplate implements Template {
      */
     @JsonCreator
     public ButtonsTemplate(
-            @JsonProperty("thumbnailImageUrl") String thumbnailImageUrl,
+            @JsonProperty("thumbnailImageUrl") URI thumbnailImageUrl,
             @JsonProperty("title") String title,
             @JsonProperty("text") String text,
             @JsonProperty("actions") List<Action> actions) {

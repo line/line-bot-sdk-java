@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.message;
 
+import java.net.URI;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -36,8 +38,8 @@ import lombok.Value;
 @JsonTypeName("image")
 @JsonDeserialize(builder = ImageMessage.ImageMessageBuilder.class)
 public class ImageMessage implements Message {
-    private final String originalContentUrl;
-    private final String previewImageUrl;
+    private final URI originalContentUrl;
+    private final URI previewImageUrl;
     private final QuickReply quickReply;
 
     /**
@@ -45,7 +47,7 @@ public class ImageMessage implements Message {
      *
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
-    public ImageMessage(final String originalContentUrl, final String previewImageUrl) {
+    public ImageMessage(final URI originalContentUrl, final URI previewImageUrl) {
         this(originalContentUrl, previewImageUrl, null);
     }
 
