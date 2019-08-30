@@ -343,6 +343,6 @@ interface LineMessagingService {
      * @param date Date for which to retrieve the number of followers. The format should be {@code yyyyMMdd}.
      *             For example: {@literal "20191231"}) and the timezone should be UTC+9.
      */
-    @GET("v2/bot/insight/message/delivery?date={date}")
+    @GET("v2/bot/insight/followers?date={date}")
     Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
 }
