@@ -17,7 +17,7 @@
 // ./gradlew clean && ./gradlew uploadArchives -Prelease
 
 buildscript {
-    ext.kotlin_version = '1.3.31'
+    ext.kotlin_version = '1.3.50'
 
     repositories {
         mavenCentral()
@@ -25,10 +25,10 @@ buildscript {
         maven { url 'https://repo.spring.io/plugins-release' }
     }
     dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
-        classpath 'com.puppycrawl.tools:checkstyle:8.21'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.23.0'
+        classpath 'com.puppycrawl.tools:checkstyle:8.23'
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:2.0.0'
-        classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:2.0.0'
+        classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:2.1.0'
         classpath 'io.franzbecker:gradle-lombok:3.1.0'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE'
         classpath 'io.spring.gradle:propdeps-plugin:0.0.10.RELEASE'
@@ -90,15 +90,15 @@ subprojects {
 
     ext['guava.version'] = '28.0-jre'
     ext['okhttp3.version'] = '3.14.2'
-    ext['retrofit.version'] = '2.6.0'
+    ext['retrofit.version'] = '2.6.1'
 
     dependencyManagement {
         imports {
-            mavenBom 'io.spring.platform:platform-bom:Cairo-RELEASE'
             mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.7.RELEASE'
         }
 
         dependencies {
+            dependency 'com.google.guava:guava:' + ext['guava.version']
             dependency 'com.github.stefanbirkner:system-rules:1.19.0'
             dependency 'com.squareup.okhttp3:logging-interceptor:' + ext['okhttp3.version']
             dependency 'com.squareup.okhttp3:mockwebserver:' + ext['okhttp3.version']
@@ -106,7 +106,7 @@ subprojects {
                 entry 'converter-jackson'
                 entry 'retrofit'
             }
-            dependency 'org.assertj:assertj-core:3.12.1'
+            dependency 'org.assertj:assertj-core:3.13.2'
             dependency 'org.projectlombok:lombok:1.18.8'
         }
     }
@@ -118,7 +118,7 @@ subprojects {
         testCompile 'com.google.guava:guava'
         testCompile 'com.github.stefanbirkner:system-rules'
         testCompile 'com.squareup.okhttp3:mockwebserver'
-        testCompile 'org.hibernate:hibernate-validator'
+        testCompile 'org.hibernate.validator:hibernate-validator'
         testCompile 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
         testCompile 'org.springframework.boot:spring-boot-starter-logging'
     }
@@ -198,7 +198,7 @@ subprojects {
 
     checkstyle {
         configProperties = [projectDir: rootProject.projectDir]
-        toolVersion = '8.21'
+        toolVersion = '8.23'
     }
 
     spotbugs {
