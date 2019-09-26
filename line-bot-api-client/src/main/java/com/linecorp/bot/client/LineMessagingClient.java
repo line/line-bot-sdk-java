@@ -34,6 +34,7 @@ import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
@@ -336,6 +337,13 @@ public interface LineMessagingClient {
      * Gets the number of users who have added the bot on or before a specified date.
      */
     CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowersResponse(String date);
+
+    /**
+     * Retrieves the demographic attributes for a bot's friends.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-demographic">Get friends demographics</a>
+     */
+    CompletableFuture<GetFriendsDemographicsResponse> getFriendsDemographics();
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));

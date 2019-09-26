@@ -1,0 +1,77 @@
+{
+  "available": true,
+  "genders": [
+    {
+      "gender": "unknown",
+      "percentage": 37.6
+    },
+    {
+      "gender": "male",
+      "percentage": 31.8
+    },
+    {
+      "gender": "female",
+      "percentage": 30.6
+    }
+  ],
+  "ages": [
+    {
+      "age": "unknown",
+      "percentage": 37.6
+    },
+    {
+      "age": "from50",
+      "percentage": 17.3
+    }
+  ],
+  "areas": [
+    {
+      "area": "unknown",
+      "percentage": 42.9
+    },
+    {
+      "area": "徳島",
+      "percentage": 2.9
+    }
+  ],
+  "appTypes": [
+    {
+      "appType": "ios",
+      "percentage": 62.4
+    },
+    {
+      "appType": "android",
+      "percentage": 27.7
+    },
+    {
+      "appType": "others",
+      "percentage": 9.9
+    }
+  ],
+  "subscriptionPeriods": [
+    {
+      "subscriptionPeriod": "over365days",
+      "percentage": 96.4
+    },
+    {
+      "subscriptionPeriod": "within365days",
+      "percentage": 1.9
+    },
+    {
+      "subscriptionPeriod": "within180days",
+      "percentage": 1.2
+    },
+    {
+      "subscriptionPeriod": "within90days",
+      "percentage": 0.5
+    },
+    {
+      "subscriptionPeriod": "within30days",
+      "percentage": 0.1
+    },
+    {
+      "subscriptionPeriod": "within7days",
+      "percentage": 0
+    }
+  ]
+}
