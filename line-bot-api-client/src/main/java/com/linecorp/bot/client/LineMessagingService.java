@@ -25,6 +25,7 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetFriendsDemographicsResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -328,6 +329,12 @@ interface LineMessagingService {
      */
     @POST("v2/bot/user/{userId}/linkToken")
     Call<IssueLinkTokenResponse> issueLinkToken(@Path("userId") String userId);
+
+    /**
+     * Retrieves the demographic attributes for a bot's friends.
+     */
+    @GET("v2/bot/insight/demographic")
+    Call<GetFriendsDemographicsResponse> getFriendsDemographics();
 
     /**
      * Gets the number of messages sent on a specified day.
