@@ -29,12 +29,12 @@ import lombok.Value;
 @JsonDeserialize(builder = AgePercentageBuilder.class)
 public class AgePercentage {
     /**
-     * Age group
+     * Age group.
      */
     String age;
 
     /**
-     * Percentage
+     * Percentage.
      */
     double percentage;
 

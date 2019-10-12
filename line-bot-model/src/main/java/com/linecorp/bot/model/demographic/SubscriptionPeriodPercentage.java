@@ -29,12 +29,12 @@ import lombok.Value;
 @JsonDeserialize(builder = SubscriptionPeriodPercentageBuilder.class)
 public class SubscriptionPeriodPercentage {
     /**
-     * Friendship duration
+     * Friendship duration.
      */
     String subscriptionPeriod;
 
     /**
-     * Percentage
+     * Percentage.
      */
     double percentage;
 

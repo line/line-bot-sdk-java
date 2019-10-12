@@ -29,12 +29,12 @@ import lombok.Value;
 @JsonDeserialize(builder = AreaPercentageBuilder.class)
 public class AreaPercentage {
     /**
-     * Area
+     * Area.
      */
     String area;
 
     /**
-     * Percentage
+     * Percentage.
      */
     double percentage;
 

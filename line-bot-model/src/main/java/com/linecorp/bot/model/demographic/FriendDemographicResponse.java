@@ -16,13 +16,15 @@
 
 package com.linecorp.bot.model.demographic;
 
+import java.util.List;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import com.linecorp.bot.model.demographic.FriendDemographicResponse.FriendDemographicResponseBuilder;
+
 import lombok.Builder;
 import lombok.Value;
-
-import java.util.List;
 
 @Value
 @Builder
@@ -34,27 +36,27 @@ public class FriendDemographicResponse {
     boolean available;
 
     /**
-     * 	Percentage per gender
+     * Percentage per gender.
      */
     List<GenderPercentage> genders;
 
     /**
-     * Percentage per age group
+     * Percentage per age group.
      */
     List<AgePercentage> ages;
 
     /**
-     * Percentage per area
+     * Percentage per area.
      */
     List<AreaPercentage> areas;
 
     /**
-     * Percentage by OS
+     * Percentage by OS.
      */
     List<AppTypePercentage> appTypes;
 
     /**
-     * Percentage per friendship duration
+     * Percentage per friendship duration.
      */
     List<SubscriptionPeriodPercentage> subscriptionPeriods;
 

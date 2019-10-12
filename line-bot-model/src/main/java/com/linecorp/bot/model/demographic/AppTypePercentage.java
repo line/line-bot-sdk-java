@@ -29,12 +29,12 @@ import lombok.Value;
 @JsonDeserialize(builder = AppTypePercentageBuilder.class)
 public class AppTypePercentage {
     /**
-     * OS
+     * OS.
      */
     String appType;
 
     /**
-     * Percentage
+     * Percentage.
      */
     double percentage;
 
