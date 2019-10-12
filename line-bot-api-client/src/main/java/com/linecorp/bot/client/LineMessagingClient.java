@@ -23,17 +23,12 @@ import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.demographic.FriendDemographicResponse;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
-import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
-import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
-import com.linecorp.bot.model.response.IssueLinkTokenResponse;
-import com.linecorp.bot.model.response.MessageQuotaResponse;
-import com.linecorp.bot.model.response.NumberOfMessagesResponse;
-import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.*;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
@@ -331,6 +326,13 @@ public interface LineMessagingClient {
      * @see LineMessagingService#getNumberOfMessageDeliveries(String)
      */
     CompletableFuture<GetNumberOfMessageDeliveriesResponse> getNumberOfMessageDeliveries(String date);
+
+    /**
+     * Get friend demographics.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-demographic">https://developers.line.biz/en/reference/messaging-api/#get-demographic</a>
+     */
+    CompletableFuture<FriendDemographicResponse> getFriendDemographics();
 
     /**
      * Gets the number of users who have added the bot on or before a specified date.

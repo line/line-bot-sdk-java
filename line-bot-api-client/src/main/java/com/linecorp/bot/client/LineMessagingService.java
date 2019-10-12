@@ -22,15 +22,10 @@ import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.demographic.FriendDemographicResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
-import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
-import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
-import com.linecorp.bot.model.response.IssueLinkTokenResponse;
-import com.linecorp.bot.model.response.MessageQuotaResponse;
-import com.linecorp.bot.model.response.NumberOfMessagesResponse;
-import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.*;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
@@ -345,4 +340,12 @@ interface LineMessagingService {
      */
     @GET("v2/bot/insight/followers?date={date}")
     Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
+
+    /**
+     * Return the demographic attributes for a bot's friends.
+     *
+     * @see LineMessagingClient#getFriendDemographics()
+     */
+    @GET("v2/bot/insight/demographic")
+    Call<FriendDemographicResponse> getFriendDemographic();
 }

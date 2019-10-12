@@ -19,6 +19,7 @@ package com.linecorp.bot.client;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.filter;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.only;
@@ -27,8 +28,10 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.Collections;
+import java.util.*;
 
+import com.linecorp.bot.model.demographic.*;
+import com.linecorp.bot.model.response.*;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Timeout;
@@ -45,14 +48,7 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
-import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
-import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
-import com.linecorp.bot.model.response.IssueLinkTokenResponse;
-import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse.QuotaType;
-import com.linecorp.bot.model.response.NumberOfMessagesResponse;
-import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
@@ -87,7 +83,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void replyMessageTest() throws Exception {
         whenCall(retrofitMock.replyMessage(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                BOT_API_SUCCESS_RESPONSE);
         final ReplyMessage replyMessage = new ReplyMessage("token", new TextMessage("Message"));
 
         // Do
@@ -102,7 +98,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void pushMessageTest() throws Exception {
         whenCall(retrofitMock.pushMessage(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                BOT_API_SUCCESS_RESPONSE);
         final PushMessage pushMessage = new PushMessage("TO", new TextMessage("text"));
 
         // Do
@@ -117,7 +113,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void multicastTest() throws Exception {
         whenCall(retrofitMock.multicast(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                BOT_API_SUCCESS_RESPONSE);
         final Multicast multicast = new Multicast(singleton("TO"), new TextMessage("text"));
 
         // Do
@@ -142,7 +138,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void getMessageContentTest() throws Exception {
         whenCall(retrofitMock.getMessageContent(any()),
-                 ResponseBody.create(MediaType.parse("image/jpeg"), ZERO_BYTES));
+                ResponseBody.create(MediaType.parse("image/jpeg"), ZERO_BYTES));
 
         // Do
         final MessageContentResponse contentResponse = target.getMessageContent("ID").get();
@@ -156,9 +152,9 @@ public class LineMessagingClientImplTest {
     @Test
     public void getMessageQuota() {
         whenCall(retrofitMock.getMessageQuota(),
-                 MessageQuotaResponse.builder()
-                                     .type(QuotaType.none)
-                                     .build());
+                MessageQuotaResponse.builder()
+                        .type(QuotaType.none)
+                        .build());
 
         MessageQuotaResponse response = target.getMessageQuota().join();
         verify(retrofitMock, only()).getMessageQuota();
@@ -168,10 +164,10 @@ public class LineMessagingClientImplTest {
     @Test
     public void getMessageQuota_limited() {
         whenCall(retrofitMock.getMessageQuota(),
-                 MessageQuotaResponse.builder()
-                                     .type(QuotaType.limited)
-                                     .value(100)
-                                     .build());
+                MessageQuotaResponse.builder()
+                        .type(QuotaType.limited)
+                        .value(100)
+                        .build());
 
         MessageQuotaResponse response = target.getMessageQuota().join();
         verify(retrofitMock, only()).getMessageQuota();
@@ -182,7 +178,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void getMessageQuotaConsumption() {
         whenCall(retrofitMock.getMessageQuotaConsumption(),
-                 new QuotaConsumptionResponse(1024));
+                new QuotaConsumptionResponse(1024));
 
         QuotaConsumptionResponse response = target.getMessageQuotaConsumption().join();
         verify(retrofitMock, only()).getMessageQuotaConsumption();
@@ -192,7 +188,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void getNumberOfSentReplyMessages() {
         whenCall(retrofitMock.getNumberOfSentReplyMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentReplyMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentReplyMessages("20181231");
@@ -203,7 +199,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void getNumberOfSentPushMessages() {
         whenCall(retrofitMock.getNumberOfSentPushMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentPushMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentPushMessages("20181231");
@@ -214,7 +210,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void getNumberOfSentMulticastMessages() {
         whenCall(retrofitMock.getNumberOfSentMulticastMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentMulticastMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentMulticastMessages("20181231");
@@ -225,7 +221,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void getNumberOfSentBroadcastMessages() {
         whenCall(retrofitMock.getNumberOfSentBroadcastMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentBroadcastMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentBroadcastMessages("20181231");
@@ -237,9 +233,9 @@ public class LineMessagingClientImplTest {
     public void getProfileTest() throws Exception {
         final UserProfileResponse mockUserProfileResponse =
                 new UserProfileResponse("displayName", "userId",
-                                        URI.create("http://pictureUrl/"), "statusMessage");
+                        URI.create("http://pictureUrl/"), "statusMessage");
         whenCall(retrofitMock.getProfile(any()),
-                 mockUserProfileResponse);
+                mockUserProfileResponse);
 
         // Do
         final UserProfileResponse response = target.getProfile("USER_ID").get();
@@ -253,9 +249,9 @@ public class LineMessagingClientImplTest {
     public void getProfileOfGroupMemberTest() throws Exception {
         final UserProfileResponse mockUserProfileResponse =
                 new UserProfileResponse("displayName", "userId",
-                                        URI.create("http://pictureUrl"), null);
+                        URI.create("http://pictureUrl"), null);
         whenCall(retrofitMock.getMemberProfile(any(), any(), any()),
-                 mockUserProfileResponse);
+                mockUserProfileResponse);
 
         // Do
         final UserProfileResponse response = target.getGroupMemberProfile("GROUP_ID", "USER_ID").get();
@@ -294,7 +290,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void leaveGroupTest() throws Exception {
         whenCall(retrofitMock.leaveGroup(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                BOT_API_SUCCESS_RESPONSE);
 
         // Do
         final BotApiResponse botApiResponse = target.leaveGroup("ID").get();
@@ -307,7 +303,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void leaveRoomTest() throws Exception {
         whenCall(retrofitMock.leaveRoom(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                BOT_API_SUCCESS_RESPONSE);
 
         // Do
         final BotApiResponse botApiResponse = target.leaveRoom("ID").get();
@@ -346,7 +342,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void deleteRichMenuTest() throws Exception {
         whenCall(retrofitMock.deleteRichMenu(any()),
-                 null);
+                null);
 
         // Do
         final BotApiResponse botApiResponse = target.deleteRichMenu("ID").get();
@@ -359,7 +355,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void getRichMenuIdOfUserTest() throws Exception {
         whenCall(retrofitMock.getRichMenuIdOfUser(any()),
-                 RICH_MENU_ID_RESPONSE);
+                RICH_MENU_ID_RESPONSE);
 
         // Do
         final RichMenuIdResponse richMenuIdResponse = target.getRichMenuIdOfUser("ID").get();
@@ -372,7 +368,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void linkRichMenuToUserTest() throws Exception {
         whenCall(retrofitMock.linkRichMenuToUser(any(), any()),
-                 null);
+                null);
 
         // Do
         final BotApiResponse botApiResponse = target.linkRichMenuIdToUser("USER_ID", "RICH_MENU_ID").get();
@@ -388,21 +384,21 @@ public class LineMessagingClientImplTest {
 
         // Do
         final BotApiResponse botApiResponse = target.linkRichMenuIdToUsers(Collections.singletonList("USER_ID"),
-                                                                           "RICH_MENU_ID")
-                                                    .join();
+                "RICH_MENU_ID")
+                .join();
 
         // Verify
         verify(retrofitMock, only()).linkRichMenuToUsers(RichMenuBlukLinkRequest.builder()
-                                                                                .richMenuId("RICH_MENU_ID")
-                                                                                .userId("USER_ID")
-                                                                                .build());
+                .richMenuId("RICH_MENU_ID")
+                .userId("USER_ID")
+                .build());
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
     @Test
     public void unlinkRichMenuIdFromUser() throws Exception {
         whenCall(retrofitMock.unlinkRichMenuIdFromUser(any()),
-                 null);
+                null);
 
         // Do
         final BotApiResponse botApiResponse = target.unlinkRichMenuIdFromUser("ID").get();
@@ -415,11 +411,11 @@ public class LineMessagingClientImplTest {
     @Test
     public void unlinkRichMenuIdFromUsers() throws Exception {
         whenCall(retrofitMock.unlinkRichMenuIdFromUsers(any()),
-                 null);
+                null);
 
         // Do
         final BotApiResponse botApiResponse = target.unlinkRichMenuIdFromUsers(Collections.singletonList("ID"))
-                                                    .join();
+                .join();
 
         // Verify
         verify(retrofitMock, only()).unlinkRichMenuIdFromUsers(
@@ -430,7 +426,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void getRichMenuImageTest() throws Exception {
         whenCall(retrofitMock.getRichMenuImage(any()),
-                 ResponseBody.create(MediaType.parse("image/jpeg"), ZERO_BYTES));
+                ResponseBody.create(MediaType.parse("image/jpeg"), ZERO_BYTES));
 
         // Do
         final MessageContentResponse messageContentResponse = target.getRichMenuImage("ID").get();
@@ -443,7 +439,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void uploadRichMenuImageTest() throws Exception {
         whenCall(retrofitMock.uploadRichMenuImage(any(), any()),
-                 null);
+                null);
 
         // Do
         final BotApiResponse botApiResponse =
@@ -459,7 +455,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void getRichMenuListTest() throws Exception {
         whenCall(retrofitMock.getRichMenuList(),
-                 new RichMenuListResponse(emptyList()));
+                new RichMenuListResponse(emptyList()));
 
         // Do
         final RichMenuListResponse richMenuListResponse = target.getRichMenuList().get();
@@ -544,6 +540,45 @@ public class LineMessagingClientImplTest {
         final GetNumberOfFollowersResponse actual =
                 target.getNumberOfFollowersResponse("20190805").get();
         verify(retrofitMock, only()).getNumberOfFollowers("20190805");
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void getFriendDemographic() throws Exception {
+        final FriendDemographicResponse response = FriendDemographicResponse
+                .builder()
+                .available(true)
+                .genders(Collections.singletonList(
+                        GenderPercentage.builder()
+                                .gender("male")
+                                .percentage(37.6d)
+                                .build()))
+                .ages(Collections.singletonList(
+                        AgePercentage.builder()
+                                .age("from50")
+                                .percentage(37.6d)
+                                .build()))
+                .areas(Collections.singletonList(
+                        AreaPercentage.builder()
+                                .area("徳島")
+                                .percentage(42.9d)
+                                .build()))
+                .appTypes(Collections.singletonList(
+                        AppTypePercentage.builder()
+                                .appType("ios")
+                                .percentage(62.4d)
+                                .build()))
+                .subscriptionPeriods(Collections.singletonList(
+                        SubscriptionPeriodPercentage.builder()
+                                .subscriptionPeriod("over365days")
+                                .percentage(96.4d)
+                                .build()))
+                .build();
+
+        whenCall(retrofitMock.getFriendDemographic(), response);
+        final FriendDemographicResponse actual =
+                target.getFriendDemographics().get();
+        verify(retrofitMock, only()).getFriendDemographic();
         assertThat(actual).isEqualTo(response);
     }
 

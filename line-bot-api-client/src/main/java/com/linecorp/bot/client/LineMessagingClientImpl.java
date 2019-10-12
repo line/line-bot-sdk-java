@@ -27,15 +27,10 @@ import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.demographic.FriendDemographicResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
-import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
-import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
-import com.linecorp.bot.model.response.IssueLinkTokenResponse;
-import com.linecorp.bot.model.response.MessageQuotaResponse;
-import com.linecorp.bot.model.response.NumberOfMessagesResponse;
-import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.*;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
@@ -247,6 +242,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<GetNumberOfMessageDeliveriesResponse> getNumberOfMessageDeliveries(String date) {
         return toFuture(retrofitImpl.getNumberOfMessageDeliveries(date));
+    }
+
+    @Override
+    public CompletableFuture<FriendDemographicResponse> getFriendDemographics() {
+        return toFuture(retrofitImpl.getFriendDemographic());
     }
 
     @Override
