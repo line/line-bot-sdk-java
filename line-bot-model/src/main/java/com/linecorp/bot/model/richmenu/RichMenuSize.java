@@ -26,9 +26,12 @@ public class RichMenuSize {
     public static final RichMenuSize FULL = new RichMenuSize(2500, 1686);
     public static final RichMenuSize HALF = new RichMenuSize(2500, 843);
 
-    /** Width of the rich menu. Must be 2500. */
+    /** Width of the rich menu. Possible values: 2500, 1200, or 800. */
     int width;
-    /** Height of the rich menu. Possible values: 1686 or 843. */
+    /**
+     * Height of the rich menu.
+     * Possible values: 1686 or 843 for width = 2500, 810 or 405 for 1200, 540 or 270 for 800.
+     */
     int height;
 
     @JsonCreator
