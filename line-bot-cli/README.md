@@ -236,6 +236,38 @@ areas:
 12:27:01  INFO - enuIdFromUserCommand : response = BotApiResponse(message=, details=[])
 ```
 
+## friend-demographics-get
+```
+% ./line-bot-cli.jar --command=friend-demographics-get
+...
+17:33:43  INFO - mographicsGetCommand : Successfully finished:
+available: true
+genders:
+- {gender: female, percentage: 52.1}
+- {gender: male, percentage: 41.7}
+- {gender: unknown, percentage: 6.3}
+ages:
+- {age: from50, percentage: 52.1}
+- {age: unknown, percentage: 47.9}
+...
+areas:
+- {area: unknown, percentage: 100.0}
+- {area: 鳥取, percentage: 0.0}
+- {area: 石川, percentage: 0.0}
+- {area: 埼玉, percentage: 0.0}
+- {area: 岐阜, percentage: 0.0}
+....
+appTypes:
+- {appType: android, percentage: 56.3}
+- {appType: ios, percentage: 43.8}
+- {appType: others, percentage: 0.0}
+subscriptionPeriods:
+- {subscriptionPeriod: within180days, percentage: 62.5}
+- {subscriptionPeriod: unknown, percentage: 37.5}
+- {subscriptionPeriod: over365days, percentage: 0.0}
+...
+```
+
 
 # Tips
 ## Handling multiple bots.
