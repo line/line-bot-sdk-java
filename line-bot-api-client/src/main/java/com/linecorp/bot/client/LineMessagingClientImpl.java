@@ -36,6 +36,7 @@ import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
@@ -242,6 +243,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<IssueLinkTokenResponse> issueLinkToken(String userId) {
         return toFuture(retrofitImpl.issueLinkToken(userId));
+    }
+
+    @Override
+    public CompletableFuture<GetFriendsDemographicsResponse> getFriendsDemographics() {
+        return toFuture(retrofitImpl.getFriendsDemographics());
     }
 
     @Override
