@@ -18,15 +18,18 @@ package com.linecorp.bot.cli;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.util.concurrent.Futures.getUnchecked;
-import static javax.activation.FileTypeMap.getDefaultFileTypeMap;
 
 import java.io.IOException;
+import java.net.FileNameMap;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+
+import com.google.common.annotations.VisibleForTesting;
 
 import com.linecorp.bot.cli.arguments.Arguments;
 import com.linecorp.bot.client.LineMessagingClient;
@@ -40,6 +43,8 @@ import lombok.extern.slf4j.Slf4j;
 @ConditionalOnProperty(name = "command", havingValue = "richmenu-upload")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class RichMenuImageUploadCommand implements CliCommand {
+    private static final FileNameMap FILE_NAME_MAP = URLConnection.getFileNameMap();
+
     private LineMessagingClient lineMessagingClient;
     private Arguments arguments;
 
@@ -47,7 +52,7 @@ public class RichMenuImageUploadCommand implements CliCommand {
     public void execute() throws IOException {
         final String richMenuId = checkNotNull(arguments.getRichMenuId(), "--rich-menu-id= is not set.");
         final String image = checkNotNull(arguments.getImage(), "--image= is not set.");
-        final String contentType = checkNotNull(getDefaultFileTypeMap().getContentType(image),
+        final String contentType = checkNotNull(resolveContentTypeForFileName(image),
                                                 "Can't assume Content-Type");
         log.info("Content-Type: {}", contentType);
 
@@ -56,5 +61,10 @@ public class RichMenuImageUploadCommand implements CliCommand {
                 getUnchecked(lineMessagingClient.setRichMenuImage(richMenuId, contentType, bytes));
 
         log.info("Request Successfully finished. {}", botApiResponse);
+    }
+
+    @VisibleForTesting
+    static String resolveContentTypeForFileName(final String fileName) {
+        return FILE_NAME_MAP.getContentTypeFor(fileName);
     }
 }
