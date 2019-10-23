@@ -1,0 +1,4 @@
+or if you finished create `src/main/resources/application.yml` file based on `src/main/resources/application-template.yml`. You can start configured web server just hitting
+`https://${YOUR_HEROKU_APP_NAME}.herokuapp.com/callback`
+
+<img src="https://github.com/line/line-bot-sdk-java/blob/master/sample-spring-boot-echo/_assets/put-webhook-url.png?raw=true">
