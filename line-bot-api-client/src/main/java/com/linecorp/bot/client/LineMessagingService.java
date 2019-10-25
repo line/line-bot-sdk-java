@@ -24,7 +24,6 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
-import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -61,7 +60,7 @@ interface LineMessagingService {
      * @see LineMessagingClient#replyMessage(ReplyMessage)
      */
     @POST("v2/bot/message/reply")
-    Call<BotApiResponse> replyMessage(@Body ReplyMessage replyMessage);
+    Call<BotApiResponseBody> replyMessage(@Body ReplyMessage replyMessage);
 
     /**
      * Method for Retrofit.
@@ -69,7 +68,7 @@ interface LineMessagingService {
      * @see LineMessagingClient#pushMessage(PushMessage)
      */
     @POST("v2/bot/message/push")
-    Call<BotApiResponse> pushMessage(@Body PushMessage pushMessage);
+    Call<BotApiResponseBody> pushMessage(@Body PushMessage pushMessage);
 
     /**
      * Method for Retrofit.
@@ -77,13 +76,13 @@ interface LineMessagingService {
      * @see LineMessagingClient#multicast(Multicast)
      */
     @POST("v2/bot/message/multicast")
-    Call<BotApiResponse> multicast(@Body Multicast multicast);
+    Call<BotApiResponseBody> multicast(@Body Multicast multicast);
 
     /**
      * Sends push messages to multiple users at any time.
      */
     @POST("v2/bot/message/broadcast")
-    Call<BotApiResponse> broadcast(@Body Broadcast broadcast);
+    Call<BotApiResponseBody> broadcast(@Body Broadcast broadcast);
 
     /**
      * Method for Retrofit.
@@ -196,7 +195,7 @@ interface LineMessagingService {
      * @see LineMessagingClient#leaveGroup(String)
      */
     @POST("v2/bot/group/{groupId}/leave")
-    Call<BotApiResponse> leaveGroup(@Path("groupId") String groupId);
+    Call<BotApiResponseBody> leaveGroup(@Path("groupId") String groupId);
 
     /**
      * Method for Retrofit.
@@ -204,7 +203,7 @@ interface LineMessagingService {
      * @see LineMessagingClient#leaveRoom(String)
      */
     @POST("v2/bot/room/{roomId}/leave")
-    Call<BotApiResponse> leaveRoom(@Path("roomId") String roomId);
+    Call<BotApiResponseBody> leaveRoom(@Path("roomId") String roomId);
 
     /**
      * Method for Retrofit.

@@ -17,6 +17,7 @@
 package com.linecorp.bot.spring.boot.support;
 
 import static java.util.Collections.singletonList;
+import static java.util.concurrent.CompletableFuture.completedFuture;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.only;
@@ -69,7 +70,7 @@ public class ReplyByReturnValueConsumerTest {
     public void setUp() {
         target = targetFactory.createForEvent(EVENT);
         when(lineMessagingClient.replyMessage(any()))
-                .thenReturn(CompletableFuture.completedFuture(new BotApiResponse("success", null)));
+                .thenReturn(completedFuture(new BotApiResponse("", " success", null)));
     }
 
     // Publich methods test

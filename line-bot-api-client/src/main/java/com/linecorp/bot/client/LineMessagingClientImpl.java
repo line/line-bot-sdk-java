@@ -20,7 +20,6 @@ import static java.util.Collections.emptyList;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
 import com.linecorp.bot.model.Broadcast;
@@ -62,30 +61,29 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     private static final ExceptionConverter EXCEPTION_CONVERTER = new ExceptionConverter();
     private static final String ORG_TYPE_GROUP = "group"; // TODO Enum
     private static final String ORG_TYPE_ROOM = "room";
-    private static final BotApiResponse BOT_API_SUCCESS_RESPONSE = new BotApiResponse("", emptyList());
-    private static final Function<Void, BotApiResponse>
-            VOID_TO_BOT_API_SUCCESS_RESPONSE = ignored -> BOT_API_SUCCESS_RESPONSE;
+    private static final BotApiResponseBody BOT_API_SUCCESS_RESPONSE_BODY =
+            BotApiResponseBody.builder().message("").details(emptyList()).build();
 
     private final LineMessagingService retrofitImpl;
 
     @Override
     public CompletableFuture<BotApiResponse> replyMessage(final ReplyMessage replyMessage) {
-        return toFuture(retrofitImpl.replyMessage(replyMessage));
+        return toBotApiResponseFuture(retrofitImpl.replyMessage(replyMessage));
     }
 
     @Override
     public CompletableFuture<BotApiResponse> pushMessage(final PushMessage pushMessage) {
-        return toFuture(retrofitImpl.pushMessage(pushMessage));
+        return toBotApiResponseFuture(retrofitImpl.pushMessage(pushMessage));
     }
 
     @Override
     public CompletableFuture<BotApiResponse> multicast(final Multicast multicast) {
-        return toFuture(retrofitImpl.multicast(multicast));
+        return toBotApiResponseFuture(retrofitImpl.multicast(multicast));
     }
 
     @Override
     public CompletableFuture<BotApiResponse> broadcast(Broadcast broadcast) {
-        return toFuture(retrofitImpl.broadcast(broadcast));
+        return toBotApiResponseFuture(retrofitImpl.broadcast(broadcast));
     }
 
     @Override
@@ -154,12 +152,12 @@ public class LineMessagingClientImpl implements LineMessagingClient {
 
     @Override
     public CompletableFuture<BotApiResponse> leaveGroup(final String groupId) {
-        return toFuture(retrofitImpl.leaveGroup(groupId));
+        return toBotApiResponseFuture(retrofitImpl.leaveGroup(groupId));
     }
 
     @Override
     public CompletableFuture<BotApiResponse> leaveRoom(final String roomId) {
-        return toFuture(retrofitImpl.leaveRoom(roomId));
+        return toBotApiResponseFuture(retrofitImpl.leaveRoom(roomId));
     }
 
     @Override
@@ -267,10 +265,17 @@ public class LineMessagingClientImpl implements LineMessagingClient {
         return completableFuture;
     }
 
-    private static CompletableFuture<BotApiResponse> toBotApiFuture(Call<Void> callToWrap) {
-        final CallbackAdaptor<Void> completableFuture = new CallbackAdaptor<>();
+    private static CompletableFuture<BotApiResponse> toBotApiResponseFuture(
+            final Call<BotApiResponseBody> callToWrap) {
+        final BotApiCallbackAdaptor completableFuture = new BotApiCallbackAdaptor();
         callToWrap.enqueue(completableFuture);
-        return completableFuture.thenApply(VOID_TO_BOT_API_SUCCESS_RESPONSE);
+        return completableFuture;
+    }
+
+    private static CompletableFuture<BotApiResponse> toBotApiFuture(Call<Void> callToWrap) {
+        final VoidToBotApiCallbackAdaptor completableFuture = new VoidToBotApiCallbackAdaptor();
+        callToWrap.enqueue(completableFuture);
+        return completableFuture;
     }
 
     private static CompletableFuture<MessageContentResponse> toMessageContentResponseFuture(
@@ -292,6 +297,45 @@ public class LineMessagingClientImpl implements LineMessagingClient {
 
         @Override
         public void onFailure(final Call<T> call, final Throwable t) {
+            completeExceptionally(
+                    new GeneralLineMessagingException(t.getMessage(), null, t));
+        }
+    }
+
+    static class VoidToBotApiCallbackAdaptor extends CompletableFuture<BotApiResponse>
+            implements Callback<Void> {
+        @Override
+        public void onResponse(final Call<Void> call, final Response<Void> response) {
+            if (response.isSuccessful()) {
+                final String requestId = response.headers().get("x-line-request-id");
+                complete(BOT_API_SUCCESS_RESPONSE_BODY.withRequestId(requestId));
+            } else {
+                completeExceptionally(EXCEPTION_CONVERTER.apply(response));
+            }
+        }
+
+        @Override
+        public void onFailure(final Call<Void> call, final Throwable t) {
+            completeExceptionally(
+                    new GeneralLineMessagingException(t.getMessage(), null, t));
+        }
+    }
+
+    static class BotApiCallbackAdaptor extends CompletableFuture<BotApiResponse>
+            implements Callback<BotApiResponseBody> {
+        @Override
+        public void onResponse(final Call<BotApiResponseBody> call,
+                               final Response<BotApiResponseBody> response) {
+            if (response.isSuccessful()) {
+                final String requestId = response.headers().get("x-line-request-id");
+                complete(response.body().withRequestId(requestId));
+            } else {
+                completeExceptionally(EXCEPTION_CONVERTER.apply(response));
+            }
+        }
+
+        @Override
+        public void onFailure(final Call<BotApiResponseBody> call, final Throwable t) {
             completeExceptionally(
                     new GeneralLineMessagingException(t.getMessage(), null, t));
         }

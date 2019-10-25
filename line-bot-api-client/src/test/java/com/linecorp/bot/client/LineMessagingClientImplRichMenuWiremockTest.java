@@ -26,12 +26,14 @@ import com.linecorp.bot.model.response.BotApiResponse;
 import okhttp3.mockwebserver.MockResponse;
 
 public class LineMessagingClientImplRichMenuWiremockTest extends AbstractWiremockTest {
-    public static final BotApiResponse SUCCESS = new BotApiResponse("", emptyList());
+    public static final BotApiResponseBody SUCCESS_BODY = new BotApiResponseBody("", emptyList());
+    public static final BotApiResponse SUCCESS = SUCCESS_BODY.withRequestId("REQUEST_ID");
 
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void status200WithoutBodyTest() throws Exception {
         // Mocking
-        mockWebServer.enqueue(new MockResponse().setResponseCode(200));
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200)
+                                                .addHeader("x-line-request-id", "REQUEST_ID"));
 
         // Do
         final BotApiResponse botApiResponse = lineMessagingClient.deleteRichMenu("RICH_MENU_ID").get();
@@ -41,7 +43,9 @@ public class LineMessagingClientImplRichMenuWiremockTest extends AbstractWiremoc
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void status200WithBodyTest() throws Exception {
         // Mocking
-        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody("{}"));
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200)
+                                                .addHeader("x-line-request-id", "REQUEST_ID")
+                                                .setBody("{}"));
 
         // Do
         final BotApiResponse botApiResponse = lineMessagingClient.deleteRichMenu("RICH_MENU_ID").get();

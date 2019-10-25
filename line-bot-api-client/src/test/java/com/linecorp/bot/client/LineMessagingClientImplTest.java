@@ -18,6 +18,7 @@ package com.linecorp.bot.client;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singleton;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -60,6 +61,7 @@ import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
 
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
@@ -69,7 +71,11 @@ import retrofit2.Response;
 
 public class LineMessagingClientImplTest {
     private static final byte[] ZERO_BYTES = {};
-    private static final BotApiResponse BOT_API_SUCCESS_RESPONSE = new BotApiResponse("", emptyList());
+    private static final String REQUEST_ID_FIXTURE = "REQUEST_ID_FIXTURE";
+    private static final BotApiResponseBody BOT_API_SUCCESS_RESPONSE_BODY =
+            new BotApiResponseBody("", emptyList());
+    private static final BotApiResponse BOT_API_SUCCESS_RESPONSE =
+            BOT_API_SUCCESS_RESPONSE_BODY.withRequestId(REQUEST_ID_FIXTURE);
     private static final RichMenuIdResponse RICH_MENU_ID_RESPONSE = new RichMenuIdResponse("ID");
 
     @Rule
@@ -87,7 +93,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void replyMessageTest() throws Exception {
         whenCall(retrofitMock.replyMessage(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                 BOT_API_SUCCESS_RESPONSE_BODY);
         final ReplyMessage replyMessage = new ReplyMessage("token", new TextMessage("Message"));
 
         // Do
@@ -102,7 +108,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void pushMessageTest() throws Exception {
         whenCall(retrofitMock.pushMessage(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                 BOT_API_SUCCESS_RESPONSE_BODY);
         final PushMessage pushMessage = new PushMessage("TO", new TextMessage("text"));
 
         // Do
@@ -117,7 +123,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void multicastTest() throws Exception {
         whenCall(retrofitMock.multicast(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                 BOT_API_SUCCESS_RESPONSE_BODY);
         final Multicast multicast = new Multicast(singleton("TO"), new TextMessage("text"));
 
         // Do
@@ -131,7 +137,7 @@ public class LineMessagingClientImplTest {
 
     @Test
     public void broadcast() {
-        whenCall(retrofitMock.broadcast(any()), BOT_API_SUCCESS_RESPONSE);
+        whenCall(retrofitMock.broadcast(any()), BOT_API_SUCCESS_RESPONSE_BODY);
         final Broadcast broadcast = new Broadcast(Collections.singletonList(new TextMessage("text")), true);
 
         final BotApiResponse botApiResponse = target.broadcast(broadcast).join();
@@ -294,7 +300,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void leaveGroupTest() throws Exception {
         whenCall(retrofitMock.leaveGroup(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                 BOT_API_SUCCESS_RESPONSE_BODY);
 
         // Do
         final BotApiResponse botApiResponse = target.leaveGroup("ID").get();
@@ -307,7 +313,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void leaveRoomTest() throws Exception {
         whenCall(retrofitMock.leaveRoom(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                 BOT_API_SUCCESS_RESPONSE_BODY);
 
         // Do
         final BotApiResponse botApiResponse = target.leaveRoom("ID").get();
@@ -563,7 +569,8 @@ public class LineMessagingClientImplTest {
 
             @Override
             public void enqueue(Callback<T> callback) {
-                callback.onResponse(this, Response.success(value));
+                final Headers headers = Headers.of(singletonMap("x-line-request-id", REQUEST_ID_FIXTURE));
+                callback.onResponse(this, Response.success(value, headers));
             }
 
             @Override
