@@ -1,6 +1,6 @@
 # LINE Messaging API SDK for Java
 
-[![Build Status](https://travis-ci.org/line/line-bot-sdk-java.svg?branch=master)](https://travis-ci.org/line/line-bot-sdk-java)
+[![Build Status](https://github.com/line/line-bot-sdk-java/workflows/CI/badge.svg?event%3Apush+branch%3Amaster)](https://github.com/line/line-bot-sdk-java/actions?query=event%3Apush+branch%3Amaster)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.linecorp.bot/line-bot-model/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.linecorp.bot/line-bot-model)
 [![javadoc.io](https://javadocio-badges.herokuapp.com/com.linecorp.bot/line-bot-model/badge.svg)](https://javadocio-badges.herokuapp.com/com.linecorp.bot/line-bot-model)
 [![codecov](https://codecov.io/gh/line/line-bot-sdk-java/branch/master/graph/badge.svg)](https://codecov.io/gh/line/line-bot-sdk-java)
