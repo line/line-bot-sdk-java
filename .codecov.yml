@@ -1,5 +1,4 @@
 codecov:
-  token: 3144ee37-e0d1-4153-ba55-b0ef4ec8c416 # Needed when execute by GitHub Actions. (Safe to published)
   notify:
     require_ci_to_pass: no
 
