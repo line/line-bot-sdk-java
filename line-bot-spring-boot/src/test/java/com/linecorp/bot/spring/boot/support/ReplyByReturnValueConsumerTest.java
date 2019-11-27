@@ -72,7 +72,7 @@ public class ReplyByReturnValueConsumerTest {
                 .thenReturn(CompletableFuture.completedFuture(new BotApiResponse("success", null)));
     }
 
-    // Publich methods test
+    // Public methods test
 
     @Test
     public void acceptSingleReplyTest() throws Exception {
