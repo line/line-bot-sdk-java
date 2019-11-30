@@ -41,53 +41,39 @@ public class LineBotProperties {
      *
      * @see ChannelTokenSupplyMode
      */
-    @NotNull
-    private ChannelTokenSupplyMode channelTokenSupplyMode = ChannelTokenSupplyMode.FIXED;
+    private @NotNull ChannelTokenSupplyMode channelTokenSupplyMode = ChannelTokenSupplyMode.FIXED;
 
     /**
      * Channel acccess token.
      */
-    @Valid
-    private String channelToken;
+    private @Valid String channelToken;
 
     /**
      * Channel secret.
      */
-    @Valid
-    @NotNull
-    private String channelSecret;
+    private @Valid @NotNull String channelSecret;
 
-    @Valid
-    @NotNull
-    private String apiEndPoint = LineClientConstants.DEFAULT_API_END_POINT;
+    private @Valid @NotNull String apiEndPoint = LineClientConstants.DEFAULT_API_END_POINT;
 
     /**
      * Connection timeout in milliseconds.
      */
-    @Valid
-    @NotNull
-    private long connectTimeout = LineClientConstants.DEFAULT_CONNECT_TIMEOUT_MILLIS;
+    private @Valid @NotNull long connectTimeout = LineClientConstants.DEFAULT_CONNECT_TIMEOUT_MILLIS;
 
     /**
      * Read timeout in milliseconds.
      */
-    @Valid
-    @NotNull
-    private long readTimeout = LineClientConstants.DEFAULT_READ_TIMEOUT_MILLIS;
+    private @Valid @NotNull long readTimeout = LineClientConstants.DEFAULT_READ_TIMEOUT_MILLIS;
 
     /**
      * Write timeout in milliseconds.
      */
-    @Valid
-    @NotNull
-    private long writeTimeout = LineClientConstants.DEFAULT_WRITE_TIMEOUT_MILLIS;
+    private @Valid @NotNull long writeTimeout = LineClientConstants.DEFAULT_WRITE_TIMEOUT_MILLIS;
 
     /**
      * Configuration for {@link LineMessageHandler} and {@link EventMapping}.
      */
-    @Valid
-    @NotNull
-    private Handler handler = new Handler();
+    private @Valid @NotNull Handler handler = new Handler();
 
     @Data
     public static class Handler {

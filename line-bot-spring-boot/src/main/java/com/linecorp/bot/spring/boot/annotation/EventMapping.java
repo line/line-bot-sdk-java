@@ -21,15 +21,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.google.common.annotations.Beta;
-
 /**
  * Indicates that an annotated method is a LINE Messaging Event Handler.
  *
  * <p>Note: Only {@link EventMapping @EventMapping} annotated method
  * in the class annotated by {@link LineMessageHandler @LineMessageHandler} is enabled.
  */
-@Beta
 @Target({ ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EventMapping {
