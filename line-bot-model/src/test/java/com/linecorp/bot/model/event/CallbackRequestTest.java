@@ -49,6 +49,7 @@ import com.linecorp.bot.model.event.things.UnknownLineThingsContent;
 import com.linecorp.bot.model.event.things.UnlinkThingsContent;
 import com.linecorp.bot.model.event.things.result.BinaryActionResult;
 import com.linecorp.bot.model.event.things.result.ScenarioResult;
+import com.linecorp.bot.model.event.things.result.UnknownActionResult;
 import com.linecorp.bot.model.event.things.result.VoidActionResult;
 import com.linecorp.bot.model.testutil.TestUtil;
 
@@ -431,6 +432,7 @@ public class CallbackRequestTest {
             assertThat(result.getResultCode()).isEqualTo("success");
             assertThat(result.getActionResults().get(0)).isEqualTo(new BinaryActionResult("/w=="));
             assertThat(result.getActionResults().get(1)).isInstanceOf(VoidActionResult.class);
+            assertThat(result.getActionResults().get(2)).isInstanceOf(UnknownActionResult.class);
             assertThat(result.getBleNotificationPayload()).isEqualTo("AQ==");
             assertThat(result.getErrorReason()).isEqualTo(null);
         });

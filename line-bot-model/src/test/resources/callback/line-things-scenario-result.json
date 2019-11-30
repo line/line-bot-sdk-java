@@ -25,6 +25,10 @@
             },
             {
               "type": "void"
+            },
+            {
+              "type": "unknowType",
+              "unknowProperty": "fuga"
             }
           ]
         }
