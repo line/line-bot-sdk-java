@@ -133,8 +133,7 @@ public class LineMessageHandlerSupport {
         final Type type = method.getGenericParameterTypes()[0];
 
         final Predicate<Event> predicate = new EventPredicate(type);
-        return new HandlerMethod(predicate, consumer, method,
-                                 getPriority(mapping, type));
+        return new HandlerMethod(predicate, consumer, method, getPriority(mapping, type));
     }
 
     private int getPriority(final EventMapping mapping, final Type type) {
@@ -234,7 +233,6 @@ public class LineMessageHandlerSupport {
         }
 
         private static boolean filterByType(final Class<?> clazz, final Object content) {
-
             return clazz.isAssignableFrom(content.getClass());
         }
 
