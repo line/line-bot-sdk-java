@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "things",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "user",
+        "userId": "U012345678901234567890123456789ab"
+      },
+      "things": {
+        "unknownProperty": "hogeHuga",
+        "type": "unknownLineThingsEvent"
+      }
+    }
+  ]
+}

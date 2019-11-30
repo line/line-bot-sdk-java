@@ -45,9 +45,11 @@ import com.linecorp.bot.model.event.source.UnknownSource;
 import com.linecorp.bot.model.event.source.UserSource;
 import com.linecorp.bot.model.event.things.LinkThingsContent;
 import com.linecorp.bot.model.event.things.ScenarioResultThingsContent;
+import com.linecorp.bot.model.event.things.UnknownLineThingsContent;
 import com.linecorp.bot.model.event.things.UnlinkThingsContent;
 import com.linecorp.bot.model.event.things.result.BinaryActionResult;
 import com.linecorp.bot.model.event.things.result.ScenarioResult;
+import com.linecorp.bot.model.event.things.result.VoidActionResult;
 import com.linecorp.bot.model.testutil.TestUtil;
 
 public class CallbackRequestTest {
@@ -428,8 +430,23 @@ public class CallbackRequestTest {
             assertThat(result.getEndTime()).isEqualTo(Instant.ofEpochMilli(1547817845952L));
             assertThat(result.getResultCode()).isEqualTo("success");
             assertThat(result.getActionResults().get(0)).isEqualTo(new BinaryActionResult("/w=="));
+            assertThat(result.getActionResults().get(1)).isInstanceOf(VoidActionResult.class);
             assertThat(result.getBleNotificationPayload()).isEqualTo("AQ==");
             assertThat(result.getErrorReason()).isEqualTo(null);
+        });
+    }
+
+    @Test
+    public void testLineThingsUnknown() throws IOException {
+        parse("callback/line-things-unknown.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            final ThingsEvent event = (ThingsEvent) callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(ThingsEvent.class);
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId()).isEqualTo("U012345678901234567890123456789ab");
+            assertThat(event.getTimestamp()).isEqualTo(Instant.ofEpochMilli(1462629479859L));
+
+            assertThat(event.getThings()).isInstanceOf(UnknownLineThingsContent.class);
         });
     }
 

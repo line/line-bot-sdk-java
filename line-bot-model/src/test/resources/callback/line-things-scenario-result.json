@@ -22,6 +22,9 @@
             {
               "type": "binary",
               "data": "/w=="
+            },
+            {
+              "type": "void"
             }
           ]
         }
