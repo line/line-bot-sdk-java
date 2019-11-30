@@ -34,7 +34,7 @@ public class WebhookParser {
     private final LineSignatureValidator lineSignatureValidator;
 
     /**
-     * Create new instance.
+     * Creates a new instance.
      *
      * @param lineSignatureValidator LINE messaging API's signature validator
      */
@@ -43,7 +43,7 @@ public class WebhookParser {
     }
 
     /**
-     * Parse request.
+     * Parses a request.
      *
      * @param signature X-Line-Signature header.
      * @param payload Request body.
@@ -58,7 +58,9 @@ public class WebhookParser {
             throw new WebhookParseException("Missing 'X-Line-Signature' header");
         }
 
-        log.debug("got: {}", payload);
+        if (log.isDebugEnabled()) {
+            log.debug("got: {}", new String(payload, StandardCharsets.UTF_8));
+        }
 
         if (!lineSignatureValidator.validateSignature(payload, signature)) {
             throw new WebhookParseException("Invalid API signature");
