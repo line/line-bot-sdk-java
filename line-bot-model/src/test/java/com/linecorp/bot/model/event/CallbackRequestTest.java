@@ -43,10 +43,18 @@ import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UnknownSource;
 import com.linecorp.bot.model.event.source.UserSource;
-import com.linecorp.bot.model.event.things.ThingsContent;
+import com.linecorp.bot.model.event.things.LinkThingsContent;
+import com.linecorp.bot.model.event.things.ScenarioResultThingsContent;
+import com.linecorp.bot.model.event.things.UnknownLineThingsContent;
+import com.linecorp.bot.model.event.things.UnlinkThingsContent;
+import com.linecorp.bot.model.event.things.result.BinaryActionResult;
+import com.linecorp.bot.model.event.things.result.ScenarioResult;
+import com.linecorp.bot.model.event.things.result.UnknownActionResult;
+import com.linecorp.bot.model.event.things.result.VoidActionResult;
 import com.linecorp.bot.model.testutil.TestUtil;
 
 public class CallbackRequestTest {
+    @FunctionalInterface
     interface RequestTester {
         void call(CallbackRequest request) throws IOException;
     }
@@ -377,20 +385,14 @@ public class CallbackRequestTest {
     public void testLineThingsLink() throws IOException {
         parse("callback/line-things-link.json", callbackRequest -> {
             assertThat(callbackRequest.getEvents()).hasSize(1);
-            Event event = callbackRequest.getEvents().get(0);
+            final ThingsEvent event = (ThingsEvent) callbackRequest.getEvents().get(0);
             assertThat(event).isInstanceOf(ThingsEvent.class);
-            assertThat(event.getSource())
-                    .isInstanceOf(UserSource.class);
-            assertThat(event.getSource().getUserId())
-                    .isEqualTo("U012345678901234567890123456789ab");
-            assertThat(event.getTimestamp())
-                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId()).isEqualTo("U012345678901234567890123456789ab");
+            assertThat(event.getTimestamp()).isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
 
-            ThingsEvent thingsEvent = (ThingsEvent) event;
-            assertThat(thingsEvent.getThings().getDeviceId())
-                    .isEqualTo("t016560bc3fb1e42b9fe9293ca6e2db71");
-            assertThat(thingsEvent.getThings().getType())
-                    .isEqualTo(ThingsContent.ThingsType.LINK);
+            final LinkThingsContent things = (LinkThingsContent) event.getThings();
+            assertThat(things.getDeviceId()).isEqualTo("t016560bc3fb1e42b9fe9293ca6e2db71");
         });
     }
 
@@ -398,20 +400,55 @@ public class CallbackRequestTest {
     public void testLineThingsUnlink() throws IOException {
         parse("callback/line-things-unlink.json", callbackRequest -> {
             assertThat(callbackRequest.getEvents()).hasSize(1);
-            Event event = callbackRequest.getEvents().get(0);
+            final ThingsEvent event = (ThingsEvent) callbackRequest.getEvents().get(0);
             assertThat(event).isInstanceOf(ThingsEvent.class);
-            assertThat(event.getSource())
-                    .isInstanceOf(UserSource.class);
-            assertThat(event.getSource().getUserId())
-                    .isEqualTo("U012345678901234567890123456789ab");
-            assertThat(event.getTimestamp())
-                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId()).isEqualTo("U012345678901234567890123456789ab");
+            assertThat(event.getTimestamp()).isEqualTo(Instant.ofEpochMilli(1462629479859L));
 
-            ThingsEvent thingsEvent = (ThingsEvent) event;
-            assertThat(thingsEvent.getThings().getDeviceId())
-                    .isEqualTo("t016560bc3fb1e42b9fe9293ca6e2db71");
-            assertThat(thingsEvent.getThings().getType())
-                    .isEqualTo(ThingsContent.ThingsType.UNLINK);
+            final UnlinkThingsContent things = (UnlinkThingsContent) event.getThings();
+            assertThat(things.getDeviceId()).isEqualTo("t016560bc3fb1e42b9fe9293ca6e2db71");
+        });
+    }
+
+    @Test
+    public void testLineThingsScenarioResult() throws IOException {
+        parse("callback/line-things-scenario-result.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            final ThingsEvent event = (ThingsEvent) callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(ThingsEvent.class);
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId()).isEqualTo("uXXX");
+            assertThat(event.getTimestamp()).isEqualTo(Instant.ofEpochMilli(1547817848122L));
+
+            final ScenarioResultThingsContent things = (ScenarioResultThingsContent) event.getThings();
+            assertThat(things.getDeviceId()).isEqualTo("tXXX");
+
+            final ScenarioResult result = things.getResult();
+            assertThat(result.getScenarioId()).isEqualTo("XXX");
+            assertThat(result.getRevision()).isEqualTo(2);
+            assertThat(result.getStartTime()).isEqualTo(Instant.ofEpochMilli(1547817845950L));
+            assertThat(result.getEndTime()).isEqualTo(Instant.ofEpochMilli(1547817845952L));
+            assertThat(result.getResultCode()).isEqualTo("success");
+            assertThat(result.getActionResults().get(0)).isEqualTo(new BinaryActionResult("/w=="));
+            assertThat(result.getActionResults().get(1)).isInstanceOf(VoidActionResult.class);
+            assertThat(result.getActionResults().get(2)).isInstanceOf(UnknownActionResult.class);
+            assertThat(result.getBleNotificationPayload()).isEqualTo("AQ==");
+            assertThat(result.getErrorReason()).isEqualTo(null);
+        });
+    }
+
+    @Test
+    public void testLineThingsUnknown() throws IOException {
+        parse("callback/line-things-unknown.json", callbackRequest -> {
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            final ThingsEvent event = (ThingsEvent) callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(ThingsEvent.class);
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId()).isEqualTo("U012345678901234567890123456789ab");
+            assertThat(event.getTimestamp()).isEqualTo(Instant.ofEpochMilli(1462629479859L));
+
+            assertThat(event.getThings()).isInstanceOf(UnknownLineThingsContent.class);
         });
     }
 
@@ -424,8 +461,8 @@ public class CallbackRequestTest {
             assertThat(event).isInstanceOf(MemberJoinedEvent.class);
             MemberJoinedEvent memberJoinedEvent = (MemberJoinedEvent) event;
             String uids = memberJoinedEvent.getJoined().getMembers().stream()
-                    .map(Source::getUserId)
-                    .collect(Collectors.joining(","));
+                                           .map(Source::getUserId)
+                                           .collect(Collectors.joining(","));
             assertThat(uids).isEqualTo("U111111");
         });
     }
@@ -439,8 +476,8 @@ public class CallbackRequestTest {
             assertThat(event).isInstanceOf(MemberLeftEvent.class);
             MemberLeftEvent memberLeftEvent = (MemberLeftEvent) event;
             String uids = memberLeftEvent.getLeft().getMembers().stream()
-                    .map(Source::getUserId)
-                    .collect(Collectors.joining(","));
+                                         .map(Source::getUserId)
+                                         .collect(Collectors.joining(","));
             assertThat(uids).isEqualTo("U111111");
         });
     }
