@@ -54,8 +54,8 @@ import com.linecorp.bot.model.response.MessageQuotaResponse.QuotaType;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
-import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
-import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
+import com.linecorp.bot.model.richmenu.RichMenuBulkLinkRequest;
+import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
@@ -392,7 +392,7 @@ public class LineMessagingClientImplTest {
                                                     .join();
 
         // Verify
-        verify(retrofitMock, only()).linkRichMenuToUsers(RichMenuBlukLinkRequest.builder()
+        verify(retrofitMock, only()).linkRichMenuToUsers(RichMenuBulkLinkRequest.builder()
                                                                                 .richMenuId("RICH_MENU_ID")
                                                                                 .userId("USER_ID")
                                                                                 .build());
@@ -423,7 +423,7 @@ public class LineMessagingClientImplTest {
 
         // Verify
         verify(retrofitMock, only()).unlinkRichMenuIdFromUsers(
-                RichMenuBlukUnlinkRequest.builder().userId("ID").build());
+                RichMenuBulkUnlinkRequest.builder().userId("ID").build());
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 

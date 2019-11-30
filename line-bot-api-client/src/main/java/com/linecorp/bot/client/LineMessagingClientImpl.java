@@ -38,8 +38,8 @@ import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
-import com.linecorp.bot.model.richmenu.RichMenuBlukLinkRequest;
-import com.linecorp.bot.model.richmenu.RichMenuBlukUnlinkRequest;
+import com.linecorp.bot.model.richmenu.RichMenuBulkLinkRequest;
+import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
@@ -190,7 +190,7 @@ public class LineMessagingClientImpl implements LineMessagingClient {
 
     @Override
     public CompletableFuture<BotApiResponse> linkRichMenuIdToUsers(List<String> userIds, String richMenuId) {
-        return toBotApiFuture(retrofitImpl.linkRichMenuToUsers(RichMenuBlukLinkRequest.builder()
+        return toBotApiFuture(retrofitImpl.linkRichMenuToUsers(RichMenuBulkLinkRequest.builder()
                                                                                       .richMenuId(richMenuId)
                                                                                       .userIds(userIds)
                                                                                       .build()));
@@ -203,7 +203,7 @@ public class LineMessagingClientImpl implements LineMessagingClient {
 
     @Override
     public CompletableFuture<BotApiResponse> unlinkRichMenuIdFromUsers(List<String> userIds) {
-        return toBotApiFuture(retrofitImpl.unlinkRichMenuIdFromUsers(RichMenuBlukUnlinkRequest.builder()
+        return toBotApiFuture(retrofitImpl.unlinkRichMenuIdFromUsers(RichMenuBulkUnlinkRequest.builder()
                                                                                               .userIds(userIds)
                                                                                               .build()));
     }
