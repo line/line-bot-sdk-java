@@ -37,7 +37,7 @@ public class LineSignatureValidator {
      * Create new instance with channel secret.
      */
     public LineSignatureValidator(byte[] channelSecret) {
-        this.secretKeySpec = new SecretKeySpec(channelSecret, HASH_ALGORITHM);
+        secretKeySpec = new SecretKeySpec(channelSecret, HASH_ALGORITHM);
     }
 
     /**
@@ -63,7 +63,7 @@ public class LineSignatureValidator {
      */
     public byte[] generateSignature(@NonNull byte[] content) {
         try {
-            Mac mac = Mac.getInstance(HASH_ALGORITHM);
+            final Mac mac = Mac.getInstance(HASH_ALGORITHM);
             mac.init(secretKeySpec);
             return mac.doFinal(content);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
@@ -76,4 +76,3 @@ public class LineSignatureValidator {
     }
 
 }
-

@@ -16,6 +16,7 @@
 
 dependencies {
     compile project(':line-bot-api-client')
+    implementation project(':line-bot-parser')
     compile 'com.fasterxml.jackson.core:jackson-databind'
     compile 'com.google.guava:guava'
 
