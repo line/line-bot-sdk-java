@@ -24,7 +24,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class RichMenuBlukLinkRequest {
+public class RichMenuBulkLinkRequest {
     String richMenuId;
     @Singular
     List<String> userIds;
