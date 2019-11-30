@@ -1,11 +1,5 @@
-include 'line-bot-api-client'
-include 'line-bot-model'
-include 'line-bot-servlet'
-include 'line-bot-spring-boot'
-include 'line-bot-cli'
-
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2019 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -20,9 +14,12 @@ include 'line-bot-cli'
  * under the License.
  */
 
-// samples
-include 'sample-spring-boot-echo'
-include 'sample-spring-boot-echo-kotlin'
-include 'sample-spring-boot-kitchensink'
-include 'line-bot-parser'
+package com.linecorp.bot.parser;
 
+public class WebhookParseException extends Exception {
+    private static final long serialVersionUID = 3026745517844618607L;
+
+    public WebhookParseException(String message) {
+        super(message);
+    }
+}
