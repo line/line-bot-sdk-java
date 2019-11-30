@@ -17,7 +17,6 @@
 package com.linecorp.bot.model.action;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -27,7 +26,6 @@ import lombok.Value;
  * When this action is tapped, the string in the text field is sent as a message from the user.
  */
 @Value
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("message")
 public class MessageAction implements Action {
     /**

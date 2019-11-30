@@ -22,7 +22,6 @@ import java.time.LocalTime;
 import java.time.temporal.Temporal;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -47,7 +46,6 @@ import lombok.Value;
  *
  * @see <a href="https://developers.line.biz/en/docs/messaging-api/actions/#datetime-picker-action">//developers.line.biz/en/docs/messaging-api/actions/#datetime-picker-action</a>
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("datetimepicker")
 @JsonInclude(Include.NON_NULL)
 public interface DatetimePickerAction<T extends Temporal> extends Action {

@@ -19,7 +19,6 @@ package com.linecorp.bot.model.action;
 import java.net.URI;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -33,7 +32,6 @@ import lombok.Value;
  * @see <a href="https://developers.line.me/en/reference/messaging-api/#uri-action">//developers.line.me/en/reference/messaging-api/#uri-action</a>
  */
 @Value
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("uri")
 public class URIAction implements Action {
     /**
