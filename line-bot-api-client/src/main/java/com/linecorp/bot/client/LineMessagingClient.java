@@ -187,8 +187,7 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-group-member-user-ids">//developers.line.me/en/reference/messaging-api/#get-group-member-user-ids</a>
      * @see MembersIdsResponse#getNext()
      */
-    CompletableFuture<MembersIdsResponse> getGroupMembersIds(
-            String groupId, String start);
+    CompletableFuture<MembersIdsResponse> getGroupMembersIds(String groupId, String start);
 
     /**
      * Get (a part of) room member list.
@@ -198,8 +197,7 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-room-member-user-ids">//developers.line.me/en/reference/messaging-api/#get-room-member-user-ids</a>
      * @see MembersIdsResponse#getNext()
      */
-    CompletableFuture<MembersIdsResponse> getRoomMembersIds(
-            String roomId, String start);
+    CompletableFuture<MembersIdsResponse> getRoomMembersIds(String roomId, String start);
 
     /**
      * Leave a group.

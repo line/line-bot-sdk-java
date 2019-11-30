@@ -135,7 +135,7 @@ public class LineMessagingClientBuilder {
      * @see #channelTokenSupplier(ChannelTokenSupplier)
      */
     public LineMessagingClientBuilder channelToken(String channelToken) {
-        this.channelTokenSupplier(FixedChannelTokenSupplier.of(channelToken));
+        channelTokenSupplier(FixedChannelTokenSupplier.of(channelToken));
         return this;
     }
 
@@ -151,7 +151,7 @@ public class LineMessagingClientBuilder {
      *         You should insert authentication headers yourself.
      */
     public LineMessagingClientBuilder okHttpClientBuilder(
-            @NonNull final OkHttpClient.Builder okHttpClientBuilder,
+            final @NonNull OkHttpClient.Builder okHttpClientBuilder,
             final boolean addAuthenticationHeader) {
         this.okHttpClientBuilder = okHttpClientBuilder;
         this.addAuthenticationHeader = addAuthenticationHeader;
