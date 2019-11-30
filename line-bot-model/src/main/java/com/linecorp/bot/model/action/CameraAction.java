@@ -16,7 +16,6 @@
 
 package com.linecorp.bot.model.action;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -33,7 +32,6 @@ import lombok.Value;
  */
 @Value
 @Builder(toBuilder = true)
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("camera")
 @JsonDeserialize(builder = CameraAction.CameraActionBuilder.class)
 public class CameraAction implements Action {

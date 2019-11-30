@@ -17,7 +17,6 @@
 package com.linecorp.bot.model.action;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -36,7 +35,6 @@ import lombok.Value;
  */
 @Value
 @Builder
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeName("postback")
 @JsonInclude(Include.NON_NULL)
 public class PostbackAction implements Action {
