@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 LINE Corporation
+ * Copyright 2019 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -16,23 +16,19 @@
 
 package com.linecorp.bot.model.event.things;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonSubTypes({
-        @JsonSubTypes.Type(LinkThingsContent.class),
-        @JsonSubTypes.Type(UnlinkThingsContent.class),
-        @JsonSubTypes.Type(ScenarioResultThingsContent.class),
-})
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        property = "type",
-        defaultImpl = UnknownLineThingsContent.class,
-        visible = true
-)
-public interface ThingsContent {
-    /**
-     * The id that LINE Things issues.
-     */
-    String getDeviceId();
+import lombok.Value;
+
+@Value
+@JsonTypeName("unlink")
+public class UnlinkThingsContent implements ThingsContent {
+    private final String deviceId;
+
+    @JsonCreator
+    public UnlinkThingsContent(@JsonProperty("deviceId") final String deviceId) {
+        this.deviceId = deviceId;
+    }
 }
