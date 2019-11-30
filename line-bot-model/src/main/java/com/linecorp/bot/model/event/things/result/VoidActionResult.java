@@ -19,4 +19,5 @@ package com.linecorp.bot.model.event.things.result;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("void")
-public class VoidActionResult implements ActionResult {}
+public class VoidActionResult implements ActionResult {
+}

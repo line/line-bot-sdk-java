@@ -16,4 +16,5 @@
 
 package com.linecorp.bot.model.event.things.result;
 
-public class UnknownActionResult implements ActionResult {}
+public class UnknownActionResult implements ActionResult {
+}
