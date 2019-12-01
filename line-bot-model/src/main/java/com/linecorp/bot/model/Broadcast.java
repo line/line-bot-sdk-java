@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -46,8 +47,16 @@ public class Broadcast {
      */
     private final boolean notificationDisabled;
 
+    public Broadcast(Message messages) {
+        this(Collections.singletonList(messages), false);
+    }
+
     public Broadcast(List<Message> messages) {
         this(messages, false);
+    }
+
+    public Broadcast(Message messages, boolean notificationDisabled) {
+        this(Collections.singletonList(messages), notificationDisabled);
     }
 
     @JsonCreator
