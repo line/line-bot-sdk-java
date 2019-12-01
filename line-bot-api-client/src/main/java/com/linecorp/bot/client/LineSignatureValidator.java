@@ -26,7 +26,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import lombok.NonNull;
 
-/*
+/**
  * This class validates value of the `X-LINE-Signature` header.
  */
 public class LineSignatureValidator {
