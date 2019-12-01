@@ -46,6 +46,10 @@ public class Broadcast {
      */
     private final boolean notificationDisabled;
 
+    public Broadcast(List<Message> messages) {
+        this(messages, false);
+    }
+
     @JsonCreator
     public Broadcast(@JsonProperty("messages") List<Message> messages,
                      @JsonProperty("notificationDisabled") boolean notificationDisabled) {

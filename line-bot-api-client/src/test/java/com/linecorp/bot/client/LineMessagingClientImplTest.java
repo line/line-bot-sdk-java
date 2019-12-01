@@ -132,7 +132,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void broadcast() {
         whenCall(retrofitMock.broadcast(any()), BOT_API_SUCCESS_RESPONSE);
-        final Broadcast broadcast = new Broadcast(Collections.singletonList(new TextMessage("text")), true);
+        final Broadcast broadcast = new Broadcast(Collections.singletonList(new TextMessage("text")));
 
         final BotApiResponse botApiResponse = target.broadcast(broadcast).join();
         verify(retrofitMock).broadcast(broadcast);

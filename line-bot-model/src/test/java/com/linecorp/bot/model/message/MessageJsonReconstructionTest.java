@@ -181,9 +181,11 @@ public class MessageJsonReconstructionTest {
     @Test
     public void multicastTest() {
         final Multicast multicast =
-                new Multicast(singleton("LINE_ID"), singletonList(new TextMessage("text")));
-
+                new Multicast(singleton("LINE_ID"), singletonList(new TextMessage("text")), true);
         test(multicast);
+
+        final Multicast multicast2 = new Multicast(singleton("LINE_ID"), new TextMessage("text"));
+        test(multicast2);
     }
 
     @Test

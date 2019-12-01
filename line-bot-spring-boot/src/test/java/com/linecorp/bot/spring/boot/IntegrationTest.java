@@ -157,7 +157,8 @@ public class IntegrationTest {
         assertThat(request1.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
         assertThat(request1.getBody().readUtf8())
                 .isEqualTo("{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\","
-                           + "\"messages\":[{\"type\":\"text\",\"text\":\"Hello, world\"}]}");
+                           + "\"messages\":[{\"type\":\"text\",\"text\":\"Hello, world\"}],"
+                           + "\"notificationDisabled\":false}");
 
         // Test request 2
         RecordedRequest request2 = server.takeRequest(3, TimeUnit.SECONDS);
@@ -165,6 +166,7 @@ public class IntegrationTest {
         assertThat(request2.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
         assertThat(request2.getBody().readUtf8())
                 .isEqualTo("{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\","
-                           + "\"messages\":[{\"type\":\"text\",\"text\":\"follow\"}]}");
+                           + "\"messages\":[{\"type\":\"text\",\"text\":\"follow\"}],"
+                           + "\"notificationDisabled\":false}");
     }
 }
