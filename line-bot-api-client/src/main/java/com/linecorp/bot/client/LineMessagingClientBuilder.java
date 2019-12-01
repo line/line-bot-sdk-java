@@ -24,10 +24,9 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+
+import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 
 import lombok.NonNull;
 import lombok.Setter;
@@ -44,6 +43,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 @ToString
 @Accessors(fluent = true)
 public class LineMessagingClientBuilder {
+    private static final ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+
     /**
      * Use {@link LineMessagingClient#builder(String)} to create instance.
      *
@@ -207,16 +208,7 @@ public class LineMessagingClientBuilder {
                 .setLevel(Level.BODY);
     }
 
-    // TODO: Split this method.
     static Retrofit.Builder createDefaultRetrofitBuilder() {
-        final ObjectMapper objectMapper = new ObjectMapper()
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                // Register ParameterNamesModule to read parameter name from lombok generated constructor.
-                .registerModule(new ParameterNamesModule())
-                // Register JSR-310(java.time.temporal.*) module and read number as millsec.
-                .registerModule(new JavaTimeModule())
-                .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
-
         return new Retrofit.Builder()
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper));
     }

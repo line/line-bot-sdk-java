@@ -50,22 +50,24 @@ public class LineBotServerInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        HandlerMethod hm = (HandlerMethod) handler;
-        MethodParameter[] methodParameters = hm.getMethodParameters();
+        final HandlerMethod hm = (HandlerMethod) handler;
+        final MethodParameter[] methodParameters = hm.getMethodParameters();
+
         for (MethodParameter methodParameter : methodParameters) {
-            if (methodParameter.getParameterAnnotation(LineBotMessages.class) != null) {
-                try {
-                    CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(request);
-                    LineBotServerArgumentProcessor.setValue(request, callbackRequest);
-                    return true;
-                } catch (LineBotCallbackException e) {
-                    log.info("LINE Bot callback exception: {}", e.getMessage());
-                    response.sendError(HttpStatus.BAD_REQUEST.value());
-                    try (PrintWriter writer = response.getWriter()) {
-                        writer.println(e.getMessage());
-                    }
-                    return false;
+            if (methodParameter.getParameterAnnotation(LineBotMessages.class) == null) {
+                continue;
+            }
+            try {
+                final CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(request);
+                LineBotServerArgumentProcessor.setValue(request, callbackRequest);
+                return true;
+            } catch (LineBotCallbackException e) {
+                log.info("LINE Bot callback exception: {}", e.getMessage());
+                response.sendError(HttpStatus.BAD_REQUEST.value());
+                try (PrintWriter writer = response.getWriter()) {
+                    writer.println(e.getMessage());
                 }
+                return false;
             }
         }
         return true;
@@ -78,7 +80,6 @@ public class LineBotServerInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
-                                Exception ex)
-            throws Exception {
+                                Exception ex) throws Exception {
     }
 }
