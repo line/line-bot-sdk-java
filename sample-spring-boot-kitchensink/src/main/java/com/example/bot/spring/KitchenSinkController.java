@@ -16,6 +16,8 @@
 
 package com.example.bot.spring;
 
+import static java.util.Collections.singletonList;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
@@ -26,7 +28,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -252,13 +253,19 @@ public class KitchenSinkController {
     }
 
     private void reply(@NonNull String replyToken, @NonNull Message message) {
-        reply(replyToken, Collections.singletonList(message));
+        reply(replyToken, singletonList(message));
     }
 
     private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
+        reply(replyToken, messages, false);
+    }
+
+    private void reply(@NonNull String replyToken,
+                       @NonNull List<Message> messages,
+                       boolean notificationDisabled) {
         try {
             BotApiResponse apiResponse = lineMessagingClient
-                    .replyMessage(new ReplyMessage(replyToken, messages))
+                    .replyMessage(new ReplyMessage(replyToken, messages, notificationDisabled))
                     .get();
             log.info("Sent messages: {}", apiResponse);
         } catch (InterruptedException | ExecutionException e) {
@@ -297,14 +304,14 @@ public class KitchenSinkController {
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content)
             throws Exception {
-        String text = content.getText();
+        final String text = content.getText();
 
         log.info("Got text message from replyToken:{}: text:{}", replyToken, text);
         switch (text) {
             case "profile": {
                 log.info("Invoking 'profile' command: source:{}",
                          event.getSource());
-                String userId = event.getSource().getUserId();
+                final String userId = event.getSource().getUserId();
                 if (userId != null) {
                     if (event.getSource() instanceof GroupSource) {
                         lineMessagingClient
@@ -528,6 +535,11 @@ public class KitchenSinkController {
             case "quickreply":
                 this.reply(replyToken, new MessageWithQuickReplySupplier().get());
                 break;
+            case "no_notify":
+                this.reply(replyToken,
+                           singletonList(new TextMessage("This message is send without a push notification")),
+                           true);
+                break;
             default:
                 log.info("Returns echo message {}: {}", replyToken, text);
                 this.replyText(
@@ -572,7 +584,7 @@ public class KitchenSinkController {
     }
 
     private static DownloadedContent createTempFile(String ext) {
-        String fileName = LocalDateTime.now().toString() + '-' + UUID.randomUUID().toString() + '.' + ext;
+        String fileName = LocalDateTime.now().toString() + '-' + UUID.randomUUID() + '.' + ext;
         Path tempFile = KitchenSinkApplication.downloadedContentDir.resolve(fileName);
         tempFile.toFile().deleteOnExit();
         return new DownloadedContent(
