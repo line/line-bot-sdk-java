@@ -93,7 +93,7 @@ class ReplyByReturnValueConsumer implements Consumer<Object> {
         if (returnValue instanceof Message) {
             reply(singletonList((Message) returnValue));
         } else if (returnValue instanceof List) {
-            List<?> returnValueAsList = (List<?>) returnValue;
+            final List<?> returnValueAsList = (List<?>) returnValue;
 
             if (returnValueAsList.isEmpty()) {
                 return;
@@ -118,6 +118,7 @@ class ReplyByReturnValueConsumer implements Consumer<Object> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @VisibleForTesting
     static List<Message> checkListContents(final List<?> list) {
         for (int i = 0; i < list.size(); ++i) {
@@ -128,8 +129,6 @@ class ReplyByReturnValueConsumer implements Consumer<Object> {
                                         item.getClass());
         }
 
-        @SuppressWarnings("unchecked")
-        final List<Message> messageList = (List<Message>) list;
-        return messageList;
+        return (List<Message>) list;
     }
 }
