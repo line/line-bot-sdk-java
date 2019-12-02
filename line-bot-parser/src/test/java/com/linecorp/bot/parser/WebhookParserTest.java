@@ -18,7 +18,7 @@ package com.linecorp.bot.parser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.when;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -28,7 +28,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Spy;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
@@ -43,7 +43,7 @@ public class WebhookParserTest {
     @Rule
     public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
-    @Spy
+    @Mock
     private final SignatureValidator signatureValidator = new MockSignatureValidator();
 
     static class MockSignatureValidator implements SignatureValidator {
@@ -69,7 +69,8 @@ public class WebhookParserTest {
 
     @Test
     public void testInvalidSignature() {
-        assertThatThrownBy(() -> parser.handle("SSSSIGNATURE", "{}".getBytes(StandardCharsets.UTF_8)))
+        assertThatThrownBy(
+                () -> parser.handle("SSSSIGNATURE", "{}".getBytes(StandardCharsets.UTF_8)))
                 .isInstanceOf(WebhookParseException.class)
                 .hasMessage("Invalid API signature");
     }
@@ -77,21 +78,22 @@ public class WebhookParserTest {
     @Test
     public void testNullRequest() {
         final String signature = "SSSSIGNATURE";
-        final byte[] content = "null".getBytes(StandardCharsets.UTF_8);
+        final byte[] nullContent = "null".getBytes(StandardCharsets.UTF_8);
 
-        doReturn(true).when(signatureValidator).validateSignature(content, signature);
+        when(signatureValidator.validateSignature(nullContent, signature)).thenReturn(true);
 
-        assertThatThrownBy(() -> parser.handle(signature, content))
+        assertThatThrownBy(() -> parser.handle(signature, nullContent))
                 .isInstanceOf(WebhookParseException.class)
                 .hasMessage("Invalid content");
     }
 
     @Test
     public void testCallRequest() throws Exception {
-        final InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
+        final InputStream resource = getClass().getClassLoader().getResourceAsStream(
+                "callback-request.json");
         final byte[] payload = ByteStreams.toByteArray(resource);
 
-        doReturn(true).when(signatureValidator).validateSignature(payload, "SSSSIGNATURE");
+        when(signatureValidator.validateSignature(payload, "SSSSIGNATURE")).thenReturn(true);
 
         final CallbackRequest callbackRequest = parser.handle("SSSSIGNATURE", payload);
 
@@ -105,6 +107,7 @@ public class WebhookParserTest {
 
         final String followedUserId = messageEvent.getSource().getUserId();
         assertThat(followedUserId).isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
-        assertThat(messageEvent.getTimestamp()).isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+        assertThat(messageEvent.getTimestamp()).isEqualTo(
+                Instant.parse("2016-05-07T13:57:59.859Z"));
     }
 }
