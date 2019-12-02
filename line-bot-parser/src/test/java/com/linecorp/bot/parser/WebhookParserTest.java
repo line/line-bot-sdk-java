@@ -34,7 +34,6 @@ import org.mockito.junit.MockitoRule;
 
 import com.google.common.io.ByteStreams;
 
-import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -45,14 +44,20 @@ public class WebhookParserTest {
     public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Spy
-    private final LineSignatureValidator lineSignatureValidator = new LineSignatureValidator(
-            "SECRET".getBytes(StandardCharsets.UTF_8));
+    private final SignatureValidator signatureValidator = new MockSignatureValidator();
+
+    static class MockSignatureValidator implements SignatureValidator {
+        @Override
+        public boolean validateSignature(byte[] content, String headerSignature) {
+            return false;
+        }
+    }
 
     private WebhookParser parser;
 
     @Before
     public void before() {
-        parser = new WebhookParser(lineSignatureValidator);
+        parser = new WebhookParser(signatureValidator);
     }
 
     @Test
@@ -74,7 +79,7 @@ public class WebhookParserTest {
         final String signature = "SSSSIGNATURE";
         final byte[] content = "null".getBytes(StandardCharsets.UTF_8);
 
-        doReturn(true).when(lineSignatureValidator).validateSignature(content, signature);
+        doReturn(true).when(signatureValidator).validateSignature(content, signature);
 
         assertThatThrownBy(() -> parser.handle(signature, content))
                 .isInstanceOf(WebhookParseException.class)
@@ -86,7 +91,7 @@ public class WebhookParserTest {
         final InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
         final byte[] payload = ByteStreams.toByteArray(resource);
 
-        doReturn(true).when(lineSignatureValidator).validateSignature(payload, "SSSSIGNATURE");
+        doReturn(true).when(signatureValidator).validateSignature(payload, "SSSSIGNATURE");
 
         final CallbackRequest callbackRequest = parser.handle("SSSSIGNATURE", payload);
 

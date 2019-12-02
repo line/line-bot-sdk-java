@@ -24,12 +24,14 @@ import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.linecorp.bot.parser.SignatureValidator;
+
 import lombok.NonNull;
 
-/*
+/**
  * This class validates value of the `X-LINE-Signature` header.
  */
-public class LineSignatureValidator {
+public class LineSignatureValidator implements SignatureValidator {
     private static final String HASH_ALGORITHM = "HmacSHA256";
     private final SecretKeySpec secretKeySpec;
 
@@ -48,6 +50,7 @@ public class LineSignatureValidator {
      *
      * @return True if headerSignature matches signature of the content. False otherwise.
      */
+    @Override
     public boolean validateSignature(@NonNull byte[] content, @NonNull String headerSignature) {
         final byte[] signature = generateSignature(content);
         final byte[] decodeHeaderSignature = Base64.getDecoder().decode(headerSignature);

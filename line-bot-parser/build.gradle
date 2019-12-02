@@ -15,7 +15,6 @@
  */
 
 dependencies {
-    implementation project(':line-bot-api-client')
     implementation project(':line-bot-model')
     implementation 'com.fasterxml.jackson.core:jackson-databind'
     implementation 'org.slf4j:slf4j-api'

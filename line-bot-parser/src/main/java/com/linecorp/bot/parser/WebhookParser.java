@@ -21,7 +21,6 @@ import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 
@@ -31,15 +30,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WebhookParser {
     private final ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
-    private final LineSignatureValidator lineSignatureValidator;
+    private final SignatureValidator signatureValidator;
 
     /**
      * Creates a new instance.
      *
-     * @param lineSignatureValidator LINE messaging API's signature validator
+     * @param signatureValidator LINE messaging API's signature validator
      */
-    public WebhookParser(@NonNull LineSignatureValidator lineSignatureValidator) {
-        this.lineSignatureValidator = lineSignatureValidator;
+    public WebhookParser(@NonNull SignatureValidator signatureValidator) {
+        this.signatureValidator = signatureValidator;
     }
 
     /**
@@ -62,7 +61,7 @@ public class WebhookParser {
             log.debug("got: {}", new String(payload, StandardCharsets.UTF_8));
         }
 
-        if (!lineSignatureValidator.validateSignature(payload, signature)) {
+        if (!signatureValidator.validateSignature(payload, signature)) {
             throw new WebhookParseException("Invalid API signature");
         }
 
