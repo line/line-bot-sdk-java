@@ -334,7 +334,7 @@ public interface LineMessagingClient {
     /**
      * Gets the number of users who have added the bot on or before a specified date.
      */
-    CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowersResponse(String date);
+    CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowers(String date);
 
     /**
      * Retrieves the demographic attributes for a bot's friends.
