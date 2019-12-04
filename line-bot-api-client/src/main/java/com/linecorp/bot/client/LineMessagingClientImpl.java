@@ -254,7 +254,7 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    public CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowersResponse(String date) {
+    public CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowers(String date) {
         return toFuture(retrofitImpl.getNumberOfFollowers(date));
     }
 
