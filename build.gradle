@@ -14,6 +14,7 @@
  * under the License.
  */
 
+import com.github.spotbugs.SpotBugsTask
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 // ./gradlew clean && ./gradlew uploadArchives -Prelease
@@ -206,7 +207,9 @@ subprojects {
         toolVersion = '8.23'
     }
 
-    spotbugs {
+    tasks.withType(SpotBugsTask) {
+        reports.xml.enabled = false
+        reports.html.enabled = true
         excludeFilter = file("$rootProject.projectDir/config/findbugs/excludeFilter.xml")
     }
 
