@@ -48,19 +48,20 @@ apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions'
 
 group = 'com.linecorp.bot'
-version = '3.1.0'
 
 //set build variables based on build type (release, continuous integration, development)
 def isDevBuild
 def isReleaseBuild
 def sonatypeRepositoryUrl
 if (hasProperty('release')) {
+    assert !version.endsWith('-SNAPSHOT')
     isReleaseBuild = true
     sonatypeRepositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
 } else if (hasProperty('ci')) {
-    version += '-SNAPSHOT'
+    assert version.endsWith('-SNAPSHOT')
     sonatypeRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
 } else {
+    assert version.endsWith('-SNAPSHOT')
     isDevBuild = true
     version += '-SNAPSHOT'
 }

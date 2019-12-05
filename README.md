@@ -127,6 +127,23 @@ See http://semver.org/.
 
 Please check [CONTRIBUTING](CONTRIBUTING.md) before making a contribution.
 
+## Release flow
+
+0. Confirm line-bot-sdk-java version is defined at `./gradle.properties`.
+1. Before release, updates a version property at `gradle.properties` with release version (without `SNAPSHOT`), for example `version=3.2.0`.
+2. Commits `gradle.properties` and make a tag with version that specified at step1.
+    For example,
+    ```sh
+    $ git add gradle.properties
+    $ git commit -m "Release 3.2.0"
+    $ git tag '3.2.0'
+    $ git push upstream
+    ```
+3. Upload the artifacts to the staging repository
+4. Close and release the staging repository at https://oss.sonatype.org/
+5. Update `gradle.properties` to `NEXT.GREAT.VERSION-SNAPSHOT`
+6. `git commit -m 'Start NEXT.GREAT.VERSION(-SNAPSHOT)'` and `git push`.
+7. Announce the release via Twitter.
 
 ## License
 
