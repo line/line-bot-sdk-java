@@ -268,7 +268,7 @@ interface LineMessagingService {
      *
      * @see LineMessagingClient#unlinkRichMenuIdFromUser(String)
      */
-    @DELETE("v2/bot/richmenu/bulk/unlink")
+    @POST("v2/bot/richmenu/bulk/unlink")
     Call<Void> unlinkRichMenuIdFromUsers(@Body RichMenuBulkUnlinkRequest request);
 
     /**
