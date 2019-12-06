@@ -18,7 +18,6 @@ package com.linecorp.bot.model;
 
 import static java.util.Collections.singletonList;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
