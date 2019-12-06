@@ -155,7 +155,7 @@ interface LineMessagingService {
      *             {@literal "20191231"}) and the timezone should be UTC+9.
      */
     @GET("v2/bot/message/delivery/broadcast")
-    Call<NumberOfMessagesResponse> getNumberOfSentBroadcastMessages(String date);
+    Call<NumberOfMessagesResponse> getNumberOfSentBroadcastMessages(@Query("date") String date);
 
     /**
      * Method for Retrofit.
@@ -268,7 +268,7 @@ interface LineMessagingService {
      *
      * @see LineMessagingClient#unlinkRichMenuIdFromUser(String)
      */
-    @DELETE("v2/bot/richmenu/bulk/unlink")
+    @POST("v2/bot/richmenu/bulk/unlink")
     Call<Void> unlinkRichMenuIdFromUsers(@Body RichMenuBulkUnlinkRequest request);
 
     /**
@@ -341,7 +341,7 @@ interface LineMessagingService {
      * @param date Date for which to retrieve number of sent messages. The format should be {@code yyyyMMdd}.
      *             For example: {@literal "20191231"}) and the timezone should be UTC+9.
      */
-    @GET("v2/bot/insight/message/delivery?date={date}")
+    @GET("v2/bot/insight/message/delivery")
     Call<GetNumberOfMessageDeliveriesResponse> getNumberOfMessageDeliveries(@Query("date") String date);
 
     /**
@@ -349,6 +349,6 @@ interface LineMessagingService {
      * @param date Date for which to retrieve the number of followers. The format should be {@code yyyyMMdd}.
      *             For example: {@literal "20191231"}) and the timezone should be UTC+9.
      */
-    @GET("v2/bot/insight/followers?date={date}")
+    @GET("v2/bot/insight/followers")
     Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
 }

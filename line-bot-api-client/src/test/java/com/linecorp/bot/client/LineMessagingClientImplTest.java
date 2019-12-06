@@ -198,44 +198,44 @@ public class LineMessagingClientImplTest {
     @Test
     public void getNumberOfSentReplyMessages() {
         whenCall(retrofitMock.getNumberOfSentReplyMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.READY, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentReplyMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentReplyMessages("20181231");
-        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.Ready);
+        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.READY);
         assertThat(response.getSuccess()).isEqualTo(1024);
     }
 
     @Test
     public void getNumberOfSentPushMessages() {
         whenCall(retrofitMock.getNumberOfSentPushMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.READY, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentPushMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentPushMessages("20181231");
-        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.Ready);
+        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.READY);
         assertThat(response.getSuccess()).isEqualTo(1024);
     }
 
     @Test
     public void getNumberOfSentMulticastMessages() {
         whenCall(retrofitMock.getNumberOfSentMulticastMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.READY, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentMulticastMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentMulticastMessages("20181231");
-        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.Ready);
+        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.READY);
         assertThat(response.getSuccess()).isEqualTo(1024);
     }
 
     @Test
     public void getNumberOfSentBroadcastMessages() {
         whenCall(retrofitMock.getNumberOfSentBroadcastMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.READY, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentBroadcastMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentBroadcastMessages("20181231");
-        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.Ready);
+        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.READY);
         assertThat(response.getSuccess()).isEqualTo(1024);
     }
 
@@ -527,7 +527,7 @@ public class LineMessagingClientImplTest {
     public void getNumberOfMessageDeliveries() throws Exception {
         final GetNumberOfMessageDeliveriesResponse response = GetNumberOfMessageDeliveriesResponse
                 .builder()
-                .status(GetNumberOfMessageDeliveriesResponse.Status.Ready)
+                .status(GetNumberOfMessageDeliveriesResponse.Status.READY)
                 .apiBroadcast(1L)
                 .build();
         whenCall(retrofitMock.getNumberOfMessageDeliveries(any()), response);
@@ -541,14 +541,14 @@ public class LineMessagingClientImplTest {
     public void getNumberOfFollowers() throws Exception {
         final GetNumberOfFollowersResponse response = GetNumberOfFollowersResponse
                 .builder()
-                .status(GetNumberOfFollowersResponse.Status.Ready)
+                .status(GetNumberOfFollowersResponse.Status.READY)
                 .followers(3L)
                 .targetedReaches(2L)
                 .blocks(1L)
                 .build();
         whenCall(retrofitMock.getNumberOfFollowers(any()), response);
         final GetNumberOfFollowersResponse actual =
-                target.getNumberOfFollowersResponse("20190805").get();
+                target.getNumberOfFollowers("20190805").get();
         verify(retrofitMock, only()).getNumberOfFollowers("20190805");
         assertThat(actual).isEqualTo(response);
     }
