@@ -18,6 +18,7 @@ package com.linecorp.bot.client;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singleton;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -132,7 +133,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void broadcast() {
         whenCall(retrofitMock.broadcast(any()), BOT_API_SUCCESS_RESPONSE);
-        final Broadcast broadcast = new Broadcast(Collections.singletonList(new TextMessage("text")));
+        final Broadcast broadcast = new Broadcast(singletonList(new TextMessage("text")));
 
         final BotApiResponse botApiResponse = target.broadcast(broadcast).join();
         verify(retrofitMock).broadcast(broadcast);
@@ -387,7 +388,7 @@ public class LineMessagingClientImplTest {
         whenCall(retrofitMock.linkRichMenuToUsers(any()), null);
 
         // Do
-        final BotApiResponse botApiResponse = target.linkRichMenuIdToUsers(Collections.singletonList("USER_ID"),
+        final BotApiResponse botApiResponse = target.linkRichMenuIdToUsers(singletonList("USER_ID"),
                                                                            "RICH_MENU_ID")
                                                     .join();
 
@@ -418,7 +419,7 @@ public class LineMessagingClientImplTest {
                  null);
 
         // Do
-        final BotApiResponse botApiResponse = target.unlinkRichMenuIdFromUsers(Collections.singletonList("ID"))
+        final BotApiResponse botApiResponse = target.unlinkRichMenuIdFromUsers(singletonList("ID"))
                                                     .join();
 
         // Verify

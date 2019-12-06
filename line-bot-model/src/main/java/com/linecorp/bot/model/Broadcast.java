@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model;
 
+import static java.util.Collections.singletonList;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class Broadcast {
     private final boolean notificationDisabled;
 
     public Broadcast(Message messages) {
-        this(Collections.singletonList(messages), false);
+        this(singletonList(messages), false);
     }
 
     public Broadcast(List<Message> messages) {
@@ -56,7 +58,7 @@ public class Broadcast {
     }
 
     public Broadcast(Message messages, boolean notificationDisabled) {
-        this(Collections.singletonList(messages), notificationDisabled);
+        this(singletonList(messages), notificationDisabled);
     }
 
     @JsonCreator
