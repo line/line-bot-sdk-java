@@ -16,9 +16,12 @@
 
 package com.linecorp.bot.client;
 
+import static java.util.Collections.singleton;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import org.junit.Assume;
 import org.junit.Before;
@@ -27,6 +30,10 @@ import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.model.Broadcast;
+import com.linecorp.bot.model.Multicast;
+import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
@@ -42,6 +49,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LineMessagingClientImplIntegrationTest {
     public static final URL TEST_RESOURCE = ClassLoader.getSystemResource("integration_test_settings.yml");
     private LineMessagingClient target;
+    private String userId;
 
     @Before
     public void setUp() throws IOException {
@@ -54,6 +62,44 @@ public class LineMessagingClientImplIntegrationTest {
                 .builder((String) map.get("token"))
                 .apiEndPoint((String) map.get("endpoint"))
                 .build();
+
+        userId = (String) map.get("userId");
+    }
+
+    private static void testApiCall(Callable<Object> f) throws Exception {
+        final Object response = f.call();
+        log.info(response.toString());
+    }
+
+    @Test
+    public void broadcast() throws Exception {
+        testApiCall(
+                () -> target.broadcast(new Broadcast(new TextMessage("Broadcast"), true)).get()
+        );
+        testApiCall(
+                () -> target.broadcast(new Broadcast(new TextMessage("Broadcast"))).get()
+        );
+    }
+
+    @Test
+    public void multicast() throws Exception {
+        testApiCall(
+                () -> target.multicast(new Multicast(singleton(userId), new TextMessage("Multicast"), true))
+                            .get()
+        );
+        testApiCall(
+                () -> target.multicast(new Multicast(singleton(userId), new TextMessage("Multicast"))).get()
+        );
+    }
+
+    @Test
+    public void pushMessage() throws Exception {
+        testApiCall(
+                () -> target.pushMessage(new PushMessage(userId, new TextMessage("Push"), true)).get()
+        );
+        testApiCall(
+                () -> target.pushMessage(new PushMessage(userId, new TextMessage("Push"))).get()
+        );
     }
 
     @Test
