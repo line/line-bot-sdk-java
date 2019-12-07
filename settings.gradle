@@ -1,9 +1,3 @@
-include 'line-bot-api-client'
-include 'line-bot-model'
-include 'line-bot-servlet'
-include 'line-bot-spring-boot'
-include 'line-bot-cli'
-
 /*
  * Copyright 2016 LINE Corporation
  *
@@ -19,6 +13,13 @@ include 'line-bot-cli'
  * License for the specific language governing permissions and limitations
  * under the License.
  */
+
+include 'line-bot-api-client'
+include 'line-bot-model'
+include 'line-bot-servlet'
+include 'line-bot-spring-boot'
+include 'line-bot-cli'
+include 'line-bot-parser'
 
 // samples
 include 'sample-spring-boot-echo'

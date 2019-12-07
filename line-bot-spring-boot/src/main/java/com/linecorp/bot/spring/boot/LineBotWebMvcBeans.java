@@ -31,7 +31,7 @@ import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
 
 @Component
 @ConditionalOnWebApplication
-@Import({LineBotServerInterceptor.class, LineBotServerArgumentProcessor.class})
+@Import({ LineBotServerInterceptor.class, LineBotServerArgumentProcessor.class })
 public class LineBotWebMvcBeans {
     @Autowired
     private LineBotProperties lineBotProperties;

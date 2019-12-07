@@ -46,19 +46,19 @@ public class LineBotCallbackRequestParserTest {
     public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Spy
-    private LineSignatureValidator lineSignatureValidator = new LineSignatureValidator(
+    private final LineSignatureValidator lineSignatureValidator = new LineSignatureValidator(
             "SECRET".getBytes(StandardCharsets.UTF_8));
 
     private LineBotCallbackRequestParser lineBotCallbackRequestParser;
 
     @Before
     public void before() {
-        this.lineBotCallbackRequestParser = new LineBotCallbackRequestParser(lineSignatureValidator);
+        lineBotCallbackRequestParser = new LineBotCallbackRequestParser(lineSignatureValidator);
     }
 
     @Test
     public void testMissingHeader() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        final MockHttpServletRequest request = new MockHttpServletRequest();
 
         assertThatThrownBy(() -> lineBotCallbackRequestParser.handle(request))
                 .isInstanceOf(LineBotCallbackException.class)
@@ -74,7 +74,7 @@ public class LineBotCallbackRequestParserTest {
 
     @Test
     public void testInvalidSignature() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        final MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("X-Line-Signature", "SSSSIGNATURE");
         request.setContent("{}".getBytes(StandardCharsets.UTF_8));
 
@@ -97,7 +97,7 @@ public class LineBotCallbackRequestParserTest {
     public void testNullRequest() {
         final byte[] requestBody = "null".getBytes(StandardCharsets.UTF_8);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        final MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("X-Line-Signature", "SSSSIGNATURE");
         request.setContent(requestBody);
 
@@ -123,8 +123,8 @@ public class LineBotCallbackRequestParserTest {
 
     @Test
     public void testCallRequest() throws Exception {
-        InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
-        byte[] requestBody = ByteStreams.toByteArray(resource);
+        final InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
+        final byte[] requestBody = ByteStreams.toByteArray(resource);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("X-Line-Signature", "SSSSIGNATURE");
@@ -132,7 +132,7 @@ public class LineBotCallbackRequestParserTest {
 
         doReturn(true).when(lineSignatureValidator).validateSignature(requestBody, "SSSSIGNATURE");
 
-        CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(request);
+        final CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(request);
 
         assertThat(callbackRequest).isNotNull();
 
@@ -149,8 +149,8 @@ public class LineBotCallbackRequestParserTest {
 
     @Test
     public void testCallRequest2() throws Exception {
-        InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
-        byte[] requestBody = ByteStreams.toByteArray(resource);
+        final InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
+        final byte[] requestBody = ByteStreams.toByteArray(resource);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader("X-Line-Signature", "SSSSIGNATURE");
@@ -158,7 +158,7 @@ public class LineBotCallbackRequestParserTest {
 
         doReturn(true).when(lineSignatureValidator).validateSignature(requestBody, "SSSSIGNATURE");
 
-        CallbackRequest callbackRequest = lineBotCallbackRequestParser
+        final CallbackRequest callbackRequest = lineBotCallbackRequestParser
                 .handle("SSSSIGNATURE", new String(requestBody, StandardCharsets.UTF_8));
 
         assertThat(callbackRequest).isNotNull();

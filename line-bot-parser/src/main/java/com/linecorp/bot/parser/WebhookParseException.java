@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2019 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -14,14 +14,12 @@
  * under the License.
  */
 
-dependencies {
-    compile project(':line-bot-model')
-    implementation project(':line-bot-parser')
-    compile 'com.fasterxml.jackson.core:jackson-core'
-    compile 'com.fasterxml.jackson.core:jackson-databind'
-    compile 'org.slf4j:slf4j-api'
+package com.linecorp.bot.parser;
 
-    implementation 'com.squareup.okhttp3:logging-interceptor'
-    implementation 'com.squareup.retrofit2:converter-jackson'
-    implementation 'com.squareup.retrofit2:retrofit'
+public class WebhookParseException extends Exception {
+    private static final long serialVersionUID = 3026745517844618607L;
+
+    public WebhookParseException(String message) {
+        super(message);
+    }
 }

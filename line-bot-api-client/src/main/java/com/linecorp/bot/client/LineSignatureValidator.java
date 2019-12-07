@@ -24,12 +24,14 @@ import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.linecorp.bot.parser.SignatureValidator;
+
 import lombok.NonNull;
 
 /**
  * This class validates value of the `X-LINE-Signature` header.
  */
-public class LineSignatureValidator {
+public class LineSignatureValidator implements SignatureValidator {
     private static final String HASH_ALGORITHM = "HmacSHA256";
     private final SecretKeySpec secretKeySpec;
 
@@ -37,7 +39,7 @@ public class LineSignatureValidator {
      * Create new instance with channel secret.
      */
     public LineSignatureValidator(byte[] channelSecret) {
-        this.secretKeySpec = new SecretKeySpec(channelSecret, HASH_ALGORITHM);
+        secretKeySpec = new SecretKeySpec(channelSecret, HASH_ALGORITHM);
     }
 
     /**
@@ -48,6 +50,7 @@ public class LineSignatureValidator {
      *
      * @return True if headerSignature matches signature of the content. False otherwise.
      */
+    @Override
     public boolean validateSignature(@NonNull byte[] content, @NonNull String headerSignature) {
         final byte[] signature = generateSignature(content);
         final byte[] decodeHeaderSignature = Base64.getDecoder().decode(headerSignature);
@@ -63,7 +66,7 @@ public class LineSignatureValidator {
      */
     public byte[] generateSignature(@NonNull byte[] content) {
         try {
-            Mac mac = Mac.getInstance(HASH_ALGORITHM);
+            final Mac mac = Mac.getInstance(HASH_ALGORITHM);
             mac.init(secretKeySpec);
             return mac.doFinal(content);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
@@ -76,4 +79,3 @@ public class LineSignatureValidator {
     }
 
 }
-
