@@ -17,7 +17,7 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-    compile project(':line-bot-spring-boot')
+    implementation project(':line-bot-spring-boot')
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }

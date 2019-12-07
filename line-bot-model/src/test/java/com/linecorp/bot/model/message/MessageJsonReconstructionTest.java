@@ -181,16 +181,34 @@ public class MessageJsonReconstructionTest {
     @Test
     public void multicastTest() {
         final Multicast multicast =
-                new Multicast(singleton("LINE_ID"), singletonList(new TextMessage("text")));
-
+                new Multicast(singleton("LINE_ID"), singletonList(new TextMessage("text")), true);
         test(multicast);
+
+        final Multicast multicast2 =
+                new Multicast(singleton("LINE_ID"), new TextMessage("text"), true);
+        test(multicast2);
+
+        final Multicast multicast3 =
+                new Multicast(singleton("LINE_ID"), singletonList(new TextMessage("text")));
+        test(multicast3);
+
+        final Multicast multicast4 = new Multicast(singleton("LINE_ID"), new TextMessage("text"));
+        test(multicast4);
     }
 
     @Test
     public void broadcast() {
-        final Broadcast broadcast = new Broadcast(singletonList(new TextMessage("text")), true);
-
+        final Broadcast broadcast = new Broadcast(new TextMessage("text"));
         test(broadcast);
+
+        final Broadcast broadcast2 = new Broadcast(new TextMessage("text"), true);
+        test(broadcast2);
+
+        final Broadcast broadcast3 = new Broadcast(singletonList(new TextMessage("text")));
+        test(broadcast3);
+
+        final Broadcast broadcast4 = new Broadcast(singletonList(new TextMessage("text")), true);
+        test(broadcast4);
     }
 
     @Test

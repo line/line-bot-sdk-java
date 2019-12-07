@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -35,17 +36,20 @@ public class GetNumberOfFollowersResponse {
         /**
          * Calculation has finished; the numbers are up-to-date.
          */
-        Ready,
+        @JsonProperty("ready")
+        READY,
         /**
          * We haven't finished calculating the number of sent messages for the specified date. Calculation
          * usually takes about a day. Please try again later.
          */
-        Unready,
+        @JsonProperty("unready")
+        UNREADY,
         /**
          * The specified date is earlier than the date on which we first started calculating followers
          * (November 1, 2016).
          */
-        OutOfService
+        @JsonProperty("out_of_service")
+        OUT_OF_SERVICE
     }
 
     /**

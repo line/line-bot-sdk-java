@@ -24,7 +24,6 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
-import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -61,7 +60,7 @@ interface LineMessagingService {
      * @see LineMessagingClient#replyMessage(ReplyMessage)
      */
     @POST("v2/bot/message/reply")
-    Call<BotApiResponse> replyMessage(@Body ReplyMessage replyMessage);
+    Call<BotApiResponseBody> replyMessage(@Body ReplyMessage replyMessage);
 
     /**
      * Method for Retrofit.
@@ -69,7 +68,7 @@ interface LineMessagingService {
      * @see LineMessagingClient#pushMessage(PushMessage)
      */
     @POST("v2/bot/message/push")
-    Call<BotApiResponse> pushMessage(@Body PushMessage pushMessage);
+    Call<BotApiResponseBody> pushMessage(@Body PushMessage pushMessage);
 
     /**
      * Method for Retrofit.
@@ -77,13 +76,13 @@ interface LineMessagingService {
      * @see LineMessagingClient#multicast(Multicast)
      */
     @POST("v2/bot/message/multicast")
-    Call<BotApiResponse> multicast(@Body Multicast multicast);
+    Call<BotApiResponseBody> multicast(@Body Multicast multicast);
 
     /**
      * Sends push messages to multiple users at any time.
      */
     @POST("v2/bot/message/broadcast")
-    Call<BotApiResponse> broadcast(@Body Broadcast broadcast);
+    Call<BotApiResponseBody> broadcast(@Body Broadcast broadcast);
 
     /**
      * Method for Retrofit.
@@ -156,7 +155,7 @@ interface LineMessagingService {
      *             {@literal "20191231"}) and the timezone should be UTC+9.
      */
     @GET("v2/bot/message/delivery/broadcast")
-    Call<NumberOfMessagesResponse> getNumberOfSentBroadcastMessages(String date);
+    Call<NumberOfMessagesResponse> getNumberOfSentBroadcastMessages(@Query("date") String date);
 
     /**
      * Method for Retrofit.
@@ -196,7 +195,7 @@ interface LineMessagingService {
      * @see LineMessagingClient#leaveGroup(String)
      */
     @POST("v2/bot/group/{groupId}/leave")
-    Call<BotApiResponse> leaveGroup(@Path("groupId") String groupId);
+    Call<BotApiResponseBody> leaveGroup(@Path("groupId") String groupId);
 
     /**
      * Method for Retrofit.
@@ -204,7 +203,7 @@ interface LineMessagingService {
      * @see LineMessagingClient#leaveRoom(String)
      */
     @POST("v2/bot/room/{roomId}/leave")
-    Call<BotApiResponse> leaveRoom(@Path("roomId") String roomId);
+    Call<BotApiResponseBody> leaveRoom(@Path("roomId") String roomId);
 
     /**
      * Method for Retrofit.
@@ -269,7 +268,7 @@ interface LineMessagingService {
      *
      * @see LineMessagingClient#unlinkRichMenuIdFromUser(String)
      */
-    @DELETE("v2/bot/richmenu/bulk/unlink")
+    @POST("v2/bot/richmenu/bulk/unlink")
     Call<Void> unlinkRichMenuIdFromUsers(@Body RichMenuBulkUnlinkRequest request);
 
     /**
@@ -342,7 +341,7 @@ interface LineMessagingService {
      * @param date Date for which to retrieve number of sent messages. The format should be {@code yyyyMMdd}.
      *             For example: {@literal "20191231"}) and the timezone should be UTC+9.
      */
-    @GET("v2/bot/insight/message/delivery?date={date}")
+    @GET("v2/bot/insight/message/delivery")
     Call<GetNumberOfMessageDeliveriesResponse> getNumberOfMessageDeliveries(@Query("date") String date);
 
     /**
@@ -350,6 +349,6 @@ interface LineMessagingService {
      * @param date Date for which to retrieve the number of followers. The format should be {@code yyyyMMdd}.
      *             For example: {@literal "20191231"}) and the timezone should be UTC+9.
      */
-    @GET("v2/bot/insight/followers?date={date}")
+    @GET("v2/bot/insight/followers")
     Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
 }

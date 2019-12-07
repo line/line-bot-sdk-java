@@ -18,6 +18,8 @@ package com.linecorp.bot.client;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singleton;
+import static java.util.Collections.singletonList;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -27,7 +29,6 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.Collections;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -60,6 +61,7 @@ import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
 
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
@@ -69,7 +71,11 @@ import retrofit2.Response;
 
 public class LineMessagingClientImplTest {
     private static final byte[] ZERO_BYTES = {};
-    private static final BotApiResponse BOT_API_SUCCESS_RESPONSE = new BotApiResponse("", emptyList());
+    private static final String REQUEST_ID_FIXTURE = "REQUEST_ID_FIXTURE";
+    private static final BotApiResponseBody BOT_API_SUCCESS_RESPONSE_BODY =
+            new BotApiResponseBody("", emptyList());
+    private static final BotApiResponse BOT_API_SUCCESS_RESPONSE =
+            BOT_API_SUCCESS_RESPONSE_BODY.withRequestId(REQUEST_ID_FIXTURE);
     private static final RichMenuIdResponse RICH_MENU_ID_RESPONSE = new RichMenuIdResponse("ID");
 
     @Rule
@@ -87,7 +93,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void replyMessageTest() throws Exception {
         whenCall(retrofitMock.replyMessage(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                 BOT_API_SUCCESS_RESPONSE_BODY);
         final ReplyMessage replyMessage = new ReplyMessage("token", new TextMessage("Message"));
 
         // Do
@@ -102,7 +108,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void pushMessageTest() throws Exception {
         whenCall(retrofitMock.pushMessage(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                 BOT_API_SUCCESS_RESPONSE_BODY);
         final PushMessage pushMessage = new PushMessage("TO", new TextMessage("text"));
 
         // Do
@@ -117,7 +123,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void multicastTest() throws Exception {
         whenCall(retrofitMock.multicast(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                 BOT_API_SUCCESS_RESPONSE_BODY);
         final Multicast multicast = new Multicast(singleton("TO"), new TextMessage("text"));
 
         // Do
@@ -131,8 +137,8 @@ public class LineMessagingClientImplTest {
 
     @Test
     public void broadcast() {
-        whenCall(retrofitMock.broadcast(any()), BOT_API_SUCCESS_RESPONSE);
-        final Broadcast broadcast = new Broadcast(Collections.singletonList(new TextMessage("text")), true);
+        whenCall(retrofitMock.broadcast(any()), BOT_API_SUCCESS_RESPONSE_BODY);
+        final Broadcast broadcast = new Broadcast(singletonList(new TextMessage("text")), true);
 
         final BotApiResponse botApiResponse = target.broadcast(broadcast).join();
         verify(retrofitMock).broadcast(broadcast);
@@ -192,44 +198,44 @@ public class LineMessagingClientImplTest {
     @Test
     public void getNumberOfSentReplyMessages() {
         whenCall(retrofitMock.getNumberOfSentReplyMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.READY, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentReplyMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentReplyMessages("20181231");
-        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.Ready);
+        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.READY);
         assertThat(response.getSuccess()).isEqualTo(1024);
     }
 
     @Test
     public void getNumberOfSentPushMessages() {
         whenCall(retrofitMock.getNumberOfSentPushMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.READY, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentPushMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentPushMessages("20181231");
-        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.Ready);
+        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.READY);
         assertThat(response.getSuccess()).isEqualTo(1024);
     }
 
     @Test
     public void getNumberOfSentMulticastMessages() {
         whenCall(retrofitMock.getNumberOfSentMulticastMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.READY, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentMulticastMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentMulticastMessages("20181231");
-        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.Ready);
+        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.READY);
         assertThat(response.getSuccess()).isEqualTo(1024);
     }
 
     @Test
     public void getNumberOfSentBroadcastMessages() {
         whenCall(retrofitMock.getNumberOfSentBroadcastMessages(any()),
-                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.Ready, 1024));
+                 new NumberOfMessagesResponse(NumberOfMessagesResponse.Status.READY, 1024));
 
         NumberOfMessagesResponse response = target.getNumberOfSentBroadcastMessages("20181231").join();
         verify(retrofitMock, only()).getNumberOfSentBroadcastMessages("20181231");
-        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.Ready);
+        assertThat(response.getStatus()).isEqualTo(NumberOfMessagesResponse.Status.READY);
         assertThat(response.getSuccess()).isEqualTo(1024);
     }
 
@@ -294,7 +300,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void leaveGroupTest() throws Exception {
         whenCall(retrofitMock.leaveGroup(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                 BOT_API_SUCCESS_RESPONSE_BODY);
 
         // Do
         final BotApiResponse botApiResponse = target.leaveGroup("ID").get();
@@ -307,7 +313,7 @@ public class LineMessagingClientImplTest {
     @Test
     public void leaveRoomTest() throws Exception {
         whenCall(retrofitMock.leaveRoom(any()),
-                 BOT_API_SUCCESS_RESPONSE);
+                 BOT_API_SUCCESS_RESPONSE_BODY);
 
         // Do
         final BotApiResponse botApiResponse = target.leaveRoom("ID").get();
@@ -387,7 +393,7 @@ public class LineMessagingClientImplTest {
         whenCall(retrofitMock.linkRichMenuToUsers(any()), null);
 
         // Do
-        final BotApiResponse botApiResponse = target.linkRichMenuIdToUsers(Collections.singletonList("USER_ID"),
+        final BotApiResponse botApiResponse = target.linkRichMenuIdToUsers(singletonList("USER_ID"),
                                                                            "RICH_MENU_ID")
                                                     .join();
 
@@ -418,7 +424,7 @@ public class LineMessagingClientImplTest {
                  null);
 
         // Do
-        final BotApiResponse botApiResponse = target.unlinkRichMenuIdFromUsers(Collections.singletonList("ID"))
+        final BotApiResponse botApiResponse = target.unlinkRichMenuIdFromUsers(singletonList("ID"))
                                                     .join();
 
         // Verify
@@ -521,7 +527,7 @@ public class LineMessagingClientImplTest {
     public void getNumberOfMessageDeliveries() throws Exception {
         final GetNumberOfMessageDeliveriesResponse response = GetNumberOfMessageDeliveriesResponse
                 .builder()
-                .status(GetNumberOfMessageDeliveriesResponse.Status.Ready)
+                .status(GetNumberOfMessageDeliveriesResponse.Status.READY)
                 .apiBroadcast(1L)
                 .build();
         whenCall(retrofitMock.getNumberOfMessageDeliveries(any()), response);
@@ -535,14 +541,14 @@ public class LineMessagingClientImplTest {
     public void getNumberOfFollowers() throws Exception {
         final GetNumberOfFollowersResponse response = GetNumberOfFollowersResponse
                 .builder()
-                .status(GetNumberOfFollowersResponse.Status.Ready)
+                .status(GetNumberOfFollowersResponse.Status.READY)
                 .followers(3L)
                 .targetedReaches(2L)
                 .blocks(1L)
                 .build();
         whenCall(retrofitMock.getNumberOfFollowers(any()), response);
         final GetNumberOfFollowersResponse actual =
-                target.getNumberOfFollowersResponse("20190805").get();
+                target.getNumberOfFollowers("20190805").get();
         verify(retrofitMock, only()).getNumberOfFollowers("20190805");
         assertThat(actual).isEqualTo(response);
     }
@@ -563,7 +569,8 @@ public class LineMessagingClientImplTest {
 
             @Override
             public void enqueue(Callback<T> callback) {
-                callback.onResponse(this, Response.success(value));
+                final Headers headers = Headers.of(singletonMap("x-line-request-id", REQUEST_ID_FIXTURE));
+                callback.onResponse(this, Response.success(value, headers));
             }
 
             @Override

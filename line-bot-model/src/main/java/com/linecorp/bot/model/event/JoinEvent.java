@@ -56,4 +56,4 @@ public class JoinEvent implements Event, ReplyEvent {
         this.source = source;
         this.timestamp = timestamp;
     }
-    }
+}

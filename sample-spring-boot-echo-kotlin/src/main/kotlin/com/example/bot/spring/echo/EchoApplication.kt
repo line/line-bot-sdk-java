@@ -23,6 +23,7 @@ import com.linecorp.bot.model.message.Message
 import com.linecorp.bot.model.message.TextMessage
 import com.linecorp.bot.spring.boot.annotation.EventMapping
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler
+import org.slf4j.LoggerFactory
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
@@ -33,15 +34,17 @@ fun main(args: Array<String>) {
 @SpringBootApplication
 @LineMessageHandler
 open class EchoApplication {
+    private val log = LoggerFactory.getLogger(EchoApplication::class.java)
+
     @EventMapping
     fun handleTextMessageEvent(event: MessageEvent<TextMessageContent>): Message {
-        println("event: $event")
+        log.info("event: $event")
         val originalMessageText = event.message.text
         return TextMessage(originalMessageText)
     }
 
     @EventMapping
     fun handleDefaultMessageEvent(event: Event) {
-        println("event: $event")
+        log.info("event: $event")
     }
 }

@@ -17,6 +17,7 @@
 package com.linecorp.bot.model.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;
@@ -31,17 +32,20 @@ public class NumberOfMessagesResponse {
         /**
          * You can get the number of messages.
          */
-        Ready,
+        @JsonProperty("ready")
+        READY,
         /**
          * The message counting process for the date specified in {@code date} has not been completed yet.
          * Retry your request later. Normally, the counting process is completed within the next day.
          */
-        Unready,
+        @JsonProperty("unready")
+        UNREADY,
         /**
          * The date specified in date is earlier than March 31, 2018, when the operation of the counting system
          * started.
          */
-        OutOfService
+        @JsonProperty("out_of_service")
+        OUT_OF_SERVICE
     }
 
     Status status;
