@@ -42,8 +42,23 @@ public class PushMessage {
      */
     private final List<Message> messages;
 
+    /**
+     * Whether sends a push notification to message receivers or not. If {@literal true}, the user doesn't
+     * receive a push notification when the message is sent. And if {@literal false}, the user receives a push
+     * notification when the message is sent (unless they have disabled push notifications in LINE and/or their
+     * device).
+     */
+    private final boolean notificationDisabled;
+
     public PushMessage(String to, Message message) {
-        this.to = to;
-        this.messages = Collections.singletonList(message);
+        this(to, Collections.singletonList(message), false);
+    }
+
+    public PushMessage(String to, List<Message> messages) {
+        this(to, messages, false);
+    }
+
+    public PushMessage(String to, Message message, boolean notificationDisabled) {
+        this(to, Collections.singletonList(message), notificationDisabled);
     }
 }

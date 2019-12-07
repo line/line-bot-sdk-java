@@ -49,7 +49,23 @@ public class ReplyMessage {
      */
     private final List<Message> messages;
 
+    /**
+     * Whether sends a push notification to message receivers or not. If {@literal true}, the user doesn't
+     * receive a push notification when the message is sent. And if {@literal false}, the user receives a push
+     * notification when the message is sent (unless they have disabled push notifications in LINE and/or their
+     * device).
+     */
+    private final boolean notificationDisabled;
+
     public ReplyMessage(String replyToken, Message message) {
-        this(replyToken, Collections.singletonList(message));
+        this(replyToken, Collections.singletonList(message), false);
+    }
+
+    public ReplyMessage(String replyToken, List<Message> messages) {
+        this(replyToken, messages, false);
+    }
+
+    public ReplyMessage(String replyToken, Message message, boolean notificationDisabled) {
+        this(replyToken, Collections.singletonList(message), notificationDisabled);
     }
 }
