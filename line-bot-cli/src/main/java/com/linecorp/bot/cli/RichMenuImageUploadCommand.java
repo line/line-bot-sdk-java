@@ -32,7 +32,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.annotations.VisibleForTesting;
 
 import com.linecorp.bot.cli.arguments.Arguments;
-import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.client.LineBlobClient;
 import com.linecorp.bot.model.response.BotApiResponse;
 
 import lombok.AllArgsConstructor;
@@ -45,7 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RichMenuImageUploadCommand implements CliCommand {
     private static final FileNameMap FILE_NAME_MAP = URLConnection.getFileNameMap();
 
-    private LineMessagingClient lineMessagingClient;
+    private LineBlobClient lineBlobClient;
     private Arguments arguments;
 
     @Override
@@ -58,7 +58,7 @@ public class RichMenuImageUploadCommand implements CliCommand {
 
         byte[] bytes = Files.readAllBytes(Paths.get(image));
         final BotApiResponse botApiResponse =
-                getUnchecked(lineMessagingClient.setRichMenuImage(richMenuId, contentType, bytes));
+                getUnchecked(lineBlobClient.setRichMenuImage(richMenuId, contentType, bytes));
 
         log.info("Request Successfully finished. {}", botApiResponse);
     }

@@ -40,6 +40,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.google.common.io.ByteStreams;
 
+import com.linecorp.bot.client.LineBlobClient;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.MessageContentResponse;
 import com.linecorp.bot.model.ReplyMessage;
@@ -101,6 +102,9 @@ import lombok.extern.slf4j.Slf4j;
 public class KitchenSinkController {
     @Autowired
     private LineMessagingClient lineMessagingClient;
+
+    @Autowired
+    private LineBlobClient lineBlobClient;
 
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
@@ -287,8 +291,8 @@ public class KitchenSinkController {
                                     Consumer<MessageContentResponse> messageConsumer) {
         final MessageContentResponse response;
         try {
-            response = lineMessagingClient.getMessageContent(messageId)
-                                          .get();
+            response = lineBlobClient.getMessageContent(messageId)
+                                     .get();
         } catch (InterruptedException | ExecutionException e) {
             reply(replyToken, new TextMessage("Cannot get image: " + e.getMessage()));
             throw new RuntimeException(e);

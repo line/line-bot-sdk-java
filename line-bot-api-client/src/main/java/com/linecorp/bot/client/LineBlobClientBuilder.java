@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 LINE Corporation
+ * Copyright 2019 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -44,17 +44,14 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @ToString
 @Accessors(fluent = true)
-public class LineMessagingClientBuilder {
+public class LineBlobClientBuilder {
     private static final ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 
     /**
-     * Use {@link LineMessagingClient#builder(String)} to create instance.
-     *
-     * @see LineMessagingClient#builder(String)
-     * @see LineMessagingClient#builder(ChannelTokenSupplier)
+     * Use {@link LineBlobClient#builder} to create instance.
      */
     @PackagePrivate
-    LineMessagingClientBuilder() {
+    LineBlobClientBuilder() {
     }
 
     /**
@@ -67,10 +64,10 @@ public class LineMessagingClientBuilder {
     /**
      * API Endpoint.
      *
-     * @deprecated use {@link #apiEndPoint(URI apiEndPoint)}.
+     * @deprecated use {@link #apiEndPoint(URI)}.
      */
     @Deprecated
-    public LineMessagingClientBuilder apiEndPoint(String apiEndPoint) {
+    public LineBlobClientBuilder apiEndPoint(String apiEndPoint) {
         return apiEndPoint(URI.create(apiEndPoint));
     }
 
@@ -79,18 +76,10 @@ public class LineMessagingClientBuilder {
      *
      * <p>Default value = "https://api.line.me/".
      */ // We can remove this after delete `setApiEndPoint(String apiEndPoint)`.
-    public LineMessagingClientBuilder apiEndPoint(URI apiEndPoint) {
+    public LineBlobClientBuilder apiEndPoint(URI apiEndPoint) {
         this.apiEndPoint = requireNonNull(apiEndPoint, "apiEndPoint");
         return this;
     }
-
-    /**
-     * Blob Endpoint.
-     *
-     * <p>Default value = "https://api-data.line.me/".
-     */
-    @Setter
-    private URI blobEndPoint = LineClientConstants.DEFAULT_BLOB_END_POINT;
 
     /**
      * Connection timeout.
@@ -140,7 +129,7 @@ public class LineMessagingClientBuilder {
     /**
      * Add authentication header.
      *
-     * <p>Default = {@value}. If you manage authentication header yourself, set to {@doe false}.
+     * <p>Default = {@value}. If you manage authentication header yourself, set to {@code false}.
      */
     @Setter
     private boolean addAuthenticationHeader = true;
@@ -164,7 +153,7 @@ public class LineMessagingClientBuilder {
      *
      * @see #channelTokenSupplier(ChannelTokenSupplier)
      */
-    public LineMessagingClientBuilder channelToken(String channelToken) {
+    public LineBlobClientBuilder channelToken(String channelToken) {
         channelTokenSupplier(FixedChannelTokenSupplier.of(channelToken));
         return this;
     }
@@ -180,7 +169,7 @@ public class LineMessagingClientBuilder {
      * @param addAuthenticationHeader If true, all default okhttp interceptors ignored.
      *         You should insert authentication headers yourself.
      */
-    public LineMessagingClientBuilder okHttpClientBuilder(
+    public LineBlobClientBuilder okHttpClientBuilder(
             final @NonNull OkHttpClient.Builder okHttpClientBuilder,
             final boolean addAuthenticationHeader) {
         this.okHttpClientBuilder = okHttpClientBuilder;
@@ -190,7 +179,7 @@ public class LineMessagingClientBuilder {
     }
 
     /**
-     * Creates a new {@link LineMessagingService}.
+     * Creates a new {@link LineBlobService}.
      */
     <T> T buildRetrofitIface(URI apiEndPoint, Class<T> retrofitIFace) {
         if (okHttpClientBuilder == null) {
@@ -243,20 +232,19 @@ public class LineMessagingClientBuilder {
     }
 
     /**
-     * Creates a new {@link LineMessagingService}.
+     * Creates a new {@link LineBlobService}.
      */
-    public LineMessagingClient build() {
-        return new LineMessagingClientImpl(
-                buildRetrofitIface(apiEndPoint, LineMessagingService.class),
-                buildBlobClient());
+    public LineBlobClient build() {
+        return new LineBlobClientImpl(
+                buildRetrofitIface(apiEndPoint, LineBlobService.class));
     }
 
     /**
-     * Creates a new {@link LineMessagingService}.
+     * Creates a new {@link LineBlobService}.
      */
-    private LineBlobClient buildBlobClient() {
+    public LineBlobClient buildBlobClient() {
         return new LineBlobClientImpl(buildRetrofitIface(
-                blobEndPoint,
+                apiEndPoint,
                 LineBlobService.class));
     }
 }

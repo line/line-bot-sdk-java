@@ -20,6 +20,8 @@ import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+import java.net.URI;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -40,7 +42,7 @@ public class HeaderInterceptorWireMockTest extends AbstractWiremockTest {
     public void forChannelTokenSupplier() throws Exception {
         // Do
         when(channelTokenSupplier.get()).thenReturn("1st");
-        lineMessagingClient.getMessageContent("TEST");
+        lineMessagingClient.getProfile("TEST");
 
         // Verify
         final RecordedRequest request1st = mockWebServer.takeRequest();
@@ -49,7 +51,7 @@ public class HeaderInterceptorWireMockTest extends AbstractWiremockTest {
 
         // Do again with another channel token.
         when(channelTokenSupplier.get()).thenReturn("2nd");
-        lineMessagingClient.getMessageContent("TEST");
+        lineMessagingClient.getProfile("TEST");
 
         // Verify
         final RecordedRequest request2nd = mockWebServer.takeRequest();
@@ -60,7 +62,7 @@ public class HeaderInterceptorWireMockTest extends AbstractWiremockTest {
     @Override
     protected LineMessagingClient createLineMessagingClient(final MockWebServer mockWebServer) {
         return LineMessagingClient.builder(channelTokenSupplier)
-                                  .apiEndPoint("http://localhost:" + mockWebServer.getPort())
+                                  .apiEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
                                   .build();
     }
 }

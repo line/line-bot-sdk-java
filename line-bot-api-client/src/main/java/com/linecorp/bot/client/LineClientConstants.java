@@ -16,13 +16,15 @@
 
 package com.linecorp.bot.client;
 
+import java.net.URI;
+
 /**
  * Common constant holder.
  */
 public enum LineClientConstants {
     /* Only public static final fields in this enum. */;
-    // TODO: Use URI and Duration
-    public static final String DEFAULT_API_END_POINT = "https://api.line.me/";
+    public static final URI DEFAULT_API_END_POINT = URI.create("https://api.line.me/");
+    public static final URI DEFAULT_BLOB_END_POINT = URI.create("https://api-data.line.me/");
     public static final long DEFAULT_CONNECT_TIMEOUT_MILLIS = 10_000;
     public static final long DEFAULT_READ_TIMEOUT_MILLIS = 10_000;
     public static final long DEFAULT_WRITE_TIMEOUT_MILLIS = 10_000;

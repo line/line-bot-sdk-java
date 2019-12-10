@@ -16,6 +16,9 @@
 
 package com.linecorp.bot.client;
 
+import static java.util.Objects.requireNonNull;
+
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -53,10 +56,29 @@ public class LineOAuthClientBuilder {
     /**
      * API Endpoint.
      *
-     * <p>Default value = {@value}.
+     * <p>Default value = "https://api.line.me/".
      */
-    @Setter
-    private String apiEndPoint = LineClientConstants.DEFAULT_API_END_POINT;
+    private URI apiEndPoint = LineClientConstants.DEFAULT_API_END_POINT;
+
+    /**
+     * API Endpoint.
+     *
+     * @deprecated use {@link #apiEndPoint(URI apiEndPoint)}.
+     */
+    @Deprecated
+    public LineOAuthClientBuilder apiEndPoint(String apiEndPoint) {
+        return apiEndPoint(URI.create(apiEndPoint));
+    }
+
+    /**
+     * API Endpoint.
+     *
+     * <p>Default value = "https://api.line.me/".
+     */
+    public LineOAuthClientBuilder apiEndPoint(URI apiEndPoint) {
+        this.apiEndPoint = requireNonNull(apiEndPoint, "apiEndPoint");
+        return this;
+    }
 
     /**
      * Connection timeout.
@@ -141,7 +163,7 @@ public class LineOAuthClientBuilder {
             retrofitBuilder = createDefaultRetrofitBuilder();
         }
         retrofitBuilder.client(okHttpClient);
-        retrofitBuilder.baseUrl(apiEndPoint);
+        retrofitBuilder.baseUrl(apiEndPoint.toString());
 
         final Retrofit retrofit = retrofitBuilder.build();
 
