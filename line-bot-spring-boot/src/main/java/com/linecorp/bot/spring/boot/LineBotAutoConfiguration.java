@@ -27,6 +27,7 @@ import org.springframework.context.annotation.Import;
 import com.linecorp.bot.client.ChannelManagementSyncClient;
 import com.linecorp.bot.client.ChannelTokenSupplier;
 import com.linecorp.bot.client.FixedChannelTokenSupplier;
+import com.linecorp.bot.client.LineBlobClient;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.spring.boot.support.LineMessageHandlerSupport;
 
@@ -61,6 +62,22 @@ public class LineBotAutoConfiguration {
         return LineMessagingClient
                 .builder(channelTokenSupplier)
                 .apiEndPoint(lineBotProperties.getApiEndPoint())
+                .blobEndPoint(lineBotProperties.getBlobEndPoint())
+                .connectTimeout(lineBotProperties.getConnectTimeout())
+                .readTimeout(lineBotProperties.getReadTimeout())
+                .writeTimeout(lineBotProperties.getWriteTimeout())
+                .build();
+    }
+
+    /**
+     * Expose {@link LineMessagingClient} as {@link Bean}.
+     */
+    @Bean
+    public LineBlobClient lineBlobClient(
+            final ChannelTokenSupplier channelTokenSupplier) {
+        return LineBlobClient
+                .builder(channelTokenSupplier)
+                .apiEndPoint(lineBotProperties.getBlobEndPoint())
                 .connectTimeout(lineBotProperties.getConnectTimeout())
                 .readTimeout(lineBotProperties.getReadTimeout())
                 .writeTimeout(lineBotProperties.getWriteTimeout())

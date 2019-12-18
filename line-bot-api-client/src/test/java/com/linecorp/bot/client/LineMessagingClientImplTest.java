@@ -22,7 +22,6 @@ import static java.util.Collections.singletonList;
 import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -62,15 +61,12 @@ import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
 
 import okhttp3.Headers;
-import okhttp3.MediaType;
 import okhttp3.Request;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LineMessagingClientImplTest {
-    private static final byte[] ZERO_BYTES = {};
     private static final String REQUEST_ID_FIXTURE = "REQUEST_ID_FIXTURE";
     private static final BotApiResponseBody BOT_API_SUCCESS_RESPONSE_BODY =
             new BotApiResponseBody("", emptyList());
@@ -143,20 +139,6 @@ public class LineMessagingClientImplTest {
         final BotApiResponse botApiResponse = target.broadcast(broadcast).join();
         verify(retrofitMock).broadcast(broadcast);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
-    }
-
-    @Test
-    public void getMessageContentTest() throws Exception {
-        whenCall(retrofitMock.getMessageContent(any()),
-                 ResponseBody.create(MediaType.parse("image/jpeg"), ZERO_BYTES));
-
-        // Do
-        final MessageContentResponse contentResponse = target.getMessageContent("ID").get();
-
-        // Verify
-        verify(retrofitMock, only()).getMessageContent("ID");
-        assertThat(contentResponse.getLength()).isEqualTo(0);
-        assertThat(contentResponse.getMimeType()).isEqualTo("image/jpeg");
     }
 
     @Test
@@ -431,35 +413,6 @@ public class LineMessagingClientImplTest {
         verify(retrofitMock, only()).unlinkRichMenuIdFromUsers(
                 RichMenuBulkUnlinkRequest.builder().userId("ID").build());
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
-    }
-
-    @Test
-    public void getRichMenuImageTest() throws Exception {
-        whenCall(retrofitMock.getRichMenuImage(any()),
-                 ResponseBody.create(MediaType.parse("image/jpeg"), ZERO_BYTES));
-
-        // Do
-        final MessageContentResponse messageContentResponse = target.getRichMenuImage("ID").get();
-
-        // Verify
-        verify(retrofitMock, only()).getRichMenuImage("ID");
-        assertThat(messageContentResponse.getLength()).isZero();
-    }
-
-    @Test
-    public void uploadRichMenuImageTest() throws Exception {
-        whenCall(retrofitMock.uploadRichMenuImage(any(), any()),
-                 null);
-
-        // Do
-        final BotApiResponse botApiResponse =
-                target.setRichMenuImage("ID", "image/jpeg", ZERO_BYTES).get();
-
-        // Verify
-        verify(retrofitMock, only())
-                .uploadRichMenuImage(eq("ID"), any());
-        assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
-
     }
 
     @Test

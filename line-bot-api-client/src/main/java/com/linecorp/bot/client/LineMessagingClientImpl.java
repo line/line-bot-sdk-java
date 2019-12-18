@@ -45,9 +45,6 @@ import com.linecorp.bot.model.richmenu.RichMenuResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,13 +55,15 @@ import retrofit2.Response;
 @Slf4j
 @AllArgsConstructor
 public class LineMessagingClientImpl implements LineMessagingClient {
-    private static final ExceptionConverter EXCEPTION_CONVERTER = new ExceptionConverter();
+    static final ExceptionConverter EXCEPTION_CONVERTER = new ExceptionConverter();
     private static final String ORG_TYPE_GROUP = "group"; // TODO Enum
     private static final String ORG_TYPE_ROOM = "room";
     private static final BotApiResponseBody BOT_API_SUCCESS_RESPONSE_BODY =
             BotApiResponseBody.builder().message("").details(emptyList()).build();
 
     private final LineMessagingService retrofitImpl;
+
+    private final LineBlobClient blobDelegationTarget;
 
     @Override
     public CompletableFuture<BotApiResponse> replyMessage(final ReplyMessage replyMessage) {
@@ -87,8 +86,9 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    public CompletableFuture<MessageContentResponse> getMessageContent(final String messageId) {
-        return toMessageContentResponseFuture(retrofitImpl.getMessageContent(messageId));
+    @SuppressWarnings("deprecation")
+    public CompletableFuture<MessageContentResponse> getMessageContent(String messageId) {
+        return blobDelegationTarget.getMessageContent(messageId);
     }
 
     @Override
@@ -207,15 +207,16 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public CompletableFuture<MessageContentResponse> getRichMenuImage(final String richMenuId) {
-        return toMessageContentResponseFuture(retrofitImpl.getRichMenuImage(richMenuId));
+        return blobDelegationTarget.getRichMenuImage(richMenuId);
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public CompletableFuture<BotApiResponse> setRichMenuImage(
             final String richMenuId, final String contentType, final byte[] content) {
-        final RequestBody requestBody = RequestBody.create(MediaType.parse(contentType), content);
-        return toBotApiFuture(retrofitImpl.uploadRichMenuImage(richMenuId, requestBody));
+        return blobDelegationTarget.setRichMenuImage(richMenuId, contentType, content);
     }
 
     @Override
@@ -272,17 +273,10 @@ public class LineMessagingClientImpl implements LineMessagingClient {
         return completableFuture;
     }
 
-    private static CompletableFuture<BotApiResponse> toBotApiFuture(Call<Void> callToWrap) {
+    static CompletableFuture<BotApiResponse> toBotApiFuture(Call<Void> callToWrap) {
         final VoidToBotApiCallbackAdaptor completableFuture = new VoidToBotApiCallbackAdaptor();
         callToWrap.enqueue(completableFuture);
         return completableFuture;
-    }
-
-    private static CompletableFuture<MessageContentResponse> toMessageContentResponseFuture(
-            final Call<ResponseBody> callToWrap) {
-        final ResponseBodyCallbackAdaptor future = new ResponseBodyCallbackAdaptor();
-        callToWrap.enqueue(future);
-        return future;
     }
 
     static class CallbackAdaptor<T> extends CompletableFuture<T> implements Callback<T> {
@@ -338,43 +332,6 @@ public class LineMessagingClientImpl implements LineMessagingClient {
         public void onFailure(final Call<BotApiResponseBody> call, final Throwable t) {
             completeExceptionally(
                     new GeneralLineMessagingException(t.getMessage(), null, t));
-        }
-    }
-
-    static class ResponseBodyCallbackAdaptor
-            extends CompletableFuture<MessageContentResponse>
-            implements Callback<ResponseBody> {
-
-        @Override
-        public void onResponse(final Call<ResponseBody> call, final Response<ResponseBody> response) {
-            if (!response.isSuccessful()) {
-                completeExceptionally(EXCEPTION_CONVERTER.apply(response));
-                return;
-            }
-
-            try {
-                complete(convert(response));
-            } catch (RuntimeException exceptionInConvert) {
-                completeExceptionally(
-                        new GeneralLineMessagingException(exceptionInConvert.getMessage(),
-                                                          null, exceptionInConvert));
-            }
-        }
-
-        @Override
-        public void onFailure(final Call<ResponseBody> call, final Throwable t) {
-            completeExceptionally(
-                    new GeneralLineMessagingException(t.getMessage(), null, t));
-        }
-
-        private MessageContentResponse convert(final Response<ResponseBody> response) {
-            return MessageContentResponse
-                    .builder()
-                    .length(response.body().contentLength())
-                    .allHeaders(response.headers().toMultimap())
-                    .mimeType(response.body().contentType().toString())
-                    .stream(response.body().byteStream())
-                    .build();
         }
     }
 }

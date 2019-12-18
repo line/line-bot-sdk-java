@@ -42,12 +42,14 @@ public abstract class AbstractWiremockTest {
 
     protected MockWebServer mockWebServer;
     protected LineMessagingClient lineMessagingClient;
+    protected LineBlobClient lineBlobClient;
     protected ChannelManagementSyncClient channelManagementSyncClient;
 
     @Before
     public void setUpWireMock() {
         mockWebServer = new MockWebServer();
         lineMessagingClient = createLineMessagingClient(mockWebServer);
+        lineBlobClient = createLineBlobClient(mockWebServer);
         channelManagementSyncClient = createChannelManagementSyncClient(mockWebServer);
     }
 
@@ -66,8 +68,15 @@ public abstract class AbstractWiremockTest {
 
     protected LineMessagingClient createLineMessagingClient(final MockWebServer mockWebServer) {
         return LineMessagingClient.builder("token")
-                                  .apiEndPoint("http://localhost:" + mockWebServer.getPort())
+                                  .apiEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
+                                  .blobEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
                                   .build();
+    }
+
+    protected LineBlobClient createLineBlobClient(MockWebServer mockWebServer) {
+        return LineBlobClient.builder("token")
+                             .apiEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
+                             .build();
     }
 
     protected ChannelManagementSyncClient createChannelManagementSyncClient(final MockWebServer mockWebServer) {

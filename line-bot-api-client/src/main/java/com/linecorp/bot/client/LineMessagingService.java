@@ -38,8 +38,6 @@ import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
 
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -47,7 +45,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.Streaming;
 
 /**
  * Since 2018-06. This class is package private. Please use {@link LineMessagingClient} instead.
@@ -83,15 +80,6 @@ interface LineMessagingService {
      */
     @POST("v2/bot/message/broadcast")
     Call<BotApiResponseBody> broadcast(@Body Broadcast broadcast);
-
-    /**
-     * Method for Retrofit.
-     *
-     * @see LineMessagingClient#getMessageContent(String)
-     */
-    @Streaming
-    @GET("v2/bot/message/{messageId}/content")
-    Call<ResponseBody> getMessageContent(@Path("messageId") String messageId);
 
     /**
      * Gets the target limit for additional messages in the current month. The number of messages retrieved by
@@ -270,24 +258,6 @@ interface LineMessagingService {
      */
     @POST("v2/bot/richmenu/bulk/unlink")
     Call<Void> unlinkRichMenuIdFromUsers(@Body RichMenuBulkUnlinkRequest request);
-
-    /**
-     * Method for Retrofit.
-     *
-     * @see LineMessagingClient#getRichMenuImage(String)
-     */
-    @GET("v2/bot/richmenu/{richMenuId}/content")
-    Call<ResponseBody> getRichMenuImage(@Path("richMenuId") String richMenuId);
-
-    /**
-     * Method for Retrofit.
-     *
-     * @see LineMessagingClient#setRichMenuImage(String, String, byte[])
-     */
-    @POST("v2/bot/richmenu/{richMenuId}/content")
-    Call<Void> uploadRichMenuImage(
-            @Path("richMenuId") String richMenuId,
-            @Body RequestBody requestBody);
 
     /**
      * Method for Retrofit.

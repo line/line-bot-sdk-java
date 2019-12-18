@@ -31,7 +31,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import com.linecorp.bot.client.LineMessagingClientImpl.ResponseBodyCallbackAdaptor;
+import com.linecorp.bot.client.LineBlobClientImpl.ResponseBodyCallbackAdaptor;
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
 import com.linecorp.bot.client.exception.UnauthorizedException;
 

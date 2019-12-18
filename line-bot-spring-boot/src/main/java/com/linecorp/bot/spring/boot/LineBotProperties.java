@@ -53,7 +53,11 @@ public class LineBotProperties {
      */
     private @Valid @NotNull String channelSecret;
 
-    private @Valid @NotNull String apiEndPoint = LineClientConstants.DEFAULT_API_END_POINT;
+    /** apiEndPoint. default = https://api.line.me */
+    private @Valid @NotNull URI apiEndPoint = LineClientConstants.DEFAULT_API_END_POINT;
+
+    /** blobEndPoint. default = https://api-data.line.me */
+    private @Valid @NotNull URI blobEndPoint = LineClientConstants.DEFAULT_BLOB_END_POINT;
 
     /**
      * Connection timeout in milliseconds.

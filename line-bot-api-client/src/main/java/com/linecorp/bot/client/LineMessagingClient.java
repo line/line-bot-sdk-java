@@ -91,7 +91,9 @@ public interface LineMessagingClient {
      * Download image, video, and audio data sent from users.
      *
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-content">//developers.line.me/en/reference/messaging-api/#get-content</a>
+     * @deprecated use {@link LineBlobClient} instead.
      */
+    @Deprecated
     CompletableFuture<MessageContentResponse> getMessageContent(String messageId);
 
     /**
@@ -279,14 +281,18 @@ public interface LineMessagingClient {
      * Download rich menu image.
      *
      * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image">//developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image</a>
+     * @deprecated use {@link LineBlobClient} instead.
      */
+    @Deprecated
     CompletableFuture<MessageContentResponse> getRichMenuImage(String richMenuId);
 
     /**
      * Set RichMenu image.
      *
      * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image">//developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image</a>
+     * @deprecated use {@link LineBlobClient} instead.
      */
+    @Deprecated
     CompletableFuture<BotApiResponse> setRichMenuImage(
             String richMenuId, String contentType, byte[] content);
 
