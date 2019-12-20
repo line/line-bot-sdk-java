@@ -241,7 +241,7 @@ task codeCoverageReport(type: JacocoReport) {
     }
 }
 
-[':line-bot-api-client', ':line-bot-model', ':line-bot-servlet', ':line-bot-spring-boot', ':line-bot-cli'].each { projectName ->
+[':line-bot-api-client', ':line-bot-model', 'line-bot-parser', ':line-bot-servlet', ':line-bot-spring-boot', ':line-bot-cli'].each { projectName ->
     project(projectName) { project ->
         apply plugin: 'jacoco'
         apply plugin: 'signing'
