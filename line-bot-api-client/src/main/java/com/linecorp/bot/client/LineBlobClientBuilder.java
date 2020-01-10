@@ -57,9 +57,9 @@ public class LineBlobClientBuilder {
     /**
      * API Endpoint.
      *
-     * <p>Default value = "https://api.line.me/".
+     * <p>Default value = "https://api-data.line.me/".
      */
-    private URI apiEndPoint = LineClientConstants.DEFAULT_API_END_POINT;
+    private URI apiEndPoint = LineClientConstants.DEFAULT_BLOB_END_POINT;
 
     /**
      * API Endpoint.
@@ -74,7 +74,7 @@ public class LineBlobClientBuilder {
     /**
      * API Endpoint.
      *
-     * <p>Default value = "https://api.line.me/".
+     * <p>Default value = "https://api-data.line.me/".
      */ // We can remove this after delete `setApiEndPoint(String apiEndPoint)`.
     public LineBlobClientBuilder apiEndPoint(URI apiEndPoint) {
         this.apiEndPoint = requireNonNull(apiEndPoint, "apiEndPoint");
