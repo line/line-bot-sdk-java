@@ -23,9 +23,9 @@ import java.net.URI;
 
 import org.junit.Test;
 
-public class LineBlobClientBuilderTest {
+public class LineClientBuildersTest {
     @Test
-    public void defaultDomainTest() throws Exception {
+    public void testLineBlobClientBuilder() throws Exception {
         // Do
         final LineBlobClientBuilder defaultBuilder = new LineBlobClientBuilder();
         final Field field = defaultBuilder.getClass().getDeclaredField("apiEndPoint");
@@ -35,5 +35,31 @@ public class LineBlobClientBuilderTest {
         // Verify
         assertThat(apiEndPoint)
                 .isEqualTo(URI.create("https://api-data.line.me/"));
+    }
+
+    @Test
+    public void testLineMessagingClientBuilder() throws Exception {
+        // Do
+        final LineMessagingClientBuilder defaultBuilder = new LineMessagingClientBuilder();
+        final Field field = defaultBuilder.getClass().getDeclaredField("apiEndPoint");
+        field.setAccessible(true);
+        final Object apiEndPoint = field.get(defaultBuilder);
+
+        // Verify
+        assertThat(apiEndPoint)
+                .isEqualTo(URI.create("https://api.line.me/"));
+    }
+
+    @Test
+    public void testChannelManagementClientBuilder() throws Exception {
+        // Do
+        final ChannelManagementClientBuilder defaultBuilder = new ChannelManagementClientBuilder();
+        final Field field = defaultBuilder.getClass().getDeclaredField("apiEndPoint");
+        field.setAccessible(true);
+        final Object apiEndPoint = field.get(defaultBuilder);
+
+        // Verify
+        assertThat(apiEndPoint)
+                .isEqualTo(URI.create("https://api.line.me/"));
     }
 }
