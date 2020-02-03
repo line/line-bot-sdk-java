@@ -2,4 +2,9 @@
   <Match>
     <Bug pattern="OBL_UNSATISFIED_OBLIGATION" />
   </Match>
+
+  <!-- False positive with Java 11 https://github.com/spotbugs/spotbugs/issues/878 -->
+  <Match>
+    <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE" />
+  </Match>
 </FindBugsFilter>
