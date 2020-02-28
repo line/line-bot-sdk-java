@@ -34,7 +34,6 @@ buildscript {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.27.0'
         classpath 'com.puppycrawl.tools:checkstyle:8.29'
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:2.0.0'
-        classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:2.2.0'
         classpath 'io.franzbecker:gradle-lombok:3.2.0'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE'
         classpath 'io.spring.gradle:propdeps-plugin:0.0.10.RELEASE'
@@ -80,12 +79,6 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'checkstyle'
     apply plugin: 'io.franzbecker.gradle-lombok'
-    if (new File("${project.rootDir}/.git").exists()) {
-        logger.info("There's .git directory. Create git.properties.")
-        apply plugin: 'com.gorylenko.gradle-git-properties'
-    } else {
-        logger.warn("There's no .git directory. Can't create git.properties.");
-    }
     apply plugin: 'io.spring.dependency-management'
 
     sourceCompatibility = 1.8
