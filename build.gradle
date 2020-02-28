@@ -21,8 +21,8 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 buildscript {
     ext {
-        kotlin_version = '1.3.50'
-        spring_boot_version = '2.2.1.RELEASE'
+        kotlin_version = '1.3.61'
+        spring_boot_version = '2.2.4.RELEASE'
     }
 
     repositories {
@@ -31,12 +31,12 @@ buildscript {
         maven { url 'https://repo.spring.io/plugins-release' }
     }
     dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.23.0'
-        classpath 'com.puppycrawl.tools:checkstyle:8.23'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.27.0'
+        classpath 'com.puppycrawl.tools:checkstyle:8.29'
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:2.0.0'
-        classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:2.1.0'
-        classpath 'io.franzbecker:gradle-lombok:3.1.0'
-        classpath 'io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE'
+        classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:2.2.0'
+        classpath 'io.franzbecker:gradle-lombok:3.2.0'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE'
         classpath 'io.spring.gradle:propdeps-plugin:0.0.10.RELEASE'
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -94,7 +94,7 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
-    ext['guava.version'] = '28.0-jre'
+    ext['guava.version'] = '28.2-jre'
     ext['okhttp3.version'] = '3.14.2'
     ext['retrofit.version'] = '2.6.1'
 
@@ -113,7 +113,7 @@ subprojects {
                 entry 'retrofit'
             }
             dependency 'org.assertj:assertj-core:3.13.2'
-            dependency 'org.projectlombok:lombok:1.18.8'
+            dependency 'org.projectlombok:lombok:1.18.10'
         }
     }
 
