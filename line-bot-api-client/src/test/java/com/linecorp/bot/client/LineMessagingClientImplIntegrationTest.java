@@ -50,7 +50,9 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.AudienceGroup;
@@ -101,16 +103,19 @@ public class LineMessagingClientImplIntegrationTest {
         private final String endpoint;
         private final String userId;
         private final List<String> audienceIfas;
+        private final String retargetingRequestId;
 
         @JsonCreator
         public IntegrationTestSettings(@JsonProperty("token") String token,
                                        @JsonProperty("endpoint") String endpoint,
                                        @JsonProperty("userId") String userId,
-                                       @JsonProperty("audienceIfas") List<String> audienceIfas) {
+                                       @JsonProperty("audienceIfas") List<String> audienceIfas,
+                                       @JsonProperty("retargetingRequestId") String retargetingRequestId) {
             this.token = token;
             this.endpoint = endpoint;
             this.userId = userId;
             this.audienceIfas = audienceIfas;
+            this.retargetingRequestId = retargetingRequestId;
         }
     }
 
@@ -248,6 +253,20 @@ public class LineMessagingClientImplIntegrationTest {
                 )
                 .get();
         log.info(addResponse.toString());
+    }
+
+    @Test
+    public void createClickBasedAudienceGroup() throws Exception {
+        CreateClickBasedAudienceGroupResponse response = target
+                .createClickBasedAudienceGroup(CreateClickBasedAudienceGroupRequest
+                                                       .builder()
+                                                       .description("test " + ThreadLocalRandom.current()
+                                                                                               .nextDouble())
+                                                       .requestId(settings.retargetingRequestId)
+                                                       .build()
+                )
+                .get();
+        log.info(response.toString());
     }
 
     @Test

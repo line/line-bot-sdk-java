@@ -25,8 +25,10 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
@@ -350,6 +352,10 @@ interface LineMessagingService {
 
     @PUT("v2/bot/audienceGroup/upload")
     Call<Void> addAudienceToAudienceGroup(@Body AddAudienceToAudienceGroupRequest request);
+
+    @POST("v2/bot/audienceGroup/click")
+    Call<CreateClickBasedAudienceGroupResponse> createClickBasedAudienceGroup(
+            @Body CreateClickBasedAudienceGroupRequest request);
 
     @GET("v2/bot/audienceGroup/{audienceGroupId}")
     Call<GetAudienceDataResponse> getAudienceData(@Path("audienceGroupId") Long audienceGroupId);

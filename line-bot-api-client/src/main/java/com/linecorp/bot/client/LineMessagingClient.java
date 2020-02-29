@@ -28,8 +28,10 @@ import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
@@ -387,6 +389,9 @@ public interface LineMessagingClient {
      * Gets audience data.
      */
     CompletableFuture<GetAudienceDataResponse> getAudienceData(Long audienceGroupId);
+
+    CompletableFuture<CreateClickBasedAudienceGroupResponse> createClickBasedAudienceGroup(
+            CreateClickBasedAudienceGroupRequest request);
 
     /**
      * Gets data for more than one audience.
