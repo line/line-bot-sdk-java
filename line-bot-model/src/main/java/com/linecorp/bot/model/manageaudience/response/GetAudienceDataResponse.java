@@ -1,11 +1,11 @@
-package com.linecorp.bot.model.response.manageaudience;
+package com.linecorp.bot.model.manageaudience.response;
 
 import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import com.linecorp.bot.model.response.manageaudience.GetAudienceDataResponse.GetAudienceDataResponseBuilder;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse.GetAudienceDataResponseBuilder;
 
 import lombok.Builder;
 import lombok.Value;

@@ -27,6 +27,11 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
+import com.linecorp.bot.model.manageaudience.response.UploadAudienceGroupResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -38,9 +43,6 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
-import com.linecorp.bot.model.response.manageaudience.AudienceGroupStatus;
-import com.linecorp.bot.model.response.manageaudience.GetAudienceDataResponse;
-import com.linecorp.bot.model.response.manageaudience.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBulkLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
@@ -276,6 +278,12 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowers(String date) {
         return toFuture(retrofitImpl.getNumberOfFollowers(date));
+    }
+
+    @Override
+    public CompletableFuture<UploadAudienceGroupResponse> uploadAudienceGroup(
+            UploadAudienceGroupRequest request) {
+        return toFuture(retrofitImpl.uploadAudienceGroup(request));
     }
 
     @Override

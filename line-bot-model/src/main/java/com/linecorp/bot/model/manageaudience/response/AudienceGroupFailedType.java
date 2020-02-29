@@ -1,4 +1,4 @@
-package com.linecorp.bot.model.response.manageaudience;
+package com.linecorp.bot.model.manageaudience.response;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 

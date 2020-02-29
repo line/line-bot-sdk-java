@@ -23,6 +23,11 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
+import com.linecorp.bot.model.manageaudience.response.UploadAudienceGroupResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
@@ -33,9 +38,6 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
-import com.linecorp.bot.model.response.manageaudience.AudienceGroupStatus;
-import com.linecorp.bot.model.response.manageaudience.GetAudienceDataResponse;
-import com.linecorp.bot.model.response.manageaudience.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBulkLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
@@ -340,6 +342,9 @@ interface LineMessagingService {
      */
     @GET("v2/bot/insight/followers")
     Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
+
+    @POST("v2/bot/audienceGroup/upload")
+    Call<UploadAudienceGroupResponse> uploadAudienceGroup(@Body UploadAudienceGroupRequest request);
 
     @GET("v2/bot/audienceGroup/{audienceGroupId}")
     Call<GetAudienceDataResponse> getAudienceData(@Path("audienceGroupId") Long audienceGroupId);

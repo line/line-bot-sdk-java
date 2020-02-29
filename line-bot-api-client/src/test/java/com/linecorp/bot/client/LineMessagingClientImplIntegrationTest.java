@@ -21,16 +21,20 @@ import static java.util.Collections.singleton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
@@ -43,6 +47,12 @@ import com.linecorp.bot.model.Narrowcast.Filter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest.Audience;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.AudienceGroup;
+import com.linecorp.bot.model.manageaudience.response.UploadAudienceGroupResponse;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
@@ -50,10 +60,8 @@ import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse.Phase;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
-import com.linecorp.bot.model.response.manageaudience.GetAudienceDataResponse;
-import com.linecorp.bot.model.response.manageaudience.GetAudienceGroupsResponse;
-import com.linecorp.bot.model.response.manageaudience.GetAudienceGroupsResponse.AudienceGroup;
 
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -66,6 +74,7 @@ public class LineMessagingClientImplIntegrationTest {
     public static final URL TEST_RESOURCE = ClassLoader.getSystemResource("integration_test_settings.yml");
     private LineMessagingClient target;
     private String userId;
+    private IntegrationTestSettings settings;
 
     @Before
     public void setUp() throws IOException {
@@ -73,15 +82,35 @@ public class LineMessagingClientImplIntegrationTest {
         // exist.
         Assume.assumeTrue(TEST_RESOURCE != null);
 
-        final Map<?, ?> map = new ObjectMapper()
-                .convertValue(new Yaml().load(TEST_RESOURCE.openStream()), Map.class);
+        settings = new ObjectMapper()
+                .registerModule(new ParameterNamesModule())
+                .convertValue(new Yaml().load(TEST_RESOURCE.openStream()), IntegrationTestSettings.class);
 
         target = LineMessagingClient
-                .builder((String) map.get("token"))
-                .apiEndPoint((String) map.get("endpoint"))
+                .builder(settings.token)
+                .apiEndPoint(settings.endpoint)
                 .build();
 
-        userId = (String) map.get("userId");
+        userId = settings.userId;
+    }
+
+    @Value
+    public static final class IntegrationTestSettings {
+        private final String token;
+        private final String endpoint;
+        private final String userId;
+        private final List<String> audienceIfas;
+
+        @JsonCreator
+        public IntegrationTestSettings(@JsonProperty("token") String token,
+                                       @JsonProperty("endpoint") String endpoint,
+                                       @JsonProperty("userId") String userId,
+                                       @JsonProperty("audienceIfas") List<String> audienceIfas) {
+            this.token = token;
+            this.endpoint = endpoint;
+            this.userId = userId;
+            this.audienceIfas = audienceIfas;
+        }
     }
 
     private static void testApiCall(Callable<Object> f) throws Exception {
@@ -184,6 +213,23 @@ public class LineMessagingClientImplIntegrationTest {
                 target.getNumberOfFollowers("20191231").get();
 
         log.info(getNumberOfFollowersResponse.toString());
+    }
+
+    @Test
+    public void uploadAudience() throws Exception {
+        Assume.assumeFalse(settings.audienceIfas.isEmpty());
+
+        UploadAudienceGroupResponse response = target
+                .uploadAudienceGroup(new UploadAudienceGroupRequest(
+                        "test" + ThreadLocalRandom.current().nextInt(),
+                        true,
+                        "test",
+                        settings.audienceIfas.stream()
+                                             .map(Audience::new)
+                                             .collect(Collectors.toList())
+                ))
+                .get();
+        log.info(response.toString());
     }
 
     @Test

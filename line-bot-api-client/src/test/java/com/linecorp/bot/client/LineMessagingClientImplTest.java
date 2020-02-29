@@ -46,6 +46,11 @@ import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest.Audience;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
+import com.linecorp.bot.model.manageaudience.response.UploadAudienceGroupResponse;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
@@ -59,8 +64,6 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse.Phase;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
-import com.linecorp.bot.model.response.manageaudience.GetAudienceDataResponse;
-import com.linecorp.bot.model.response.manageaudience.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBulkLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
@@ -555,6 +558,26 @@ public class LineMessagingClientImplTest {
         final GetAudienceGroupsResponse actual =
                 target.getAudienceGroups(1L, null, null, 40L).get();
         verify(retrofitMock, only()).getAudienceGroups(1L, null, null, 40L);
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void uploadAudienceGroup() throws Exception {
+        final UploadAudienceGroupResponse response =
+                UploadAudienceGroupResponse.builder()
+                                           .build();
+        UploadAudienceGroupRequest request =
+                new UploadAudienceGroupRequest(
+                        "test",
+                        false,
+                        "test",
+                        singletonList(new Audience("Uabcdef"))
+                );
+
+        whenCall(retrofitMock.uploadAudienceGroup(any()), response);
+        final UploadAudienceGroupResponse actual =
+                target.uploadAudienceGroup(request).get();
+        verify(retrofitMock, only()).uploadAudienceGroup(request);
         assertThat(actual).isEqualTo(response);
     }
 
