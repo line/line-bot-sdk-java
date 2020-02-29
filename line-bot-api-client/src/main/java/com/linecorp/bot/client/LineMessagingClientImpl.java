@@ -30,6 +30,8 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetAudienceGroupsResponse;
+import com.linecorp.bot.model.response.GetAudienceGroupsResponse.AudienceGroupStatus;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -273,6 +275,14 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowers(String date) {
         return toFuture(retrofitImpl.getNumberOfFollowers(date));
+    }
+
+    @Override
+    public CompletableFuture<GetAudienceGroupsResponse> getAudienceGroups(Long page,
+                                                                          String description,
+                                                                          AudienceGroupStatus status,
+                                                                          Long size) {
+        return toFuture(retrofitImpl.getAudienceGroups(page, description, status, size));
     }
 
     // TODO: Extract this method.

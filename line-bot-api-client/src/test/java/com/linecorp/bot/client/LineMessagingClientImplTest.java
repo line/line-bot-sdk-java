@@ -50,6 +50,7 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -540,6 +541,19 @@ public class LineMessagingClientImplTest {
         final GetNumberOfFollowersResponse actual =
                 target.getNumberOfFollowers("20190805").get();
         verify(retrofitMock, only()).getNumberOfFollowers("20190805");
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void getAudienceGroups() throws Exception {
+        final GetAudienceGroupsResponse response = GetAudienceGroupsResponse
+                .builder()
+                .audienceGroups(emptyList())
+                .build();
+        whenCall(retrofitMock.getAudienceGroups(any(), any(), any(), any()), response);
+        final GetAudienceGroupsResponse actual =
+                target.getAudienceGroups(1L, null, null, 40L).get();
+        verify(retrofitMock, only()).getAudienceGroups(1L, null, null, 40L);
         assertThat(actual).isEqualTo(response);
     }
 

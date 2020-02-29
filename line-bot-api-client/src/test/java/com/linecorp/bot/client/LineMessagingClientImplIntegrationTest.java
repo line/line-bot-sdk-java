@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
 import org.junit.Assume;
 import org.junit.Before;
@@ -43,6 +44,7 @@ import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse;
@@ -179,5 +181,13 @@ public class LineMessagingClientImplIntegrationTest {
                 target.getNumberOfFollowers("20191231").get();
 
         log.info(getNumberOfFollowersResponse.toString());
+    }
+
+    @Test
+    public void getAudienceGroups() throws ExecutionException, InterruptedException {
+        GetAudienceGroupsResponse response = target
+                .getAudienceGroups(1L, null, null, 40L)
+                .get();
+        log.info(response.toString());
     }
 }
