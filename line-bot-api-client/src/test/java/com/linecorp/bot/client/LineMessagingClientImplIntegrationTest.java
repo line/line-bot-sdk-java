@@ -47,12 +47,13 @@ import com.linecorp.bot.model.Narrowcast.Filter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
-import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest;
-import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest.Audience;
+import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.Audience;
+import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.AudienceGroup;
-import com.linecorp.bot.model.manageaudience.response.UploadAudienceGroupResponse;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
@@ -216,11 +217,11 @@ public class LineMessagingClientImplIntegrationTest {
     }
 
     @Test
-    public void uploadAudience() throws Exception {
+    public void createAudienceGroup() throws Exception {
         Assume.assumeFalse(settings.audienceIfas.isEmpty());
 
-        UploadAudienceGroupResponse response = target
-                .createAudienceGroup(new UploadAudienceGroupRequest(
+        CreateAudienceGroupResponse createResponse = target
+                .createAudienceGroup(new CreateAudienceGroupRequest(
                         "test" + ThreadLocalRandom.current().nextInt(),
                         true,
                         "test",
@@ -229,7 +230,24 @@ public class LineMessagingClientImplIntegrationTest {
                                              .collect(Collectors.toList())
                 ))
                 .get();
-        log.info(response.toString());
+        log.info(createResponse.toString());
+
+        Long audienceGroupId = createResponse.getAudienceGroupId();
+
+        BotApiResponse addResponse = target
+                .addAudienceToAudienceGroup(
+                        AddAudienceToAudienceGroupRequest
+                                .builder()
+                                .audienceGroupId(audienceGroupId)
+                                .audiences(settings.audienceIfas.stream()
+                                                                .map(Audience::new)
+                                                                .collect(Collectors
+                                                                                 .toList()))
+                                .isIfaAudience(true)
+                                .build()
+                )
+                .get();
+        log.info(addResponse.toString());
     }
 
     @Test

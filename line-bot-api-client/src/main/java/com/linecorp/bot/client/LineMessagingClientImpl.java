@@ -27,11 +27,12 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
+import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
-import com.linecorp.bot.model.manageaudience.response.UploadAudienceGroupResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -281,9 +282,15 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    public CompletableFuture<UploadAudienceGroupResponse> createAudienceGroup(
-            UploadAudienceGroupRequest request) {
+    public CompletableFuture<CreateAudienceGroupResponse> createAudienceGroup(
+            CreateAudienceGroupRequest request) {
         return toFuture(retrofitImpl.createAudienceGroup(request));
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> addAudienceToAudienceGroup(
+            AddAudienceToAudienceGroupRequest request) {
+        return toBotApiFuture(retrofitImpl.addAudienceToAudienceGroup(request));
     }
 
     @Override

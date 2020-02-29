@@ -46,11 +46,11 @@ import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest;
-import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest.Audience;
+import com.linecorp.bot.model.manageaudience.request.Audience;
+import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
-import com.linecorp.bot.model.manageaudience.response.UploadAudienceGroupResponse;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
@@ -563,11 +563,11 @@ public class LineMessagingClientImplTest {
 
     @Test
     public void createAudienceGroup() throws Exception {
-        final UploadAudienceGroupResponse response =
-                UploadAudienceGroupResponse.builder()
+        final CreateAudienceGroupResponse response =
+                CreateAudienceGroupResponse.builder()
                                            .build();
-        UploadAudienceGroupRequest request =
-                new UploadAudienceGroupRequest(
+        CreateAudienceGroupRequest request =
+                new CreateAudienceGroupRequest(
                         "test",
                         false,
                         "test",
@@ -575,7 +575,7 @@ public class LineMessagingClientImplTest {
                 );
 
         whenCall(retrofitMock.createAudienceGroup(any()), response);
-        final UploadAudienceGroupResponse actual =
+        final CreateAudienceGroupResponse actual =
                 target.createAudienceGroup(request).get();
         verify(retrofitMock, only()).createAudienceGroup(request);
         assertThat(actual).isEqualTo(response);

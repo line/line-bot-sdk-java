@@ -26,11 +26,12 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
-import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
+import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
-import com.linecorp.bot.model.manageaudience.response.UploadAudienceGroupResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -374,7 +375,13 @@ public interface LineMessagingClient {
     /**
      * Creates an audience for uploading user IDs. You can create up to 1,000 audiences.
      */
-    CompletableFuture<UploadAudienceGroupResponse> createAudienceGroup(UploadAudienceGroupRequest request);
+    CompletableFuture<CreateAudienceGroupResponse> createAudienceGroup(CreateAudienceGroupRequest request);
+
+    /**
+     * Adds new user IDs or IFAs to an audience for uploading user IDs.
+     */
+    CompletableFuture<BotApiResponse> addAudienceToAudienceGroup(
+            AddAudienceToAudienceGroupRequest request);
 
     /**
      * Gets audience data.

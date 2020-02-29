@@ -23,11 +23,12 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.manageaudience.request.UploadAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
+import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
-import com.linecorp.bot.model.manageaudience.response.UploadAudienceGroupResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
@@ -50,6 +51,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -344,7 +346,10 @@ interface LineMessagingService {
     Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
 
     @POST("v2/bot/audienceGroup/upload")
-    Call<UploadAudienceGroupResponse> createAudienceGroup(@Body UploadAudienceGroupRequest request);
+    Call<CreateAudienceGroupResponse> createAudienceGroup(@Body CreateAudienceGroupRequest request);
+
+    @PUT("v2/bot/audienceGroup/upload")
+    Call<Void> addAudienceToAudienceGroup(@Body AddAudienceToAudienceGroupRequest request);
 
     @GET("v2/bot/audienceGroup/{audienceGroupId}")
     Call<GetAudienceDataResponse> getAudienceData(@Path("audienceGroupId") Long audienceGroupId);
