@@ -562,7 +562,7 @@ public class LineMessagingClientImplTest {
     }
 
     @Test
-    public void uploadAudienceGroup() throws Exception {
+    public void createAudienceGroup() throws Exception {
         final UploadAudienceGroupResponse response =
                 UploadAudienceGroupResponse.builder()
                                            .build();
@@ -574,10 +574,10 @@ public class LineMessagingClientImplTest {
                         singletonList(new Audience("Uabcdef"))
                 );
 
-        whenCall(retrofitMock.uploadAudienceGroup(any()), response);
+        whenCall(retrofitMock.createAudienceGroup(any()), response);
         final UploadAudienceGroupResponse actual =
-                target.uploadAudienceGroup(request).get();
-        verify(retrofitMock, only()).uploadAudienceGroup(request);
+                target.createAudienceGroup(request).get();
+        verify(retrofitMock, only()).createAudienceGroup(request);
         assertThat(actual).isEqualTo(response);
     }
 

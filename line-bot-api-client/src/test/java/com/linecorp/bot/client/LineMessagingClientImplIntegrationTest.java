@@ -220,7 +220,7 @@ public class LineMessagingClientImplIntegrationTest {
         Assume.assumeFalse(settings.audienceIfas.isEmpty());
 
         UploadAudienceGroupResponse response = target
-                .uploadAudienceGroup(new UploadAudienceGroupRequest(
+                .createAudienceGroup(new UploadAudienceGroupRequest(
                         "test" + ThreadLocalRandom.current().nextInt(),
                         true,
                         "test",

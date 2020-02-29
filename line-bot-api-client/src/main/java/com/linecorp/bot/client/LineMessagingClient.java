@@ -374,7 +374,7 @@ public interface LineMessagingClient {
     /**
      * Creates an audience for uploading user IDs. You can create up to 1,000 audiences.
      */
-    CompletableFuture<UploadAudienceGroupResponse> uploadAudienceGroup(UploadAudienceGroupRequest request);
+    CompletableFuture<UploadAudienceGroupResponse> createAudienceGroup(UploadAudienceGroupRequest request);
 
     /**
      * Gets audience data.

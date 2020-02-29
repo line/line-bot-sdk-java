@@ -344,7 +344,7 @@ interface LineMessagingService {
     Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
 
     @POST("v2/bot/audienceGroup/upload")
-    Call<UploadAudienceGroupResponse> uploadAudienceGroup(@Body UploadAudienceGroupRequest request);
+    Call<UploadAudienceGroupResponse> createAudienceGroup(@Body UploadAudienceGroupRequest request);
 
     @GET("v2/bot/audienceGroup/{audienceGroupId}")
     Call<GetAudienceDataResponse> getAudienceData(@Path("audienceGroupId") Long audienceGroupId);

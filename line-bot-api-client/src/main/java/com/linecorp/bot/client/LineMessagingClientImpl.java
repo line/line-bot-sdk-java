@@ -281,9 +281,9 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    public CompletableFuture<UploadAudienceGroupResponse> uploadAudienceGroup(
+    public CompletableFuture<UploadAudienceGroupResponse> createAudienceGroup(
             UploadAudienceGroupRequest request) {
-        return toFuture(retrofitImpl.uploadAudienceGroup(request));
+        return toFuture(retrofitImpl.createAudienceGroup(request));
     }
 
     @Override
