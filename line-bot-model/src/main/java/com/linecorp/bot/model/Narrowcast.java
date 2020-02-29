@@ -28,7 +28,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.message.Message;
 
+<<<<<<< HEAD
 import lombok.Getter;
+=======
+>>>>>>> Implement basic narrowcast feature
 import lombok.Value;
 
 /**
@@ -179,12 +182,22 @@ public class Narrowcast {
             @JsonProperty("age_50")
             AGE_50(50);
 
+<<<<<<< HEAD
             @Getter
+=======
+>>>>>>> Implement basic narrowcast feature
             private final int age;
 
             Age(int age) {
                 this.age = age;
             }
+<<<<<<< HEAD
+=======
+
+            public int getAge() {
+                return age;
+            }
+>>>>>>> Implement basic narrowcast feature
         }
     }
 
@@ -210,12 +223,22 @@ public class Narrowcast {
             @JsonProperty("android")
             ANDROID("android");
 
+<<<<<<< HEAD
             @Getter
+=======
+>>>>>>> Implement basic narrowcast feature
             private final String appType;
 
             AppType(String appType) {
                 this.appType = appType;
             }
+<<<<<<< HEAD
+=======
+
+            public String getAppType() {
+                return appType;
+            }
+>>>>>>> Implement basic narrowcast feature
         }
     }
 
