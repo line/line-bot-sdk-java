@@ -40,6 +40,10 @@ import org.mockito.stubbing.OngoingStubbing;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
+import com.linecorp.bot.model.Narrowcast;
+import com.linecorp.bot.model.Narrowcast.Filter;
+import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
+import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.message.TextMessage;
@@ -51,6 +55,8 @@ import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse.QuotaType;
+import com.linecorp.bot.model.response.NarrowcastProgressResponse;
+import com.linecorp.bot.model.response.NarrowcastProgressResponse.Phase;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
@@ -139,6 +145,37 @@ public class LineMessagingClientImplTest {
         final BotApiResponse botApiResponse = target.broadcast(broadcast).join();
         verify(retrofitMock).broadcast(broadcast);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
+    public void narrowcast() {
+        whenCall(retrofitMock.narrowcast(any()), BOT_API_SUCCESS_RESPONSE_BODY);
+        final Narrowcast narrowcast = new Narrowcast(new TextMessage("text"),
+                                                     new Filter(new GenderDemographicFilter(Gender.FEMALE)));
+
+        final BotApiResponse botApiResponse = target.narrowcast(narrowcast).join();
+        verify(retrofitMock).narrowcast(narrowcast);
+        assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
+    public void getNarrowcastProgress() {
+        whenCall(retrofitMock.getNarrowcastProgress(any()),
+                 NarrowcastProgressResponse.builder()
+                                           .phase(Phase.succeeded)
+                                           .successCount(35L)
+                                           .targetCount(35L)
+                                           .build());
+
+        final NarrowcastProgressResponse response = target
+                .getNarrowcastProgress("0e6e2d6a-bca4-4275-8b56-fd4f002f6115")
+                .join();
+        verify(retrofitMock).getNarrowcastProgress("0e6e2d6a-bca4-4275-8b56-fd4f002f6115");
+        assertThat(response).isEqualTo(NarrowcastProgressResponse.builder()
+                                                                 .phase(Phase.succeeded)
+                                                                 .successCount(35L)
+                                                                 .targetCount(35L)
+                                                                 .build());
     }
 
     @Test

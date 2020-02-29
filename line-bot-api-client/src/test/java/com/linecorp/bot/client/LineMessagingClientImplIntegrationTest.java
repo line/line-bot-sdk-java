@@ -32,10 +32,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
+import com.linecorp.bot.model.Narrowcast;
+import com.linecorp.bot.model.Narrowcast.AgeDemographicFilter;
+import com.linecorp.bot.model.Narrowcast.AgeDemographicFilter.Age;
+import com.linecorp.bot.model.Narrowcast.AppTypeDemographicFilter;
+import com.linecorp.bot.model.Narrowcast.AppTypeDemographicFilter.AppType;
+import com.linecorp.bot.model.Narrowcast.Filter;
+import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
+import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
+import com.linecorp.bot.model.response.NarrowcastProgressResponse;
+import com.linecorp.bot.model.response.NarrowcastProgressResponse.Phase;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +64,8 @@ public class LineMessagingClientImplIntegrationTest {
 
     @Before
     public void setUp() throws IOException {
+        // Do not run all test cases in this class when src/test/resources/integration_test_settings.yml doesn't
+        // exist.
         Assume.assumeTrue(TEST_RESOURCE != null);
 
         final Map<?, ?> map = new ObjectMapper()
@@ -78,6 +91,46 @@ public class LineMessagingClientImplIntegrationTest {
         );
         testApiCall(
                 () -> target.broadcast(new Broadcast(new TextMessage("Broadcast"))).get()
+        );
+    }
+
+    @Test
+    public void narrowcastGender() throws Exception {
+        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(gender=male)"), new Filter(
+                new GenderDemographicFilter(Gender.MALE)
+        )));
+    }
+
+    @Test
+    public void narrowcastAge() throws Exception {
+        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(Age)"), new Filter(
+                new AgeDemographicFilter(Age.AGE_15, Age.AGE_40)
+        )));
+    }
+
+    @Test
+    public void narrowcastAppType() throws Exception {
+        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(AppType)"), new Filter(
+                new AppTypeDemographicFilter(AppType.IOS)
+        )));
+    }
+
+    private void testNarrowcast(Narrowcast narrowcast) throws Exception {
+        testApiCall(
+                () -> {
+                    BotApiResponse response = target.narrowcast(narrowcast).get();
+                    log.info("Narrowcast response={}", response);
+                    for (int i = 0; i < 10; i++) {
+                        NarrowcastProgressResponse resp = target.getNarrowcastProgress(
+                                response.getRequestId()).get();
+                        if (resp.getPhase() == Phase.succeeded || resp.getPhase() == Phase.failed) {
+                            return resp;
+                        }
+                        log.info("Progress response={}", resp);
+                        Thread.sleep(1000);
+                    }
+                    return null;
+                }
         );
     }
 
