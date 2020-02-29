@@ -29,8 +29,6 @@ import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.model.response.GetAudienceGroupsResponse;
-import com.linecorp.bot.model.response.GetAudienceGroupsResponse.AudienceGroupStatus;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -39,6 +37,9 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
+import com.linecorp.bot.model.response.manageaudience.AudienceGroupStatus;
+import com.linecorp.bot.model.response.manageaudience.GetAudienceDataResponse;
+import com.linecorp.bot.model.response.manageaudience.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
@@ -367,6 +368,11 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-demographic">Get friends demographics</a>
      */
     CompletableFuture<GetFriendsDemographicsResponse> getFriendsDemographics();
+
+    /**
+     * Gets audience data.
+     */
+    CompletableFuture<GetAudienceDataResponse> getAudienceData(Long audienceGroupId);
 
     /**
      * Gets data for more than one audience.

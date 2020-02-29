@@ -25,8 +25,6 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
-import com.linecorp.bot.model.response.GetAudienceGroupsResponse;
-import com.linecorp.bot.model.response.GetAudienceGroupsResponse.AudienceGroupStatus;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -35,6 +33,9 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
+import com.linecorp.bot.model.response.manageaudience.AudienceGroupStatus;
+import com.linecorp.bot.model.response.manageaudience.GetAudienceDataResponse;
+import com.linecorp.bot.model.response.manageaudience.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBulkLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
@@ -339,6 +340,9 @@ interface LineMessagingService {
      */
     @GET("v2/bot/insight/followers")
     Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
+
+    @GET("v2/bot/audienceGroup/{audienceGroupId}")
+    Call<GetAudienceDataResponse> getAudienceData(@Path("audienceGroupId") Long audienceGroupId);
 
     @GET("v2/bot/audienceGroup/list")
     Call<GetAudienceGroupsResponse> getAudienceGroups(@Query("page") Long page,

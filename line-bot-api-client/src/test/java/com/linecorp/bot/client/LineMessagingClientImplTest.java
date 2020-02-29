@@ -50,7 +50,6 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.model.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -60,6 +59,8 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse.Phase;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.manageaudience.GetAudienceDataResponse;
+import com.linecorp.bot.model.response.manageaudience.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBulkLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
@@ -554,6 +555,18 @@ public class LineMessagingClientImplTest {
         final GetAudienceGroupsResponse actual =
                 target.getAudienceGroups(1L, null, null, 40L).get();
         verify(retrofitMock, only()).getAudienceGroups(1L, null, null, 40L);
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void getAudienceData() throws Exception {
+        final GetAudienceDataResponse response = GetAudienceDataResponse
+                .builder()
+                .build();
+        whenCall(retrofitMock.getAudienceData(any()), response);
+        final GetAudienceDataResponse actual =
+                target.getAudienceData(4649L).get();
+        verify(retrofitMock, only()).getAudienceData(4649L);
         assertThat(actual).isEqualTo(response);
     }
 

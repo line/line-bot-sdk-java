@@ -20,6 +20,7 @@ import static java.util.Collections.singleton;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -44,12 +45,14 @@ import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.model.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse.Phase;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
+import com.linecorp.bot.model.response.manageaudience.GetAudienceDataResponse;
+import com.linecorp.bot.model.response.manageaudience.GetAudienceGroupsResponse;
+import com.linecorp.bot.model.response.manageaudience.GetAudienceGroupsResponse.AudienceGroup;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -189,5 +192,12 @@ public class LineMessagingClientImplIntegrationTest {
                 .getAudienceGroups(1L, null, null, 40L)
                 .get();
         log.info(response.toString());
+
+        List<AudienceGroup> audienceGroups = response.getAudienceGroups();
+        for (AudienceGroup audienceGroup : audienceGroups) {
+            GetAudienceDataResponse dataResponse = target.getAudienceData(
+                    audienceGroup.getAudienceGroupId()).get();
+            log.info("id={} data={}", audienceGroup.getAudienceGroupId(), dataResponse);
+        }
     }
 }
