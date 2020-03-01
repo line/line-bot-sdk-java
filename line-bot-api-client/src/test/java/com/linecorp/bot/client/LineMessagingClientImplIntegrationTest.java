@@ -121,12 +121,14 @@ public class LineMessagingClientImplIntegrationTest {
                     BotApiResponse response = target.narrowcast(narrowcast).get();
                     log.info("Narrowcast response={}", response);
                     for (int i = 0; i < 10; i++) {
-                        NarrowcastProgressResponse resp = target.getNarrowcastProgress(
+                        NarrowcastProgressResponse progressResponse = target.getNarrowcastProgress(
                                 response.getRequestId()).get();
-                        if (resp.getPhase() == Phase.succeeded || resp.getPhase() == Phase.failed) {
-                            return resp;
+                        log.info("Progress={}", progressResponse);
+                        if (progressResponse.getPhase() == Phase.SUCCEEDED
+                            || progressResponse.getPhase() == Phase.FAILED) {
+                            return progressResponse;
                         }
-                        log.info("Progress response={}", resp);
+                        log.info("Progress response={}", progressResponse);
                         Thread.sleep(1000);
                     }
                     return null;

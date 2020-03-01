@@ -162,7 +162,7 @@ public class LineMessagingClientImplTest {
     public void getNarrowcastProgress() {
         whenCall(retrofitMock.getNarrowcastProgress(any()),
                  NarrowcastProgressResponse.builder()
-                                           .phase(Phase.succeeded)
+                                           .phase(Phase.SUCCEEDED)
                                            .successCount(35L)
                                            .targetCount(35L)
                                            .build());
@@ -172,7 +172,7 @@ public class LineMessagingClientImplTest {
                 .join();
         verify(retrofitMock).getNarrowcastProgress("0e6e2d6a-bca4-4275-8b56-fd4f002f6115");
         assertThat(response).isEqualTo(NarrowcastProgressResponse.builder()
-                                                                 .phase(Phase.succeeded)
+                                                                 .phase(Phase.SUCCEEDED)
                                                                  .successCount(35L)
                                                                  .targetCount(35L)
                                                                  .build());

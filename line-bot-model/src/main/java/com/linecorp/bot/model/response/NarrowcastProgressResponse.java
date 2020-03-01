@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -36,10 +37,14 @@ public class NarrowcastProgressResponse {
     Long errorCode;
 
     public enum Phase {
-        waiting,
-        sending,
-        succeeded,
-        failed
+        @JsonProperty("waiting")
+        WAITING,
+        @JsonProperty("sending")
+        SENDING,
+        @JsonProperty("succeeded")
+        SUCCEEDED,
+        @JsonProperty("failed")
+        FAILED
     }
 
     @JsonPOJOBuilder(withPrefix = "")
