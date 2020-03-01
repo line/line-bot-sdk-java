@@ -30,6 +30,7 @@ import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupR
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
@@ -403,6 +404,12 @@ public interface LineMessagingClient {
      * Gets audience data.
      */
     CompletableFuture<GetAudienceDataResponse> getAudienceData(Long audienceGroupId);
+
+    /**
+     * Renames an existing audience.
+     */
+    CompletableFuture<BotApiResponse> updateAudienceGroupDescription(
+            Long audienceGroupId, UpdateAudienceGroupDescriptionRequest request);
 
     /**
      * Gets data for more than one audience.

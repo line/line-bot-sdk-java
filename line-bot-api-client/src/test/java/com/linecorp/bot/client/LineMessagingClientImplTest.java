@@ -50,6 +50,7 @@ import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
@@ -611,6 +612,21 @@ public class LineMessagingClientImplTest {
                 target.createImpBasedAudienceGroup(request).get();
         verify(retrofitMock, only()).createImpBasedAudienceGroup(request);
         assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void updateAudienceGroupDescription() throws Exception {
+        UpdateAudienceGroupDescriptionRequest request = UpdateAudienceGroupDescriptionRequest.builder()
+                                                                                             .description(
+                                                                                                     "Hello")
+                                                                                             .build();
+        whenCall(retrofitMock.updateAudienceGroupDescription(any(), any()), null);
+        final BotApiResponse actual =
+                target.updateAudienceGroupDescription(5693L,
+                                                      request
+                ).get();
+        verify(retrofitMock, only()).updateAudienceGroupDescription(5693L, request);
+        assertThat(actual).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
     @Test

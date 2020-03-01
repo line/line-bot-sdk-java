@@ -52,6 +52,7 @@ import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
@@ -225,7 +226,7 @@ public class LineMessagingClientImplIntegrationTest {
 
     @Test
     public void createAudienceGroup() throws Exception {
-        Assume.assumeFalse(settings.audienceIfas.isEmpty());
+        Assume.assumeTrue(settings.audienceIfas != null && !settings.audienceIfas.isEmpty());
 
         CreateAudienceGroupResponse createResponse = target
                 .createAudienceGroup(new CreateAudienceGroupRequest(
@@ -255,6 +256,16 @@ public class LineMessagingClientImplIntegrationTest {
                 )
                 .get();
         log.info(addResponse.toString());
+
+        BotApiResponse updateResponse = target.updateAudienceGroupDescription(
+                audienceGroupId,
+                UpdateAudienceGroupDescriptionRequest
+                        .builder()
+                        .description("Hello" + ThreadLocalRandom.current()
+                                                                .nextDouble())
+                        .build()
+        ).get();
+        log.info(updateResponse.toString());
     }
 
     @Test
