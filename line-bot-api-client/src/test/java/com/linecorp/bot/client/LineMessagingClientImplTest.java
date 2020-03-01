@@ -49,8 +49,10 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.message.TextMessage;
@@ -594,6 +596,20 @@ public class LineMessagingClientImplTest {
         final CreateClickBasedAudienceGroupResponse actual =
                 target.createClickBasedAudienceGroup(request).get();
         verify(retrofitMock, only()).createClickBasedAudienceGroup(request);
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void createImpBasedAudienceGroup() throws Exception {
+        CreateImpBasedAudienceGroupRequest request = CreateImpBasedAudienceGroupRequest.builder()
+                                                                                       .build();
+        CreateImpBasedAudienceGroupResponse response = CreateImpBasedAudienceGroupResponse.builder()
+                                                                                          .build();
+
+        whenCall(retrofitMock.createImpBasedAudienceGroup(any()), response);
+        final CreateImpBasedAudienceGroupResponse actual =
+                target.createImpBasedAudienceGroup(request).get();
+        verify(retrofitMock, only()).createImpBasedAudienceGroup(request);
         assertThat(actual).isEqualTo(response);
     }
 

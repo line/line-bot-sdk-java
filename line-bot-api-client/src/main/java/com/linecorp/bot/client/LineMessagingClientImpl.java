@@ -30,9 +30,11 @@ import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
@@ -299,6 +301,12 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     public CompletableFuture<CreateClickBasedAudienceGroupResponse> createClickBasedAudienceGroup(
             CreateClickBasedAudienceGroupRequest request) {
         return toFuture(retrofitImpl.createClickBasedAudienceGroup(request));
+    }
+
+    @Override
+    public CompletableFuture<CreateImpBasedAudienceGroupResponse> createImpBasedAudienceGroup(
+            CreateImpBasedAudienceGroupRequest request) {
+        return toFuture(retrofitImpl.createImpBasedAudienceGroup(request));
     }
 
     @Override

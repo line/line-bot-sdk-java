@@ -51,8 +51,10 @@ import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupR
 import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.AudienceGroup;
@@ -264,6 +266,20 @@ public class LineMessagingClientImplIntegrationTest {
                                                                                                .nextDouble())
                                                        .requestId(settings.retargetingRequestId)
                                                        .build()
+                )
+                .get();
+        log.info(response.toString());
+    }
+
+    @Test
+    public void createImpBasedAudienceGroup() throws Exception {
+        CreateImpBasedAudienceGroupResponse response = target
+                .createImpBasedAudienceGroup(CreateImpBasedAudienceGroupRequest
+                                                     .builder()
+                                                     .description("test " + ThreadLocalRandom.current()
+                                                                                             .nextDouble())
+                                                     .requestId(settings.retargetingRequestId)
+                                                     .build()
                 )
                 .get();
         log.info(response.toString());

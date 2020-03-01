@@ -29,9 +29,11 @@ import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
@@ -380,6 +382,18 @@ public interface LineMessagingClient {
     CompletableFuture<CreateAudienceGroupResponse> createAudienceGroup(CreateAudienceGroupRequest request);
 
     /**
+     * Creates an audience for click-based retargeting.
+     */
+    CompletableFuture<CreateClickBasedAudienceGroupResponse> createClickBasedAudienceGroup(
+            CreateClickBasedAudienceGroupRequest request);
+
+    /**
+     * Creates an audience for impression-based retargeting.
+     */
+    CompletableFuture<CreateImpBasedAudienceGroupResponse> createImpBasedAudienceGroup(
+            CreateImpBasedAudienceGroupRequest request);
+
+    /**
      * Adds new user IDs or IFAs to an audience for uploading user IDs.
      */
     CompletableFuture<BotApiResponse> addAudienceToAudienceGroup(
@@ -389,9 +403,6 @@ public interface LineMessagingClient {
      * Gets audience data.
      */
     CompletableFuture<GetAudienceDataResponse> getAudienceData(Long audienceGroupId);
-
-    CompletableFuture<CreateClickBasedAudienceGroupResponse> createClickBasedAudienceGroup(
-            CreateClickBasedAudienceGroupRequest request);
 
     /**
      * Gets data for more than one audience.
