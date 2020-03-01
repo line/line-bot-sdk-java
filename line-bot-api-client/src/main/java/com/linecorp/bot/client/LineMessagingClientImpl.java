@@ -317,6 +317,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
+    public CompletableFuture<BotApiResponse> deleteAudienceGroup(Long audienceGroupId) {
+        return toBotApiFuture(retrofitImpl.deleteAudienceGroup(audienceGroupId));
+    }
+
+    @Override
     public CompletableFuture<GetAudienceGroupsResponse> getAudienceGroups(Long page,
                                                                           String description,
                                                                           AudienceGroupStatus status,

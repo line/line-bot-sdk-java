@@ -368,6 +368,9 @@ interface LineMessagingService {
     Call<Void> updateAudienceGroupDescription(
             @Path("audienceGroupId") Long audienceGroupId, @Body UpdateAudienceGroupDescriptionRequest request);
 
+    @DELETE("v2/bot/audienceGroup/{audienceGroupId}")
+    Call<Void> deleteAudienceGroup(@Path("audienceGroupId") Long audienceGroupId);
+
     @GET("v2/bot/audienceGroup/{audienceGroupId}")
     Call<GetAudienceDataResponse> getAudienceData(@Path("audienceGroupId") Long audienceGroupId);
 

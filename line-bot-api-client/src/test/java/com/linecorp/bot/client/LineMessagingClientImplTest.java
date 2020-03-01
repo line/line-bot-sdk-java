@@ -630,6 +630,15 @@ public class LineMessagingClientImplTest {
     }
 
     @Test
+    public void deleteAudienceGroup() throws Exception {
+        whenCall(retrofitMock.deleteAudienceGroup(any()), null);
+        final BotApiResponse actual =
+                target.deleteAudienceGroup(5693L).get();
+        verify(retrofitMock, only()).deleteAudienceGroup(5693L);
+        assertThat(actual).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
     public void getAudienceData() throws Exception {
         final GetAudienceDataResponse response = GetAudienceDataResponse
                 .builder()

@@ -266,6 +266,9 @@ public class LineMessagingClientImplIntegrationTest {
                         .build()
         ).get();
         log.info(updateResponse.toString());
+
+        BotApiResponse deleteResponse = target.deleteAudienceGroup(audienceGroupId).get();
+        log.info(deleteResponse.toString());
     }
 
     @Test

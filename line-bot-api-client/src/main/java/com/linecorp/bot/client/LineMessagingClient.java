@@ -412,6 +412,11 @@ public interface LineMessagingClient {
             Long audienceGroupId, UpdateAudienceGroupDescriptionRequest request);
 
     /**
+     * Deletes an audience.
+     */
+    CompletableFuture<BotApiResponse> deleteAudienceGroup(Long audienceGroupId);
+
+    /**
      * Gets data for more than one audience.
      */
     CompletableFuture<GetAudienceGroupsResponse> getAudienceGroups(Long page, String description,
