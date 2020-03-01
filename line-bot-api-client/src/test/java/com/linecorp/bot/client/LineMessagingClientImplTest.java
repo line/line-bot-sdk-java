@@ -46,12 +46,13 @@ import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.manageaudience.AudienceGroupAuthorityLevel;
 import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
-import com.linecorp.bot.model.manageaudience.response.AudienceGroupAuthorityLevel;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
@@ -663,6 +664,19 @@ public class LineMessagingClientImplTest {
                 target.getAudienceGroupAuthorityLevel().get();
         verify(retrofitMock, only()).getAudienceGroupAuthorityLevel();
         assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void updateAudienceGroupAuthorityLevel() throws Exception {
+        final UpdateAudienceGroupAuthorityLevelRequest request = UpdateAudienceGroupAuthorityLevelRequest
+                .builder()
+                .authorityLevel(AudienceGroupAuthorityLevel.PRIVATE)
+                .build();
+        whenCall(retrofitMock.updateAudienceGroupAuthorityLevel(request), null);
+        final BotApiResponse actual =
+                target.updateAudienceGroupAuthorityLevel(request).get();
+        verify(retrofitMock, only()).updateAudienceGroupAuthorityLevel(request);
+        assertThat(actual).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
     // Utility methods

@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.manageaudience.response;
+package com.linecorp.bot.model.manageaudience;
 
 public enum AudienceGroupAuthorityLevel {
     PUBLIC, PRIVATE

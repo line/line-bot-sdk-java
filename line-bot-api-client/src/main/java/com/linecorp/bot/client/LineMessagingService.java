@@ -27,6 +27,7 @@ import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupR
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
@@ -383,4 +384,7 @@ interface LineMessagingService {
 
     @GET("v2/bot/audienceGroup/authorityLevel")
     Call<GetAudienceGroupAuthorityLevelResponse> getAudienceGroupAuthorityLevel();
+
+    @PUT("v2/bot/audienceGroup/authorityLevel")
+    Call<Void> updateAudienceGroupAuthorityLevel(@Body UpdateAudienceGroupAuthorityLevelRequest request);
 }

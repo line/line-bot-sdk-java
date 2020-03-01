@@ -47,11 +47,13 @@ import com.linecorp.bot.model.Narrowcast.Filter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.manageaudience.AudienceGroupAuthorityLevel;
 import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
@@ -321,5 +323,24 @@ public class LineMessagingClientImplIntegrationTest {
                 .getAudienceGroupAuthorityLevel()
                 .get();
         log.info(response.toString());
+
+        AudienceGroupAuthorityLevel origLevel = response.getAuthorityLevel();
+        AudienceGroupAuthorityLevel inverted = origLevel == AudienceGroupAuthorityLevel.PRIVATE
+                                               ? AudienceGroupAuthorityLevel.PUBLIC
+                                               : AudienceGroupAuthorityLevel.PRIVATE;
+
+        BotApiResponse invertResponse = target.updateAudienceGroupAuthorityLevel(
+                UpdateAudienceGroupAuthorityLevelRequest
+                        .builder()
+                        .authorityLevel(inverted)
+                        .build()).get();
+        log.info(invertResponse.toString());
+
+        BotApiResponse revertResponse = target.updateAudienceGroupAuthorityLevel(
+                UpdateAudienceGroupAuthorityLevelRequest
+                        .builder()
+                        .authorityLevel(origLevel)
+                        .build()).get();
+        log.info(revertResponse.toString());
     }
 }

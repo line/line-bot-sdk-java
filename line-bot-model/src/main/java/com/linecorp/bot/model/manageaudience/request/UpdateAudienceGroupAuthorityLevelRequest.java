@@ -14,25 +14,25 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.manageaudience.response;
+package com.linecorp.bot.model.manageaudience.request;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.manageaudience.AudienceGroupAuthorityLevel;
-import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse.GetAudienceGroupAuthorityLevelResponseBuilder;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupAuthorityLevelRequest.UpdateAudienceGroupAuthorityLevelRequestBuilder;
 
 import lombok.Builder;
 import lombok.Value;
 
 @Value
 @Builder
-@JsonDeserialize(builder = GetAudienceGroupAuthorityLevelResponseBuilder.class)
-public class GetAudienceGroupAuthorityLevelResponse {
-    private AudienceGroupAuthorityLevel authorityLevel;
+@JsonDeserialize(builder = UpdateAudienceGroupAuthorityLevelRequestBuilder.class)
+public class UpdateAudienceGroupAuthorityLevelRequest {
+    private final AudienceGroupAuthorityLevel authorityLevel;
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class GetAudienceGroupAuthorityLevelResponseBuilder {
+    public static class UpdateAudienceGroupAuthorityLevelRequestBuilder {
         // Filled by lombok
     }
 }

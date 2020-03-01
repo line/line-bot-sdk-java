@@ -30,6 +30,7 @@ import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupR
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
@@ -53,6 +54,8 @@ import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
+
+import retrofit2.http.Body;
 
 public interface LineMessagingClient {
     /**
@@ -428,6 +431,12 @@ public interface LineMessagingClient {
      * Get audience group authority level.
      */
     CompletableFuture<GetAudienceGroupAuthorityLevelResponse> getAudienceGroupAuthorityLevel();
+
+    /**
+     * Update audience group authority level.
+     */
+    CompletableFuture<BotApiResponse> updateAudienceGroupAuthorityLevel(
+            @Body UpdateAudienceGroupAuthorityLevelRequest request);
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));

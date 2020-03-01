@@ -31,6 +31,7 @@ import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupR
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
@@ -62,6 +63,7 @@ import lombok.extern.slf4j.Slf4j;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Body;
 
 /**
  * Proxy implementation of {@link LineMessagingClient} to hind internal implementation.
@@ -338,6 +340,12 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<GetAudienceGroupAuthorityLevelResponse> getAudienceGroupAuthorityLevel() {
         return toFuture(retrofitImpl.getAudienceGroupAuthorityLevel());
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> updateAudienceGroupAuthorityLevel(
+            @Body UpdateAudienceGroupAuthorityLevelRequest request) {
+        return toBotApiFuture(retrofitImpl.updateAudienceGroupAuthorityLevel(request));
     }
 
     // TODO: Extract this method.
