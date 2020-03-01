@@ -16,10 +16,7 @@
 
 package com.linecorp.bot.model.response;
 
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonProperty;
-=======
->>>>>>> Implement basic narrowcast feature
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -28,18 +25,14 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse.NarrowcastProg
 import lombok.Builder;
 import lombok.Value;
 
-<<<<<<< HEAD
 /**
  * Response object of the narrowcast progress API.
  * See <a href="https://developers.line.biz/en/reference/messaging-api/#response-7">document</a> for detail.
  */
-=======
->>>>>>> Implement basic narrowcast feature
 @Value
 @Builder
 @JsonDeserialize(builder = NarrowcastProgressResponseBuilder.class)
 public class NarrowcastProgressResponse {
-<<<<<<< HEAD
     /**
      * The current status.
      */
@@ -95,20 +88,6 @@ public class NarrowcastProgressResponse {
          */
         @JsonProperty("failed")
         FAILED
-=======
-    Phase phase;
-    Long successCount;
-    Long failureCount;
-    Long targetCount;
-    String failedDescription;
-    Long errorCode;
-
-    public enum Phase {
-        waiting,
-        sending,
-        succeeded,
-        failed
->>>>>>> Implement basic narrowcast feature
     }
 
     @JsonPOJOBuilder(withPrefix = "")
