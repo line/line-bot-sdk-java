@@ -229,7 +229,8 @@ public class LineMessagingClientImplIntegrationTest {
 
     @Test
     public void createAudienceGroup() throws Exception {
-        Assume.assumeTrue(settings.audienceIfas != null && !settings.audienceIfas.isEmpty());
+        Assume.assumeTrue(settings.audienceIfas != null);
+        Assume.assumeFalse(settings.audienceIfas.isEmpty());
 
         CreateAudienceGroupResponse createResponse = target
                 .createAudienceGroup(new CreateAudienceGroupRequest(
