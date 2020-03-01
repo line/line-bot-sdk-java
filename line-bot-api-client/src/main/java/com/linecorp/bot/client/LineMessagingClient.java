@@ -36,6 +36,7 @@ import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupRespons
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
@@ -422,6 +423,11 @@ public interface LineMessagingClient {
     CompletableFuture<GetAudienceGroupsResponse> getAudienceGroups(Long page, String description,
                                                                    AudienceGroupStatus status,
                                                                    Long size);
+
+    /**
+     * Get audience group authority level.
+     */
+    CompletableFuture<GetAudienceGroupAuthorityLevelResponse> getAudienceGroupAuthorityLevel();
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));

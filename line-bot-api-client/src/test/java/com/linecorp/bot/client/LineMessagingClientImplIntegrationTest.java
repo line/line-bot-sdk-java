@@ -57,6 +57,7 @@ import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupRespons
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.AudienceGroup;
 import com.linecorp.bot.model.message.TextMessage;
@@ -312,5 +313,13 @@ public class LineMessagingClientImplIntegrationTest {
                     audienceGroup.getAudienceGroupId()).get();
             log.info("id={} data={}", audienceGroup.getAudienceGroupId(), dataResponse);
         }
+    }
+
+    @Test
+    public void getAudienceGroupAuthorityLevel() throws ExecutionException, InterruptedException {
+        GetAudienceGroupAuthorityLevelResponse response = target
+                .getAudienceGroupAuthorityLevel()
+                .get();
+        log.info(response.toString());
     }
 }

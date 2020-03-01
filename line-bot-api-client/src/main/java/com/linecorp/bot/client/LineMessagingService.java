@@ -33,6 +33,7 @@ import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupRespons
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
@@ -379,4 +380,7 @@ interface LineMessagingService {
                                                       @Query("description") String description,
                                                       @Query("status") AudienceGroupStatus status,
                                                       @Query("String") Long size);
+
+    @GET("v2/bot/audienceGroup/authorityLevel")
+    Call<GetAudienceGroupAuthorityLevelResponse> getAudienceGroupAuthorityLevel();
 }

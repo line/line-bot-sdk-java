@@ -51,10 +51,12 @@ import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
+import com.linecorp.bot.model.manageaudience.response.AudienceGroupAuthorityLevel;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
@@ -647,6 +649,19 @@ public class LineMessagingClientImplTest {
         final GetAudienceDataResponse actual =
                 target.getAudienceData(4649L).get();
         verify(retrofitMock, only()).getAudienceData(4649L);
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void getAudienceGroupAuthorityLevel() throws Exception {
+        final GetAudienceGroupAuthorityLevelResponse response = GetAudienceGroupAuthorityLevelResponse
+                .builder()
+                .authorityLevel(AudienceGroupAuthorityLevel.PRIVATE)
+                .build();
+        whenCall(retrofitMock.getAudienceGroupAuthorityLevel(), response);
+        final GetAudienceGroupAuthorityLevelResponse actual =
+                target.getAudienceGroupAuthorityLevel().get();
+        verify(retrofitMock, only()).getAudienceGroupAuthorityLevel();
         assertThat(actual).isEqualTo(response);
     }
 

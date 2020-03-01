@@ -37,6 +37,7 @@ import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupRespons
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
@@ -332,6 +333,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<GetAudienceDataResponse> getAudienceData(Long audienceGroupId) {
         return toFuture(retrofitImpl.getAudienceData(audienceGroupId));
+    }
+
+    @Override
+    public CompletableFuture<GetAudienceGroupAuthorityLevelResponse> getAudienceGroupAuthorityLevel() {
+        return toFuture(retrofitImpl.getAudienceGroupAuthorityLevel());
     }
 
     // TODO: Extract this method.
