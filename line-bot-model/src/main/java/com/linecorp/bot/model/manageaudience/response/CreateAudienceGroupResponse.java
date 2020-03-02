@@ -34,7 +34,7 @@ public class CreateAudienceGroupResponse {
     long audienceGroupId;
 
     /**
-     * `UPLOAD`
+     * `UPLOAD`.
      */
     AudienceGroupType type;
 

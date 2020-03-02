@@ -30,7 +30,7 @@ import lombok.Value;
 @JsonDeserialize(builder = GetAudienceGroupAuthorityLevelResponseBuilder.class)
 public class GetAudienceGroupAuthorityLevelResponse {
     /**
-     * Authority level
+     * Authority level.
      */
     private AudienceGroupAuthorityLevel authorityLevel;
 

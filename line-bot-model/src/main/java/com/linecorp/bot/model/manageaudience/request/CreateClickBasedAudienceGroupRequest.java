@@ -32,7 +32,7 @@ public class CreateClickBasedAudienceGroupRequest {
      * The audience's name. Audience names must be unique. Note that comparisons are case-insensitive, so the
      * names AUDIENCE and audience are considered identical.
      *
-     * Max character limit: 120
+     * <p>Max character limit: 120
      */
     private final String description;
 
@@ -46,7 +46,7 @@ public class CreateClickBasedAudienceGroupRequest {
      * The URL clicked by the user. If empty, users who clicked any URL in the message are added to the list of
      * recipients.
      *
-     * Max: 2,000 characters
+     * <p>Max: 2,000 characters
      */
     private final String clickUrl;
 

@@ -66,7 +66,8 @@ public class GetAudienceDataResponse {
     Long created;
 
     /**
-     * The request ID that was specified when the audience was created. This is only included when type is CLICK or IMP.
+     * The request ID that was specified when the audience was created. This is only included when type is
+     * CLICK or IMP.
      */
     String requestId;
 
@@ -105,7 +106,7 @@ public class GetAudienceDataResponse {
         String description;
 
         /**
-         * The job's type
+         * The job's type.
          */
         AudienceGroupJobType type;
 

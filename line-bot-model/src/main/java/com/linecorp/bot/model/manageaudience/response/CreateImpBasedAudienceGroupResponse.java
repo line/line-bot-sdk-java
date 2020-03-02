@@ -34,7 +34,7 @@ public class CreateImpBasedAudienceGroupResponse {
     private final Long audienceGroupId;
 
     /**
-     * `IMP`
+     * `IMP`.
      */
     private final AudienceGroupType type;
 

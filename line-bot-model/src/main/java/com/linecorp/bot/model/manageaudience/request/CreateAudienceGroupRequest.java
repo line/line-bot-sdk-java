@@ -35,7 +35,7 @@ public final class CreateAudienceGroupRequest {
      * The audience's name. Audience names must be unique. Note that comparisons are case-insensitive, so the
      * names AUDIENCE and audience are considered identical.
      *
-     * Max character limit: 120
+     * <p>Max character limit: 120
      */
     private final String description;
 
