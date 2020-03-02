@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture;
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
+import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
@@ -33,6 +34,7 @@ import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
+import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
@@ -86,12 +88,26 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
+    public CompletableFuture<BotApiResponse> narrowcast(Narrowcast narrowcast) {
+        return toBotApiResponseFuture(retrofitImpl.narrowcast(narrowcast));
+    }
+
+    /**
+     * Gets the status of a narrowcast message.
+     */
+    @Override
+    public CompletableFuture<NarrowcastProgressResponse> getNarrowcastProgress(String requestId) {
+        return toFuture(retrofitImpl.getNarrowcastProgress(requestId));
+    }
+
+    @Override
     @SuppressWarnings("deprecation")
     public CompletableFuture<MessageContentResponse> getMessageContent(String messageId) {
         return blobDelegationTarget.getMessageContent(messageId);
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public CompletableFuture<MessageQuotaResponse> getMessageQuota() {
         return toFuture(retrofitImpl.getMessageQuota());
     }

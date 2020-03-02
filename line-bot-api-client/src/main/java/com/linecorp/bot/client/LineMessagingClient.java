@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
+import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.source.GroupSource;
@@ -32,6 +33,7 @@ import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
+import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
@@ -86,6 +88,21 @@ public interface LineMessagingClient {
      * Migration of LINE@ accounts</a>.
      */
     CompletableFuture<BotApiResponse> broadcast(Broadcast broadcast);
+
+    /**
+     * Sends a push message to multiple users. You can specify recipients using attributes (such as age, gender,
+     * OS, and region) or by retargeting (audiences). Messages cannot be sent to groups or rooms.
+     *
+     * <p>Note: LINE-@ accounts cannot call this API endpoint. Please migrate it to a LINE official account.
+     * For more information, see <a href="https://developers.line.biz/en/docs/messaging-api/migrating-line-at/">
+     * Migration of LINE@ accounts</a>.
+     */
+    CompletableFuture<BotApiResponse> narrowcast(Narrowcast broadcast);
+
+    /**
+     * Gets the status of a narrowcast message.
+     */
+    CompletableFuture<NarrowcastProgressResponse> getNarrowcastProgress(String requestId);
 
     /**
      * Download image, video, and audio data sent from users.
@@ -165,7 +182,7 @@ public interface LineMessagingClient {
      * Get group member profile.
      *
      * @param groupId Identifier of the group. Can be get by {@link GroupSource#getGroupId()}.
-     * @param userId Identifier of the user.
+     * @param userId  Identifier of the user.
      *
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-group-member-profile">//developers.line.me/en/reference/messaging-api/#get-group-member-profile</a>
      */

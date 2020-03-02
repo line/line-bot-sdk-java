@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
+import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
@@ -28,6 +29,7 @@ import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
+import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
@@ -80,6 +82,19 @@ interface LineMessagingService {
      */
     @POST("v2/bot/message/broadcast")
     Call<BotApiResponseBody> broadcast(@Body Broadcast broadcast);
+
+    /**
+     * Sends a push message to multiple users. You can specify recipients using attributes (such as age, gender,
+     * OS, and region) or by retargeting (audiences). Messages cannot be sent to groups or rooms.
+     */
+    @POST("v2/bot/message/narrowcast")
+    Call<BotApiResponseBody> narrowcast(@Body Narrowcast narrowcast);
+
+    /**
+     * Gets the status of a narrowcast message.
+     */
+    @GET("v2/bot/message/progress/narrowcast")
+    Call<NarrowcastProgressResponse> getNarrowcastProgress(@Query("requestId") String requestId);
 
     /**
      * Gets the target limit for additional messages in the current month. The number of messages retrieved by

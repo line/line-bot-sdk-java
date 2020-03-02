@@ -26,6 +26,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -36,6 +37,19 @@ import com.google.common.collect.ImmutableList;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
+import com.linecorp.bot.model.Narrowcast;
+import com.linecorp.bot.model.Narrowcast.AgeDemographicFilter;
+import com.linecorp.bot.model.Narrowcast.AgeDemographicFilter.Age;
+import com.linecorp.bot.model.Narrowcast.AppTypeDemographicFilter;
+import com.linecorp.bot.model.Narrowcast.AppTypeDemographicFilter.AppType;
+import com.linecorp.bot.model.Narrowcast.AreaDemographicFilter;
+import com.linecorp.bot.model.Narrowcast.AreaDemographicFilter.AreaCode;
+import com.linecorp.bot.model.Narrowcast.Filter;
+import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
+import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
+import com.linecorp.bot.model.Narrowcast.OperatorDemographicFilter;
+import com.linecorp.bot.model.Narrowcast.SubscriptionPeriodDemographicFilter;
+import com.linecorp.bot.model.Narrowcast.SubscriptionPeriodDemographicFilter.SubscriptionPeriod;
 import com.linecorp.bot.model.action.CameraAction;
 import com.linecorp.bot.model.action.CameraRollAction;
 import com.linecorp.bot.model.action.DatetimePickerAction;
@@ -209,6 +223,24 @@ public class MessageJsonReconstructionTest {
 
         final Broadcast broadcast4 = new Broadcast(singletonList(new TextMessage("text")), true);
         test(broadcast4);
+    }
+
+    @Test
+    public void narrowcast() {
+        test(new GenderDemographicFilter(Gender.MALE));
+
+        final Narrowcast narrowcast = new Narrowcast(new TextMessage("text"), new Filter(
+                new GenderDemographicFilter(Gender.MALE)
+        ));
+        test(narrowcast);
+
+        test(new AgeDemographicFilter(Age.AGE_15, Age.AGE_25));
+        test(new AppTypeDemographicFilter(AppType.IOS));
+        test(new AreaDemographicFilter(AreaCode.JP_TOKYO));
+        test(new SubscriptionPeriodDemographicFilter(SubscriptionPeriod.DAY_7, SubscriptionPeriod.DAY_30));
+        test(new OperatorDemographicFilter(Arrays.asList(new AgeDemographicFilter(Age.AGE_15, Age.AGE_25),
+                                                         new AppTypeDemographicFilter(AppType.IOS)),
+                                           null, null));
     }
 
     @Test
