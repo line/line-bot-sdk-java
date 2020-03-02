@@ -22,6 +22,7 @@ import static java.util.Collections.singletonList;
 import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -562,7 +563,7 @@ public class LineMessagingClientImplTest {
                 .builder()
                 .audienceGroups(emptyList())
                 .build();
-        whenCall(retrofitMock.getAudienceGroups(any(), any(), any(), any()), response);
+        whenCall(retrofitMock.getAudienceGroups(anyLong(), any(), any(), any()), response);
         final GetAudienceGroupsResponse actual =
                 target.getAudienceGroups(1L, null, null, 40L).get();
         verify(retrofitMock, only()).getAudienceGroups(1L, null, null, 40L);
@@ -623,7 +624,7 @@ public class LineMessagingClientImplTest {
                                                                                              .description(
                                                                                                      "Hello")
                                                                                              .build();
-        whenCall(retrofitMock.updateAudienceGroupDescription(any(), any()), null);
+        whenCall(retrofitMock.updateAudienceGroupDescription(anyLong(), any()), null);
         final BotApiResponse actual =
                 target.updateAudienceGroupDescription(5693L,
                                                       request
@@ -634,7 +635,7 @@ public class LineMessagingClientImplTest {
 
     @Test
     public void deleteAudienceGroup() throws Exception {
-        whenCall(retrofitMock.deleteAudienceGroup(any()), null);
+        whenCall(retrofitMock.deleteAudienceGroup(anyLong()), null);
         final BotApiResponse actual =
                 target.deleteAudienceGroup(5693L).get();
         verify(retrofitMock, only()).deleteAudienceGroup(5693L);
@@ -646,7 +647,7 @@ public class LineMessagingClientImplTest {
         final GetAudienceDataResponse response = GetAudienceDataResponse
                 .builder()
                 .build();
-        whenCall(retrofitMock.getAudienceData(any()), response);
+        whenCall(retrofitMock.getAudienceData(anyLong()), response);
         final GetAudienceDataResponse actual =
                 target.getAudienceData(4649L).get();
         verify(retrofitMock, only()).getAudienceData(4649L);
