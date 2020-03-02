@@ -197,7 +197,7 @@ public interface LineMessagingClient {
      * Get group member profile.
      *
      * @param groupId Identifier of the group. Can be get by {@link GroupSource#getGroupId()}.
-     * @param userId  Identifier of the user.
+     * @param userId Identifier of the user.
      *
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-group-member-profile">//developers.line.me/en/reference/messaging-api/#get-group-member-profile</a>
      */
