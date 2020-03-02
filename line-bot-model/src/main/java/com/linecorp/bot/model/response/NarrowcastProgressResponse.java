@@ -25,6 +25,10 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse.NarrowcastProg
 import lombok.Builder;
 import lombok.Value;
 
+/**
+ * Response object of the narrowcast progress API.
+ * See <a href="https://developers.line.biz/en/reference/messaging-api/#response-7">document</a> for detail.
+ */
 @Value
 @Builder
 @JsonDeserialize(builder = NarrowcastProgressResponseBuilder.class)
@@ -64,12 +68,24 @@ public class NarrowcastProgressResponse {
     Long errorCode;
 
     public enum Phase {
+        /**
+         * Messages are not yet ready to be sent. They are currently being filtered or processed in some way.
+         */
         @JsonProperty("waiting")
         WAITING,
+        /**
+         * Messages are currently being sent.
+         */
         @JsonProperty("sending")
         SENDING,
+        /**
+         * Messages were sent successfully.
+         */
         @JsonProperty("succeeded")
         SUCCEEDED,
+        /**
+         * Messages failed to be sent. Use the failedDescription property to find the cause of the failure.
+         */
         @JsonProperty("failed")
         FAILED
     }
