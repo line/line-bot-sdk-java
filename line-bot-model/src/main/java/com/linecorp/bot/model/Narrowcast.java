@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.linecorp.bot.model.message.Message;
 
+import lombok.Getter;
 import lombok.Value;
 
 /**
@@ -178,14 +179,11 @@ public class Narrowcast {
             @JsonProperty("age_50")
             AGE_50(50);
 
+            @Getter
             private final int age;
 
             Age(int age) {
                 this.age = age;
-            }
-
-            public int getAge() {
-                return age;
             }
         }
     }
@@ -212,14 +210,11 @@ public class Narrowcast {
             @JsonProperty("android")
             ANDROID("android");
 
+            @Getter
             private final String appType;
 
             AppType(String appType) {
                 this.appType = appType;
-            }
-
-            public String getAppType() {
-                return appType;
             }
         }
     }
