@@ -413,7 +413,7 @@ public interface LineMessagingClient {
      * Renames an existing audience.
      */
     CompletableFuture<BotApiResponse> updateAudienceGroupDescription(
-            Long audienceGroupId, UpdateAudienceGroupDescriptionRequest request);
+            long audienceGroupId, UpdateAudienceGroupDescriptionRequest request);
 
     /**
      * Deletes an audience.

@@ -315,7 +315,7 @@ public class LineMessagingClientImpl implements LineMessagingClient {
 
     @Override
     public CompletableFuture<BotApiResponse> updateAudienceGroupDescription(
-            Long audienceGroupId, UpdateAudienceGroupDescriptionRequest request) {
+            long audienceGroupId, UpdateAudienceGroupDescriptionRequest request) {
         return toBotApiFuture(retrofitImpl.updateAudienceGroupDescription(audienceGroupId, request));
     }
 
