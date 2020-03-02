@@ -18,10 +18,25 @@ package com.linecorp.bot.model.manageaudience.response;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 
+/**
+ * The audience's status.
+ */
 public enum AudienceGroupStatus {
+    /**
+     * Pending. It may take several hours for the status to change to READY.
+     */
     IN_PROGRESS,
+    /**
+     * Ready to accept messages.
+     */
     READY,
+    /**
+     * An error occurred while creating the audience.
+     */
     FAILED,
+    /**
+     * Expired. Audiences are automatically deleted a month after they expire.
+     */
     EXPIRED,
     @JsonEnumDefaultValue
     UNKNOWN

@@ -28,6 +28,12 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = UpdateAudienceGroupDescriptionRequestBuilder.class)
 public class UpdateAudienceGroupDescriptionRequest {
+    /**
+     * The audience's name. Audience names must be unique. Note that comparisons are case-insensitive, so the
+     * names AUDIENCE and audience are considered identical.
+     *
+     * Max character limit: 120
+     */
     private final String description;
 
     @JsonPOJOBuilder(withPrefix = "")

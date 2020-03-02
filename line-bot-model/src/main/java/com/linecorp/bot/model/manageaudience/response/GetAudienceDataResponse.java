@@ -30,27 +30,103 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = GetAudienceDataResponseBuilder.class)
 public class GetAudienceDataResponse {
+    /**
+     * The audience ID.
+     */
     Long audienceGroupId;
+
+    /**
+     * The audience type.
+     */
     AudienceGroupType type;
+
+    /**
+     * The audience's name.
+     */
     String description;
+
+    /**
+     * The audience's status.
+     */
     AudienceGroupStatus status;
+
+    /**
+     * The reason why the operation failed. This is only included when status is FAILED.
+     */
     AudienceGroupFailedType failedType;
+
+    /**
+     * The number of valid recipients.
+     */
     Long audienceCount;
+
+    /**
+     * When the audience was created (in UNIX time).
+     */
     Long created;
+
+    /**
+     * The request ID that was specified when the audience was created. This is only included when type is CLICK or IMP.
+     */
     String requestId;
+
+    /**
+     * The URL that was specified when the audience was created. This is only included when type is CLICK.
+     */
     String clickUrl;
+
+    /**
+     * The value specified when creating an audience for uploading user IDs to indicate the type of accounts
+     * that will be given as recipients.
+     */
     Boolean isIfaAudience;
+
+    /**
+     * An array of jobs. This array is used to keep track of each attempt to add new user IDs or IFAs to an
+     * audience for uploading user IDs. null is returned for any other type of audience.
+     */
     List<Job> jobs;
 
     @Value
     public static class Job {
+        /**
+         * A job ID.
+         */
         Long audienceGroupJobId;
+
+        /**
+         * An audience ID.
+         */
         Long audienceGroupId;
+
+        /**
+         * The job's description.
+         */
         String description;
-        String type;
-        String jobStatus;
-        String failedType;
+
+        /**
+         * The job's type
+         */
+        AudienceGroupJobType type;
+
+        /**
+         * The job's status.
+         */
+        AudienceGroupJobStatus jobStatus;
+
+        /**
+         * The reason why the operation failed. This is only included when jobs[].jobStatus is FAILED.
+         */
+        AudienceGroupJobFailedType failedType;
+
+        /**
+         * The number of accounts (recipients) that were added or removed.
+         */
         Long audienceCount;
+
+        /**
+         * When the job was created (in UNIX time).
+         */
         Long created;
     }
 

@@ -14,14 +14,15 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.manageaudience.request;
+package com.linecorp.bot.model.manageaudience.response;
 
-import lombok.Value;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 
-@Value
-public class Audience {
+public enum AudienceGroupJobType {
     /**
-     * A user ID or IFA.
+     * Indicates that a user ID or IFA was added via the Messaging API.
      */
-    String id;
+    DIFF_ADD,
+    @JsonEnumDefaultValue
+    UNKNOWN
 }

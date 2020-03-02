@@ -28,8 +28,26 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = CreateClickAudienceGroupRequestBuilder.class)
 public class CreateClickBasedAudienceGroupRequest {
+    /**
+     * The audience's name. Audience names must be unique. Note that comparisons are case-insensitive, so the
+     * names AUDIENCE and audience are considered identical.
+     *
+     * Max character limit: 120
+     */
     private final String description;
+
+    /**
+     * The request ID of a broadcast or narrowcast message sent in the past 60 days. Each Messaging API request
+     * has a request ID. Find it in the response headers.
+     */
     private final String requestId;
+
+    /**
+     * The URL clicked by the user. If empty, users who clicked any URL in the message are added to the list of
+     * recipients.
+     *
+     * Max: 2,000 characters
+     */
     private final String clickUrl;
 
     @JsonPOJOBuilder(withPrefix = "")

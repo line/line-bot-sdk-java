@@ -19,7 +19,13 @@ package com.linecorp.bot.model.manageaudience.response;
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 
 public enum AudienceGroupFailedType {
+    /**
+     * There weren't enough accounts in the audience that could be used as recipients (at least 100 are needed).
+     */
     AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT,
+    /**
+     * Internal server error.
+     */
     INTERNAL_ERROR,
     @JsonEnumDefaultValue
     UNKNOWN

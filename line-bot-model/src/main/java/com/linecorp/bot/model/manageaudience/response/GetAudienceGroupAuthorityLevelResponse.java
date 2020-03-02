@@ -29,6 +29,9 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = GetAudienceGroupAuthorityLevelResponseBuilder.class)
 public class GetAudienceGroupAuthorityLevelResponse {
+    /**
+     * Authority level
+     */
     private AudienceGroupAuthorityLevel authorityLevel;
 
     @JsonPOJOBuilder(withPrefix = "")

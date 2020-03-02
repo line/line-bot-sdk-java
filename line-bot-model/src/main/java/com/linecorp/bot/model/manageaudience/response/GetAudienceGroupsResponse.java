@@ -30,23 +30,85 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = GetAudienceGroupsResponseBuilder.class)
 public class GetAudienceGroupsResponse {
+    /**
+     * An array of audience data.
+     */
     private final List<AudienceGroup> audienceGroups;
 
     @Value
     public static class AudienceGroup {
+        /**
+         * The audience ID.
+         */
         Long audienceGroupId;
+
+        /**
+         * The audience type.
+         */
         AudienceGroupType type;
+
+        /**
+         * The audience's name.
+         */
         String description;
+
+        /**
+         * The audience's status.
+         */
         AudienceGroupStatus status;
+
+        /**
+         * The reason why the operation failed. This is only included when audienceGroups[].status is FAILED
+         * or EXPIRED.
+         */
         AudienceGroupFailedType failedType;
+
+        /**
+         * The number of valid recipients.
+         */
         Long audienceCount;
+
+        /**
+         * When the audience was created (in UNIX time).
+         */
         Long created;
+
+        /**
+         * The request ID that was specified when the audience was created. This is only included when
+         * audienceGroups[].type is CLICK or IMP.
+         */
         String requestId;
+
+        /**
+         * The URL that was specified when the audience was created. This is only included when
+         * audienceGroups[].type is CLICK.
+         */
         String clickUrl;
+
+        /**
+         * The value specified when the audience for uploading user IDs was created, determining which type of
+         * accounts must be specified as recipients.
+         */
         Boolean isIfaAudience;
+
+        /**
+         * true when this is not the last page.
+         */
         Boolean hasNextPage;
+
+        /**
+         * The total number of audiences that can be fetched with the specified filter.
+         */
         Long totalCount;
+
+        /**
+         * The current page number.
+         */
         Long page;
+
+        /**
+         * The number of audiences on the current page.
+         */
         Long size;
     }
 

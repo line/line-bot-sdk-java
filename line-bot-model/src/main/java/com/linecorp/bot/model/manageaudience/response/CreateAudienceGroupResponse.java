@@ -28,9 +28,24 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = CreateAudienceGroupResponseBuilder.class)
 public class CreateAudienceGroupResponse {
-    Long audienceGroupId;
+    /**
+     * The audience ID.
+     */
+    long audienceGroupId;
+
+    /**
+     * `UPLOAD`
+     */
     AudienceGroupType type;
+
+    /**
+     * The audience's name.
+     */
     String description;
+
+    /**
+     * When the audience was created (in UNIX time).
+     */
     Long created;
 
     @JsonPOJOBuilder(withPrefix = "")

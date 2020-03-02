@@ -28,10 +28,29 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = CreateImpBasedAudienceGroupResponseBuilder.class)
 public class CreateImpBasedAudienceGroupResponse {
+    /**
+     * The audience ID.
+     */
     private final Long audienceGroupId;
+
+    /**
+     * `IMP`
+     */
     private final AudienceGroupType type;
+
+    /**
+     * The audience's name.
+     */
     private final String description;
+
+    /**
+     * When the audience was created (in UNIX time).
+     */
     private final Long created;
+
+    /**
+     * The request ID that was specified when the audience was created.
+     */
     private final String requestId;
 
     @JsonPOJOBuilder(withPrefix = "")

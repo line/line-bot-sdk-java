@@ -14,14 +14,15 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.manageaudience.request;
+package com.linecorp.bot.model.manageaudience.response;
 
-import lombok.Value;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 
-@Value
-public class Audience {
+public enum AudienceGroupJobFailedType {
     /**
-     * A user ID or IFA.
+     * Internal server error.
      */
-    String id;
+    INTERNAL_ERROR,
+    @JsonEnumDefaultValue
+    UNKNOWN
 }

@@ -320,12 +320,12 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    public CompletableFuture<BotApiResponse> deleteAudienceGroup(Long audienceGroupId) {
+    public CompletableFuture<BotApiResponse> deleteAudienceGroup(long audienceGroupId) {
         return toBotApiFuture(retrofitImpl.deleteAudienceGroup(audienceGroupId));
     }
 
     @Override
-    public CompletableFuture<GetAudienceGroupsResponse> getAudienceGroups(Long page,
+    public CompletableFuture<GetAudienceGroupsResponse> getAudienceGroups(long page,
                                                                           String description,
                                                                           AudienceGroupStatus status,
                                                                           Long size) {
@@ -333,7 +333,7 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    public CompletableFuture<GetAudienceDataResponse> getAudienceData(Long audienceGroupId) {
+    public CompletableFuture<GetAudienceDataResponse> getAudienceData(long audienceGroupId) {
         return toFuture(retrofitImpl.getAudienceData(audienceGroupId));
     }
 

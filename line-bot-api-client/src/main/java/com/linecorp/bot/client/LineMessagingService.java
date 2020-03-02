@@ -371,13 +371,13 @@ interface LineMessagingService {
             @Path("audienceGroupId") long audienceGroupId, @Body UpdateAudienceGroupDescriptionRequest request);
 
     @DELETE("v2/bot/audienceGroup/{audienceGroupId}")
-    Call<Void> deleteAudienceGroup(@Path("audienceGroupId") Long audienceGroupId);
+    Call<Void> deleteAudienceGroup(@Path("audienceGroupId") long audienceGroupId);
 
     @GET("v2/bot/audienceGroup/{audienceGroupId}")
-    Call<GetAudienceDataResponse> getAudienceData(@Path("audienceGroupId") Long audienceGroupId);
+    Call<GetAudienceDataResponse> getAudienceData(@Path("audienceGroupId") long audienceGroupId);
 
     @GET("v2/bot/audienceGroup/list")
-    Call<GetAudienceGroupsResponse> getAudienceGroups(@Query("page") Long page,
+    Call<GetAudienceGroupsResponse> getAudienceGroups(@Query("page") long page,
                                                       @Query("description") String description,
                                                       @Query("status") AudienceGroupStatus status,
                                                       @Query("String") Long size);

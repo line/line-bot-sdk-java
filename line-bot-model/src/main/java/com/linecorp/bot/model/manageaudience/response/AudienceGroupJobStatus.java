@@ -14,14 +14,23 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.manageaudience.request;
+package com.linecorp.bot.model.manageaudience.response;
 
-import lombok.Value;
-
-@Value
-public class Audience {
+public enum AudienceGroupJobStatus {
     /**
-     * A user ID or IFA.
+     * Waiting to run.
      */
-    String id;
+    QUEUED,
+    /**
+     * Running.
+     */
+    WORKING,
+    /**
+     * Completed.
+     */
+    FINISHED,
+    /**
+     * Failed.
+     */
+    FAILED
 }

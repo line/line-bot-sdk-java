@@ -21,9 +21,9 @@ import static java.util.Collections.singleton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import org.junit.Assume;
@@ -31,9 +31,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import com.linecorp.bot.model.Broadcast;
@@ -62,6 +62,7 @@ import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.AudienceGroup;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.GetAudienceGroupsResponseBuilder;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
@@ -70,6 +71,7 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse.Phase;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 
+import lombok.Builder;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
@@ -104,6 +106,8 @@ public class LineMessagingClientImplIntegrationTest {
     }
 
     @Value
+    @Builder
+    @JsonDeserialize(builder = GetAudienceGroupsResponseBuilder.class)
     public static final class IntegrationTestSettings {
         private final String token;
         private final String endpoint;
@@ -111,17 +115,9 @@ public class LineMessagingClientImplIntegrationTest {
         private final List<String> audienceIfas;
         private final String retargetingRequestId;
 
-        @JsonCreator
-        public IntegrationTestSettings(@JsonProperty("token") String token,
-                                       @JsonProperty("endpoint") String endpoint,
-                                       @JsonProperty("userId") String userId,
-                                       @JsonProperty("audienceIfas") List<String> audienceIfas,
-                                       @JsonProperty("retargetingRequestId") String retargetingRequestId) {
-            this.token = token;
-            this.endpoint = endpoint;
-            this.userId = userId;
-            this.audienceIfas = audienceIfas;
-            this.retargetingRequestId = retargetingRequestId;
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class IntegrationTestSettingsBuilder {
+            // Filled by lombok
         }
     }
 
@@ -233,18 +229,20 @@ public class LineMessagingClientImplIntegrationTest {
         Assume.assumeFalse(settings.audienceIfas.isEmpty());
 
         CreateAudienceGroupResponse createResponse = target
-                .createAudienceGroup(new CreateAudienceGroupRequest(
-                        "test" + ThreadLocalRandom.current().nextInt(),
-                        true,
-                        "test",
-                        settings.audienceIfas.stream()
-                                             .map(Audience::new)
-                                             .collect(Collectors.toList())
-                ))
-                .get();
+                .createAudienceGroup(CreateAudienceGroupRequest
+                                             .builder()
+                                             .description("test" + UUID.randomUUID())
+                                             .isIfaAudience(true)
+                                             .uploadDescription("test")
+                                             .audiences(
+                                                     settings.audienceIfas.stream()
+                                                                          .map(Audience::new)
+                                                                          .collect(Collectors.toList())
+                                             ).build()
+                ).get();
         log.info(createResponse.toString());
 
-        Long audienceGroupId = createResponse.getAudienceGroupId();
+        long audienceGroupId = createResponse.getAudienceGroupId();
 
         BotApiResponse addResponse = target
                 .addAudienceToAudienceGroup(
@@ -255,7 +253,6 @@ public class LineMessagingClientImplIntegrationTest {
                                                                 .map(Audience::new)
                                                                 .collect(Collectors
                                                                                  .toList()))
-                                .isIfaAudience(true)
                                 .build()
                 )
                 .get();
@@ -265,8 +262,7 @@ public class LineMessagingClientImplIntegrationTest {
                 audienceGroupId,
                 UpdateAudienceGroupDescriptionRequest
                         .builder()
-                        .description("Hello" + ThreadLocalRandom.current()
-                                                                .nextDouble())
+                        .description("Hello" + UUID.randomUUID())
                         .build()
         ).get();
         log.info(updateResponse.toString());
@@ -280,8 +276,7 @@ public class LineMessagingClientImplIntegrationTest {
         CreateClickBasedAudienceGroupResponse response = target
                 .createClickBasedAudienceGroup(CreateClickBasedAudienceGroupRequest
                                                        .builder()
-                                                       .description("test " + ThreadLocalRandom.current()
-                                                                                               .nextDouble())
+                                                       .description("test " + UUID.randomUUID())
                                                        .requestId(settings.retargetingRequestId)
                                                        .build()
                 )
@@ -294,8 +289,7 @@ public class LineMessagingClientImplIntegrationTest {
         CreateImpBasedAudienceGroupResponse response = target
                 .createImpBasedAudienceGroup(CreateImpBasedAudienceGroupRequest
                                                      .builder()
-                                                     .description("test " + ThreadLocalRandom.current()
-                                                                                             .nextDouble())
+                                                     .description("test " + UUID.randomUUID())
                                                      .requestId(settings.retargetingRequestId)
                                                      .build()
                 )

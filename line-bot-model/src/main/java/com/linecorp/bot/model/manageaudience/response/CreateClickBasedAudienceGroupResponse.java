@@ -28,11 +28,34 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = CreateClickBasedAudienceGroupResponseBuilder.class)
 public class CreateClickBasedAudienceGroupResponse {
+    /**
+     * The audience ID.
+     */
     private final Long audienceGroupId;
+
+    /**
+     * `CLICK`
+     */
     private final AudienceGroupType type;
+
+    /**
+     * The audience's name.
+     */
     private final String description;
+
+    /**
+     * When the audience was created (in UNIX time).
+     */
     private final Long created;
+
+    /**
+     * The request ID that was specified when the audience was created.
+     */
     private final String requestId;
+
+    /**
+     * The URL that was specified when the audience was created.
+     */
     private final String clickUrl;
 
     @JsonPOJOBuilder(withPrefix = "")

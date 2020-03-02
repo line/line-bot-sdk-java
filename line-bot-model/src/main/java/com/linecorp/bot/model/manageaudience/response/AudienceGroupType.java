@@ -19,8 +19,17 @@ package com.linecorp.bot.model.manageaudience.response;
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 
 public enum AudienceGroupType {
+    /**
+     * An audience used for uploading user IDs.
+     */
     UPLOAD,
+    /**
+     * An audience used for click-based retargeting.
+     */
     CLICK,
+    /**
+     * An audience used for impression-based retargeting.
+     */
     IMP,
     @JsonEnumDefaultValue
     UNKNOWN // Messaging API may implement new audience group type in the future!
