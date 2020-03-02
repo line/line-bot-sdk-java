@@ -29,11 +29,38 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = NarrowcastProgressResponseBuilder.class)
 public class NarrowcastProgressResponse {
+    /**
+     * The current status.
+     */
     Phase phase;
+
+    /**
+     * The number of users who successfully received the message.
+     * (Not available when phase is waiting)
+     */
     Long successCount;
+
+    /**
+     * The number of users who failed to receive the message.
+     * (Not available when phase is waiting)
+     */
     Long failureCount;
+
+    /**
+     * The number of intended recipients of the message.
+     * (Not available when phase is waiting)
+     */
     Long targetCount;
+
+    /**
+     * The reason why the message failed to be sent. This is only included with a phase property value of
+     * failed.
+     */
     String failedDescription;
+
+    /**
+     * A brief summary of the error.
+     */
     Long errorCode;
 
     public enum Phase {
