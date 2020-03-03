@@ -26,4 +26,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor'
     implementation 'com.squareup.retrofit2:converter-jackson'
     implementation 'com.squareup.retrofit2:retrofit'
+
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 }
