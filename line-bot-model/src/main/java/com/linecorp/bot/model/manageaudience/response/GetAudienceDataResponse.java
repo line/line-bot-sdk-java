@@ -33,7 +33,7 @@ public class GetAudienceDataResponse {
     /**
      * The audience ID.
      */
-    Long audienceGroupId;
+    long audienceGroupId;
 
     /**
      * The audience type.
@@ -98,7 +98,7 @@ public class GetAudienceDataResponse {
         /**
          * An audience ID.
          */
-        Long audienceGroupId;
+        long audienceGroupId;
 
         /**
          * The job's description.

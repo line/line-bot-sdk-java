@@ -33,7 +33,7 @@ public class AddAudienceToAudienceGroupRequest {
     /**
      * The audience ID.
      */
-    private final Long audienceGroupId;
+    private final long audienceGroupId;
 
     /**
      * The audience's name. Audience names must be unique. Note that comparisons are case-insensitive, so the

@@ -31,7 +31,7 @@ public class CreateClickBasedAudienceGroupResponse {
     /**
      * The audience ID.
      */
-    private final Long audienceGroupId;
+    private final long audienceGroupId;
 
     /**
      * `CLICK`.

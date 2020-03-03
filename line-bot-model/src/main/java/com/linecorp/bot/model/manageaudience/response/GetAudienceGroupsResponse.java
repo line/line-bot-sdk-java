@@ -40,7 +40,7 @@ public class GetAudienceGroupsResponse {
         /**
          * The audience ID.
          */
-        Long audienceGroupId;
+        long audienceGroupId;
 
         /**
          * The audience type.

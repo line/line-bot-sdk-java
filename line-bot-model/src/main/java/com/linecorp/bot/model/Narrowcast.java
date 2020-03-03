@@ -78,7 +78,7 @@ public class Narrowcast {
 
     @Value
     public static class AudienceRecipient implements Recipient {
-        private final String audienceGroupId;
+        private final long audienceGroupId;
 
         @Override
         public String getType() {
