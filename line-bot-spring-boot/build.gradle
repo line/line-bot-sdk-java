@@ -14,12 +14,15 @@
  * under the License.
  */
 
+apply plugin: 'java-library'
+
 dependencies {
-    compile project(':line-bot-api-client')
-    compile project(':line-bot-model')
-    compile project(':line-bot-servlet')
-    compile 'org.springframework.boot:spring-boot-autoconfigure'
-    compile 'org.springframework.boot:spring-boot-starter-web'
+    api project(':line-bot-api-client')
+    implementation project(':line-bot-model')
+    implementation project(':line-bot-servlet')
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.google.guava:guava'
 
     optional 'javax.validation:validation-api'
 }

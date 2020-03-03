@@ -15,12 +15,12 @@
  */
 
 dependencies {
-    compile 'com.fasterxml.jackson.core:jackson-core'
-    compile 'com.fasterxml.jackson.core:jackson-databind'
-    compile 'com.fasterxml.jackson.core:jackson-annotations'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    compile 'com.fasterxml.jackson.module:jackson-module-parameter-names'
+    implementation 'com.fasterxml.jackson.core:jackson-core'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names'
 
-    testCompile 'com.fasterxml.jackson.module:jackson-module-parameter-names'
-    testCompile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    testImplementation 'com.fasterxml.jackson.module:jackson-module-parameter-names'
+    testImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 }
