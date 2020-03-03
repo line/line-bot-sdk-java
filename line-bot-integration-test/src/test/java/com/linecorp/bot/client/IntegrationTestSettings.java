@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2020 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -14,15 +14,14 @@
  * under the License.
  */
 
-include 'line-bot-api-client'
-include 'line-bot-model'
-include 'line-bot-servlet'
-include 'line-bot-spring-boot'
-include 'line-bot-cli'
-include 'line-bot-parser'
-include 'line-bot-integration-test'
+package com.linecorp.bot.client;
 
-// samples
-include 'sample-spring-boot-echo'
-include 'sample-spring-boot-echo-kotlin'
-include 'sample-spring-boot-kitchensink'
+import java.util.List;
+
+public class IntegrationTestSettings {
+    public String token;
+    public String endpoint;
+    public String userId;
+    public List<String> audienceIfas;
+    public String retargetingRequestId;
+}

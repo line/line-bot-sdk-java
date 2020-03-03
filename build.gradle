@@ -120,7 +120,6 @@ subprojects {
         testImplementation 'org.hibernate.validator:hibernate-validator'
         testImplementation 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
         testImplementation 'org.springframework.boot:spring-boot-starter-logging'
-        testImplementation 'org.yaml:snakeyaml'
     }
 
     compileJava.dependsOn(processResources)

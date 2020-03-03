@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -14,15 +14,11 @@
  * under the License.
  */
 
-include 'line-bot-api-client'
-include 'line-bot-model'
-include 'line-bot-servlet'
-include 'line-bot-spring-boot'
-include 'line-bot-cli'
-include 'line-bot-parser'
-include 'line-bot-integration-test'
-
-// samples
-include 'sample-spring-boot-echo'
-include 'sample-spring-boot-echo-kotlin'
-include 'sample-spring-boot-kitchensink'
+dependencies {
+    testImplementation project(':line-bot-api-client')
+    testImplementation 'com.fasterxml.jackson.core:jackson-core'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
+    testImplementation 'com.fasterxml.jackson.core:jackson-annotations'
+    testImplementation 'com.fasterxml.jackson.module:jackson-module-parameter-names'
+    testImplementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2'
+}

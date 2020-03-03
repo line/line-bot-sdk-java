@@ -19,7 +19,7 @@ package com.linecorp.bot.client;
 import static java.util.Collections.singleton;
 
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Callable;
@@ -29,10 +29,6 @@ import java.util.stream.Collectors;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
-import org.yaml.snakeyaml.Yaml;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
@@ -77,35 +73,17 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class LineMessagingClientImplIntegrationTest {
-    public static final URL TEST_RESOURCE = ClassLoader.getSystemResource("integration_test_settings.yml");
     private LineMessagingClient target;
-    private String userId;
     private IntegrationTestSettings settings;
 
     @Before
     public void setUp() throws IOException {
-        // Do not run all test cases in this class when src/test/resources/integration_test_settings.yml doesn't
-        // exist.
-        Assume.assumeTrue(TEST_RESOURCE != null);
-
-        settings = new ObjectMapper()
-                .registerModule(new ParameterNamesModule())
-                .convertValue(new Yaml().load(TEST_RESOURCE.openStream()), IntegrationTestSettings.class);
+        settings = IntegrationTestSettingsLoader.load();
 
         target = LineMessagingClient
                 .builder(settings.token)
-                .apiEndPoint(settings.endpoint)
+                .apiEndPoint(URI.create(settings.endpoint))
                 .build();
-
-        userId = settings.userId;
-    }
-
-    public static class IntegrationTestSettings {
-        public String token;
-        public String endpoint;
-        public String userId;
-        public List<String> audienceIfas;
-        public String retargetingRequestId;
     }
 
     private static void testApiCall(Callable<Object> f) throws Exception {
@@ -168,21 +146,23 @@ public class LineMessagingClientImplIntegrationTest {
     @Test
     public void multicast() throws Exception {
         testApiCall(
-                () -> target.multicast(new Multicast(singleton(userId), new TextMessage("Multicast"), true))
+                () -> target.multicast(
+                        new Multicast(singleton(settings.userId), new TextMessage("Multicast"), true))
                             .get()
         );
         testApiCall(
-                () -> target.multicast(new Multicast(singleton(userId), new TextMessage("Multicast"))).get()
+                () -> target.multicast(new Multicast(singleton(settings.userId), new TextMessage("Multicast")))
+                            .get()
         );
     }
 
     @Test
     public void pushMessage() throws Exception {
         testApiCall(
-                () -> target.pushMessage(new PushMessage(userId, new TextMessage("Push"), true)).get()
+                () -> target.pushMessage(new PushMessage(settings.userId, new TextMessage("Push"), true)).get()
         );
         testApiCall(
-                () -> target.pushMessage(new PushMessage(userId, new TextMessage("Push"))).get()
+                () -> target.pushMessage(new PushMessage(settings.userId, new TextMessage("Push"))).get()
         );
     }
 
