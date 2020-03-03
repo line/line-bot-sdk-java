@@ -108,7 +108,7 @@ public class LineMessagingClientImplIntegrationTest {
     @Value
     @Builder
     @JsonDeserialize(builder = IntegrationTestSettingsBuilder.class)
-    public static final class IntegrationTestSettings {
+    public static class IntegrationTestSettings {
         private final String token;
         private final String endpoint;
         private final String userId;
