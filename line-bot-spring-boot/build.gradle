@@ -14,8 +14,6 @@
  * under the License.
  */
 
-apply plugin: 'java-library'
-
 dependencies {
     api project(':line-bot-api-client')
     implementation project(':line-bot-model')
