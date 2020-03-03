@@ -380,7 +380,7 @@ interface LineMessagingService {
     Call<GetAudienceGroupsResponse> getAudienceGroups(@Query("page") long page,
                                                       @Query("description") String description,
                                                       @Query("status") AudienceGroupStatus status,
-                                                      @Query("String") Long size);
+                                                      @Query("size") Long size);
 
     @GET("v2/bot/audienceGroup/authorityLevel")
     Call<GetAudienceGroupAuthorityLevelResponse> getAudienceGroupAuthorityLevel();

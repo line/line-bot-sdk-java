@@ -26,6 +26,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
@@ -289,12 +290,18 @@ public class LineMessagingClientImplIntegrationTest {
         GetAudienceGroupsResponse response = target
                 .getAudienceGroups(1L, null, null, 40L)
                 .get();
+        Assert.assertEquals(1L, response.getPage().longValue());
+        Assert.assertEquals(40L, response.getSize().longValue());
+        Assert.assertNotNull(response.getTotalCount());
         log.info(response.toString());
 
         List<AudienceGroup> audienceGroups = response.getAudienceGroups();
         for (AudienceGroup audienceGroup : audienceGroups) {
             GetAudienceDataResponse dataResponse = target.getAudienceData(
                     audienceGroup.getAudienceGroupId()).get();
+            Assert.assertNotNull(dataResponse.getAudienceGroup());
+            Assert.assertEquals(audienceGroup.getAudienceGroupId(),
+                                dataResponse.getAudienceGroup().getAudienceGroupId());
             log.info("id={} data={}", audienceGroup.getAudienceGroupId(), dataResponse);
         }
     }
