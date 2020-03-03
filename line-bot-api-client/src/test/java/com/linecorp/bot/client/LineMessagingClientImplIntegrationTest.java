@@ -36,6 +36,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
+import com.linecorp.bot.client.LineMessagingClientImplIntegrationTest.IntegrationTestSettings.IntegrationTestSettingsBuilder;
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
@@ -62,7 +63,6 @@ import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.AudienceGroup;
-import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.GetAudienceGroupsResponseBuilder;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
@@ -107,7 +107,7 @@ public class LineMessagingClientImplIntegrationTest {
 
     @Value
     @Builder
-    @JsonDeserialize(builder = GetAudienceGroupsResponseBuilder.class)
+    @JsonDeserialize(builder = IntegrationTestSettingsBuilder.class)
     public static final class IntegrationTestSettings {
         private final String token;
         private final String endpoint;

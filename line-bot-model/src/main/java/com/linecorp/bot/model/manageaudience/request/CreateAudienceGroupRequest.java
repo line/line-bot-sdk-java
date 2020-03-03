@@ -18,7 +18,6 @@ package com.linecorp.bot.model.manageaudience.request;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -54,15 +53,6 @@ public final class CreateAudienceGroupRequest {
      * An array of up to 10,000 user IDs or IFAs.
      */
     private final List<Audience> audiences;
-
-    @JsonCreator
-    public CreateAudienceGroupRequest(String description, Boolean isIfaAudience, String uploadDescription,
-                                      List<Audience> audiences) {
-        this.description = description;
-        this.isIfaAudience = isIfaAudience;
-        this.uploadDescription = uploadDescription;
-        this.audiences = audiences;
-    }
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class CreateAudienceGroupRequestBuilder {

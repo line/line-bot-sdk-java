@@ -576,12 +576,12 @@ public class LineMessagingClientImplTest {
                 CreateAudienceGroupResponse.builder()
                                            .build();
         CreateAudienceGroupRequest request =
-                new CreateAudienceGroupRequest(
-                        "test",
-                        false,
-                        "test",
-                        singletonList(new Audience("Uabcdef"))
-                );
+                CreateAudienceGroupRequest.builder()
+                                          .description("test")
+                                          .isIfaAudience(false)
+                                          .uploadDescription("test")
+                                          .audiences(singletonList(new Audience("Uabcdef")))
+                                          .build();
 
         whenCall(retrofitMock.createAudienceGroup(any()), response);
         final CreateAudienceGroupResponse actual =
