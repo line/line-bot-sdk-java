@@ -46,7 +46,7 @@ public class CreateAudienceGroupResponse {
     /**
      * When the audience was created (in UNIX time).
      */
-    Long created;
+    long created;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class CreateAudienceGroupResponseBuilder {

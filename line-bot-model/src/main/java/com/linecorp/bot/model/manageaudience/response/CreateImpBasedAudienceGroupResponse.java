@@ -46,7 +46,7 @@ public class CreateImpBasedAudienceGroupResponse {
     /**
      * When the audience was created (in UNIX time).
      */
-    private final Long created;
+    private final long created;
 
     /**
      * The request ID that was specified when the audience was created.

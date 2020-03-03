@@ -63,7 +63,7 @@ public class GetAudienceDataResponse {
     /**
      * When the audience was created (in UNIX time).
      */
-    Long created;
+    long created;
 
     /**
      * The request ID that was specified when the audience was created. This is only included when type is
@@ -128,7 +128,7 @@ public class GetAudienceDataResponse {
         /**
          * When the job was created (in UNIX time).
          */
-        Long created;
+        long created;
     }
 
     @JsonPOJOBuilder(withPrefix = "")

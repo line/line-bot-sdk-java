@@ -71,7 +71,7 @@ public class GetAudienceGroupsResponse {
         /**
          * When the audience was created (in UNIX time).
          */
-        Long created;
+        long created;
 
         /**
          * The request ID that was specified when the audience was created. This is only included when
