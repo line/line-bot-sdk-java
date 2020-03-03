@@ -32,11 +32,8 @@ import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
-import com.linecorp.bot.client.LineMessagingClientImplIntegrationTest.IntegrationTestSettings.IntegrationTestSettingsBuilder;
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
@@ -71,8 +68,6 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse.Phase;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 
-import lombok.Builder;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -105,20 +100,12 @@ public class LineMessagingClientImplIntegrationTest {
         userId = settings.userId;
     }
 
-    @Value
-    @Builder
-    @JsonDeserialize(builder = IntegrationTestSettingsBuilder.class)
     public static class IntegrationTestSettings {
-        private final String token;
-        private final String endpoint;
-        private final String userId;
-        private final List<String> audienceIfas;
-        private final String retargetingRequestId;
-
-        @JsonPOJOBuilder(withPrefix = "")
-        public static class IntegrationTestSettingsBuilder {
-            // Filled by lombok
-        }
+        public String token;
+        public String endpoint;
+        public String userId;
+        public List<String> audienceIfas;
+        public String retargetingRequestId;
     }
 
     private static void testApiCall(Callable<Object> f) throws Exception {
