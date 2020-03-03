@@ -22,5 +22,5 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.google.guava:guava'
 
-    optional 'javax.validation:validation-api'
+    compileOnly 'javax.validation:validation-api'
 }
