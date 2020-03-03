@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse.GetAudienceDataResponseBuilder;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.AudienceGroup;
 
 import lombok.Builder;
 import lombok.Value;
@@ -30,57 +31,7 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = GetAudienceDataResponseBuilder.class)
 public class GetAudienceDataResponse {
-    /**
-     * The audience ID.
-     */
-    long audienceGroupId;
-
-    /**
-     * The audience type.
-     */
-    AudienceGroupType type;
-
-    /**
-     * The audience's name.
-     */
-    String description;
-
-    /**
-     * The audience's status.
-     */
-    AudienceGroupStatus status;
-
-    /**
-     * The reason why the operation failed. This is only included when status is FAILED.
-     */
-    AudienceGroupFailedType failedType;
-
-    /**
-     * The number of valid recipients.
-     */
-    Long audienceCount;
-
-    /**
-     * When the audience was created (in UNIX time).
-     */
-    long created;
-
-    /**
-     * The request ID that was specified when the audience was created. This is only included when type is
-     * CLICK or IMP.
-     */
-    String requestId;
-
-    /**
-     * The URL that was specified when the audience was created. This is only included when type is CLICK.
-     */
-    String clickUrl;
-
-    /**
-     * The value specified when creating an audience for uploading user IDs to indicate the type of accounts
-     * that will be given as recipients.
-     */
-    Boolean isIfaAudience;
+    AudienceGroup audienceGroup;
 
     /**
      * An array of jobs. This array is used to keep track of each attempt to add new user IDs or IFAs to an
