@@ -20,8 +20,11 @@ import static java.util.Collections.singleton;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import org.junit.Assume;
 import org.junit.Before;
@@ -29,6 +32,7 @@ import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
@@ -41,6 +45,21 @@ import com.linecorp.bot.model.Narrowcast.Filter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.manageaudience.AudienceGroupAuthorityLevel;
+import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.Audience;
+import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupAuthorityLevelRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
+import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.AudienceGroup;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
@@ -61,6 +80,7 @@ public class LineMessagingClientImplIntegrationTest {
     public static final URL TEST_RESOURCE = ClassLoader.getSystemResource("integration_test_settings.yml");
     private LineMessagingClient target;
     private String userId;
+    private IntegrationTestSettings settings;
 
     @Before
     public void setUp() throws IOException {
@@ -68,15 +88,24 @@ public class LineMessagingClientImplIntegrationTest {
         // exist.
         Assume.assumeTrue(TEST_RESOURCE != null);
 
-        final Map<?, ?> map = new ObjectMapper()
-                .convertValue(new Yaml().load(TEST_RESOURCE.openStream()), Map.class);
+        settings = new ObjectMapper()
+                .registerModule(new ParameterNamesModule())
+                .convertValue(new Yaml().load(TEST_RESOURCE.openStream()), IntegrationTestSettings.class);
 
         target = LineMessagingClient
-                .builder((String) map.get("token"))
-                .apiEndPoint((String) map.get("endpoint"))
+                .builder(settings.token)
+                .apiEndPoint(settings.endpoint)
                 .build();
 
-        userId = (String) map.get("userId");
+        userId = settings.userId;
+    }
+
+    public static class IntegrationTestSettings {
+        public String token;
+        public String endpoint;
+        public String userId;
+        public List<String> audienceIfas;
+        public String retargetingRequestId;
     }
 
     private static void testApiCall(Callable<Object> f) throws Exception {
@@ -179,5 +208,121 @@ public class LineMessagingClientImplIntegrationTest {
                 target.getNumberOfFollowers("20191231").get();
 
         log.info(getNumberOfFollowersResponse.toString());
+    }
+
+    @Test
+    public void createAudienceGroup() throws Exception {
+        Assume.assumeTrue(settings.audienceIfas != null);
+        Assume.assumeFalse(settings.audienceIfas.isEmpty());
+
+        CreateAudienceGroupResponse createResponse = target
+                .createAudienceGroup(CreateAudienceGroupRequest
+                                             .builder()
+                                             .description("test" + UUID.randomUUID())
+                                             .isIfaAudience(true)
+                                             .uploadDescription("test")
+                                             .audiences(
+                                                     settings.audienceIfas.stream()
+                                                                          .map(Audience::new)
+                                                                          .collect(Collectors.toList())
+                                             ).build()
+                ).get();
+        log.info(createResponse.toString());
+
+        long audienceGroupId = createResponse.getAudienceGroupId();
+
+        BotApiResponse addResponse = target
+                .addAudienceToAudienceGroup(
+                        AddAudienceToAudienceGroupRequest
+                                .builder()
+                                .audienceGroupId(audienceGroupId)
+                                .audiences(settings.audienceIfas.stream()
+                                                                .map(Audience::new)
+                                                                .collect(Collectors
+                                                                                 .toList()))
+                                .build()
+                )
+                .get();
+        log.info(addResponse.toString());
+
+        BotApiResponse updateResponse = target.updateAudienceGroupDescription(
+                audienceGroupId,
+                UpdateAudienceGroupDescriptionRequest
+                        .builder()
+                        .description("Hello" + UUID.randomUUID())
+                        .build()
+        ).get();
+        log.info(updateResponse.toString());
+
+        BotApiResponse deleteResponse = target.deleteAudienceGroup(audienceGroupId).get();
+        log.info(deleteResponse.toString());
+    }
+
+    @Test
+    public void createClickBasedAudienceGroup() throws Exception {
+        CreateClickBasedAudienceGroupResponse response = target
+                .createClickBasedAudienceGroup(CreateClickBasedAudienceGroupRequest
+                                                       .builder()
+                                                       .description("test " + UUID.randomUUID())
+                                                       .requestId(settings.retargetingRequestId)
+                                                       .build()
+                )
+                .get();
+        log.info(response.toString());
+    }
+
+    @Test
+    public void createImpBasedAudienceGroup() throws Exception {
+        CreateImpBasedAudienceGroupResponse response = target
+                .createImpBasedAudienceGroup(CreateImpBasedAudienceGroupRequest
+                                                     .builder()
+                                                     .description("test " + UUID.randomUUID())
+                                                     .requestId(settings.retargetingRequestId)
+                                                     .build()
+                )
+                .get();
+        log.info(response.toString());
+    }
+
+    @Test
+    public void getAudienceGroups() throws ExecutionException, InterruptedException {
+        GetAudienceGroupsResponse response = target
+                .getAudienceGroups(1L, null, null, 40L)
+                .get();
+        log.info(response.toString());
+
+        List<AudienceGroup> audienceGroups = response.getAudienceGroups();
+        for (AudienceGroup audienceGroup : audienceGroups) {
+            GetAudienceDataResponse dataResponse = target.getAudienceData(
+                    audienceGroup.getAudienceGroupId()).get();
+            log.info("id={} data={}", audienceGroup.getAudienceGroupId(), dataResponse);
+        }
+    }
+
+    @Test
+    public void getAudienceGroupAuthorityLevel() throws ExecutionException, InterruptedException {
+        GetAudienceGroupAuthorityLevelResponse response = target
+                .getAudienceGroupAuthorityLevel()
+                .get();
+        log.info(response.toString());
+
+        AudienceGroupAuthorityLevel origLevel = response.getAuthorityLevel();
+        AudienceGroupAuthorityLevel inverted = origLevel == AudienceGroupAuthorityLevel.PRIVATE
+                                               ? AudienceGroupAuthorityLevel.PUBLIC
+                                               : AudienceGroupAuthorityLevel.PRIVATE;
+
+        BotApiResponse invertResponse = target.updateAudienceGroupAuthorityLevel(
+                UpdateAudienceGroupAuthorityLevelRequest
+                        .builder()
+                        .authorityLevel(inverted)
+                        .build()).get();
+        log.info(invertResponse.toString());
+
+        BotApiResponse revertResponse = target.updateAudienceGroupAuthorityLevel(
+                UpdateAudienceGroupAuthorityLevelRequest
+                        .builder()
+                        .authorityLevel(origLevel)
+                        .build()).get();
+        log.info(revertResponse.toString());
     }
 }

@@ -26,6 +26,19 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
+import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupAuthorityLevelRequest;
+import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
+import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
+import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
+import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -41,6 +54,8 @@ import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
+
+import retrofit2.http.Body;
 
 public interface LineMessagingClient {
     /**
@@ -182,7 +197,7 @@ public interface LineMessagingClient {
      * Get group member profile.
      *
      * @param groupId Identifier of the group. Can be get by {@link GroupSource#getGroupId()}.
-     * @param userId  Identifier of the user.
+     * @param userId Identifier of the user.
      *
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-group-member-profile">//developers.line.me/en/reference/messaging-api/#get-group-member-profile</a>
      */
@@ -365,6 +380,103 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-demographic">Get friends demographics</a>
      */
     CompletableFuture<GetFriendsDemographicsResponse> getFriendsDemographics();
+
+    /**
+     * Creates an audience for uploading user IDs. You can create up to 1,000 audiences.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-upload-audience-group">
+     *     Create audience for uploading user IDs</a>
+     */
+    CompletableFuture<CreateAudienceGroupResponse> createAudienceGroup(CreateAudienceGroupRequest request);
+
+    /**
+     * Adds new user IDs or IFAs to an audience for uploading user IDs.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#update-upload-audience-group">
+     *     Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs</a>
+     */
+    CompletableFuture<BotApiResponse> addAudienceToAudienceGroup(
+            AddAudienceToAudienceGroupRequest request);
+
+    /**
+     * Creates an audience for click-based retargeting.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-click-audience-group">
+     *     Create audience for click-based retargeting</a>
+     */
+    CompletableFuture<CreateClickBasedAudienceGroupResponse> createClickBasedAudienceGroup(
+            CreateClickBasedAudienceGroupRequest request);
+
+    /**
+     * Creates an audience for impression-based retargeting.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-imp-audience-group">
+     *     Create audience for impression-based retargeting</a>
+     */
+    CompletableFuture<CreateImpBasedAudienceGroupResponse> createImpBasedAudienceGroup(
+            CreateImpBasedAudienceGroupRequest request);
+
+    /**
+     * Renames an existing audience.
+     *
+     * @param audienceGroupId The audience ID.
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#set-description-audience-group">
+     *     Rename an audience</a>
+     */
+    CompletableFuture<BotApiResponse> updateAudienceGroupDescription(
+            long audienceGroupId, UpdateAudienceGroupDescriptionRequest request);
+
+    /**
+     * Deletes an audience.
+     *
+     * @param audienceGroupId The audience ID.
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#delete-audience-group">
+     *     Delete audience</a>
+     */
+    CompletableFuture<BotApiResponse> deleteAudienceGroup(long audienceGroupId);
+
+    /**
+     * Gets audience data.
+     *
+     * @param audienceGroupId The audience ID.
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-audience-group">
+     *     Get audience data</a>
+     */
+    CompletableFuture<GetAudienceDataResponse> getAudienceData(long audienceGroupId);
+
+    /**
+     * Gets data for more than one audience.
+     *
+     * @param page The page to return when getting (paginated) results. Specify a value of 1 or more.
+     * @param description The name of the audience(s) to return. You can search for partial matches.
+     *                    Comparisons are case-insensitive, so the names AUDIENCE and audience are considered
+     *                    identical.
+     * @param status The audience's status.
+     * @param size The number of audiences per page. This is 20 by default.
+     *             Max: 40
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-audience-groups">
+     *     Get data for multiple audiences</a>
+     */
+    CompletableFuture<GetAudienceGroupsResponse> getAudienceGroups(long page, String description,
+                                                                   AudienceGroupStatus status,
+                                                                   Long size);
+
+    /**
+     * Get audience group authority level.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-authority-level">
+     *     Get authority level</a>
+     */
+    CompletableFuture<GetAudienceGroupAuthorityLevelResponse> getAudienceGroupAuthorityLevel();
+
+    /**
+     * Update audience group authority level.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#change-authority-level">
+     *     Change authority level</a>
+     */
+    CompletableFuture<BotApiResponse> updateAudienceGroupAuthorityLevel(
+            @Body UpdateAudienceGroupAuthorityLevelRequest request);
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));

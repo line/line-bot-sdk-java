@@ -27,6 +27,7 @@ import lombok.experimental.UtilityClass;
 public class ModelObjectMapper {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE)
             // Register ParameterNamesModule to read parameter name from lombok generated constructor.
             .registerModule(new ParameterNamesModule())
             // Register JSR-310(java.time.temporal.*) module and read number as millsec.
