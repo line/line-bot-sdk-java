@@ -36,14 +36,6 @@ public class AddAudienceToAudienceGroupRequest {
     private final long audienceGroupId;
 
     /**
-     * The audience's name. Audience names must be unique. Note that comparisons are case-insensitive, so the
-     * names AUDIENCE and audience are considered identical.
-     *
-     * <p>Max character limit: 120
-     */
-    private final String description;
-
-    /**
      * The description to register with the job (in jobs[].description).
      */
     private final String uploadDescription;
