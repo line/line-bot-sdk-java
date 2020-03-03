@@ -22,5 +22,6 @@ dependencies {
     implementation 'com.google.guava:guava'
 
     compileOnly 'javax.servlet:javax.servlet-api'
-    optional 'org.slf4j:slf4j-api'
+    testImplementation 'javax.servlet:javax.servlet-api'
+    compileOnly 'org.slf4j:slf4j-api'
 }
