@@ -76,7 +76,7 @@ subprojects {
     apply plugin: 'propdeps-maven'
     apply plugin: 'propdeps-idea'
     apply plugin: 'propdeps-eclipse'
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'checkstyle'
     apply plugin: 'io.franzbecker.gradle-lombok'
     apply plugin: 'io.spring.dependency-management'
@@ -114,13 +114,13 @@ subprojects {
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
 
-        testCompile 'com.google.guava:guava'
-        testCompile 'com.github.stefanbirkner:system-rules'
-        testCompile 'com.squareup.okhttp3:mockwebserver'
-        testCompile 'org.hibernate.validator:hibernate-validator'
-        testCompile 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
-        testCompile 'org.springframework.boot:spring-boot-starter-logging'
-        testCompile 'org.yaml:snakeyaml'
+        testImplementation 'com.google.guava:guava'
+        testImplementation 'com.github.stefanbirkner:system-rules'
+        testImplementation 'com.squareup.okhttp3:mockwebserver'
+        testImplementation 'org.hibernate.validator:hibernate-validator'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
+        testImplementation 'org.springframework.boot:spring-boot-starter-logging'
+        testImplementation 'org.yaml:snakeyaml'
     }
 
     compileJava.dependsOn(processResources)
