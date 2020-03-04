@@ -17,7 +17,6 @@
 package com.linecorp.bot.client;
 
 import java.io.IOException;
-import java.net.URI;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,11 +43,7 @@ public class NarrowcastIntegrationTest {
     @Before
     public void setUp() throws IOException {
         IntegrationTestSettings settings = IntegrationTestSettingsLoader.load();
-
-        target = LineMessagingClient
-                .builder(settings.token)
-                .apiEndPoint(URI.create(settings.endpoint))
-                .build();
+        target = LineMessagingClientFactory.create(settings);
     }
 
     @Test

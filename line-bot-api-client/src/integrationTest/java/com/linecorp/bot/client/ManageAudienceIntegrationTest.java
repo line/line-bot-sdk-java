@@ -17,13 +17,11 @@
 package com.linecorp.bot.client;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,18 +52,11 @@ public class ManageAudienceIntegrationTest {
     @Before
     public void setUp() throws IOException {
         settings = IntegrationTestSettingsLoader.load();
-
-        target = LineMessagingClient
-                .builder(settings.token)
-                .apiEndPoint(URI.create(settings.endpoint))
-                .build();
+        target = LineMessagingClientFactory.create(settings);
     }
 
     @Test
     public void createAudienceGroup() throws Exception {
-        Assume.assumeTrue(settings.audienceIfas != null);
-        Assume.assumeFalse(settings.audienceIfas.isEmpty());
-
         CreateAudienceGroupResponse createResponse = target
                 .createAudienceGroup(CreateAudienceGroupRequest
                                              .builder()
@@ -73,9 +64,9 @@ public class ManageAudienceIntegrationTest {
                                              .isIfaAudience(true)
                                              .uploadDescription("test")
                                              .audiences(
-                                                     settings.audienceIfas.stream()
-                                                                          .map(Audience::new)
-                                                                          .collect(Collectors.toList())
+                                                     settings.getAudienceIfas().stream()
+                                                             .map(Audience::new)
+                                                             .collect(Collectors.toList())
                                              ).build()
                 ).get();
         log.info(createResponse.toString());
@@ -87,10 +78,10 @@ public class ManageAudienceIntegrationTest {
                         AddAudienceToAudienceGroupRequest
                                 .builder()
                                 .audienceGroupId(audienceGroupId)
-                                .audiences(settings.audienceIfas.stream()
-                                                                .map(Audience::new)
-                                                                .collect(Collectors
-                                                                                 .toList()))
+                                .audiences(settings.getAudienceIfas().stream()
+                                                   .map(Audience::new)
+                                                   .collect(Collectors
+                                                                    .toList()))
                                 .build()
                 )
                 .get();
@@ -111,13 +102,11 @@ public class ManageAudienceIntegrationTest {
 
     @Test
     public void createClickBasedAudienceGroup() throws Exception {
-        Assume.assumeNotNull(settings.retargetingRequestId);
-
         CreateClickBasedAudienceGroupResponse response = target
                 .createClickBasedAudienceGroup(CreateClickBasedAudienceGroupRequest
                                                        .builder()
                                                        .description("test " + UUID.randomUUID())
-                                                       .requestId(settings.retargetingRequestId)
+                                                       .requestId(settings.getRetargetingRequestId())
                                                        .build()
                 )
                 .get();
@@ -126,13 +115,11 @@ public class ManageAudienceIntegrationTest {
 
     @Test
     public void createImpBasedAudienceGroup() throws Exception {
-        Assume.assumeNotNull(settings.retargetingRequestId);
-
         CreateImpBasedAudienceGroupResponse response = target
                 .createImpBasedAudienceGroup(CreateImpBasedAudienceGroupRequest
                                                      .builder()
                                                      .description("test " + UUID.randomUUID())
-                                                     .requestId(settings.retargetingRequestId)
+                                                     .requestId(settings.getRetargetingRequestId())
                                                      .build()
                 )
                 .get();

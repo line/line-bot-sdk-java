@@ -19,7 +19,6 @@ package com.linecorp.bot.client;
 import static java.util.Collections.singleton;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.concurrent.Callable;
 
 import org.junit.Before;
@@ -48,11 +47,7 @@ public class LineMessagingClientImplIntegrationTest {
     @Before
     public void setUp() throws IOException {
         settings = IntegrationTestSettingsLoader.load();
-
-        target = LineMessagingClient
-                .builder(settings.token)
-                .apiEndPoint(URI.create(settings.endpoint))
-                .build();
+        target = LineMessagingClientFactory.create(settings);
     }
 
     private static void testApiCall(Callable<Object> f) throws Exception {
@@ -74,22 +69,24 @@ public class LineMessagingClientImplIntegrationTest {
     public void multicast() throws Exception {
         testApiCall(
                 () -> target.multicast(
-                        new Multicast(singleton(settings.userId), new TextMessage("Multicast"), true))
+                        new Multicast(singleton(settings.getUserId()), new TextMessage("Multicast"), true))
                             .get()
         );
         testApiCall(
-                () -> target.multicast(new Multicast(singleton(settings.userId), new TextMessage("Multicast")))
-                            .get()
+                () -> target
+                        .multicast(new Multicast(singleton(settings.getUserId()), new TextMessage("Multicast")))
+                        .get()
         );
     }
 
     @Test
     public void pushMessage() throws Exception {
         testApiCall(
-                () -> target.pushMessage(new PushMessage(settings.userId, new TextMessage("Push"), true)).get()
+                () -> target.pushMessage(new PushMessage(settings.getUserId(), new TextMessage("Push"), true))
+                            .get()
         );
         testApiCall(
-                () -> target.pushMessage(new PushMessage(settings.userId, new TextMessage("Push"))).get()
+                () -> target.pushMessage(new PushMessage(settings.getUserId(), new TextMessage("Push"))).get()
         );
     }
 
