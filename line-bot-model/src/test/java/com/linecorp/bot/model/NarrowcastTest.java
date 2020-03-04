@@ -16,9 +16,10 @@
 
 package com.linecorp.bot.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Collections;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -40,6 +41,6 @@ public class NarrowcastTest {
                         null
                 )
         );
-        Assert.assertTrue(json.contains("\"type\":\"operator\""));
+        assertThat(json).contains("\"type\":\"operator\"");
     }
 }
