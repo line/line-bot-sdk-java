@@ -468,7 +468,10 @@ public class Narrowcast {
     }
 
     @Value
+    @JsonTypeName(OperatorDemographicFilter.type)
     public static class OperatorDemographicFilter implements DemographicFilter {
+        private static final String type = "operator";
+
         private final List<DemographicFilter> and;
         private final List<DemographicFilter> or;
         private final DemographicFilter not;
