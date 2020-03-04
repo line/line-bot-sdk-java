@@ -14,6 +14,32 @@
  * under the License.
  */
 
+// https://docs.gradle.org/current/userguide/java_testing.html#sec:configuring_java_integration_tests
+sourceSets {
+    integrationTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    integrationTestImplementation.extendsFrom implementation
+    integrationTestRuntimeOnly.extendsFrom runtimeOnly
+    integrationTestCompileOnly.extendsFrom compileOnly
+    integrationTestAnnotationProcessor.extendsFrom annotationProcessor
+}
+
+task integrationTest(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    shouldRunAfter test
+}
+
+check.dependsOn integrationTest
+
 dependencies {
     api project(':line-bot-model')
     implementation project(':line-bot-parser')
@@ -29,4 +55,14 @@ dependencies {
 
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+
+    integrationTestCompileOnly 'org.projectlombok:lombok'
+    integrationTestAnnotationProcessor 'org.projectlombok:lombok'
+    integrationTestImplementation 'junit:junit:4.12'
+    integrationTestImplementation 'org.slf4j:slf4j-simple:1.7.30'
+    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-core'
+    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-databind'
+    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-annotations'
+    integrationTestImplementation 'com.fasterxml.jackson.module:jackson-module-parameter-names'
+    integrationTestImplementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2'
 }
