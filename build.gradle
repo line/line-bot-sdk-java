@@ -36,7 +36,6 @@ buildscript {
         classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:2.0.0'
         classpath 'io.franzbecker:gradle-lombok:3.2.0'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE'
-        classpath 'io.spring.gradle:propdeps-plugin:0.0.10.RELEASE'
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -72,10 +71,6 @@ allprojects {
 
 subprojects {
     apply plugin: 'com.github.spotbugs'
-    apply plugin: 'propdeps'
-    apply plugin: 'propdeps-maven'
-    apply plugin: 'propdeps-idea'
-    apply plugin: 'propdeps-eclipse'
     apply plugin: 'java-library'
     apply plugin: 'checkstyle'
     apply plugin: 'io.franzbecker.gradle-lombok'

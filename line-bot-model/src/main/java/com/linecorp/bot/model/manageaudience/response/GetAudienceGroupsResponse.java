@@ -35,6 +35,26 @@ public class GetAudienceGroupsResponse {
      */
     private final List<AudienceGroup> audienceGroups;
 
+    /**
+     * true when this is not the last page.
+     */
+    Boolean hasNextPage;
+
+    /**
+     * The total number of audiences that can be fetched with the specified filter.
+     */
+    Long totalCount;
+
+    /**
+     * The current page number.
+     */
+    Long page;
+
+    /**
+     * The number of audiences on the current page.
+     */
+    Long size;
+
     @Value
     public static class AudienceGroup {
         /**
@@ -90,26 +110,6 @@ public class GetAudienceGroupsResponse {
          * accounts must be specified as recipients.
          */
         Boolean isIfaAudience;
-
-        /**
-         * true when this is not the last page.
-         */
-        Boolean hasNextPage;
-
-        /**
-         * The total number of audiences that can be fetched with the specified filter.
-         */
-        Long totalCount;
-
-        /**
-         * The current page number.
-         */
-        Long page;
-
-        /**
-         * The number of audiences on the current page.
-         */
-        Long size;
     }
 
     @JsonPOJOBuilder(withPrefix = "")
