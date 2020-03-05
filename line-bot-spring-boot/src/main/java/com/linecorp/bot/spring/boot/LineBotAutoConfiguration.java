@@ -57,6 +57,7 @@ public class LineBotAutoConfiguration {
      * Expose {@link LineMessagingClient} as {@link Bean}.
      */
     @Bean
+    @ConditionalOnMissingBean
     public LineMessagingClient lineMessagingClient(
             final ChannelTokenSupplier channelTokenSupplier) {
         return LineMessagingClient
@@ -73,6 +74,7 @@ public class LineBotAutoConfiguration {
      * Expose {@link LineMessagingClient} as {@link Bean}.
      */
     @Bean
+    @ConditionalOnMissingBean
     public LineBlobClient lineBlobClient(
             final ChannelTokenSupplier channelTokenSupplier) {
         return LineBlobClient
@@ -88,6 +90,7 @@ public class LineBotAutoConfiguration {
      * Expose {@link ChannelManagementSyncClient} as {@link Bean}.
      */
     @Bean
+    @ConditionalOnMissingBean
     public ChannelManagementSyncClient channelManagementClient(
             final ChannelTokenSupplier channelTokenSupplier) {
         return ChannelManagementSyncClient.builder(channelTokenSupplier)
