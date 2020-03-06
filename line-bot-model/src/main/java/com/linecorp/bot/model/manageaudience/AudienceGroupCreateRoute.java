@@ -14,23 +14,13 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.manageaudience.response;
+package com.linecorp.bot.model.manageaudience;
 
-public enum AudienceGroupJobStatus {
-    /**
-     * Waiting to run.
-     */
-    QUEUED,
-    /**
-     * Running.
-     */
-    WORKING,
-    /**
-     * Completed.
-     */
-    FINISHED,
-    /**
-     * Failed.
-     */
-    FAILED
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+
+public enum AudienceGroupCreateRoute {
+    OA_MANAGER,
+    MESSAGING_API,
+    @JsonEnumDefaultValue
+    UNKNOWN
 }

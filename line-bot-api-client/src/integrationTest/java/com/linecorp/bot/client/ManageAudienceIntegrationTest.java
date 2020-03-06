@@ -26,7 +26,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.linecorp.bot.model.manageaudience.AudienceGroup;
 import com.linecorp.bot.model.manageaudience.AudienceGroupAuthorityLevel;
+import com.linecorp.bot.model.manageaudience.AudienceGroupCreateRoute;
 import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
@@ -40,7 +42,6 @@ import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGrou
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
-import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.AudienceGroup;
 import com.linecorp.bot.model.response.BotApiResponse;
 
 import lombok.extern.slf4j.Slf4j;
@@ -130,7 +131,8 @@ public class ManageAudienceIntegrationTest {
     @Test
     public void getAudienceGroups() throws ExecutionException, InterruptedException {
         GetAudienceGroupsResponse response = target
-                .getAudienceGroups(1L, null, null, 40L)
+                .getAudienceGroups(1L, null, null, 40L,
+                                   false, AudienceGroupCreateRoute.OA_MANAGER)
                 .get();
         Assert.assertEquals(1L, response.getPage().longValue());
         Assert.assertEquals(40L, response.getSize().longValue());

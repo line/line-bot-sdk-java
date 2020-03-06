@@ -19,6 +19,7 @@ package com.linecorp.bot.model.manageaudience.response;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.manageaudience.AudienceGroupType;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse.CreateClickBasedAudienceGroupResponseBuilder;
 
 import lombok.Builder;

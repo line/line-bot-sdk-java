@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2020 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -27,13 +27,14 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.manageaudience.AudienceGroupCreateRoute;
+import com.linecorp.bot.model.manageaudience.AudienceGroupStatus;
 import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
-import com.linecorp.bot.model.manageaudience.response.AudienceGroupStatus;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
@@ -325,11 +326,12 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    public CompletableFuture<GetAudienceGroupsResponse> getAudienceGroups(long page,
-                                                                          String description,
-                                                                          AudienceGroupStatus status,
-                                                                          Long size) {
-        return toFuture(retrofitImpl.getAudienceGroups(page, description, status, size));
+    public CompletableFuture<GetAudienceGroupsResponse> getAudienceGroups(
+            long page, String description, AudienceGroupStatus status, Long size,
+            Boolean includesExternalPublicGroups, AudienceGroupCreateRoute createRoute) {
+        return toFuture(retrofitImpl.getAudienceGroups(
+                page, description, status, size,
+                includesExternalPublicGroups, createRoute));
     }
 
     @Override

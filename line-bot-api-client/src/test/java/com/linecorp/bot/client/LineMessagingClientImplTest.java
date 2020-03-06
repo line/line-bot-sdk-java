@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2020 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -563,10 +563,12 @@ public class LineMessagingClientImplTest {
                 .builder()
                 .audienceGroups(emptyList())
                 .build();
-        whenCall(retrofitMock.getAudienceGroups(anyLong(), any(), any(), any()), response);
+        whenCall(retrofitMock.getAudienceGroups(anyLong(), any(), any(), any(), any(),
+                                                any()), response);
         final GetAudienceGroupsResponse actual =
-                target.getAudienceGroups(1L, null, null, 40L).get();
-        verify(retrofitMock, only()).getAudienceGroups(1L, null, null, 40L);
+                target.getAudienceGroups(1L, null, null, 40L, null, null).get();
+        verify(retrofitMock, only()).getAudienceGroups(1L, null, null, 40L,
+                                                       null, null);
         assertThat(actual).isEqualTo(response);
     }
 

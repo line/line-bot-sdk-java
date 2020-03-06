@@ -14,15 +14,23 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.manageaudience.response;
+package com.linecorp.bot.model.manageaudience;
 
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
-
-public enum AudienceGroupJobType {
+public enum AudienceGroupJobStatus {
     /**
-     * Indicates that a user ID or IFA was added via the Messaging API.
+     * Waiting to run.
      */
-    DIFF_ADD,
-    @JsonEnumDefaultValue
-    UNKNOWN
+    QUEUED,
+    /**
+     * Running.
+     */
+    WORKING,
+    /**
+     * Completed.
+     */
+    FINISHED,
+    /**
+     * Failed.
+     */
+    FAILED
 }

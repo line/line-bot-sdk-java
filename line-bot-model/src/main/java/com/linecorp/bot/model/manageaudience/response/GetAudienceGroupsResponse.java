@@ -21,6 +21,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.manageaudience.AudienceGroup;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.GetAudienceGroupsResponseBuilder;
 
 import lombok.Builder;
@@ -46,6 +47,12 @@ public class GetAudienceGroupsResponse {
     Long totalCount;
 
     /**
+     * Of the audiences you can get with the specified condition, the number of audiences with the update
+     * permission set to READ_WRITE.
+     */
+    Long readWriteAudienceGroupTotalCount;
+
+    /**
      * The current page number.
      */
     Long page;
@@ -54,63 +61,6 @@ public class GetAudienceGroupsResponse {
      * The number of audiences on the current page.
      */
     Long size;
-
-    @Value
-    public static class AudienceGroup {
-        /**
-         * The audience ID.
-         */
-        long audienceGroupId;
-
-        /**
-         * The audience type.
-         */
-        AudienceGroupType type;
-
-        /**
-         * The audience's name.
-         */
-        String description;
-
-        /**
-         * The audience's status.
-         */
-        AudienceGroupStatus status;
-
-        /**
-         * The reason why the operation failed. This is only included when audienceGroups[].status is FAILED
-         * or EXPIRED.
-         */
-        AudienceGroupFailedType failedType;
-
-        /**
-         * The number of valid recipients.
-         */
-        Long audienceCount;
-
-        /**
-         * When the audience was created (in UNIX time).
-         */
-        long created;
-
-        /**
-         * The request ID that was specified when the audience was created. This is only included when
-         * audienceGroups[].type is CLICK or IMP.
-         */
-        String requestId;
-
-        /**
-         * The URL that was specified when the audience was created. This is only included when
-         * audienceGroups[].type is CLICK.
-         */
-        String clickUrl;
-
-        /**
-         * The value specified when the audience for uploading user IDs was created, determining which type of
-         * accounts must be specified as recipients.
-         */
-        Boolean isIfaAudience;
-    }
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class GetAudienceGroupsResponseBuilder {
