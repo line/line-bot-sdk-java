@@ -47,7 +47,12 @@ import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.manageaudience.AudienceGroup;
 import com.linecorp.bot.model.manageaudience.AudienceGroupAuthorityLevel;
+import com.linecorp.bot.model.manageaudience.AudienceGroupCreateRoute;
+import com.linecorp.bot.model.manageaudience.AudienceGroupPermission;
+import com.linecorp.bot.model.manageaudience.AudienceGroupStatus;
+import com.linecorp.bot.model.manageaudience.AudienceGroupType;
 import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
@@ -561,7 +566,25 @@ public class LineMessagingClientImplTest {
     public void getAudienceGroups() throws Exception {
         final GetAudienceGroupsResponse response = GetAudienceGroupsResponse
                 .builder()
-                .audienceGroups(emptyList())
+                .audienceGroups(singletonList(new AudienceGroup(
+                        3L,
+                        AudienceGroupType.IMP,
+                        "hello",
+                        AudienceGroupStatus.EXPIRED,
+                        null,
+                        3L,
+                        1583540070193L,
+                        "6744d281-c0bd-4a63-91d5-cab659827828",
+                        null,
+                        false,
+                        AudienceGroupPermission.READ_WRITE,
+                        AudienceGroupCreateRoute.OA_MANAGER
+                )))
+                .hasNextPage(true)
+                .totalCount(4L)
+                .size(1L)
+                .page(1L)
+                .readWriteAudienceGroupTotalCount(1L)
                 .build();
         whenCall(retrofitMock.getAudienceGroups(anyLong(), any(), any(), any(), any(),
                                                 any()), response);
