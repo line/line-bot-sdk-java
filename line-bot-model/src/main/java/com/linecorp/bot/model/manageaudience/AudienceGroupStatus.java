@@ -14,19 +14,30 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.manageaudience.response;
+package com.linecorp.bot.model.manageaudience;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 
-public enum AudienceGroupFailedType {
+/**
+ * The audience's status.
+ */
+public enum AudienceGroupStatus {
     /**
-     * There weren't enough accounts in the audience that could be used as recipients (at least 100 are needed).
+     * Pending. It may take several hours for the status to change to READY.
      */
-    AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT,
+    IN_PROGRESS,
     /**
-     * Internal server error.
+     * Ready to accept messages.
      */
-    INTERNAL_ERROR,
+    READY,
+    /**
+     * An error occurred while creating the audience.
+     */
+    FAILED,
+    /**
+     * Expired. Audiences are automatically deleted a month after they expire.
+     */
+    EXPIRED,
     @JsonEnumDefaultValue
     UNKNOWN
 }

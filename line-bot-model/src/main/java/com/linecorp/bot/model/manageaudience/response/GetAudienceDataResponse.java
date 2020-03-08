@@ -21,8 +21,9 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.manageaudience.AudienceGroup;
+import com.linecorp.bot.model.manageaudience.AudienceGroupJob;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse.GetAudienceDataResponseBuilder;
-import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse.AudienceGroup;
 
 import lombok.Builder;
 import lombok.Value;
@@ -37,50 +38,7 @@ public class GetAudienceDataResponse {
      * An array of jobs. This array is used to keep track of each attempt to add new user IDs or IFAs to an
      * audience for uploading user IDs. null is returned for any other type of audience.
      */
-    List<Job> jobs;
-
-    @Value
-    public static class Job {
-        /**
-         * A job ID.
-         */
-        Long audienceGroupJobId;
-
-        /**
-         * An audience ID.
-         */
-        long audienceGroupId;
-
-        /**
-         * The job's description.
-         */
-        String description;
-
-        /**
-         * The job's type.
-         */
-        AudienceGroupJobType type;
-
-        /**
-         * The job's status.
-         */
-        AudienceGroupJobStatus jobStatus;
-
-        /**
-         * The reason why the operation failed. This is only included when jobs[].jobStatus is FAILED.
-         */
-        AudienceGroupJobFailedType failedType;
-
-        /**
-         * The number of accounts (recipients) that were added or removed.
-         */
-        Long audienceCount;
-
-        /**
-         * When the job was created (in UNIX time).
-         */
-        long created;
-    }
+    List<AudienceGroupJob> jobs;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class GetAudienceDataResponseBuilder {
