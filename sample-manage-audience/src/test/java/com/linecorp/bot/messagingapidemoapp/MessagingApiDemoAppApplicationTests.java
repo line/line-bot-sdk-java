@@ -23,8 +23,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class MessagingApiDemoAppApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
