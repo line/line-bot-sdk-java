@@ -1,0 +1,51 @@
+<#-- @ftlvariable name="audienceGroups" type="com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse" -->
+<#import "../__wrapper.ftlh" as wrapper>
+<@wrapper.main>
+
+    <h1>LINE Messaging API Demo App</h1>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>audienceGroupId</th>
+            <th>type</th>
+            <th>description</th>
+            <th>status</th>
+            <th>failed type</th>
+            <th>audience count</th>
+            <th>created</th>
+            <th>requestId</th>
+            <th>clickUrl</th>
+            <th>permission</th>
+            <th>create route</th>
+            <th>is ifa audience</th>
+        </tr>
+        <#list audienceGroups.audienceGroups as audienceGroup>
+            <tr>
+                <td>
+                    <a href="/manage_audience/${audienceGroup.audienceGroupId?c}">${audienceGroup.audienceGroupId?c}</a>
+                </td>
+                <td>${audienceGroup.type}</td>
+                <td>${audienceGroup.description}</td>
+                <td style="<#if audienceGroup.status="EXPIRED">color: red</#if>">${audienceGroup.status}</td>
+                <td>${audienceGroup.failedType!"-"}</td>
+                <td>${audienceGroup.audienceCount}</td>
+                <td>${(audienceGroup.created*1000)?number_to_datetime?iso_local_nz}</td>
+                <td>${audienceGroup.requestId!"-"}</td>
+                <td>${audienceGroup.clickUrl!"-"}</td>
+                <td>${audienceGroup.permission!"-"}</td>
+                <td>${audienceGroup.createRoute!"-"}</td>
+                <td>${audienceGroup.isIfaAudience?string('IFA', 'userId')}</td>
+            </tr>
+        </#list>
+    </table>
+
+    <p>current page: ${audienceGroups.page}</p>
+    <p>
+        <#if (audienceGroups.page > 1)>
+            <a href="/manage_audience/?page=${audienceGroups.page-1}">←← </a>
+        </#if>
+        <#if audienceGroups.hasNextPage>
+            <a href="/manage_audience/?page=${audienceGroups.page+1}"> →→</a>
+        </#if>
+    </p>
+</@wrapper.main>
