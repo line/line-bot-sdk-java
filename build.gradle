@@ -203,6 +203,7 @@ subprojects {
 
     compileJava {
         options.compilerArgs << '-Xlint:all' << '-Xlint:deprecation' << '-Werror' << '-Xlint:-processing' << '-parameters'
+        options.encoding = 'UTF-8'
     }
 
     project.plugins.withType(SpringBootPlugin) {
