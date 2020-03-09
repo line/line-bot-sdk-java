@@ -4,6 +4,14 @@
 <@wrapper.main>
 <h1>LINE Messaging API Demo App</h1>
 
+    <#if audienceGroup.permission.name() == "READ_WRITE">
+        <a href="/manage_audience/updateDescription/${audienceGroup.audienceGroupId}" class="btn btn-primary">Rename audience group</a>
+    <#else>
+        <div class="alert alert-info" role="alert">
+            This audience group is read only.
+        </div>
+    </#if>
+
 <table class="table table-bordered table-hover">
     <tr>
         <th>audienceGroupId</th>
@@ -72,7 +80,7 @@
             <td>${job.description!"-"}</td>
             <td>${job.type}</td>
             <td>${job.jobStatus}</td>
-            <td>${job.failedType}</td>
+            <td>${job.failedType!"-"}</td>
             <td>${job.audienceCount}</td>
             <td>${(job.created*1000)?number_to_datetime?iso_local_nz}</td>
         </tr>

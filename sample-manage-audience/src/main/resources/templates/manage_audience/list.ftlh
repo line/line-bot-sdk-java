@@ -4,6 +4,8 @@
 
     <h1>LINE Messaging API Demo App</h1>
 
+    <a href="/manage_audience/upload" class="btn btn-primary">Upload new audience group</a>
+
     <table class="table table-bordered">
         <tr>
             <th>audienceGroupId</th>
