@@ -112,8 +112,6 @@ public class NarrowcastController {
                 messageList,
                 null,
                 // TODO audience group id targeting
-//                new LogicalOperatorRecipient(Collections.emptyList(), null,
-//                                             null),
                 new Filter(
                         new OperatorDemographicFilter(
                                 condition,
