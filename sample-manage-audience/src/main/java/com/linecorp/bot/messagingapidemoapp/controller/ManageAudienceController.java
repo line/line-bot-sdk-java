@@ -126,10 +126,10 @@ public class ManageAudienceController {
     public RedirectView postUpdateDescription(@PathVariable Long audienceGroupId,
                                               @RequestParam String description)
             throws ExecutionException, InterruptedException {
-        UpdateAudienceGroupDescriptionRequest request = UpdateAudienceGroupDescriptionRequest.builder()
-                                                                                             .description(
-                                                                                                     description)
-                                                                                             .build();
+        UpdateAudienceGroupDescriptionRequest request = UpdateAudienceGroupDescriptionRequest
+                .builder()
+                .description(description)
+                .build();
         client.updateAudienceGroupDescription(audienceGroupId, request).get();
         return new RedirectView("/manage_audience/" + audienceGroupId);
     }
