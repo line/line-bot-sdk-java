@@ -56,8 +56,7 @@ public class ManageAudienceController {
                                         null)
                      .thenApply(response -> {
                          model.addAttribute("audienceGroups", response.getAudienceGroups());
-
-                         return "manage_audience/list"; // show src/main/resources/templates/manage_audience/list.ftlh
+                         return "manage_audience/list";
                      });
     }
 
@@ -75,8 +74,7 @@ public class ManageAudienceController {
                      .thenApply(response -> {
                          model.addAttribute("audienceGroup", response.getAudienceGroup());
                          model.addAttribute("jobs", response.getJobs());
-
-                         return "manage_audience/show"; // show src/main/resources/templates/manage_audience/quota.ftlh
+                         return "manage_audience/show";
                      });
     }
 
