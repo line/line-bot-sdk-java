@@ -33,6 +33,10 @@ public class Audience {
      */
     String id;
 
+    public Audience(String id) {
+        this.id = id;
+    }
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class AudienceBuilder {
         // Filled by lombok
