@@ -25,9 +25,14 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.Narrowcast.AudienceRecipient.AudienceRecipientBuilder;
+import com.linecorp.bot.model.Narrowcast.LogicalOperatorRecipient.LogicalOperatorRecipientBuilder;
 import com.linecorp.bot.model.message.Message;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Value;
 
@@ -72,17 +77,31 @@ public class Narrowcast {
      */
     private final boolean notificationDisabled;
 
+    @JsonTypeInfo(use = Id.NAME, property = "type")
+    @JsonSubTypes({
+            @JsonSubTypes.Type(AudienceRecipient.class),
+            @JsonSubTypes.Type(LogicalOperatorRecipient.class)
+    })
     public interface Recipient {
         String getType();
     }
 
     @Value
+    @Builder
+    @JsonTypeName(AudienceRecipient.type)
+    @JsonDeserialize(builder = AudienceRecipientBuilder.class)
     public static class AudienceRecipient implements Recipient {
+        private static final String type = "audience";
         private final long audienceGroupId;
 
         @Override
         public String getType() {
-            return "audience";
+            return type;
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class AudienceRecipientBuilder {
+            // Filled by lombok
         }
     }
 
@@ -91,14 +110,24 @@ public class Narrowcast {
      * up to 10 recipient objects per request.
      */
     @Value
+    @Builder
+    @JsonTypeName(LogicalOperatorRecipient.type)
+    @JsonDeserialize(builder = LogicalOperatorRecipientBuilder.class)
     public static class LogicalOperatorRecipient implements Recipient {
+        private static final String type = "operator";
+
         private List<Recipient> and;
         private List<Recipient> or;
         private Recipient not;
 
         @Override
         public String getType() {
-            return "operator";
+            return type;
+        }
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class LogicalOperatorRecipientBuilder {
+            // Filled by lombok
         }
     }
 
