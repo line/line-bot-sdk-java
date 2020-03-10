@@ -55,7 +55,7 @@ public class ManageAudienceController {
         return client.getAudienceGroups(page, null, null, 40L, null,
                                         null)
                      .thenApply(response -> {
-                         model.addAttribute("audienceGroups", response.getAudienceGroups());
+                         model.addAttribute("response", response);
                          return "manage_audience/list";
                      });
     }

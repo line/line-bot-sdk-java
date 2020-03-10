@@ -31,6 +31,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.Narrowcast.AgeDemographicFilter;
@@ -45,6 +48,7 @@ import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
 import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.Narrowcast.Limit;
 import com.linecorp.bot.model.Narrowcast.OperatorDemographicFilter;
+import com.linecorp.bot.model.Narrowcast.Recipient;
 import com.linecorp.bot.model.Narrowcast.SubscriptionPeriodDemographicFilter.SubscriptionPeriod;
 import com.linecorp.bot.model.manageaudience.AudienceGroupStatus;
 import com.linecorp.bot.model.message.Message;
@@ -59,6 +63,7 @@ import lombok.extern.slf4j.Slf4j;
 public class NarrowcastController {
     private final LineMessagingClient client;
     private final MessageHelper messageHelper;
+    private final ObjectMapper objectMapper;
 
     @GetMapping("/message/narrowcast")
     public CompletableFuture<String> narrowcast(Model model) {
@@ -84,8 +89,9 @@ public class NarrowcastController {
             @RequestParam(required = false) String appType,
             @RequestParam(required = false) String[] areaCode,
             @RequestParam(required = false) Integer maxLimit,
+            @RequestParam(required = false) String recipient,
             @RequestParam Boolean notificationDisabled
-    ) {
+    ) throws JsonProcessingException {
         List<Message> messageList = messageHelper.buildMessages(messages);
 
         List<DemographicFilter> condition = new ArrayList<>();
@@ -111,10 +117,13 @@ public class NarrowcastController {
                           .collect(Collectors.toList())
             ));
         }
+        Recipient recipientObject = recipient != null
+                                    ? objectMapper.readValue(recipient, Recipient.class)
+                                    : null;
 
         Narrowcast narrowcast = new Narrowcast(
                 messageList,
-                null,
+                recipientObject,
                 // TODO audience group id targeting
                 new Filter(
                         new OperatorDemographicFilter(

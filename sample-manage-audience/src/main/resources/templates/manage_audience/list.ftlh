@@ -23,7 +23,7 @@
             <th>create route</th>
             <th>is ifa audience</th>
         </tr>
-        <#list audienceGroups.audienceGroups as audienceGroup>
+        <#list response.audienceGroups as audienceGroup>
             <tr>
                 <td>
                     <a href="/manage_audience/${audienceGroup.audienceGroupId?c}">${audienceGroup.audienceGroupId?c}</a>
@@ -43,13 +43,13 @@
         </#list>
     </table>
 
-    <p>current page: ${audienceGroups.page}</p>
+    <p>current page: ${response.page}</p>
     <p>
-        <#if (audienceGroups.page > 1)>
-            <a href="/manage_audience/?page=${audienceGroups.page-1}">←← </a>
+        <#if (response.page > 1)>
+            <a href="/manage_audience/?page=${response.page-1}">←← </a>
         </#if>
-        <#if audienceGroups.hasNextPage>
-            <a href="/manage_audience/?page=${audienceGroups.page+1}"> →→</a>
+        <#if response.hasNextPage>
+            <a href="/manage_audience/?page=${response.page+1}"> →→</a>
         </#if>
     </p>
 </@wrapper.main>

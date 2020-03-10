@@ -17,14 +17,13 @@
 
 package com.linecorp.bot.messagingapidemoapp;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootTest
-class MessagingApiDemoAppApplicationTests {
+@SpringBootApplication
+public class SampleManageAudienceApplication {
 
-    @Test
-    void contextLoads() {
+    public static void main(String[] args) {
+        SpringApplication.run(SampleManageAudienceApplication.class, args);
     }
-
 }

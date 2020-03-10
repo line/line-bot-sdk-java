@@ -9,6 +9,39 @@
     <h1>Send narrowcast message</h1>
 
     <form method="POST" action="/message/narrowcast">
+        <div class="form-group clearfix">
+            <div class="row">
+                <h2>Audience Group</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label>
+                        <textarea name="recipient"></textarea>
+                    </label>
+
+                    <hr>
+                    <p>Examples</p>
+                    <pre><code>{}</code></pre>
+                </div>
+                <div class="col-sm-5">
+                    <p>Available audience groups</p>
+                    <table class="table table-hover">
+                        <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                        </tr>
+                        <#list audienceGroups as audienceGroup>
+                            <tr>
+                                <td>${audienceGroup.audienceGroupId}</td>
+                                <td>${audienceGroup.description}</td>
+                                <td>${audienceGroup.type}</td>
+                            </tr>
+                        </#list>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <div class="col-sm-2">
                 Gender
