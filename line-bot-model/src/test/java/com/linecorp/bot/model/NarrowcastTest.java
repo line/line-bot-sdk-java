@@ -47,29 +47,30 @@ public class NarrowcastTest {
     }
 
     @Test
-    public void testRecipientDeserialize() throws JsonProcessingException {
+    public void testRecipientDeserializeAudience() throws JsonProcessingException {
         ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
-        {
-            Recipient recipient = objectMapper.readValue(
-                    "{\"type\":\"audience\", \"audienceGroupId\":59693}",
-                    Recipient.class
-            );
-            assertThat(recipient).isInstanceOf(AudienceRecipient.class);
-            assertThat(recipient.getType()).isEqualTo("audience");
-            assertThat(((AudienceRecipient) recipient).getAudienceGroupId()).isEqualTo(59693);
-        }
-        {
-            Recipient recipient = objectMapper.readValue(
-                    "{\"type\":\"operator\","
-                    + " \"and\":[{\"type\":\"audience\", \"audienceGroupId\":  5963}]}",
-                    Recipient.class
-            );
-            assertThat(recipient).isInstanceOf(LogicalOperatorRecipient.class);
-            assertThat(recipient.getType()).isEqualTo("operator");
-            assertThat(((LogicalOperatorRecipient) recipient).getAnd())
-                    .isEqualTo(singletonList(AudienceRecipient.builder()
-                                                              .audienceGroupId(5963L)
+        Recipient recipient = objectMapper.readValue(
+                "{\"type\":\"audience\", \"audienceGroupId\":59693}",
+                Recipient.class
+        );
+        assertThat(recipient).isInstanceOf(AudienceRecipient.class);
+        assertThat(recipient.getType()).isEqualTo("audience");
+        assertThat(((AudienceRecipient) recipient).getAudienceGroupId()).isEqualTo(59693);
+    }
+
+    @Test
+    public void testRecipientDeserializeOperator() throws JsonProcessingException {
+        ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+        Recipient recipient = objectMapper.readValue(
+                "{\"type\":\"operator\","
+                + " \"and\":[{\"type\":\"audience\", \"audienceGroupId\":  5963}]}",
+                Recipient.class
+        );
+        assertThat(recipient).isInstanceOf(LogicalOperatorRecipient.class);
+        assertThat(recipient.getType()).isEqualTo("operator");
+        assertThat(((LogicalOperatorRecipient) recipient).getAnd())
+                .isEqualTo(singletonList(AudienceRecipient.builder()
+                                                          .audienceGroupId(5963L)
                                                               .build()));
-        }
     }
 }
