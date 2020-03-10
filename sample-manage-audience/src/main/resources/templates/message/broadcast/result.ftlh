@@ -7,4 +7,6 @@
 
     <p>Sent message: ${requestId}</p>
 
+    <#include "../__retargeting.ftlh">
+
 </@wrapper.main>

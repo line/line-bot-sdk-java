@@ -7,13 +7,7 @@
 
     <p>${requestId}</p>
 
-    <div>
-        <a href="/manage_audience/imp?requestId=${requestId}" class="btn btn-primary">Create imp based audience
-            group</a>
-        <a href="/manage_audience/click?requestId=${requestId}" class="btn btn-primary">Create click based
-            audience
-            group</a>
-    </div>
+    <#include "../__retargeting.ftlh">
 
     <table class="table table-bordered">
         <tr>
