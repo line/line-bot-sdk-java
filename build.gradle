@@ -170,6 +170,7 @@ subprojects {
         javadoc {
             dependsOn delombok
             source = delombok.outputDir
+            options.encoding = 'UTF-8'
             options.locale = 'en_US'
             options.addStringOption('Xdoclint:none', '-quiet')
             // To create javadoc for generated method&constructor, delombok & run javadoc on delombok.outputDir.
@@ -203,6 +204,9 @@ subprojects {
 
     compileJava {
         options.compilerArgs << '-Xlint:all' << '-Xlint:deprecation' << '-Werror' << '-Xlint:-processing' << '-parameters'
+        options.encoding = 'UTF-8'
+    }
+    compileTestJava {
         options.encoding = 'UTF-8'
     }
 
