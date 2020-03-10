@@ -46,6 +46,7 @@ import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.Narrowcast.Limit;
 import com.linecorp.bot.model.Narrowcast.OperatorDemographicFilter;
 import com.linecorp.bot.model.Narrowcast.SubscriptionPeriodDemographicFilter.SubscriptionPeriod;
+import com.linecorp.bot.model.manageaudience.AudienceGroupStatus;
 import com.linecorp.bot.model.message.Message;
 
 import io.micrometer.core.instrument.util.StringUtils;
@@ -60,13 +61,18 @@ public class NarrowcastController {
     private final MessageHelper messageHelper;
 
     @GetMapping("/message/narrowcast")
-    public String narrowcast(Model model) {
+    public CompletableFuture<String> narrowcast(Model model) {
         model.addAttribute("ages", Age.values());
         model.addAttribute("appTypes", AppType.values());
         model.addAttribute("areaCodes", AreaCode.values());
         model.addAttribute("subscriptionPeriods", SubscriptionPeriod.values());
-
-        return "message/narrowcast/form";
+        return client.getAudienceGroups(
+                1L, null, AudienceGroupStatus.READY, 40L, true,
+                null)
+                     .thenApply(response -> {
+                         model.addAttribute("audienceGroups", response.getAudienceGroups());
+                         return "message/narrowcast/form";
+                     });
     }
 
     @PostMapping("/message/narrowcast")
