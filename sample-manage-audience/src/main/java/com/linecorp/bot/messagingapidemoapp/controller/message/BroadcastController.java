@@ -18,7 +18,7 @@
 package com.linecorp.bot.messagingapidemoapp.controller.message;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +31,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.message.Message;
-import com.linecorp.bot.model.response.BotApiResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,14 +48,14 @@ public class BroadcastController {
     }
 
     @PostMapping("/message/broadcast")
-    public RedirectView postBroadcast(@RequestParam String[] messages,
-                                      @RequestParam Boolean notificationDisabled)
-            throws ExecutionException, InterruptedException {
+    public CompletableFuture<RedirectView> postBroadcast(@RequestParam String[] messages,
+                                                         @RequestParam Boolean notificationDisabled) {
         List<Message> messageList = messageHelper.buildMessages(messages);
-        BotApiResponse botApiResponse = client.broadcast(
+        return client.broadcast(
                 new Broadcast(messageList, notificationDisabled))
-                                              .get();
-        return new RedirectView("/message/broadcast/" + botApiResponse.getRequestId());
+                     .thenApply(response -> {
+                         return new RedirectView("/message/broadcast/" + response.getRequestId());
+                     });
     }
 
     @GetMapping("/message/broadcast/{requestId}")

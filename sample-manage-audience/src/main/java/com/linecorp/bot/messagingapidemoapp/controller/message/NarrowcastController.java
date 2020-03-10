@@ -20,7 +20,7 @@ package com.linecorp.bot.messagingapidemoapp.controller.message;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
@@ -47,8 +47,6 @@ import com.linecorp.bot.model.Narrowcast.Limit;
 import com.linecorp.bot.model.Narrowcast.OperatorDemographicFilter;
 import com.linecorp.bot.model.Narrowcast.SubscriptionPeriodDemographicFilter.SubscriptionPeriod;
 import com.linecorp.bot.model.message.Message;
-import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.AllArgsConstructor;
@@ -72,7 +70,7 @@ public class NarrowcastController {
     }
 
     @PostMapping("/message/narrowcast")
-    public RedirectView pushNarrowcast(
+    public CompletableFuture<RedirectView> pushNarrowcast(
             @RequestParam String[] messages,
             @RequestParam(required = false) String gender,
             @RequestParam(required = false) String ageGte,
@@ -81,7 +79,7 @@ public class NarrowcastController {
             @RequestParam(required = false) String[] areaCode,
             @RequestParam(required = false) Integer maxLimit,
             @RequestParam Boolean notificationDisabled
-    ) throws ExecutionException, InterruptedException {
+    ) {
         List<Message> messageList = messageHelper.buildMessages(messages);
 
         List<DemographicFilter> condition = new ArrayList<>();
@@ -122,21 +120,21 @@ public class NarrowcastController {
                 maxLimit == null ? null : new Limit(maxLimit),
                 notificationDisabled
         );
-        BotApiResponse botApiResponse = client.narrowcast(narrowcast).get();
-
-        log.info("Sent narrowcast={}", botApiResponse);
-        return new RedirectView("/message/narrowcast/" + botApiResponse.getRequestId());
+        return client.narrowcast(narrowcast).thenApply(
+                response -> new RedirectView("/message/narrowcast/" + response.getRequestId())
+        );
     }
 
     @GetMapping("/message/narrowcast/{requestId}")
-    public String narrowcastProgress(@PathVariable String requestId, Model model)
-            throws ExecutionException, InterruptedException {
+    public CompletableFuture<String> narrowcastProgress(@PathVariable String requestId, Model model) {
         model.addAttribute("requestId", requestId);
 
-        NarrowcastProgressResponse progress = client.getNarrowcastProgress(
-                requestId).get();
-        model.addAttribute("progress", progress);
-        return "message/narrowcast/progress";
+        return client.getNarrowcastProgress(requestId)
+                     .thenApply(response -> {
+                         model.addAttribute("progress", response);
+                         return "message/narrowcast/progress";
+
+                     });
     }
 
 }

@@ -19,7 +19,7 @@ package com.linecorp.bot.messagingapidemoapp.controller.message;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +27,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.model.response.MessageQuotaResponse;
-import com.linecorp.bot.model.response.NumberOfMessagesResponse;
-import com.linecorp.bot.model.response.QuotaConsumptionResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,20 +37,21 @@ public class ReportController {
     private static final DateTimeFormatter PATTERN = DateTimeFormatter.ofPattern("uuuuMMdd");
 
     @GetMapping("/message/report/quota")
-    public String show(Model model) throws ExecutionException, InterruptedException {
-        MessageQuotaResponse messageQuota = client.getMessageQuota().get();
-        model.addAttribute("quota", messageQuota);
+    public CompletableFuture<String> show(Model model) {
+        CompletableFuture<Void> quotaFuture = client
+                .getMessageQuota()
+                .thenAccept(messageQuota -> model.addAttribute("quota", messageQuota));
+        CompletableFuture<Void> totalUsageFuture = client
+                .getMessageQuotaConsumption()
+                .thenAccept(
+                        response -> model.addAttribute("totalUsage", response.getTotalUsage()));
 
-        QuotaConsumptionResponse quotaConsumptionResponse =
-                client.getMessageQuotaConsumption().get();
-        model.addAttribute("totalUsage", quotaConsumptionResponse.getTotalUsage());
-
-        return "message/report/quota";
+        return CompletableFuture.allOf(quotaFuture, totalUsageFuture)
+                                .thenApply(it -> "message/report/quota");
     }
 
     @GetMapping("/message/report/sent")
-    public String sent(Model model, @RequestParam(required = false) String date)
-            throws ExecutionException, InterruptedException {
+    public CompletableFuture<String> sent(Model model, @RequestParam(required = false) String date) {
         if (date == null) {
             date = LocalDate.now().format(PATTERN);
         } else {
@@ -63,20 +61,19 @@ public class ReportController {
         model.addAttribute("date", LocalDate.parse(date, PATTERN)
                                             .format(DateTimeFormatter.ISO_DATE));
 
-        NumberOfMessagesResponse reply =
-                client.getNumberOfSentReplyMessages(date).get();
-        NumberOfMessagesResponse push =
-                client.getNumberOfSentPushMessages(date).get();
-        NumberOfMessagesResponse broadcast =
-                client.getNumberOfSentBroadcastMessages(date).get();
-        NumberOfMessagesResponse multicast =
-                client.getNumberOfSentMulticastMessages(date).get();
-
-        model.addAttribute("reply", reply);
-        model.addAttribute("push", push);
-        model.addAttribute("broadcast", broadcast);
-        model.addAttribute("multicast", multicast);
-
-        return "message/report/sent";
+        return CompletableFuture.allOf(
+                client.getNumberOfSentReplyMessages(date).thenApply(
+                        it -> model.addAttribute("reply", it)
+                ),
+                client.getNumberOfSentPushMessages(date).thenApply(
+                        it -> model.addAttribute("push", it)
+                ),
+                client.getNumberOfSentBroadcastMessages(date).thenApply(
+                        it -> model.addAttribute("broadcast", it)
+                ),
+                client.getNumberOfSentMulticastMessages(date).thenApply(
+                        it -> model.addAttribute("multicast", it)
+                )
+        ).thenApply(it -> "message/report/sent");
     }
 }

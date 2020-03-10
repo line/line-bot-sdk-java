@@ -18,7 +18,7 @@
 package com.linecorp.bot.messagingapidemoapp.controller.message;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +31,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.Message;
-import com.linecorp.bot.model.response.BotApiResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,15 +48,13 @@ public class PushController {
     }
 
     @PostMapping("/message/push")
-    public RedirectView postPush(@RequestParam String to,
-                                 @RequestParam String[] messages,
-                                 @RequestParam Boolean notificationDisabled)
-            throws ExecutionException, InterruptedException {
+    public CompletableFuture<RedirectView> postPush(@RequestParam String to,
+                                                    @RequestParam String[] messages,
+                                                    @RequestParam Boolean notificationDisabled) {
         List<Message> messageList = messageHelper.buildMessages(messages);
-        BotApiResponse botApiResponse = client.pushMessage(
+        return client.pushMessage(
                 new PushMessage(to, messageList, notificationDisabled))
-                                              .get();
-        return new RedirectView("/message/push/" + botApiResponse.getRequestId());
+                     .thenApply(response -> new RedirectView("/message/push/" + response.getRequestId()));
     }
 
     @GetMapping("/message/push/{requestId}")

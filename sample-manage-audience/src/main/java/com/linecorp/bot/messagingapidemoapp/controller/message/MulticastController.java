@@ -20,6 +20,7 @@ package com.linecorp.bot.messagingapidemoapp.controller.message;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.message.Message;
-import com.linecorp.bot.model.response.BotApiResponse;
 
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.AllArgsConstructor;
@@ -53,19 +53,18 @@ public class MulticastController {
     }
 
     @PostMapping("/message/multicast")
-    public RedirectView postMulticast(@RequestParam String to,
-                                      @RequestParam String[] messages,
-                                      @RequestParam Boolean notificationDisabled)
+    public CompletableFuture<RedirectView> postMulticast(@RequestParam String to,
+                                                         @RequestParam String[] messages,
+                                                         @RequestParam Boolean notificationDisabled)
             throws ExecutionException, InterruptedException {
         Set<String> toList = Arrays.stream(to.split("\r?\n"))
                                    .filter(StringUtils::isNotBlank)
                                    .collect(Collectors.toSet());
 
         List<Message> messageList = messageHelper.buildMessages(messages);
-        BotApiResponse botApiResponse = client.multicast(
+        return client.multicast(
                 new Multicast(toList, messageList, notificationDisabled))
-                                              .get();
-        return new RedirectView("/message/multicast/" + botApiResponse.getRequestId());
+                     .thenApply(response -> new RedirectView("/message/multicast/" + response.getRequestId()));
     }
 
     @GetMapping("/message/multicast/{requestId}")
