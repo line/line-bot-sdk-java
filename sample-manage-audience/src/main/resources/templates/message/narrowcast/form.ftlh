@@ -21,7 +21,8 @@
 
                     <hr>
                     <p>Examples</p>
-                    <pre><code>{}</code></pre>
+                    <pre><code>{"type":"audience","audienceGroupId":[AUDIENCE_GROUP_ID]}</code></pre>
+                    <pre><code>{"type":"operator","and":[{"audienceGroupId":[AUDIENCE_GROUP_ID]}, {"audienceGroupId":[AUDIENCE_GROUP_ID]}]}</code></pre>
                 </div>
                 <div class="col-sm-5">
                     <p>Available audience groups</p>
