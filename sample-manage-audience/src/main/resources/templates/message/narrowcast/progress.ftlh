@@ -7,6 +7,8 @@
 
     <p>${requestId}</p>
 
+    <a href="/manage_audience/imp?requestId=${requestId}" class="btn btn-primary">Create imp based audience group</a>
+
     <table class="table table-bordered">
         <tr>
             <th>Field name</th>

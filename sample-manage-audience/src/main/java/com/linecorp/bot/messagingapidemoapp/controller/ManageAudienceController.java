@@ -33,8 +33,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -132,6 +134,26 @@ public class ManageAudienceController {
                 .build();
         client.updateAudienceGroupDescription(audienceGroupId, request).get();
         return new RedirectView("/manage_audience/" + audienceGroupId);
+    }
+
+    // Create impression based audience group
+    @GetMapping("/manage_audience/imp")
+    public String imp(@RequestParam(required = false) String requestId, Model model) {
+        model.addAttribute("requestId", requestId);
+        return "manage_audience/imp";
+    }
+
+    @PostMapping("/manage_audience/imp")
+    public RedirectView postImp(@RequestParam String description, @RequestParam String requestId) throws ExecutionException, InterruptedException {
+        CreateImpBasedAudienceGroupRequest request = CreateImpBasedAudienceGroupRequest
+                .builder()
+                .description(description)
+                .requestId(requestId)
+                .build();
+        CreateImpBasedAudienceGroupResponse response =
+                client.createImpBasedAudienceGroup(request).get();
+
+        return new RedirectView("/manage_audience/" + response.getAudienceGroupId());
     }
 }
 
