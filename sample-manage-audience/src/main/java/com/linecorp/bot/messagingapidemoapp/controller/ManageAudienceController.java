@@ -19,6 +19,7 @@ package com.linecorp.bot.messagingapidemoapp.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
+import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
@@ -144,7 +146,8 @@ public class ManageAudienceController {
     }
 
     @PostMapping("/manage_audience/imp")
-    public RedirectView postImp(@RequestParam String description, @RequestParam String requestId) throws ExecutionException, InterruptedException {
+    public RedirectView postImp(@RequestParam String description, @RequestParam String requestId)
+            throws ExecutionException, InterruptedException {
         CreateImpBasedAudienceGroupRequest request = CreateImpBasedAudienceGroupRequest
                 .builder()
                 .description(description)
@@ -154,6 +157,29 @@ public class ManageAudienceController {
                 client.createImpBasedAudienceGroup(request).get();
 
         return new RedirectView("/manage_audience/" + response.getAudienceGroupId());
+    }
+
+    // Create click based audience group
+    @GetMapping("/manage_audience/click")
+    public String click(@RequestParam(required = false) String requestId, Model model) {
+        model.addAttribute("requestId", requestId);
+        return "manage_audience/click";
+    }
+
+    @PostMapping("/manage_audience/click")
+    public CompletableFuture<RedirectView> postClick(@RequestParam String description,
+                                                     @RequestParam String requestId)
+            throws ExecutionException, InterruptedException {
+        CreateClickBasedAudienceGroupRequest request = CreateClickBasedAudienceGroupRequest
+                .builder()
+                .description(description)
+                .requestId(requestId)
+                .build();
+        return client
+                .createClickBasedAudienceGroup(request)
+                .thenApply(
+                        response -> new RedirectView("/manage_audience/" + response.getAudienceGroupId())
+                );
     }
 }
 

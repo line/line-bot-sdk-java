@@ -6,6 +6,7 @@
 
     <a href="/manage_audience/upload" class="btn btn-primary">Upload new audience group</a>
     <a href="/manage_audience/imp" class="btn btn-primary">Create new imp based audience</a>
+    <a href="/manage_audience/click" class="btn btn-primary">Create new click based audience</a>
 
     <table class="table table-bordered">
         <tr>
