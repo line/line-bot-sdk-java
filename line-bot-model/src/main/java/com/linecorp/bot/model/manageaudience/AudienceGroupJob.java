@@ -16,9 +16,17 @@
 
 package com.linecorp.bot.model.manageaudience;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import com.linecorp.bot.model.manageaudience.AudienceGroupJob.AudienceGroupJobBuilder;
+
+import lombok.Builder;
 import lombok.Value;
 
 @Value
+@Builder
+@JsonDeserialize(builder = AudienceGroupJobBuilder.class)
 public class AudienceGroupJob {
     /**
      * A job ID.
@@ -59,4 +67,9 @@ public class AudienceGroupJob {
      * When the job was created (in UNIX time).
      */
     long created;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class AudienceGroupJobBuilder {
+        // Filled by lombok
+    }
 }

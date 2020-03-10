@@ -16,12 +16,25 @@
 
 package com.linecorp.bot.model.manageaudience.request;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import com.linecorp.bot.model.manageaudience.request.Audience.AudienceBuilder;
+
+import lombok.Builder;
 import lombok.Value;
 
 @Value
+@Builder
+@JsonDeserialize(builder = AudienceBuilder.class)
 public class Audience {
     /**
      * A user ID or IFA.
      */
     String id;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class AudienceBuilder {
+        // Filled by lombok
+    }
 }

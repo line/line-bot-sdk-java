@@ -564,22 +564,23 @@ public class LineMessagingClientImplTest {
 
     @Test
     public void getAudienceGroups() throws Exception {
+
         final GetAudienceGroupsResponse response = GetAudienceGroupsResponse
                 .builder()
-                .audienceGroups(singletonList(new AudienceGroup(
-                        3L,
-                        AudienceGroupType.IMP,
-                        "hello",
-                        AudienceGroupStatus.EXPIRED,
-                        null,
-                        3L,
-                        1583540070193L,
-                        "6744d281-c0bd-4a63-91d5-cab659827828",
-                        null,
-                        false,
-                        AudienceGroupPermission.READ_WRITE,
-                        AudienceGroupCreateRoute.OA_MANAGER
-                )))
+                .audienceGroups(singletonList(AudienceGroup.builder()
+                                                           .audienceGroupId(3L)
+                                                           .type(AudienceGroupType.IMP)
+                                                           .description("hello")
+                                                           .status(AudienceGroupStatus.EXPIRED)
+                                                           .failedType(null)
+                                                           .audienceCount(3L)
+                                                           .created(1583540070193L)
+                                                           .requestId("6744d281-c0bd-4a63-91d5-cab659827828")
+                                                           .clickUrl(null)
+                                                           .isIfaAudience(false)
+                                                           .permission(AudienceGroupPermission.READ_WRITE)
+                                                           .createRoute(AudienceGroupCreateRoute.OA_MANAGER)
+                                                           .build()))
                 .hasNextPage(true)
                 .totalCount(4L)
                 .size(1L)
