@@ -109,17 +109,17 @@ public class ManageAudienceController {
                              response -> new RedirectView("/manage_audience/" + response.getAudienceGroupId()));
     }
 
-    @GetMapping("/manage_audience/updateDescription/{audienceGroupId}")
+    @GetMapping("/manage_audience/update_description/{audienceGroupId}")
     public CompletableFuture<String> updateDescription(@PathVariable Long audienceGroupId,
                                                        Model model) {
         return client.getAudienceData(audienceGroupId)
                      .thenApply(response -> {
                          model.addAttribute("audienceGroup", response.getAudienceGroup());
-                         return "manage_audience/updateDescription";
+                         return "manage_audience/update_description";
                      });
     }
 
-    @PostMapping("/manage_audience/updateDescription/{audienceGroupId}")
+    @PostMapping("/manage_audience/update_description/{audienceGroupId}")
     public CompletableFuture<RedirectView> postUpdateDescription(@PathVariable Long audienceGroupId,
                                                                  @RequestParam String description) {
         UpdateAudienceGroupDescriptionRequest request = UpdateAudienceGroupDescriptionRequest

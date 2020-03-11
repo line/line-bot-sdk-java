@@ -5,7 +5,7 @@
 <h1>LINE Messaging API Demo App</h1>
 
     <#if audienceGroup.permission.name() == "READ_WRITE">
-        <a href="/manage_audience/updateDescription/${audienceGroup.audienceGroupId}" class="btn btn-primary">Rename
+        <a href="/manage_audience/update_description/${audienceGroup.audienceGroupId}" class="btn btn-primary">Rename
             audience group</a>
         <a href="/manage_audience/add_audience/${audienceGroup.audienceGroupId}" class="btn btn-primary">Add
             audience for this audience group.</a>

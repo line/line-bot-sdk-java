@@ -4,7 +4,7 @@
 
     <h1>Update description: ${audienceGroup.description}(ID: ${audienceGroup.audienceGroupId})</h1>
 
-    <form method="post" action="/manage_audience/updateDescription/${audienceGroup.audienceGroupId}">
+    <form method="post" action="/manage_audience/update_description/${audienceGroup.audienceGroupId}">
         <div class="form-group">
             <label for="description">description</label>
             <input type="text" class="form-control" id="description" name="description"
