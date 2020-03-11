@@ -7,8 +7,8 @@
     <#if audienceGroup.permission.name() == "READ_WRITE">
         <a href="/manage_audience/updateDescription/${audienceGroup.audienceGroupId}" class="btn btn-primary">Rename
             audience group</a>
-        <a href="/manage_audience/addAudience/${audienceGroup.audienceGroupId}" class="btn btn-primary">Rename
-            audience group</a>
+        <a href="/manage_audience/add_audience/${audienceGroup.audienceGroupId}" class="btn btn-primary">Add
+            audience for this audience group.</a>
     <#else>
         <div class="alert alert-info" role="alert">
             This audience group is read only.

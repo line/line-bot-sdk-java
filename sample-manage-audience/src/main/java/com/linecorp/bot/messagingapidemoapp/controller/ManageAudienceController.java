@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.model.manageaudience.AudienceGroup;
+import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.Audience;
 import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
@@ -168,6 +170,37 @@ public class ManageAudienceController {
                 .thenApply(
                         response -> new RedirectView("/manage_audience/" + response.getAudienceGroupId())
                 );
+    }
+
+    @GetMapping("/manage_audience/add_audience/{audienceGroupId}")
+    public CompletableFuture<String> addAudience(@PathVariable Long audienceGroupId,
+                                                 Model model) {
+        return client.getAudienceData(audienceGroupId)
+                     .thenApply(response -> {
+                         AudienceGroup audienceGroup = response.getAudienceGroup();
+                         model.addAttribute("audienceGroup", audienceGroup);
+                         return "manage_audience/add_audience";
+                     });
+    }
+
+    @PostMapping("/manage_audience/add_audience/{audienceGroupId}")
+    public CompletableFuture<RedirectView> postAddAudience(
+            @PathVariable Long audienceGroupId,
+            @RequestParam(required = false) String uploadDescription,
+            @RequestParam String audiences) {
+        List<Audience> audienceList = Arrays.stream(audiences.split("\r?\n"))
+                                            .map(it -> it.replaceAll("\\s+", ""))
+                                            .filter(it -> it.length() > 0)
+                                            .map(Audience::new)
+                                            .collect(Collectors.toList());
+        AddAudienceToAudienceGroupRequest request = AddAudienceToAudienceGroupRequest
+                .builder()
+                .audienceGroupId(audienceGroupId)
+                .audiences(audienceList)
+                .uploadDescription(uploadDescription)
+                .build();
+        return client.addAudienceToAudienceGroup(request)
+                     .thenApply(it -> new RedirectView("/manage_audience/" + audienceGroupId));
     }
 }
 
