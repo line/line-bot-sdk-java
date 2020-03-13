@@ -23,6 +23,10 @@ public enum AudienceGroupJobFailedType {
      * Internal server error.
      */
     INTERNAL_ERROR,
+    /**
+     * Audience is insufficient.
+     */
+    AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT,
     @JsonEnumDefaultValue
     UNKNOWN
 }
