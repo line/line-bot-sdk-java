@@ -16,9 +16,17 @@
 
 package com.linecorp.bot.model.manageaudience;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import com.linecorp.bot.model.manageaudience.AudienceGroup.AudienceGroupBuilder;
+
+import lombok.Builder;
 import lombok.Value;
 
 @Value
+@Builder
+@JsonDeserialize(builder = AudienceGroupBuilder.class)
 public class AudienceGroup {
     /**
      * The audience ID.
@@ -83,4 +91,9 @@ public class AudienceGroup {
      * How the audience was created. If omitted, all audiences are included.
      */
     AudienceGroupCreateRoute createRoute;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class AudienceGroupBuilder {
+        // Filled by lombok
+    }
 }
