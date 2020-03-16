@@ -27,6 +27,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -38,18 +39,6 @@ import com.google.common.collect.ImmutableList;
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
-import com.linecorp.bot.model.Narrowcast.AgeDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.AgeDemographicFilter.Age;
-import com.linecorp.bot.model.Narrowcast.AppTypeDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.AppTypeDemographicFilter.AppType;
-import com.linecorp.bot.model.Narrowcast.AreaDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.AreaDemographicFilter.AreaCode;
-import com.linecorp.bot.model.Narrowcast.Filter;
-import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
-import com.linecorp.bot.model.Narrowcast.OperatorDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.SubscriptionPeriodDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.SubscriptionPeriodDemographicFilter.SubscriptionPeriod;
 import com.linecorp.bot.model.action.CameraAction;
 import com.linecorp.bot.model.action.CameraRollAction;
 import com.linecorp.bot.model.action.DatetimePickerAction;
@@ -68,6 +57,18 @@ import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
+import com.linecorp.bot.model.narrowcast.Filter;
+import com.linecorp.bot.model.narrowcast.filter.AgeDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.AgeDemographicFilter.Age;
+import com.linecorp.bot.model.narrowcast.filter.AppTypeDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.AppTypeDemographicFilter.AppType;
+import com.linecorp.bot.model.narrowcast.filter.AreaDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.AreaDemographicFilter.AreaCode;
+import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
+import com.linecorp.bot.model.narrowcast.filter.OperatorDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.SubscriptionPeriodDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.SubscriptionPeriodDemographicFilter.SubscriptionPeriod;
 import com.linecorp.bot.model.testutil.TestUtil;
 
 import lombok.SneakyThrows;
@@ -227,20 +228,45 @@ public class MessageJsonReconstructionTest {
 
     @Test
     public void narrowcast() {
-        test(new GenderDemographicFilter(Gender.MALE));
+        test(GenderDemographicFilter.builder()
+                                    .oneOf(Collections.singletonList(Gender.MALE))
+                                    .build());
 
-        final Narrowcast narrowcast = new Narrowcast(new TextMessage("text"), new Filter(
-                new GenderDemographicFilter(Gender.MALE)
-        ));
+        final Narrowcast narrowcast = new Narrowcast(
+                new TextMessage("text"),
+                Filter.builder()
+                      .demographic(
+                              GenderDemographicFilter
+                                      .builder()
+                                      .oneOf(Collections.singletonList(Gender.MALE))
+                                      .build()
+                      ).build());
         test(narrowcast);
 
-        test(new AgeDemographicFilter(Age.AGE_15, Age.AGE_25));
-        test(new AppTypeDemographicFilter(AppType.IOS));
-        test(new AreaDemographicFilter(AreaCode.JP_TOKYO));
-        test(new SubscriptionPeriodDemographicFilter(SubscriptionPeriod.DAY_7, SubscriptionPeriod.DAY_30));
-        test(new OperatorDemographicFilter(Arrays.asList(new AgeDemographicFilter(Age.AGE_15, Age.AGE_25),
-                                                         new AppTypeDemographicFilter(AppType.IOS)),
-                                           null, null));
+        test(AgeDemographicFilter.builder()
+                                 .gte(Age.AGE_15)
+                                 .lt(Age.AGE_25)
+                                 .build());
+        test(AppTypeDemographicFilter.builder()
+                                     .oneOf(Collections.singletonList(AppType.IOS))
+                                     .build());
+        test(AreaDemographicFilter.builder()
+                                  .oneOf(Collections.singletonList(AreaCode.JP_TOKYO))
+                                  .build());
+        test(SubscriptionPeriodDemographicFilter.builder()
+                                                .gte(SubscriptionPeriod.DAY_7)
+                                                .lt(SubscriptionPeriod.DAY_30)
+                                                .build());
+        test(OperatorDemographicFilter
+                     .builder()
+                     .and(Arrays.asList(AgeDemographicFilter.builder()
+                                                            .gte(Age.AGE_15)
+                                                            .lt(Age.AGE_25)
+                                                            .build(),
+                                        AppTypeDemographicFilter.builder()
+                                                                .oneOf(Collections.singletonList(AppType.IOS))
+                                                                .build()))
+                     .build());
     }
 
     @Test

@@ -17,19 +17,20 @@
 package com.linecorp.bot.client;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.linecorp.bot.model.Narrowcast;
-import com.linecorp.bot.model.Narrowcast.AgeDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.AgeDemographicFilter.Age;
-import com.linecorp.bot.model.Narrowcast.AppTypeDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.AppTypeDemographicFilter.AppType;
-import com.linecorp.bot.model.Narrowcast.Filter;
-import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.narrowcast.Filter;
+import com.linecorp.bot.model.narrowcast.filter.AgeDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.AgeDemographicFilter.Age;
+import com.linecorp.bot.model.narrowcast.filter.AppTypeDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.AppTypeDemographicFilter.AppType;
+import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse.Phase;
@@ -48,23 +49,39 @@ public class NarrowcastIntegrationTest {
 
     @Test
     public void narrowcastGender() throws Exception {
-        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(gender=male)"), new Filter(
-                new GenderDemographicFilter(Gender.MALE)
-        )));
+        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(gender=male)"),
+                                      Filter.builder()
+                                            .demographic(
+                                                    GenderDemographicFilter
+                                                            .builder()
+                                                            .oneOf(Collections.singletonList(Gender.MALE))
+                                                            .build()
+                                            ).build()));
     }
 
     @Test
     public void narrowcastAge() throws Exception {
-        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(Age)"), new Filter(
-                new AgeDemographicFilter(Age.AGE_15, Age.AGE_40)
-        )));
+        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(Age)"),
+                                      Filter.builder()
+                                            .demographic(
+                                                    AgeDemographicFilter
+                                                            .builder()
+                                                            .gte(Age.AGE_15)
+                                                            .lt(Age.AGE_40)
+                                                            .build()
+                                            ).build()));
     }
 
     @Test
     public void narrowcastAppType() throws Exception {
-        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(AppType)"), new Filter(
-                new AppTypeDemographicFilter(AppType.IOS)
-        )));
+        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(AppType)"),
+                                      Filter.builder()
+                                            .demographic(
+                                                    AppTypeDemographicFilter
+                                                            .builder()
+                                                            .oneOf(Collections.singletonList(AppType.IOS))
+                                                            .build()
+                                            ).build()));
     }
 
     private void testNarrowcast(Narrowcast narrowcast) throws Exception {

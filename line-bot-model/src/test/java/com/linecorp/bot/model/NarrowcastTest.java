@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model;
 
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
@@ -25,22 +26,70 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
-import com.linecorp.bot.model.Narrowcast.OperatorDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.DemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
+import com.linecorp.bot.model.narrowcast.filter.OperatorDemographicFilter;
+import com.linecorp.bot.model.narrowcast.recipient.AudienceRecipient;
+import com.linecorp.bot.model.narrowcast.recipient.LogicalOperatorRecipient;
+import com.linecorp.bot.model.narrowcast.recipient.Recipient;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 
 public class NarrowcastTest {
     @Test
-    public void testOperatorDemographicFilter() throws JsonProcessingException {
+    public void testSerializeOperatorDemographicFilter() throws JsonProcessingException {
         ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
         String json = objectMapper.writeValueAsString(
-                new OperatorDemographicFilter(
-                        Collections.singletonList(new GenderDemographicFilter(Gender.MALE)),
-                        null,
-                        null
-                )
+                OperatorDemographicFilter
+                        .builder()
+                        .and(Collections.singletonList(GenderDemographicFilter.builder()
+                                                                              .oneOf(Collections.singletonList(
+                                                                                      Gender.MALE))
+                                                                              .build()))
+                        .build()
         );
-        assertThat(json).contains("\"type\":\"operator\"");
+        System.out.println(json);
+        assertThat(json).isEqualTo(
+                "{\"type\":\"operator\","
+                + "\"and\":[{\"type\":\"gender\",\"oneOf\":[\"male\"]}],"
+                + "\"or\":null,"
+                + "\"not\":null}");
+    }
+
+    @Test
+    public void testDeserializeOperatorDemographicFilter() throws JsonProcessingException {
+        String json = "{\"type\":\"operator\", \"and\":  [{\"type\": \"gender\", \"oneOf\": [\"male\"]}]}";
+
+        ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+        DemographicFilter filter = objectMapper.readValue(json, DemographicFilter.class);
+        assertThat(filter).isInstanceOf(OperatorDemographicFilter.class);
+    }
+
+    @Test
+    public void testRecipientDeserializeAudience() throws JsonProcessingException {
+        ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+        Recipient recipient = objectMapper.readValue(
+                "{\"type\":\"audience\", \"audienceGroupId\":59693}",
+                Recipient.class
+        );
+        assertThat(recipient).isInstanceOf(AudienceRecipient.class);
+        assertThat(recipient.getType()).isEqualTo("audience");
+        assertThat(((AudienceRecipient) recipient).getAudienceGroupId()).isEqualTo(59693);
+    }
+
+    @Test
+    public void testRecipientDeserializeOperator() throws JsonProcessingException {
+        ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+        Recipient recipient = objectMapper.readValue(
+                "{\"type\":\"operator\","
+                + " \"and\":[{\"type\":\"audience\", \"audienceGroupId\":  5963}]}",
+                Recipient.class
+        );
+        assertThat(recipient).isInstanceOf(LogicalOperatorRecipient.class);
+        assertThat(recipient.getType()).isEqualTo("operator");
+        assertThat(((LogicalOperatorRecipient) recipient).getAnd())
+                .isEqualTo(singletonList(AudienceRecipient.builder()
+                                                          .audienceGroupId(5963L)
+                                                              .build()));
     }
 }
