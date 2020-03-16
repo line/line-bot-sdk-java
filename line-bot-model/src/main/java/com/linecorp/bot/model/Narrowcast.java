@@ -23,8 +23,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.narrowcast.Filter;
 import com.linecorp.bot.model.narrowcast.Limit;
-import com.linecorp.bot.model.narrowcast.filter.Filter;
 import com.linecorp.bot.model.narrowcast.recipient.Recipient;
 
 import lombok.Value;

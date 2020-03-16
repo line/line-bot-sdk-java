@@ -15,9 +15,11 @@
  *
  */
 
-package com.linecorp.bot.model.narrowcast.filter;
+package com.linecorp.bot.model.narrowcast;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.linecorp.bot.model.narrowcast.filter.DemographicFilter;
 
 import lombok.Value;
 

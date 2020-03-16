@@ -20,15 +20,27 @@ package com.linecorp.bot.model.narrowcast.filter;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.narrowcast.filter.OperatorDemographicFilter.OperatorDemographicFilterBuilder;
+
+import lombok.Builder;
 import lombok.Value;
 
 @Value
+@Builder
 @JsonTypeName("operator")
+@JsonDeserialize(builder = OperatorDemographicFilterBuilder.class)
 public class OperatorDemographicFilter implements DemographicFilter {
     private static final String type = "operator";
 
     private final List<DemographicFilter> and;
     private final List<DemographicFilter> or;
     private final DemographicFilter not;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class OperatorDemographicFilterBuilder {
+        // Filled by lombok
+    }
 }

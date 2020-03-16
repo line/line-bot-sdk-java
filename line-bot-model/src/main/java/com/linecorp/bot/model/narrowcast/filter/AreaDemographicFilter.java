@@ -17,32 +17,33 @@
 
 package com.linecorp.bot.model.narrowcast.filter;
 
-import java.util.Collections;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.narrowcast.filter.AreaDemographicFilter.AreaDemographicFilterBuilder;
+
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Send messages to users in the specified region.
  */
 @Value
+@Builder
 @JsonTypeName("area")
+@JsonDeserialize(builder = AreaDemographicFilterBuilder.class)
 public class AreaDemographicFilter implements DemographicFilter {
     private static final String type = "area";
 
     private final List<AreaCode> oneOf;
 
-    @JsonCreator
-    public AreaDemographicFilter(List<AreaCode> oneOf) {
-        this.oneOf = oneOf;
-    }
-
-    public AreaDemographicFilter(AreaCode areaCode) {
-        this(Collections.singletonList(areaCode));
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class AreaDemographicFilterBuilder {
+        // Filled by lombok
     }
 
     public enum AreaCode {

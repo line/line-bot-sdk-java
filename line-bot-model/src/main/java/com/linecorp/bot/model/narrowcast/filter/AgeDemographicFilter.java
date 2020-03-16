@@ -17,23 +17,28 @@
 
 package com.linecorp.bot.model.narrowcast.filter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.narrowcast.filter.AgeDemographicFilter.AgeDemographicFilterBuilder;
+
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Value;
 
 @Value
+@Builder
 @JsonTypeName("age")
+@JsonDeserialize(builder = AgeDemographicFilterBuilder.class)
 public class AgeDemographicFilter implements DemographicFilter {
     private final Age gte;
     private final Age lt;
 
-    @JsonCreator
-    public AgeDemographicFilter(Age gte, Age lt) {
-        this.gte = gte;
-        this.lt = lt;
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class AgeDemographicFilterBuilder {
+        // Filled by lombok
     }
 
     public enum Age {

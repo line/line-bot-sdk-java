@@ -19,20 +19,27 @@ package com.linecorp.bot.model.narrowcast.filter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.narrowcast.filter.SubscriptionPeriodDemographicFilter.SubscriptionPeriodDemographicFilterBuilder;
+
+import lombok.Builder;
 import lombok.Value;
 
 @Value
+@Builder
 @JsonTypeName("subscriptionPeriod")
+@JsonDeserialize(builder = SubscriptionPeriodDemographicFilterBuilder.class)
 public class SubscriptionPeriodDemographicFilter implements DemographicFilter {
     private static final String type = "subscriptionPeriod";
 
     private final SubscriptionPeriod gte;
     private final SubscriptionPeriod lt;
 
-    public SubscriptionPeriodDemographicFilter(SubscriptionPeriod gte, SubscriptionPeriod lt) {
-        this.gte = gte;
-        this.lt = lt;
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class SubscriptionPeriodDemographicFilterBuilder {
+        // Filled by lombok
     }
 
     public enum SubscriptionPeriod {

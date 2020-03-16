@@ -17,27 +17,28 @@
 
 package com.linecorp.bot.model.narrowcast.filter;
 
-import java.util.Collections;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.GenderDemographicFilterBuilder;
+
+import lombok.Builder;
 import lombok.Value;
 
 @JsonTypeName("gender")
 @Value
+@Builder
+@JsonDeserialize(builder = GenderDemographicFilterBuilder.class)
 public class GenderDemographicFilter implements DemographicFilter {
     private final List<Gender> oneOf;
 
-    public GenderDemographicFilter(Gender gender) {
-        this(Collections.singletonList(gender));
-    }
-
-    @JsonCreator
-    public GenderDemographicFilter(List<Gender> oneOf) {
-        this.oneOf = oneOf;
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class GenderDemographicFilterBuilder {
+        // Filled by lombok
     }
 
     public enum Gender {

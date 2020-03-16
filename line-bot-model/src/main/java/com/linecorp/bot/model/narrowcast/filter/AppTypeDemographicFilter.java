@@ -17,30 +17,31 @@
 
 package com.linecorp.bot.model.narrowcast.filter;
 
-import java.util.Collections;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import com.linecorp.bot.model.narrowcast.filter.AppTypeDemographicFilter.AppTypeDemographicFilterBuilder;
+
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Value;
 
 @Value
+@Builder
 @JsonTypeName("appType")
+@JsonDeserialize(builder = AppTypeDemographicFilterBuilder.class)
 public class AppTypeDemographicFilter implements DemographicFilter {
     private static final String type = "appType";
 
     private final List<AppType> oneOf;
 
-    @JsonCreator
-    public AppTypeDemographicFilter(List<AppType> oneOf) {
-        this.oneOf = oneOf;
-    }
-
-    public AppTypeDemographicFilter(AppType appType) {
-        this(Collections.singletonList(appType));
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class AppTypeDemographicFilterBuilder {
+        // Filled by lombok
     }
 
     public enum AppType {

@@ -63,7 +63,7 @@ import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.narrowcast.filter.Filter;
+import com.linecorp.bot.model.narrowcast.Filter;
 import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
 import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.profile.MembersIdsResponse;

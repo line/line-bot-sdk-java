@@ -23,11 +23,11 @@ import org.junit.Test;
 
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.narrowcast.Filter;
 import com.linecorp.bot.model.narrowcast.filter.AgeDemographicFilter;
 import com.linecorp.bot.model.narrowcast.filter.AgeDemographicFilter.Age;
 import com.linecorp.bot.model.narrowcast.filter.AppTypeDemographicFilter;
 import com.linecorp.bot.model.narrowcast.filter.AppTypeDemographicFilter.AppType;
-import com.linecorp.bot.model.narrowcast.filter.Filter;
 import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
 import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.response.BotApiResponse;
