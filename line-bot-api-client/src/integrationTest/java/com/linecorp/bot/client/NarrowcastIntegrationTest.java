@@ -49,30 +49,39 @@ public class NarrowcastIntegrationTest {
 
     @Test
     public void narrowcastGender() throws Exception {
-        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(gender=male)"), new Filter(
-                GenderDemographicFilter.builder()
-                                       .oneOf(Collections.singletonList(Gender.MALE))
-                                       .build())
-        ));
+        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(gender=male)"),
+                                      Filter.builder()
+                                            .demographic(
+                                                    GenderDemographicFilter
+                                                            .builder()
+                                                            .oneOf(Collections.singletonList(Gender.MALE))
+                                                            .build()
+                                            ).build()));
     }
 
     @Test
     public void narrowcastAge() throws Exception {
-        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(Age)"), new Filter(
-                AgeDemographicFilter.builder()
-                                    .gte(Age.AGE_15)
-                                    .lt(Age.AGE_40)
-                                    .build()
-        )));
+        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(Age)"),
+                                      Filter.builder()
+                                            .demographic(
+                                                    AgeDemographicFilter
+                                                            .builder()
+                                                            .gte(Age.AGE_15)
+                                                            .lt(Age.AGE_40)
+                                                            .build()
+                                            ).build()));
     }
 
     @Test
     public void narrowcastAppType() throws Exception {
-        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(AppType)"), new Filter(
-                AppTypeDemographicFilter.builder()
-                                        .oneOf(Collections.singletonList(AppType.IOS))
-                                        .build()
-        )));
+        testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(AppType)"),
+                                      Filter.builder()
+                                            .demographic(
+                                                    AppTypeDemographicFilter
+                                                            .builder()
+                                                            .oneOf(Collections.singletonList(AppType.IOS))
+                                                            .build()
+                                            ).build()));
     }
 
     private void testNarrowcast(Narrowcast narrowcast) throws Exception {

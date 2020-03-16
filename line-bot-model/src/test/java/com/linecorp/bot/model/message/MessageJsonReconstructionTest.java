@@ -232,11 +232,16 @@ public class MessageJsonReconstructionTest {
                                     .oneOf(Collections.singletonList(Gender.MALE))
                                     .build());
 
-        final Narrowcast narrowcast = new Narrowcast(new TextMessage("text"), new Filter(
-                GenderDemographicFilter.builder()
-                                       .oneOf(Collections.singletonList(Gender.MALE))
-                                       .build()
-        ));
+        final Narrowcast narrowcast = new Narrowcast(
+                new TextMessage("text"),
+                Filter.builder()
+                      .demographic(
+                              GenderDemographicFilter
+                                      .builder()
+                                      .oneOf(Collections.singletonList(Gender.MALE))
+                                      .build())
+                      .build()
+        );
         test(narrowcast);
 
         test(AgeDemographicFilter.builder()

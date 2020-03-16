@@ -17,13 +17,26 @@
 
 package com.linecorp.bot.model.narrowcast;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import com.linecorp.bot.model.narrowcast.Limit.LimitBuilder;
+
+import lombok.Builder;
 import lombok.Value;
 
 @Value
+@Builder
+@JsonDeserialize(builder = LimitBuilder.class)
 public class Limit {
     /**
      * The maximum number of narrowcast messages to send. Use this parameter to limit the number of
      * narrowcast messages sent. The recipients will be chosen at random.
      */
     private final Integer max;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class LimitBuilder {
+        // Filled by lombok
+    }
 }

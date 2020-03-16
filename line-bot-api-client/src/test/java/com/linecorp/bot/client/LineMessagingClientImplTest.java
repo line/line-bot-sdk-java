@@ -171,9 +171,12 @@ public class LineMessagingClientImplTest {
         whenCall(retrofitMock.narrowcast(any()), BOT_API_SUCCESS_RESPONSE_BODY);
         final Narrowcast narrowcast = new Narrowcast(
                 new TextMessage("text"),
-                new Filter(GenderDemographicFilter.builder()
-                                                  .oneOf(singletonList(Gender.FEMALE))
-                                                  .build()));
+                Filter.builder()
+                      .demographic(
+                              GenderDemographicFilter.builder()
+                                                     .oneOf(singletonList(Gender.FEMALE))
+                                                     .build()
+                      ).build());
 
         final BotApiResponse botApiResponse = target.narrowcast(narrowcast).join();
         verify(retrofitMock).narrowcast(narrowcast);
