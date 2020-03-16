@@ -19,31 +19,50 @@ package com.linecorp.bot.model;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Collections;
+
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.model.Narrowcast.AudienceRecipient;
-import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
-import com.linecorp.bot.model.Narrowcast.LogicalOperatorRecipient;
-import com.linecorp.bot.model.Narrowcast.OperatorDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.Recipient;
+import com.linecorp.bot.model.narrowcast.filter.DemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
+import com.linecorp.bot.model.narrowcast.filter.OperatorDemographicFilter;
+import com.linecorp.bot.model.narrowcast.recipient.AudienceRecipient;
+import com.linecorp.bot.model.narrowcast.recipient.LogicalOperatorRecipient;
+import com.linecorp.bot.model.narrowcast.recipient.Recipient;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 
 public class NarrowcastTest {
     @Test
-    public void testOperatorDemographicFilter() throws JsonProcessingException {
+    public void testSerializeOperatorDemographicFilter() throws JsonProcessingException {
         ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
         String json = objectMapper.writeValueAsString(
-                new OperatorDemographicFilter(
-                        singletonList(new GenderDemographicFilter(Gender.MALE)),
-                        null,
-                        null
-                )
+                OperatorDemographicFilter
+                        .builder()
+                        .and(Collections.singletonList(GenderDemographicFilter.builder()
+                                                                              .oneOf(Collections.singletonList(
+                                                                                      Gender.MALE))
+                                                                              .build()))
+                        .build()
         );
-        assertThat(json).contains("\"type\":\"operator\"");
+        System.out.println(json);
+        assertThat(json).isEqualTo(
+                "{\"type\":\"operator\","
+                + "\"and\":[{\"type\":\"gender\",\"oneOf\":[\"male\"]}],"
+                + "\"or\":null,"
+                + "\"not\":null}");
+    }
+
+    @Test
+    public void testDeserializeOperatorDemographicFilter() throws JsonProcessingException {
+        String json = "{\"type\":\"operator\", \"and\":  [{\"type\": \"gender\", \"oneOf\": [\"male\"]}]}";
+
+        ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+        DemographicFilter filter = objectMapper.readValue(json, DemographicFilter.class);
+        assertThat(filter).isInstanceOf(OperatorDemographicFilter.class);
     }
 
     @Test
