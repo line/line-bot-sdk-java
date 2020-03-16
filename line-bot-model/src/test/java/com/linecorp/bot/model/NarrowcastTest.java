@@ -24,12 +24,12 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.model.Narrowcast.AudienceRecipient;
-import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.GenderDemographicFilter.Gender;
-import com.linecorp.bot.model.Narrowcast.LogicalOperatorRecipient;
-import com.linecorp.bot.model.Narrowcast.OperatorDemographicFilter;
-import com.linecorp.bot.model.Narrowcast.Recipient;
+import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
+import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
+import com.linecorp.bot.model.narrowcast.filter.OperatorDemographicFilter;
+import com.linecorp.bot.model.narrowcast.recipient.AudienceRecipient;
+import com.linecorp.bot.model.narrowcast.recipient.LogicalOperatorRecipient;
+import com.linecorp.bot.model.narrowcast.recipient.Recipient;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 
 public class NarrowcastTest {
