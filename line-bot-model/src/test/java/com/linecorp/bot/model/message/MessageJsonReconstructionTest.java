@@ -242,7 +242,6 @@ public class MessageJsonReconstructionTest {
                                       .build())
                       .build()
         );
-
         test(narrowcast);
 
         test(AgeDemographicFilter.builder()
