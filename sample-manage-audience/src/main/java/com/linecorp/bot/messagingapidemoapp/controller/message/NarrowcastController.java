@@ -135,13 +135,13 @@ public class NarrowcastController {
         Narrowcast narrowcast = new Narrowcast(
                 messageList,
                 recipientObject,
-                // TODO audience group id targeting
-                new Filter(
-                        OperatorDemographicFilter.builder()
-                                                 .and(condition)
-                                                 .build()
-                ),
-                maxLimit == null ? null : new Limit(maxLimit),
+                Filter.builder()
+                      .demographic(
+                              OperatorDemographicFilter.builder()
+                                                       .and(condition)
+                                                       .build()
+                      ).build(),
+                maxLimit == null ? null : Limit.builder().max(maxLimit).build(),
                 notificationDisabled
         );
         return client.narrowcast(narrowcast).thenApply(
