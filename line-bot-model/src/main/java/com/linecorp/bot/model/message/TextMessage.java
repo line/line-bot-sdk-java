@@ -21,21 +21,24 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.sender.Sender;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
 @JsonTypeName("text")
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonDeserialize(builder = TextMessage.TextMessageBuilder.class)
 public class TextMessage implements Message {
     @NonNull
     private final String text;
     private final QuickReply quickReply;
+    private final Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.
@@ -43,8 +46,11 @@ public class TextMessage implements Message {
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
     public TextMessage(final String text) {
-        this.text = text;
-        this.quickReply = null;
+        this(text, null, null);
+    }
+
+    public TextMessage(final @NonNull String text, final QuickReply quickReply) {
+        this(text, quickReply, null);
     }
 
     @JsonPOJOBuilder(withPrefix = "")

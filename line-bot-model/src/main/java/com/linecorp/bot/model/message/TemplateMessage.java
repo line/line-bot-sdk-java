@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.sender.Sender;
 import com.linecorp.bot.model.message.template.Template;
 
 import lombok.AccessLevel;
@@ -50,13 +51,15 @@ public class TemplateMessage implements Message {
 
     private final QuickReply quickReply;
 
+    private final Sender sender;
+
     /**
      * Constructor without {@link #quickReply} parameter.
      *
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
     public TemplateMessage(final String altText, final Template template) {
-        this(altText, template, null);
+        this(altText, template, null, null);
     }
 
     @JsonPOJOBuilder(withPrefix = "")
