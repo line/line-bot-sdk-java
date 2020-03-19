@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.sender.Sender;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -64,13 +65,15 @@ public class VideoMessage implements Message {
 
     private final QuickReply quickReply;
 
+    private final Sender sender;
+
     /**
      * Constructor without {@link #quickReply} parameter.
      *
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
     public VideoMessage(final URI originalContentUrl, final URI previewImageUrl) {
-        this(originalContentUrl, previewImageUrl, null);
+        this(originalContentUrl, previewImageUrl, null, null);
     }
 
     @JsonPOJOBuilder(withPrefix = "")

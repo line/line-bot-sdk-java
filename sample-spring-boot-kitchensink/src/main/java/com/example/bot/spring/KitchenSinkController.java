@@ -83,6 +83,7 @@ import com.linecorp.bot.model.message.imagemap.ImagemapExternalLink;
 import com.linecorp.bot.model.message.imagemap.ImagemapVideo;
 import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
 import com.linecorp.bot.model.message.imagemap.URIImagemapAction;
+import com.linecorp.bot.model.message.sender.Sender;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
@@ -544,6 +545,16 @@ public class KitchenSinkController {
                            singletonList(new TextMessage("This message is send without a push notification")),
                            true);
                 break;
+            case "icon":
+                this.reply(replyToken,
+                           TextMessage.builder()
+                                      .text("Hello, I'm cat! Meow~")
+                                      .sender(Sender.builder()
+                                                    .name("Cat")
+                                                    .iconUrl(createUri("/static/icon/cat.png"))
+                                                    .build())
+                                      .build());
+                break;
             default:
                 log.info("Returns echo message {}: {}", replyToken, text);
                 this.replyText(
@@ -556,6 +567,7 @@ public class KitchenSinkController {
 
     private static URI createUri(String path) {
         return ServletUriComponentsBuilder.fromCurrentContextPath()
+                                          .scheme("https")
                                           .path(path).build()
                                           .toUri();
     }

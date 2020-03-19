@@ -27,6 +27,7 @@ import com.linecorp.bot.model.message.imagemap.ImagemapAction;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
 import com.linecorp.bot.model.message.imagemap.ImagemapVideo;
 import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.sender.Sender;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -71,6 +72,8 @@ public class ImagemapMessage implements Message {
 
     private final QuickReply quickReply;
 
+    private final Sender sender;
+
     /**
      * Constructor without {@link #quickReply} parameter.
      *
@@ -84,7 +87,7 @@ public class ImagemapMessage implements Message {
             final ImagemapBaseSize imagemapBaseSize,
             final List<ImagemapAction> actions,
             final ImagemapVideo imagemapVideo) {
-        this(baseUrl, altText, imagemapBaseSize, actions, imagemapVideo, null);
+        this(baseUrl, altText, imagemapBaseSize, actions, imagemapVideo, null, null);
     }
 
     /**
