@@ -18,13 +18,17 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.source.Source;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
@@ -33,7 +37,10 @@ import lombok.Value;
  * You can reply to message events.
  */
 @Value
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("message")
+@JsonDeserialize(builder = MessageEvent.MessageEventBuilder.class)
 public class MessageEvent<T extends MessageContent> implements Event, ReplyEvent {
     /**
      * Token for replying to this event.
@@ -55,15 +62,35 @@ public class MessageEvent<T extends MessageContent> implements Event, ReplyEvent
      */
     private final Instant timestamp;
 
-    @JsonCreator
+    /**
+     * Channel state.
+     * <dl>
+     * <dt>active</dt>
+     * <dd>The channel is active. You can send a reply message or push message from the bot server that received
+     * this webhook event.</dd>
+     * <dt>standby (under development)</dt>
+     * <dd>The channel is waiting. The bot server that received this webhook event shouldn't send any messages.
+     * </dd>
+     * </dl>
+     */
+    private EventMode mode;
+
+    /**
+     * Deprecated constructor.
+     *
+     * @deprecated Use builder method instead. This construct will remove in next major release.
+     */
+    @Deprecated
     public MessageEvent(
             @JsonProperty("replyToken") final String replyToken,
             @JsonProperty("source") final Source source,
             @JsonProperty("message") final T message,
             @JsonProperty("timestamp") final Instant timestamp) {
-        this.replyToken = replyToken;
-        this.source = source;
-        this.message = message;
-        this.timestamp = timestamp;
+        this(replyToken, source, message, timestamp, null);
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class MessageEventBuilder<T extends MessageContent> {
+        // Filled by lombok
     }
 }

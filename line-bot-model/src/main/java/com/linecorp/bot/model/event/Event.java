@@ -52,4 +52,17 @@ public interface Event {
 
     /** Time of the event. */
     Instant getTimestamp();
+
+    /**
+     * Channel state.
+     * <dl>
+     * <dt>active</dt>
+     * <dd>The channel is active. You can send a reply message or push message from the bot server that received
+     * this webhook event.</dd>
+     * <dt>standby (under development)</dt>
+     * <dd>The channel is waiting. The bot server that received this webhook event shouldn't send any messages.
+     * </dd>
+     * </dl>
+     */
+    EventMode getMode();
 }

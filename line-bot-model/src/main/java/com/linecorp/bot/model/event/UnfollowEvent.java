@@ -18,19 +18,26 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.event.source.Source;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Event object for when your account is blocked.
  */
 @Value
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("unfollow")
+@JsonDeserialize(builder = UnfollowEvent.UnfollowEventBuilder.class)
 public class UnfollowEvent implements Event {
     /**
      * JSON object which contains the source of the event.
@@ -42,11 +49,33 @@ public class UnfollowEvent implements Event {
      */
     private final Instant timestamp;
 
-    @JsonCreator
+    /**
+     * Channel state.
+     * <dl>
+     * <dt>active</dt>
+     * <dd>The channel is active. You can send a reply message or push message from the bot server that received
+     * this webhook event.</dd>
+     * <dt>standby (under development)</dt>
+     * <dd>The channel is waiting. The bot server that received this webhook event shouldn't send any messages.
+     * </dd>
+     * </dl>
+     */
+    private EventMode mode;
+
+    /**
+     * Deprecated constructor.
+     *
+     * @deprecated Use builder method instead. This construct will remove in next major release.
+     */
+    @Deprecated
     public UnfollowEvent(
             @JsonProperty("source") final Source source,
             @JsonProperty("timestamp") final Instant timestamp) {
-        this.source = source;
-        this.timestamp = timestamp;
+        this(source, timestamp, null);
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class UnfollowEventBuilder {
+        // Filled by lombok
     }
 }
