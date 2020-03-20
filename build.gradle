@@ -100,7 +100,7 @@ subprojects {
                 entry 'converter-jackson'
                 entry 'retrofit'
             }
-            dependency 'org.assertj:assertj-core:3.13.2'
+            dependency 'org.assertj:assertj-core:3.15.0'
             dependency 'org.projectlombok:lombok:1.18.10'
         }
     }
