@@ -9,6 +9,7 @@
         "type": "user"
       },
       "timestamp": 1492992000000,
+      "mode": "active",
       "beacon": {
         "hwid": "374591320",
         "dm": "1234567890abcdef",

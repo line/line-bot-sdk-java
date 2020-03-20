@@ -5,6 +5,7 @@
       "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
       "type": "greatNewFeature",
       "timestamp": 1462629479859,
+      "mode": "active",
       "source": {
         "type": "user",
         "userId": "U012345678901234567890123456789ab"
@@ -14,6 +15,7 @@
       "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
       "type": "message",
       "timestamp": 1462629479859,
+      "mode": "active",
       "source": {
         "type": "unknownunknownuknown"
       },

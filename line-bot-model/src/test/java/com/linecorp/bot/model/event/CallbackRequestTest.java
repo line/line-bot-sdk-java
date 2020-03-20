@@ -83,6 +83,8 @@ public class CallbackRequestTest {
             assertThat(event).isInstanceOf(MessageEvent.class);
             assertThat(event.getSource())
                     .isInstanceOf(UserSource.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             MessageEvent messageEvent = (MessageEvent) event;
             assertThat(messageEvent.getReplyToken())
@@ -103,6 +105,8 @@ public class CallbackRequestTest {
                     .isInstanceOf(GroupSource.class);
             assertThat(event.getSource().getUserId())
                     .isNull();
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.STANDBY);
 
             MessageEvent messageEvent = (MessageEvent) event;
             assertThat(messageEvent.getReplyToken())
@@ -123,6 +127,8 @@ public class CallbackRequestTest {
                     .isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId())
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             MessageEvent messageEvent = (MessageEvent) event;
             assertThat(messageEvent.getReplyToken())
@@ -151,6 +157,8 @@ public class CallbackRequestTest {
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
             assertThat(event.getTimestamp())
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             MessageEvent messageEvent = (MessageEvent) event;
             assertThat(messageEvent.getReplyToken())
@@ -175,6 +183,8 @@ public class CallbackRequestTest {
                     .isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId())
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             MessageEvent messageEvent = (MessageEvent) event;
             assertThat(messageEvent.getReplyToken())
@@ -203,6 +213,8 @@ public class CallbackRequestTest {
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
             assertThat(event.getTimestamp())
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             MessageEvent messageEvent = (MessageEvent) event;
             assertThat(messageEvent.getReplyToken())
@@ -231,6 +243,8 @@ public class CallbackRequestTest {
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
             assertThat(event.getTimestamp())
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             FollowEvent followEvent = (FollowEvent) event;
             assertThat(followEvent.getReplyToken())
@@ -251,6 +265,8 @@ public class CallbackRequestTest {
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
             assertThat(event.getTimestamp())
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
         });
     }
 
@@ -267,6 +283,8 @@ public class CallbackRequestTest {
                     .isEqualTo("cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             assertThat(event.getTimestamp())
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
         });
     }
 
@@ -283,6 +301,8 @@ public class CallbackRequestTest {
                     .isEqualTo("cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             assertThat(event.getTimestamp())
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
         });
     }
 
@@ -299,6 +319,8 @@ public class CallbackRequestTest {
                     .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
             assertThat(event.getTimestamp())
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             PostbackEvent postbackEvent = (PostbackEvent) event;
             assertThat(postbackEvent.getPostbackContent().getData())
@@ -319,6 +341,8 @@ public class CallbackRequestTest {
                     .isEqualTo("U012345678901234567890123456789ab");
             assertThat(event.getTimestamp())
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             BeaconEvent beaconEvent = (BeaconEvent) event;
             assertThat(beaconEvent.getBeacon().getHwid())
@@ -339,6 +363,8 @@ public class CallbackRequestTest {
             assertThat(callbackRequest.getEvents()).hasSize(1);
             Event event = callbackRequest.getEvents().get(0);
             assertThat(event).isInstanceOf(BeaconEvent.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             BeaconEvent beaconEvent = (BeaconEvent) event;
 
@@ -372,6 +398,8 @@ public class CallbackRequestTest {
                     .isEqualTo("U012345678901234567890123456789ab");
             assertThat(event.getTimestamp())
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             AccountLinkEvent accountLinkEvent = (AccountLinkEvent) event;
             assertThat(accountLinkEvent.getLink().getResult())
@@ -390,6 +418,8 @@ public class CallbackRequestTest {
             assertThat(event.getSource()).isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId()).isEqualTo("U012345678901234567890123456789ab");
             assertThat(event.getTimestamp()).isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             final LinkThingsContent things = (LinkThingsContent) event.getThings();
             assertThat(things.getDeviceId()).isEqualTo("t016560bc3fb1e42b9fe9293ca6e2db71");
@@ -405,6 +435,8 @@ public class CallbackRequestTest {
             assertThat(event.getSource()).isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId()).isEqualTo("U012345678901234567890123456789ab");
             assertThat(event.getTimestamp()).isEqualTo(Instant.ofEpochMilli(1462629479859L));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             final UnlinkThingsContent things = (UnlinkThingsContent) event.getThings();
             assertThat(things.getDeviceId()).isEqualTo("t016560bc3fb1e42b9fe9293ca6e2db71");
@@ -420,6 +452,8 @@ public class CallbackRequestTest {
             assertThat(event.getSource()).isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId()).isEqualTo("uXXX");
             assertThat(event.getTimestamp()).isEqualTo(Instant.ofEpochMilli(1547817848122L));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             final ScenarioResultThingsContent things = (ScenarioResultThingsContent) event.getThings();
             assertThat(things.getDeviceId()).isEqualTo("tXXX");
@@ -447,6 +481,8 @@ public class CallbackRequestTest {
             assertThat(event.getSource()).isInstanceOf(UserSource.class);
             assertThat(event.getSource().getUserId()).isEqualTo("U012345678901234567890123456789ab");
             assertThat(event.getTimestamp()).isEqualTo(Instant.ofEpochMilli(1462629479859L));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             assertThat(event.getThings()).isInstanceOf(UnknownLineThingsContent.class);
         });
@@ -459,6 +495,9 @@ public class CallbackRequestTest {
             Event event = callbackRequest.getEvents().get(0);
             assertThat(event.getSource()).isInstanceOf(GroupSource.class);
             assertThat(event).isInstanceOf(MemberJoinedEvent.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
             MemberJoinedEvent memberJoinedEvent = (MemberJoinedEvent) event;
             String uids = memberJoinedEvent.getJoined().getMembers().stream()
                                            .map(Source::getUserId)
@@ -474,6 +513,9 @@ public class CallbackRequestTest {
             Event event = callbackRequest.getEvents().get(0);
             assertThat(event.getSource()).isInstanceOf(GroupSource.class);
             assertThat(event).isInstanceOf(MemberLeftEvent.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
             MemberLeftEvent memberLeftEvent = (MemberLeftEvent) event;
             String uids = memberLeftEvent.getLeft().getMembers().stream()
                                          .map(Source::getUserId)
@@ -499,10 +541,14 @@ public class CallbackRequestTest {
                     .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
             assertThat(((UnknownEvent) event1).getType())
                     .isEqualTo("greatNewFeature");
+            assertThat(event1.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
 
             Event event2 = callbackRequest.getEvents().get(1);
             assertThat(event2).isInstanceOf(MessageEvent.class);
             assertThat(event2.getSource()).isInstanceOf(UnknownSource.class);
+            assertThat(event2.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
             MessageEvent messageEvent = (MessageEvent) event2;
             assertThat(messageEvent.getMessage()).isInstanceOf(UnknownMessageContent.class);
         });

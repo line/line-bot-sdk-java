@@ -8,6 +8,7 @@
         "type": "user"
       },
       "timestamp": 1547817848122,
+      "mode": "active",
       "things": {
         "type": "scenarioResult",
         "deviceId": "tXXX",

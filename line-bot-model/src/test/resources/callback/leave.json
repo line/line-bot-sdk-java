@@ -4,6 +4,7 @@
     {
       "type": "leave",
       "timestamp": 1462629479859,
+      "mode": "active",
       "source": {
         "type": "group",
         "groupId": "cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
