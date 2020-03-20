@@ -143,6 +143,7 @@ public class IntegrationTest {
         String signature = "ECezgIpQNUEp4OSHYd7xGSuFG7e66MLPkCkK1Y28XTU=";
 
         InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
+        assertThat(resource).isNotNull();
         byte[] json = ByteStreams.toByteArray(resource);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/callback")
@@ -153,6 +154,7 @@ public class IntegrationTest {
 
         // Test request 1
         RecordedRequest request1 = server.takeRequest(3, TimeUnit.SECONDS);
+        assertThat(request1).isNotNull();
         assertThat(request1.getPath()).isEqualTo("/v2/bot/message/reply");
         assertThat(request1.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
         assertThat(request1.getBody().readUtf8())
@@ -162,6 +164,7 @@ public class IntegrationTest {
 
         // Test request 2
         RecordedRequest request2 = server.takeRequest(3, TimeUnit.SECONDS);
+        assertThat(request2).isNotNull();
         assertThat(request2.getPath()).isEqualTo("/v2/bot/message/reply");
         assertThat(request2.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
         assertThat(request2.getBody().readUtf8())

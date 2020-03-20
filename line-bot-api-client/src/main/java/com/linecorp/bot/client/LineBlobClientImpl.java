@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.client;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
@@ -46,7 +47,7 @@ class LineBlobClientImpl implements LineBlobClient {
     @Override
     public CompletableFuture<BotApiResponse> setRichMenuImage(
             final String richMenuId, final String contentType, final byte[] content) {
-        final RequestBody requestBody = RequestBody.create(MediaType.parse(contentType), content);
+        final RequestBody requestBody = RequestBody.create(content, MediaType.parse(contentType));
         return LineMessagingClientImpl.toBotApiFuture(
                 retrofitImpl.uploadRichMenuImage(richMenuId, requestBody));
     }
@@ -89,7 +90,7 @@ class LineBlobClientImpl implements LineBlobClient {
                     .builder()
                     .length(response.body().contentLength())
                     .allHeaders(response.headers().toMultimap())
-                    .mimeType(response.body().contentType().toString())
+                    .mimeType(Objects.requireNonNull(response.body().contentType()).toString())
                     .stream(response.body().byteStream())
                     .build();
         }

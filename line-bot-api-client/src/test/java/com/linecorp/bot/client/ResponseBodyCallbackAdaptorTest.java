@@ -60,8 +60,7 @@ public class ResponseBodyCallbackAdaptorTest {
     @Test
     public void onResponseSuccessTest() throws Exception {
         Response<ResponseBody> response =
-                Response.success(ResponseBody.create(MediaType.parse("image/jpeg"),
-                                                     ""));
+                Response.success(ResponseBody.create("", MediaType.parse("imabge/jpeg")));
 
         // Do
         target.onResponse(call, response);
@@ -79,8 +78,8 @@ public class ResponseBodyCallbackAdaptorTest {
     @Test
     public void onResponseFailTest() throws Exception {
         Response<ResponseBody> response =
-                Response.error(401, ResponseBody.create(MediaType.parse("text/javascript"),
-                                                        "{}"));
+                Response.error(401,
+                               ResponseBody.create("{}", MediaType.parse("text/javascript")));
 
         // Do
         target.onResponse(call, response);

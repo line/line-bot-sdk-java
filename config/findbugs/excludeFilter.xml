@@ -13,4 +13,10 @@
     <Class name="com.linecorp.bot.client.IntegrationTestSettings" />
     <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
   </Match>
+
+  <!-- False positive https://github.com/spotbugs/spotbugs/issues/651 -->
+  <Match>
+    <Class name="com.linecorp.bot.client.LineBlobClientImpl$ResponseBodyCallbackAdaptor" />
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE " />
+  </Match>
 </FindBugsFilter>

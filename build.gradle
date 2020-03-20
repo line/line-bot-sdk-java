@@ -83,8 +83,8 @@ subprojects {
     version = rootProject.version
 
     ext['guava.version'] = '28.2-jre'
-    ext['okhttp3.version'] = '3.14.2'
-    ext['retrofit.version'] = '2.6.1'
+    ext['okhttp3.version'] = '4.4.1'
+    ext['retrofit.version'] = '2.7.2'
 
     dependencyManagement {
         imports {

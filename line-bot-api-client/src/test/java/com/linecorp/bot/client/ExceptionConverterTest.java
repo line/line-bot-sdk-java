@@ -39,8 +39,7 @@ public class ExceptionConverterTest {
     @Test
     public void convertTest() {
         final ResponseBody responseBody =
-                ResponseBody.create(MediaType.parse("application/json"),
-                                    "{}");
+                ResponseBody.create("{}", MediaType.parse("application/json"));
         final LineMessagingException result =
                 target.apply(Response.error(401, responseBody));
 
@@ -51,8 +50,7 @@ public class ExceptionConverterTest {
     @Test
     public void convertUnknownExceptionTest() {
         final ResponseBody responseBody =
-                ResponseBody.create(MediaType.parse("application/json"),
-                                    "{}");
+                ResponseBody.create("{}", MediaType.parse("application/json"));
         final LineMessagingException result =
                 target.apply(Response.error(999, responseBody));
 
@@ -75,8 +73,8 @@ public class ExceptionConverterTest {
     @Test
     public void requestIdDeserializationTest() {
         final ResponseBody responseBody =
-                ResponseBody.create(MediaType.parse("application/json"),
-                                    "{\"message\":\"Invalid reply token\"}");
+                ResponseBody.create("{\"message\":\"Invalid reply token\"}",
+                                    MediaType.parse("application/json"));
 
         final okhttp3.Response rawResponse = new Builder()
                 .code(400)

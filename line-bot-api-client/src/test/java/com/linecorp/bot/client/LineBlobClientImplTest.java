@@ -69,7 +69,7 @@ public class LineBlobClientImplTest {
     @Test
     public void getMessageContentTest() throws Exception {
         whenCall(retrofitMock.getMessageContent(any()),
-                 ResponseBody.create(MediaType.parse("image/jpeg"), ZERO_BYTES));
+                 ResponseBody.create(ZERO_BYTES, MediaType.parse("image/jpeg")));
 
         // Do
         final MessageContentResponse contentResponse = target.getMessageContent("ID").get();
@@ -83,7 +83,7 @@ public class LineBlobClientImplTest {
     @Test
     public void getRichMenuImageTest() throws Exception {
         whenCall(retrofitMock.getRichMenuImage(any()),
-                 ResponseBody.create(MediaType.parse("image/jpeg"), ZERO_BYTES));
+                 ResponseBody.create(ZERO_BYTES, MediaType.parse("image/jpeg")));
 
         // Do
         final MessageContentResponse messageContentResponse = target.getRichMenuImage("ID").get();
