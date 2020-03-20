@@ -29,30 +29,30 @@ import lombok.Value;
 @Value
 @Builder
 @JsonDeserialize(builder = CreateAudienceGroupRequestBuilder.class)
-public final class CreateAudienceGroupRequest {
+public class CreateAudienceGroupRequest {
     /**
      * The audience's name. Audience names must be unique. Note that comparisons are case-insensitive, so the
      * names AUDIENCE and audience are considered identical.
      *
      * <p>Max character limit: 120
      */
-    private final String description;
+    String description;
 
     /**
      * If this is false (default), recipients are specified by user IDs. If true, recipients must be specified
      * by IFAs.
      */
-    private final Boolean isIfaAudience;
+    Boolean isIfaAudience;
 
     /**
      * The description to register for the job (in jobs[].description).
      */
-    private final String uploadDescription;
+    String uploadDescription;
 
     /**
      * An array of up to 10,000 user IDs or IFAs.
      */
-    private final List<Audience> audiences;
+    List<Audience> audiences;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class CreateAudienceGroupRequestBuilder {

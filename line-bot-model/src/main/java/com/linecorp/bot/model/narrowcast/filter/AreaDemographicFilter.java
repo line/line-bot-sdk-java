@@ -39,7 +39,7 @@ import lombok.Value;
 public class AreaDemographicFilter implements DemographicFilter {
     private static final String type = "area";
 
-    private final List<AreaCode> oneOf;
+    List<AreaCode> oneOf;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class AreaDemographicFilterBuilder {

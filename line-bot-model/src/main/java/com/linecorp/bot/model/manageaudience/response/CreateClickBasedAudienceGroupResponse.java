@@ -32,32 +32,32 @@ public class CreateClickBasedAudienceGroupResponse {
     /**
      * The audience ID.
      */
-    private final long audienceGroupId;
+    long audienceGroupId;
 
     /**
      * `CLICK`.
      */
-    private final AudienceGroupType type;
+    AudienceGroupType type;
 
     /**
      * The audience's name.
      */
-    private final String description;
+    String description;
 
     /**
      * When the audience was created (in UNIX time).
      */
-    private final long created;
+    long created;
 
     /**
      * The request ID that was specified when the audience was created.
      */
-    private final String requestId;
+    String requestId;
 
     /**
      * The URL that was specified when the audience was created.
      */
-    private final String clickUrl;
+    String clickUrl;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class CreateClickBasedAudienceGroupResponseBuilder {

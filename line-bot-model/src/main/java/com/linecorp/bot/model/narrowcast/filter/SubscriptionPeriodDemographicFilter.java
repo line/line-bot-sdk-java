@@ -34,8 +34,8 @@ import lombok.Value;
 public class SubscriptionPeriodDemographicFilter implements DemographicFilter {
     private static final String type = "subscriptionPeriod";
 
-    private final SubscriptionPeriod gte;
-    private final SubscriptionPeriod lt;
+    SubscriptionPeriod gte;
+    SubscriptionPeriod lt;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class SubscriptionPeriodDemographicFilterBuilder {

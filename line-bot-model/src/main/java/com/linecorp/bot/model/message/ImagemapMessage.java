@@ -51,28 +51,28 @@ public class ImagemapMessage implements Message {
      * <li>HTTPS required</li>
      * </ul>
      */
-    private final URI baseUrl;
+    URI baseUrl;
 
     /**
      * Alternative text.
      */
-    private final String altText;
+    String altText;
 
     /**
      * Size of base image.
      */
-    private final ImagemapBaseSize baseSize;
+    ImagemapBaseSize baseSize;
 
     /**
      * Action when tapped.
      */
-    private final List<ImagemapAction> actions;
+    List<ImagemapAction> actions;
 
-    private final ImagemapVideo video;
+    ImagemapVideo video;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
 
-    private final Sender sender;
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.

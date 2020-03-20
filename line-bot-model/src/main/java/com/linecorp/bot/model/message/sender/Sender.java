@@ -36,14 +36,14 @@ public class Sender {
      * Display name. Certain words such as LINE may not be used.
      * Max character limit: 20
      */
-    private final String name;
+    String name;
 
     /**
      * URL of the image to display as an icon when sending a message.
      * Max character limit: 1000
      * URL scheme: https
      */
-    private final URI iconUrl;
+    URI iconUrl;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class SenderBuilder {

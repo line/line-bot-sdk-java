@@ -31,22 +31,22 @@ public class UserProfileResponse {
     /**
      * Display name.
      */
-    private final String displayName;
+    String displayName;
 
     /**
      * User ID.
      */
-    private final String userId;
+    String userId;
 
     /**
      * Image URL.
      */
-    private final URI pictureUrl;
+    URI pictureUrl;
 
     /**
      * Status message.
      */
-    private final String statusMessage;
+    String statusMessage;
 
     @JsonCreator
     public UserProfileResponse(

@@ -35,7 +35,7 @@ public class ImageCarouselTemplate implements Template {
      *
      * <p>Max: 5.
      */
-    private final List<ImageCarouselColumn> columns;
+    List<ImageCarouselColumn> columns;
 
     @JsonCreator
     public ImageCarouselTemplate(@JsonProperty("columns") List<ImageCarouselColumn> columns) {

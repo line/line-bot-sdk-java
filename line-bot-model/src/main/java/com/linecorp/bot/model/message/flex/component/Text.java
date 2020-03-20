@@ -66,43 +66,43 @@ public class Text implements FlexComponent {
         LINE_THROUGH,
     }
 
-    private final Integer flex;
+    Integer flex;
 
-    private final String text;
+    String text;
 
-    private final FlexFontSize size;
+    FlexFontSize size;
 
-    private final FlexAlign align;
+    FlexAlign align;
 
-    private final FlexGravity gravity;
+    FlexGravity gravity;
 
-    private final String color;
+    String color;
 
-    private final TextWeight weight;
+    TextWeight weight;
 
-    private final TextStyle style;
+    TextStyle style;
 
-    private final TextDecoration decoration;
+    TextDecoration decoration;
 
-    private final Boolean wrap;
+    Boolean wrap;
 
-    private final FlexMarginSize margin;
+    FlexMarginSize margin;
 
-    private final FlexPosition position;
+    FlexPosition position;
 
-    private final String offsetTop;
+    String offsetTop;
 
-    private final String offsetBottom;
+    String offsetBottom;
 
-    private final String offsetStart;
+    String offsetStart;
 
-    private final String offsetEnd;
+    String offsetEnd;
 
-    private final Action action;
+    Action action;
 
-    private final Integer maxLines;
+    Integer maxLines;
 
-    private final List<Span> contents;
+    List<Span> contents;
 
     @JsonCreator
     public Text(

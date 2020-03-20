@@ -33,9 +33,9 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class Separator implements FlexComponent {
 
-    private final FlexMarginSize margin;
+    FlexMarginSize margin;
 
-    private final String color;
+    String color;
 
     @JsonCreator
     public Separator(

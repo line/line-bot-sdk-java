@@ -37,7 +37,7 @@ import lombok.Value;
 public class AppTypeDemographicFilter implements DemographicFilter {
     private static final String type = "appType";
 
-    private final List<AppType> oneOf;
+    List<AppType> oneOf;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class AppTypeDemographicFilterBuilder {

@@ -24,7 +24,7 @@ import lombok.Value;
 @Value
 public class LiffAppAddResponse {
     /** LIFF app ID. */
-    private final String liffId;
+    String liffId;
 
     @JsonCreator
     public LiffAppAddResponse(@JsonProperty("liffId") String liffId) {

@@ -25,9 +25,9 @@ import lombok.Value;
 @Value
 @JsonTypeName("file")
 public class FileMessageContent implements MessageContent {
-    private final String id;
-    private final String fileName;
-    private final int fileSize;
+    String id;
+    String fileName;
+    int fileSize;
 
     @JsonCreator
     public FileMessageContent(

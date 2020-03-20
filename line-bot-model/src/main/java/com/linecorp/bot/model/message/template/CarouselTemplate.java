@@ -42,7 +42,7 @@ public class CarouselTemplate implements Template {
      *
      * <p>Max: 5
      */
-    private final List<CarouselColumn> columns;
+    List<CarouselColumn> columns;
 
     /**
      * Aspect ratio of the image.
@@ -56,7 +56,7 @@ public class CarouselTemplate implements Template {
      *
      * <p>The default value is {@code rectangle}.
      */
-    private final String imageAspectRatio;
+    String imageAspectRatio;
 
     /**
      * Size of the image.
@@ -73,7 +73,7 @@ public class CarouselTemplate implements Template {
      *
      * <p>The default value is {@code cover}.
      */
-    private final String imageSize;
+    String imageSize;
 
     @JsonCreator
     public CarouselTemplate(@JsonProperty("columns") List<CarouselColumn> columns) {

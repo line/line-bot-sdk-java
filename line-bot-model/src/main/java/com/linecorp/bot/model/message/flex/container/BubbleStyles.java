@@ -33,11 +33,11 @@ public class BubbleStyles {
     @Builder
     @JsonInclude(Include.NON_NULL)
     public static class BlockStyle {
-        private final String backgroundColor;
+        String backgroundColor;
 
-        private final Boolean separator;
+        Boolean separator;
 
-        private final String separatorColor;
+        String separatorColor;
 
         @JsonCreator
         public BlockStyle(
@@ -50,13 +50,13 @@ public class BubbleStyles {
         }
     }
 
-    private final BlockStyle header;
+    BlockStyle header;
 
-    private final BlockStyle hero;
+    BlockStyle hero;
 
-    private final BlockStyle body;
+    BlockStyle body;
 
-    private final BlockStyle footer;
+    BlockStyle footer;
 
     @JsonCreator
     public BubbleStyles(

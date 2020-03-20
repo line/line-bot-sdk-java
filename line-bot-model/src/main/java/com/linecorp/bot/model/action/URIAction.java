@@ -39,20 +39,20 @@ public class URIAction implements Action {
      *
      * <p>Max: 20 characters
      */
-    private final String label;
+    String label;
 
     /**
      * URI opened when the action is performed.
      *
      * <p>Available values are: http, https, tel
      */
-    private final URI uri;
+    URI uri;
 
     /**
      * URI that opened on LINE desktop clients when the action is performed. If this property is set,
      * {@link #uri} is ignored on LINE for macOS and Windows.
      */
-    private final AltUri altUri;
+    AltUri altUri;
 
     @JsonCreator
     public URIAction(

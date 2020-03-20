@@ -41,18 +41,16 @@ public class StickerMessage implements Message {
     /**
      * Package ID.
      */
-    @NonNull
-    private final String packageId;
+    @NonNull String packageId;
 
     /**
      * Sticker ID.
      */
-    @NonNull
-    private final String stickerId;
+    @NonNull String stickerId;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
 
-    private final Sender sender;
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.

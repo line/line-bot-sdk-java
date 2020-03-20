@@ -31,7 +31,7 @@ import lombok.Value;
 @JsonTypeName("audience")
 @JsonDeserialize(builder = AudienceRecipientBuilder.class)
 public class AudienceRecipient implements Recipient {
-    private final long audienceGroupId;
+    long audienceGroupId;
 
     @Override
     public String getType() {

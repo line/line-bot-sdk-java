@@ -41,17 +41,17 @@ public class MemberLeftEvent implements Event {
     /**
      * JSON object which contains the source of the event.
      */
-    private final Source source;
+    Source source;
 
     /**
      * Time of the event.
      */
-    private final Instant timestamp;
+    Instant timestamp;
 
     /**
      * User ID of users who joined.
      */
-    private final LeftMembers left;
+    LeftMembers left;
 
     /**
      * Channel state.
@@ -64,7 +64,7 @@ public class MemberLeftEvent implements Event {
      * </dd>
      * </dl>
      */
-    private EventMode mode;
+    EventMode mode;
 
     /**
      * Deprecated constructor.

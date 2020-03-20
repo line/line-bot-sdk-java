@@ -33,14 +33,14 @@ public class PushMessage {
     /**
      * ID of the receiver.
      */
-    private final String to;
+    String to;
 
     /**
      * List of Message objects.
      *
      * <p>Max: 5
      */
-    private final List<Message> messages;
+    List<Message> messages;
 
     /**
      * Whether sends a push notification to message receivers or not. If {@literal true}, the user doesn't
@@ -48,7 +48,7 @@ public class PushMessage {
      * notification when the message is sent (unless they have disabled push notifications in LINE and/or their
      * device).
      */
-    private final boolean notificationDisabled;
+    boolean notificationDisabled;
 
     public PushMessage(String to, Message message) {
         this(to, Collections.singletonList(message), false);

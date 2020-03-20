@@ -37,9 +37,9 @@ import lombok.Value;
 @JsonTypeName("operator")
 @JsonDeserialize(builder = LogicalOperatorRecipientBuilder.class)
 public class LogicalOperatorRecipient implements Recipient {
-    private List<Recipient> and;
-    private List<Recipient> or;
-    private Recipient not;
+    List<Recipient> and;
+    List<Recipient> or;
+    Recipient not;
 
     @Override
     public String getType() {

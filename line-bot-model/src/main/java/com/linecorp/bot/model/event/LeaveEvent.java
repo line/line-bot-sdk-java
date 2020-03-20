@@ -42,12 +42,12 @@ public class LeaveEvent implements Event {
     /**
      * JSON object which contains the source of the event.
      */
-    private final Source source;
+    Source source;
 
     /**
      * Time of the event.
      */
-    private final Instant timestamp;
+    Instant timestamp;
 
     /**
      * Channel state.
@@ -60,7 +60,7 @@ public class LeaveEvent implements Event {
      * </dd>
      * </dl>
      */
-    private EventMode mode;
+    EventMode mode;
 
     /**
      * Deprecated constructor.

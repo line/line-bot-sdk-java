@@ -30,12 +30,12 @@ public class URIImagemapAction implements ImagemapAction {
     /**
      * Webpage URL.
      */
-    private final String linkUri;
+    String linkUri;
 
     /**
      * Defined tappable area.
      */
-    private final ImagemapArea area;
+    ImagemapArea area;
 
     public URIImagemapAction(@JsonProperty("linkUri") String linkUri,
                              @JsonProperty("area") ImagemapArea area) {

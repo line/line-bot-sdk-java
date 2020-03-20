@@ -36,17 +36,17 @@ public class ContentProvider {
      * <li> {@code external}: Provider other than LINE</li>
      * </ul>
      */
-    private final String type;
+    String type;
 
     /**
      * URL of the resource. Only included when {@link #type} is {@link #EXTERNAL}.
      */
-    private final URI originalContentUrl;
+    URI originalContentUrl;
 
     /**
      * URL of the preview resource. Only included when {@link #type} is {@link #EXTERNAL}.
      */
-    private final URI previewImageUrl;
+    URI previewImageUrl;
 
     @JsonCreator
     public ContentProvider(@JsonProperty("type") String type,

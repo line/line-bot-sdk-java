@@ -40,14 +40,14 @@ public class ReplyMessage {
     /**
      * replyToken received via webhook.
      */
-    private final String replyToken;
+    String replyToken;
 
     /**
      * List of messages.
      *
      * <p>Max: 5
      */
-    private final List<Message> messages;
+    List<Message> messages;
 
     /**
      * Whether sends a push notification to message receivers or not. If {@literal true}, the user doesn't
@@ -55,7 +55,7 @@ public class ReplyMessage {
      * notification when the message is sent (unless they have disabled push notifications in LINE and/or their
      * device).
      */
-    private final boolean notificationDisabled;
+    boolean notificationDisabled;
 
     public ReplyMessage(String replyToken, Message message) {
         this(replyToken, Collections.singletonList(message), false);

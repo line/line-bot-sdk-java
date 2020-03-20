@@ -46,7 +46,7 @@ public class ImagemapVideo {
      * Note: A very wide or tall video may be cropped when played in some environments.
      * </p>
      */
-    private final URI originalContentUrl;
+    URI originalContentUrl;
 
     /**
      * URL of the preview image (Max: 1000 characters).
@@ -58,12 +58,12 @@ public class ImagemapVideo {
      * <li>Max: 1 MB</li>
      * </ul>
      */
-    private final URI previewImageUrl;
+    URI previewImageUrl;
 
     /**
      * please see {@link ImagemapArea}.
      */
-    private final ImagemapArea area;
+    ImagemapArea area;
 
     /**
      * please see {@link ImagemapExternalLink}.
@@ -73,7 +73,7 @@ public class ImagemapVideo {
      * and a label to display after the video on the imagemap.
      * </p>
      */
-    private final ImagemapExternalLink externalLink;
+    ImagemapExternalLink externalLink;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class ImagemapVideoBuilder {

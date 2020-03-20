@@ -38,7 +38,7 @@ public class CameraAction implements Action {
     /**
      * Label for the action. Max: 20 characters
      */
-    private final String label;
+    String label;
 
     public static CameraAction withLabel(final String label) {
         return builder().label(label).build();
