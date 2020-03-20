@@ -45,23 +45,23 @@ public class Icon implements FlexComponent {
         R3TO1,
     }
 
-    private final String url;
+    String url;
 
-    private final FlexFontSize size;
+    FlexFontSize size;
 
-    private final IconAspectRatio aspectRatio;
+    IconAspectRatio aspectRatio;
 
-    private final FlexMarginSize margin;
+    FlexMarginSize margin;
 
-    private final FlexPosition position;
+    FlexPosition position;
 
-    private final String offsetTop;
+    String offsetTop;
 
-    private final String offsetBottom;
+    String offsetBottom;
 
-    private final String offsetStart;
+    String offsetStart;
 
-    private final String offsetEnd;
+    String offsetEnd;
 
     @JsonCreator
     public Icon(

@@ -33,8 +33,8 @@ import lombok.Value;
 @JsonTypeName("age")
 @JsonDeserialize(builder = AgeDemographicFilterBuilder.class)
 public class AgeDemographicFilter implements DemographicFilter {
-    private final Age gte;
-    private final Age lt;
+    Age gte;
+    Age lt;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class AgeDemographicFilterBuilder {

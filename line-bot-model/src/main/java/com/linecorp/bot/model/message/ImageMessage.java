@@ -39,10 +39,10 @@ import lombok.Value;
 @JsonTypeName("image")
 @JsonDeserialize(builder = ImageMessage.ImageMessageBuilder.class)
 public class ImageMessage implements Message {
-    private final URI originalContentUrl;
-    private final URI previewImageUrl;
-    private final QuickReply quickReply;
-    private final Sender sender;
+    URI originalContentUrl;
+    URI previewImageUrl;
+    QuickReply quickReply;
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.

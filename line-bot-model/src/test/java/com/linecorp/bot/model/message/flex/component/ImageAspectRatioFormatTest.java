@@ -39,9 +39,9 @@ public class ImageAspectRatioFormatTest {
     @Value
     @AllArgsConstructor
     public static class Fixture {
-        private double width;
-        private double height;
-        private String result;
+        double width;
+        double height;
+        String result;
     }
 
     private static List<Fixture> VALUES = Arrays.asList(
@@ -56,7 +56,7 @@ public class ImageAspectRatioFormatTest {
         return VALUES.stream().map(x -> new Fixture[] { x }).collect(Collectors.toList());
     }
 
-    private final Fixture fixture;
+    Fixture fixture;
 
     @Test
     public void test() {

@@ -35,9 +35,9 @@ import lombok.Value;
 public class OperatorDemographicFilter implements DemographicFilter {
     private static final String type = "operator";
 
-    private final List<DemographicFilter> and;
-    private final List<DemographicFilter> or;
-    private final DemographicFilter not;
+    List<DemographicFilter> and;
+    List<DemographicFilter> or;
+    DemographicFilter not;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class OperatorDemographicFilterBuilder {

@@ -46,16 +46,16 @@ public class AudioMessage implements Message {
      * <li>Max 10 MB</li>
      * </ul>
      */
-    private final URI originalContentUrl;
+    URI originalContentUrl;
 
     /**
      * Length of audio file (milliseconds).
      */
-    private final Integer duration;
+    Integer duration;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
 
-    private final Sender sender;
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.

@@ -25,9 +25,9 @@ import lombok.Value;
 @Value
 @JsonTypeName("video")
 public class VideoMessageContent implements MessageContent {
-    private final String id;
-    private final String url;
-    private final ContentProvider contentProvider;
+    String id;
+    String url;
+    ContentProvider contentProvider;
 
     @JsonCreator
     public VideoMessageContent(@JsonProperty("id") final String id,

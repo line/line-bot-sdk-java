@@ -34,13 +34,13 @@ public class CreateImpBasedAudienceGroupRequest {
      *
      * <p>Max character limit: 120
      */
-    private final String description;
+    String description;
 
     /**
      * The request ID of a broadcast or narrowcast message sent in the past 60 days. Each Messaging API request
      * has a request ID. Find it in the response headers.
      */
-    private final String requestId;
+    String requestId;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class CreateImpBasedAudienceGroupRequestBuilder {

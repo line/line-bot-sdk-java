@@ -43,22 +43,22 @@ public class BeaconEvent implements Event, ReplyEvent {
     /**
      * Token for replying to this event.
      */
-    private final String replyToken;
+    String replyToken;
 
     /**
      * JSON object which contains the source of the event.
      */
-    private final Source source;
+    Source source;
 
     /**
      * Content of the beacon event.
      */
-    private final BeaconContent beacon;
+    BeaconContent beacon;
 
     /**
      * Time of the event.
      */
-    private final Instant timestamp;
+    Instant timestamp;
 
     /**
      * Channel state.
@@ -71,7 +71,7 @@ public class BeaconEvent implements Event, ReplyEvent {
      * </dd>
      * </dl>
      */
-    private EventMode mode;
+    EventMode mode;
 
     /**
      * Deprecated constructor.

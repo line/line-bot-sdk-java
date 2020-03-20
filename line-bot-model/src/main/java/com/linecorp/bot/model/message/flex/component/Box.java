@@ -45,49 +45,49 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class Box implements FlexComponent {
 
-    private final FlexLayout layout;
+    FlexLayout layout;
 
-    private final Integer flex;
+    Integer flex;
 
-    private final List<FlexComponent> contents;
+    List<FlexComponent> contents;
 
-    private final FlexMarginSize spacing;
+    FlexMarginSize spacing;
 
-    private final FlexMarginSize margin;
+    FlexMarginSize margin;
 
-    private final FlexPosition position;
+    FlexPosition position;
 
-    private final String offsetTop;
+    String offsetTop;
 
-    private final String offsetBottom;
+    String offsetBottom;
 
-    private final String offsetStart;
+    String offsetStart;
 
-    private final String offsetEnd;
+    String offsetEnd;
 
-    private final String backgroundColor;
+    String backgroundColor;
 
-    private final String borderColor;
+    String borderColor;
 
-    private final String borderWidth;
+    String borderWidth;
 
-    private final String cornerRadius;
+    String cornerRadius;
 
-    private final String width;
+    String width;
 
-    private final String height;
+    String height;
 
-    private final String paddingAll;
+    String paddingAll;
 
-    private final String paddingTop;
+    String paddingTop;
 
-    private final String paddingBottom;
+    String paddingBottom;
 
-    private final String paddingStart;
+    String paddingStart;
 
-    private final String paddingEnd;
+    String paddingEnd;
 
-    private final Action action;
+    Action action;
 
     @JsonCreator
     public Box(

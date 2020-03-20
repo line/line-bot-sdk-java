@@ -36,17 +36,17 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class Span implements FlexComponent {
 
-    private final String text;
+    String text;
 
-    private final FlexFontSize size;
+    FlexFontSize size;
 
-    private final String color;
+    String color;
 
-    private final TextWeight weight;
+    TextWeight weight;
 
-    private final TextStyle style;
+    TextStyle style;
 
-    private final TextDecoration decoration;
+    TextDecoration decoration;
 
     @JsonCreator
     public Span(

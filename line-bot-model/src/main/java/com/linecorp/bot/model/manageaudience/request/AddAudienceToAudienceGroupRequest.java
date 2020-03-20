@@ -33,17 +33,17 @@ public class AddAudienceToAudienceGroupRequest {
     /**
      * The audience ID.
      */
-    private final long audienceGroupId;
+    long audienceGroupId;
 
     /**
      * The description to register with the job (in jobs[].description).
      */
-    private final String uploadDescription;
+    String uploadDescription;
 
     /**
      * An array of up to 10,000 user IDs or IFAs.
      */
-    private final List<Audience> audiences;
+    List<Audience> audiences;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class AddAudienceToAudienceGroupRequestBuilder {

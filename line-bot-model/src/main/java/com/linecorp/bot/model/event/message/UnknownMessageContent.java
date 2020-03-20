@@ -26,7 +26,7 @@ import lombok.Value;
  */
 @Value
 public class UnknownMessageContent implements MessageContent {
-    private final String id;
+    String id;
 
     @JsonCreator
     public UnknownMessageContent(@JsonProperty("id") final String id) {

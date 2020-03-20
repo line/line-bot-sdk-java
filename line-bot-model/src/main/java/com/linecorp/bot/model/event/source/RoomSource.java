@@ -25,8 +25,8 @@ import lombok.Value;
 @Value
 @JsonTypeName("room")
 public class RoomSource implements Source {
-    private final String userId;
-    private final String roomId;
+    String userId;
+    String roomId;
 
     @JsonCreator
     public RoomSource(

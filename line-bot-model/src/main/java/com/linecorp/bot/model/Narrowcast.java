@@ -41,26 +41,26 @@ public class Narrowcast {
      *
      * <p>Max: 5
      */
-    private final List<Message> messages;
+    List<Message> messages;
 
     /**
      * Recipient objects represent audiences. You can specify recipients based on a combination of criteria
      * using logical operator objects.
      */
-    private final Recipient recipient;
+    Recipient recipient;
 
     /**
      * Demographic filter object. You can use friends' attributes to filter the list of recipients.
      * If this is omitted, messages will be sent to everyone – including users with attribute values of
      * "unknown".
      */
-    private final Filter filter;
+    Filter filter;
 
     /**
      * The maximum number of narrowcast messages to send. Use this parameter to limit the number of narrowcast
      * messages sent. The recipients will be chosen at random.
      */
-    private final Limit limit;
+    Limit limit;
 
     /**
      * Whether sends a push notification to message receivers or not. If {@literal true}, the user doesn't
@@ -68,7 +68,7 @@ public class Narrowcast {
      * notification when the message is sent (unless they have disabled push notifications in LINE and/or their
      * device).
      */
-    private final boolean notificationDisabled;
+    boolean notificationDisabled;
 
     public Narrowcast(Message message, Filter filter) {
         this(Collections.singletonList(message), null, filter, null, false);

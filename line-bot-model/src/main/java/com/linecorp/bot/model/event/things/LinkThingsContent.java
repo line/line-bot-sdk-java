@@ -25,7 +25,7 @@ import lombok.Value;
 @Value
 @JsonTypeName("link")
 public class LinkThingsContent implements ThingsContent {
-    private final String deviceId;
+    String deviceId;
 
     @JsonCreator
     public LinkThingsContent(@JsonProperty("deviceId") final String deviceId) {

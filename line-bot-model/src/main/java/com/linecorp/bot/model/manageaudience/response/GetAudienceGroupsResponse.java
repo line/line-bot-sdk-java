@@ -34,7 +34,7 @@ public class GetAudienceGroupsResponse {
     /**
      * An array of audience data.
      */
-    private final List<AudienceGroup> audienceGroups;
+    List<AudienceGroup> audienceGroups;
 
     /**
      * true when this is not the last page.

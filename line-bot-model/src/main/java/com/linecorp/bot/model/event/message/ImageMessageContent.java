@@ -28,8 +28,8 @@ import lombok.Value;
 @Value
 @JsonTypeName("image")
 public class ImageMessageContent implements MessageContent {
-    private final String id;
-    private final ContentProvider contentProvider;
+    String id;
+    ContentProvider contentProvider;
 
     @JsonCreator
     public ImageMessageContent(@JsonProperty("id") final String id,

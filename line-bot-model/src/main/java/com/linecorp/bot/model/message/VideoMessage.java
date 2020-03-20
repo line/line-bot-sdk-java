@@ -47,8 +47,7 @@ public class VideoMessage implements Message {
      * <li>Max: 10 MB</li>
      * </ul>
      */
-    @NonNull
-    private final URI originalContentUrl;
+    @NonNull URI originalContentUrl;
 
     /**
      * URL of preview image.
@@ -60,12 +59,11 @@ public class VideoMessage implements Message {
      * <li>Max: 1 MB</li>
      * </ul>
      */
-    @NonNull
-    private final URI previewImageUrl;
+    @NonNull URI previewImageUrl;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
 
-    private final Sender sender;
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.

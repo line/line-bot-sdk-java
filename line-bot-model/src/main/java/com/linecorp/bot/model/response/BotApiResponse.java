@@ -28,7 +28,7 @@ public class BotApiResponse {
     /**
      * Value from {@literal X-Line-Request-Id} header.
      */
-    private final String requestId;
-    private final String message;
-    private final List<String> details;
+    String requestId;
+    String message;
+    List<String> details;
 }

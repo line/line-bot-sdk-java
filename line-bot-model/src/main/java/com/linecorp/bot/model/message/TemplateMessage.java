@@ -42,16 +42,16 @@ public class TemplateMessage implements Message {
     /**
      * Alternative text.
      */
-    private final String altText;
+    String altText;
 
     /**
      * Object with the contents of the template.
      */
-    private final Template template;
+    Template template;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
 
-    private final Sender sender;
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.

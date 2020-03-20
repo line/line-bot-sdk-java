@@ -53,29 +53,29 @@ public class Button implements FlexComponent {
         SMALL,
     }
 
-    private Integer flex;
+    Integer flex;
 
-    private String color;
+    String color;
 
-    private ButtonStyle style;
+    ButtonStyle style;
 
-    private Action action;
+    Action action;
 
-    private FlexGravity gravity;
+    FlexGravity gravity;
 
-    private FlexMarginSize margin;
+    FlexMarginSize margin;
 
-    private FlexPosition position;
+    FlexPosition position;
 
-    private String offsetTop;
+    String offsetTop;
 
-    private String offsetBottom;
+    String offsetBottom;
 
-    private String offsetStart;
+    String offsetStart;
 
-    private String offsetEnd;
+    String offsetEnd;
 
-    private ButtonHeight height;
+    ButtonHeight height;
 
     @JsonCreator
     public Button(

@@ -25,7 +25,7 @@ import lombok.Value;
 @Value
 @JsonTypeName("binary")
 public class BinaryActionResult implements ActionResult {
-    private final String data;
+    String data;
 
     @JsonCreator
     public BinaryActionResult(@JsonProperty("data") final String data) {

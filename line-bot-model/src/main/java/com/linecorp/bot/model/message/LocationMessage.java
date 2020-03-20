@@ -40,26 +40,26 @@ public class LocationMessage implements Message {
     /**
      * Title.
      */
-    private final String title;
+    String title;
 
     /**
      * Address.
      */
-    private final String address;
+    String address;
 
     /**
      * Latitude.
      */
-    private final double latitude;
+    double latitude;
 
     /**
      * Longitude.
      */
-    private final double longitude;
+    double longitude;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
 
-    private final Sender sender;
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.

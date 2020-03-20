@@ -43,28 +43,28 @@ public class PostbackAction implements Action {
      *
      * <p>Max: 20 characters
      */
-    private final String label;
+    String label;
 
     /**
      * String returned via webhook in the postback.data property of the postback event.
      *
      * <p>Max: 300 characters
      */
-    private final String data;
+    String data;
 
     /**
      * Text sent when the action is performed.
      *
      * <p>Max: 300 characters
      */
-    private final String displayText;
+    String displayText;
 
     /**
      * Deprecated. Text sent when the action is performed.
      *
      * <p>Max: 300 characters
      */
-    private final String text;
+    String text;
 
     /**
      * Create new instance.

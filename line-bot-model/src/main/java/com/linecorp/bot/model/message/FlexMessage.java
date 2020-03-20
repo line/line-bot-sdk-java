@@ -42,16 +42,16 @@ public class FlexMessage implements Message {
     /**
      * Alternative text.
      */
-    private final String altText;
+    String altText;
 
     /**
      * Object with the contents of the flex.
      */
-    private final FlexContainer contents;
+    FlexContainer contents;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
 
-    private final Sender sender;
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.

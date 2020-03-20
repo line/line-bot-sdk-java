@@ -30,7 +30,7 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = FilterBuilder.class)
 public class Filter {
-    private final DemographicFilter demographic;
+    DemographicFilter demographic;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class FilterBuilder {

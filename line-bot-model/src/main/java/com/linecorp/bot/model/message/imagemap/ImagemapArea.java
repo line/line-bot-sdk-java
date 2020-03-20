@@ -30,22 +30,22 @@ public class ImagemapArea {
     /**
      * Horizontal position of the tappable area.
      */
-    private final int x;
+    int x;
 
     /**
      * Vertical position of the tappable area.
      */
-    private final int y;
+    int y;
 
     /**
      * Width of the tappable area.
      */
-    private final int width;
+    int width;
 
     /**
      * Height of the tappable area.
      */
-    private final int height;
+    int height;
 
     @JsonCreator
     public ImagemapArea(@JsonProperty("x") int x,

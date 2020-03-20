@@ -45,22 +45,22 @@ public class MessageEvent<T extends MessageContent> implements Event, ReplyEvent
     /**
      * Token for replying to this event.
      */
-    private final String replyToken;
+    String replyToken;
 
     /**
      * JSON object which contains the source of the event.
      */
-    private final Source source;
+    Source source;
 
     /**
      * Message body.
      */
-    private final T message;
+    T message;
 
     /**
      * Time of the event.
      */
-    private final Instant timestamp;
+    Instant timestamp;
 
     /**
      * Channel state.
@@ -73,7 +73,7 @@ public class MessageEvent<T extends MessageContent> implements Event, ReplyEvent
      * </dd>
      * </dl>
      */
-    private EventMode mode;
+    EventMode mode;
 
     /**
      * Deprecated constructor.

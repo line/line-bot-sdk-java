@@ -35,10 +35,9 @@ import lombok.Value;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonDeserialize(builder = TextMessage.TextMessageBuilder.class)
 public class TextMessage implements Message {
-    @NonNull
-    private final String text;
-    private final QuickReply quickReply;
-    private final Sender sender;
+    @NonNull String text;
+    QuickReply quickReply;
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.
