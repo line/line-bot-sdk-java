@@ -58,7 +58,7 @@ dependencies {
 
     integrationTestCompileOnly 'org.projectlombok:lombok'
     integrationTestAnnotationProcessor 'org.projectlombok:lombok'
-    integrationTestImplementation 'junit:junit:4.12'
+    integrationTestImplementation 'junit:junit:4.13'
     integrationTestImplementation 'org.slf4j:slf4j-simple:1.7.30'
     integrationTestImplementation 'com.fasterxml.jackson.core:jackson-core'
     integrationTestImplementation 'com.fasterxml.jackson.core:jackson-databind'
