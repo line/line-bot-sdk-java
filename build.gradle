@@ -101,7 +101,7 @@ subprojects {
                 entry 'retrofit'
             }
             dependency 'org.assertj:assertj-core:3.13.2'
-            dependency 'org.projectlombok:lombok:1.18.10'
+            dependency 'org.projectlombok:lombok:1.18.12'
         }
     }
 
