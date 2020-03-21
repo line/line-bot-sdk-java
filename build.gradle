@@ -83,7 +83,6 @@ subprojects {
     version = rootProject.version
 
     ext['guava.version'] = '28.2-jre'
-    ext['okhttp3.version'] = '3.14.2'
     ext['retrofit.version'] = '2.6.1'
 
     dependencyManagement {
@@ -94,14 +93,10 @@ subprojects {
         dependencies {
             dependency 'com.google.guava:guava:' + ext['guava.version']
             dependency 'com.github.stefanbirkner:system-rules:1.19.0'
-            dependency 'com.squareup.okhttp3:logging-interceptor:' + ext['okhttp3.version']
-            dependency 'com.squareup.okhttp3:mockwebserver:' + ext['okhttp3.version']
             dependencySet(group: 'com.squareup.retrofit2', version: ext['retrofit.version']) {
                 entry 'converter-jackson'
                 entry 'retrofit'
             }
-            dependency 'org.assertj:assertj-core:3.13.2'
-            dependency 'org.projectlombok:lombok:1.18.10'
         }
     }
 
