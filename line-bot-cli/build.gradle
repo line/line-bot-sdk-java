@@ -34,7 +34,7 @@ bootJar {
     launchScript {
         script = file('src/main/resources/launch.script')
     }
-    classifier = 'exec'
+    archiveClassifier.set('exec')
     mainClassName = 'com.linecorp.bot.cli.Application'
 }
 
@@ -48,6 +48,8 @@ bootJar.dependsOn jar
 signArchives.dependsOn bootJar
 
 // Add exec jar into archives to be uploaded.
-artifacts.add('archives', file("$buildDir/libs/${project.name}-${project.version}-${bootJar.classifier}.jar")) {
-    classifier = bootJar.classifier
+artifacts.add(
+    'archives',
+    file("$buildDir/libs/${project.name}-${project.version}-${bootJar.archiveClassifier.get()}.jar")) {
+    classifier = bootJar.archiveClassifier.get()
 }
