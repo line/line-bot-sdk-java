@@ -18,27 +18,29 @@ package com.linecorp.bot.model.event.postback;
 
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Content of the postback event.
  */
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = PostbackContent.PostbackContentBuilder.class)
 public class PostbackContent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class PostbackContentBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * Postback data.
      */
     String data;
     Map<String, String> params;
-
-    @JsonCreator
-    public PostbackContent(
-            @JsonProperty("data") final String data,
-            @JsonProperty("params") final Map<String, String> params) {
-        this.data = data;
-        this.params = params;
-    }
 }

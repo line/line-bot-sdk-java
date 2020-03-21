@@ -16,25 +16,27 @@
 
 package com.linecorp.bot.model.event.source;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
-@Value
 @JsonTypeName("room")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = RoomSource.RoomSourceBuilder.class)
 public class RoomSource implements Source {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class RoomSourceBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     String userId;
     String roomId;
-
-    @JsonCreator
-    public RoomSource(
-            @JsonProperty("userId") final String userId,
-            @JsonProperty("roomId") final String roomId) {
-        this.userId = userId;
-        this.roomId = roomId;
-    }
 
     @Override
     public String getSenderId() {

@@ -16,29 +16,29 @@
 
 package com.linecorp.bot.model.event.message;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Message content for sticker type.
  */
-@Value
 @JsonTypeName("sticker")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = StickerMessageContent.StickerMessageContentBuilder.class)
 public class StickerMessageContent implements MessageContent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class StickerMessageContentBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     String id;
     String packageId;
     String stickerId;
-
-    @JsonCreator
-    public StickerMessageContent(
-            @JsonProperty("id") final String id,
-            @JsonProperty("packageId") final String packageId,
-            @JsonProperty("stickerId") final String stickerId) {
-        this.id = id;
-        this.packageId = packageId;
-        this.stickerId = stickerId;
-    }
 }

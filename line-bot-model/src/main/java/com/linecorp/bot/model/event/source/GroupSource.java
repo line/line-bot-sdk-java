@@ -16,31 +16,27 @@
 
 package com.linecorp.bot.model.event.source;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
-@Value
 @JsonTypeName("group")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = GroupSource.GroupSourceBuilder.class)
 public class GroupSource implements Source {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class GroupSourceBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     String groupId;
     String userId;
-
-    /**
-     * Create new instance.
-     *
-     * @param groupId group ID
-     * @param userId user id may be null
-     */
-    @JsonCreator
-    public GroupSource(
-            @JsonProperty("groupId") final String groupId,
-            @JsonProperty("userId") final String userId) {
-        this.groupId = groupId;
-        this.userId = userId;
-    }
 
     @Override
     public String getSenderId() {

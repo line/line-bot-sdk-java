@@ -19,8 +19,6 @@ package com.linecorp.bot.model.event;
 import java.time.Instant;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -35,12 +33,18 @@ import lombok.Value;
 /**
  * Event object for when a user joins a group or room that the bot is in.
  */
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("memberJoined")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = MemberJoinedEvent.MemberJoinedEventBuilder.class)
 public class MemberJoinedEvent implements Event, ReplyEvent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class MemberJoinedEventBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * Token for replying to this event.
      */
@@ -81,26 +85,25 @@ public class MemberJoinedEvent implements Event, ReplyEvent {
      */
     @Deprecated
     public MemberJoinedEvent(
-            @JsonProperty("replyToken") final String replyToken,
-            @JsonProperty("source") final Source source,
-            @JsonProperty("joined") final JoinedMembers joined,
-            @JsonProperty("timestamp") final Instant timestamp) {
+            final String replyToken,
+            final Source source,
+            final JoinedMembers joined,
+            final Instant timestamp) {
         this(replyToken, source, timestamp, joined, null);
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class MemberJoinedEventBuilder {
-        // Filled by lombok
-    }
-
     @Value
+    @Builder(toBuilder = true)
+    @AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+    // TODO: Remove next release. Use builder() instead.
+    @JsonDeserialize(builder = JoinedMembers.JoinedMembersBuilder.class)
     public static class JoinedMembers {
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class JoinedMembersBuilder {
+            // Providing builder instead of public constructor. Class body is filled by lombok.
+        }
+
         // User ID of users who joined
         List<Source> members;
-
-        @JsonCreator
-        public JoinedMembers(@JsonProperty("members") List<Source> members) {
-            this.members = members;
-        }
     }
 }

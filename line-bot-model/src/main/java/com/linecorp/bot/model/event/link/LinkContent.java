@@ -16,16 +16,27 @@
 
 package com.linecorp.bot.model.event.link;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Content of the link account event.
  */
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = LinkContent.LinkContentBuilder.class)
 public class LinkContent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class LinkContentBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * One of the following values to indicate whether the link was successful or not.
      *
@@ -37,13 +48,6 @@ public class LinkContent {
      * Specified nonce when verifying the user ID.
      */
     String nonce;
-
-    @JsonCreator
-    public LinkContent(@JsonProperty("result") Result result,
-                       @JsonProperty("nonce") String nonce) {
-        this.result = result;
-        this.nonce = nonce;
-    }
 
     public enum Result {
         /** Indicates the link was successful. */

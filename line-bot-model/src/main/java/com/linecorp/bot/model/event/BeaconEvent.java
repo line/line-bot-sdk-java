@@ -18,7 +18,6 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -34,12 +33,18 @@ import lombok.Value;
 /**
  * Event object for when a user detects a LINE Beacon. You can reply to beacon events.
  */
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("beacon")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = BeaconEvent.BeaconEventBuilder.class)
 public class BeaconEvent implements Event, ReplyEvent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class BeaconEventBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * Token for replying to this event.
      */
@@ -80,15 +85,10 @@ public class BeaconEvent implements Event, ReplyEvent {
      */
     @Deprecated
     public BeaconEvent(
-            @JsonProperty("replyToken") final String replyToken,
-            @JsonProperty("source") final Source source,
-            @JsonProperty("timestamp") final Instant timestamp,
-            @JsonProperty("beacon") final BeaconContent beacon) {
+            final String replyToken,
+            final Source source,
+            final Instant timestamp,
+            final BeaconContent beacon) {
         this(replyToken, source, beacon, timestamp, null);
-    }
-
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class BeaconEventBuilder {
-        // Filled by lombok
     }
 }

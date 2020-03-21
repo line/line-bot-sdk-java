@@ -16,13 +16,26 @@
 
 package com.linecorp.bot.model.event.source;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Fallback source type for {@link Source}.
  */
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = UnknownSource.UnknownSourceBuilder.class)
 public class UnknownSource implements Source {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class UnknownSourceBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     @Override
     public String getUserId() {
         return null;
