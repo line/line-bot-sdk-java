@@ -26,12 +26,12 @@ public class LiffApp {
     /**
      * LIFF app ID.
      */
-    private final String liffId;
+    String liffId;
 
     /**
      * {@link LiffView} object which contains the URL and view size of the LIFF app.
      */
-    private final LiffView view;
+    LiffView view;
 
     @JsonCreator
     public LiffApp(@JsonProperty("liffId") String liffId,

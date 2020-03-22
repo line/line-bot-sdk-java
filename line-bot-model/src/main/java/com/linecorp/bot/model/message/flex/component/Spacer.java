@@ -33,7 +33,7 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class Spacer implements FlexComponent {
 
-    private final FlexMarginSize size;
+    FlexMarginSize size;
 
     @JsonCreator
     public Spacer(

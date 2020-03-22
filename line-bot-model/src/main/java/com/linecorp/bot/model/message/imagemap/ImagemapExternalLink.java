@@ -35,7 +35,7 @@ public class ImagemapExternalLink {
      * <li>Max: 1000 characters</li>
      * </ul>
      */
-    private final URI linkUri;
+    URI linkUri;
 
     /**
      * Label. Displayed after the video is finished.
@@ -44,7 +44,7 @@ public class ImagemapExternalLink {
      * <li>Max: 30 characters</li>
      * </ul>
      */
-    private final String label;
+    String label;
 
     @JsonCreator
     public ImagemapExternalLink(@JsonProperty("linkUri") URI linkUri,

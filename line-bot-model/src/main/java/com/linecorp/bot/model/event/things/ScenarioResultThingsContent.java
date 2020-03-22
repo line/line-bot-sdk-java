@@ -27,8 +27,8 @@ import lombok.Value;
 @Value
 @JsonTypeName("scenarioResult")
 public class ScenarioResultThingsContent implements ThingsContent {
-    private final String deviceId;
-    private final ScenarioResult result;
+    String deviceId;
+    ScenarioResult result;
 
     @JsonCreator
     public ScenarioResultThingsContent(

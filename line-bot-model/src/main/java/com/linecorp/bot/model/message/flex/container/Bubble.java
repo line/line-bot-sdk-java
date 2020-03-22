@@ -49,21 +49,21 @@ public class Bubble implements FlexContainer {
         GIGA
     }
 
-    private final FlexDirection direction;
+    FlexDirection direction;
 
-    private final BubbleStyles styles;
+    BubbleStyles styles;
 
-    private final Box header;
+    Box header;
 
-    private final FlexComponent hero;
+    FlexComponent hero;
 
-    private final Box body;
+    Box body;
 
-    private final Box footer;
+    Box footer;
 
-    private final BubbleSize size;
+    BubbleSize size;
 
-    private final Action action;
+    Action action;
 
     @JsonCreator
     public Bubble(

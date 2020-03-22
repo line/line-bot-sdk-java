@@ -31,14 +31,14 @@ public class MessageAction implements Action {
     /**
      * Label for the action. Max 20 characters.
      */
-    private final String label;
+    String label;
 
     /**
      * Text sent when the action is performed.
      *
      * <p>Max: 300 characters
      */
-    private final String text;
+    String text;
 
     @JsonCreator
     public MessageAction(

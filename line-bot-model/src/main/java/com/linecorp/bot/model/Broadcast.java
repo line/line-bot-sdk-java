@@ -38,7 +38,7 @@ public class Broadcast {
      *
      * <p>Max: 5
      */
-    private final List<Message> messages;
+    List<Message> messages;
 
     /**
      * Whether sends a push notification to message receivers or not. If {@literal true}, the user doesn't
@@ -46,7 +46,7 @@ public class Broadcast {
      * notification when the message is sent (unless they have disabled push notifications in LINE and/or their
      * device).
      */
-    private final boolean notificationDisabled;
+    boolean notificationDisabled;
 
     public Broadcast(Message messages) {
         this(singletonList(messages), false);

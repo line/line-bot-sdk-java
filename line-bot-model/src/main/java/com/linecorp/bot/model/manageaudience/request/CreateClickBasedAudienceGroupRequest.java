@@ -34,13 +34,13 @@ public class CreateClickBasedAudienceGroupRequest {
      *
      * <p>Max character limit: 120
      */
-    private final String description;
+    String description;
 
     /**
      * The request ID of a broadcast or narrowcast message sent in the past 60 days. Each Messaging API request
      * has a request ID. Find it in the response headers.
      */
-    private final String requestId;
+    String requestId;
 
     /**
      * The URL clicked by the user. If empty, users who clicked any URL in the message are added to the list of
@@ -48,7 +48,7 @@ public class CreateClickBasedAudienceGroupRequest {
      *
      * <p>Max: 2,000 characters
      */
-    private final String clickUrl;
+    String clickUrl;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class CreateClickAudienceGroupRequestBuilder {

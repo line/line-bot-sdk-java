@@ -34,7 +34,7 @@ public class UpdateAudienceGroupDescriptionRequest {
      *
      * <p>Max character limit: 120
      */
-    private final String description;
+    String description;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class UpdateAudienceGroupDescriptionRequestBuilder {

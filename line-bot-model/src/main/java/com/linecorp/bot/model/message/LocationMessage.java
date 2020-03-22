@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.sender.Sender;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -39,24 +40,26 @@ public class LocationMessage implements Message {
     /**
      * Title.
      */
-    private final String title;
+    String title;
 
     /**
      * Address.
      */
-    private final String address;
+    String address;
 
     /**
      * Latitude.
      */
-    private final double latitude;
+    double latitude;
 
     /**
      * Longitude.
      */
-    private final double longitude;
+    double longitude;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
+
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.
@@ -65,7 +68,7 @@ public class LocationMessage implements Message {
      */
     public LocationMessage(
             final String title, final String address, final double latitude, final double longitude) {
-        this(title, address, latitude, longitude, null);
+        this(title, address, latitude, longitude, null, null);
     }
 
     @JsonPOJOBuilder(withPrefix = "")

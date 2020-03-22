@@ -31,7 +31,7 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class Filler implements FlexComponent {
 
-    private Integer flex;
+    Integer flex;
 
     @JsonCreator
     public Filler(@JsonProperty("flex") Integer flex) {

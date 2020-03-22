@@ -34,7 +34,7 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class Carousel implements FlexContainer {
 
-    private final List<Bubble> contents;
+    List<Bubble> contents;
 
     @JsonCreator
     public Carousel(@JsonProperty("contents") List<Bubble> contents) {

@@ -41,12 +41,12 @@ public class ImageCarouselColumn {
      * <li>Max: 1 MB</li>
      * </ul>
      */
-    private final URI imageUrl;
+    URI imageUrl;
 
     /**
      * Action when tapped.
      */
-    private final Action action;
+    Action action;
 
     @JsonCreator
     public ImageCarouselColumn(@JsonProperty("imageUrl") URI imageUrl,

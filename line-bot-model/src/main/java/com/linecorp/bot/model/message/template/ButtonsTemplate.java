@@ -51,7 +51,7 @@ public class ButtonsTemplate implements Template {
      * <li>Max: 1 MB</li>
      * </ul>
      */
-    private final URI thumbnailImageUrl;
+    URI thumbnailImageUrl;
 
     /**
      * Aspect ratio of the image.
@@ -65,7 +65,7 @@ public class ButtonsTemplate implements Template {
      *
      * <p>The default value is {@code rectangle}.
      */
-    private final String imageAspectRatio;
+    String imageAspectRatio;
 
     /**
      * Size of the image.
@@ -82,21 +82,21 @@ public class ButtonsTemplate implements Template {
      *
      * <p>The default value is {@code cover}.
      */
-    private final String imageSize;
+    String imageSize;
 
     /**
      * Background color of image.
      *
      * <p>Specify a RGB color value. The default value is {@code #FFFFFF} (white).
      */
-    private final String imageBackgroundColor;
+    String imageBackgroundColor;
 
     /**
      * Title.
      *
      * <p>Max 40 characters.
      */
-    private final String title;
+    String title;
 
     /**
      * Message text.
@@ -106,19 +106,19 @@ public class ButtonsTemplate implements Template {
      * <li>Max: 60 characters (message with an image or title)</li>
      * </ul>
      */
-    private final String text;
+    String text;
 
     /**
      * Optional: Action when image is tapped; set for the entire image, title, and text area.
      */
-    private final Action defaultAction;
+    Action defaultAction;
 
     /**
      * Action when tapped.
      *
      * <p>Max: 4
      */
-    private final List<Action> actions;
+    List<Action> actions;
 
     /**
      * Constructor for basic use. Use {@link #builder()} to use full attributes.

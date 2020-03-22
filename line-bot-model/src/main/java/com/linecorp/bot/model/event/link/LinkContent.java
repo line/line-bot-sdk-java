@@ -25,18 +25,18 @@ import lombok.Value;
  * Content of the link account event.
  */
 @Value
-public final class LinkContent {
+public class LinkContent {
     /**
      * One of the following values to indicate whether the link was successful or not.
      *
      * @see Result
      */
-    private final Result result;
+    Result result;
 
     /**
      * Specified nonce when verifying the user ID.
      */
-    private final String nonce;
+    String nonce;
 
     @JsonCreator
     public LinkContent(@JsonProperty("result") Result result,

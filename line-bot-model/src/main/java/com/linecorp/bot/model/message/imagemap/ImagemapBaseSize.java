@@ -31,12 +31,12 @@ public class ImagemapBaseSize {
      *
      * <p>Set to the height that corresponds to a width of 1040px.
      */
-    private final int height;
+    int height;
 
     /**
      * Width of base image. Must be 1040px fixed.
      */
-    private final int width;
+    int width;
 
     @JsonCreator
     public ImagemapBaseSize(@JsonProperty("height") int height,

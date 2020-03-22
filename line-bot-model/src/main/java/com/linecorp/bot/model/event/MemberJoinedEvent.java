@@ -22,47 +22,75 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.event.source.Source;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Event object for when a user joins a group or room that the bot is in.
  */
 @Value
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("memberJoined")
+@JsonDeserialize(builder = MemberJoinedEvent.MemberJoinedEventBuilder.class)
 public class MemberJoinedEvent implements Event, ReplyEvent {
     /**
      * Token for replying to this event.
      */
-    private final String replyToken;
+    String replyToken;
 
     /**
      * JSON object which contains the source of the event.
      */
-    private final Source source;
+    Source source;
 
     /**
      * Time of the event.
      */
-    private final Instant timestamp;
+    Instant timestamp;
 
     /**
      * User ID of users who joined.
      */
-    private final JoinedMembers joined;
+    JoinedMembers joined;
 
-    @JsonCreator
+    /**
+     * Channel state.
+     * <dl>
+     * <dt>active</dt>
+     * <dd>The channel is active. You can send a reply message or push message from the bot server that received
+     * this webhook event.</dd>
+     * <dt>standby (under development)</dt>
+     * <dd>The channel is waiting. The bot server that received this webhook event shouldn't send any messages.
+     * </dd>
+     * </dl>
+     */
+    EventMode mode;
+
+    /**
+     * Deprecated constructor.
+     *
+     * @deprecated Use builder method instead. This construct will remove in next major release.
+     */
+    @Deprecated
     public MemberJoinedEvent(
             @JsonProperty("replyToken") final String replyToken,
             @JsonProperty("source") final Source source,
             @JsonProperty("joined") final JoinedMembers joined,
             @JsonProperty("timestamp") final Instant timestamp) {
-        this.replyToken = replyToken;
-        this.source = source;
-        this.joined = joined;
-        this.timestamp = timestamp;
+        this(replyToken, source, timestamp, joined, null);
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class MemberJoinedEventBuilder {
+        // Filled by lombok
     }
 
     @Value

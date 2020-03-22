@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.flex.container.FlexContainer;
 import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.sender.Sender;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -41,14 +42,16 @@ public class FlexMessage implements Message {
     /**
      * Alternative text.
      */
-    private final String altText;
+    String altText;
 
     /**
      * Object with the contents of the flex.
      */
-    private final FlexContainer contents;
+    FlexContainer contents;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
+
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.
@@ -58,7 +61,7 @@ public class FlexMessage implements Message {
     public FlexMessage(
             final String altText,
             final FlexContainer contents) {
-        this(altText, contents, null);
+        this(altText, contents, null, null);
     }
 
     @JsonPOJOBuilder(withPrefix = "")

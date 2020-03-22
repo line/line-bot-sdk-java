@@ -32,7 +32,7 @@ public class UpdateAudienceGroupAuthorityLevelRequest {
     /**
      * Authority level.
      */
-    private final AudienceGroupAuthorityLevel authorityLevel;
+    AudienceGroupAuthorityLevel authorityLevel;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class UpdateAudienceGroupAuthorityLevelRequestBuilder {

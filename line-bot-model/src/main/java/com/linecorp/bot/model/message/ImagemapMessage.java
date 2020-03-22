@@ -27,6 +27,7 @@ import com.linecorp.bot.model.message.imagemap.ImagemapAction;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
 import com.linecorp.bot.model.message.imagemap.ImagemapVideo;
 import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.sender.Sender;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -50,26 +51,28 @@ public class ImagemapMessage implements Message {
      * <li>HTTPS required</li>
      * </ul>
      */
-    private final URI baseUrl;
+    URI baseUrl;
 
     /**
      * Alternative text.
      */
-    private final String altText;
+    String altText;
 
     /**
      * Size of base image.
      */
-    private final ImagemapBaseSize baseSize;
+    ImagemapBaseSize baseSize;
 
     /**
      * Action when tapped.
      */
-    private final List<ImagemapAction> actions;
+    List<ImagemapAction> actions;
 
-    private final ImagemapVideo video;
+    ImagemapVideo video;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
+
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.
@@ -84,7 +87,7 @@ public class ImagemapMessage implements Message {
             final ImagemapBaseSize imagemapBaseSize,
             final List<ImagemapAction> actions,
             final ImagemapVideo imagemapVideo) {
-        this(baseUrl, altText, imagemapBaseSize, actions, imagemapVideo, null);
+        this(baseUrl, altText, imagemapBaseSize, actions, imagemapVideo, null, null);
     }
 
     /**

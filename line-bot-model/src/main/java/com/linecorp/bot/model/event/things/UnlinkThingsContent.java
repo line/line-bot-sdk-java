@@ -25,7 +25,7 @@ import lombok.Value;
 @Value
 @JsonTypeName("unlink")
 public class UnlinkThingsContent implements ThingsContent {
-    private final String deviceId;
+    String deviceId;
 
     @JsonCreator
     public UnlinkThingsContent(@JsonProperty("deviceId") final String deviceId) {

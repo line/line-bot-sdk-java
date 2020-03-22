@@ -31,8 +31,8 @@ public class PostbackContent {
     /**
      * Postback data.
      */
-    private final String data;
-    private final Map<String, String> params;
+    String data;
+    Map<String, String> params;
 
     @JsonCreator
     public PostbackContent(

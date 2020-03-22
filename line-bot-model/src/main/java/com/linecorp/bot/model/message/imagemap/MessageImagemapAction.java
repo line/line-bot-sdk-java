@@ -30,12 +30,12 @@ public class MessageImagemapAction implements ImagemapAction {
     /**
      * Message to send.
      */
-    private final String text;
+    String text;
 
     /**
      * Defined tappable area.
      */
-    private final ImagemapArea area;
+    ImagemapArea area;
 
     public MessageImagemapAction(@JsonProperty("text") String text,
                                  @JsonProperty("area") ImagemapArea area) {

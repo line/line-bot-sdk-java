@@ -50,21 +50,21 @@ public class CarouselColumn {
      * <li>Max: 1 MB</li>
      * </ul>
      */
-    private final URI thumbnailImageUrl;
+    URI thumbnailImageUrl;
 
     /**
      * Background color of image.
      *
      * <p>Specify a RGB color value. The default value is <code>#FFFFFF</code> (white).
      */
-    private final String imageBackgroundColor;
+    String imageBackgroundColor;
 
     /**
      * Title.
      *
      * <p>Max: 40 characters
      */
-    private final String title;
+    String title;
 
     /**
      * Message text.
@@ -72,19 +72,19 @@ public class CarouselColumn {
      * <p>Max: 120 characters (no image or title)<br>
      * Max: 60 characters (message with an image or title)
      */
-    private final String text;
+    String text;
 
     /**
      * Optional: Action when image is tapped; set for the entire image, title, and text area.
      */
-    private final Action defaultAction;
+    Action defaultAction;
 
     /**
      * Action when tapped.
      *
      * <p>Max: 3</p>
      */
-    private final List<Action> actions;
+    List<Action> actions;
 
     /**
      * Constructor for standard properties. Use {@link #builder()} for fully-customized instance.

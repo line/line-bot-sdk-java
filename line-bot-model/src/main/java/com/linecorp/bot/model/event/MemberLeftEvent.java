@@ -22,37 +22,66 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.event.source.Source;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 @Value
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("memberLeft")
+@JsonDeserialize(builder = MemberLeftEvent.MemberLeftEventBuilder.class)
 public class MemberLeftEvent implements Event {
     /**
      * JSON object which contains the source of the event.
      */
-    private final Source source;
+    Source source;
 
     /**
      * Time of the event.
      */
-    private final Instant timestamp;
+    Instant timestamp;
 
     /**
      * User ID of users who joined.
      */
-    private final LeftMembers left;
+    LeftMembers left;
 
-    @JsonCreator
+    /**
+     * Channel state.
+     * <dl>
+     * <dt>active</dt>
+     * <dd>The channel is active. You can send a reply message or push message from the bot server that received
+     * this webhook event.</dd>
+     * <dt>standby (under development)</dt>
+     * <dd>The channel is waiting. The bot server that received this webhook event shouldn't send any messages.
+     * </dd>
+     * </dl>
+     */
+    EventMode mode;
+
+    /**
+     * Deprecated constructor.
+     *
+     * @deprecated Use builder method instead. This construct will remove in next major release.
+     */
+    @Deprecated
     public MemberLeftEvent(
             @JsonProperty("source") final Source source,
             @JsonProperty("left") final LeftMembers left,
             @JsonProperty("timestamp") final Instant timestamp) {
-        this.source = source;
-        this.left = left;
-        this.timestamp = timestamp;
+        this(source, timestamp, left, null);
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class MemberLeftEventBuilder {
+        // Filled by lombok
     }
 
     @Value

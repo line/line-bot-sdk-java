@@ -39,14 +39,14 @@ public class Multicast {
      *
      * <p>INFO: Use IDs returned via the webhook event of source users. IDs of groups or rooms cannot be used.
      */
-    private final Set<String> to;
+    Set<String> to;
 
     /**
      * List of Message objects.
      *
      * <p>Max: 5
      */
-    private final List<Message> messages;
+    List<Message> messages;
 
     /**
      * Whether sends a push notification to message receivers or not. If {@literal true}, the user doesn't
@@ -54,7 +54,7 @@ public class Multicast {
      * notification when the message is sent (unless they have disabled push notifications in LINE and/or their
      * device).
      */
-    private final boolean notificationDisabled;
+    boolean notificationDisabled;
 
     public Multicast(final Set<String> to,
                      final Message message) {

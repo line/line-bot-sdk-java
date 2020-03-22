@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.sender.Sender;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -40,16 +41,16 @@ public class StickerMessage implements Message {
     /**
      * Package ID.
      */
-    @NonNull
-    private final String packageId;
+    @NonNull String packageId;
 
     /**
      * Sticker ID.
      */
-    @NonNull
-    private final String stickerId;
+    @NonNull String stickerId;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
+
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.
@@ -57,7 +58,7 @@ public class StickerMessage implements Message {
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
     public StickerMessage(final String packageId, final String stickerId) {
-        this(packageId, stickerId, null);
+        this(packageId, stickerId, null, null);
     }
 
     @JsonPOJOBuilder(withPrefix = "")

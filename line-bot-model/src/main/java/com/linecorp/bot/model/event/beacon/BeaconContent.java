@@ -26,19 +26,19 @@ public class BeaconContent {
     /**
      * Hardware ID of the beacon that was detected.
      */
-    private final String hwid;
+    String hwid;
 
     /**
      * Type of beacon event.
      */
-    private final String type;
+    String type;
 
     /**
      * Raw deviceMessages. Possibly {@code null}.
      *
      * @see #getDeviceMessage()
      */
-    private final byte[] deviceMessage;
+    byte[] deviceMessage;
 
     /**
      * Device message of beacon that was detected in byte[] format. (Optional).

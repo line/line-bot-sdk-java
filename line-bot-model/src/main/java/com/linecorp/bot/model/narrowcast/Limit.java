@@ -33,7 +33,7 @@ public class Limit {
      * The maximum number of narrowcast messages to send. Use this parameter to limit the number of
      * narrowcast messages sent. The recipients will be chosen at random.
      */
-    private final Integer max;
+    Integer max;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class LimitBuilder {

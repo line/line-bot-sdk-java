@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.sender.Sender;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -46,8 +47,7 @@ public class VideoMessage implements Message {
      * <li>Max: 10 MB</li>
      * </ul>
      */
-    @NonNull
-    private final URI originalContentUrl;
+    @NonNull URI originalContentUrl;
 
     /**
      * URL of preview image.
@@ -59,10 +59,11 @@ public class VideoMessage implements Message {
      * <li>Max: 1 MB</li>
      * </ul>
      */
-    @NonNull
-    private final URI previewImageUrl;
+    @NonNull URI previewImageUrl;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
+
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.
@@ -70,7 +71,7 @@ public class VideoMessage implements Message {
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
     public VideoMessage(final URI originalContentUrl, final URI previewImageUrl) {
-        this(originalContentUrl, previewImageUrl, null);
+        this(originalContentUrl, previewImageUrl, null, null);
     }
 
     @JsonPOJOBuilder(withPrefix = "")

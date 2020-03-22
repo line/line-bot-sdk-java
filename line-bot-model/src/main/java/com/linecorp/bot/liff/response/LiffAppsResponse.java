@@ -28,7 +28,7 @@ import lombok.Value;
 @Value
 public class LiffAppsResponse {
     /** Array of LIFF app objects. */
-    private final List<LiffApp> apps;
+    List<LiffApp> apps;
 
     @JsonCreator
     public LiffAppsResponse(@JsonProperty("apps") List<LiffApp> apps) {

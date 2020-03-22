@@ -32,27 +32,27 @@ public class CreateImpBasedAudienceGroupResponse {
     /**
      * The audience ID.
      */
-    private final long audienceGroupId;
+    long audienceGroupId;
 
     /**
      * `IMP`.
      */
-    private final AudienceGroupType type;
+    AudienceGroupType type;
 
     /**
      * The audience's name.
      */
-    private final String description;
+    String description;
 
     /**
      * When the audience was created (in UNIX time).
      */
-    private final long created;
+    long created;
 
     /**
      * The request ID that was specified when the audience was created.
      */
-    private final String requestId;
+    String requestId;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class CreateImpBasedAudienceGroupResponseBuilder {

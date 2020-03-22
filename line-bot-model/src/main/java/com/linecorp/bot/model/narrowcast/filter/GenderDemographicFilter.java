@@ -34,7 +34,7 @@ import lombok.Value;
 @Builder
 @JsonDeserialize(builder = GenderDemographicFilterBuilder.class)
 public class GenderDemographicFilter implements DemographicFilter {
-    private final List<Gender> oneOf;
+    List<Gender> oneOf;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class GenderDemographicFilterBuilder {

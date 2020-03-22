@@ -98,35 +98,35 @@ public class Image implements FlexComponent {
         Cover,
     }
 
-    private final Integer flex;
+    Integer flex;
 
-    private final URI url;
+    URI url;
 
-    private final ImageSize size;
+    ImageSize size;
 
-    private final String aspectRatio;
+    String aspectRatio;
 
-    private final ImageAspectMode aspectMode;
+    ImageAspectMode aspectMode;
 
-    private final String backgroundColor;
+    String backgroundColor;
 
-    private final FlexAlign align;
+    FlexAlign align;
 
-    private final Action action;
+    Action action;
 
-    private final FlexGravity gravity;
+    FlexGravity gravity;
 
-    private final FlexMarginSize margin;
+    FlexMarginSize margin;
 
-    private final FlexPosition position;
+    FlexPosition position;
 
-    private final String offsetTop;
+    String offsetTop;
 
-    private final String offsetBottom;
+    String offsetBottom;
 
-    private final String offsetStart;
+    String offsetStart;
 
-    private final String offsetEnd;
+    String offsetEnd;
 
     @JsonCreator
     public Image(

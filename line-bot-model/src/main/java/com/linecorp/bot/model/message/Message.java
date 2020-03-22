@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
 import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.sender.Sender;
 
 /**
  * Interface of Message object.
@@ -52,4 +53,7 @@ import com.linecorp.bot.model.message.quickreply.QuickReply;
 public interface Message {
     @JsonInclude(Include.NON_NULL)
     QuickReply getQuickReply();
+
+    @JsonInclude(Include.NON_NULL)
+    Sender getSender();
 }

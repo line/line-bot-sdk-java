@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.quickreply.QuickReply;
+import com.linecorp.bot.model.message.sender.Sender;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -45,14 +46,16 @@ public class AudioMessage implements Message {
      * <li>Max 10 MB</li>
      * </ul>
      */
-    private final URI originalContentUrl;
+    URI originalContentUrl;
 
     /**
      * Length of audio file (milliseconds).
      */
-    private final Integer duration;
+    Integer duration;
 
-    private final QuickReply quickReply;
+    QuickReply quickReply;
+
+    Sender sender;
 
     /**
      * Constructor without {@link #quickReply} parameter.
@@ -60,7 +63,7 @@ public class AudioMessage implements Message {
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
     public AudioMessage(final URI originalContentUrl, final Integer duration) {
-        this(originalContentUrl, duration, null);
+        this(originalContentUrl, duration, null, null);
     }
 
     @JsonPOJOBuilder(withPrefix = "")

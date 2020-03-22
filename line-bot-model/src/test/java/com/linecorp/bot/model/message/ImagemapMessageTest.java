@@ -28,12 +28,50 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.model.message.imagemap.ImagemapArea;
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
+import com.linecorp.bot.model.message.imagemap.ImagemapVideo;
 import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
 import com.linecorp.bot.model.testutil.TestUtil;
 
 public class ImagemapMessageTest {
     @Test
-    public void test() throws JsonProcessingException {
+    public void constructor1() throws JsonProcessingException {
+        ImagemapMessage message = new ImagemapMessage(
+                URI.create("https://example.com"),
+                "hoge",
+                new ImagemapBaseSize(1040, 1040),
+                singletonList(new MessageImagemapAction("hoge",
+                                                        new ImagemapArea(0, 0, 20, 20)))
+        );
+        assertThat(message.getBaseUrl()).isEqualTo(URI.create("https://example.com"));
+        assertThat(message.getAltText()).isEqualTo("hoge");
+        assertThat(message.getBaseSize()).isNotNull();
+        assertThat(message.getActions()).isNotNull();
+        assertThat(message.getVideo()).isNull();
+        assertThat(message.getQuickReply()).isNull();
+        assertThat(message.getSender()).isNull();
+    }
+
+    @Test
+    public void constructor2() throws JsonProcessingException {
+        ImagemapMessage message = new ImagemapMessage(
+                URI.create("https://example.com"),
+                "hoge",
+                new ImagemapBaseSize(1040, 1040),
+                singletonList(new MessageImagemapAction("hoge",
+                                                        new ImagemapArea(0, 0, 20, 20))),
+                ImagemapVideo.builder().build()
+        );
+        assertThat(message.getBaseUrl()).isEqualTo(URI.create("https://example.com"));
+        assertThat(message.getAltText()).isEqualTo("hoge");
+        assertThat(message.getBaseSize()).isNotNull();
+        assertThat(message.getActions()).isNotNull();
+        assertThat(message.getVideo()).isNotNull();
+        assertThat(message.getQuickReply()).isNull();
+        assertThat(message.getSender()).isNull();
+    }
+
+    @Test
+    public void builder() throws JsonProcessingException {
         ObjectMapper objectMapper = TestUtil.objectMapperWithProductionConfiguration(false);
 
         ImagemapMessage imagemapMessage = ImagemapMessage
@@ -41,7 +79,9 @@ public class ImagemapMessageTest {
                 .baseUrl(URI.create("https://example.com"))
                 .altText("hoge")
                 .baseSize(new ImagemapBaseSize(1040, 1040))
-                .actions(singletonList(new MessageImagemapAction("hoge", new ImagemapArea(0, 0, 20, 20))))
+                .actions(singletonList(
+                        new MessageImagemapAction("hoge",
+                                                  new ImagemapArea(0, 0, 20, 20))))
                 .build();
 
         String s = objectMapper.writeValueAsString(imagemapMessage);

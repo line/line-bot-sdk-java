@@ -26,14 +26,14 @@ import lombok.Value;
 
 @Value
 public class ScenarioResult {
-    private final String scenarioId;
-    private final long revision;
-    private final Instant startTime;
-    private final Instant endTime;
-    private final String resultCode;
-    private final List<ActionResult> actionResults;
-    private final String bleNotificationPayload;
-    private final String errorReason;
+    String scenarioId;
+    long revision;
+    Instant startTime;
+    Instant endTime;
+    String resultCode;
+    List<ActionResult> actionResults;
+    String bleNotificationPayload;
+    String errorReason;
 
     @JsonCreator
     ScenarioResult(
