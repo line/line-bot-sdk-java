@@ -16,25 +16,28 @@
 
 package com.linecorp.bot.model.event.message;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Message content for image type.
  */
-@Value
 @JsonTypeName("image")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = ImageMessageContent.ImageMessageContentBuilder.class)
 public class ImageMessageContent implements MessageContent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class ImageMessageContentBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     String id;
     ContentProvider contentProvider;
-
-    @JsonCreator
-    public ImageMessageContent(@JsonProperty("id") final String id,
-                               @JsonProperty("contentProvider") final ContentProvider contentProvider) {
-        this.id = id;
-        this.contentProvider = contentProvider;
-    }
 }

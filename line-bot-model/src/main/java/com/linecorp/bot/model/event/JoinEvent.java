@@ -18,7 +18,6 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -33,12 +32,18 @@ import lombok.Value;
 /**
  * Event object for when your account joins a group or talk room. You can reply to join events.
  */
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("join")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = JoinEvent.JoinEventBuilder.class)
 public class JoinEvent implements Event, ReplyEvent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class JoinEventBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * Token for replying to this event.
      */
@@ -74,14 +79,9 @@ public class JoinEvent implements Event, ReplyEvent {
      */
     @Deprecated
     public JoinEvent(
-            @JsonProperty("replyToken") final String replyToken,
-            @JsonProperty("source") final Source source,
-            @JsonProperty("timestamp") final Instant timestamp) {
+            final String replyToken,
+            final Source source,
+            final Instant timestamp) {
         this(replyToken, source, timestamp, null);
-    }
-
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class JoinEventBuilder {
-        // Filled by lombok
     }
 }

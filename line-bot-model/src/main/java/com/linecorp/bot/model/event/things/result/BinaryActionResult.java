@@ -16,19 +16,24 @@
 
 package com.linecorp.bot.model.event.things.result;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
-@Value
 @JsonTypeName("binary")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = BinaryActionResult.BinaryActionResultBuilder.class)
 public class BinaryActionResult implements ActionResult {
-    String data;
-
-    @JsonCreator
-    public BinaryActionResult(@JsonProperty("data") final String data) {
-        this.data = data;
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class BinaryActionResultBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
     }
+
+    String data;
 }

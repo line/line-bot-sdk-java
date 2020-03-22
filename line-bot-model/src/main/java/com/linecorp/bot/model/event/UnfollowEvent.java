@@ -18,7 +18,6 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -33,12 +32,18 @@ import lombok.Value;
 /**
  * Event object for when your account is blocked.
  */
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("unfollow")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = UnfollowEvent.UnfollowEventBuilder.class)
 public class UnfollowEvent implements Event {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class UnfollowEventBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * JSON object which contains the source of the event.
      */
@@ -69,13 +74,8 @@ public class UnfollowEvent implements Event {
      */
     @Deprecated
     public UnfollowEvent(
-            @JsonProperty("source") final Source source,
-            @JsonProperty("timestamp") final Instant timestamp) {
+            final Source source,
+            final Instant timestamp) {
         this(source, timestamp, null);
-    }
-
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class UnfollowEventBuilder {
-        // Filled by lombok
     }
 }

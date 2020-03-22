@@ -18,7 +18,6 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -33,10 +32,16 @@ import lombok.Value;
  * Fallback event type for {@link Event}.
  */
 @Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = UnknownEvent.UnknownEventBuilder.class)
 public class UnknownEvent implements Event {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class UnknownEventBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * Type of the event.
      */
@@ -72,14 +77,9 @@ public class UnknownEvent implements Event {
      */
     @Deprecated
     public UnknownEvent(
-            @JsonProperty("type") final String type,
-            @JsonProperty("source") final Source source,
-            @JsonProperty("timestamp") final Instant timestamp) {
+            final String type,
+            final Source source,
+            final Instant timestamp) {
         this(type, source, timestamp, null);
-    }
-
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class UnknownEventBuilder {
-        // Filled by lombok
     }
 }

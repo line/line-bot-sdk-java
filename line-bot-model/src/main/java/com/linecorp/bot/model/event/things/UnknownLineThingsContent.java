@@ -16,10 +16,26 @@
 
 package com.linecorp.bot.model.event.things;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
+
 /**
  * Fallback for {@link ThingsContent}.
  */
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = UnknownLineThingsContent.UnknownLineThingsContentBuilder.class)
 public class UnknownLineThingsContent implements ThingsContent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class UnknownLineThingsContentBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     @Override
     public String getDeviceId() {
         return null;

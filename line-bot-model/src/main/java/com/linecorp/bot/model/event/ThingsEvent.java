@@ -18,7 +18,6 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -34,12 +33,18 @@ import lombok.Value;
 /**
  * Event object for when a user detects a LINE Things.
  */
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("things")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = ThingsEvent.ThingsEventBuilder.class)
 public class ThingsEvent implements Event, ReplyEvent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class ThingsEventBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * Token for replying to this event.
      */
@@ -80,15 +85,10 @@ public class ThingsEvent implements Event, ReplyEvent {
      */
     @Deprecated
     public ThingsEvent(
-            @JsonProperty("replyToken") String replyToken,
-            @JsonProperty("source") Source source,
-            @JsonProperty("things") ThingsContent things,
-            @JsonProperty("timestamp") Instant timestamp) {
+            String replyToken,
+            Source source,
+            ThingsContent things,
+            Instant timestamp) {
         this(replyToken, source, things, timestamp, null);
-    }
-
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class ThingsEventBuilder {
-        // Filled by lombok
     }
 }

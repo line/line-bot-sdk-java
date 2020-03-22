@@ -35,12 +35,18 @@ import lombok.Value;
  * Event object for when a user performs an action on a template message which initiates a postback.
  * You can reply to postback events.
  */
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("postback")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = PostbackEvent.PostbackEventBuilder.class)
 public class PostbackEvent implements Event, ReplyEvent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class PostbackEventBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * Token for replying to this event.
      */
@@ -82,15 +88,10 @@ public class PostbackEvent implements Event, ReplyEvent {
      */
     @Deprecated
     public PostbackEvent(
-            @JsonProperty("replyToken") final String replyToken,
-            @JsonProperty("source") final Source source,
-            @JsonProperty("postback") final PostbackContent postbackContent,
-            @JsonProperty("timestamp") final Instant timestamp) {
+            final String replyToken,
+            final Source source,
+            final PostbackContent postbackContent,
+            final Instant timestamp) {
         this(replyToken, source, postbackContent, timestamp, null);
-    }
-
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class PostbackEventBuilder {
-        // Filled by lombok
     }
 }

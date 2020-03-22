@@ -18,16 +18,26 @@ package com.linecorp.bot.model.event;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Request object for webhook.
  */
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = CallbackRequest.CallbackRequestBuilder.class)
 public class CallbackRequest {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class CallbackRequestBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * A user ID of a bot that should receive webhook events. The user ID value is
      * a string that matches the regular expression, {@code U[0-9a-f]{32}}.
@@ -38,11 +48,4 @@ public class CallbackRequest {
      * List of events.
      */
     List<Event> events;
-
-    @JsonCreator
-    public CallbackRequest(@JsonProperty("events") final List<Event> events,
-                           @JsonProperty("destination") final String destination) {
-        this.events = events;
-        this.destination = destination;
-    }
 }
