@@ -358,7 +358,7 @@ interface LineMessagingService {
      * Returns statistics about how users interact with narrowcast messages or broadcast messages sent from your
      * LINE Official Account.
      *
-     * You can get statistics per message or per bubble.
+     * <p>You can get statistics per message or per bubble.</p>
      * @param requestId Request ID of a narrowcast message or broadcast message. Each Messaging API request has
      *                  a request ID. Find it in the response headers.
      */
