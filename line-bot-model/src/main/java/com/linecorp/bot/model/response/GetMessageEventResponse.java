@@ -168,7 +168,7 @@ public class GetMessageEventResponse {
         Long seq;
 
         /**
-         * URL
+         * URL.
          */
         String url;
 
