@@ -58,11 +58,11 @@ dependencies {
 
     integrationTestCompileOnly 'org.projectlombok:lombok'
     integrationTestAnnotationProcessor 'org.projectlombok:lombok'
-    integrationTestImplementation 'junit:junit:4.13'
-    integrationTestImplementation 'org.slf4j:slf4j-simple:1.7.30'
+    integrationTestImplementation 'org.springframework.boot:spring-boot-starter-test'
+    integrationTestImplementation 'org.springframework.boot:spring-boot-starter-logging'
     integrationTestImplementation 'com.fasterxml.jackson.core:jackson-core'
     integrationTestImplementation 'com.fasterxml.jackson.core:jackson-databind'
     integrationTestImplementation 'com.fasterxml.jackson.core:jackson-annotations'
     integrationTestImplementation 'com.fasterxml.jackson.module:jackson-module-parameter-names'
-    integrationTestImplementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2'
+    integrationTestImplementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
 }
