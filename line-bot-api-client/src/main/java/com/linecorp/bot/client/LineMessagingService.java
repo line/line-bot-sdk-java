@@ -39,6 +39,7 @@ import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityL
 import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -352,6 +353,17 @@ interface LineMessagingService {
      */
     @GET("v2/bot/insight/followers")
     Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
+
+    /**
+     * Returns statistics about how users interact with narrowcast messages or broadcast messages sent from your
+     * LINE Official Account.
+     *
+     * You can get statistics per message or per bubble.
+     * @param requestId Request ID of a narrowcast message or broadcast message. Each Messaging API request has
+     *                  a request ID. Find it in the response headers.
+     */
+    @GET("v2/bot/insight/message/event")
+    Call<GetMessageEventResponse> getMessageEvent(@Query("requestId") String requestId);
 
     @POST("v2/bot/audienceGroup/upload")
     Call<CreateAudienceGroupResponse> createAudienceGroup(@Body CreateAudienceGroupRequest request);

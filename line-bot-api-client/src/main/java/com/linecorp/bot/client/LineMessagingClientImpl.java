@@ -44,6 +44,7 @@ import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -288,6 +289,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowers(String date) {
         return toFuture(retrofitImpl.getNumberOfFollowers(date));
+    }
+
+    @Override
+    public CompletableFuture<GetMessageEventResponse> getMessageEvent(String requestId) {
+        return toFuture(retrofitImpl.getMessageEvent(requestId));
     }
 
     @Override

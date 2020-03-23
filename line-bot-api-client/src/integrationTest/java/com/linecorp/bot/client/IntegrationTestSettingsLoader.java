@@ -31,7 +31,8 @@ public class IntegrationTestSettingsLoader {
     public static IntegrationTestSettings load() throws IOException {
         // Do not run all test cases in this class when src/test/resources/integration_test_settings.yml doesn't
         // exist.
-        Assume.assumeTrue(TEST_RESOURCE != null);
+        Assume.assumeTrue("exists integration_test_settings.yml in resource directory",
+                          TEST_RESOURCE != null);
 
         return new ObjectMapper(new YAMLFactory())
                 .registerModule(new ParameterNamesModule())
