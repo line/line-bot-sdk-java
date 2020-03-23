@@ -16,26 +16,27 @@
 
 package com.linecorp.bot.model.event.things;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.event.things.result.ScenarioResult;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
-@Value
 @JsonTypeName("scenarioResult")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = ScenarioResultThingsContent.ScenarioResultThingsContentBuilder.class)
 public class ScenarioResultThingsContent implements ThingsContent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class ScenarioResultThingsContentBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     String deviceId;
     ScenarioResult result;
-
-    @JsonCreator
-    public ScenarioResultThingsContent(
-            @JsonProperty("deviceId") String deviceId,
-            @JsonProperty("result") ScenarioResult result
-    ) {
-        this.deviceId = deviceId;
-        this.result = result;
-    }
 }

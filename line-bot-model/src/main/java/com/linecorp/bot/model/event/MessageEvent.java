@@ -18,7 +18,6 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -36,12 +35,18 @@ import lombok.Value;
  * The message field contains a message object which corresponds with the message type.
  * You can reply to message events.
  */
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("message")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = MessageEvent.MessageEventBuilder.class)
 public class MessageEvent<T extends MessageContent> implements Event, ReplyEvent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class MessageEventBuilder<T extends MessageContent> {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * Token for replying to this event.
      */
@@ -82,15 +87,10 @@ public class MessageEvent<T extends MessageContent> implements Event, ReplyEvent
      */
     @Deprecated
     public MessageEvent(
-            @JsonProperty("replyToken") final String replyToken,
-            @JsonProperty("source") final Source source,
-            @JsonProperty("message") final T message,
-            @JsonProperty("timestamp") final Instant timestamp) {
+            final String replyToken,
+            final Source source,
+            final T message,
+            final Instant timestamp) {
         this(replyToken, source, message, timestamp, null);
-    }
-
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class MessageEventBuilder<T extends MessageContent> {
-        // Filled by lombok
     }
 }

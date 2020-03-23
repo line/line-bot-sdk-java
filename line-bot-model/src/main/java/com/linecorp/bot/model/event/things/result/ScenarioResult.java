@@ -19,13 +19,23 @@ package com.linecorp.bot.model.event.things.result;
 import java.time.Instant;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = ScenarioResult.ScenarioResultBuilder.class)
 public class ScenarioResult {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class ScenarioResultBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     String scenarioId;
     long revision;
     Instant startTime;
@@ -34,25 +44,4 @@ public class ScenarioResult {
     List<ActionResult> actionResults;
     String bleNotificationPayload;
     String errorReason;
-
-    @JsonCreator
-    ScenarioResult(
-            @JsonProperty("scenarioId") String scenarioId,
-            @JsonProperty("revision") long revision,
-            @JsonProperty("startTime") Instant startTime,
-            @JsonProperty("endTime") Instant endTime,
-            @JsonProperty("resultCode") String resultCode,
-            @JsonProperty("actionResults") List<ActionResult> actionResults,
-            @JsonProperty("bleNotificationPayload") String bleNotificationPayload,
-            @JsonProperty("errorReason") String errorReason
-    ) {
-        this.scenarioId = scenarioId;
-        this.revision = revision;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.resultCode = resultCode;
-        this.actionResults = actionResults;
-        this.bleNotificationPayload = bleNotificationPayload;
-        this.errorReason = errorReason;
-    }
 }

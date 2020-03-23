@@ -18,14 +18,24 @@ package com.linecorp.bot.model.event.message;
 
 import java.net.URI;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = ContentProvider.ContentProviderBuilder.class)
 public class ContentProvider {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class ContentProviderBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     private static final String LINE = "line";
     private static final String EXTERNAL = "external";
 
@@ -47,15 +57,6 @@ public class ContentProvider {
      * URL of the preview resource. Only included when {@link #type} is {@link #EXTERNAL}.
      */
     URI previewImageUrl;
-
-    @JsonCreator
-    public ContentProvider(@JsonProperty("type") String type,
-                           @JsonProperty("originalContentUrl") URI originalContentUrl,
-                           @JsonProperty("previewImageUrl") URI previewImageUrl) {
-        this.type = type;
-        this.originalContentUrl = originalContentUrl;
-        this.previewImageUrl = previewImageUrl;
-    }
 
     @JsonIgnore
     public boolean isExternal() {

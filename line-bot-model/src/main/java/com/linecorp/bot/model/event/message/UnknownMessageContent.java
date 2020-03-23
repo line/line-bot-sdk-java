@@ -16,20 +16,25 @@
 
 package com.linecorp.bot.model.event.message;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Fallback message content type for {@link MessageContent}.
  */
 @Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = UnknownMessageContent.UnknownMessageContentBuilder.class)
 public class UnknownMessageContent implements MessageContent {
-    String id;
-
-    @JsonCreator
-    public UnknownMessageContent(@JsonProperty("id") final String id) {
-        this.id = id;
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class UnknownMessageContentBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
     }
+
+    String id;
 }

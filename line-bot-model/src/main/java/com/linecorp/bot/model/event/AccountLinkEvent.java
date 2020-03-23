@@ -18,7 +18,6 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -35,12 +34,18 @@ import lombok.Value;
  * Event object for when a user has linked his/her LINE account with a provider's service account.
  * You can reply to account link events.
  */
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("accountLink")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = AccountLinkEvent.AccountLinkEventBuilder.class)
 public class AccountLinkEvent implements Event, ReplyEvent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class AccountLinkEventBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * Token for replying to this event.
      */
@@ -81,15 +86,10 @@ public class AccountLinkEvent implements Event, ReplyEvent {
      */
     @Deprecated
     public AccountLinkEvent(
-            @JsonProperty("replyToken") String replyToken,
-            @JsonProperty("source") Source source,
-            @JsonProperty("timestamp") Instant timestamp,
-            @JsonProperty("link") LinkContent link) {
+            String replyToken,
+            Source source,
+            Instant timestamp,
+            LinkContent link) {
         this(replyToken, source, timestamp, link, null);
-    }
-
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class AccountLinkEventBuilder {
-        // Filled by lombok
     }
 }

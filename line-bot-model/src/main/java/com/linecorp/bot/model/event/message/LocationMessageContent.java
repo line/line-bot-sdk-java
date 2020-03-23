@@ -16,18 +16,28 @@
 
 package com.linecorp.bot.model.event.message;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Message content for location type.
  */
-@Value
 @JsonTypeName("location")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = LocationMessageContent.LocationMessageContentBuilder.class)
 public class LocationMessageContent implements MessageContent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class LocationMessageContentBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     String id;
 
     /**
@@ -49,18 +59,4 @@ public class LocationMessageContent implements MessageContent {
      * Longitude.
      */
     double longitude;
-
-    @JsonCreator
-    public LocationMessageContent(
-            @JsonProperty("id") final String id,
-            @JsonProperty("title") final String title,
-            @JsonProperty("address") final String address,
-            @JsonProperty("latitude") final double latitude,
-            @JsonProperty("longitude") final double longitude) {
-        this.id = id;
-        this.title = title;
-        this.address = address;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
 }

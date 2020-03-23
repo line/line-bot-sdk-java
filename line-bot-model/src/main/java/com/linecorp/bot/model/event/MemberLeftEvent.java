@@ -19,8 +19,6 @@ package com.linecorp.bot.model.event;
 import java.time.Instant;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -32,12 +30,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("memberLeft")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = MemberLeftEvent.MemberLeftEventBuilder.class)
 public class MemberLeftEvent implements Event {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class MemberLeftEventBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * JSON object which contains the source of the event.
      */
@@ -73,25 +77,24 @@ public class MemberLeftEvent implements Event {
      */
     @Deprecated
     public MemberLeftEvent(
-            @JsonProperty("source") final Source source,
-            @JsonProperty("left") final LeftMembers left,
-            @JsonProperty("timestamp") final Instant timestamp) {
+            final Source source,
+            final LeftMembers left,
+            final Instant timestamp) {
         this(source, timestamp, left, null);
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class MemberLeftEventBuilder {
-        // Filled by lombok
-    }
-
     @Value
+    @Builder(toBuilder = true)
+    @AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+    // TODO: Remove next release. Use builder() instead.
+    @JsonDeserialize(builder = LeftMembers.LeftMembersBuilder.class)
     public static class LeftMembers {
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class LeftMembersBuilder {
+            // Providing builder instead of public constructor. Class body is filled by lombok.
+        }
+
         // User ID of users who joined
         List<Source> members;
-
-        @JsonCreator
-        public LeftMembers(@JsonProperty("members") List<Source> members) {
-            this.members = members;
-        }
     }
 }

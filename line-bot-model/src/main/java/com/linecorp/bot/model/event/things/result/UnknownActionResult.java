@@ -16,5 +16,21 @@
 
 package com.linecorp.bot.model.event.things.result;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
+
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = UnknownActionResult.UnknownActionResultBuilder.class)
 public class UnknownActionResult implements ActionResult {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class UnknownActionResultBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
 }

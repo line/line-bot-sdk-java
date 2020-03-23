@@ -18,7 +18,6 @@ package com.linecorp.bot.model.event;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -33,12 +32,18 @@ import lombok.Value;
 /**
  * Event object for when your account is added as a friend (or unblocked). You can reply to follow events.
  */
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("follow")
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
+// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = FollowEvent.FollowEventBuilder.class)
 public class FollowEvent implements Event, ReplyEvent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class FollowEventBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
     /**
      * Token for replying to this event.
      */
@@ -74,14 +79,9 @@ public class FollowEvent implements Event, ReplyEvent {
      */
     @Deprecated
     public FollowEvent(
-            @JsonProperty("replyToken") final String replyToken,
-            @JsonProperty("source") final Source source,
-            @JsonProperty("timestamp") final Instant timestamp) {
+            final String replyToken,
+            final Source source,
+            final Instant timestamp) {
         this(replyToken, source, timestamp, null);
-    }
-
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class FollowEventBuilder {
-        // Filled by lombok
     }
 }
