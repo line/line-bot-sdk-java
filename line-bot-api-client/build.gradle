@@ -64,5 +64,5 @@ dependencies {
     integrationTestImplementation 'com.fasterxml.jackson.core:jackson-databind'
     integrationTestImplementation 'com.fasterxml.jackson.core:jackson-annotations'
     integrationTestImplementation 'com.fasterxml.jackson.module:jackson-module-parameter-names'
-    integrationTestImplementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2'
+    integrationTestImplementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.3'
 }
