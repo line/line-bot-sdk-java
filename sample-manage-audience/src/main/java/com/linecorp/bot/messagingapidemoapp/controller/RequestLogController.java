@@ -33,7 +33,7 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class RequestLogController {
-    MyInterceptor myInterceptor;
+    private final MyInterceptor myInterceptor;
 
     @GetMapping("/request_log/")
     public String index(Model model) {
