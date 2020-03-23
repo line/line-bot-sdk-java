@@ -25,8 +25,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +33,6 @@ import com.linecorp.bot.client.ChannelTokenSupplier;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.spring.boot.LineBotProperties;
 
-import kotlin.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -78,9 +75,8 @@ public class LineBotConfiguration {
     public static class MyInterceptor implements Interceptor {
         private List<ApiCallLog> logs = new ArrayList<>();
 
-        @NotNull
         @Override
-        public Response intercept(@NotNull Chain chain) throws IOException {
+        public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
             ApiCallRequest apiCallRequest = ApiCallRequest.create(request);
             Response response = chain.proceed(request);
@@ -116,7 +112,7 @@ public class LineBotConfiguration {
                                  .build();
         }
 
-        private static String buildBody(@Nullable RequestBody body) throws IOException {
+        private static String buildBody(RequestBody body) throws IOException {
             if (body == null) {
                 return "<EMPTY>";
             }
@@ -143,17 +139,22 @@ public class LineBotConfiguration {
 
         String method;
         String url;
-        List<Pair<String, String>> headers;
+        List<HeaderEntry> headers;
         String body;
     }
 
-    @NotNull
-    private static List<Pair<String, String>> buildHeaders(Headers headers) {
+    @Value
+    public static class HeaderEntry {
+        String name;
+        String value;
+    }
+
+    private static List<HeaderEntry> buildHeaders(Headers headers) {
         return headers.names()
                       .stream()
                       .flatMap(name -> headers.values(name)
                                               .stream()
-                                              .map(value -> new Pair<>(name, value)))
+                                              .map(value -> new HeaderEntry(name, value)))
                       .collect(Collectors.toList());
     }
 
@@ -171,11 +172,11 @@ public class LineBotConfiguration {
 
         int code;
         String message;
-        List<Pair<String, String>> headers;
+        List<HeaderEntry> headers;
         String body;
     }
 
-    private static String buildBody(@Nullable ResponseBody body) throws IOException {
+    private static String buildBody(ResponseBody body) throws IOException {
         if (body == null) {
             return "<EMPTY>";
         }
