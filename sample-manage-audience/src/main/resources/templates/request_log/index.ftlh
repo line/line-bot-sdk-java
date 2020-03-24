@@ -10,8 +10,8 @@
                 <table class="table table-hover">
                     <#list log.request.headers as header>
                         <tr>
-                            <th>${header.first}</th>
-                            <td>${header.second}</td>
+                            <th>${header.name}</th>
+                            <td>${header.value}</td>
                         </tr>
                     </#list>
                 </table>
@@ -23,8 +23,8 @@
                 <table class="table table-hover">
                     <#list log.response.headers as header>
                         <tr>
-                            <th>${header.first}</th>
-                            <td>${header.second}</td>
+                            <th>${header.name}</th>
+                            <td>${header.value}</td>
                         </tr>
                     </#list>
                 </table>
