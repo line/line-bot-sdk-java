@@ -33,7 +33,6 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -492,18 +491,22 @@ public class KitchenSinkController {
                         .altText("This is alt text")
                         .baseSize(new ImagemapBaseSize(1040, 1040))
                         .actions(Arrays.asList(
-                                new URIImagemapAction(
-                                        "https://store.line.me/family/manga/en",
-                                        new ImagemapArea(0, 0, 520, 520)),
-                                new URIImagemapAction(
-                                        "https://store.line.me/family/music/en",
-                                        new ImagemapArea(520, 0, 520, 520)),
-                                new URIImagemapAction(
-                                        "https://store.line.me/family/play/en",
-                                        new ImagemapArea(0, 520, 520, 520)),
-                                new MessageImagemapAction(
-                                        "URANAI!",
-                                        new ImagemapArea(520, 520, 520, 520))
+                                URIImagemapAction.builder()
+                                                 .linkUri("https://store.line.me/family/manga/en")
+                                                 .area(new ImagemapArea(0, 0, 520, 520))
+                                                 .build(),
+                                URIImagemapAction.builder()
+                                                 .linkUri("https://store.line.me/family/music/en")
+                                                 .area(new ImagemapArea(520, 0, 520, 520))
+                                                 .build(),
+                                URIImagemapAction.builder()
+                                                 .linkUri("https://store.line.me/family/play/en")
+                                                 .area(new ImagemapArea(0, 520, 520, 520))
+                                                 .build(),
+                                MessageImagemapAction.builder()
+                                                     .text("URANAI!")
+                                                     .area(new ImagemapArea(520, 520, 520, 520))
+                                                     .build()
                         ))
                         .build());
                 break;
@@ -527,11 +530,12 @@ public class KitchenSinkController {
                                              )
                                              .build()
                         )
-                        .actions(Stream.of(
-                                new MessageImagemapAction(
-                                        "NIXIE CLOCK",
-                                        new ImagemapArea(260, 600, 450, 86)
-                                )).collect(Collectors.toList()))
+                        .actions(singletonList(
+                                MessageImagemapAction.builder()
+                                                     .text("NIXIE CLOCK")
+                                                     .area(new ImagemapArea(260, 600, 450, 86))
+                                                     .build()
+                        ))
                         .build());
                 break;
             case "flex":
