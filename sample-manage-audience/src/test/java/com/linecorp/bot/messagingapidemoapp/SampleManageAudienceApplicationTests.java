@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2020 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -12,17 +12,19 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations
  * under the License.
+ *
  */
 
-include 'line-bot-api-client'
-include 'line-bot-model'
-include 'line-bot-servlet'
-include 'line-bot-spring-boot'
-include 'line-bot-cli'
-include 'line-bot-parser'
+package com.linecorp.bot.messagingapidemoapp;
 
-// samples
-include 'sample-spring-boot-echo'
-include 'sample-spring-boot-echo-kotlin'
-include 'sample-spring-boot-kitchensink'
-include 'sample-manage-audience'
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class SampleManageAudienceApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
