@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.client.ManageAudienceClient;
 import com.linecorp.bot.model.manageaudience.AudienceGroup;
 import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.model.manageaudience.request.Audience;
@@ -47,7 +47,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Slf4j
 public class ManageAudienceController {
-    private final LineMessagingClient client;
+    private final ManageAudienceClient client;
 
     @GetMapping("/manage_audience/")
     public CompletableFuture<String> list(

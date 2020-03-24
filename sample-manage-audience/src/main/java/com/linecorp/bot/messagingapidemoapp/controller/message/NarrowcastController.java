@@ -37,6 +37,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.client.ManageAudienceClient;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.manageaudience.AudienceGroupStatus;
 import com.linecorp.bot.model.message.Message;
@@ -63,7 +64,8 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @AllArgsConstructor
 public class NarrowcastController {
-    private final LineMessagingClient client;
+    private final ManageAudienceClient client;
+    private final LineMessagingClient messagingClient;
     private final MessageHelper messageHelper;
     private final ObjectMapper objectMapper;
 
@@ -144,7 +146,7 @@ public class NarrowcastController {
                 maxLimit == null ? null : Limit.builder().max(maxLimit).build(),
                 notificationDisabled
         );
-        return client.narrowcast(narrowcast).thenApply(
+        return messagingClient.narrowcast(narrowcast).thenApply(
                 response -> new RedirectView("/message/narrowcast/" + response.getRequestId())
         );
     }
@@ -153,12 +155,12 @@ public class NarrowcastController {
     public CompletableFuture<String> narrowcastProgress(@PathVariable String requestId, Model model) {
         model.addAttribute("requestId", requestId);
 
-        return client.getNarrowcastProgress(requestId)
-                     .thenApply(response -> {
-                         model.addAttribute("progress", response);
-                         return "message/narrowcast/progress";
+        return messagingClient.getNarrowcastProgress(requestId)
+                              .thenApply(response -> {
+                                  model.addAttribute("progress", response);
+                                  return "message/narrowcast/progress";
 
-                     });
+                              });
     }
 
 }

@@ -23,20 +23,6 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.manageaudience.AudienceGroupCreateRoute;
-import com.linecorp.bot.model.manageaudience.AudienceGroupStatus;
-import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
-import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
-import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
-import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
-import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupAuthorityLevelRequest;
-import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
-import com.linecorp.bot.model.manageaudience.response.CreateAudienceGroupResponse;
-import com.linecorp.bot.model.manageaudience.response.CreateClickBasedAudienceGroupResponse;
-import com.linecorp.bot.model.manageaudience.response.CreateImpBasedAudienceGroupResponse;
-import com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse;
-import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupAuthorityLevelResponse;
-import com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
@@ -59,7 +45,6 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -136,7 +121,7 @@ interface LineMessagingService {
      * retrieved by this operation does not include the number of messages sent from LINE@ Manager.
      *
      * @param date Date the messages were sent. The format should be {@code yyyyMMdd} (for Example:
-     *             {@literal "20191231"}) and the timezone should be UTC+9.
+     *         {@literal "20191231"}) and the timezone should be UTC+9.
      */
     @GET("v2/bot/message/delivery/reply")
     Call<NumberOfMessagesResponse> getNumberOfSentReplyMessages(@Query("date") String date);
@@ -146,7 +131,7 @@ interface LineMessagingService {
      * retrieved by this operation does not include the number of messages sent from LINE@ Manager.
      *
      * @param date Date the messages were sent. The format should be {@code yyyyMMdd} (for Example:
-     *             {@literal "20191231"}) and the timezone should be UTC+9.
+     *         {@literal "20191231"}) and the timezone should be UTC+9.
      */
     @GET("v2/bot/message/delivery/push")
     Call<NumberOfMessagesResponse> getNumberOfSentPushMessages(@Query("date") String date);
@@ -156,7 +141,7 @@ interface LineMessagingService {
      * retrieved by this operation does not include the number of messages sent from LINE@ Manager.
      *
      * @param date Date the messages were sent. The format should be {@code yyyyMMdd} (for Example:
-     *             {@literal "20191231"}) and the timezone should be UTC+9.
+     *         {@literal "20191231"}) and the timezone should be UTC+9.
      */
     @GET("v2/bot/message/delivery/multicast")
     Call<NumberOfMessagesResponse> getNumberOfSentMulticastMessages(@Query("date") String date);
@@ -170,7 +155,7 @@ interface LineMessagingService {
      * Migration of LINE@ accounts</a>.
      *
      * @param date Date the messages were sent. The format should be {@code yyyyMMdd} (for Example:
-     *             {@literal "20191231"}) and the timezone should be UTC+9.
+     *         {@literal "20191231"}) and the timezone should be UTC+9.
      */
     @GET("v2/bot/message/delivery/broadcast")
     Call<NumberOfMessagesResponse> getNumberOfSentBroadcastMessages(@Query("date") String date);
@@ -339,7 +324,7 @@ interface LineMessagingService {
      * Gets the number of messages sent on a specified day.
      *
      * @param date Date for which to retrieve number of sent messages. The format should be {@code yyyyMMdd}.
-     *             For example: {@literal "20191231"}) and the timezone should be UTC+9.
+     *         For example: {@literal "20191231"}) and the timezone should be UTC+9.
      */
     @GET("v2/bot/insight/message/delivery")
     Call<GetNumberOfMessageDeliveriesResponse> getNumberOfMessageDeliveries(@Query("date") String date);
@@ -348,47 +333,8 @@ interface LineMessagingService {
      * Returns the number of users who have added the bot on or before a specified date.
      *
      * @param date Date for which to retrieve the number of followers. The format should be {@code yyyyMMdd}.
-     *             For example: {@literal "20191231"}) and the timezone should be UTC+9.
+     *         For example: {@literal "20191231"}) and the timezone should be UTC+9.
      */
     @GET("v2/bot/insight/followers")
     Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
-
-    @POST("v2/bot/audienceGroup/upload")
-    Call<CreateAudienceGroupResponse> createAudienceGroup(@Body CreateAudienceGroupRequest request);
-
-    @PUT("v2/bot/audienceGroup/upload")
-    Call<Void> addAudienceToAudienceGroup(@Body AddAudienceToAudienceGroupRequest request);
-
-    @POST("v2/bot/audienceGroup/click")
-    Call<CreateClickBasedAudienceGroupResponse> createClickBasedAudienceGroup(
-            @Body CreateClickBasedAudienceGroupRequest request);
-
-    @POST("v2/bot/audienceGroup/imp")
-    Call<CreateImpBasedAudienceGroupResponse> createImpBasedAudienceGroup(
-            @Body CreateImpBasedAudienceGroupRequest request);
-
-    @PUT("v2/bot/audienceGroup/{audienceGroupId}/updateDescription")
-    Call<Void> updateAudienceGroupDescription(
-            @Path("audienceGroupId") long audienceGroupId, @Body UpdateAudienceGroupDescriptionRequest request);
-
-    @DELETE("v2/bot/audienceGroup/{audienceGroupId}")
-    Call<Void> deleteAudienceGroup(@Path("audienceGroupId") long audienceGroupId);
-
-    @GET("v2/bot/audienceGroup/{audienceGroupId}")
-    Call<GetAudienceDataResponse> getAudienceData(@Path("audienceGroupId") long audienceGroupId);
-
-    @GET("v2/bot/audienceGroup/list")
-    Call<GetAudienceGroupsResponse> getAudienceGroups(
-            @Query("page") long page,
-            @Query("description") String description,
-            @Query("status") AudienceGroupStatus status,
-            @Query("size") Long size,
-            @Query("includesExternalPublicGroups") Boolean includesExternalPublicGroups,
-            @Query("createRoute") AudienceGroupCreateRoute createRoute);
-
-    @GET("v2/bot/audienceGroup/authorityLevel")
-    Call<GetAudienceGroupAuthorityLevelResponse> getAudienceGroupAuthorityLevel();
-
-    @PUT("v2/bot/audienceGroup/authorityLevel")
-    Call<Void> updateAudienceGroupAuthorityLevel(@Body UpdateAudienceGroupAuthorityLevelRequest request);
 }
