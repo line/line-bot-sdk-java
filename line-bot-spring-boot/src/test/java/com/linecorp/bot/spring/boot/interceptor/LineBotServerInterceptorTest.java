@@ -17,28 +17,49 @@
 package com.linecorp.bot.spring.boot.interceptor;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
-@SpringBootTest
+import com.linecorp.bot.model.event.CallbackRequest;
+import com.linecorp.bot.parser.WebhookParser;
+
 public class LineBotServerInterceptorTest {
-    LineBotServerInterceptor target = new LineBotServerInterceptor();
+    @Rule
+    public final MockitoRule mockitoRule = MockitoJUnit.rule();
+
+    @InjectMocks
+    LineBotServerInterceptor target;
+
+    @Mock
+    WebhookParser webhookParser;
 
     @Mock
     HttpServletRequest request;
 
     @Mock
     HttpServletResponse response;
+
+    @Before
+    public void setUp() throws Exception {
+        when(webhookParser.handle(anyString(), any()))
+                .thenReturn(CallbackRequest.builder().build());
+    }
 
     @Test
     public void preHandleStaticResourceTest() throws Exception {

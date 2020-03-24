@@ -42,9 +42,7 @@ check.dependsOn integrationTest
 
 dependencies {
     api project(':line-bot-model')
-    implementation project(':line-bot-parser') // TODO: Can we remove it? (By moving LineSignatureValidator)
     implementation 'org.slf4j:slf4j-api'
-
     implementation 'com.squareup.okhttp3:logging-interceptor'
     implementation 'com.squareup.retrofit2:converter-jackson'
     implementation 'com.squareup.retrofit2:retrofit'

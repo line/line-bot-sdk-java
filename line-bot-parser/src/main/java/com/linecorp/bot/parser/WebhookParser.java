@@ -29,6 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class WebhookParser {
+    public static final String SIGNATURE_HEADER_NAME = "X-Line-Signature";
+
     private final ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
     private final SignatureValidator signatureValidator;
 
@@ -46,9 +48,7 @@ public class WebhookParser {
      *
      * @param signature X-Line-Signature header.
      * @param payload Request body.
-     *
      * @return Parsed result. If there's an error, this method sends response.
-     *
      * @throws WebhookParseException There's an error around signature.
      */
     public CallbackRequest handle(String signature, byte[] payload) throws IOException, WebhookParseException {

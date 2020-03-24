@@ -25,23 +25,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.linecorp.bot.model.event.CallbackRequest;
-import com.linecorp.bot.servlet.LineBotCallbackException;
-import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
+import com.linecorp.bot.parser.WebhookParseException;
+import com.linecorp.bot.parser.WebhookParser;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class LineBotServerInterceptor implements HandlerInterceptor {
-    @Autowired
-    private LineBotCallbackRequestParser lineBotCallbackRequestParser;
+    private final WebhookParser webhookParser;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -58,10 +60,12 @@ public class LineBotServerInterceptor implements HandlerInterceptor {
                 continue;
             }
             try {
-                final CallbackRequest callbackRequest = lineBotCallbackRequestParser.handle(request);
+                final String signatureHeader = request.getHeader(WebhookParser.SIGNATURE_HEADER_NAME);
+                final byte[] payload = StreamUtils.copyToByteArray(request.getInputStream());
+                final CallbackRequest callbackRequest = webhookParser.handle(signatureHeader, payload);
                 LineBotServerArgumentProcessor.setValue(request, callbackRequest);
                 return true;
-            } catch (LineBotCallbackException e) {
+            } catch (WebhookParseException e) {
                 log.info("LINE Bot callback exception: {}", e.getMessage());
                 response.sendError(HttpStatus.BAD_REQUEST.value());
                 try (PrintWriter writer = response.getWriter()) {

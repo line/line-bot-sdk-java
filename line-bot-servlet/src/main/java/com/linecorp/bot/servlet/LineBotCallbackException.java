@@ -19,7 +19,7 @@ package com.linecorp.bot.servlet;
 public class LineBotCallbackException extends Exception {
     private static final long serialVersionUID = -950894346433317253L;
 
-    public LineBotCallbackException(String message) {
-        super(message);
+    public LineBotCallbackException(String message, Exception e) {
+        super(message, e);
     }
 }

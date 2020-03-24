@@ -23,14 +23,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.google.common.io.ByteStreams;
 
-import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.event.CallbackRequest;
+import com.linecorp.bot.parser.LineSignatureValidator;
 import com.linecorp.bot.parser.WebhookParseException;
 import com.linecorp.bot.parser.WebhookParser;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Parser of webhook from LINE's messaging server.
+ *
+ * <p>This is a thin wrapper of {@link WebhookParser}.
+ *
+ * @see WebhookParser
+ */
 @Slf4j
 public class LineBotCallbackRequestParser {
     private final WebhookParser parser;
@@ -48,19 +55,17 @@ public class LineBotCallbackRequestParser {
      * Parses a request.
      *
      * @param req HTTP servlet request.
-     *
      * @return Parsed result. If there's an error, this method sends response.
-     *
      * @throws LineBotCallbackException There's an error around signature.
      */
     public CallbackRequest handle(HttpServletRequest req) throws LineBotCallbackException, IOException {
         // validate signature
-        final String signature = req.getHeader("X-Line-Signature");
+        final String signature = req.getHeader(WebhookParser.SIGNATURE_HEADER_NAME);
         final byte[] json = ByteStreams.toByteArray(req.getInputStream());
         try {
             return parser.handle(signature, json);
         } catch (WebhookParseException e) {
-            throw new LineBotCallbackException(e.getMessage());
+            throw new LineBotCallbackException(e.getMessage(), e);
         }
     }
 
@@ -69,9 +74,7 @@ public class LineBotCallbackRequestParser {
      *
      * @param signature X-Line-Signature header.
      * @param payload Request body.
-     *
      * @return Parsed result. If there's an error, this method sends response.
-     *
      * @throws LineBotCallbackException There's an error around signature.
      * @deprecated Use {@link WebhookParser#handle(String, byte[])} instead.
      */
@@ -81,7 +84,7 @@ public class LineBotCallbackRequestParser {
         try {
             return parser.handle(signature, payload.getBytes(StandardCharsets.UTF_8));
         } catch (WebhookParseException e) {
-            throw new LineBotCallbackException(e.getMessage());
+            throw new LineBotCallbackException(e.getMessage(), e);
         }
     }
 

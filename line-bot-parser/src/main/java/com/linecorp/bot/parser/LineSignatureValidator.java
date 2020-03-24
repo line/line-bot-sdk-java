@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package com.linecorp.bot.client;
+package com.linecorp.bot.parser;
 
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
@@ -23,8 +23,6 @@ import java.util.Base64;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-
-import com.linecorp.bot.parser.SignatureValidator;
 
 import lombok.NonNull;
 
@@ -47,7 +45,6 @@ public class LineSignatureValidator implements SignatureValidator {
      *
      * @param content Body of the http request in byte array.
      * @param headerSignature Signature value from `X-LINE-Signature` HTTP header
-     *
      * @return True if headerSignature matches signature of the content. False otherwise.
      */
     @Override
@@ -61,7 +58,6 @@ public class LineSignatureValidator implements SignatureValidator {
      * Generate signature value.
      *
      * @param content Body of the http request.
-     *
      * @return generated signature value.
      */
     public byte[] generateSignature(@NonNull byte[] content) {
