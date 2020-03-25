@@ -149,7 +149,7 @@ subprojects {
     }
 
     lombok {
-        version = '1.18.8'
+        version = '1.18.12'
     }
 
     if (!project.name.startsWith('sample-') && !project.name.startsWith('test-')) {
