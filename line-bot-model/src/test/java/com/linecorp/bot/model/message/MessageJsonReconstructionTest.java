@@ -239,8 +239,9 @@ public class MessageJsonReconstructionTest {
                               GenderDemographicFilter
                                       .builder()
                                       .oneOf(Collections.singletonList(Gender.MALE))
-                                      .build()
-                      ).build());
+                                      .build())
+                      .build()
+        );
         test(narrowcast);
 
         test(AgeDemographicFilter.builder()

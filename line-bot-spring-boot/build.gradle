@@ -16,7 +16,7 @@
 
 dependencies {
     api project(':line-bot-api-client')
-    implementation project(':line-bot-model')
+    api project(':line-bot-model')
     implementation project(':line-bot-servlet')
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
     implementation 'org.springframework.boot:spring-boot-starter-web'

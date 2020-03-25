@@ -48,13 +48,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ManageAudienceIntegrationTest {
-    private LineMessagingClient target;
+    private ManageAudienceClient target;
     private IntegrationTestSettings settings;
 
     @Before
     public void setUp() throws IOException {
         settings = IntegrationTestSettingsLoader.load();
-        target = LineMessagingClientFactory.create(settings);
+        target = ManageAudienceClientFactory.create(settings);
     }
 
     @Test
