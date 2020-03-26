@@ -24,8 +24,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
-import com.linecorp.bot.client.LineSignatureValidator;
-import com.linecorp.bot.servlet.LineBotCallbackRequestParser;
+import com.linecorp.bot.parser.LineSignatureValidator;
+import com.linecorp.bot.parser.WebhookParser;
 import com.linecorp.bot.spring.boot.interceptor.LineBotServerInterceptor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
 
@@ -46,11 +46,11 @@ public class LineBotWebMvcBeans {
     }
 
     /**
-     * Expose {@link LineBotCallbackRequestParser} as {@link Bean}.
+     * Expose {@link WebhookParser} as {@link Bean}.
      */
     @Bean
-    public LineBotCallbackRequestParser lineBotCallbackRequestParser(
+    public WebhookParser lineBotCallbackRequestParser(
             LineSignatureValidator lineSignatureValidator) {
-        return new LineBotCallbackRequestParser(lineSignatureValidator);
+        return new WebhookParser(lineSignatureValidator);
     }
 }

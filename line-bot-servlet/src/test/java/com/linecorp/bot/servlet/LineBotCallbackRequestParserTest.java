@@ -35,11 +35,11 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.google.common.io.ByteStreams;
 
-import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.parser.LineSignatureValidator;
 
 public class LineBotCallbackRequestParserTest {
     @Rule

@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package com.linecorp.bot.client;
+package com.linecorp.bot.parser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
