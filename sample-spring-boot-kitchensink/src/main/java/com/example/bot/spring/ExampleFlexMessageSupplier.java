@@ -158,9 +158,9 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
 
     private Box createReviewBox() {
         final Icon goldStar =
-                Icon.builder().size(FlexFontSize.SM).url("https://example.com/gold_star.png").build();
+                Icon.builder().size(FlexFontSize.SM).url(URI.create("https://example.com/gold_star.png")).build();
         final Icon grayStar =
-                Icon.builder().size(FlexFontSize.SM).url("https://example.com/gray_star.png").build();
+                Icon.builder().size(FlexFontSize.SM).url(URI.create("https://example.com/gray_star.png")).build();
         final Text point =
                 Text.builder()
                     .text("4.0")

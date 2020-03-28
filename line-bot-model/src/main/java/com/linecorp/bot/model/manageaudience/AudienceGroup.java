@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.manageaudience;
 
+import java.net.URI;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -74,7 +76,7 @@ public class AudienceGroup {
      * The URL that was specified when the audience was created. This is only included when
      * audienceGroups[].type is CLICK.
      */
-    String clickUrl;
+    URI clickUrl;
 
     /**
      * The value specified when the audience for uploading user IDs was created, determining which type of
