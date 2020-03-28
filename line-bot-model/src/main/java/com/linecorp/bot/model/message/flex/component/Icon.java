@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.message.flex.component;
 
+import java.net.URI;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -45,7 +47,7 @@ public class Icon implements FlexComponent {
         R3TO1,
     }
 
-    String url;
+    URI url;
 
     FlexFontSize size;
 
@@ -65,7 +67,7 @@ public class Icon implements FlexComponent {
 
     @JsonCreator
     public Icon(
-            @JsonProperty("url") String url,
+            @JsonProperty("url") URI url,
             @JsonProperty("size") FlexFontSize size,
             @JsonProperty("aspectRatio") IconAspectRatio aspectRatio,
             @JsonProperty("margin") FlexMarginSize margin,

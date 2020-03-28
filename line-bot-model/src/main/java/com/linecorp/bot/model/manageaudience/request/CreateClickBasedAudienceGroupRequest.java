@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.manageaudience.request;
 
+import java.net.URI;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -48,7 +50,7 @@ public class CreateClickBasedAudienceGroupRequest {
      *
      * <p>Max: 2,000 characters
      */
-    String clickUrl;
+    URI clickUrl;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class CreateClickAudienceGroupRequestBuilder {

@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.manageaudience.response;
 
+import java.net.URI;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -57,7 +59,7 @@ public class CreateClickBasedAudienceGroupResponse {
     /**
      * The URL that was specified when the audience was created.
      */
-    String clickUrl;
+    URI clickUrl;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class CreateClickBasedAudienceGroupResponseBuilder {
