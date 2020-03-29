@@ -54,3 +54,6 @@ local.properties
 # PDT-specific
 .buildpath
 integration_test_settings.yml
+
+# Prevent an unexpected channel secret leak.
+application.yml

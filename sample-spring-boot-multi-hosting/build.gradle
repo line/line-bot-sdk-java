@@ -15,13 +15,9 @@
  */
 
 dependencies {
-    api project(':line-bot-api-client')
-    api project(':line-bot-model')
+    implementation project(':line-bot-spring-boot')
     implementation project(':line-bot-parser')
-    implementation 'org.springframework.boot:spring-boot-autoconfigure'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'com.google.guava:guava'
-    implementation 'com.squareup.retrofit2:retrofit'
+    implementation "org.springframework.boot:spring-boot-starter-web"
 
-    compileOnly 'javax.validation:validation-api'
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
 }

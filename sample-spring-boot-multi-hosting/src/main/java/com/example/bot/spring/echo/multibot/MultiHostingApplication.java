@@ -14,14 +14,18 @@
  * under the License.
  */
 
-dependencies {
-    api project(':line-bot-api-client')
-    api project(':line-bot-model')
-    implementation project(':line-bot-parser')
-    implementation 'org.springframework.boot:spring-boot-autoconfigure'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'com.google.guava:guava'
-    implementation 'com.squareup.retrofit2:retrofit'
+package com.example.bot.spring.echo.multibot;
 
-    compileOnly 'javax.validation:validation-api'
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+import com.example.bot.spring.echo.multibot.handler.MultiBotProtperties;
+
+@SpringBootApplication
+@EnableConfigurationProperties(MultiBotProtperties.class)
+public class MultiHostingApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MultiHostingApplication.class, args);
+    }
 }
