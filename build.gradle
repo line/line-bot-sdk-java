@@ -82,8 +82,9 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
+    // Basically, we follow spring boot's suggest version. Other versions defined here.
     ext['guava.version'] = '28.2-jre'
-    ext['retrofit.version'] = '2.6.1'
+    ext['retrofit.version'] = '2.8.1'
 
     dependencyManagement {
         imports {
