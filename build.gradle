@@ -205,6 +205,10 @@ subprojects {
         options.encoding = 'UTF-8'
     }
 
+    test {
+        useJUnitPlatform()
+    }
+
     project.plugins.withType(SpringBootPlugin) {
         bootRun {
             systemProperties System.properties
