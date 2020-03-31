@@ -19,8 +19,6 @@ package com.linecorp.bot.client;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -31,7 +29,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.PackagePrivate;
@@ -44,7 +41,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @ToString
 @Accessors(fluent = true)
-public class ManageAudienceClientBuilder {
+public class ManageAudienceClientBuilder extends AbstractClientBuilder<ManageAudienceClientBuilder> {
     private static final ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 
     /**
@@ -52,110 +49,6 @@ public class ManageAudienceClientBuilder {
      */
     @PackagePrivate
     ManageAudienceClientBuilder() {
-    }
-
-    /**
-     * API Endpoint.
-     *
-     * <p>Default value = "https://api.line.me/".
-     */
-    private URI apiEndPoint = LineClientConstants.DEFAULT_API_END_POINT;
-
-    /**
-     * API Endpoint.
-     *
-     * @deprecated use {@link #apiEndPoint(URI apiEndPoint)}.
-     */
-    @Deprecated
-    public ManageAudienceClientBuilder apiEndPoint(String apiEndPoint) {
-        return apiEndPoint(URI.create(apiEndPoint));
-    }
-
-    /**
-     * API Endpoint.
-     *
-     * <p>Default value = "https://api.line.me/".
-     */ // We can remove this after delete `setApiEndPoint(String apiEndPoint)`.
-    public ManageAudienceClientBuilder apiEndPoint(URI apiEndPoint) {
-        this.apiEndPoint = requireNonNull(apiEndPoint, "apiEndPoint");
-        return this;
-    }
-
-    /**
-     * Connection timeout.
-     *
-     * <p>Default value = {@value LineClientConstants#DEFAULT_CONNECT_TIMEOUT_MILLIS}ms.
-     */
-    @Setter
-    private long connectTimeout = LineClientConstants.DEFAULT_CONNECT_TIMEOUT_MILLIS;
-
-    /**
-     * Connection timeout.
-     *
-     * <p>Default value = {@value LineClientConstants#DEFAULT_READ_TIMEOUT_MILLIS}ms.
-     */
-    @Setter
-    private long readTimeout = LineClientConstants.DEFAULT_READ_TIMEOUT_MILLIS;
-
-    /**
-     * Write timeout.
-     *
-     * <p>Default value = {@value LineClientConstants#DEFAULT_WRITE_TIMEOUT_MILLIS}ms.
-     */
-    @Setter
-    private long writeTimeout = LineClientConstants.DEFAULT_WRITE_TIMEOUT_MILLIS;
-
-    /**
-     * Channel token supplier of this client.
-     *
-     * <p>MUST BE NULL except you configured your own
-     */
-    @Setter
-    private ChannelTokenSupplier channelTokenSupplier;
-
-    /**
-     * Custom {@link Retrofit.Builder} used internally.
-     *
-     * <p>If you want to use your own setting, specify {@link Retrofit.Builder} instance.
-     * Default builder is used in case of {@code null} (default).
-     *
-     * <p>To use this method, please add dependency to 'com.squareup.retrofit2:retrofit'.
-     *
-     * @see #createDefaultRetrofitBuilder()
-     */
-    @Setter
-    private Retrofit.Builder retrofitBuilder;
-
-    /**
-     * Add authentication header.
-     *
-     * <p>Default = {@value}. If you manage authentication header yourself, set to {@code false}.
-     */
-    @Setter
-    private boolean addAuthenticationHeader = true;
-
-    private OkHttpClient.Builder okHttpClientBuilder;
-
-    /**
-     * Custom interceptors.
-     *
-     * <p>You can add your own interceptors.
-     *
-     * <p>Note: Authentication interceptor is automatically added by default.
-     *
-     * @see #addAuthenticationHeader(boolean)
-     */
-    @Setter
-    private List<Interceptor> additionalInterceptors = new ArrayList<>();
-
-    /**
-     * Set fixed channel token. This overwrites {@link #channelTokenSupplier(ChannelTokenSupplier)}.
-     *
-     * @see #channelTokenSupplier(ChannelTokenSupplier)
-     */
-    public ManageAudienceClientBuilder channelToken(String channelToken) {
-        channelTokenSupplier(FixedChannelTokenSupplier.of(channelToken));
-        return this;
     }
 
     /**

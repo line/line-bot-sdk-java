@@ -16,11 +16,6 @@
 
 package com.linecorp.bot.client;
 
-import static java.util.Objects.requireNonNull;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -30,8 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 
-import lombok.NonNull;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.PackagePrivate;
@@ -44,97 +37,12 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @ToString
 @Accessors(fluent = true)
-public class LineOAuthClientBuilder {
+public class LineOAuthClientBuilder extends AbstractClientBuilder<LineOAuthClientBuilder> {
     /**
      * Creates a {@link LineOAuthClient}. Use {@link LineOAuthClient#builder()} instead.
      */
     @PackagePrivate
     LineOAuthClientBuilder() {
-    }
-
-    /**
-     * API Endpoint.
-     *
-     * <p>Default value = "https://api.line.me/".
-     */
-    private URI apiEndPoint = LineClientConstants.DEFAULT_API_END_POINT;
-
-    /**
-     * API Endpoint.
-     *
-     * @deprecated use {@link #apiEndPoint(URI apiEndPoint)}.
-     */
-    @Deprecated
-    public LineOAuthClientBuilder apiEndPoint(String apiEndPoint) {
-        return apiEndPoint(URI.create(apiEndPoint));
-    }
-
-    /**
-     * API Endpoint.
-     *
-     * <p>Default value = "https://api.line.me/".
-     */
-    public LineOAuthClientBuilder apiEndPoint(URI apiEndPoint) {
-        this.apiEndPoint = requireNonNull(apiEndPoint, "apiEndPoint");
-        return this;
-    }
-
-    /**
-     * Connection timeout.
-     *
-     * <p>Default value = {@value LineClientConstants#DEFAULT_CONNECT_TIMEOUT_MILLIS}ms.
-     */
-    @Setter
-    private long connectTimeout = LineClientConstants.DEFAULT_CONNECT_TIMEOUT_MILLIS;
-
-    /**
-     * Connection timeout.
-     *
-     * <p>Default value = {@value LineClientConstants#DEFAULT_READ_TIMEOUT_MILLIS}ms.
-     */
-    @Setter
-    private long readTimeout = LineClientConstants.DEFAULT_READ_TIMEOUT_MILLIS;
-
-    /**
-     * Write timeout.
-     *
-     * <p>Default value = {@value LineClientConstants#DEFAULT_WRITE_TIMEOUT_MILLIS}ms.
-     */
-    @Setter
-    private long writeTimeout = LineClientConstants.DEFAULT_WRITE_TIMEOUT_MILLIS;
-
-    /**
-     * Custom {@link Retrofit.Builder} used internally.
-     *
-     * <p>If you want to use your own setting, specify {@link Retrofit.Builder} instance.
-     * Default builder is used in case of {@code null} (default).
-     *
-     * <p>To use this method, please add dependency to 'com.squareup.retrofit2:retrofit'.
-     *
-     * @see #createDefaultRetrofitBuilder()
-     */
-    @Setter
-    private Retrofit.Builder retrofitBuilder;
-
-    private OkHttpClient.Builder okHttpClientBuilder;
-
-    /**
-     * Custom interceptors.
-     *
-     * <p>You can add your own interceptors.
-     */
-    @Setter
-    private List<Interceptor> additionalInterceptors = new ArrayList<>();
-
-    /**
-     * Set customized {@link OkHttpClient.Builder}.
-     *
-     * <p>In case of you need your own customized {@link OkHttpClient},
-     * this builder allows specify {@link OkHttpClient.Builder} instance.
-     */
-    public LineOAuthClientBuilder okHttpClientBuilder(@NonNull OkHttpClient.Builder okHttpClientBuilder) {
-        this.okHttpClientBuilder = okHttpClientBuilder;
-        return this;
     }
 
     /**
