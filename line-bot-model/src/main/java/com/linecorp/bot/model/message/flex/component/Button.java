@@ -16,11 +16,12 @@
 
 package com.linecorp.bot.model.message.flex.component;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.message.flex.unit.FlexGravity;
@@ -28,15 +29,17 @@ import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 import com.linecorp.bot.model.message.flex.unit.FlexOffsetSize;
 import com.linecorp.bot.model.message.flex.unit.FlexPosition;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-@Value
-@Builder
 @JsonTypeName("button")
 @JsonInclude(Include.NON_NULL)
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = Button.ButtonBuilder.class)
 public class Button implements FlexComponent {
-
     public enum ButtonStyle {
         @JsonProperty("primary")
         PRIMARY,
@@ -77,35 +80,9 @@ public class Button implements FlexComponent {
 
     ButtonHeight height;
 
-    @JsonCreator
-    public Button(
-            @JsonProperty("flex") Integer flex,
-            @JsonProperty("color") String color,
-            @JsonProperty("style") ButtonStyle style,
-            @JsonProperty("action") Action action,
-            @JsonProperty("gravity") FlexGravity gravity,
-            @JsonProperty("margin") FlexMarginSize margin,
-            @JsonProperty("position") FlexPosition position,
-            @JsonProperty("offsetTop") String offsetTop,
-            @JsonProperty("offsetBottom") String offsetBottom,
-            @JsonProperty("offsetStart") String offsetStart,
-            @JsonProperty("offsetEnd") String offsetEnd,
-            @JsonProperty("height") ButtonHeight height) {
-        this.flex = flex;
-        this.color = color;
-        this.style = style;
-        this.action = action;
-        this.gravity = gravity;
-        this.margin = margin;
-        this.position = position;
-        this.offsetTop = offsetTop;
-        this.offsetBottom = offsetBottom;
-        this.offsetStart = offsetStart;
-        this.offsetEnd = offsetEnd;
-        this.height = height;
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static class ButtonBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
 
         public ButtonBuilder offsetTop(FlexOffsetSize offset) {
             offsetTop = offset.getPropertyValue();
@@ -146,6 +123,5 @@ public class Button implements FlexComponent {
             offsetEnd = offset;
             return this;
         }
-
     }
 }
