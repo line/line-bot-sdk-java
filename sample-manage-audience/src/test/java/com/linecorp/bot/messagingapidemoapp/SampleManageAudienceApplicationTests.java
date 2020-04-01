@@ -20,11 +20,12 @@ package com.linecorp.bot.messagingapidemoapp;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(properties = {
+        "line.bot.channel-token=DUMMY",
+        "line.bot.channel-secret=DUMMY",
+})
 class SampleManageAudienceApplicationTests {
-
     @Test
     void contextLoads() {
     }
-
 }
