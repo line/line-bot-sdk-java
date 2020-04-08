@@ -16,25 +16,33 @@
 
 package com.linecorp.bot.model.message.flex.container;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.message.flex.component.Box;
 import com.linecorp.bot.model.message.flex.component.FlexComponent;
 import com.linecorp.bot.model.message.flex.unit.FlexDirection;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-@Value
-@Builder
 @JsonTypeName("bubble")
 @JsonInclude(Include.NON_NULL)
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = Bubble.BubbleBuilder.class)
 public class Bubble implements FlexContainer {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class BubbleBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
 
     public enum BubbleSize {
         @JsonProperty("nano")
@@ -64,25 +72,5 @@ public class Bubble implements FlexContainer {
     BubbleSize size;
 
     Action action;
-
-    @JsonCreator
-    public Bubble(
-            @JsonProperty("direction") FlexDirection direction,
-            @JsonProperty("styles") BubbleStyles styles,
-            @JsonProperty("header") Box header,
-            @JsonProperty("hero") FlexComponent hero,
-            @JsonProperty("body") Box body,
-            @JsonProperty("footer") Box footer,
-            @JsonProperty("size") BubbleSize size,
-            @JsonProperty("action") Action action) {
-        this.direction = direction;
-        this.styles = styles;
-        this.header = header;
-        this.hero = hero;
-        this.body = body;
-        this.footer = footer;
-        this.size = size;
-        this.action = action;
-    }
 
 }

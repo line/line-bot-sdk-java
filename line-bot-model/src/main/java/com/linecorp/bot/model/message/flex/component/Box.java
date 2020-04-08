@@ -18,14 +18,14 @@ package com.linecorp.bot.model.message.flex.component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.message.flex.unit.FlexBorderWidthSize;
@@ -36,15 +36,17 @@ import com.linecorp.bot.model.message.flex.unit.FlexOffsetSize;
 import com.linecorp.bot.model.message.flex.unit.FlexPaddingSize;
 import com.linecorp.bot.model.message.flex.unit.FlexPosition;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-@Value
-@Builder
 @JsonTypeName("box")
 @JsonInclude(Include.NON_NULL)
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = Box.BoxBuilder.class)
 public class Box implements FlexComponent {
-
     FlexLayout layout;
 
     Integer flex;
@@ -89,56 +91,9 @@ public class Box implements FlexComponent {
 
     Action action;
 
-    @JsonCreator
-    public Box(
-            @JsonProperty("layout") FlexLayout layout,
-            @JsonProperty("flex") Integer flex,
-            @JsonProperty("contents") List<FlexComponent> contents,
-            @JsonProperty("spacing") FlexMarginSize spacing,
-            @JsonProperty("margin") FlexMarginSize margin,
-            @JsonProperty("position") FlexPosition position,
-            @JsonProperty("offsetTop") String offsetTop,
-            @JsonProperty("offsetBottom") String offsetBottom,
-            @JsonProperty("offsetStart") String offsetStart,
-            @JsonProperty("offsetEnd") String offsetEnd,
-            @JsonProperty("backgroundColor") String backgroundColor,
-            @JsonProperty("borderColor") String borderColor,
-            @JsonProperty("borderWidth") String borderWidth,
-            @JsonProperty("cornerRadius") String cornerRadius,
-            @JsonProperty("width") String width,
-            @JsonProperty("height") String height,
-            @JsonProperty("paddingAll") String paddingAll,
-            @JsonProperty("paddingTop") String paddingTop,
-            @JsonProperty("paddingBottom") String paddingBottom,
-            @JsonProperty("paddingStart") String paddingStart,
-            @JsonProperty("paddingEnd") String paddingEnd,
-            @JsonProperty("action") Action action) {
-        this.layout = layout;
-        this.flex = flex;
-        this.contents = contents != null ? contents : Collections.emptyList();
-        this.spacing = spacing;
-        this.margin = margin;
-        this.position = position;
-        this.offsetTop = offsetTop;
-        this.offsetBottom = offsetBottom;
-        this.offsetStart = offsetStart;
-        this.offsetEnd = offsetEnd;
-        this.backgroundColor = backgroundColor;
-        this.borderColor = borderColor;
-        this.borderWidth = borderWidth;
-        this.cornerRadius = cornerRadius;
-        this.width = width;
-        this.height = height;
-        this.paddingAll = paddingAll;
-        this.paddingTop = paddingTop;
-        this.paddingBottom = paddingBottom;
-        this.paddingStart = paddingStart;
-        this.paddingEnd = paddingEnd;
-        this.action = action;
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static class BoxBuilder {
-
+        @JsonSetter // Avoid conflict with same name method.
         public BoxBuilder contents(List<FlexComponent> contents) {
             this.contents = new ArrayList<>(contents);
             return this;

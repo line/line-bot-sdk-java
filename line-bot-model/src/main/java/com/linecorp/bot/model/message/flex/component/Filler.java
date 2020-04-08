@@ -16,27 +16,29 @@
 
 package com.linecorp.bot.model.message.flex.component;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-@Value
-@Builder
 @JsonTypeName("filler")
 @JsonInclude(Include.NON_NULL)
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = Filler.FillerBuilder.class)
 public class Filler implements FlexComponent {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class FillerBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
 
     Integer flex;
-
-    @JsonCreator
-    public Filler(@JsonProperty("flex") Integer flex) {
-        this.flex = flex;
-    }
 
     public Filler() {
         this(null);

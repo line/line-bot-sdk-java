@@ -16,15 +16,14 @@
 
 package com.linecorp.bot.model.message.flex.component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.message.flex.unit.FlexAlign;
@@ -34,15 +33,17 @@ import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 import com.linecorp.bot.model.message.flex.unit.FlexOffsetSize;
 import com.linecorp.bot.model.message.flex.unit.FlexPosition;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-@Value
-@Builder
 @JsonTypeName("text")
 @JsonInclude(Include.NON_NULL)
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = Text.TextBuilder.class)
 public class Text implements FlexComponent {
-
     public enum TextWeight {
         @JsonProperty("regular")
         REGULAR,
@@ -104,63 +105,9 @@ public class Text implements FlexComponent {
 
     List<Span> contents;
 
-    @JsonCreator
-    public Text(
-            @JsonProperty("flex") Integer flex,
-            @JsonProperty("text") String text,
-            @JsonProperty("size") FlexFontSize size,
-            @JsonProperty("align") FlexAlign align,
-            @JsonProperty("gravity") FlexGravity gravity,
-            @JsonProperty("color") String color,
-            @JsonProperty("weight") TextWeight weight,
-            @JsonProperty("style") TextStyle style,
-            @JsonProperty("decoration") TextDecoration decoration,
-            @JsonProperty("wrap") Boolean wrap,
-            @JsonProperty("margin") FlexMarginSize margin,
-            @JsonProperty("position") FlexPosition position,
-            @JsonProperty("offsetTop") String offsetTop,
-            @JsonProperty("offsetBottom") String offsetBottom,
-            @JsonProperty("offsetStart") String offsetStart,
-            @JsonProperty("offsetEnd") String offsetEnd,
-            @JsonProperty("action") Action action,
-            @JsonProperty("maxLines") Integer maxLines,
-            @JsonProperty("contents") List<Span> contents) {
-        this.flex = flex;
-        this.text = text;
-        this.size = size;
-        this.align = align;
-        this.gravity = gravity;
-        this.color = color;
-        this.weight = weight;
-        this.style = style;
-        this.decoration = decoration;
-        this.wrap = wrap;
-        this.margin = margin;
-        this.position = position;
-        this.offsetTop = offsetTop;
-        this.offsetBottom = offsetBottom;
-        this.offsetStart = offsetStart;
-        this.offsetEnd = offsetEnd;
-        this.action = action;
-        this.maxLines = maxLines;
-        this.contents = contents;
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static class TextBuilder {
-
-        public TextBuilder contents(List<Span> contents) {
-            this.contents = new ArrayList<>(contents);
-            return this;
-        }
-
-        public TextBuilder contents(Span... contents) {
-            this.contents = Arrays.asList(contents);
-            return this;
-        }
-
-        public TextBuilder content(Span content) {
-            return contents(content);
-        }
+        // Providing builder instead of public constructor. Class body is filled by lombok.
 
         public TextBuilder offsetTop(FlexOffsetSize offset) {
             offsetTop = offset.getPropertyValue();
@@ -201,6 +148,5 @@ public class Text implements FlexComponent {
             offsetEnd = offset;
             return this;
         }
-
     }
 }

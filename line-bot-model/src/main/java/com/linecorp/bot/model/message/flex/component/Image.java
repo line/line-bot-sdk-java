@@ -19,11 +19,12 @@ package com.linecorp.bot.model.message.flex.component;
 import java.net.URI;
 import java.text.DecimalFormat;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.message.flex.unit.FlexAlign;
@@ -32,15 +33,18 @@ import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 import com.linecorp.bot.model.message.flex.unit.FlexOffsetSize;
 import com.linecorp.bot.model.message.flex.unit.FlexPosition;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 
-@Value
-@Builder
 @JsonTypeName("image")
 @JsonInclude(Include.NON_NULL)
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = Image.ImageBuilder.class)
 public class Image implements FlexComponent {
-
     public enum ImageSize {
         @JsonProperty("xxs")
         XXS,
@@ -66,6 +70,8 @@ public class Image implements FlexComponent {
         FULL_WIDTH,
     }
 
+    @AllArgsConstructor
+    @Getter
     public enum ImageAspectRatio {
         R1TO1("1:1"),
         R20TO13("20:13"),
@@ -81,14 +87,6 @@ public class Image implements FlexComponent {
         R1_51TO1("1.51:1");
 
         private final String ratio;
-
-        ImageAspectRatio(String ratio) {
-            this.ratio = ratio;
-        }
-
-        public String getRatio() {
-            return ratio;
-        }
     }
 
     public enum ImageAspectMode {
@@ -128,42 +126,8 @@ public class Image implements FlexComponent {
 
     String offsetEnd;
 
-    @JsonCreator
-    public Image(
-            @JsonProperty("flex") Integer flex,
-            @JsonProperty("url") URI url,
-            @JsonProperty("size") ImageSize size,
-            @JsonProperty("aspectRatio") String aspectRatio,
-            @JsonProperty("aspectMode") ImageAspectMode aspectMode,
-            @JsonProperty("backgroundColor") String backgroundColor,
-            @JsonProperty("align") FlexAlign align,
-            @JsonProperty("action") Action action,
-            @JsonProperty("gravity") FlexGravity gravity,
-            @JsonProperty("margin") FlexMarginSize margin,
-            @JsonProperty("position") FlexPosition position,
-            @JsonProperty("offsetTop") String offsetTop,
-            @JsonProperty("offsetBottom") String offsetBottom,
-            @JsonProperty("offsetStart") String offsetStart,
-            @JsonProperty("offsetEnd") String offsetEnd) {
-        this.flex = flex;
-        this.url = url;
-        this.size = size;
-        this.aspectRatio = aspectRatio;
-        this.aspectMode = aspectMode;
-        this.backgroundColor = backgroundColor;
-        this.align = align;
-        this.action = action;
-        this.gravity = gravity;
-        this.margin = margin;
-        this.position = position;
-        this.offsetTop = offsetTop;
-        this.offsetBottom = offsetBottom;
-        this.offsetStart = offsetStart;
-        this.offsetEnd = offsetEnd;
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static class ImageBuilder {
-
         private static final DecimalFormat RATIO_FORMAT = new DecimalFormat("0.#####");
 
         /**
@@ -229,6 +193,5 @@ public class Image implements FlexComponent {
             offsetEnd = offset;
             return this;
         }
-
     }
 }

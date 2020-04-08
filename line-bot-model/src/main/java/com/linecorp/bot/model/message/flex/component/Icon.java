@@ -18,26 +18,29 @@ package com.linecorp.bot.model.message.flex.component;
 
 import java.net.URI;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 import com.linecorp.bot.model.message.flex.unit.FlexOffsetSize;
 import com.linecorp.bot.model.message.flex.unit.FlexPosition;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-@Value
-@Builder
 @JsonTypeName("icon")
 @JsonInclude(Include.NON_NULL)
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = Icon.IconBuilder.class)
 public class Icon implements FlexComponent {
-
     public enum IconAspectRatio {
         @JsonProperty("1:1")
         R1TO1,
@@ -65,30 +68,8 @@ public class Icon implements FlexComponent {
 
     String offsetEnd;
 
-    @JsonCreator
-    public Icon(
-            @JsonProperty("url") URI url,
-            @JsonProperty("size") FlexFontSize size,
-            @JsonProperty("aspectRatio") IconAspectRatio aspectRatio,
-            @JsonProperty("margin") FlexMarginSize margin,
-            @JsonProperty("position") FlexPosition position,
-            @JsonProperty("offsetTop") String offsetTop,
-            @JsonProperty("offsetBottom") String offsetBottom,
-            @JsonProperty("offsetStart") String offsetStart,
-            @JsonProperty("offsetEnd") String offsetEnd) {
-        this.url = url;
-        this.size = size;
-        this.aspectRatio = aspectRatio;
-        this.margin = margin;
-        this.position = position;
-        this.offsetTop = offsetTop;
-        this.offsetBottom = offsetBottom;
-        this.offsetStart = offsetStart;
-        this.offsetEnd = offsetEnd;
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static class IconBuilder {
-
         public IconBuilder offsetTop(FlexOffsetSize offset) {
             offsetTop = offset.getPropertyValue();
             return this;
@@ -128,6 +109,5 @@ public class Icon implements FlexComponent {
             offsetEnd = offset;
             return this;
         }
-
     }
 }

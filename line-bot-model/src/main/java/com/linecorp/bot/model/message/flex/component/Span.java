@@ -16,26 +16,28 @@
 
 package com.linecorp.bot.model.message.flex.component;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.flex.component.Text.TextDecoration;
 import com.linecorp.bot.model.message.flex.component.Text.TextStyle;
 import com.linecorp.bot.model.message.flex.component.Text.TextWeight;
 import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-@Value
-@Builder
 @JsonTypeName("span")
 @JsonInclude(Include.NON_NULL)
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = Span.SpanBuilder.class)
 public class Span implements FlexComponent {
-
     String text;
 
     FlexFontSize size;
@@ -48,19 +50,8 @@ public class Span implements FlexComponent {
 
     TextDecoration decoration;
 
-    @JsonCreator
-    public Span(
-            @JsonProperty("text") String text,
-            @JsonProperty("size") FlexFontSize size,
-            @JsonProperty("color") String color,
-            @JsonProperty("weight") TextWeight weight,
-            @JsonProperty("style") TextStyle style,
-            @JsonProperty("decoration") TextDecoration decoration) {
-        this.text = text;
-        this.size = size;
-        this.color = color;
-        this.weight = weight;
-        this.style = style;
-        this.decoration = decoration;
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class SpanBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
     }
 }

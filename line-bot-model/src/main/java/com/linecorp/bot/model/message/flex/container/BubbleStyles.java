@@ -16,38 +16,40 @@
 
 package com.linecorp.bot.model.message.flex.container;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import lombok.Builder;
 import lombok.Value;
 
-@Value
-@Builder
 @JsonInclude(Include.NON_NULL)
+@Value
+@Builder(toBuilder = true)
+@JsonDeserialize(builder = BubbleStyles.BubbleStylesBuilder.class)
 public class BubbleStyles {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class BubbleStylesBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
+    @JsonInclude(Include.NON_NULL)
 
     @Value
-    @Builder
-    @JsonInclude(Include.NON_NULL)
+    @Builder(toBuilder = true)
+    @JsonDeserialize(builder = BlockStyle.BlockStyleBuilder.class)
     public static class BlockStyle {
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class BlockStyleBuilder {
+            // Providing builder instead of public constructor. Class body is filled by lombok.
+        }
+
         String backgroundColor;
 
         Boolean separator;
 
         String separatorColor;
-
-        @JsonCreator
-        public BlockStyle(
-                @JsonProperty("backgroundColor") String backgroundColor,
-                @JsonProperty("separator") Boolean separator,
-                @JsonProperty("separatorColor") String separatorColor) {
-            this.backgroundColor = backgroundColor;
-            this.separator = separator;
-            this.separatorColor = separatorColor;
-        }
     }
 
     BlockStyle header;
@@ -57,16 +59,4 @@ public class BubbleStyles {
     BlockStyle body;
 
     BlockStyle footer;
-
-    @JsonCreator
-    public BubbleStyles(
-            @JsonProperty("header") BlockStyle header,
-            @JsonProperty("hero") BlockStyle hero,
-            @JsonProperty("body") BlockStyle body,
-            @JsonProperty("footer") BlockStyle footer) {
-        this.header = header;
-        this.hero = hero;
-        this.body = body;
-        this.footer = footer;
-    }
 }

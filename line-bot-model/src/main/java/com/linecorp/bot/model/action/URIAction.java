@@ -19,6 +19,8 @@ package com.linecorp.bot.model.action;
 import java.net.URI;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -33,6 +35,7 @@ import lombok.Value;
  */
 @Value
 @JsonTypeName("uri")
+@JsonInclude(Include.NON_NULL)
 public class URIAction implements Action {
     /**
      * Label for the action.

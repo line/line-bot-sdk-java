@@ -16,28 +16,29 @@
 
 package com.linecorp.bot.model.message.flex.container;
 
-import java.util.Collections;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-@Value
-@Builder
 @JsonTypeName("carousel")
 @JsonInclude(Include.NON_NULL)
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = Carousel.CarouselBuilder.class)
 public class Carousel implements FlexContainer {
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class CarouselBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
 
     List<Bubble> contents;
-
-    @JsonCreator
-    public Carousel(@JsonProperty("contents") List<Bubble> contents) {
-        this.contents = contents != null ? contents : Collections.emptyList();
-    }
 }

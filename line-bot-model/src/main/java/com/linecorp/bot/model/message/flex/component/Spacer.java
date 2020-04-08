@@ -16,28 +16,29 @@
 
 package com.linecorp.bot.model.message.flex.component;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-@Value
-@Builder
 @JsonTypeName("spacer")
 @JsonInclude(Include.NON_NULL)
+@Value
+@Builder(toBuilder = true)
+@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
+@JsonDeserialize(builder = Spacer.SpacerBuilder.class)
 public class Spacer implements FlexComponent {
-
     FlexMarginSize size;
 
-    @JsonCreator
-    public Spacer(
-            @JsonProperty("size") FlexMarginSize size) {
-        this.size = size;
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class SpacerBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
     }
 }
