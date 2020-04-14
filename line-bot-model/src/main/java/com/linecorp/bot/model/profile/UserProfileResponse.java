@@ -18,15 +18,18 @@ package com.linecorp.bot.model.profile;
 
 import java.net.URI;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import lombok.Builder;
 import lombok.Value;
 
 /**
  * Response object for 'Get Profile' API.
  */
 @Value
+@Builder(toBuilder = true)
+@JsonDeserialize(builder = UserProfileResponse.UserProfileResponseBuilder.class)
 public class UserProfileResponse {
     /**
      * Display name.
@@ -48,15 +51,13 @@ public class UserProfileResponse {
      */
     private final String statusMessage;
 
-    @JsonCreator
-    public UserProfileResponse(
-            @JsonProperty("displayName") String displayName,
-            @JsonProperty("userId") String userId,
-            @JsonProperty("pictureUrl") URI pictureUrl,
-            @JsonProperty("statusMessage") String statusMessage) {
-        this.displayName = displayName;
-        this.userId = userId;
-        this.pictureUrl = pictureUrl;
-        this.statusMessage = statusMessage;
+    /**
+     * User's language.
+     */
+    String language;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class UserProfileResponseBuilder {
+        // Providing builder instead of public constructor. Class body is filled by lombok.
     }
 }

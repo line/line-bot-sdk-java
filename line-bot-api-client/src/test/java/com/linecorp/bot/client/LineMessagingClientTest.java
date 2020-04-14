@@ -61,10 +61,14 @@ public class LineMessagingClientTest {
 
     @Test
     public void relativeRequestTest() throws Exception {
-        final UserProfileResponse profileResponseMock =
-                new UserProfileResponse("name", "userId",
-                                        URI.create("https://line.me/picture_url"),
-                                        "Status message");
+        final UserProfileResponse profileResponseMock = UserProfileResponse
+                .builder()
+                .displayName("name")
+                .userId("userId")
+                .pictureUrl(URI.create("https://line.me/picture_url"))
+                .statusMessage("Status message")
+                .language("en")
+                .build();
 
         mockWebServer.enqueue(new MockResponse()
                                       .setResponseCode(200)
