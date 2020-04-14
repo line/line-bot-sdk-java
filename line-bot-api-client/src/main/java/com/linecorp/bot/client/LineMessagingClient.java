@@ -29,6 +29,7 @@ import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -355,6 +356,16 @@ public interface LineMessagingClient {
      * Gets the number of users who have added the bot on or before a specified date.
      */
     CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowers(String date);
+
+    /**
+     * Returns statistics about how users interact with narrowcast messages or broadcast messages sent from your
+     * LINE Official Account.
+     *
+     * <p>You can get statistics per message or per bubble.</p>
+     * @param requestId Request ID of a narrowcast message or broadcast message. Each Messaging API request has
+     *                  a request ID. Find it in the response headers.
+     */
+    CompletableFuture<GetMessageEventResponse> getMessageEvent(String requestId);
 
     /**
      * Retrieves the demographic attributes for a bot's friends.
