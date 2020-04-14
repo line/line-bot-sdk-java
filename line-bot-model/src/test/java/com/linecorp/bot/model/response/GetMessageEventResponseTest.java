@@ -72,7 +72,7 @@ public class GetMessageEventResponseTest {
         assertThat(response.getClicks().get(0).getSeq())
                 .isEqualTo(1L);
         assertThat(response.getClicks().get(0).getUrl())
-                .isEqualTo("https://www.yahoo.co.jp/");
+                .isEqualTo("https://example.com/1st");
         assertThat(response.getClicks().get(0).getClick())
                 .isEqualTo(100L);
         assertThat(response.getClicks().get(0).getUniqueClick())
@@ -83,7 +83,7 @@ public class GetMessageEventResponseTest {
         assertThat(response.getClicks().get(1).getSeq())
                 .isEqualTo(2L);
         assertThat(response.getClicks().get(1).getUrl())
-                .isEqualTo("https://www.google.com/?hl=ja");
+                .isEqualTo("https://example.com/2nd");
         assertThat(response.getClicks().get(1).getClick())
                 .isEqualTo(29L);
         assertThat(response.getClicks().get(1).getUniqueClick())
