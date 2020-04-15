@@ -266,9 +266,14 @@ public class LineMessagingClientImplTest {
 
     @Test
     public void getProfileTest() throws Exception {
-        final UserProfileResponse mockUserProfileResponse =
-                new UserProfileResponse("displayName", "userId",
-                                        URI.create("http://pictureUrl/"), "statusMessage");
+        final UserProfileResponse mockUserProfileResponse = UserProfileResponse
+                .builder()
+                .displayName("name")
+                .userId("userId")
+                .pictureUrl(URI.create("https://line.me/picture_url"))
+                .statusMessage("Status message")
+                .language("en")
+                .build();
         whenCall(retrofitMock.getProfile(any()),
                  mockUserProfileResponse);
 
@@ -282,9 +287,14 @@ public class LineMessagingClientImplTest {
 
     @Test
     public void getProfileOfGroupMemberTest() throws Exception {
-        final UserProfileResponse mockUserProfileResponse =
-                new UserProfileResponse("displayName", "userId",
-                                        URI.create("http://pictureUrl"), null);
+        final UserProfileResponse mockUserProfileResponse = UserProfileResponse
+                .builder()
+                .displayName("name")
+                .userId("userId")
+                .pictureUrl(URI.create("https://line.me/picture_url"))
+                .statusMessage("Status message")
+                .language("en")
+                .build();
         whenCall(retrofitMock.getMemberProfile(any(), any(), any()),
                  mockUserProfileResponse);
 
