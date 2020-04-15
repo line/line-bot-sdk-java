@@ -27,6 +27,7 @@ import com.linecorp.bot.model.oauth.IssueChannelAccessTokenResponse;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 
 import lombok.AllArgsConstructor;
+import lombok.experimental.PackagePrivate;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,10 +36,25 @@ import retrofit2.Response;
  * An implementation of {@link LineOAuthClient} that issues or revokes channel access tokens.
  */
 @AllArgsConstructor
+@PackagePrivate
 class LineOAuthClientImpl implements LineOAuthClient {
     private static final ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 
     private final LineOAuthService service;
+
+    @Override
+    public CompletableFuture<IssueChannelAccessTokenResponse> issueChannelTokenByJWT(final String jwt) {
+        return toFuture(service.issueChannelTokenByJWT(
+                "client_credentials",
+                "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                jwt));
+    }
+
+    @Override
+    public CompletableFuture<Void> revokeChannelTokenByJWT(
+            String clientId, String clientSecret, String accessToken) {
+        return toFuture(service.revokeChannelTokenByJWT(clientId, clientSecret, accessToken));
+    }
 
     @Override
     public CompletableFuture<IssueChannelAccessTokenResponse> issueChannelToken(

@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import com.linecorp.bot.model.oauth.ChannelAccessTokenException;
 import com.linecorp.bot.model.oauth.IssueChannelAccessTokenResponse;
 
+import lombok.experimental.PackagePrivate;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -31,7 +32,22 @@ import retrofit2.http.POST;
  * <a href="https://developers.line.biz/en/reference/messaging-api/#issue-channel-access-token">document</a>
  * for detail.
  */
+@PackagePrivate
 interface LineOAuthService {
+    @POST("oauth2/v2.1/token")
+    @FormUrlEncoded
+    Call<IssueChannelAccessTokenResponse> issueChannelTokenByJWT(
+            @Field("grant_type") String grantType,
+            @Field("client_assertion_type") String clientAssertionType,
+            @Field("client_assertion") String clientAssertion);
+
+    @POST("/oauth2/v2.1/revoke")
+    @FormUrlEncoded
+    Call<Void> revokeChannelTokenByJWT(
+            @Field("client_id") String clientId,
+            @Field("client_secret") String clientSecret,
+            @Field("access_token") String accessToken);
+
     /**
      * Issues a short-lived channel access token. Up to 30 tokens can be issued. If the maximum is exceeded,
      * existing channel access tokens are revoked in the order of when they were first issued.

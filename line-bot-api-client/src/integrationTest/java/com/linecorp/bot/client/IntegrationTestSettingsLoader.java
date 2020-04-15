@@ -26,7 +26,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 public class IntegrationTestSettingsLoader {
-    public static final URL TEST_RESOURCE = ClassLoader.getSystemResource("integration_test_settings.yml");
+    private static final URL TEST_RESOURCE = ClassLoader.getSystemResource("integration_test_settings.yml");
 
     public static IntegrationTestSettings load() throws IOException {
         // Do not run all test cases in this class when src/test/resources/integration_test_settings.yml doesn't
