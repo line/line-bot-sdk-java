@@ -16,6 +16,10 @@
 
 package com.linecorp.bot.model.message;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -40,19 +44,59 @@ public class TextMessage implements Message {
     Sender sender;
 
     /**
+     * Included LINE emoji information.
+     */
+    @JsonInclude(Include.NON_NULL)
+    List<Sticon> sticon;
+
+    /**
      * Constructor without {@link #quickReply} parameter.
      *
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
     public TextMessage(final String text) {
-        this(text, null, null);
+        this(text, null, null, null);
     }
 
     public TextMessage(final @NonNull String text, final QuickReply quickReply) {
-        this(text, quickReply, null);
+        this(text, quickReply, null, null);
     }
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class TextMessageBuilder {
+    }
+
+    @Value
+    @Builder(toBuilder = true)
+    @JsonDeserialize(builder = Sticon.SticonBuilder.class)
+    public static class Sticon {
+        /**
+         * Index position for a character in text, with the first character being at position 0.
+         *
+         * <p>The specified position must correspond to a $ character,
+         * which serves as a placeholder for the LINE emoji.
+         * If you specify a position that doesn't contain a $ character, the API returns HTTP 400 Bad request.
+         * See the <a href="https://developers.line.biz/en/reference/messaging-api/#text-message">text message example</a> for details.
+         */
+        int index;
+
+        /**
+         * Product ID for a set of LINE emoji.
+         *
+         * @see <a href="https://d.line-scdn.net/r/devcenter/Default_sticon_list.pdf">LINE Available Sticon List</a>
+         */
+        String productId;
+
+        /**
+         * ID for a LINE emoji inside a set.
+         *
+         * @see <a href="https://d.line-scdn.net/r/devcenter/Default_sticon_list.pdf">LINE Available Sticon List</a>
+         */
+        String sticonId;
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class SticonBuilder {
+            // Providing builder instead of public constructor. Class body is filled by lombok.
+        }
     }
 }
