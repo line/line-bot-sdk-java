@@ -35,7 +35,7 @@ public class Multicast {
     /**
      * IDs of the receivers.
      *
-     * <p>Max: 150
+     * <p>Max: 500
      *
      * <p>INFO: Use IDs returned via the webhook event of source users. IDs of groups or rooms cannot be used.
      */
