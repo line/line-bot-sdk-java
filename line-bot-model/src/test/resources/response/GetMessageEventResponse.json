@@ -27,14 +27,14 @@
   "clicks": [
     {
       "seq": 1,
-      "url": "https://www.yahoo.co.jp/",
+      "url": "https://example.com/1st",
       "click": 100,
       "uniqueClick": 45,
       "uniqueClickOfRequest": 12
     },
     {
       "seq": 2,
-      "url": "https://www.google.com/?hl=ja",
+      "url": "https://example.com/2nd",
       "click": 29,
       "uniqueClick": 10,
       "uniqueClickOfRequest": 8
