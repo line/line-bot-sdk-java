@@ -44,10 +44,12 @@ public class TextMessage implements Message {
     Sender sender;
 
     /**
-     * Included LINE emoji information.
+     * One or more LINE emoji.
+     *
+     * <p>Max: 20 LINE emoji
      */
     @JsonInclude(Include.NON_NULL)
-    List<Sticon> sticon;
+    List<Emoji> emojis;
 
     /**
      * Constructor without {@link #quickReply} parameter.
@@ -68,8 +70,8 @@ public class TextMessage implements Message {
 
     @Value
     @Builder(toBuilder = true)
-    @JsonDeserialize(builder = Sticon.SticonBuilder.class)
-    public static class Sticon {
+    @JsonDeserialize(builder = Emoji.EmojiBuilder.class)
+    public static class Emoji {
         /**
          * Index position for a character in text, with the first character being at position 0.
          *
@@ -83,19 +85,19 @@ public class TextMessage implements Message {
         /**
          * Product ID for a set of LINE emoji.
          *
-         * @see <a href="https://d.line-scdn.net/r/devcenter/Default_sticon_list.pdf">LINE Available Sticon List</a>
+         * @see <a href="https://d.line-scdn.net/r/devcenter/sendable_line_emoji_list.pdf">Sendable LINE emoji list</a>
          */
         String productId;
 
         /**
          * ID for a LINE emoji inside a set.
          *
-         * @see <a href="https://d.line-scdn.net/r/devcenter/Default_sticon_list.pdf">LINE Available Sticon List</a>
+         * @see <a href="https://d.line-scdn.net/r/devcenter/sendable_line_emoji_list.pdf">Sendable LINE emoji list</a>
          */
-        String sticonId;
+        String emojiId;
 
         @JsonPOJOBuilder(withPrefix = "")
-        public static class SticonBuilder {
+        public static class EmojiBuilder {
             // Providing builder instead of public constructor. Class body is filled by lombok.
         }
     }
