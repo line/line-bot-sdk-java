@@ -17,10 +17,11 @@
 package com.linecorp.bot.model.message.flex.component;
 
 import java.net.URI;
+import java.text.DecimalFormat;
+import java.util.function.Supplier;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -32,6 +33,7 @@ import com.linecorp.bot.model.message.flex.unit.FlexPosition;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 
 @JsonTypeName("icon")
@@ -41,20 +43,21 @@ import lombok.Value;
 @AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = Icon.IconBuilder.class)
 public class Icon implements FlexComponent {
+    @AllArgsConstructor
+    @Getter
     public enum IconAspectRatio {
-        @JsonProperty("1:1")
-        R1TO1,
-        @JsonProperty("2:1")
-        R2TO1,
-        @JsonProperty("3:1")
-        R3TO1,
+        R1TO1("1:1"),
+        R2TO1("2:1"),
+        R3TO1("3:1");
+
+        private final String ratio;
     }
 
     URI url;
 
     FlexFontSize size;
 
-    IconAspectRatio aspectRatio;
+    String aspectRatio;
 
     FlexMarginSize margin;
 
@@ -70,6 +73,8 @@ public class Icon implements FlexComponent {
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class IconBuilder {
+        private static final Supplier<DecimalFormat> RATIO_FORMAT = () -> new DecimalFormat("0.#####");
+
         public IconBuilder offsetTop(FlexOffsetSize offset) {
             offsetTop = offset.getPropertyValue();
             return this;
@@ -107,6 +112,22 @@ public class Icon implements FlexComponent {
 
         public IconBuilder offsetEnd(String offset) {
             offsetEnd = offset;
+            return this;
+        }
+
+        public IconBuilder aspectRatio(IconAspectRatio aspectRatio) {
+            this.aspectRatio = aspectRatio.getRatio();
+            return this;
+        }
+
+        public IconBuilder aspectRatio(String aspectRatio) {
+            this.aspectRatio = aspectRatio;
+            return this;
+        }
+
+        public IconBuilder aspectRatio(double width, double height) {
+            final DecimalFormat fmt = RATIO_FORMAT.get();
+            aspectRatio = fmt.format(width) + ':' + fmt.format(height);
             return this;
         }
     }
