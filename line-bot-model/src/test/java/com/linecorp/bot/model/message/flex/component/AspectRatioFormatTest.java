@@ -27,6 +27,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import com.linecorp.bot.model.message.flex.component.Icon.IconBuilder;
 import com.linecorp.bot.model.message.flex.component.Image.ImageBuilder;
 
 import lombok.AllArgsConstructor;
@@ -34,7 +35,7 @@ import lombok.Value;
 
 @Value
 @RunWith(Parameterized.class)
-public class ImageAspectRatioFormatTest {
+public class AspectRatioFormatTest {
 
     @Value
     @AllArgsConstructor
@@ -44,7 +45,7 @@ public class ImageAspectRatioFormatTest {
         String result;
     }
 
-    private static List<Fixture> VALUES = Arrays.asList(
+    private static final List<Fixture> VALUES = Arrays.asList(
             new Fixture(1, 1, "1:1"),
             new Fixture(1.01, 1.01, "1.01:1.01"),
             new Fixture(100000, 100000, "100000:100000"),
@@ -62,6 +63,15 @@ public class ImageAspectRatioFormatTest {
     public void test() {
         final Image image =
                 new ImageBuilder()
+                        .aspectRatio(fixture.getWidth(), fixture.getHeight())
+                        .build();
+        assertThat(image.getAspectRatio()).isEqualTo(fixture.getResult());
+    }
+
+    @Test
+    public void icon() {
+        final Icon image =
+                new IconBuilder()
                         .aspectRatio(fixture.getWidth(), fixture.getHeight())
                         .build();
         assertThat(image.getAspectRatio()).isEqualTo(fixture.getResult());

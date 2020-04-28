@@ -18,6 +18,7 @@ package com.linecorp.bot.model.message.flex.component;
 
 import java.net.URI;
 import java.text.DecimalFormat;
+import java.util.function.Supplier;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -128,7 +129,7 @@ public class Image implements FlexComponent {
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class ImageBuilder {
-        private static final DecimalFormat RATIO_FORMAT = new DecimalFormat("0.#####");
+        private static final Supplier<DecimalFormat> RATIO_FORMAT = () -> new DecimalFormat("0.#####");
 
         /**
          * Specify aspect ratio by keyword.
@@ -150,7 +151,8 @@ public class Image implements FlexComponent {
          * Specify custom aspect ratio. The width and height are rounded up to 5 decimal places.
          */
         public ImageBuilder aspectRatio(double width, double height) {
-            this.aspectRatio = RATIO_FORMAT.format(width) + ":" + RATIO_FORMAT.format(height);
+            final DecimalFormat fmt = RATIO_FORMAT.get();
+            aspectRatio = fmt.format(width) + ':' + fmt.format(height);
             return this;
         }
 
