@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import com.linecorp.bot.model.response.BotApiResponse;
 
 /**
- * API client of blog (binary large object).
+ * API client of blob (binary large object).
  */
 public interface LineBlobClient {
     /**
