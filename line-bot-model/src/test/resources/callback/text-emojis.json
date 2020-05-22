@@ -1,0 +1,28 @@
+{
+  "destination": "Uab012345678901234567890123456789",
+  "events": [
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "message",
+      "timestamp": 1462629479859,
+      "mode": "active",
+      "source": {
+        "type": "user",
+        "userId": "u206d25c2ea6bd87c17655609a1c37cb8"
+      },
+      "message": {
+        "id": "325708",
+        "type": "text",
+        "text": "Hello, world",
+        "emojis": [
+          {
+            "index": 14,
+            "length": 6,
+            "productId": "5ac1bfd5040ab15980c9b435",
+            "emojiId": "001"
+          }
+        ]
+      }
+    }
+  ]
+}

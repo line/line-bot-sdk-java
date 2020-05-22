@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
@@ -38,6 +39,7 @@ import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.message.TextMessageContent.Emoji;
 import com.linecorp.bot.model.event.message.UnknownMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.Source;
@@ -91,6 +93,35 @@ public class CallbackRequestTest {
                     .isEqualTo("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA");
             MessageContent message = messageEvent.getMessage();
             assertThat(message).isInstanceOf(TextMessageContent.class);
+        });
+    }
+
+    @Test
+    public void textTextEmojis() throws IOException {
+        parse("callback/text-emojis.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            assertThat(callbackRequest.getDestination()).isEqualTo("Uab012345678901234567890123456789");
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(MessageEvent.class);
+            assertThat(event.getSource())
+                    .isInstanceOf(UserSource.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
+            MessageEvent messageEvent = (MessageEvent) event;
+            assertThat(messageEvent.getReplyToken())
+                    .isEqualTo("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA");
+            MessageContent message = messageEvent.getMessage();
+            assertThat(message).isInstanceOf(TextMessageContent.class);
+
+            List<Emoji> emojis = ((TextMessageContent) message).getEmojis();
+            assertThat(emojis).hasSize(1);
+            assertThat(emojis.get(0)).isInstanceOf(TextMessageContent.Emoji.class);
+            assertThat(emojis.get(0).getIndex()).isEqualTo(14);
+            assertThat(emojis.get(0).getLength()).isEqualTo(6);
+            assertThat(emojis.get(0).getProductId()).isEqualTo("5ac1bfd5040ab15980c9b435");
+            assertThat(emojis.get(0).getEmojiId()).isEqualTo("001");
         });
     }
 

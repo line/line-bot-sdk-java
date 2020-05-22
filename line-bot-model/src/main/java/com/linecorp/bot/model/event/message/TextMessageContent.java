@@ -16,11 +16,12 @@
 
 package com.linecorp.bot.model.event.message;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -30,7 +31,6 @@ import lombok.Value;
 @JsonTypeName("text")
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = TextMessageContent.TextMessageContentBuilder.class)
 public class TextMessageContent implements MessageContent {
     @JsonPOJOBuilder(withPrefix = "")
@@ -44,4 +44,48 @@ public class TextMessageContent implements MessageContent {
      * Message text.
      */
     String text;
+
+    /**
+     * One or more LINE emoji.
+     */
+    List<Emoji> emojis;
+
+    @Value
+    @Builder(toBuilder = true)
+    @JsonDeserialize(builder = TextMessageContent.Emoji.EmojiBuilder.class)
+    public static class Emoji {
+        /**
+         * Index position for a character in text, with the first character being at position 0.
+         *
+         * <p>The specified position must correspond to a $ character,
+         * which serves as a placeholder for the LINE emoji.
+         * If you specify a position that doesn't contain a $ character, the API returns HTTP 400 Bad request.
+         * See the <a href="https://developers.line.biz/en/reference/messaging-api/#text-message">text message example</a> for details.
+         */
+        int index;
+
+        /**
+         * The length of the LINE emoji string. For LINE emoji (hello), 7 is the length.
+         */
+        int length;
+
+        /**
+         * Product ID for a set of LINE emoji.
+         *
+         * @see <a href="https://d.line-scdn.net/r/devcenter/sendable_line_emoji_list.pdf">Sendable LINE emoji list</a>
+         */
+        String productId;
+
+        /**
+         * ID for a LINE emoji inside a set.
+         *
+         * @see <a href="https://d.line-scdn.net/r/devcenter/sendable_line_emoji_list.pdf">Sendable LINE emoji list</a>
+         */
+        String emojiId;
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class EmojiBuilder {
+            // Providing builder instead of public constructor. Class body is filled by lombok.
+        }
+    }
 }
