@@ -38,6 +38,7 @@ import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
+import com.linecorp.bot.model.event.message.StickerMessageContent.StickerResourceType;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent.Emoji;
 import com.linecorp.bot.model.event.message.UnknownMessageContent;
@@ -257,6 +258,8 @@ public class CallbackRequestTest {
                         .isEqualTo("1");
                 assertThat(((StickerMessageContent) message).getPackageId())
                         .isEqualTo("1");
+                assertThat(((StickerMessageContent) message).getStickerResourceType())
+                        .isEqualTo(StickerResourceType.STATIC);
             }
         });
     }

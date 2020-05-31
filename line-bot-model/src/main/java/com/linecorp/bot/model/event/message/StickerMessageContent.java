@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.model.event.message;
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -38,7 +39,53 @@ public class StickerMessageContent implements MessageContent {
         // Providing builder instead of public constructor. Class body is filled by lombok.
     }
 
+    /**
+     * Resource type of a Sticker message content
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#wh-sticker">//developers.line.biz/en/reference/messaging-api/#wh-sticker</a>
+     */
+    public enum StickerResourceType {
+        /**
+         * Image sticker
+         */
+        STATIC,
+        /**
+         * Animated sticker
+         */
+        ANIMATION,
+        /**
+         * Sticker with sound
+         */
+        SOUND,
+        /**
+         * Animated sticker with sound
+         */
+        ANIMATION_SOUND,
+        /**
+         * Pop-up sticker
+         */
+        POPUP,
+        /**
+         * Pop-up sticker with sound
+         */
+        POPUP_SOUND,
+        /**
+         * Custom sticker. You can't retrieve the sticker's custom text with the Messaging API.
+         */
+        NAME_TEXT,
+        /**
+         * Message sticker. You can't retrieve the sticker's custom text with the Messaging API.
+         */
+        PER_STICKER_TEXT,
+        /**
+         * For implementation of new sticker resource type in the future!
+         */
+        @JsonEnumDefaultValue
+        UNKNOWN
+    }
+
     String id;
     String packageId;
     String stickerId;
+    StickerResourceType stickerResourceType;
 }
