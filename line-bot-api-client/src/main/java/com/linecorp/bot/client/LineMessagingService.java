@@ -45,6 +45,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -68,7 +69,8 @@ interface LineMessagingService {
      * @see LineMessagingClient#pushMessage(PushMessage)
      */
     @POST("v2/bot/message/push")
-    Call<BotApiResponseBody> pushMessage(@Body PushMessage pushMessage);
+    Call<BotApiResponseBody> pushMessage(@Header("X-Line-Retry-Key") String retryKey,
+                                         @Body PushMessage pushMessage);
 
     /**
      * Method for Retrofit.
@@ -76,20 +78,23 @@ interface LineMessagingService {
      * @see LineMessagingClient#multicast(Multicast)
      */
     @POST("v2/bot/message/multicast")
-    Call<BotApiResponseBody> multicast(@Body Multicast multicast);
+    Call<BotApiResponseBody> multicast(@Header("X-Line-Retry-Key") String retryKey,
+                                       @Body Multicast multicast);
 
     /**
      * Sends push messages to multiple users at any time.
      */
     @POST("v2/bot/message/broadcast")
-    Call<BotApiResponseBody> broadcast(@Body Broadcast broadcast);
+    Call<BotApiResponseBody> broadcast(@Header("X-Line-Retry-Key") String retryKey,
+                                       @Body Broadcast broadcast);
 
     /**
      * Sends a push message to multiple users. You can specify recipients using attributes (such as age, gender,
      * OS, and region) or by retargeting (audiences). Messages cannot be sent to groups or rooms.
      */
     @POST("v2/bot/message/narrowcast")
-    Call<BotApiResponseBody> narrowcast(@Body Narrowcast narrowcast);
+    Call<BotApiResponseBody> narrowcast(@Header("X-Line-Retry-Key") String retryKey,
+                                        @Body Narrowcast narrowcast);
 
     /**
      * Gets the status of a narrowcast message.

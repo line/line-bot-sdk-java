@@ -35,14 +35,14 @@ import lombok.Value;
 @JsonDeserialize(builder = IntegrationTestSettingsBuilder.class)
 public class IntegrationTestSettings {
     private String token;
-    private String endpoint;
+    private String endpoint = "https://api.line.me/";
     private String userId;
     private List<String> audienceIfas;
     private String retargetingRequestId;
     private boolean failOnUnknownProperties = true;
 
     public String getUserId() {
-        Assume.assumeNotNull(userId);
+        Assume.assumeTrue("userId in integration_test_settings.yml is not null", userId != null);
         return userId;
     }
 
