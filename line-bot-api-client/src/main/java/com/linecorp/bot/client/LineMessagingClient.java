@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-import com.linecorp.bot.client.exception.ConflictException;
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
@@ -75,13 +74,10 @@ public interface LineMessagingClient {
      *
      * <p>INFO: Use of the Push Message API is limited to certain plans.
      *
-     * @throws ConflictException Message with the retryKey was already sent.
-     *
      * @see #replyMessage(ReplyMessage)
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#send-push-message">//developers.line.me/en/reference/messaging-api/#send-push-message</a>
      */
-    CompletableFuture<BotApiResponse> pushMessage(UUID retryKey, PushMessage pushMessage)
-            throws ConflictException;
+    CompletableFuture<BotApiResponse> pushMessage(UUID retryKey, PushMessage pushMessage);
 
     /**
      * Send messages to multiple users at any time. <strong>IDs of groups or rooms cannot be used.</strong>
@@ -106,12 +102,10 @@ public interface LineMessagingClient {
      * <p>INFO: Use IDs returned via the webhook event of source users. IDs of groups or rooms cannot be used.
      * Do not use the LINE ID found on the LINE app.</p>
      *
-     * @throws ConflictException Message with the retryKey was already sent.
-     *
      * @see #pushMessage(PushMessage)
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#send-multicast-messages">//developers.line.me/en/reference/messaging-api/#send-multicast-messages</a>
      */
-    CompletableFuture<BotApiResponse> multicast(UUID retryKey, Multicast multicast) throws ConflictException;
+    CompletableFuture<BotApiResponse> multicast(UUID retryKey, Multicast multicast);
 
     /**
      * Sends push messages to multiple users at any time.
@@ -126,10 +120,8 @@ public interface LineMessagingClient {
      * Note: LINE@ accounts cannot call this API endpoint. Please migrate it to a LINE official account.
      * For more information, see <a href="https://developers.line.biz/en/docs/messaging-api/migrating-line-at/">
      * Migration of LINE@ accounts</a>.
-     *
-     * @throws ConflictException Message with the retryKey was already sent.
      */
-    CompletableFuture<BotApiResponse> broadcast(UUID retryKey, Broadcast broadcast) throws ConflictException;
+    CompletableFuture<BotApiResponse> broadcast(UUID retryKey, Broadcast broadcast);
 
     /**
      * Sends a push message to multiple users. You can specify recipients using attributes (such as age, gender,
@@ -148,10 +140,8 @@ public interface LineMessagingClient {
      * <p>Note: LINE-@ accounts cannot call this API endpoint. Please migrate it to a LINE official account.
      * For more information, see <a href="https://developers.line.biz/en/docs/messaging-api/migrating-line-at/">
      * Migration of LINE@ accounts</a>.
-     *
-     * @throws ConflictException Message with the retryKey was already sent.
      */
-    CompletableFuture<BotApiResponse> narrowcast(UUID retryKey, Narrowcast broadcast) throws ConflictException;
+    CompletableFuture<BotApiResponse> narrowcast(UUID retryKey, Narrowcast broadcast);
 
     /**
      * Gets the status of a narrowcast message.
