@@ -22,13 +22,13 @@ import static java.util.Collections.singletonList;
 import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.UUID;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -110,53 +110,49 @@ public class LineMessagingClientImplTest {
 
     @Test
     public void pushMessageTest() throws Exception {
-        whenCall(retrofitMock.pushMessage(any(String.class), any(PushMessage.class)),
+        whenCall(retrofitMock.pushMessage(isNull(), any(PushMessage.class)),
                  BOT_API_SUCCESS_RESPONSE_BODY);
-        final UUID retryKey = UUID.randomUUID();
         final PushMessage pushMessage = new PushMessage("TO", new TextMessage("text"));
 
         // Do
         final BotApiResponse botApiResponse =
-                target.pushMessage(retryKey, pushMessage).get();
+                target.pushMessage(pushMessage).get();
 
         // Verify
-        verify(retrofitMock, only()).pushMessage(retryKey.toString(), pushMessage);
+        verify(retrofitMock, only()).pushMessage(null, pushMessage);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
     @Test
     public void multicastTest() throws Exception {
-        whenCall(retrofitMock.multicast(any(String.class), any(Multicast.class)),
+        whenCall(retrofitMock.multicast(isNull(), any(Multicast.class)),
                  BOT_API_SUCCESS_RESPONSE_BODY);
         final Multicast multicast = new Multicast(singleton("TO"), new TextMessage("text"));
-        final UUID retryKey = UUID.randomUUID();
 
         // Do
         final BotApiResponse botApiResponse =
-                target.multicast(retryKey, multicast).get();
+                target.multicast(multicast).get();
 
         // Verify
-        verify(retrofitMock, only()).multicast(retryKey.toString(), multicast);
+        verify(retrofitMock, only()).multicast(null, multicast);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
     @Test
     public void broadcast() {
-        whenCall(retrofitMock.broadcast(any(String.class), any(Broadcast.class)),
+        whenCall(retrofitMock.broadcast(isNull(), any(Broadcast.class)),
                  BOT_API_SUCCESS_RESPONSE_BODY);
-        final UUID retryKey = UUID.randomUUID();
         final Broadcast broadcast = new Broadcast(singletonList(new TextMessage("text")), true);
 
-        final BotApiResponse botApiResponse = target.broadcast(retryKey, broadcast).join();
-        verify(retrofitMock).broadcast(retryKey.toString(), broadcast);
+        final BotApiResponse botApiResponse = target.broadcast(broadcast).join();
+        verify(retrofitMock).broadcast(null, broadcast);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
     @Test
     public void narrowcast() {
-        whenCall(retrofitMock.narrowcast(any(String.class), any(Narrowcast.class)),
+        whenCall(retrofitMock.narrowcast(isNull(), any(Narrowcast.class)),
                  BOT_API_SUCCESS_RESPONSE_BODY);
-        final UUID retryKey = UUID.randomUUID();
         final Narrowcast narrowcast = new Narrowcast(
                 new TextMessage("text"),
                 Filter.builder()
@@ -166,8 +162,8 @@ public class LineMessagingClientImplTest {
                                                      .build()
                       ).build());
 
-        final BotApiResponse botApiResponse = target.narrowcast(retryKey, narrowcast).join();
-        verify(retrofitMock).narrowcast(retryKey.toString(), narrowcast);
+        final BotApiResponse botApiResponse = target.narrowcast(narrowcast).join();
+        verify(retrofitMock).narrowcast(null, narrowcast);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
