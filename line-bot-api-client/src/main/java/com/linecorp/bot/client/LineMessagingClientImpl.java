@@ -19,7 +19,6 @@ package com.linecorp.bot.client;
 import static java.util.Collections.emptyList;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
@@ -80,18 +79,8 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    public CompletableFuture<BotApiResponse> pushMessage(final UUID retryKey, final PushMessage pushMessage) {
-        return toBotApiResponseFuture(retrofitImpl.pushMessage(retryKey.toString(), pushMessage));
-    }
-
-    @Override
     public CompletableFuture<BotApiResponse> multicast(final Multicast multicast) {
         return toBotApiResponseFuture(retrofitImpl.multicast(null, multicast));
-    }
-
-    @Override
-    public CompletableFuture<BotApiResponse> multicast(final UUID retryKey, final Multicast multicast) {
-        return toBotApiResponseFuture(retrofitImpl.multicast(retryKey.toString(), multicast));
     }
 
     @Override
@@ -100,18 +89,8 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    public CompletableFuture<BotApiResponse> broadcast(final UUID retryKey, final Broadcast broadcast) {
-        return toBotApiResponseFuture(retrofitImpl.broadcast(retryKey.toString(), broadcast));
-    }
-
-    @Override
     public CompletableFuture<BotApiResponse> narrowcast(Narrowcast narrowcast) {
         return toBotApiResponseFuture(retrofitImpl.narrowcast(null, narrowcast));
-    }
-
-    @Override
-    public CompletableFuture<BotApiResponse> narrowcast(final UUID retryKey, final Narrowcast narrowcast) {
-        return toBotApiResponseFuture(retrofitImpl.narrowcast(retryKey.toString(), narrowcast));
     }
 
     /**

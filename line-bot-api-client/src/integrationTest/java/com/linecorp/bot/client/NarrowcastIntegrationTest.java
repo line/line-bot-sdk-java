@@ -16,19 +16,12 @@
 
 package com.linecorp.bot.client;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.linecorp.bot.client.exception.ConflictException;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.narrowcast.Filter;
@@ -54,23 +47,6 @@ public class NarrowcastIntegrationTest {
         target = LineMessagingClientFactory.create(settings);
     }
 
-    @Test
-    public void narrowcastWithRetry() throws Exception {
-        UUID retryKey = UUID.randomUUID();
-        String message = "Narrowcast with retry at " + LocalDateTime.now().toString();
-
-        Narrowcast request = new Narrowcast(new TextMessage(message),
-                                            Filter.builder()
-                                                  .build());
-        BotApiResponse botApiResponse = target.narrowcast(retryKey, request).get();
-        assertThat(botApiResponse).isNotNull();
-
-        assertThatThrownBy(
-                () -> target.narrowcast(retryKey, request).get()
-        ).isInstanceOf(ExecutionException.class)
-         .getCause()
-         .isInstanceOf(ConflictException.class);
-    }
 
     @Test
     public void narrowcastGender() throws Exception {

@@ -35,7 +35,7 @@ import lombok.Value;
 @JsonDeserialize(builder = IntegrationTestSettingsBuilder.class)
 public class IntegrationTestSettings {
     private String token;
-    private String endpoint = "https://api.line.me/";
+    private String endpoint;
     private String userId;
     private List<String> audienceIfas;
     private String retargetingRequestId;
