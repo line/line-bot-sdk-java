@@ -47,7 +47,6 @@ public class NarrowcastIntegrationTest {
         target = LineMessagingClientFactory.create(settings);
     }
 
-
     @Test
     public void narrowcastGender() throws Exception {
         testNarrowcast(new Narrowcast(new TextMessage("Narrowcast test(gender=male)"),
