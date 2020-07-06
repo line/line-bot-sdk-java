@@ -603,6 +603,11 @@ public class LineMessagingClientImplTest {
             public Request request() {
                 throw new UnsupportedOperationException();
             }
+
+            @Override
+            public okio.Timeout timeout() {
+                throw new UnsupportedOperationException();
+            }
         };
     }
 }
