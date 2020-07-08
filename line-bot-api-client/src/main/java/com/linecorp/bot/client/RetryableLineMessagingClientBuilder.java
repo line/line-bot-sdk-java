@@ -48,7 +48,7 @@ public class RetryableLineMessagingClientBuilder {
     private static final ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 
     /**
-     * Use {@link LineMessagingClient#builder(String)} to create instance.
+     * Use {@link RetryableLineMessagingClient#builder(String)} to create instance.
      *
      * @see RetryableLineMessagingClient#builder(String)
      * @see RetryableLineMessagingClient#builder(ChannelTokenSupplier)
