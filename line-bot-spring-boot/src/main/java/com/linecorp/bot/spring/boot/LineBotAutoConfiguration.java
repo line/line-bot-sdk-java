@@ -16,7 +16,8 @@
 
 package com.linecorp.bot.spring.boot;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -32,16 +33,19 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.ManageAudienceClient;
 import com.linecorp.bot.spring.boot.support.LineMessageHandlerSupport;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Also refers {@link LineBotWebMvcBeans} for web only beans definition.
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
+@AllArgsConstructor
 @AutoConfigureAfter(LineBotWebMvcConfigurer.class)
 @EnableConfigurationProperties(LineBotProperties.class)
 @Import(LineMessageHandlerSupport.class)
 public class LineBotAutoConfiguration {
-    @Autowired
-    private LineBotProperties lineBotProperties;
+    private final LineBotProperties lineBotProperties;
+    private final List<OkHttpClientConfigurer> okHttpClientConfigurers;
 
     /**
      * Expose {@link FixedChannelTokenSupplier} as {@link Bean}
@@ -49,6 +53,7 @@ public class LineBotAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(ChannelTokenSupplier.class)
+
     public ChannelTokenSupplier channelTokenSupplier() {
         final String channelToken = lineBotProperties.getChannelToken();
         return FixedChannelTokenSupplier.of(channelToken);
