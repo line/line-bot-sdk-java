@@ -75,22 +75,22 @@ public class LineMessagingClientImpl implements LineMessagingClient {
 
     @Override
     public CompletableFuture<BotApiResponse> pushMessage(final PushMessage pushMessage) {
-        return toBotApiResponseFuture(retrofitImpl.pushMessage(pushMessage));
+        return toBotApiResponseFuture(retrofitImpl.pushMessage(null, pushMessage));
     }
 
     @Override
     public CompletableFuture<BotApiResponse> multicast(final Multicast multicast) {
-        return toBotApiResponseFuture(retrofitImpl.multicast(multicast));
+        return toBotApiResponseFuture(retrofitImpl.multicast(null, multicast));
     }
 
     @Override
     public CompletableFuture<BotApiResponse> broadcast(Broadcast broadcast) {
-        return toBotApiResponseFuture(retrofitImpl.broadcast(broadcast));
+        return toBotApiResponseFuture(retrofitImpl.broadcast(null, broadcast));
     }
 
     @Override
     public CompletableFuture<BotApiResponse> narrowcast(Narrowcast narrowcast) {
-        return toBotApiResponseFuture(retrofitImpl.narrowcast(narrowcast));
+        return toBotApiResponseFuture(retrofitImpl.narrowcast(null, narrowcast));
     }
 
     /**

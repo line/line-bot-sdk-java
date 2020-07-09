@@ -42,7 +42,7 @@ public class IntegrationTestSettings {
     private boolean failOnUnknownProperties = true;
 
     public String getUserId() {
-        Assume.assumeNotNull(userId);
+        Assume.assumeTrue("userId in integration_test_settings.yml is not null", userId != null);
         return userId;
     }
 

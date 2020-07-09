@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 
 import com.linecorp.bot.client.exception.BadRequestException;
+import com.linecorp.bot.client.exception.ConflictException;
 import com.linecorp.bot.client.exception.ForbiddenException;
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
 import com.linecorp.bot.client.exception.LineMessagingException;
@@ -73,6 +74,9 @@ class ExceptionConverter implements Function<Response<?>, LineMessagingException
                         errorResponse.getMessage(), errorResponse);
             case 404:
                 return new NotFoundException(
+                        errorResponse.getMessage(), errorResponse);
+            case 409:
+                return new ConflictException(
                         errorResponse.getMessage(), errorResponse);
             case 429:
                 return new TooManyRequestsException(

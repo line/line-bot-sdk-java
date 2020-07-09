@@ -22,6 +22,7 @@ import static java.util.Collections.singletonList;
 import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -109,7 +110,7 @@ public class LineMessagingClientImplTest {
 
     @Test
     public void pushMessageTest() throws Exception {
-        whenCall(retrofitMock.pushMessage(any()),
+        whenCall(retrofitMock.pushMessage(isNull(), any(PushMessage.class)),
                  BOT_API_SUCCESS_RESPONSE_BODY);
         final PushMessage pushMessage = new PushMessage("TO", new TextMessage("text"));
 
@@ -118,13 +119,13 @@ public class LineMessagingClientImplTest {
                 target.pushMessage(pushMessage).get();
 
         // Verify
-        verify(retrofitMock, only()).pushMessage(pushMessage);
+        verify(retrofitMock, only()).pushMessage(null, pushMessage);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
     @Test
     public void multicastTest() throws Exception {
-        whenCall(retrofitMock.multicast(any()),
+        whenCall(retrofitMock.multicast(isNull(), any(Multicast.class)),
                  BOT_API_SUCCESS_RESPONSE_BODY);
         final Multicast multicast = new Multicast(singleton("TO"), new TextMessage("text"));
 
@@ -133,23 +134,25 @@ public class LineMessagingClientImplTest {
                 target.multicast(multicast).get();
 
         // Verify
-        verify(retrofitMock, only()).multicast(multicast);
+        verify(retrofitMock, only()).multicast(null, multicast);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
     @Test
     public void broadcast() {
-        whenCall(retrofitMock.broadcast(any()), BOT_API_SUCCESS_RESPONSE_BODY);
+        whenCall(retrofitMock.broadcast(isNull(), any(Broadcast.class)),
+                 BOT_API_SUCCESS_RESPONSE_BODY);
         final Broadcast broadcast = new Broadcast(singletonList(new TextMessage("text")), true);
 
         final BotApiResponse botApiResponse = target.broadcast(broadcast).join();
-        verify(retrofitMock).broadcast(broadcast);
+        verify(retrofitMock).broadcast(null, broadcast);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
     @Test
     public void narrowcast() {
-        whenCall(retrofitMock.narrowcast(any()), BOT_API_SUCCESS_RESPONSE_BODY);
+        whenCall(retrofitMock.narrowcast(isNull(), any(Narrowcast.class)),
+                 BOT_API_SUCCESS_RESPONSE_BODY);
         final Narrowcast narrowcast = new Narrowcast(
                 new TextMessage("text"),
                 Filter.builder()
@@ -160,7 +163,7 @@ public class LineMessagingClientImplTest {
                       ).build());
 
         final BotApiResponse botApiResponse = target.narrowcast(narrowcast).join();
-        verify(retrofitMock).narrowcast(narrowcast);
+        verify(retrofitMock).narrowcast(null, narrowcast);
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
