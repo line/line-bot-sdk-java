@@ -16,7 +16,6 @@
 
 package com.linecorp.bot.spring.boot;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -40,8 +39,11 @@ import com.linecorp.bot.spring.boot.support.LineMessageHandlerSupport;
 @EnableConfigurationProperties(LineBotProperties.class)
 @Import(LineMessageHandlerSupport.class)
 public class LineBotAutoConfiguration {
-    @Autowired
-    private LineBotProperties lineBotProperties;
+    private final LineBotProperties lineBotProperties;
+
+    public LineBotAutoConfiguration(LineBotProperties lineBotProperties) {
+        this.lineBotProperties = lineBotProperties;
+    }
 
     /**
      * Expose {@link FixedChannelTokenSupplier} as {@link Bean}
@@ -108,6 +110,10 @@ public class LineBotAutoConfiguration {
         return ManageAudienceClient
                 .builder()
                 .channelTokenSupplier(channelTokenSupplier)
+                .apiEndPoint(lineBotProperties.getApiEndPoint())
+                .connectTimeout(lineBotProperties.getConnectTimeout())
+                .readTimeout(lineBotProperties.getReadTimeout())
+                .writeTimeout(lineBotProperties.getWriteTimeout())
                 .build();
     }
 }
