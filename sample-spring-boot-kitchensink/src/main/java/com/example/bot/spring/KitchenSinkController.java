@@ -67,6 +67,8 @@ import com.linecorp.bot.model.event.message.VideoMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
+import com.linecorp.bot.model.group.GroupMemberCountResponse;
+import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.message.AudioMessage;
 import com.linecorp.bot.model.message.ImageMessage;
 import com.linecorp.bot.model.message.ImagemapMessage;
@@ -90,6 +92,7 @@ import com.linecorp.bot.model.message.template.ConfirmTemplate;
 import com.linecorp.bot.model.message.template.ImageCarouselColumn;
 import com.linecorp.bot.model.message.template.ImageCarouselTemplate;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.room.RoomMemberCountResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
@@ -370,6 +373,44 @@ public class KitchenSinkController {
                     lineMessagingClient.leaveRoom(((RoomSource) source).getRoomId()).get();
                 } else {
                     this.replyText(replyToken, "Bot can't leave from 1:1 chat");
+                }
+                break;
+            }
+            case "group_summary": {
+                Source source = event.getSource();
+                if (source instanceof GroupSource) {
+                    GroupSummaryResponse groupSummary = lineMessagingClient.getGroupSummary(
+                            ((GroupSource) source).getGroupId()).get();
+                    this.replyText(replyToken, "Group summary: " + groupSummary);
+                } else {
+                    this.replyText(replyToken, "You can't use 'group_summary' command for "
+                                               + source);
+                }
+                break;
+            }
+            case "group_member_count": {
+                Source source = event.getSource();
+                if (source instanceof GroupSource) {
+                    GroupMemberCountResponse groupMemberCountResponse = lineMessagingClient.getGroupMemberCount(
+                            ((GroupSource) source).getGroupId()).get();
+                    this.replyText(replyToken, "Group member count: "
+                                               + groupMemberCountResponse.getCount());
+                } else {
+                    this.replyText(replyToken, "You can't use 'group_member_count' command  for "
+                                               + source);
+                }
+                break;
+            }
+            case "room_member_count": {
+                Source source = event.getSource();
+                if (source instanceof RoomSource) {
+                    RoomMemberCountResponse roomMemberCountResponse = lineMessagingClient.getRoomMemberCount(
+                            ((RoomSource) source).getRoomId()).get();
+                    this.replyText(replyToken, "Room member count: "
+                                               + roomMemberCountResponse.getCount());
+                } else {
+                    this.replyText(replyToken, "You can't use 'room_member_count' command  for "
+                                               + source);
                 }
                 break;
             }

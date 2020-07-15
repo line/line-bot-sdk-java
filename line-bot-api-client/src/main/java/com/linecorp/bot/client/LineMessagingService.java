@@ -23,6 +23,8 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.group.GroupMemberCountResponse;
+import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
@@ -40,6 +42,7 @@ import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
+import com.linecorp.bot.model.room.RoomMemberCountResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -213,6 +216,24 @@ interface LineMessagingService {
      */
     @POST("v2/bot/room/{roomId}/leave")
     Call<BotApiResponseBody> leaveRoom(@Path("roomId") String roomId);
+
+    /**
+     * Get group summary.
+     */
+    @GET("v2/bot/group/{groupId}/summary")
+    Call<GroupSummaryResponse> getGroupSummary(@Path("groupId") String groupId);
+
+    /**
+     * Get members in group count.
+     */
+    @GET("v2/bot/group/{groupId}/members/count")
+    Call<GroupMemberCountResponse> getGroupMemberCount(@Path("groupId") String groupId);
+
+    /**
+     * Get members in room count.
+     */
+    @GET("v2/bot/room/{roomId}/members/count")
+    Call<RoomMemberCountResponse> getRoomMemberCount(@Path("roomId") String roomId);
 
     /**
      * Method for Retrofit.
