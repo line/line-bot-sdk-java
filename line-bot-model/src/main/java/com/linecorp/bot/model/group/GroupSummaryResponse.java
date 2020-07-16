@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.group;
 
+import java.net.URL;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -41,7 +43,7 @@ public class GroupSummaryResponse {
     /**
      * Group icon URL.
      */
-    String pictureUrl;
+    URL pictureUrl;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class GroupSummaryResponseBuilder {
