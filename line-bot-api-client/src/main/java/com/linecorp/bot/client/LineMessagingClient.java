@@ -26,6 +26,8 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
+import com.linecorp.bot.model.group.GroupMemberCountResponse;
+import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -42,6 +44,7 @@ import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
+import com.linecorp.bot.model.room.RoomMemberCountResponse;
 
 public interface LineMessagingClient {
     /**
@@ -228,6 +231,27 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#leave-room">//developers.line.me/en/reference/messaging-api/#leave-room</a>
      */
     CompletableFuture<BotApiResponse> leaveRoom(String roomId);
+
+    /**
+     * Get group summary.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#group">//developers.line.biz/en/reference/messaging-api/#group</a>
+     */
+    CompletableFuture<GroupSummaryResponse> getGroupSummary(String groupId);
+
+    /**
+     * Get members in group count.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-members-group-count">//developers.line.biz/en/reference/messaging-api/#get-members-group-count</a>
+     */
+    CompletableFuture<GroupMemberCountResponse> getGroupMemberCount(String groupId);
+
+    /**
+     * Get members in room count.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-members-room-count">//developers.line.biz/en/reference/messaging-api/#get-members-room-count</a>
+     */
+    CompletableFuture<RoomMemberCountResponse> getRoomMemberCount(String roomId);
 
     /**
      * Get a rich menu.

@@ -44,6 +44,8 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.group.GroupMemberCountResponse;
+import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.narrowcast.Filter;
 import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
@@ -66,6 +68,7 @@ import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
+import com.linecorp.bot.model.room.RoomMemberCountResponse;
 
 import okhttp3.Headers;
 import okhttp3.Request;
@@ -359,6 +362,59 @@ public class LineMessagingClientImplTest {
         // Verify
         verify(retrofitMock, only()).leaveRoom("ID");
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
+    public void getGroupSummary() throws Exception {
+        GroupSummaryResponse dummyResponse = GroupSummaryResponse
+                .builder()
+                .build();
+        whenCall(retrofitMock.getGroupSummary(any()),
+                 dummyResponse);
+
+        // Do
+        GroupSummaryResponse got = target.getGroupSummary("GGGGGGGGGGGGGGGGGG")
+                                         .get();
+
+        // Verify
+        verify(retrofitMock, only()).getGroupSummary("GGGGGGGGGGGGGGGGGG");
+        assertThat(got).isEqualTo(dummyResponse);
+    }
+
+    @Test
+    public void getGroupMemberCount() throws Exception {
+        GroupMemberCountResponse dummyResponse = GroupMemberCountResponse
+                .builder()
+                .count(3L)
+                .build();
+        whenCall(retrofitMock.getGroupMemberCount(any()),
+                 dummyResponse);
+
+        // Do
+        GroupMemberCountResponse got = target.getGroupMemberCount("GGGGGGGGGGGGGGGGGG")
+                                             .get();
+
+        // Verify
+        verify(retrofitMock, only()).getGroupMemberCount("GGGGGGGGGGGGGGGGGG");
+        assertThat(got).isEqualTo(dummyResponse);
+    }
+
+    @Test
+    public void getRoomMemberCount() throws Exception {
+        RoomMemberCountResponse dummyResponse = RoomMemberCountResponse
+                .builder()
+                .count(3L)
+                .build();
+        whenCall(retrofitMock.getRoomMemberCount(any()),
+                 dummyResponse);
+
+        // Do
+        RoomMemberCountResponse got = target.getRoomMemberCount("GGGGGGGGGGGGGGGGGG")
+                                            .get();
+
+        // Verify
+        verify(retrofitMock, only()).getRoomMemberCount("GGGGGGGGGGGGGGGGGG");
+        assertThat(got).isEqualTo(dummyResponse);
     }
 
     @Test

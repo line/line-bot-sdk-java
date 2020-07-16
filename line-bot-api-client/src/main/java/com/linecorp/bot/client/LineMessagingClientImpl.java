@@ -27,6 +27,8 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.group.GroupMemberCountResponse;
+import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -45,6 +47,7 @@ import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
+import com.linecorp.bot.model.room.RoomMemberCountResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -175,6 +178,21 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<BotApiResponse> leaveRoom(final String roomId) {
         return toBotApiResponseFuture(retrofitImpl.leaveRoom(roomId));
+    }
+
+    @Override
+    public CompletableFuture<GroupSummaryResponse> getGroupSummary(final String groupId) {
+        return toFuture(retrofitImpl.getGroupSummary(groupId));
+    }
+
+    @Override
+    public CompletableFuture<GroupMemberCountResponse> getGroupMemberCount(String groupId) {
+        return toFuture(retrofitImpl.getGroupMemberCount(groupId));
+    }
+
+    @Override
+    public CompletableFuture<RoomMemberCountResponse> getRoomMemberCount(String roomId) {
+        return toFuture(retrofitImpl.getRoomMemberCount(roomId));
     }
 
     @Override
