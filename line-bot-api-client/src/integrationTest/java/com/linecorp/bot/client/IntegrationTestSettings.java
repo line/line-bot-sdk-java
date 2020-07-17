@@ -16,9 +16,9 @@
 
 package com.linecorp.bot.client;
 
-import java.util.List;
+import static org.assertj.core.api.Assumptions.assumeThat;
 
-import org.junit.Assume;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -42,18 +42,22 @@ public class IntegrationTestSettings {
     private boolean failOnUnknownProperties = true;
 
     public String getUserId() {
-        Assume.assumeTrue("userId in integration_test_settings.yml is not null", userId != null);
+        assumeThat(userId)
+                .as("userId in integration_test_settings.yml is not null")
+                .isNotNull();
         return userId;
     }
 
     public List<String> getAudienceIfas() {
-        Assume.assumeNotNull(audienceIfas);
-        Assume.assumeFalse(audienceIfas.isEmpty());
+        assumeThat(audienceIfas)
+                .isNotNull()
+                .isNotEmpty();
         return audienceIfas;
     }
 
     public String getRetargetingRequestId() {
-        Assume.assumeNotNull(retargetingRequestId);
+        assumeThat(retargetingRequestId)
+                .isNotNull();
         return retargetingRequestId;
     }
 
