@@ -16,13 +16,14 @@
 
 package com.linecorp.bot.client;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -134,18 +135,19 @@ public class ManageAudienceIntegrationTest {
                 .getAudienceGroups(1L, null, null, 40L,
                                    false, AudienceGroupCreateRoute.OA_MANAGER)
                 .get();
-        Assert.assertEquals(1L, response.getPage().longValue());
-        Assert.assertEquals(40L, response.getSize().longValue());
-        Assert.assertNotNull(response.getTotalCount());
+        assertThat(response.getPage()).isEqualTo(1L);
+        assertThat(response.getSize()).isEqualTo(40L);
+        assertThat(response.getTotalCount()).isNotNull();
         log.info(response.toString());
 
         List<AudienceGroup> audienceGroups = response.getAudienceGroups();
         for (AudienceGroup audienceGroup : audienceGroups) {
             GetAudienceDataResponse dataResponse = target.getAudienceData(
                     audienceGroup.getAudienceGroupId()).get();
-            Assert.assertNotNull(dataResponse.getAudienceGroup());
-            Assert.assertEquals(audienceGroup.getAudienceGroupId(),
-                                dataResponse.getAudienceGroup().getAudienceGroupId());
+            assertThat(dataResponse.getAudienceGroup())
+                    .isNotNull();
+            assertThat(dataResponse.getAudienceGroup().getAudienceGroupId())
+                    .isEqualTo(audienceGroup.getAudienceGroupId());
             log.info("id={} data={}", audienceGroup.getAudienceGroupId(), dataResponse);
         }
     }
