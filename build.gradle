@@ -113,8 +113,16 @@ subprojects {
         testImplementation 'com.github.stefanbirkner:system-rules'
         testImplementation 'com.squareup.okhttp3:mockwebserver'
         testImplementation 'org.hibernate.validator:hibernate-validator'
-        testImplementation 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            // MockHttpServletRequest
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
         testImplementation 'org.springframework.boot:spring-boot-starter-logging'
+    }
+
+    configurations.all {
+        exclude(group: 'org.junit.vintage')
+        exclude(group: 'org.junit')
     }
 
     compileJava.dependsOn(processResources)

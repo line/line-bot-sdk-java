@@ -21,8 +21,8 @@ import static java.util.Collections.singleton;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
@@ -44,7 +44,7 @@ public class LineMessagingClientImplIntegrationTest {
     private LineMessagingClient target;
     private IntegrationTestSettings settings;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         settings = IntegrationTestSettingsLoader.load();
         target = LineMessagingClientFactory.create(settings);

@@ -28,8 +28,8 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.yaml.snakeyaml.Yaml;
 
@@ -55,7 +55,7 @@ public class LineOAuthClientIntegrationTest {
     private String channelSecret;
     private String kid;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         assumeThat(TEST_RESOURCE)
                 .isNotNull();

@@ -24,8 +24,8 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.linecorp.bot.model.manageaudience.AudienceGroup;
 import com.linecorp.bot.model.manageaudience.AudienceGroupAuthorityLevel;
@@ -52,7 +52,7 @@ public class ManageAudienceIntegrationTest {
     private ManageAudienceClient target;
     private IntegrationTestSettings settings;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         settings = IntegrationTestSettingsLoader.load();
         target = ManageAudienceClientFactory.create(settings);
