@@ -17,6 +17,7 @@
 package com.linecorp.bot.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assumptions.assumeThat;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +28,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Map;
 
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
@@ -57,7 +57,8 @@ public class LineOAuthClientIntegrationTest {
 
     @Before
     public void setUp() throws IOException {
-        Assume.assumeTrue(TEST_RESOURCE != null);
+        assumeThat(TEST_RESOURCE)
+                .isNotNull();
 
         final Map<?, ?> map = new ObjectMapper()
                 .convertValue(new Yaml().load(TEST_RESOURCE.openStream()), Map.class);
