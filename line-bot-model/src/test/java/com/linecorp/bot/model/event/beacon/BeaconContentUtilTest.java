@@ -19,7 +19,7 @@ package com.linecorp.bot.model.event.beacon;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.fail;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BeaconContentUtilTest {
     @Test

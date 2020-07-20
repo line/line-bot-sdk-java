@@ -19,17 +19,14 @@ package com.linecorp.bot.client;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
+@ExtendWith(MockitoExtension.class)
 public class LineMessagingClientBuilderTest extends AbstractWiremockTest {
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
     @Test
     public void testBuildWithFixedToken() throws InterruptedException {
         lineMessagingClient = new LineMessagingClientBuilder()

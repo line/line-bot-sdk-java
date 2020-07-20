@@ -19,27 +19,26 @@ package com.linecorp.bot.client.exception;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.contrib.java.lang.system.SystemOutRule;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 
 import com.linecorp.bot.model.error.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@ExtendWith(OutputCaptureExtension.class)
 public class LineMessagingExceptionTest {
-    @Rule
-    public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-
     @Test
-    public void errorResponseIncludedInMessageTest() {
+    public void errorResponseIncludedInMessageTest(CapturedOutput output) {
         final ErrorResponse errorResponse = new ErrorResponse("requestId_in_response", null, emptyList());
         final BadRequestException exception = new BadRequestException("Message", errorResponse);
 
         log.error("", exception);
 
-        assertThat(systemOutRule.getLogWithNormalizedLineSeparator())
+        assertThat(output.getOut())
                 .contains("requestId_in_response")
                 .contains(errorResponse.toString());
     }

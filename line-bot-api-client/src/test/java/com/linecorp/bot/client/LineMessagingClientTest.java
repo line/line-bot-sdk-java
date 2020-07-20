@@ -20,9 +20,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,7 +42,7 @@ public class LineMessagingClientTest {
     private MockWebServer mockWebServer;
     private LineMessagingClient target;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         mockWebServer = new MockWebServer();
         final String apiEndPoint =
@@ -54,7 +54,7 @@ public class LineMessagingClientTest {
                 .build();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         mockWebServer.shutdown();
     }

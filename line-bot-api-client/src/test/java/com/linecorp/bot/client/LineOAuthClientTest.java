@@ -21,9 +21,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.catchThrowableOfType;
 
 import java.util.concurrent.CompletionException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,7 +55,7 @@ public class LineOAuthClientTest {
     private MockWebServer mockWebServer;
     private LineOAuthClient target;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         mockWebServer = new MockWebServer();
         final String apiEndPoint = mockWebServer.url("/").toString();
@@ -64,7 +64,7 @@ public class LineOAuthClientTest {
                                 .build();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         mockWebServer.shutdown();
     }

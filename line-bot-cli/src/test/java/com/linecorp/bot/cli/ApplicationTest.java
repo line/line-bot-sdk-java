@@ -18,19 +18,18 @@ package com.linecorp.bot.cli;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.contrib.java.lang.system.SystemOutRule;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 
+@ExtendWith(OutputCaptureExtension.class)
 public class ApplicationTest {
-    @Rule
-    public final SystemOutRule systemOut = new SystemOutRule().enableLog();
-
     @Test
-    public void contextStartupTest() throws Exception {
+    public void contextStartupTest(CapturedOutput output) throws Exception {
         Application.main("--line.bot.channel-secret=xxx", "--line.bot.channel-token=token");
 
-        assertThat(systemOut.getLogWithNormalizedLineSeparator())
+        assertThat(output.getOut())
                 .contains("No command resolved.");
     }
 }

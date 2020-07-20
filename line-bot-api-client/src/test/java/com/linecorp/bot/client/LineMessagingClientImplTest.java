@@ -30,13 +30,12 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.net.URI;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.Timeout;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.OngoingStubbing;
 
 import com.linecorp.bot.model.Broadcast;
@@ -76,6 +75,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@Timeout(5)
+@ExtendWith(MockitoExtension.class)
 public class LineMessagingClientImplTest {
     private static final String REQUEST_ID_FIXTURE = "REQUEST_ID_FIXTURE";
     private static final BotApiResponseBody BOT_API_SUCCESS_RESPONSE_BODY =
@@ -83,12 +84,6 @@ public class LineMessagingClientImplTest {
     private static final BotApiResponse BOT_API_SUCCESS_RESPONSE =
             BOT_API_SUCCESS_RESPONSE_BODY.withRequestId(REQUEST_ID_FIXTURE);
     private static final RichMenuIdResponse RICH_MENU_ID_RESPONSE = new RichMenuIdResponse("ID");
-
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
-    @Rule
-    public final Timeout timeoutRule = Timeout.seconds(5);
 
     @Mock
     private LineMessagingService retrofitMock;

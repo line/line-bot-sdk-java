@@ -92,7 +92,6 @@ subprojects {
 
         dependencies {
             dependency 'com.google.guava:guava:' + ext['guava.version']
-            dependency 'com.github.stefanbirkner:system-rules:1.19.0'
             dependencySet(group: 'com.squareup.retrofit2', version: ext['retrofit.version']) {
                 entry 'converter-jackson'
                 entry 'retrofit'
@@ -110,7 +109,6 @@ subprojects {
         // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
 
         testImplementation 'com.google.guava:guava'
-        testImplementation 'com.github.stefanbirkner:system-rules'
         testImplementation 'com.squareup.okhttp3:mockwebserver'
         testImplementation 'org.hibernate.validator:hibernate-validator'
         testImplementation 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
@@ -118,8 +116,9 @@ subprojects {
     }
 
     configurations.all {
-        exclude(group: 'org.junit.vintage')
-        exclude(group: 'org.junit')
+        // mockwebservers depends on org.junit.vintage.
+        // we can't exclude org.junit.vintage, for now.
+        exclude(group: 'junit')
     }
 
     compileJava.dependsOn(processResources)

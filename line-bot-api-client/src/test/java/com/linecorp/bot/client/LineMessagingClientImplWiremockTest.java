@@ -17,14 +17,13 @@
 package com.linecorp.bot.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.isA;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.concurrent.ExecutionException;
 
 import org.hamcrest.CustomTypeSafeMatcher;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import com.linecorp.bot.client.exception.BadRequestException;
 import com.linecorp.bot.client.exception.ForbiddenException;
@@ -39,91 +38,119 @@ public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
     static final ErrorResponse ERROR_RESPONSE =
             new ErrorResponse(null, "Error Message", null);
 
-    @Rule
-    public final ExpectedException expectedException = ExpectedException.none();
-
-    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    @Test
+    @Timeout(ASYNC_TEST_TIMEOUT)
     public void status400BadRequestTest() throws Exception {
         // Mocking
         mocking(400, ERROR_RESPONSE);
 
         // Expect
-        expectedException.expect(ExecutionException.class);
-        expectedException.expectCause(isA(BadRequestException.class));
-        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
+        // TTTTTTTTTTT
+//        expectedException.expect();
+//        expectedException.expectCause(isA());
+//        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
-        // Do
-        lineBlobClient.getMessageContent("TOKEN").get();
+        assertThatThrownBy(
+                () -> lineBlobClient.getMessageContent("TOKEN").get()
+        ).isInstanceOf(ExecutionException.class)
+         .hasCauseInstanceOf(BadRequestException.class)
+         .hasRootCauseMessage("TODO");
     }
 
-    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    @Test
+    @Timeout(ASYNC_TEST_TIMEOUT)
     public void status401UnauthorizedTest() throws Exception {
         // Mocking
         mocking(401, ERROR_RESPONSE);
 
         // Expect
-        expectedException.expect(ExecutionException.class);
-        expectedException.expectCause(isA(UnauthorizedException.class));
-        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
+//        expectedException.expect(ExecutionException.class);
+//        expectedException.expectCause(isA(UnauthorizedException.class));
+//        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
         // Do
-        lineBlobClient.getMessageContent("TOKEN").get();
+        assertThatThrownBy(
+                () -> lineBlobClient.getMessageContent("TOKEN").get()
+        )
+                .isInstanceOf(ExecutionException.class)
+                .hasCauseInstanceOf(UnauthorizedException.class)
+                .hasRootCauseMessage("TOOD");
     }
 
-    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    @Test
+    @Timeout(ASYNC_TEST_TIMEOUT)
     public void status403ForbiddenTest() throws Exception {
         // Mocking
         mocking(403, ERROR_RESPONSE);
 
         // Expect
-        expectedException.expect(ExecutionException.class);
-        expectedException.expectCause(isA(ForbiddenException.class));
-        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
+//        expectedException.expect();
+//        expectedException.expectCause(isA());
+//        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
         // Do
-        lineBlobClient.getMessageContent("TOKEN").get();
+        assertThatThrownBy(
+                () -> lineBlobClient.getMessageContent("TOKEN").get()
+        )
+                .isInstanceOf(ExecutionException.class)
+                .hasCauseInstanceOf(ForbiddenException.class)
+                .hasRootCauseMessage("TODO");
     }
 
-    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    @Test
+    @Timeout(ASYNC_TEST_TIMEOUT)
     public void status404NotFoundTest() throws Exception {
         // Mocking
         mocking(404, ERROR_RESPONSE);
 
         // Expect
-        expectedException.expect(ExecutionException.class);
-        expectedException.expectCause(isA(NotFoundException.class));
-        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
+//        expectedException.expect();
+//        expectedException.expectCause(isA(NotFoundException.class));
+//        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
         // Do
-        lineBlobClient.getMessageContent("TOKEN").get();
+        assertThatThrownBy(() ->
+                                   lineBlobClient.getMessageContent("TOKEN").get()
+        ).isInstanceOf(ExecutionException.class)
+         .hasRootCauseInstanceOf(NotFoundException.class)
+         .hasRootCauseMessage("HAAHAHA");
     }
 
-    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    @Test
+    @Timeout(ASYNC_TEST_TIMEOUT)
     public void status429TooManyRequestsTest() throws Exception {
         // Mocking
         mocking(429, ERROR_RESPONSE);
 
         // Expect
-        expectedException.expect(ExecutionException.class);
-        expectedException.expectCause(isA(TooManyRequestsException.class));
-        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
+//        expectedException.expect(ExecutionException.class);
+//        expectedException.expectCause(isA());
+//        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
         // Do
-        lineBlobClient.getMessageContent("TOKEN").get();
+        assertThatThrownBy(
+                () -> lineBlobClient.getMessageContent("TOKEN").get()
+        ).isInstanceOf(TooManyRequestsException.class)
+         .hasRootCauseMessage("AAAA");
     }
 
-    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    @Test
+    @Timeout(ASYNC_TEST_TIMEOUT)
     public void status500InternalServerErrorTest() throws Exception {
         // Mocking
         mocking(500, ERROR_RESPONSE);
 
         // Expect
-        expectedException.expect(ExecutionException.class);
-        expectedException.expectCause(isA(LineServerException.class));
-        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
+//        expectedException.expect(ExecutionException.class);
+//        expectedException.expectCause(isA(LineServerException.class));
+//        expectedException.expectCause(errorResponseIs(ERROR_RESPONSE));
 
         // Do
-        lineBlobClient.getMessageContent("TOKEN").get();
+        assertThatThrownBy(
+                () -> lineBlobClient.getMessageContent("TOKEN").get()
+        ).isInstanceOf(ExecutionException.class)
+         .hasRootCauseInstanceOf(LineServerException.class)
+         .hasRootCauseMessage("TODO");
     }
 
     private CustomTypeSafeMatcher<LineMessagingException> errorResponseIs(final ErrorResponse errorResponse) {

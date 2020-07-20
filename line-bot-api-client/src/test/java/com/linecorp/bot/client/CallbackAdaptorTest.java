@@ -21,13 +21,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.Timeout;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.linecorp.bot.client.LineMessagingClientImpl.CallbackAdaptor;
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
@@ -36,24 +35,20 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
+@ExtendWith(MockitoExtension.class)
 public class CallbackAdaptorTest {
     private CallbackAdaptor<Object> target;
-
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
-    @Rule
-    public final Timeout timeoutRule = Timeout.seconds(10);
 
     @Mock
     private Call<Object> call;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         target = new CallbackAdaptor<>();
     }
 
     @Test
+    @Timeout(10)
     public void onResponseSuccessfullyTest() throws Exception {
         final Object value = new Object();
         Response<Object> response = Response.success(value);
@@ -66,6 +61,7 @@ public class CallbackAdaptorTest {
     }
 
     @Test
+    @Timeout(10)
     public void onResponseWithErrorTest() throws Exception {
         Response<Object> response =
                 Response.error(400, ResponseBody.create(parse("application/json"), "{}"));
@@ -78,6 +74,7 @@ public class CallbackAdaptorTest {
     }
 
     @Test
+    @Timeout(10)
     public void onFailureTest() throws Exception {
         Throwable t = mock(Throwable.class);
         when(t.getMessage()).thenReturn("Message");

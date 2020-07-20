@@ -19,6 +19,7 @@ package com.linecorp.bot.spring.boot.support;
 import static java.util.Collections.singletonList;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.reset;
@@ -28,15 +29,14 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.contrib.java.lang.system.SystemOutRule;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
@@ -46,17 +46,10 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.test.EventTestUtil;
 
+@ExtendWith(OutputCaptureExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class ReplyByReturnValueConsumerTest {
     private static final MessageEvent EVENT = EventTestUtil.createTextMessage("text");
-
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
-    @Rule
-    public final ExpectedException expectedException = ExpectedException.none();
-
-    @Rule
-    public final SystemOutRule systemOut = new SystemOutRule().enableLog();
 
     @Mock
     private LineMessagingClient lineMessagingClient;
@@ -66,7 +59,7 @@ public class ReplyByReturnValueConsumerTest {
 
     private ReplyByReturnValueConsumer target;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         target = targetFactory.createForEvent(EVENT);
         when(lineMessagingClient.replyMessage(any()))
@@ -124,19 +117,19 @@ public class ReplyByReturnValueConsumerTest {
     }
 
     @Test
-    public void errorInCompletableLoggingTest() {
+    public void errorInCompletableLoggingTest(CapturedOutput output) {
         // Do
         final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
         target.accept(returnValue);
         returnValue.completeExceptionally(new GeneralLineMessagingException("EXCEPTION HAPPEN!", null, null));
 
         // Verify
-        assertThat(systemOut.getLogWithNormalizedLineSeparator())
+        assertThat(output.getOut())
                 .contains("EXCEPTION HAPPEN!");
     }
 
     @Test
-    public void errorInLineMessagingClientLoggingTest() {
+    public void errorInLineMessagingClientLoggingTest(CapturedOutput output) {
         reset(lineMessagingClient);
         when(lineMessagingClient.replyMessage(any()))
                 .thenReturn(new CompletableFuture<BotApiResponse>() {{
@@ -149,7 +142,7 @@ public class ReplyByReturnValueConsumerTest {
         returnValue.complete(singletonList(new TextMessage("Reply Text")));
 
         // Verify
-        assertThat(systemOut.getLogWithNormalizedLineSeparator())
+        assertThat(output.getOut())
                 .contains("failed")
                 .contains("EXCEPTION HAPPEN!");
     }
@@ -157,17 +150,13 @@ public class ReplyByReturnValueConsumerTest {
     // Internal method test.
     @Test
     public void checkListContentsNullTest() throws Exception {
-        expectedException.expect(NullPointerException.class);
-
-        // Do
-        ReplyByReturnValueConsumer.checkListContents(singletonList(null));
+        assertThatThrownBy(() -> ReplyByReturnValueConsumer.checkListContents(singletonList(null)))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     public void checkListContentsIllegalTypeTest() throws Exception {
-        expectedException.expect(IllegalArgumentException.class);
-
-        // Do
-        ReplyByReturnValueConsumer.checkListContents(singletonList(new Object()));
+        assertThatThrownBy(() -> ReplyByReturnValueConsumer.checkListContents(singletonList(new Object())))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

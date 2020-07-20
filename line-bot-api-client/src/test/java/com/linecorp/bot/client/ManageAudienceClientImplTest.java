@@ -28,13 +28,12 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.Timeout;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.OngoingStubbing;
 
 import com.linecorp.bot.model.manageaudience.AudienceGroup;
@@ -64,6 +63,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@ExtendWith(MockitoExtension.class)
 public class ManageAudienceClientImplTest {
     private static final String REQUEST_ID_FIXTURE = "REQUEST_ID_FIXTURE";
     private static final BotApiResponseBody BOT_API_SUCCESS_RESPONSE_BODY =
@@ -72,12 +72,6 @@ public class ManageAudienceClientImplTest {
             BOT_API_SUCCESS_RESPONSE_BODY.withRequestId(REQUEST_ID_FIXTURE);
     private static final RichMenuIdResponse RICH_MENU_ID_RESPONSE = new RichMenuIdResponse("ID");
 
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
-    @Rule
-    public final Timeout timeoutRule = Timeout.seconds(5);
-
     @Mock
     private ManageAudienceService retrofitMock;
 
@@ -85,6 +79,7 @@ public class ManageAudienceClientImplTest {
     private ManageAudienceClientImpl target;
 
     @Test
+    @Timeout(5)
     public void getAudienceGroups() throws Exception {
         final GetAudienceGroupsResponse response = GetAudienceGroupsResponse
                 .builder()
@@ -118,6 +113,7 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
+    @Timeout(5)
     public void createAudienceGroup() throws Exception {
         final CreateAudienceGroupResponse response =
                 CreateAudienceGroupResponse.builder()
@@ -138,6 +134,7 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
+    @Timeout(5)
     public void createClickBasedAudienceGroup() throws Exception {
         CreateClickBasedAudienceGroupRequest request = CreateClickBasedAudienceGroupRequest.builder()
                                                                                            .build();
@@ -152,6 +149,7 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
+    @Timeout(5)
     public void createImpBasedAudienceGroup() throws Exception {
         CreateImpBasedAudienceGroupRequest request = CreateImpBasedAudienceGroupRequest.builder()
                                                                                        .build();
@@ -166,6 +164,7 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
+    @Timeout(5)
     public void updateAudienceGroupDescription() throws Exception {
         UpdateAudienceGroupDescriptionRequest request = UpdateAudienceGroupDescriptionRequest.builder()
                                                                                              .description(
@@ -181,6 +180,7 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
+    @Timeout(5)
     public void deleteAudienceGroup() throws Exception {
         whenCall(retrofitMock.deleteAudienceGroup(anyLong()), null);
         final BotApiResponse actual =
@@ -190,6 +190,7 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
+    @Timeout(5)
     public void getAudienceData() throws Exception {
         final GetAudienceDataResponse response = GetAudienceDataResponse
                 .builder()
@@ -202,6 +203,7 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
+    @Timeout(5)
     public void getAudienceGroupAuthorityLevel() throws Exception {
         final GetAudienceGroupAuthorityLevelResponse response = GetAudienceGroupAuthorityLevelResponse
                 .builder()
@@ -215,6 +217,7 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
+    @Timeout(5)
     public void updateAudienceGroupAuthorityLevel() throws Exception {
         final UpdateAudienceGroupAuthorityLevelRequest request = UpdateAudienceGroupAuthorityLevelRequest
                 .builder()
