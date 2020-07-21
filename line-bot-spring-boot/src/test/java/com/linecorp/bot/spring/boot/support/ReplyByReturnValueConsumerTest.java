@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.spring.boot.support;
 
+import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 import static java.util.Collections.singletonList;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,9 +30,15 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+<<<<<<< HEAD
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+=======
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+>>>>>>> @{-1}
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -51,6 +58,12 @@ import com.linecorp.bot.spring.boot.test.EventTestUtil;
 public class ReplyByReturnValueConsumerTest {
     private static final MessageEvent EVENT = EventTestUtil.createTextMessage("text");
 
+<<<<<<< HEAD
+=======
+    @Rule
+    public final MockitoRule mockitoRule = MockitoJUnit.rule();
+
+>>>>>>> @{-1}
     @Mock
     private LineMessagingClient lineMessagingClient;
 
@@ -117,19 +130,34 @@ public class ReplyByReturnValueConsumerTest {
     }
 
     @Test
+<<<<<<< HEAD
     public void errorInCompletableLoggingTest(CapturedOutput output) {
+=======
+    public void errorInCompletableLoggingTest() throws Exception {
+>>>>>>> @{-1}
         // Do
-        final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
-        target.accept(returnValue);
-        returnValue.completeExceptionally(new GeneralLineMessagingException("EXCEPTION HAPPEN!", null, null));
+        String systemOut = tapSystemOut(() -> {
+            final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
+            target.accept(returnValue);
+            returnValue.completeExceptionally(
+                    new GeneralLineMessagingException("EXCEPTION HAPPEN!", null, null));
+        });
 
         // Verify
+<<<<<<< HEAD
         assertThat(output.getOut())
+=======
+        assertThat(systemOut)
+>>>>>>> @{-1}
                 .contains("EXCEPTION HAPPEN!");
     }
 
     @Test
+<<<<<<< HEAD
     public void errorInLineMessagingClientLoggingTest(CapturedOutput output) {
+=======
+    public void errorInLineMessagingClientLoggingTest() throws Exception {
+>>>>>>> @{-1}
         reset(lineMessagingClient);
         when(lineMessagingClient.replyMessage(any()))
                 .thenReturn(new CompletableFuture<BotApiResponse>() {{
@@ -137,12 +165,18 @@ public class ReplyByReturnValueConsumerTest {
                 }});
 
         // Do
-        final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
-        target.accept(returnValue);
-        returnValue.complete(singletonList(new TextMessage("Reply Text")));
+        String systemOut = tapSystemOut(() -> {
+            final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
+            target.accept(returnValue);
+            returnValue.complete(singletonList(new TextMessage("Reply Text")));
+        });
 
         // Verify
+<<<<<<< HEAD
         assertThat(output.getOut())
+=======
+        assertThat(systemOut)
+>>>>>>> @{-1}
                 .contains("failed")
                 .contains("EXCEPTION HAPPEN!");
     }
@@ -150,12 +184,20 @@ public class ReplyByReturnValueConsumerTest {
     // Internal method test.
     @Test
     public void checkListContentsNullTest() throws Exception {
+<<<<<<< HEAD
+=======
+        // Do
+>>>>>>> @{-1}
         assertThatThrownBy(() -> ReplyByReturnValueConsumer.checkListContents(singletonList(null)))
                 .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     public void checkListContentsIllegalTypeTest() throws Exception {
+<<<<<<< HEAD
+=======
+        // Do
+>>>>>>> @{-1}
         assertThatThrownBy(() -> ReplyByReturnValueConsumer.checkListContents(singletonList(new Object())))
                 .isInstanceOf(IllegalArgumentException.class);
     }

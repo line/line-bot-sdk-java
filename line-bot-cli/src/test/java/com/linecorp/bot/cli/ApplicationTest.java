@@ -16,20 +16,18 @@
 
 package com.linecorp.bot.cli;
 
+import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.system.CapturedOutput;
-import org.springframework.boot.test.system.OutputCaptureExtension;
 
-@ExtendWith(OutputCaptureExtension.class)
 public class ApplicationTest {
     @Test
-    public void contextStartupTest(CapturedOutput output) throws Exception {
-        Application.main("--line.bot.channel-secret=xxx", "--line.bot.channel-token=token");
+    public void contextStartupTest() throws Exception {
+        String systemOut = tapSystemOut(
+                () -> Application.main("--line.bot.channel-secret=xxx", "--line.bot.channel-token=token"));
 
-        assertThat(output.getOut())
+        assertThat(systemOut)
                 .contains("No command resolved.");
     }
 }

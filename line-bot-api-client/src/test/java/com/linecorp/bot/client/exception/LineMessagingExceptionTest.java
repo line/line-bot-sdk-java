@@ -16,29 +16,26 @@
 
 package com.linecorp.bot.client.exception;
 
+import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.system.CapturedOutput;
-import org.springframework.boot.test.system.OutputCaptureExtension;
 
 import com.linecorp.bot.model.error.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ExtendWith(OutputCaptureExtension.class)
 public class LineMessagingExceptionTest {
     @Test
-    public void errorResponseIncludedInMessageTest(CapturedOutput output) {
+    public void errorResponseIncludedInMessageTest() throws Exception {
         final ErrorResponse errorResponse = new ErrorResponse("requestId_in_response", null, emptyList());
         final BadRequestException exception = new BadRequestException("Message", errorResponse);
 
-        log.error("", exception);
+        String systemOut = tapSystemOut(() -> log.error("", exception));
 
-        assertThat(output.getOut())
+        assertThat(systemOut)
                 .contains("requestId_in_response")
                 .contains(errorResponse.toString());
     }
