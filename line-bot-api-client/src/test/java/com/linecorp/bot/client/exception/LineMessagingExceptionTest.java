@@ -16,12 +16,11 @@
 
 package com.linecorp.bot.client.exception;
 
+import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.contrib.java.lang.system.SystemOutRule;
 
 import com.linecorp.bot.model.error.ErrorResponse;
 
@@ -29,17 +28,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class LineMessagingExceptionTest {
-    @Rule
-    public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-
     @Test
-    public void errorResponseIncludedInMessageTest() {
+    public void errorResponseIncludedInMessageTest() throws Exception {
         final ErrorResponse errorResponse = new ErrorResponse("requestId_in_response", null, emptyList());
         final BadRequestException exception = new BadRequestException("Message", errorResponse);
 
-        log.error("", exception);
+        String systemOut = tapSystemOut(() -> log.error("", exception));
 
-        assertThat(systemOutRule.getLogWithNormalizedLineSeparator())
+        assertThat(systemOut)
                 .contains("requestId_in_response")
                 .contains(errorResponse.toString());
     }
