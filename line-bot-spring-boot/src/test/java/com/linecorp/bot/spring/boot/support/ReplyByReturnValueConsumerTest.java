@@ -20,6 +20,7 @@ import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 import static java.util.Collections.singletonList;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.reset;
@@ -32,7 +33,6 @@ import java.util.concurrent.CompletableFuture;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
@@ -51,9 +51,6 @@ public class ReplyByReturnValueConsumerTest {
 
     @Rule
     public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
-    @Rule
-    public final ExpectedException expectedException = ExpectedException.none();
 
     @Mock
     private LineMessagingClient lineMessagingClient;
@@ -159,17 +156,15 @@ public class ReplyByReturnValueConsumerTest {
     // Internal method test.
     @Test
     public void checkListContentsNullTest() throws Exception {
-        expectedException.expect(NullPointerException.class);
-
         // Do
-        ReplyByReturnValueConsumer.checkListContents(singletonList(null));
+        assertThatThrownBy(() -> ReplyByReturnValueConsumer.checkListContents(singletonList(null)))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     public void checkListContentsIllegalTypeTest() throws Exception {
-        expectedException.expect(IllegalArgumentException.class);
-
         // Do
-        ReplyByReturnValueConsumer.checkListContents(singletonList(new Object()));
+        assertThatThrownBy(() -> ReplyByReturnValueConsumer.checkListContents(singletonList(new Object())))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
