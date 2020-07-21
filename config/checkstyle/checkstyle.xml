@@ -87,6 +87,12 @@
       <message key="import.illegal"
                value="Use AssertJ (org.assertj.core.api.Assumptions.assumeThat) instead." />
     </module>
+    <module name="IllegalImport">
+      <property name="id" value="junitExpectedException" />
+      <property name="illegalClasses" value="org.junit.rules.ExpectedException" />
+      <message key="import.illegal"
+               value="Use AssertJ (org.assertj.core.api.Assertions.assertThatThrownBy) instead." />
+    </module>
 
     <module name="AvoidNestedBlocks">
       <property name="allowInSwitchCase" value="true" />
