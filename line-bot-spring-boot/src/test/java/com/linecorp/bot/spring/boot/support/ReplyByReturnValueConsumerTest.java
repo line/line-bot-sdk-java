@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.spring.boot.support;
 
+import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 import static java.util.Collections.singletonList;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,7 +32,6 @@ import java.util.concurrent.CompletableFuture;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.rules.ExpectedException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -54,9 +54,6 @@ public class ReplyByReturnValueConsumerTest {
 
     @Rule
     public final ExpectedException expectedException = ExpectedException.none();
-
-    @Rule
-    public final SystemOutRule systemOut = new SystemOutRule().enableLog();
 
     @Mock
     private LineMessagingClient lineMessagingClient;
@@ -124,19 +121,22 @@ public class ReplyByReturnValueConsumerTest {
     }
 
     @Test
-    public void errorInCompletableLoggingTest() {
+    public void errorInCompletableLoggingTest() throws Exception {
         // Do
-        final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
-        target.accept(returnValue);
-        returnValue.completeExceptionally(new GeneralLineMessagingException("EXCEPTION HAPPEN!", null, null));
+        String systemOut = tapSystemOut(() -> {
+            final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
+            target.accept(returnValue);
+            returnValue.completeExceptionally(
+                    new GeneralLineMessagingException("EXCEPTION HAPPEN!", null, null));
+        });
 
         // Verify
-        assertThat(systemOut.getLogWithNormalizedLineSeparator())
+        assertThat(systemOut)
                 .contains("EXCEPTION HAPPEN!");
     }
 
     @Test
-    public void errorInLineMessagingClientLoggingTest() {
+    public void errorInLineMessagingClientLoggingTest() throws Exception {
         reset(lineMessagingClient);
         when(lineMessagingClient.replyMessage(any()))
                 .thenReturn(new CompletableFuture<BotApiResponse>() {{
@@ -144,12 +144,14 @@ public class ReplyByReturnValueConsumerTest {
                 }});
 
         // Do
-        final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
-        target.accept(returnValue);
-        returnValue.complete(singletonList(new TextMessage("Reply Text")));
+        String systemOut = tapSystemOut(() -> {
+            final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
+            target.accept(returnValue);
+            returnValue.complete(singletonList(new TextMessage("Reply Text")));
+        });
 
         // Verify
-        assertThat(systemOut.getLogWithNormalizedLineSeparator())
+        assertThat(systemOut)
                 .contains("failed")
                 .contains("EXCEPTION HAPPEN!");
     }
