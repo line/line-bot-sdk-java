@@ -36,6 +36,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 @ExtendWith(MockitoExtension.class)
+@Timeout(10)
 public class CallbackAdaptorTest {
     private CallbackAdaptor<Object> target;
 
@@ -48,7 +49,6 @@ public class CallbackAdaptorTest {
     }
 
     @Test
-    @Timeout(10)
     public void onResponseSuccessfullyTest() throws Exception {
         final Object value = new Object();
         Response<Object> response = Response.success(value);
@@ -61,7 +61,6 @@ public class CallbackAdaptorTest {
     }
 
     @Test
-    @Timeout(10)
     public void onResponseWithErrorTest() throws Exception {
         Response<Object> response =
                 Response.error(400, ResponseBody.create(parse("application/json"), "{}"));
@@ -74,7 +73,6 @@ public class CallbackAdaptorTest {
     }
 
     @Test
-    @Timeout(10)
     public void onFailureTest() throws Exception {
         Throwable t = mock(Throwable.class);
         when(t.getMessage()).thenReturn("Message");

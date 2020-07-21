@@ -64,6 +64,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @ExtendWith(MockitoExtension.class)
+@Timeout(5)
 public class ManageAudienceClientImplTest {
     private static final String REQUEST_ID_FIXTURE = "REQUEST_ID_FIXTURE";
     private static final BotApiResponseBody BOT_API_SUCCESS_RESPONSE_BODY =
@@ -79,7 +80,6 @@ public class ManageAudienceClientImplTest {
     private ManageAudienceClientImpl target;
 
     @Test
-    @Timeout(5)
     public void getAudienceGroups() throws Exception {
         final GetAudienceGroupsResponse response = GetAudienceGroupsResponse
                 .builder()
@@ -113,7 +113,6 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
-    @Timeout(5)
     public void createAudienceGroup() throws Exception {
         final CreateAudienceGroupResponse response =
                 CreateAudienceGroupResponse.builder()
@@ -134,7 +133,6 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
-    @Timeout(5)
     public void createClickBasedAudienceGroup() throws Exception {
         CreateClickBasedAudienceGroupRequest request = CreateClickBasedAudienceGroupRequest.builder()
                                                                                            .build();
@@ -149,7 +147,6 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
-    @Timeout(5)
     public void createImpBasedAudienceGroup() throws Exception {
         CreateImpBasedAudienceGroupRequest request = CreateImpBasedAudienceGroupRequest.builder()
                                                                                        .build();
@@ -164,7 +161,6 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
-    @Timeout(5)
     public void updateAudienceGroupDescription() throws Exception {
         UpdateAudienceGroupDescriptionRequest request = UpdateAudienceGroupDescriptionRequest.builder()
                                                                                              .description(
@@ -180,7 +176,6 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
-    @Timeout(5)
     public void deleteAudienceGroup() throws Exception {
         whenCall(retrofitMock.deleteAudienceGroup(anyLong()), null);
         final BotApiResponse actual =
@@ -190,7 +185,6 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
-    @Timeout(5)
     public void getAudienceData() throws Exception {
         final GetAudienceDataResponse response = GetAudienceDataResponse
                 .builder()
@@ -203,7 +197,6 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
-    @Timeout(5)
     public void getAudienceGroupAuthorityLevel() throws Exception {
         final GetAudienceGroupAuthorityLevelResponse response = GetAudienceGroupAuthorityLevelResponse
                 .builder()
@@ -217,7 +210,6 @@ public class ManageAudienceClientImplTest {
     }
 
     @Test
-    @Timeout(5)
     public void updateAudienceGroupAuthorityLevel() throws Exception {
         final UpdateAudienceGroupAuthorityLevelRequest request = UpdateAudienceGroupAuthorityLevelRequest
                 .builder()
