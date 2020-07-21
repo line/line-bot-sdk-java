@@ -30,20 +30,12 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-<<<<<<< HEAD
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-=======
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
->>>>>>> @{-1}
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.system.CapturedOutput;
-import org.springframework.boot.test.system.OutputCaptureExtension;
 
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
@@ -53,17 +45,10 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.test.EventTestUtil;
 
-@ExtendWith(OutputCaptureExtension.class)
 @ExtendWith(MockitoExtension.class)
 public class ReplyByReturnValueConsumerTest {
     private static final MessageEvent EVENT = EventTestUtil.createTextMessage("text");
 
-<<<<<<< HEAD
-=======
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
->>>>>>> @{-1}
     @Mock
     private LineMessagingClient lineMessagingClient;
 
@@ -130,11 +115,7 @@ public class ReplyByReturnValueConsumerTest {
     }
 
     @Test
-<<<<<<< HEAD
-    public void errorInCompletableLoggingTest(CapturedOutput output) {
-=======
     public void errorInCompletableLoggingTest() throws Exception {
->>>>>>> @{-1}
         // Do
         String systemOut = tapSystemOut(() -> {
             final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
@@ -144,20 +125,12 @@ public class ReplyByReturnValueConsumerTest {
         });
 
         // Verify
-<<<<<<< HEAD
-        assertThat(output.getOut())
-=======
         assertThat(systemOut)
->>>>>>> @{-1}
                 .contains("EXCEPTION HAPPEN!");
     }
 
     @Test
-<<<<<<< HEAD
-    public void errorInLineMessagingClientLoggingTest(CapturedOutput output) {
-=======
     public void errorInLineMessagingClientLoggingTest() throws Exception {
->>>>>>> @{-1}
         reset(lineMessagingClient);
         when(lineMessagingClient.replyMessage(any()))
                 .thenReturn(new CompletableFuture<BotApiResponse>() {{
@@ -172,11 +145,7 @@ public class ReplyByReturnValueConsumerTest {
         });
 
         // Verify
-<<<<<<< HEAD
-        assertThat(output.getOut())
-=======
         assertThat(systemOut)
->>>>>>> @{-1}
                 .contains("failed")
                 .contains("EXCEPTION HAPPEN!");
     }
@@ -184,20 +153,14 @@ public class ReplyByReturnValueConsumerTest {
     // Internal method test.
     @Test
     public void checkListContentsNullTest() throws Exception {
-<<<<<<< HEAD
-=======
         // Do
->>>>>>> @{-1}
         assertThatThrownBy(() -> ReplyByReturnValueConsumer.checkListContents(singletonList(null)))
                 .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     public void checkListContentsIllegalTypeTest() throws Exception {
-<<<<<<< HEAD
-=======
         // Do
->>>>>>> @{-1}
         assertThatThrownBy(() -> ReplyByReturnValueConsumer.checkListContents(singletonList(new Object())))
                 .isInstanceOf(IllegalArgumentException.class);
     }
