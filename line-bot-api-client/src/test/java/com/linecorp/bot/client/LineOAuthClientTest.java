@@ -19,6 +19,7 @@ package com.linecorp.bot.client;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowableOfType;
 
+import java.net.URI;
 import java.util.concurrent.CompletionException;
 
 import org.junit.After;
@@ -58,7 +59,7 @@ public class LineOAuthClientTest {
     @Before
     public void setUp() {
         mockWebServer = new MockWebServer();
-        final String apiEndPoint = mockWebServer.url("/").toString();
+        final URI apiEndPoint = mockWebServer.url("/").uri();
         target = LineOAuthClient.builder()
                                 .apiEndPoint(apiEndPoint)
                                 .build();

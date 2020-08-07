@@ -45,9 +45,7 @@ public class LineMessagingClientTest {
     @Before
     public void setUp() throws Exception {
         mockWebServer = new MockWebServer();
-        final String apiEndPoint =
-                "http://" + mockWebServer.getHostName() + ':' + mockWebServer.getPort()
-                + "/CanContainsRelative/";
+        final URI apiEndPoint = mockWebServer.url("/CanContainsRelative/").uri();
         target = LineMessagingClient
                 .builder("SECRET")
                 .apiEndPoint(apiEndPoint)
