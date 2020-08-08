@@ -25,16 +25,12 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.event.source.Source;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
 @JsonTypeName("memberLeft")
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
-// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = MemberLeftEvent.MemberLeftEventBuilder.class)
 public class MemberLeftEvent implements Event {
     @JsonPOJOBuilder(withPrefix = "")
@@ -70,23 +66,8 @@ public class MemberLeftEvent implements Event {
      */
     EventMode mode;
 
-    /**
-     * Deprecated constructor.
-     *
-     * @deprecated Use builder method instead. This construct will remove in next major release.
-     */
-    @Deprecated
-    public MemberLeftEvent(
-            final Source source,
-            final LeftMembers left,
-            final Instant timestamp) {
-        this(source, timestamp, left, null);
-    }
-
     @Value
     @Builder(toBuilder = true)
-    @AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
-    // TODO: Remove next release. Use builder() instead.
     @JsonDeserialize(builder = LeftMembers.LeftMembersBuilder.class)
     public static class LeftMembers {
         @JsonPOJOBuilder(withPrefix = "")

@@ -21,7 +21,6 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -30,7 +29,6 @@ import lombok.Value;
  */
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = PostbackContent.PostbackContentBuilder.class)
 public class PostbackContent {
     @JsonPOJOBuilder(withPrefix = "")

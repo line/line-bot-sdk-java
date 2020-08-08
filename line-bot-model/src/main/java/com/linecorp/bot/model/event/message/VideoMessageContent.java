@@ -22,14 +22,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
 @JsonTypeName("video")
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = VideoMessageContent.VideoMessageContentBuilder.class)
 public class VideoMessageContent implements MessageContent {
     @JsonPOJOBuilder(withPrefix = "")

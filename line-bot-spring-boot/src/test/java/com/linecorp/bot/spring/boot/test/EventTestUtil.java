@@ -27,11 +27,16 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class EventTestUtil {
     public static MessageEvent<TextMessageContent> createTextMessage(final String text) {
-        return new MessageEvent<>("replyToken", new UserSource("userId"),
-                                  TextMessageContent.builder()
-                                                    .id("id")
-                                                    .text(text)
-                                                    .build(),
-                                  Instant.parse("2016-11-19T00:00:00.000Z"));
+        return MessageEvent.<TextMessageContent>builder()
+                .replyToken("replyToken")
+                .source(UserSource.builder()
+                                  .userId("userId")
+                                  .build())
+                .message(TextMessageContent.builder()
+                                           .id("id")
+                                           .text(text)
+                                           .build())
+                .timestamp(Instant.parse("2016-11-19T00:00:00.000Z"))
+                .build();
     }
 }

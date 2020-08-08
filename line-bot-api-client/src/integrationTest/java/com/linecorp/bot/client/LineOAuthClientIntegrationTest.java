@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assumptions.assumeThat;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -66,7 +67,7 @@ public class LineOAuthClientIntegrationTest {
         endpoint = (String) map.get("endpoint");
         target = LineOAuthClient
                 .builder()
-                .apiEndPoint(endpoint)
+                .apiEndPoint(URI.create(endpoint))
                 .build();
 
         pemPrivateKey = ((String) map.get("pemPrivateKey")).replaceAll("\n", "");

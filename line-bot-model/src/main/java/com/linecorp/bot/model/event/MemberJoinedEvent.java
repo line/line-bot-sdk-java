@@ -25,8 +25,6 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.event.source.Source;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -36,8 +34,6 @@ import lombok.Value;
 @JsonTypeName("memberJoined")
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
-// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = MemberJoinedEvent.MemberJoinedEventBuilder.class)
 public class MemberJoinedEvent implements Event, ReplyEvent {
     @JsonPOJOBuilder(withPrefix = "")
@@ -78,24 +74,8 @@ public class MemberJoinedEvent implements Event, ReplyEvent {
      */
     EventMode mode;
 
-    /**
-     * Deprecated constructor.
-     *
-     * @deprecated Use builder method instead. This construct will remove in next major release.
-     */
-    @Deprecated
-    public MemberJoinedEvent(
-            final String replyToken,
-            final Source source,
-            final JoinedMembers joined,
-            final Instant timestamp) {
-        this(replyToken, source, timestamp, joined, null);
-    }
-
     @Value
     @Builder(toBuilder = true)
-    @AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
-    // TODO: Remove next release. Use builder() instead.
     @JsonDeserialize(builder = JoinedMembers.JoinedMembersBuilder.class)
     public static class JoinedMembers {
         @JsonPOJOBuilder(withPrefix = "")

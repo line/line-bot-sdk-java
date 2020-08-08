@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -31,7 +30,6 @@ import lombok.Value;
 @JsonTypeName("sticker")
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = StickerMessageContent.StickerMessageContentBuilder.class)
 public class StickerMessageContent implements MessageContent {
     @JsonPOJOBuilder(withPrefix = "")

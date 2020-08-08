@@ -62,16 +62,6 @@ public class LineOAuthClientBuilder {
     /**
      * API Endpoint.
      *
-     * @deprecated use {@link #apiEndPoint(URI apiEndPoint)}.
-     */
-    @Deprecated
-    public LineOAuthClientBuilder apiEndPoint(String apiEndPoint) {
-        return apiEndPoint(URI.create(apiEndPoint));
-    }
-
-    /**
-     * API Endpoint.
-     *
      * <p>Default value = "https://api.line.me/".
      */
     public LineOAuthClientBuilder apiEndPoint(URI apiEndPoint) {

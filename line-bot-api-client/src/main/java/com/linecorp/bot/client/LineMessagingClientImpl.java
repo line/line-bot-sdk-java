@@ -105,13 +105,6 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public CompletableFuture<MessageContentResponse> getMessageContent(String messageId) {
-        return blobDelegationTarget.getMessageContent(messageId);
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
     public CompletableFuture<MessageQuotaResponse> getMessageQuota() {
         return toFuture(retrofitImpl.getMessageQuota());
     }
@@ -239,19 +232,6 @@ public class LineMessagingClientImpl implements LineMessagingClient {
         return toBotApiFuture(retrofitImpl.unlinkRichMenuIdFromUsers(RichMenuBulkUnlinkRequest.builder()
                                                                                               .userIds(userIds)
                                                                                               .build()));
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public CompletableFuture<MessageContentResponse> getRichMenuImage(final String richMenuId) {
-        return blobDelegationTarget.getRichMenuImage(richMenuId);
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public CompletableFuture<BotApiResponse> setRichMenuImage(
-            final String richMenuId, final String contentType, final byte[] content) {
-        return blobDelegationTarget.setRichMenuImage(richMenuId, contentType, content);
     }
 
     @Override

@@ -35,13 +35,18 @@ import com.linecorp.bot.model.testutil.TestUtil;
 public class ImagemapMessageTest {
     @Test
     public void constructor1() throws JsonProcessingException {
-        ImagemapMessage message = new ImagemapMessage(
-                URI.create("https://example.com"),
-                "hoge",
-                new ImagemapBaseSize(1040, 1040),
-                singletonList(new MessageImagemapAction("hoge",
-                                                        new ImagemapArea(0, 0, 20, 20)))
-        );
+        ImagemapMessage message = ImagemapMessage
+                .builder()
+                .baseUrl(URI.create("https://example.com"))
+                .altText("hoge")
+                .baseSize(new ImagemapBaseSize(1040, 1040))
+                .actions(singletonList(MessageImagemapAction
+                                               .builder()
+                                               .text("hoge")
+                                               .area(new ImagemapArea(0, 0, 20, 20))
+                                               .build()
+                ))
+                .build();
         assertThat(message.getBaseUrl()).isEqualTo(URI.create("https://example.com"));
         assertThat(message.getAltText()).isEqualTo("hoge");
         assertThat(message.getBaseSize()).isNotNull();
@@ -53,14 +58,17 @@ public class ImagemapMessageTest {
 
     @Test
     public void constructor2() throws JsonProcessingException {
-        ImagemapMessage message = new ImagemapMessage(
-                URI.create("https://example.com"),
-                "hoge",
-                new ImagemapBaseSize(1040, 1040),
-                singletonList(new MessageImagemapAction("hoge",
-                                                        new ImagemapArea(0, 0, 20, 20))),
-                ImagemapVideo.builder().build()
-        );
+        ImagemapMessage message = ImagemapMessage
+                .builder()
+                .baseUrl(URI.create("https://example.com"))
+                .altText("hoge")
+                .baseSize(new ImagemapBaseSize(1040, 1040))
+                .actions(singletonList(MessageImagemapAction.builder()
+                                                            .text("hoge")
+                                                            .area(new ImagemapArea(0, 0, 20, 20))
+                                                            .build()))
+                .video(ImagemapVideo.builder().build())
+                .build();
         assertThat(message.getBaseUrl()).isEqualTo(URI.create("https://example.com"));
         assertThat(message.getAltText()).isEqualTo("hoge");
         assertThat(message.getBaseSize()).isNotNull();
@@ -80,8 +88,10 @@ public class ImagemapMessageTest {
                 .altText("hoge")
                 .baseSize(new ImagemapBaseSize(1040, 1040))
                 .actions(singletonList(
-                        new MessageImagemapAction("hoge",
-                                                  new ImagemapArea(0, 0, 20, 20))))
+                        MessageImagemapAction.builder()
+                                             .text("hoge")
+                                             .area(new ImagemapArea(0, 0, 20, 20))
+                                             .build()))
                 .build();
 
         String s = objectMapper.writeValueAsString(imagemapMessage);
