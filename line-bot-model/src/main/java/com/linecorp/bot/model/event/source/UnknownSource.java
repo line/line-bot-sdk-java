@@ -19,7 +19,6 @@ package com.linecorp.bot.model.event.source;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -28,7 +27,6 @@ import lombok.Value;
  */
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = UnknownSource.UnknownSourceBuilder.class)
 public class UnknownSource implements Source {
     @JsonPOJOBuilder(withPrefix = "")

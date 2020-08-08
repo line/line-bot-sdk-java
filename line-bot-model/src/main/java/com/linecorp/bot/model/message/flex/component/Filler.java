@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -30,7 +29,6 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = Filler.FillerBuilder.class)
 public class Filler implements FlexComponent {
     @JsonPOJOBuilder(withPrefix = "")
@@ -39,8 +37,4 @@ public class Filler implements FlexComponent {
     }
 
     Integer flex;
-
-    public Filler() {
-        this(null);
-    }
 }

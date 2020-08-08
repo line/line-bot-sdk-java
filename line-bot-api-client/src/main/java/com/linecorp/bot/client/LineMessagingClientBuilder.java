@@ -67,16 +67,6 @@ public class LineMessagingClientBuilder {
     /**
      * API Endpoint.
      *
-     * @deprecated use {@link #apiEndPoint(URI apiEndPoint)}.
-     */
-    @Deprecated
-    public LineMessagingClientBuilder apiEndPoint(String apiEndPoint) {
-        return apiEndPoint(URI.create(apiEndPoint));
-    }
-
-    /**
-     * API Endpoint.
-     *
      * <p>Default value = "https://api.line.me/".
      */ // We can remove this after delete `setApiEndPoint(String apiEndPoint)`.
     public LineMessagingClientBuilder apiEndPoint(URI apiEndPoint) {

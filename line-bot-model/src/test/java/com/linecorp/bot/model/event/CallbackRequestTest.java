@@ -170,9 +170,11 @@ public class CallbackRequestTest {
             ImageMessageContent image = (ImageMessageContent) message;
             assertThat(image.getId()).isEqualTo("325708");
             assertThat(image.getContentProvider()).isEqualTo(
-                    new ContentProvider("external",
-                                        URI.create("https://example.com/original.jpg"),
-                                        URI.create(("https://example.com/preview.jpg"))));
+                    ContentProvider.builder()
+                                   .type("external")
+                                   .originalContentUrl(URI.create("https://example.com/original.jpg"))
+                                   .previewImageUrl(URI.create(("https://example.com/preview.jpg")))
+                                   .build());
         });
     }
 
@@ -498,7 +500,10 @@ public class CallbackRequestTest {
             assertThat(result.getStartTime()).isEqualTo(Instant.ofEpochMilli(1547817845950L));
             assertThat(result.getEndTime()).isEqualTo(Instant.ofEpochMilli(1547817845952L));
             assertThat(result.getResultCode()).isEqualTo("success");
-            assertThat(result.getActionResults().get(0)).isEqualTo(new BinaryActionResult("/w=="));
+            assertThat(result.getActionResults().get(0)).isEqualTo(
+                    BinaryActionResult.builder()
+                                      .data("/w==")
+                                      .build());
             assertThat(result.getActionResults().get(1)).isInstanceOf(VoidActionResult.class);
             assertThat(result.getActionResults().get(2)).isInstanceOf(UnknownActionResult.class);
             assertThat(result.getBleNotificationPayload()).isEqualTo("AQ==");

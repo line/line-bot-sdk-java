@@ -64,16 +64,6 @@ public class LineBlobClientBuilder {
     /**
      * API Endpoint.
      *
-     * @deprecated use {@link #apiEndPoint(URI)}.
-     */
-    @Deprecated
-    public LineBlobClientBuilder apiEndPoint(String apiEndPoint) {
-        return apiEndPoint(URI.create(apiEndPoint));
-    }
-
-    /**
-     * API Endpoint.
-     *
      * <p>Default value = "https://api-data.line.me/".
      */ // We can remove this after delete `setApiEndPoint(String apiEndPoint)`.
     public LineBlobClientBuilder apiEndPoint(URI apiEndPoint) {

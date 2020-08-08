@@ -37,18 +37,24 @@ public class ImagemapMessageWithVideoTest {
 
     @Test
     public void imagemapWithVideo_withoutExternalLink() throws IOException {
-
-        ImagemapMessage message = new ImagemapMessage(
-                URI.create("https://example.com/path/to/baseUrl"),
-                "altText",
-                new ImagemapBaseSize(578, 1040),
-                singletonList(new MessageImagemapAction("text", new ImagemapArea(10, 20, 30, 40))),
-                ImagemapVideo.builder()
-                             .originalContentUrl(URI.create("https://example.com/path/to/originalContentUrl"))
-                             .previewImageUrl(URI.create("https://example.com/path/to/previewImageUrl"))
-                             .area(new ImagemapArea(0, 0, 1040, 578))
-                             .build()
-        );
+        ImagemapMessage message = ImagemapMessage
+                .builder()
+                .baseUrl(URI.create("https://example.com/path/to/baseUrl"))
+                .altText("altText")
+                .baseSize(new ImagemapBaseSize(578, 1040))
+                .actions(singletonList(
+                        MessageImagemapAction.builder()
+                                             .text("text")
+                                             .area(new ImagemapArea(10, 20, 30, 40))
+                                             .build()))
+                .video(
+                        ImagemapVideo.builder()
+                                     .originalContentUrl(
+                                             URI.create("https://example.com/path/to/originalContentUrl"))
+                                     .previewImageUrl(URI.create("https://example.com/path/to/previewImageUrl"))
+                                     .area(new ImagemapArea(0, 0, 1040, 578))
+                                     .build())
+                .build();
 
         String json = OBJECT_MAPPER.writeValueAsString(message);
         DocumentContext documentContext = JsonPath.parse(json);
@@ -127,8 +133,14 @@ public class ImagemapMessageWithVideoTest {
                                      .build()
                 )
                 .actions(Arrays.asList(
-                        new URIImagemapAction("https://example.com/", new ImagemapArea(0, 586, 520, 454)),
-                        new MessageImagemapAction("Hello", new ImagemapArea(520, 586, 520, 454))
+                        URIImagemapAction.builder()
+                                         .linkUri("https://example.com/")
+                                         .area(new ImagemapArea(0, 586, 520, 454))
+                                         .build(),
+                        MessageImagemapAction.builder()
+                                             .text("Hello")
+                                             .area(new ImagemapArea(520, 586, 520, 454))
+                                             .build()
                 ))
                 .build();
 

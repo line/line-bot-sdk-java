@@ -64,16 +64,6 @@ public class ManageAudienceClientBuilder {
     /**
      * API Endpoint.
      *
-     * @deprecated use {@link #apiEndPoint(URI apiEndPoint)}.
-     */
-    @Deprecated
-    public ManageAudienceClientBuilder apiEndPoint(String apiEndPoint) {
-        return apiEndPoint(URI.create(apiEndPoint));
-    }
-
-    /**
-     * API Endpoint.
-     *
      * <p>Default value = "https://api.line.me/".
      */ // We can remove this after delete `setApiEndPoint(String apiEndPoint)`.
     public ManageAudienceClientBuilder apiEndPoint(URI apiEndPoint) {

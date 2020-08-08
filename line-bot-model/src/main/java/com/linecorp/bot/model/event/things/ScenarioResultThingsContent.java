@@ -22,14 +22,12 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.event.things.result.ScenarioResult;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
 @JsonTypeName("scenarioResult")
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = ScenarioResultThingsContent.ScenarioResultThingsContentBuilder.class)
 public class ScenarioResultThingsContent implements ThingsContent {
     @JsonPOJOBuilder(withPrefix = "")

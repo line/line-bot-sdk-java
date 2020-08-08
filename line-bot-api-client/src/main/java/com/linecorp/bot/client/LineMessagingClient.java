@@ -109,15 +109,6 @@ public interface LineMessagingClient {
     CompletableFuture<NarrowcastProgressResponse> getNarrowcastProgress(String requestId);
 
     /**
-     * Download image, video, and audio data sent from users.
-     *
-     * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-content">//developers.line.me/en/reference/messaging-api/#get-content</a>
-     * @deprecated use {@link LineBlobClient} instead.
-     */
-    @Deprecated
-    CompletableFuture<MessageContentResponse> getMessageContent(String messageId);
-
-    /**
      * Gets the target limit for additional messages in the current month. The number of messages retrieved by
      * this operation includes the number of messages sent from LINE Official Account Manager.
      * Set a target limit with LINE Official Account Manager. For the procedures, refer to the LINE Official
@@ -314,25 +305,6 @@ public interface LineMessagingClient {
      *         Unlink rich menu to multiple users</a>
      */
     CompletableFuture<BotApiResponse> unlinkRichMenuIdFromUsers(List<String> userIds);
-
-    /**
-     * Download rich menu image.
-     *
-     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image">//developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image</a>
-     * @deprecated use {@link LineBlobClient} instead.
-     */
-    @Deprecated
-    CompletableFuture<MessageContentResponse> getRichMenuImage(String richMenuId);
-
-    /**
-     * Set RichMenu image.
-     *
-     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image">//developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image</a>
-     * @deprecated use {@link LineBlobClient} instead.
-     */
-    @Deprecated
-    CompletableFuture<BotApiResponse> setRichMenuImage(
-            String richMenuId, String contentType, byte[] content);
 
     /**
      * Gets a list of all uploaded rich menus.

@@ -25,8 +25,6 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.linecorp.bot.model.event.beacon.BeaconContent;
 import com.linecorp.bot.model.event.source.Source;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -36,8 +34,6 @@ import lombok.Value;
 @JsonTypeName("beacon")
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
-// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = BeaconEvent.BeaconEventBuilder.class)
 public class BeaconEvent implements Event, ReplyEvent {
     @JsonPOJOBuilder(withPrefix = "")
@@ -77,18 +73,4 @@ public class BeaconEvent implements Event, ReplyEvent {
      * </dl>
      */
     EventMode mode;
-
-    /**
-     * Deprecated constructor.
-     *
-     * @deprecated Use builder method instead. This construct will remove in next major release.
-     */
-    @Deprecated
-    public BeaconEvent(
-            final String replyToken,
-            final Source source,
-            final Instant timestamp,
-            final BeaconContent beacon) {
-        this(replyToken, source, beacon, timestamp, null);
-    }
 }

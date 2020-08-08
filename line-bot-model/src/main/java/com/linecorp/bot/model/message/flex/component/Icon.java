@@ -40,7 +40,6 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = Icon.IconBuilder.class)
 public class Icon implements FlexComponent {
     @AllArgsConstructor

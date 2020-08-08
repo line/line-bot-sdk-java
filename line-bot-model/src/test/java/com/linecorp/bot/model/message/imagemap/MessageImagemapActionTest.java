@@ -25,7 +25,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MessageImagemapActionTest {
     @Test
     public void getText() throws Exception {
-        MessageImagemapAction imageMapAction = new MessageImagemapAction("hoge", new ImagemapArea(1, 2, 3, 4));
+        MessageImagemapAction imageMapAction = MessageImagemapAction
+                .builder()
+                .text("hoge")
+                .area(new ImagemapArea(1, 2, 3, 4))
+                .build();
 
         ObjectMapper objectMapper = new ObjectMapper();
         String s = objectMapper.writeValueAsString(imageMapAction);
