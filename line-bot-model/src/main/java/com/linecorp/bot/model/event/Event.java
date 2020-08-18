@@ -37,7 +37,8 @@ import com.linecorp.bot.model.event.source.Source;
         @JsonSubTypes.Type(AccountLinkEvent.class),
         @JsonSubTypes.Type(ThingsEvent.class),
         @JsonSubTypes.Type(MemberJoinedEvent.class),
-        @JsonSubTypes.Type(MemberLeftEvent.class)
+        @JsonSubTypes.Type(MemberLeftEvent.class),
+        @JsonSubTypes.Type(UnsendEvent.class)
 })
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

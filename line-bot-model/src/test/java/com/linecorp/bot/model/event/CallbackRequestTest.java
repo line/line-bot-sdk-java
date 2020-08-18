@@ -563,6 +563,22 @@ public class CallbackRequestTest {
         });
     }
 
+    @Test
+    public void testUnsend() throws IOException {
+        parse("callback/unsend.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event).isInstanceOf(UnsendEvent.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
+            UnsendEvent unsendEvent = (UnsendEvent) event;
+            String messageId = unsendEvent.getUnsend().getMessageId();
+            assertThat(messageId).isEqualTo("325708");
+        });
+    }
+
     // Event, that has brand new eventType
     @Test
     public void testUnknown() throws IOException {

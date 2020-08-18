@@ -56,6 +56,7 @@ import com.linecorp.bot.model.event.MemberLeftEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
+import com.linecorp.bot.model.event.UnsendEvent;
 import com.linecorp.bot.model.event.message.AudioMessageContent;
 import com.linecorp.bot.model.event.message.ContentProvider;
 import com.linecorp.bot.model.event.message.FileMessageContent;
@@ -252,6 +253,11 @@ public class KitchenSinkController {
         log.info("Got memberLeft message: {}", event.getLeft().getMembers()
                                                     .stream().map(Source::getUserId)
                                                     .collect(Collectors.joining(",")));
+    }
+
+    @EventMapping
+    public void handleMemberLeft(UnsendEvent event) {
+        log.info("Got unsend event: {}", event);
     }
 
     @EventMapping
