@@ -42,6 +42,7 @@ import com.linecorp.bot.model.event.message.StickerMessageContent.StickerResourc
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent.Emoji;
 import com.linecorp.bot.model.event.message.UnknownMessageContent;
+import com.linecorp.bot.model.event.message.VideoMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UnknownSource;
@@ -576,6 +577,22 @@ public class CallbackRequestTest {
             UnsendEvent unsendEvent = (UnsendEvent) event;
             String messageId = unsendEvent.getUnsend().getMessageId();
             assertThat(messageId).isEqualTo("325708");
+        });
+    }
+
+    @Test
+    public void testVideo() throws IOException {
+        parse("callback/video.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event).isInstanceOf(MessageEvent.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
+            MessageEvent messageEvent = (MessageEvent) event;
+            VideoMessageContent videoMessageContent = (VideoMessageContent)messageEvent.getMessage();
+            assertThat(videoMessageContent.getDuration()).isEqualTo(60000L);
         });
     }
 
