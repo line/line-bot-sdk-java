@@ -35,7 +35,7 @@ public class VideoMessageContent implements MessageContent {
 
     String id;
     /**
-     * Length of video file (milliseconds)
+     * Length of video file (milliseconds).
      */
     Integer duration;
     ContentProvider contentProvider;
