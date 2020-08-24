@@ -16,8 +16,6 @@
 
 package com.linecorp.bot.model.event.message;
 
-import java.net.URI;
-
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -36,6 +34,9 @@ public class VideoMessageContent implements MessageContent {
     }
 
     String id;
-    URI url;
+    /**
+     * Length of video file (milliseconds).
+     */
+    Integer duration;
     ContentProvider contentProvider;
 }

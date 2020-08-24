@@ -178,6 +178,8 @@ public class KitchenSinkController {
 
     @EventMapping
     public void handleVideoMessageEvent(MessageEvent<VideoMessageContent> event) throws IOException {
+        log.info("Got video message: duration={}ms", event.getMessage().getDuration());
+
         // You need to install ffmpeg and ImageMagick.
         handleHeavyContent(
                 event.getReplyToken(),
