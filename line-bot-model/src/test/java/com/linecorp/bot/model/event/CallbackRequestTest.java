@@ -612,6 +612,22 @@ public class CallbackRequestTest {
         });
     }
 
+    @Test
+    public void testVideo() throws IOException {
+        parse("callback/video.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event).isInstanceOf(MessageEvent.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
+            MessageEvent messageEvent = (MessageEvent) event;
+            VideoMessageContent videoMessageContent = (VideoMessageContent)messageEvent.getMessage();
+            assertThat(videoMessageContent.getDuration()).isEqualTo(60000L);
+        });
+    }
+
     // Event, that has brand new eventType
     @Test
     public void testUnknown() throws IOException {
