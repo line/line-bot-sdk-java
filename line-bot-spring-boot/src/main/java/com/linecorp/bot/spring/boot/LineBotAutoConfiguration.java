@@ -28,6 +28,7 @@ import com.linecorp.bot.client.ChannelTokenSupplier;
 import com.linecorp.bot.client.FixedChannelTokenSupplier;
 import com.linecorp.bot.client.LineBlobClient;
 import com.linecorp.bot.client.LineMessagingClient;
+import com.linecorp.bot.client.ManageAudienceBlobClient;
 import com.linecorp.bot.client.ManageAudienceClient;
 import com.linecorp.bot.spring.boot.support.LineMessageHandlerSupport;
 
@@ -98,6 +99,23 @@ public class LineBotAutoConfiguration {
             final ChannelTokenSupplier channelTokenSupplier) {
         return ChannelManagementSyncClient.builder(channelTokenSupplier)
                                           .build();
+    }
+
+    /**
+     * Expose {@link ManageAudienceBlobClient} as {@link Bean}.
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public ManageAudienceBlobClient manageAudienceBlobClient(
+            final ChannelTokenSupplier channelTokenSupplier) {
+        return ManageAudienceBlobClient
+                .builder()
+                .channelTokenSupplier(channelTokenSupplier)
+                .apiEndPoint(lineBotProperties.getBlobEndPoint())
+                .connectTimeout(lineBotProperties.getConnectTimeout())
+                .readTimeout(lineBotProperties.getReadTimeout())
+                .writeTimeout(lineBotProperties.getWriteTimeout())
+                .build();
     }
 
     /**
