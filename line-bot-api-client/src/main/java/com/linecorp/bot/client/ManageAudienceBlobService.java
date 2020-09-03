@@ -16,7 +16,7 @@
 
 package com.linecorp.bot.client;
 
-import com.linecorp.bot.model.manageaudience.response.CreateAudienceForUploadingUserIdsResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateAudienceForUploadingResponse;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -26,12 +26,8 @@ import retrofit2.http.PUT;
 
 public interface ManageAudienceBlobService {
     @POST("v2/bot/audienceGroup/upload/byFile")
-    Call<CreateAudienceForUploadingUserIdsResponse> createAudienceForUploadingUserIds(
-            @Body MultipartBody body
-    );
+    Call<CreateAudienceForUploadingResponse> createAudienceForUploadingUserIds(@Body MultipartBody body);
 
     @PUT("v2/bot/audienceGroup/upload/byFile")
-    Call<Void> addUserIdsOrIfasToAnAudienceForUploadingUserIds(
-            @Body MultipartBody body
-    );
+    Call<Void> addUserIdsToAudience(@Body MultipartBody body);
 }

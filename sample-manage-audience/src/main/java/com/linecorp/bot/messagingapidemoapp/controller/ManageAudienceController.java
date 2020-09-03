@@ -119,7 +119,7 @@ public class ManageAudienceController {
     }
 
     @PostMapping("/manage_audience/upload_by_file")
-    public CompletableFuture<RedirectView> postUpload(
+    public CompletableFuture<RedirectView> postUploadByFile(
             @RequestParam String description,
             @RequestParam Boolean isIfaAudience,
             @RequestParam(required = false) String uploadDescription,
@@ -253,7 +253,7 @@ public class ManageAudienceController {
         convFile.deleteOnExit();
         file.transferTo(convFile);
 
-        return blobClient.addUserIdsOrIfasToAnAudienceForUploadingUserIds(
+        return blobClient.addUserIdsToAudience(
                 audienceGroupId, uploadDescription, convFile
         ).thenApply(
                 it -> new RedirectView("/manage_audience/" + audienceGroupId)

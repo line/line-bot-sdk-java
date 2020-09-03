@@ -24,12 +24,30 @@ import lombok.Value;
 
 @Value
 @Builder
-@JsonDeserialize(
-        builder = AddUserIdsOrIfasToAnAudienceForUploadingUserIdsResponse.AddUserIdsOrIfasToAnAudienceForUploadingUserIdsResponseBuilder.class)
-public class AddUserIdsOrIfasToAnAudienceForUploadingUserIdsResponse {
+@JsonDeserialize(builder = CreateAudienceForUploadingResponse.CreateAudienceForUploadingResponseBuilder.class)
+public class CreateAudienceForUploadingResponse {
+    /**
+     * The audience ID.
+     */
+    long audienceGroupId;
+
+    /**
+     * Constant. "UPLOAD".
+     */
+    String type;
+
+    /**
+     * The audience's name.
+     */
+    String description;
+
+    /**
+     * When the audience was created (in UNIX time).
+     */
+    long created;
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class AddUserIdsOrIfasToAnAudienceForUploadingUserIdsResponseBuilder {
+    public static class CreateAudienceForUploadingResponseBuilder {
         // Filled by lombok
     }
 }

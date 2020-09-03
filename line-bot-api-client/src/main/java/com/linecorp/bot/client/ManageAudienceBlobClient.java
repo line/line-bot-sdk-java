@@ -19,15 +19,15 @@ package com.linecorp.bot.client;
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
-import com.linecorp.bot.model.manageaudience.response.AddUserIdsOrIfasToAnAudienceForUploadingUserIdsResponse;
-import com.linecorp.bot.model.manageaudience.response.CreateAudienceForUploadingUserIdsResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateAudienceForUploadingResponse;
+import com.linecorp.bot.model.response.BotApiResponse;
 
 public interface ManageAudienceBlobClient {
 
     /**
-     * Create audience for uploading user IDs (by file)
+     * Create audience for uploading user IDs (by file).
      */
-    CompletableFuture<CreateAudienceForUploadingUserIdsResponse> createAudienceForUploadingUserIds(
+    CompletableFuture<CreateAudienceForUploadingResponse> createAudienceForUploadingUserIds(
             String description,
             boolean isIfaAudience,
             String uploadDescription,
@@ -35,9 +35,9 @@ public interface ManageAudienceBlobClient {
     );
 
     /**
-     * Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by file）
+     * Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by file).
      */
-    CompletableFuture<AddUserIdsOrIfasToAnAudienceForUploadingUserIdsResponse> addUserIdsOrIfasToAnAudienceForUploadingUserIds(
+    CompletableFuture<BotApiResponse> addUserIdsToAudience(
             long audienceGroupId,
             String uploadDescription,
             File file

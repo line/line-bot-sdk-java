@@ -19,10 +19,13 @@ package com.linecorp.bot.client;
 import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.assertj.core.util.Files;
 import org.junit.Rule;
@@ -34,7 +37,8 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.mockito.stubbing.OngoingStubbing;
 
-import com.linecorp.bot.model.manageaudience.response.CreateAudienceForUploadingUserIdsResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateAudienceForUploadingResponse;
+import com.linecorp.bot.model.response.BotApiResponse;
 
 import okhttp3.Headers;
 import okhttp3.Request;
@@ -59,27 +63,42 @@ public class ManageAudienceBlobClientImplTest {
 
     @Test
     public void createAudienceForUploadingUserIds() throws Exception {
-        CreateAudienceForUploadingUserIdsResponse response =
-                CreateAudienceForUploadingUserIdsResponse.builder()
-                                                         .build();
+        File tmpFile = Files.newTemporaryFile();
+        tmpFile.deleteOnExit();
+
+        CreateAudienceForUploadingResponse response =
+                CreateAudienceForUploadingResponse.builder()
+                                                  .build();
 
         whenCall(retrofitMock.createAudienceForUploadingUserIds(
                 any()), response);
 
-        File tmpFile = Files.newTemporaryFile();
-        tmpFile.deleteOnExit();
-        final CreateAudienceForUploadingUserIdsResponse actual =
+        final CreateAudienceForUploadingResponse actual =
                 target.createAudienceForUploadingUserIds(
                         "Hello",
                         false,
                         "UPLOAD!",
                         tmpFile
-                )
-                      .get();
-        // TODO
-//        verify(retrofitMock, only()).createAudienceForUploadingUserIds(
-//                "Hello", false, "UPLOAD!", tmpFile);
+                ).get();
+        verify(retrofitMock, only()).createAudienceForUploadingUserIds(any());
         assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void addUserIdsToAudience() throws Exception {
+        File tmpFile = Files.newTemporaryFile();
+        tmpFile.deleteOnExit();
+
+        when(retrofitMock.addUserIdsToAudience(any())).thenReturn(new VoidCall());
+
+        final BotApiResponse actual =
+                target.addUserIdsToAudience(
+                        5963L,
+                        "UPLOAD!",
+                        tmpFile
+                ).get();
+        verify(retrofitMock, only()).addUserIdsToAudience(any());
+        assertThat(actual).isEqualTo(new BotApiResponse(null, "", Arrays.asList()));
     }
 
     // Utility methods
@@ -132,5 +151,47 @@ public class ManageAudienceBlobClientImplTest {
                 throw new UnsupportedOperationException();
             }
         };
+    }
+
+    private static class VoidCall implements Call<Void> {
+        @Override
+        public Response<Void> execute() throws IOException {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void enqueue(Callback<Void> callback) {
+            callback.onResponse(new VoidCall(), Response.success(null));
+        }
+
+        @Override
+        public boolean isExecuted() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void cancel() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public boolean isCanceled() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Call<Void> clone() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Request request() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public okio.Timeout timeout() {
+            throw new UnsupportedOperationException();
+        }
     }
 }

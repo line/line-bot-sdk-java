@@ -23,9 +23,9 @@ import java.util.concurrent.CompletableFuture;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.model.manageaudience.ManageAudienceException;
-import com.linecorp.bot.model.manageaudience.response.AddUserIdsOrIfasToAnAudienceForUploadingUserIdsResponse;
-import com.linecorp.bot.model.manageaudience.response.CreateAudienceForUploadingUserIdsResponse;
+import com.linecorp.bot.model.manageaudience.response.CreateAudienceForUploadingResponse;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
+import com.linecorp.bot.model.response.BotApiResponse;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -44,9 +44,9 @@ public class ManageAudienceBlobClientImpl implements ManageAudienceBlobClient {
     }
 
     @Override
-    public CompletableFuture<CreateAudienceForUploadingUserIdsResponse> createAudienceForUploadingUserIds(
+    public CompletableFuture<CreateAudienceForUploadingResponse> createAudienceForUploadingUserIds(
             String description, boolean isIfaAudience, String uploadDescription, File file) {
-        MultipartBody parts = new Builder()
+        MultipartBody parts = new MultipartBody.Builder()
                 .addFormDataPart("description", description)
                 .addFormDataPart("isIfaAudience", String.valueOf(isIfaAudience))
                 .addFormDataPart("uploadDescription", uploadDescription)
@@ -54,14 +54,13 @@ public class ManageAudienceBlobClientImpl implements ManageAudienceBlobClient {
                                  RequestBody.create(MediaType.get("text/plain"), file))
                 .build();
 
-        return toFuture(retrofitImpl.createAudienceForUploadingUserIds(
-                parts
-        ));
+        return toFuture(retrofitImpl.createAudienceForUploadingUserIds(parts));
     }
 
     @Override
-    public CompletableFuture<AddUserIdsOrIfasToAnAudienceForUploadingUserIdsResponse> addUserIdsOrIfasToAnAudienceForUploadingUserIds(
-            long audienceGroupId, String uploadDescription, File file) {
+    public CompletableFuture<BotApiResponse> addUserIdsToAudience(long audienceGroupId,
+                                                                  String uploadDescription,
+                                                                  File file) {
         MultipartBody parts = new Builder()
                 .addFormDataPart("audienceGroupId", String.valueOf(audienceGroupId))
                 .addFormDataPart("uploadDescription", uploadDescription)
@@ -69,9 +68,9 @@ public class ManageAudienceBlobClientImpl implements ManageAudienceBlobClient {
                                  RequestBody.create(MediaType.get("text/plain"), file))
                 .build();
 
-        return toFuture(retrofitImpl.addUserIdsOrIfasToAnAudienceForUploadingUserIds(
+        return LineMessagingClientImpl.toBotApiFuture(retrofitImpl.addUserIdsToAudience(
                 parts
-        )).thenApply(it -> AddUserIdsOrIfasToAnAudienceForUploadingUserIdsResponse.builder().build());
+        ));
     }
 
     private static <T> CompletableFuture<T> toFuture(Call<T> call) {
