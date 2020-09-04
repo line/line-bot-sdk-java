@@ -596,6 +596,22 @@ public class CallbackRequestTest {
         });
     }
 
+    @Test
+    public void testVideoPlayComplete() throws IOException {
+        parse("callback/video-play-complete.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event).isInstanceOf(VideoPlayCompleteEvent.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
+            VideoPlayCompleteEvent videoPlayCompleteEvent = (VideoPlayCompleteEvent) event;
+            assertThat(videoPlayCompleteEvent.getVideoPlayComplete().getTrackingId())
+                    .isEqualTo("track_id");
+        });
+    }
+
     // Event, that has brand new eventType
     @Test
     public void testUnknown() throws IOException {

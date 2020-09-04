@@ -1,0 +1,18 @@
+{
+  "destination": "Uab012345678901234567890123456789",
+  "events": [
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "videoPlayComplete",
+      "timestamp": 1462629479859,
+      "mode": "active",
+      "source": {
+        "type": "user",
+        "userId": "U4af4980629..."
+      },
+      "videoPlayComplete": {
+        "trackingId": "track_id"
+      }
+    }
+  ]
+}
