@@ -12,11 +12,12 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations
  * under the License.
- *
  */
 
 package com.linecorp.bot.messagingapidemoapp.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -28,8 +29,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.linecorp.bot.client.ManageAudienceBlobClient;
 import com.linecorp.bot.client.ManageAudienceClient;
 import com.linecorp.bot.model.manageaudience.AudienceGroup;
 import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
@@ -48,6 +51,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ManageAudienceController {
     private final ManageAudienceClient client;
+    private final ManageAudienceBlobClient blobClient;
 
     @GetMapping("/manage_audience/")
     public CompletableFuture<String> list(
@@ -107,6 +111,32 @@ public class ManageAudienceController {
         return client.createAudienceGroup(request)
                      .thenApply(
                              response -> new RedirectView("/manage_audience/" + response.getAudienceGroupId()));
+    }
+
+    @GetMapping("/manage_audience/upload_by_file")
+    public String uploadByFile() {
+        return "manage_audience/upload_by_file";
+    }
+
+    @PostMapping("/manage_audience/upload_by_file")
+    public CompletableFuture<RedirectView> postUploadByFile(
+            @RequestParam String description,
+            @RequestParam Boolean isIfaAudience,
+            @RequestParam(required = false) String uploadDescription,
+            @RequestParam MultipartFile file
+    ) throws IOException {
+        File convFile = File.createTempFile("temp", ".dat");
+        convFile.deleteOnExit();
+        file.transferTo(convFile);
+
+        return blobClient.createAudienceForUploadingUserIds(
+                description, isIfaAudience, uploadDescription, convFile
+        ).thenApply(
+                response -> new RedirectView("/manage_audience/" + response.getAudienceGroupId())
+        ).whenComplete((a, b) -> {
+            boolean deleted = convFile.delete();
+            log.info("Deleted temporary file: {}", deleted);
+        });
     }
 
     @GetMapping("/manage_audience/update_description/{audienceGroupId}")
@@ -201,6 +231,36 @@ public class ManageAudienceController {
                 .build();
         return client.addAudienceToAudienceGroup(request)
                      .thenApply(it -> new RedirectView("/manage_audience/" + audienceGroupId));
+    }
+
+    @GetMapping("/manage_audience/add_audience_by_file/{audienceGroupId}")
+    public CompletableFuture<String> addAudienceByFile(@PathVariable Long audienceGroupId,
+                                                       Model model) {
+        return client.getAudienceData(audienceGroupId)
+                     .thenApply(response -> {
+                         AudienceGroup audienceGroup = response.getAudienceGroup();
+                         model.addAttribute("audienceGroup", audienceGroup);
+                         return "manage_audience/add_audience_by_file";
+                     });
+    }
+
+    @PostMapping("/manage_audience/add_audience_by_file/{audienceGroupId}")
+    public CompletableFuture<RedirectView> postAddAudienceByFile(
+            @PathVariable Long audienceGroupId,
+            @RequestParam(required = false) String uploadDescription,
+            @RequestParam MultipartFile file) throws IOException {
+        File convFile = File.createTempFile("temp", ".dat");
+        convFile.deleteOnExit();
+        file.transferTo(convFile);
+
+        return blobClient.addUserIdsToAudience(
+                audienceGroupId, uploadDescription, convFile
+        ).thenApply(
+                it -> new RedirectView("/manage_audience/" + audienceGroupId)
+        ).whenComplete((a, b) -> {
+            boolean deleted = convFile.delete();
+            log.info("Deleted temporary file: {}", deleted);
+        });
     }
 }
 
