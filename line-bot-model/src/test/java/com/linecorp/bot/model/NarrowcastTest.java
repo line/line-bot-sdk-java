@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
 
+import com.linecorp.bot.model.narrowcast.recipient.RedeliveryRecipient;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -91,5 +92,21 @@ public class NarrowcastTest {
                 .isEqualTo(singletonList(AudienceRecipient.builder()
                                                           .audienceGroupId(5963L)
                                                               .build()));
+    }
+
+    @Test
+    public void testRecipientDeserializeRedelivery() throws JsonProcessingException {
+        ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+        Recipient recipient = objectMapper.readValue( //language=JSON
+        "{\n" +
+                "  \"type\": \"redelivery\",\n" +
+                "  \"requestId\": \"5b59509c-c57b-11e9-aa8c-2a2ae2dbcce4\"\n" +
+                "}", Recipient.class);
+
+        assertThat(recipient)
+                .isInstanceOf(RedeliveryRecipient.class)
+                .isEqualTo(RedeliveryRecipient.builder()
+                        .requestId("5b59509c-c57b-11e9-aa8c-2a2ae2dbcce4")
+                        .build());
     }
 }
