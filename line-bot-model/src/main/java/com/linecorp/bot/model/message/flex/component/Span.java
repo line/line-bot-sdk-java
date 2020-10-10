@@ -38,7 +38,7 @@ import lombok.Value;
 public class Span implements FlexComponent {
     String text;
 
-    FlexFontSize size;
+    String size;
 
     String color;
 
@@ -51,5 +51,15 @@ public class Span implements FlexComponent {
     @JsonPOJOBuilder(withPrefix = "")
     public static class SpanBuilder {
         // Providing builder instead of public constructor. Class body is filled by lombok.
+
+        public SpanBuilder size(FlexFontSize size) {
+            this.size = size.getPropertyValue();
+            return this;
+        }
+
+        public SpanBuilder size(String size) {
+            this.size = size;
+            return this;
+        }
     }
 }

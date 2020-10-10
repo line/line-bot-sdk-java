@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 LINE Corporation
+ * Copyright 2020 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package com.linecorp.bot.model.message.flex.component;
+package com.linecorp.bot.model.message.flex.component.box;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -22,33 +22,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
+import com.linecorp.bot.model.message.flex.component.box.BoxLinearGradient.BoxLinearGradientBuilder;
 
 import lombok.Builder;
 import lombok.Value;
 
-@JsonTypeName("separator")
+@JsonTypeName("linearGradient")
 @JsonInclude(Include.NON_NULL)
 @Value
 @Builder(toBuilder = true)
-@JsonDeserialize(builder = Separator.SeparatorBuilder.class)
-public class Separator implements FlexComponent {
-    String margin;
+@JsonDeserialize(builder = BoxLinearGradientBuilder.class)
+public class BoxLinearGradient implements BoxBackground {
 
-    String color;
+    String angle;
+
+    String startColor;
+
+    String endColor;
+
+    String centerColor;
+
+    String centerPosition;
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class SeparatorBuilder {
+    public static class BoxLinearGradientBuilder {
         // Providing builder instead of public constructor. Class body is filled by lombok.
-
-        public SeparatorBuilder margin(FlexMarginSize margin) {
-            this.margin = margin.getPropertyValue();
-            return this;
-        }
-
-        public SeparatorBuilder margin(String margin) {
-            this.margin = margin;
-            return this;
-        }
     }
 }

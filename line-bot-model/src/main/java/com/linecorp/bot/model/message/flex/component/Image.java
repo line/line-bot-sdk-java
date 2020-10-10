@@ -45,29 +45,34 @@ import lombok.Value;
 @Builder(toBuilder = true)
 @JsonDeserialize(builder = Image.ImageBuilder.class)
 public class Image implements FlexComponent {
+
+    @AllArgsConstructor
+    @Getter
     public enum ImageSize {
         @JsonProperty("xxs")
-        XXS,
+        XXS("xxs"),
         @JsonProperty("xs")
-        XS,
+        XS("xs"),
         @JsonProperty("sm")
-        SM,
+        SM("sm"),
         @JsonProperty("md")
-        MD,
+        MD("md"),
         @JsonProperty("lg")
-        LG,
+        LG("lg"),
         @JsonProperty("xl")
-        XL,
+        XL("xl"),
         @JsonProperty("xxl")
-        XXL,
+        XXL("xxl"),
         @JsonProperty("3xl")
-        XXXL,
+        XXXL("3xl"),
         @JsonProperty("4xl")
-        XXXXL,
+        XXXXL("4xl"),
         @JsonProperty("5xl")
-        XXXXXL,
+        XXXXXL("5xl"),
         @JsonProperty("full")
-        FULL_WIDTH,
+        FULL_WIDTH("full");
+
+        private final String propertyValue;
     }
 
     @AllArgsConstructor
@@ -100,7 +105,7 @@ public class Image implements FlexComponent {
 
     URI url;
 
-    ImageSize size;
+    String size;
 
     String aspectRatio;
 
@@ -114,7 +119,7 @@ public class Image implements FlexComponent {
 
     FlexGravity gravity;
 
-    FlexMarginSize margin;
+    String margin;
 
     FlexPosition position;
 
@@ -126,9 +131,21 @@ public class Image implements FlexComponent {
 
     String offsetEnd;
 
+    Boolean animated;
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class ImageBuilder {
         private static final Supplier<DecimalFormat> RATIO_FORMAT = () -> new DecimalFormat("0.#####");
+
+        public ImageBuilder size(ImageSize size) {
+            this.size = size.getPropertyValue();
+            return this;
+        }
+
+        public ImageBuilder size(String size) {
+            this.size = size;
+            return this;
+        }
 
         /**
          * Specify aspect ratio by keyword.
@@ -152,6 +169,16 @@ public class Image implements FlexComponent {
         public ImageBuilder aspectRatio(double width, double height) {
             final DecimalFormat fmt = RATIO_FORMAT.get();
             aspectRatio = fmt.format(width) + ':' + fmt.format(height);
+            return this;
+        }
+
+        public ImageBuilder margin(FlexMarginSize margin) {
+            this.margin = margin.getPropertyValue();
+            return this;
+        }
+
+        public ImageBuilder margin(String margin) {
+            this.margin = margin;
             return this;
         }
 

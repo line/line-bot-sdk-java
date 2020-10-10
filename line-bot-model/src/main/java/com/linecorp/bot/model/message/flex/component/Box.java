@@ -28,8 +28,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.action.Action;
+import com.linecorp.bot.model.message.flex.component.box.BoxBackground;
+import com.linecorp.bot.model.message.flex.unit.FlexAlignItems;
 import com.linecorp.bot.model.message.flex.unit.FlexBorderWidthSize;
 import com.linecorp.bot.model.message.flex.unit.FlexCornerRadiusSize;
+import com.linecorp.bot.model.message.flex.unit.FlexJustifyContent;
 import com.linecorp.bot.model.message.flex.unit.FlexLayout;
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 import com.linecorp.bot.model.message.flex.unit.FlexOffsetSize;
@@ -51,9 +54,9 @@ public class Box implements FlexComponent {
 
     List<FlexComponent> contents;
 
-    FlexMarginSize spacing;
+    String spacing;
 
-    FlexMarginSize margin;
+    String margin;
 
     FlexPosition position;
 
@@ -89,8 +92,34 @@ public class Box implements FlexComponent {
 
     Action action;
 
+    FlexJustifyContent justifyContent;
+
+    FlexAlignItems alignItems;
+
+    BoxBackground background;
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class BoxBuilder {
+        public BoxBuilder spacing(FlexMarginSize spacing) {
+            this.spacing = spacing.getPropertyValue();
+            return this;
+        }
+
+        public BoxBuilder spacing(String spacing) {
+            this.spacing = spacing;
+            return this;
+        }
+
+        public BoxBuilder margin(FlexMarginSize margin) {
+            this.margin = margin.getPropertyValue();
+            return this;
+        }
+
+        public BoxBuilder margin(String margin) {
+            this.margin = margin;
+            return this;
+        }
+
         @JsonSetter // Avoid conflict with same name method.
         public BoxBuilder contents(List<FlexComponent> contents) {
             this.contents = new ArrayList<>(contents);
