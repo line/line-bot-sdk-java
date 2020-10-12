@@ -24,7 +24,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 @JsonTypeInfo(use = Id.NAME, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(AudienceRecipient.class),
-        @JsonSubTypes.Type(LogicalOperatorRecipient.class)
+        @JsonSubTypes.Type(LogicalOperatorRecipient.class),
+        @JsonSubTypes.Type(RedeliveryRecipient.class)
 })
 public interface Recipient {
     String getType();
