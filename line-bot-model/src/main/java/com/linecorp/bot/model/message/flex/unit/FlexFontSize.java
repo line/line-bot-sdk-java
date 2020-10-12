@@ -18,25 +18,32 @@ package com.linecorp.bot.model.message.flex.unit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum FlexFontSize {
     @JsonProperty("xxs")
-    XXS,
+    XXS("xxs"),
     @JsonProperty("xs")
-    XS,
+    XS("xs"),
     @JsonProperty("sm")
-    SM,
+    SM("sm"),
     @JsonProperty("md")
-    Md,
+    Md("md"),
     @JsonProperty("lg")
-    LG,
+    LG("lg"),
     @JsonProperty("xl")
-    XL,
+    XL("xl"),
     @JsonProperty("xxl")
-    XXL,
+    XXL("xxl"),
     @JsonProperty("3xl")
-    XXXL,
+    XXXL("3xl"),
     @JsonProperty("4xl")
-    XXXXL,
+    XXXXL("4xl"),
     @JsonProperty("5xl")
-    XXXXXL,
+    XXXXXL("5xl");
+
+    private final String propertyValue;
 }

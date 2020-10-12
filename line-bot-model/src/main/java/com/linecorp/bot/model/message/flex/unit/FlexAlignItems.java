@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 LINE Corporation
+ * Copyright 2020 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -18,28 +18,11 @@ package com.linecorp.bot.model.message.flex.unit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@AllArgsConstructor
-@Getter
-public enum FlexMarginSize {
-    @JsonProperty("default")
-    DEFAULT("default"),
-    @JsonProperty("none")
-    NONE("none"),
-    @JsonProperty("xs")
-    XS("xs"),
-    @JsonProperty("sm")
-    SM("sm"),
-    @JsonProperty("md")
-    MD("md"),
-    @JsonProperty("lg")
-    LG("lg"),
-    @JsonProperty("xl")
-    XL("xl"),
-    @JsonProperty("xxl")
-    XXL("xxl");
-
-    private final String propertyValue;
+public enum FlexAlignItems {
+    @JsonProperty("center")
+    CENTER,
+    @JsonProperty("flex-start")
+    FLEX_START,
+    @JsonProperty("flex-end")
+    FLEX_END
 }
