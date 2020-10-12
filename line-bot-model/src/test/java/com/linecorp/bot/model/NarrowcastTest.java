@@ -21,7 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
 
-import com.linecorp.bot.model.narrowcast.recipient.RedeliveryRecipient;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,6 +33,7 @@ import com.linecorp.bot.model.narrowcast.filter.OperatorDemographicFilter;
 import com.linecorp.bot.model.narrowcast.recipient.AudienceRecipient;
 import com.linecorp.bot.model.narrowcast.recipient.LogicalOperatorRecipient;
 import com.linecorp.bot.model.narrowcast.recipient.Recipient;
+import com.linecorp.bot.model.narrowcast.recipient.RedeliveryRecipient;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 
 public class NarrowcastTest {
@@ -91,22 +91,23 @@ public class NarrowcastTest {
         assertThat(((LogicalOperatorRecipient) recipient).getAnd())
                 .isEqualTo(singletonList(AudienceRecipient.builder()
                                                           .audienceGroupId(5963L)
-                                                              .build()));
+                                                          .build()));
     }
 
     @Test
     public void testRecipientDeserializeRedelivery() throws JsonProcessingException {
         ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
-        Recipient recipient = objectMapper.readValue( //language=JSON
-        "{\n" +
-                "  \"type\": \"redelivery\",\n" +
-                "  \"requestId\": \"5b59509c-c57b-11e9-aa8c-2a2ae2dbcce4\"\n" +
-                "}", Recipient.class);
+        Recipient recipient = objectMapper.readValue(
+                //language=JSON
+                "{\n"
+                + "  \"type\": \"redelivery\",\n"
+                + "  \"requestId\": \"5b59509c-c57b-11e9-aa8c-2a2ae2dbcce4\"\n"
+                + "}", Recipient.class);
 
         assertThat(recipient)
                 .isInstanceOf(RedeliveryRecipient.class)
                 .isEqualTo(RedeliveryRecipient.builder()
-                        .requestId("5b59509c-c57b-11e9-aa8c-2a2ae2dbcce4")
-                        .build());
+                                              .requestId("5b59509c-c57b-11e9-aa8c-2a2ae2dbcce4")
+                                              .build());
     }
 }

@@ -20,12 +20,13 @@ package com.linecorp.bot.model.narrowcast.recipient;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import lombok.Builder;
 import lombok.Value;
 
 /**
- * By setting the request ID (X-Line-Request-Id) obtained when the narrowcast message was delivered to the requestId
- * property, you can specify the users who received the narrowcast message as the target.
+ * By setting the request ID (X-Line-Request-Id) obtained when the narrowcast message was delivered to the
+ * requestId property, you can specify the users who received the narrowcast message as the target.
  *
  * @see <a href="https://developers.line.biz/en/docs/messaging-api/sending-messages/#redelivery-object">Redelivery object</a>
  */
