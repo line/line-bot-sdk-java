@@ -28,6 +28,7 @@ import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
@@ -112,5 +113,12 @@ public class LineMessagingClientImplIntegrationTest {
                 target.getNumberOfFollowers("20191231").get();
 
         log.info(getNumberOfFollowersResponse.toString());
+    }
+
+    @Test
+    public void getBotInfo() throws Exception{
+       final BotInfoResponse botInfoResponse = target.getBotInfo().get();
+
+       log.info(botInfoResponse.toString());
     }
 }

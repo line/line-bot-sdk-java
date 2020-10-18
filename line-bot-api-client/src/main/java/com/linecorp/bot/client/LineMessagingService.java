@@ -27,6 +27,7 @@ import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
@@ -375,4 +376,10 @@ interface LineMessagingService {
      */
     @GET("v2/bot/insight/message/event")
     Call<GetMessageEventResponse> getMessageEvent(@Query("requestId") String requestId);
+
+    /**
+     * Gets a bot's basic information.
+     */
+    @GET("v2/bot/info")
+    Call<BotInfoResponse> getBotInfo();
 }

@@ -32,6 +32,7 @@ import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
@@ -277,6 +278,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<GetMessageEventResponse> getMessageEvent(String requestId) {
         return toFuture(retrofitImpl.getMessageEvent(requestId));
+    }
+
+    @Override
+    public CompletableFuture<BotInfoResponse> getBotInfo() {
+        return toFuture(retrofitImpl.getBotInfo());
     }
 
     // TODO: Extract this method.
