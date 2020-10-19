@@ -116,9 +116,9 @@ public class LineMessagingClientImplIntegrationTest {
     }
 
     @Test
-    public void getBotInfo() throws Exception{
-       final BotInfoResponse botInfoResponse = target.getBotInfo().get();
+    public void getBotInfo() throws Exception {
+        final BotInfoResponse botInfoResponse = target.getBotInfo().get();
 
-       log.info(botInfoResponse.toString());
+        log.info(botInfoResponse.toString());
     }
 }
