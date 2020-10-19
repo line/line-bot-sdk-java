@@ -31,6 +31,7 @@ import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
@@ -369,6 +370,13 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-demographic">Get friends demographics</a>
      */
     CompletableFuture<GetFriendsDemographicsResponse> getFriendsDemographics();
+
+    /**
+     * Gets a bot's basic information.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-bot-info">Get bot info</a>
+     */
+    CompletableFuture<BotInfoResponse> getBotInfo();
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));

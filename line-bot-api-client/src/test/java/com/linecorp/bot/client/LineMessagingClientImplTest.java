@@ -53,6 +53,7 @@ import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
@@ -615,6 +616,24 @@ public class LineMessagingClientImplTest {
         final GetNumberOfFollowersResponse actual =
                 target.getNumberOfFollowers("20190805").get();
         verify(retrofitMock, only()).getNumberOfFollowers("20190805");
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void getBotInfo() throws Exception {
+        final BotInfoResponse response = BotInfoResponse
+                .builder()
+                .userId("userId")
+                .basicId("basicId")
+                .premiumId("premiumId")
+                .displayName("displayName")
+                .pictureUrl(URI.create("https://line.me/picture_url"))
+                .chatMode(BotInfoResponse.ChatMode.BOT)
+                .markAsReadMode(BotInfoResponse.MarkAsReadMode.AUTO)
+                .build();
+        whenCall(retrofitMock.getBotInfo(), response);
+        final BotInfoResponse actual = target.getBotInfo().get();
+        verify(retrofitMock, only()).getBotInfo();
         assertThat(actual).isEqualTo(response);
     }
 
