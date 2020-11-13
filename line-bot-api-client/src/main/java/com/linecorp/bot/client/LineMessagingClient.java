@@ -30,16 +30,19 @@ import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
+import com.linecorp.bot.model.response.GetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.TestWebhookEndpointResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
@@ -377,6 +380,20 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-bot-info">Get bot info</a>
      */
     CompletableFuture<BotInfoResponse> getBotInfo();
+
+    /**
+     * Get webhook endpoint information.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-webhook-endpoint-information">Get webhook endpoint information</a>
+     */
+    CompletableFuture<GetWebhookEndpointResponse> getWebhookEndpoint();
+
+    /**
+     * Test webhook endpoint.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#test-webhook-endpoint">Test webhook endpoint</a>
+     */
+    CompletableFuture<TestWebhookEndpointResponse> testWebhookEndpoint(TestWebhookEndpointRequest request);
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));
