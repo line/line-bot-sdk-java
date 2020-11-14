@@ -73,7 +73,7 @@ public class BotController {
         TestWebhookEndpointRequest testWebhookEndpointRequest = builder.build();
         TestWebhookEndpointResponse response = client.testWebhookEndpoint(
                 testWebhookEndpointRequest
-        ).get();
+        ).join();
         model.addAttribute("response", response);
         return "bot/test_webhook";
     }

@@ -36,7 +36,7 @@ public class GetWebhookEndpointResponse {
     URI endpoint;
 
     /*
-     * Webhook usage status. Send a webhook event from the LINE platform to the webhook URL only if enabled.
+     * Webhook usage status. The LINE platform sends a webhook event to {@link #endpoint} only if {@literal true}.
      */
     boolean active;
 

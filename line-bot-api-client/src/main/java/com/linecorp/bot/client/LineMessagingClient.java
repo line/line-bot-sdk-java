@@ -389,7 +389,7 @@ public interface LineMessagingClient {
     CompletableFuture<GetWebhookEndpointResponse> getWebhookEndpoint();
 
     /**
-     * Test webhook endpoint.
+     * Tests webhook endpoint.
      *
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#test-webhook-endpoint">Test webhook endpoint</a>
      */
