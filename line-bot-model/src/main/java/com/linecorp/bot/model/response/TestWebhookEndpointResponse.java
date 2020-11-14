@@ -36,7 +36,8 @@ public class TestWebhookEndpointResponse {
     boolean success;
 
     /**
-     * Please refer to Common Properties.
+     * Please refer to <a href="https://developers.line.biz/en/reference/messaging-api/#common-properties">
+     *     Common Properties</a>.
      */
     Instant timestamp;
 
