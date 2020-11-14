@@ -382,7 +382,7 @@ public interface LineMessagingClient {
     CompletableFuture<BotInfoResponse> getBotInfo();
 
     /**
-     * Get webhook endpoint information.
+     * Gets webhook endpoint information.
      *
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-webhook-endpoint-information">Get webhook endpoint information</a>
      */
