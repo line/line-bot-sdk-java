@@ -22,7 +22,7 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 buildscript {
     ext {
         kotlin_version = '1.4.10'
-        spring_boot_version = '2.3.4.RELEASE'
+        spring_boot_version = '2.3.5.RELEASE'
     }
 
     repositories {
@@ -32,8 +32,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.27.0'
-        classpath 'com.puppycrawl.tools:checkstyle:8.36.2'
-        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.5.1'
+        classpath 'com.puppycrawl.tools:checkstyle:8.37'
+        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.6.0'
         classpath 'io.franzbecker:gradle-lombok:4.0.0'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE'
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"

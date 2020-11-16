@@ -30,6 +30,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.net.URI;
 import java.time.Instant;
+import java.util.Collections;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,6 +50,7 @@ import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.narrowcast.Filter;
+import com.linecorp.bot.model.narrowcast.Limit;
 import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
 import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
@@ -169,6 +171,30 @@ public class LineMessagingClientImplTest {
                                                      .oneOf(singletonList(Gender.FEMALE))
                                                      .build()
                       ).build());
+
+        final BotApiResponse botApiResponse = target.narrowcast(narrowcast).join();
+        verify(retrofitMock).narrowcast(null, narrowcast);
+        assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
+    public void narrowcast2() {
+        whenCall(retrofitMock.narrowcast(isNull(), any(Narrowcast.class)),
+                 BOT_API_SUCCESS_RESPONSE_BODY);
+        final Narrowcast narrowcast = new Narrowcast(
+                Collections.singletonList(new TextMessage("text")),
+                null,
+                Filter.builder()
+                      .demographic(
+                              GenderDemographicFilter.builder()
+                                                     .oneOf(singletonList(Gender.FEMALE))
+                                                     .build()
+                      ).build(),
+                Limit.builder()
+                     .upToRemainingQuota(true)
+                     .build(),
+                false
+        );
 
         final BotApiResponse botApiResponse = target.narrowcast(narrowcast).join();
         verify(retrofitMock).narrowcast(null, narrowcast);

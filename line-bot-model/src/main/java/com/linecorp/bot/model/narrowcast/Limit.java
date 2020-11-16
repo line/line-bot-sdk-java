@@ -35,6 +35,13 @@ public class Limit {
      */
     Integer max;
 
+    /**
+     * If true, the message will be sent within the maximum number of deliverable messages. The default value is
+     * false.<br>
+     * Targets will be selected at random.
+     */
+    Boolean upToRemainingQuota;
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class LimitBuilder {
         // Filled by lombok
