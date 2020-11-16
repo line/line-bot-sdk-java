@@ -31,12 +31,13 @@ import lombok.Value;
 @JsonDeserialize(builder = GetWebhookEndpointResponseBuilder.class)
 public class GetWebhookEndpointResponse {
     /**
-     * Webhook URL
+     * Webhook URL.
      */
     URI endpoint;
 
     /*
-     * Webhook usage status. The LINE platform sends a webhook event to {@link #endpoint} only if {@literal true}.
+     * Webhook usage status. The LINE platform sends a webhook event to {@link #endpoint} only if
+     * {@literal true}.
      */
     boolean active;
 

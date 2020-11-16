@@ -31,9 +31,10 @@ import lombok.Value;
 @JsonDeserialize(builder = TestWebhookEndpointRequestBuilder.class)
 public class TestWebhookEndpointRequest {
     /**
-     * A valid webhook URL. If {@literal null{, sends a test webhook event to a webhook endpoint that is already set to the channel. 
+     * A valid webhook URL. If {@literal null}, sends a test webhook event to a webhook endpoint that is already
+     * set to the channel.
      */
-    @Nullable URI endpoint;
+    URI endpoint;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class TestWebhookEndpointRequestBuilder {

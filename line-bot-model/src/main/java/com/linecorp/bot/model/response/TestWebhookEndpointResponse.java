@@ -42,7 +42,8 @@ public class TestWebhookEndpointResponse {
     Instant timestamp;
 
     /**
-     * The HTTP status code. If the webhook response isn't received, the status code is set to zero or a negative number.
+     * The HTTP status code. If the webhook response isn't received, the status code is set to zero or a
+     * negative number.
      */
     int statusCode;
 
