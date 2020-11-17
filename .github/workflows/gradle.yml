@@ -1,0 +1,86 @@
+# Definition of GitHub Actions.
+# Designed to working both LINE's and forked repository.
+#
+# Note:
+#  Memory:
+#    VM Spec = 2core, 7G RAM. as of 2019-10. https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions
+#    There are possiblity that speed up build by setting xmx manually. But using default now.
+#  Gradle Deamon:
+#    Disabled via appending ~/.gradle/gradle.properties
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    name: test (JDK ${{ matrix.java }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [ '1.8', '11.x' ] # LTS's. (As of 2019-10, Gradle don't support JDK 13.)
+    steps:
+    - name: actions/setup-java@v1 (JDK ${{ matrix.java }})
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+        architecture: x64
+    - uses: actions/checkout@v1
+    - run: |
+        mkdir -p ~/.gradle
+        echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
+    - run: ./gradlew -v
+    - run: ./gradlew check -xcheckstyleMain -xcheckstyleTest -xspotbugsMain -xspotbugsTest
+    # Runs all check and its dependency exept which runs on splitted jobs.
+
+  checkstyle:
+    name: checkstyle
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - name: actions/setup-java@v1 (JDK 1.8)
+      uses: actions/setup-java@v1
+      with:
+        java-version: 8
+        architecture: x64
+    - uses: actions/checkout@v1
+    - run: |
+        mkdir -p ~/.gradle
+        echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
+    - run: ./gradlew -v
+    - run: ./gradlew checkstyleMain checkstyleTest --parallel
+
+  spotbugs:
+    name: spotbugs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - name: actions/setup-java@v1 (JDK 1.8)
+      uses: actions/setup-java@v1
+      with:
+        java-version: 8
+        architecture: x64
+    - uses: actions/checkout@v1
+    - run: |
+        mkdir -p ~/.gradle
+        echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
+    - run: ./gradlew -v
+    - run: ./gradlew spotbugsMain spotbugsTest --parallel
+
+  codeCoverageReport:
+    name: codeCoverageReport
+    if: startsWith(github.repository, 'line/') # Runs only line/line-bot-sdk-java
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - name: actions/setup-java@v1 (JDK 1.8)
+      uses: actions/setup-java@v1
+      with:
+        java-version: 8
+        architecture: x64
+    - uses: actions/checkout@v1
+    - run: |
+        mkdir -p ~/.gradle
+        echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
+    - run: ./gradlew -v
+    - run: ./gradlew test codeCoverageReport
+    - run:  bash <(curl -s https://codecov.io/bash)
