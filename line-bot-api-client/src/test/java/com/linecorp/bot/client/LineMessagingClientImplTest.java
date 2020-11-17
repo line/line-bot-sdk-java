@@ -29,6 +29,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.URI;
+import java.time.Instant;
 import java.util.Collections;
 
 import org.junit.Rule;
@@ -54,10 +55,12 @@ import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
 import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
+import com.linecorp.bot.model.response.GetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse.QuotaType;
@@ -65,6 +68,7 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse.Phase;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.TestWebhookEndpointResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBulkLinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
@@ -660,6 +664,39 @@ public class LineMessagingClientImplTest {
         whenCall(retrofitMock.getBotInfo(), response);
         final BotInfoResponse actual = target.getBotInfo().get();
         verify(retrofitMock, only()).getBotInfo();
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void getWebhookEndpoint() throws Exception {
+        final GetWebhookEndpointResponse response = GetWebhookEndpointResponse
+                .builder()
+                .endpoint(URI.create("https://line.me/webhook"))
+                .active(true)
+                .build();
+        whenCall(retrofitMock.getWebhookEndpoint(), response);
+        final GetWebhookEndpointResponse actual = target.getWebhookEndpoint().get();
+        verify(retrofitMock, only()).getWebhookEndpoint();
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void testWebhookEndpoint() throws Exception {
+        final TestWebhookEndpointResponse response = TestWebhookEndpointResponse
+                .builder()
+                .success(true)
+                .timestamp(Instant.now())
+                .detail("abc")
+                .reason("def")
+                .statusCode(200)
+                .build();
+        final TestWebhookEndpointRequest request = TestWebhookEndpointRequest
+                .builder()
+                .endpoint(URI.create("http://example.com/my/great/endpoint"))
+                .build();
+        whenCall(retrofitMock.testWebhookEndpoint(request), response);
+        final TestWebhookEndpointResponse actual = target.testWebhookEndpoint(request).get();
+        verify(retrofitMock, only()).testWebhookEndpoint(request);
         assertThat(actual).isEqualTo(response);
     }
 
