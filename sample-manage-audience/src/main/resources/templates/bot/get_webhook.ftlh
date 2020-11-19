@@ -20,6 +20,18 @@
         </table>
     </#if>
 
+    <h2>Set webhook</h2>
+    <form action="/bot/set_webhook" method="post">
+        <table>
+            <tr>
+                <th><label for="webhookTestUrl">URL</label></th>
+                <td><input id="webhookTestUrl" type="url" name="url" required>
+                    <button type="submit">Set</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
     <h2>Test webhook</h2>
     <form method="post" action="/bot/test_webhook">
         <table>

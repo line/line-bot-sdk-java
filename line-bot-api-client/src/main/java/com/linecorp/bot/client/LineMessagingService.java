@@ -27,6 +27,7 @@ import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
@@ -38,6 +39,7 @@ import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.SetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.TestWebhookEndpointResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
@@ -54,6 +56,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -388,6 +391,9 @@ interface LineMessagingService {
 
     @GET("v2/bot/channel/webhook/endpoint")
     Call<GetWebhookEndpointResponse> getWebhookEndpoint();
+
+    @PUT("v2/bot/channel/webhook/endpoint")
+    Call<SetWebhookEndpointResponse> setWebhookEndpoint(@Body SetWebhookEndpointRequest request);
 
     @POST("v2/bot/channel/webhook/test")
     Call<TestWebhookEndpointResponse> testWebhookEndpoint(@Body TestWebhookEndpointRequest request);

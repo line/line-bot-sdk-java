@@ -28,10 +28,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.exception.NotFoundException;
+import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest.TestWebhookEndpointRequestBuilder;
 import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetWebhookEndpointResponse;
+import com.linecorp.bot.model.response.SetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.TestWebhookEndpointResponse;
 
 import lombok.AllArgsConstructor;
@@ -63,9 +65,22 @@ public class BotController {
         return "bot/get_webhook";
     }
 
+    @PostMapping("/bot/set_webhook")
+    public String setWebhook(Model model,
+                             @RequestParam("url") URI uri) throws InterruptedException, ExecutionException {
+        SetWebhookEndpointRequest request = SetWebhookEndpointRequest.builder()
+                                                                     .endpoint(uri)
+                                                                     .build();
+        SetWebhookEndpointResponse response = client.setWebhookEndpoint(
+                request
+        ).join();
+        model.addAttribute("response", response);
+        return "redirect:/bot/webhook";
+    }
+
     @PostMapping("/bot/test_webhook")
     public String testWebhook(Model model,
-                              @RequestParam("url") URI uri) throws InterruptedException, ExecutionException {
+                              @RequestParam(value = "url", required = false) URI uri) {
         TestWebhookEndpointRequestBuilder builder = TestWebhookEndpointRequest.builder();
         if (uri != null) {
             builder.endpoint(uri);
