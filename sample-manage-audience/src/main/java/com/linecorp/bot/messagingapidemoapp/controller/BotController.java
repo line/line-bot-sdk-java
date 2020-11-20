@@ -67,7 +67,7 @@ public class BotController {
 
     @PostMapping("/bot/set_webhook")
     public String setWebhook(Model model,
-                             @RequestParam("url") URI uri) throws InterruptedException, ExecutionException {
+                             @RequestParam("url") URI uri) {
         SetWebhookEndpointRequest request = SetWebhookEndpointRequest.builder()
                                                                      .endpoint(uri)
                                                                      .build();
