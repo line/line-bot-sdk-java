@@ -31,6 +31,7 @@ import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.BotInfoResponse;
@@ -43,6 +44,7 @@ import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.SetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.TestWebhookEndpointResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
@@ -291,6 +293,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<GetWebhookEndpointResponse> getWebhookEndpoint() {
         return toFuture(retrofitImpl.getWebhookEndpoint());
+    }
+
+    @Override
+    public CompletableFuture<SetWebhookEndpointResponse> setWebhookEndpoint(SetWebhookEndpointRequest request) {
+        return toFuture(retrofitImpl.setWebhookEndpoint(request));
     }
 
     @Override

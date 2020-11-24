@@ -55,6 +55,7 @@ import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
 import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.BotInfoResponse;
@@ -68,6 +69,7 @@ import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse.Phase;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.SetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.TestWebhookEndpointResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBulkLinkRequest;
@@ -677,6 +679,21 @@ public class LineMessagingClientImplTest {
         whenCall(retrofitMock.getWebhookEndpoint(), response);
         final GetWebhookEndpointResponse actual = target.getWebhookEndpoint().get();
         verify(retrofitMock, only()).getWebhookEndpoint();
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void setWebhookEndpoint() throws Exception {
+        final SetWebhookEndpointResponse response = SetWebhookEndpointResponse
+                .builder()
+                .build();
+        final SetWebhookEndpointRequest request = SetWebhookEndpointRequest
+                .builder()
+                .endpoint(URI.create("http://example.com/my/great/endpoint"))
+                .build();
+        whenCall(retrofitMock.setWebhookEndpoint(request), response);
+        final SetWebhookEndpointResponse actual = target.setWebhookEndpoint(request).get();
+        verify(retrofitMock, only()).setWebhookEndpoint(request);
         assertThat(actual).isEqualTo(response);
     }
 

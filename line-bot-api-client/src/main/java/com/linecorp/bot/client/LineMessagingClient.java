@@ -30,6 +30,7 @@ import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.BotInfoResponse;
@@ -42,6 +43,7 @@ import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.SetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.TestWebhookEndpointResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
@@ -387,6 +389,13 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-webhook-endpoint-information">Get webhook endpoint information</a>
      */
     CompletableFuture<GetWebhookEndpointResponse> getWebhookEndpoint();
+
+    /**
+     * Sets webhook endpoint URL.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#set-webhook-endpoint-url">Set webhook URL</a>
+     */
+    CompletableFuture<SetWebhookEndpointResponse> setWebhookEndpoint(SetWebhookEndpointRequest request);
 
     /**
      * Tests webhook endpoint.
