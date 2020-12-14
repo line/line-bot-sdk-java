@@ -16,11 +16,7 @@
         "packageId": "1",
         "stickerId": "1",
         "stickerResourceType": "STATIC",
-        "keywords": [
-          "bed",
-          "sleep",
-          "bedtime"
-        ]
+        "keywords": "hi,hello"
       }
     }
   ]
