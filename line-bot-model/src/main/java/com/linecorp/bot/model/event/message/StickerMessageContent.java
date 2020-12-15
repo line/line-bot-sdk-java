@@ -16,10 +16,14 @@
 
 package com.linecorp.bot.model.event.message;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+import com.linecorp.bot.model.objectmapper.StringArrayOrNullDeserializer;
 
 import lombok.Builder;
 import lombok.Value;
@@ -33,8 +37,15 @@ import lombok.Value;
 @JsonDeserialize(builder = StickerMessageContent.StickerMessageContentBuilder.class)
 public class StickerMessageContent implements MessageContent {
     @JsonPOJOBuilder(withPrefix = "")
-    public static class StickerMessageContentBuilder {
+    public static class StickerMessageContentBuilder implements StickerMessageContentBuilderMeta {
         // Providing builder instead of public constructor. Class body is filled by lombok.
+    }
+
+    @SuppressWarnings("InterfaceMayBeAnnotatedFunctional")
+    private interface StickerMessageContentBuilderMeta {
+        @SuppressWarnings("unused")
+        @JsonDeserialize(using = StringArrayOrNullDeserializer.class)
+        StickerMessageContentBuilder keywords(List<String> keywords);
     }
 
     /**
@@ -83,4 +94,11 @@ public class StickerMessageContent implements MessageContent {
     String packageId;
     String stickerId;
     StickerResourceType stickerResourceType;
+
+    /**
+     * Experimental feature.
+     * List of keywords describing the sticker.
+     * If the type change in the future, this field will become null.
+     */
+    List<String> keywords;
 }

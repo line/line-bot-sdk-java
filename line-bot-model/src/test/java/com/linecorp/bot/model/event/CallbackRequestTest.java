@@ -263,6 +263,41 @@ public class CallbackRequestTest {
                         .isEqualTo("1");
                 assertThat(((StickerMessageContent) message).getStickerResourceType())
                         .isEqualTo(StickerResourceType.STATIC);
+                assertThat(((StickerMessageContent) message).getKeywords())
+                        .containsExactly("bed", "sleep", "bedtime");
+            }
+        });
+    }
+
+    @Test
+    public void testStickerKeywordsBecomeString() throws IOException {
+        parse("callback/sticker-keywords-string.json", callbackRequest -> {
+            MessageEvent messageEvent = (MessageEvent) callbackRequest.getEvents().get(0);
+            MessageContent message = messageEvent.getMessage();
+            if (message instanceof StickerMessageContent) {
+                assertThat(((StickerMessageContent) message).getKeywords()).isNull();
+            }
+        });
+    }
+
+    @Test
+    public void testStickerKeywordsBecomeMap() throws IOException {
+        parse("callback/sticker-keywords-map.json", callbackRequest -> {
+            MessageEvent messageEvent = (MessageEvent) callbackRequest.getEvents().get(0);
+            MessageContent message = messageEvent.getMessage();
+            if (message instanceof StickerMessageContent) {
+                assertThat(((StickerMessageContent) message).getKeywords()).isNull();
+            }
+        });
+    }
+
+    @Test
+    public void testStickerKeywordsRemoved() throws IOException {
+        parse("callback/sticker-keywords-remove.json", callbackRequest -> {
+            MessageEvent messageEvent = (MessageEvent) callbackRequest.getEvents().get(0);
+            MessageContent message = messageEvent.getMessage();
+            if (message instanceof StickerMessageContent) {
+                assertThat(((StickerMessageContent) message).getKeywords()).isNull();
             }
         });
     }
@@ -591,7 +626,7 @@ public class CallbackRequestTest {
                     .isEqualTo(EventMode.ACTIVE);
 
             MessageEvent messageEvent = (MessageEvent) event;
-            VideoMessageContent videoMessageContent = (VideoMessageContent)messageEvent.getMessage();
+            VideoMessageContent videoMessageContent = (VideoMessageContent) messageEvent.getMessage();
             assertThat(videoMessageContent.getDuration()).isEqualTo(60000L);
         });
     }
