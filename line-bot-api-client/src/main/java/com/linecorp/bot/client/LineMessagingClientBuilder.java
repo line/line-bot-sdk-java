@@ -130,7 +130,7 @@ public class LineMessagingClientBuilder {
     /**
      * Add authentication header.
      *
-     * <p>Default = {@value}. If you manage authentication header yourself, set to {@doe false}.
+     * <p>Default = {@code true}. If you manage authentication header yourself, set to {@code false}.
      */
     @Setter
     private boolean addAuthenticationHeader = true;
@@ -167,8 +167,9 @@ public class LineMessagingClientBuilder {
      *
      * <p>To use this method, please add dependency to 'com.squareup.retrofit2:retrofit'.
      *
-     * @param addAuthenticationHeader If true, all default okhttp interceptors ignored.
-     *         You should insert authentication headers yourself.
+     * @param addAuthenticationHeader If it's true, the default authentication headers will be attached
+     *     to all requests.
+     *     Otherwise if it's false, you should insert your own authentication headers by yourself.
      */
     public LineMessagingClientBuilder okHttpClientBuilder(
             final @NonNull OkHttpClient.Builder okHttpClientBuilder,
