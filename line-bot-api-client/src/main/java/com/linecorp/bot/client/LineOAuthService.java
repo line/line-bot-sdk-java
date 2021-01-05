@@ -19,13 +19,16 @@ package com.linecorp.bot.client;
 import java.util.concurrent.CompletableFuture;
 
 import com.linecorp.bot.model.oauth.ChannelAccessTokenException;
+import com.linecorp.bot.model.oauth.ChannelAccessTokenKeyIdsResponse;
 import com.linecorp.bot.model.oauth.IssueChannelAccessTokenResponse;
 
 import lombok.experimental.PackagePrivate;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * An OAuth client that issues or revokes channel access tokens. See {@link LineOAuthClient} and
@@ -34,6 +37,14 @@ import retrofit2.http.POST;
  */
 @PackagePrivate
 interface LineOAuthService {
+    /**
+     * Gets all valid channel access token key IDs.
+     */
+    @GET("oauth2/v2.1/tokens/kid")
+    Call<ChannelAccessTokenKeyIdsResponse> getsAllValidChannelAccessTokenKeyIds(
+            @Query("client_assertion_type") String clientAssertionType,
+            @Query("client_assertion") String clientAssertion);
+
     @POST("oauth2/v2.1/token")
     @FormUrlEncoded
     Call<IssueChannelAccessTokenResponse> issueChannelTokenByJWT(

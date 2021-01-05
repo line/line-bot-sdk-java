@@ -48,6 +48,12 @@ public class IssueChannelAccessTokenResponse {
     @JsonProperty("token_type")
     String tokenType = "Bearer";
 
+    /**
+     * Unique key ID for identifying the channel access token.
+     */
+    @JsonProperty("key_id")
+    String keyId;
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class IssueChannelAccessTokenResponseBuilder {
         // Filled by lombok.

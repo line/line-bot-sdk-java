@@ -25,6 +25,7 @@ import java.net.URL;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.text.ParseException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Map;
@@ -36,8 +37,9 @@ import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.io.BaseEncoding;
+import com.nimbusds.jose.jwk.JWK;
 
+import com.linecorp.bot.model.oauth.ChannelAccessTokenKeyIdsResponse;
 import com.linecorp.bot.model.oauth.IssueChannelAccessTokenResponse;
 
 import io.jsonwebtoken.Jwts;
@@ -51,13 +53,13 @@ public class LineOAuthClientIntegrationTest {
 
     private LineOAuthClient target;
     private String endpoint;
-    private String pemPrivateKey;
+    private JWK jwk;
     private String channelId;
     private String channelSecret;
     private String kid;
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws IOException, ParseException {
         assumeThat(TEST_RESOURCE)
                 .isNotNull();
 
@@ -70,8 +72,14 @@ public class LineOAuthClientIntegrationTest {
                 .apiEndPoint(URI.create(endpoint))
                 .build();
 
-        pemPrivateKey = ((String) map.get("pemPrivateKey")).replaceAll("\n", "");
-        kid = (String) map.get("kid");
+        // 1. Issue new "Assertion Signing Key" in the LINE Developer Center.
+        // 2. You get the private key of your new assertion signing key in JWK format.
+        jwk = JWK.parse((String) map.get("jwk"));
+
+        kid = jwk.getKeyID();
+        assumeThat(kid).describedAs("kid must not be null")
+                       .isNotNull();
+
         channelId = String.valueOf(map.get("channelId"));
         channelSecret = (String) map.get("channelSecret");
     }
@@ -97,13 +105,13 @@ public class LineOAuthClientIntegrationTest {
                 "token_exp", Duration.ofMinutes(1).getSeconds()
         );
 
-        byte[] bytes = BaseEncoding.base64().decode(pemPrivateKey);
+        byte[] rsaPrivateKey = jwk.toRSAKey().toRSAPrivateKey().getEncoded();
 
         KeyFactory kf = KeyFactory.getInstance("RSA");
-        PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(bytes));
+        PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(rsaPrivateKey));
 
         String jws = Jwts.builder()
-                         .serializeToJsonWith(new JacksonSerializer(new ObjectMapper()))
+                         .serializeToJsonWith(new JacksonSerializer<>(new ObjectMapper()))
                          .setHeader(header)
                          .setClaims(body)
                          .signWith(privateKey, SignatureAlgorithm.RS256)
@@ -117,6 +125,12 @@ public class LineOAuthClientIntegrationTest {
 
         log.info("{}", issueChannelAccessTokenResponse);
         assertThat(issueChannelAccessTokenResponse.getExpiresInSecs()).isEqualTo(60);
+        assertThat(issueChannelAccessTokenResponse.getKeyId()).isNotBlank();
+
+        ChannelAccessTokenKeyIdsResponse keyIdsResponse =
+                target.getsAllValidChannelAccessTokenKeyIdsByJWT(jws).get();
+        assertThat(keyIdsResponse.getKids().size()).isGreaterThan(0);
+        log.info("{}", keyIdsResponse);
 
         // Revoke
         target.revokeChannelTokenByJWT(
