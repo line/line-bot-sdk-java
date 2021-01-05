@@ -19,6 +19,7 @@ package com.linecorp.bot.client;
 import java.util.concurrent.CompletableFuture;
 
 import com.linecorp.bot.model.oauth.ChannelAccessTokenException;
+import com.linecorp.bot.model.oauth.ChannelAccessTokenKeyIdsResponse;
 import com.linecorp.bot.model.oauth.IssueChannelAccessTokenRequest;
 import com.linecorp.bot.model.oauth.IssueChannelAccessTokenResponse;
 
@@ -34,6 +35,15 @@ public interface LineOAuthClient {
     static LineOAuthClientBuilder builder() {
         return new LineOAuthClientBuilder();
     }
+
+    /**
+     * Gets all valid channel access token key IDs.
+     * @param jwt A JSON Web Token (JWT) (opens new window)the client needs to create and sign with the private
+     *            key.
+     * @return <a href="https://developers.line.biz/en/reference/messaging-api/#get-all-valid-channel-access-token-key-ids-v2-1">Get all valid channel access token key IDs v2.1</a>
+     */
+    CompletableFuture<ChannelAccessTokenKeyIdsResponse> getsAllValidChannelAccessTokenKeyIdsByJWT(
+            String jwt);
 
     /**
      * Issues a channel access token. This method lets you use JWT assertion for authentication.
