@@ -19,7 +19,7 @@ package com.linecorp.bot.client;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assumptions.assumeThat;
 
-import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -57,7 +57,7 @@ public class LineOAuthClientIntegrationTest {
     private String kid;
 
     @BeforeEach
-    public void setUp() throws IOException, ParseException {
+    public void setUp() throws Exception {
         assumeThat(TEST_RESOURCE)
                 .isNotNull();
 
@@ -67,11 +67,14 @@ public class LineOAuthClientIntegrationTest {
         endpoint = (String) map.get("endpoint");
         target = LineOAuthClient
                 .builder()
-                .apiEndPoint(endpoint)
+                .apiEndPoint(URI.create(endpoint))
                 .build();
 
-        pemPrivateKey = ((String) map.get("pemPrivateKey")).replaceAll("\n", "");
-        kid = (String) map.get("kid");
+        // 1. Issue new "Assertion Signing Key" in the LINE Developer Center.
+        // 2. You get the private key of your new assertion signing key in JWK format.
+        jwk = JWK.parse((String) map.get("jwk"));
+
+        kid = jwk.getKeyID();
         channelId = String.valueOf(map.get("channelId"));
         channelSecret = (String) map.get("channelSecret");
     }
