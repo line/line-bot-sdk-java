@@ -1,0 +1,334 @@
+{
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "size": "mega",
+      "direction": "ltr",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "justify-content [vertical]",
+            "size": "lg",
+            "weight": "bold"
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "C"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "margin": "md",
+                    "contents": [
+                      {
+                        "type": "image",
+                        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
+                        "size": "full",
+                        "flex": 0
+                      },
+                      {
+                        "type": "text",
+                        "text": "hello world",
+                        "wrap": true
+                      },
+                      {
+                        "type": "button",
+                        "action": {
+                          "type": "uri",
+                          "label": "action",
+                          "uri": "http://linecorp.com/"
+                        },
+                        "height": "sm",
+                        "style": "primary"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "20px",
+                        "height": "20px",
+                        "backgroundColor": "#6405f6"
+                      }
+                    ],
+                    "borderWidth": "1px",
+                    "borderColor": "#000000",
+                    "justifyContent": "center",
+                    "height": "300px"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "FS"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "margin": "md",
+                    "contents": [
+                      {
+                        "type": "image",
+                        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
+                        "size": "full",
+                        "flex": 0
+                      },
+                      {
+                        "type": "text",
+                        "text": "hello world",
+                        "wrap": true
+                      },
+                      {
+                        "type": "button",
+                        "action": {
+                          "type": "uri",
+                          "label": "action",
+                          "uri": "http://linecorp.com/"
+                        },
+                        "height": "sm",
+                        "style": "primary"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "20px",
+                        "height": "20px",
+                        "backgroundColor": "#6405f6"
+                      }
+                    ],
+                    "borderWidth": "1px",
+                    "borderColor": "#000000",
+                    "justifyContent": "flex-start",
+                    "height": "300px"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "FE"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "margin": "md",
+                    "contents": [
+                      {
+                        "type": "image",
+                        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
+                        "size": "full",
+                        "flex": 0
+                      },
+                      {
+                        "type": "text",
+                        "text": "hello world",
+                        "wrap": true
+                      },
+                      {
+                        "type": "button",
+                        "action": {
+                          "type": "uri",
+                          "label": "action",
+                          "uri": "http://linecorp.com/"
+                        },
+                        "height": "sm",
+                        "style": "primary"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "20px",
+                        "height": "20px",
+                        "backgroundColor": "#6405f6"
+                      }
+                    ],
+                    "borderWidth": "1px",
+                    "borderColor": "#000000",
+                    "justifyContent": "flex-end",
+                    "height": "300px"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "SB"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "margin": "md",
+                    "contents": [
+                      {
+                        "type": "image",
+                        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
+                        "size": "full",
+                        "flex": 0
+                      },
+                      {
+                        "type": "text",
+                        "text": "hello world",
+                        "wrap": true
+                      },
+                      {
+                        "type": "button",
+                        "action": {
+                          "type": "uri",
+                          "label": "action",
+                          "uri": "http://linecorp.com/"
+                        },
+                        "height": "sm",
+                        "style": "primary"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "20px",
+                        "height": "20px",
+                        "backgroundColor": "#6405f6"
+                      }
+                    ],
+                    "borderWidth": "1px",
+                    "borderColor": "#000000",
+                    "justifyContent": "space-between",
+                    "height": "300px"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "SA"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "margin": "md",
+                    "contents": [
+                      {
+                        "type": "image",
+                        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
+                        "size": "full",
+                        "flex": 0
+                      },
+                      {
+                        "type": "text",
+                        "text": "hello world",
+                        "wrap": true
+                      },
+                      {
+                        "type": "button",
+                        "action": {
+                          "type": "uri",
+                          "label": "action",
+                          "uri": "http://linecorp.com/"
+                        },
+                        "height": "sm",
+                        "style": "primary"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "20px",
+                        "height": "20px",
+                        "backgroundColor": "#6405f6"
+                      }
+                    ],
+                    "borderWidth": "1px",
+                    "borderColor": "#000000",
+                    "justifyContent": "space-around",
+                    "height": "300px"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "SE"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "margin": "md",
+                    "contents": [
+                      {
+                        "type": "image",
+                        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/review_gold_star_28.png",
+                        "size": "full",
+                        "flex": 0
+                      },
+                      {
+                        "type": "text",
+                        "text": "hello world",
+                        "wrap": true
+                      },
+                      {
+                        "type": "button",
+                        "action": {
+                          "type": "uri",
+                          "label": "action",
+                          "uri": "http://linecorp.com/"
+                        },
+                        "height": "sm",
+                        "style": "primary"
+                      },
+                      {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "width": "20px",
+                        "height": "20px",
+                        "backgroundColor": "#6405f6"
+                      }
+                    ],
+                    "borderWidth": "1px",
+                    "borderColor": "#000000",
+                    "justifyContent": "space-evenly",
+                    "height": "300px"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

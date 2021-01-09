@@ -20,13 +20,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+
+import org.junit.Rule;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
-@ExtendWith(MockitoExtension.class)
 public class LineMessagingClientBuilderTest extends AbstractWiremockTest {
+    @Rule
+    public final MockitoRule mockitoRule = MockitoJUnit.rule();
+
     @Test
     public void testBuildWithFixedToken() throws InterruptedException {
         lineMessagingClient = new LineMessagingClientBuilder()

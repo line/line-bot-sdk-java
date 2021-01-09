@@ -18,21 +18,28 @@ package com.linecorp.bot.model.message.flex.unit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum FlexMarginSize {
     @JsonProperty("default")
-    DEFAULT,
+    DEFAULT("default"),
     @JsonProperty("none")
-    NONE,
+    NONE("none"),
     @JsonProperty("xs")
-    XS,
+    XS("xs"),
     @JsonProperty("sm")
-    SM,
+    SM("sm"),
     @JsonProperty("md")
-    MD,
+    MD("md"),
     @JsonProperty("lg")
-    LG,
+    LG("lg"),
     @JsonProperty("xl")
-    XL,
+    XL("xl"),
     @JsonProperty("xxl")
-    XXL;
+    XXL("xxl");
+
+    private final String propertyValue;
 }

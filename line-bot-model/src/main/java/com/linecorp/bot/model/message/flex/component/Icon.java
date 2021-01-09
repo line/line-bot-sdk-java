@@ -40,7 +40,6 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = Icon.IconBuilder.class)
 public class Icon implements FlexComponent {
     @AllArgsConstructor
@@ -55,11 +54,11 @@ public class Icon implements FlexComponent {
 
     URI url;
 
-    FlexFontSize size;
+    String size;
 
     String aspectRatio;
 
-    FlexMarginSize margin;
+    String margin;
 
     FlexPosition position;
 
@@ -74,6 +73,26 @@ public class Icon implements FlexComponent {
     @JsonPOJOBuilder(withPrefix = "")
     public static class IconBuilder {
         private static final Supplier<DecimalFormat> RATIO_FORMAT = () -> new DecimalFormat("0.#####");
+
+        public IconBuilder size(FlexFontSize size) {
+            this.size = size.getPropertyValue();
+            return this;
+        }
+
+        public IconBuilder size(String size) {
+            this.size = size;
+            return this;
+        }
+
+        public IconBuilder margin(FlexMarginSize margin) {
+            this.margin = margin.getPropertyValue();
+            return this;
+        }
+
+        public IconBuilder margin(String margin) {
+            this.margin = margin;
+            return this;
+        }
 
         public IconBuilder offsetTop(FlexOffsetSize offset) {
             offsetTop = offset.getPropertyValue();

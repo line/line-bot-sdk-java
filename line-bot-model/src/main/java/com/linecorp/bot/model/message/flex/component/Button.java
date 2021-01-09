@@ -24,12 +24,12 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.action.Action;
+import com.linecorp.bot.model.message.flex.unit.FlexAdjustMode;
 import com.linecorp.bot.model.message.flex.unit.FlexGravity;
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 import com.linecorp.bot.model.message.flex.unit.FlexOffsetSize;
 import com.linecorp.bot.model.message.flex.unit.FlexPosition;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -37,7 +37,6 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = Button.ButtonBuilder.class)
 public class Button implements FlexComponent {
     public enum ButtonStyle {
@@ -66,7 +65,7 @@ public class Button implements FlexComponent {
 
     FlexGravity gravity;
 
-    FlexMarginSize margin;
+    String margin;
 
     FlexPosition position;
 
@@ -80,9 +79,21 @@ public class Button implements FlexComponent {
 
     ButtonHeight height;
 
+    FlexAdjustMode adjustMode;
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class ButtonBuilder {
         // Providing builder instead of public constructor. Class body is filled by lombok.
+
+        public ButtonBuilder margin(FlexMarginSize margin) {
+            this.margin = margin.getPropertyValue();
+            return this;
+        }
+
+        public ButtonBuilder margin(String margin) {
+            this.margin = margin;
+            return this;
+        }
 
         public ButtonBuilder offsetTop(FlexOffsetSize offset) {
             offsetTop = offset.getPropertyValue();

@@ -9,6 +9,9 @@
             audience group</a>
         <a href="/manage_audience/add_audience/${audienceGroup.audienceGroupId}" class="btn btn-primary">Add
             audience for this audience group.</a>
+        <a href="/manage_audience/add_audience_by_file/${audienceGroup.audienceGroupId}"
+           class="btn btn-primary">Add
+            audience for this audience group(By file)</a>
     <#else>
         <div class="alert alert-info" role="alert">
             This audience group is read only.

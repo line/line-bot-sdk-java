@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.action.Action;
+import com.linecorp.bot.model.message.flex.unit.FlexAdjustMode;
 import com.linecorp.bot.model.message.flex.unit.FlexAlign;
 import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
 import com.linecorp.bot.model.message.flex.unit.FlexGravity;
@@ -33,7 +34,6 @@ import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 import com.linecorp.bot.model.message.flex.unit.FlexOffsetSize;
 import com.linecorp.bot.model.message.flex.unit.FlexPosition;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -41,7 +41,6 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = Text.TextBuilder.class)
 public class Text implements FlexComponent {
     public enum TextWeight {
@@ -71,7 +70,7 @@ public class Text implements FlexComponent {
 
     String text;
 
-    FlexFontSize size;
+    String size;
 
     FlexAlign align;
 
@@ -87,7 +86,7 @@ public class Text implements FlexComponent {
 
     Boolean wrap;
 
-    FlexMarginSize margin;
+    String margin;
 
     FlexPosition position;
 
@@ -105,9 +104,31 @@ public class Text implements FlexComponent {
 
     List<Span> contents;
 
+    FlexAdjustMode adjustMode;
+
     @JsonPOJOBuilder(withPrefix = "")
     public static class TextBuilder {
         // Providing builder instead of public constructor. Class body is filled by lombok.
+
+        public TextBuilder size(FlexFontSize size) {
+            this.size = size.getPropertyValue();
+            return this;
+        }
+
+        public TextBuilder size(String size) {
+            this.size = size;
+            return this;
+        }
+
+        public TextBuilder margin(FlexMarginSize margin) {
+            this.margin = margin.getPropertyValue();
+            return this;
+        }
+
+        public TextBuilder margin(String margin) {
+            this.margin = margin;
+            return this;
+        }
 
         public TextBuilder offsetTop(FlexOffsetSize offset) {
             offsetTop = offset.getPropertyValue();

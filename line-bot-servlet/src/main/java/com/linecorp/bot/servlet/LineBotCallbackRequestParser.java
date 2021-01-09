@@ -17,7 +17,6 @@
 package com.linecorp.bot.servlet;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -68,24 +67,4 @@ public class LineBotCallbackRequestParser {
             throw new LineBotCallbackException(e.getMessage(), e);
         }
     }
-
-    /**
-     * Parses a request.
-     *
-     * @param signature X-Line-Signature header.
-     * @param payload Request body.
-     * @return Parsed result. If there's an error, this method sends response.
-     * @throws LineBotCallbackException There's an error around signature.
-     * @deprecated Use {@link WebhookParser#handle(String, byte[])} instead.
-     */
-    @Deprecated
-    public CallbackRequest handle(String signature, String payload)
-            throws LineBotCallbackException, IOException {
-        try {
-            return parser.handle(signature, payload.getBytes(StandardCharsets.UTF_8));
-        } catch (WebhookParseException e) {
-            throw new LineBotCallbackException(e.getMessage(), e);
-        }
-    }
-
 }

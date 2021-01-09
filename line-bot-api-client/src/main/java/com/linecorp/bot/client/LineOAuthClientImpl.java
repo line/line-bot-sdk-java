@@ -22,6 +22,7 @@ import java.util.concurrent.CompletableFuture;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.model.oauth.ChannelAccessTokenException;
+import com.linecorp.bot.model.oauth.ChannelAccessTokenKeyIdsResponse;
 import com.linecorp.bot.model.oauth.IssueChannelAccessTokenRequest;
 import com.linecorp.bot.model.oauth.IssueChannelAccessTokenResponse;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
@@ -41,6 +42,14 @@ class LineOAuthClientImpl implements LineOAuthClient {
     private static final ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 
     private final LineOAuthService service;
+
+    @Override
+    public CompletableFuture<ChannelAccessTokenKeyIdsResponse> getsAllValidChannelAccessTokenKeyIdsByJWT(
+            String jwt) {
+        return toFuture(service.getsAllValidChannelAccessTokenKeyIds(
+                "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                jwt));
+    }
 
     @Override
     public CompletableFuture<IssueChannelAccessTokenResponse> issueChannelTokenByJWT(final String jwt) {

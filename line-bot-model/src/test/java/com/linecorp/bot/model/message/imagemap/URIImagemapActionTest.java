@@ -27,8 +27,11 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 public class URIImagemapActionTest {
     @Test
     public void getLinkUri() throws Exception {
-        URIImagemapAction imageMapAction = new URIImagemapAction("http://example.com",
-                                                                 new ImagemapArea(1, 2, 3, 4));
+        URIImagemapAction imageMapAction = URIImagemapAction
+                .builder()
+                .linkUri("http://example.com")
+                .area(new ImagemapArea(1, 2, 3, 4))
+                .build();
 
         ObjectMapper objectMapper = new ObjectMapper()
                 .registerModule(new JavaTimeModule())

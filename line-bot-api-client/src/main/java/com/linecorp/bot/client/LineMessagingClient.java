@@ -30,15 +30,21 @@ import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
+import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
+import com.linecorp.bot.model.response.GetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.SetWebhookEndpointResponse;
+import com.linecorp.bot.model.response.TestWebhookEndpointResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
@@ -107,15 +113,6 @@ public interface LineMessagingClient {
      * Gets the status of a narrowcast message.
      */
     CompletableFuture<NarrowcastProgressResponse> getNarrowcastProgress(String requestId);
-
-    /**
-     * Download image, video, and audio data sent from users.
-     *
-     * @see <a href="https://developers.line.me/en/reference/messaging-api/#get-content">//developers.line.me/en/reference/messaging-api/#get-content</a>
-     * @deprecated use {@link LineBlobClient} instead.
-     */
-    @Deprecated
-    CompletableFuture<MessageContentResponse> getMessageContent(String messageId);
 
     /**
      * Gets the target limit for additional messages in the current month. The number of messages retrieved by
@@ -316,25 +313,6 @@ public interface LineMessagingClient {
     CompletableFuture<BotApiResponse> unlinkRichMenuIdFromUsers(List<String> userIds);
 
     /**
-     * Download rich menu image.
-     *
-     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image">//developers.line.me/en/docs/messaging-api/reference/#download-rich-menu-image</a>
-     * @deprecated use {@link LineBlobClient} instead.
-     */
-    @Deprecated
-    CompletableFuture<MessageContentResponse> getRichMenuImage(String richMenuId);
-
-    /**
-     * Set RichMenu image.
-     *
-     * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image">//developers.line.me/en/docs/messaging-api/reference/#upload-rich-menu-image</a>
-     * @deprecated use {@link LineBlobClient} instead.
-     */
-    @Deprecated
-    CompletableFuture<BotApiResponse> setRichMenuImage(
-            String richMenuId, String contentType, byte[] content);
-
-    /**
      * Gets a list of all uploaded rich menus.
      *
      * @see <a href="https://developers.line.me/en/docs/messaging-api/reference/#get-rich-menu-list">//developers.line.me/en/docs/messaging-api/reference/#get-rich-menu-list</a>
@@ -397,6 +375,34 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-demographic">Get friends demographics</a>
      */
     CompletableFuture<GetFriendsDemographicsResponse> getFriendsDemographics();
+
+    /**
+     * Gets a bot's basic information.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-bot-info">Get bot info</a>
+     */
+    CompletableFuture<BotInfoResponse> getBotInfo();
+
+    /**
+     * Gets webhook endpoint information.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-webhook-endpoint-information">Get webhook endpoint information</a>
+     */
+    CompletableFuture<GetWebhookEndpointResponse> getWebhookEndpoint();
+
+    /**
+     * Sets webhook endpoint URL.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#set-webhook-endpoint-url">Set webhook URL</a>
+     */
+    CompletableFuture<SetWebhookEndpointResponse> setWebhookEndpoint(SetWebhookEndpointRequest request);
+
+    /**
+     * Tests webhook endpoint.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#test-webhook-endpoint">Test webhook endpoint</a>
+     */
+    CompletableFuture<TestWebhookEndpointResponse> testWebhookEndpoint(TestWebhookEndpointRequest request);
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));

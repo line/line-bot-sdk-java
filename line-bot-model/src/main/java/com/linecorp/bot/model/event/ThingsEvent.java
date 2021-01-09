@@ -25,8 +25,6 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.things.ThingsContent;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -36,8 +34,6 @@ import lombok.Value;
 @JsonTypeName("things")
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
-// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = ThingsEvent.ThingsEventBuilder.class)
 public class ThingsEvent implements Event, ReplyEvent {
     @JsonPOJOBuilder(withPrefix = "")
@@ -77,18 +73,4 @@ public class ThingsEvent implements Event, ReplyEvent {
      * </dl>
      */
     EventMode mode;
-
-    /**
-     * Deprecated constructor.
-     *
-     * @deprecated Use builder method instead. This construct will remove in next major release.
-     */
-    @Deprecated
-    public ThingsEvent(
-            String replyToken,
-            Source source,
-            ThingsContent things,
-            Instant timestamp) {
-        this(replyToken, source, things, timestamp, null);
-    }
 }

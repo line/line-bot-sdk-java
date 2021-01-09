@@ -35,8 +35,9 @@ import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.io.BaseEncoding;
+import com.nimbusds.jose.jwk.JWK;
 
+import com.linecorp.bot.model.oauth.ChannelAccessTokenKeyIdsResponse;
 import com.linecorp.bot.model.oauth.IssueChannelAccessTokenResponse;
 
 import io.jsonwebtoken.Jwts;
@@ -50,13 +51,13 @@ public class LineOAuthClientIntegrationTest {
 
     private LineOAuthClient target;
     private String endpoint;
-    private String pemPrivateKey;
+    private JWK jwk;
     private String channelId;
     private String channelSecret;
     private String kid;
 
     @BeforeEach
-    public void setUp() throws IOException {
+    public void setUp() throws IOException, ParseException {
         assumeThat(TEST_RESOURCE)
                 .isNotNull();
 
@@ -96,13 +97,13 @@ public class LineOAuthClientIntegrationTest {
                 "token_exp", Duration.ofMinutes(1).getSeconds()
         );
 
-        byte[] bytes = BaseEncoding.base64().decode(pemPrivateKey);
+        byte[] rsaPrivateKey = jwk.toRSAKey().toRSAPrivateKey().getEncoded();
 
         KeyFactory kf = KeyFactory.getInstance("RSA");
-        PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(bytes));
+        PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(rsaPrivateKey));
 
         String jws = Jwts.builder()
-                         .serializeToJsonWith(new JacksonSerializer(new ObjectMapper()))
+                         .serializeToJsonWith(new JacksonSerializer<>(new ObjectMapper()))
                          .setHeader(header)
                          .setClaims(body)
                          .signWith(privateKey, SignatureAlgorithm.RS256)
@@ -116,6 +117,12 @@ public class LineOAuthClientIntegrationTest {
 
         log.info("{}", issueChannelAccessTokenResponse);
         assertThat(issueChannelAccessTokenResponse.getExpiresInSecs()).isEqualTo(60);
+        assertThat(issueChannelAccessTokenResponse.getKeyId()).isNotBlank();
+
+        ChannelAccessTokenKeyIdsResponse keyIdsResponse =
+                target.getsAllValidChannelAccessTokenKeyIdsByJWT(jws).get();
+        assertThat(keyIdsResponse.getKids().size()).isGreaterThan(0);
+        log.info("{}", keyIdsResponse);
 
         // Revoke
         target.revokeChannelTokenByJWT(

@@ -21,8 +21,8 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 buildscript {
     ext {
-        kotlin_version = '1.3.72'
-        spring_boot_version = '2.3.1.RELEASE'
+        kotlin_version = '1.4.21-2'
+        spring_boot_version = '2.3.5.RELEASE'
     }
 
     repositories {
@@ -31,11 +31,11 @@ buildscript {
         maven { url 'https://repo.spring.io/plugins-release' }
     }
     dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.27.0'
-        classpath 'com.puppycrawl.tools:checkstyle:8.34'
-        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.4.4'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.36.0'
+        classpath 'com.puppycrawl.tools:checkstyle:8.39'
+        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.6.0'
         classpath 'io.franzbecker:gradle-lombok:4.0.0'
-        classpath 'io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE'
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -46,7 +46,7 @@ apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions'
 
 group = 'com.linecorp.bot'
-version = '3.7.0'
+version = '4.4.0'
 
 //set build variables based on build type (release, continuous integration, development)
 def isDevBuild
@@ -82,7 +82,7 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
-    ext['guava.version'] = '28.2-jre'
+    ext['guava.version'] = '30.0-jre'
     ext['retrofit.version'] = '2.9.0'
 
     dependencyManagement {
@@ -92,7 +92,7 @@ subprojects {
 
         dependencies {
             dependency 'com.google.guava:guava:' + ext['guava.version']
-            dependency 'com.github.stefanbirkner:system-lambda:1.0.0'
+            dependency 'com.github.stefanbirkner:system-lambda:1.1.1'
             dependencySet(group: 'com.squareup.retrofit2', version: ext['retrofit.version']) {
                 entry 'converter-jackson'
                 entry 'retrofit'
@@ -160,7 +160,7 @@ subprojects {
     }
 
     lombok {
-        version = '1.18.12'
+        version = '1.18.16'
     }
 
     if (!project.name.startsWith('sample-') && !project.name.startsWith('test-')) {

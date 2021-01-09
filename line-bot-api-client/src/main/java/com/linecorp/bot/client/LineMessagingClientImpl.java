@@ -31,15 +31,21 @@ import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
+import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
+import com.linecorp.bot.model.response.GetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
 import com.linecorp.bot.model.response.NarrowcastProgressResponse;
 import com.linecorp.bot.model.response.NumberOfMessagesResponse;
 import com.linecorp.bot.model.response.QuotaConsumptionResponse;
+import com.linecorp.bot.model.response.SetWebhookEndpointResponse;
+import com.linecorp.bot.model.response.TestWebhookEndpointResponse;
 import com.linecorp.bot.model.response.demographics.GetFriendsDemographicsResponse;
 import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuBulkLinkRequest;
@@ -105,13 +111,6 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public CompletableFuture<MessageContentResponse> getMessageContent(String messageId) {
-        return blobDelegationTarget.getMessageContent(messageId);
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
     public CompletableFuture<MessageQuotaResponse> getMessageQuota() {
         return toFuture(retrofitImpl.getMessageQuota());
     }
@@ -242,19 +241,6 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public CompletableFuture<MessageContentResponse> getRichMenuImage(final String richMenuId) {
-        return blobDelegationTarget.getRichMenuImage(richMenuId);
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public CompletableFuture<BotApiResponse> setRichMenuImage(
-            final String richMenuId, final String contentType, final byte[] content) {
-        return blobDelegationTarget.setRichMenuImage(richMenuId, contentType, content);
-    }
-
-    @Override
     public CompletableFuture<RichMenuListResponse> getRichMenuList() {
         return toFuture(retrofitImpl.getRichMenuList());
     }
@@ -297,6 +283,27 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<GetMessageEventResponse> getMessageEvent(String requestId) {
         return toFuture(retrofitImpl.getMessageEvent(requestId));
+    }
+
+    @Override
+    public CompletableFuture<BotInfoResponse> getBotInfo() {
+        return toFuture(retrofitImpl.getBotInfo());
+    }
+
+    @Override
+    public CompletableFuture<GetWebhookEndpointResponse> getWebhookEndpoint() {
+        return toFuture(retrofitImpl.getWebhookEndpoint());
+    }
+
+    @Override
+    public CompletableFuture<SetWebhookEndpointResponse> setWebhookEndpoint(SetWebhookEndpointRequest request) {
+        return toFuture(retrofitImpl.setWebhookEndpoint(request));
+    }
+
+    @Override
+    public CompletableFuture<TestWebhookEndpointResponse> testWebhookEndpoint(
+            TestWebhookEndpointRequest request) {
+        return toFuture(retrofitImpl.testWebhookEndpoint(request));
     }
 
     // TODO: Extract this method.

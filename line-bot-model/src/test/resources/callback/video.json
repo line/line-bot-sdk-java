@@ -1,0 +1,25 @@
+{
+  "destination": "Uab012345678901234567890123456789",
+  "events": [
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "message",
+      "mode": "active",
+      "timestamp": 1462629479859,
+      "source": {
+        "type": "user",
+        "userId": "U4af4980629..."
+      },
+      "message": {
+        "id": "325708",
+        "type": "video",
+        "duration": 60000,
+        "contentProvider": {
+          "type": "external",
+          "originalContentUrl": "https://example.com/original.mp4",
+          "previewImageUrl": "https://example.com/preview.jpg"
+        }
+      }
+    }
+  ]
+}

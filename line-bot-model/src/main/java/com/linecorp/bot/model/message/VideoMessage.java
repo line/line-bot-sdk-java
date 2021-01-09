@@ -66,12 +66,17 @@ public class VideoMessage implements Message {
     Sender sender;
 
     /**
+     * ID used to identify a video.
+     */
+    String trackingId;
+
+    /**
      * Constructor without {@link #quickReply} parameter.
      *
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
     public VideoMessage(final URI originalContentUrl, final URI previewImageUrl) {
-        this(originalContentUrl, previewImageUrl, null, null);
+        this(originalContentUrl, previewImageUrl, null, null, null);
     }
 
     @JsonPOJOBuilder(withPrefix = "")

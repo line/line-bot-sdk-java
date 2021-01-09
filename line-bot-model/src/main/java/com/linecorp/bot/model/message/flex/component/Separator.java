@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -32,15 +31,24 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = Separator.SeparatorBuilder.class)
 public class Separator implements FlexComponent {
-    FlexMarginSize margin;
+    String margin;
 
     String color;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class SeparatorBuilder {
         // Providing builder instead of public constructor. Class body is filled by lombok.
+
+        public SeparatorBuilder margin(FlexMarginSize margin) {
+            this.margin = margin.getPropertyValue();
+            return this;
+        }
+
+        public SeparatorBuilder margin(String margin) {
+            this.margin = margin;
+            return this;
+        }
     }
 }

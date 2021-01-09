@@ -20,8 +20,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -31,8 +29,6 @@ import lombok.Value;
 @JsonTypeName("uri")
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
-// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = URIImagemapAction.URIImagemapActionBuilder.class)
 public class URIImagemapAction implements ImagemapAction {
     @JsonPOJOBuilder(withPrefix = "")
@@ -51,16 +47,4 @@ public class URIImagemapAction implements ImagemapAction {
     ImagemapArea area;
 
     String label;
-
-    /**
-     * URIImagemapAction constructor.
-     *
-     * @deprecated Use builder method instead. This construct will remove in next major release.
-     */
-    @Deprecated
-    public URIImagemapAction(String linkUri, ImagemapArea area) {
-        this.linkUri = linkUri;
-        this.area = area;
-        this.label = null;
-    }
 }

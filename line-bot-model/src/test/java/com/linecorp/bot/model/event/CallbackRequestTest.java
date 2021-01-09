@@ -42,6 +42,7 @@ import com.linecorp.bot.model.event.message.StickerMessageContent.StickerResourc
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent.Emoji;
 import com.linecorp.bot.model.event.message.UnknownMessageContent;
+import com.linecorp.bot.model.event.message.VideoMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UnknownSource;
@@ -170,9 +171,11 @@ public class CallbackRequestTest {
             ImageMessageContent image = (ImageMessageContent) message;
             assertThat(image.getId()).isEqualTo("325708");
             assertThat(image.getContentProvider()).isEqualTo(
-                    new ContentProvider("external",
-                                        URI.create("https://example.com/original.jpg"),
-                                        URI.create(("https://example.com/preview.jpg"))));
+                    ContentProvider.builder()
+                                   .type("external")
+                                   .originalContentUrl(URI.create("https://example.com/original.jpg"))
+                                   .previewImageUrl(URI.create(("https://example.com/preview.jpg")))
+                                   .build());
         });
     }
 
@@ -260,6 +263,41 @@ public class CallbackRequestTest {
                         .isEqualTo("1");
                 assertThat(((StickerMessageContent) message).getStickerResourceType())
                         .isEqualTo(StickerResourceType.STATIC);
+                assertThat(((StickerMessageContent) message).getKeywords())
+                        .containsExactly("bed", "sleep", "bedtime");
+            }
+        });
+    }
+
+    @Test
+    public void testStickerKeywordsBecomeString() throws IOException {
+        parse("callback/sticker-keywords-string.json", callbackRequest -> {
+            MessageEvent messageEvent = (MessageEvent) callbackRequest.getEvents().get(0);
+            MessageContent message = messageEvent.getMessage();
+            if (message instanceof StickerMessageContent) {
+                assertThat(((StickerMessageContent) message).getKeywords()).isNull();
+            }
+        });
+    }
+
+    @Test
+    public void testStickerKeywordsBecomeMap() throws IOException {
+        parse("callback/sticker-keywords-map.json", callbackRequest -> {
+            MessageEvent messageEvent = (MessageEvent) callbackRequest.getEvents().get(0);
+            MessageContent message = messageEvent.getMessage();
+            if (message instanceof StickerMessageContent) {
+                assertThat(((StickerMessageContent) message).getKeywords()).isNull();
+            }
+        });
+    }
+
+    @Test
+    public void testStickerKeywordsRemoved() throws IOException {
+        parse("callback/sticker-keywords-remove.json", callbackRequest -> {
+            MessageEvent messageEvent = (MessageEvent) callbackRequest.getEvents().get(0);
+            MessageContent message = messageEvent.getMessage();
+            if (message instanceof StickerMessageContent) {
+                assertThat(((StickerMessageContent) message).getKeywords()).isNull();
             }
         });
     }
@@ -498,7 +536,10 @@ public class CallbackRequestTest {
             assertThat(result.getStartTime()).isEqualTo(Instant.ofEpochMilli(1547817845950L));
             assertThat(result.getEndTime()).isEqualTo(Instant.ofEpochMilli(1547817845952L));
             assertThat(result.getResultCode()).isEqualTo("success");
-            assertThat(result.getActionResults().get(0)).isEqualTo(new BinaryActionResult("/w=="));
+            assertThat(result.getActionResults().get(0)).isEqualTo(
+                    BinaryActionResult.builder()
+                                      .data("/w==")
+                                      .build());
             assertThat(result.getActionResults().get(1)).isInstanceOf(VoidActionResult.class);
             assertThat(result.getActionResults().get(2)).isInstanceOf(UnknownActionResult.class);
             assertThat(result.getBleNotificationPayload()).isEqualTo("AQ==");
@@ -555,6 +596,54 @@ public class CallbackRequestTest {
                                          .map(Source::getUserId)
                                          .collect(Collectors.joining(","));
             assertThat(uids).isEqualTo("U111111");
+        });
+    }
+
+    @Test
+    public void testUnsend() throws IOException {
+        parse("callback/unsend.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event).isInstanceOf(UnsendEvent.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
+            UnsendEvent unsendEvent = (UnsendEvent) event;
+            String messageId = unsendEvent.getUnsend().getMessageId();
+            assertThat(messageId).isEqualTo("325708");
+        });
+    }
+
+    @Test
+    public void testVideo() throws IOException {
+        parse("callback/video.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event).isInstanceOf(MessageEvent.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
+            MessageEvent messageEvent = (MessageEvent) event;
+            VideoMessageContent videoMessageContent = (VideoMessageContent) messageEvent.getMessage();
+            assertThat(videoMessageContent.getDuration()).isEqualTo(60000L);
+        });
+    }
+
+    @Test
+    public void testVideoPlayComplete() throws IOException {
+        parse("callback/video-play-complete.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event.getSource()).isInstanceOf(UserSource.class);
+            assertThat(event).isInstanceOf(VideoPlayCompleteEvent.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
+            VideoPlayCompleteEvent videoPlayCompleteEvent = (VideoPlayCompleteEvent) event;
+            assertThat(videoPlayCompleteEvent.getVideoPlayComplete().getTrackingId())
+                    .isEqualTo("track_id");
         });
     }
 

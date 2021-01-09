@@ -27,7 +27,6 @@ import com.linecorp.bot.model.message.flex.component.Text.TextStyle;
 import com.linecorp.bot.model.message.flex.component.Text.TextWeight;
 import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -35,12 +34,11 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(onConstructor = @__(@Deprecated)) // TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = Span.SpanBuilder.class)
 public class Span implements FlexComponent {
     String text;
 
-    FlexFontSize size;
+    String size;
 
     String color;
 
@@ -53,5 +51,15 @@ public class Span implements FlexComponent {
     @JsonPOJOBuilder(withPrefix = "")
     public static class SpanBuilder {
         // Providing builder instead of public constructor. Class body is filled by lombok.
+
+        public SpanBuilder size(FlexFontSize size) {
+            this.size = size.getPropertyValue();
+            return this;
+        }
+
+        public SpanBuilder size(String size) {
+            this.size = size;
+            return this;
+        }
     }
 }

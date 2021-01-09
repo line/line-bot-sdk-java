@@ -29,8 +29,6 @@ import com.linecorp.bot.model.message.imagemap.ImagemapVideo;
 import com.linecorp.bot.model.message.quickreply.QuickReply;
 import com.linecorp.bot.model.message.sender.Sender;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -40,7 +38,6 @@ import lombok.Value;
  */
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonTypeName("imagemap")
 @JsonDeserialize(builder = ImagemapMessage.ImagemapMessageBuilder.class)
 public class ImagemapMessage implements Message {
@@ -73,35 +70,6 @@ public class ImagemapMessage implements Message {
     QuickReply quickReply;
 
     Sender sender;
-
-    /**
-     * Constructor without {@link #quickReply} parameter.
-     *
-     * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
-     * @deprecated Use {@link #builder()} instead.
-     */
-    @Deprecated
-    public ImagemapMessage(
-            final URI baseUrl,
-            final String altText,
-            final ImagemapBaseSize imagemapBaseSize,
-            final List<ImagemapAction> actions,
-            final ImagemapVideo imagemapVideo) {
-        this(baseUrl, altText, imagemapBaseSize, actions, imagemapVideo, null, null);
-    }
-
-    /**
-     * Creates a {@link ImagemapMessage}.
-     * @deprecated Use {@link #builder()} instead.
-     */
-    @Deprecated
-    public ImagemapMessage(
-            final URI baseUrl,
-            final String altText,
-            final ImagemapBaseSize imagemapBaseSize,
-            final List<ImagemapAction> actions) {
-        this(baseUrl, altText, imagemapBaseSize, actions, null);
-    }
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class ImagemapMessageBuilder {

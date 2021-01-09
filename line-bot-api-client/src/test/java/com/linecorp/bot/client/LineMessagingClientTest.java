@@ -50,7 +50,7 @@ public class LineMessagingClientTest {
                 + "/CanContainsRelative/";
         target = LineMessagingClient
                 .builder("SECRET")
-                .apiEndPoint(apiEndPoint)
+                .apiEndPoint(URI.create(apiEndPoint))
                 .build();
     }
 

@@ -25,8 +25,6 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.linecorp.bot.model.event.link.LinkContent;
 import com.linecorp.bot.model.event.source.Source;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -37,8 +35,6 @@ import lombok.Value;
 @JsonTypeName("accountLink")
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
-// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = AccountLinkEvent.AccountLinkEventBuilder.class)
 public class AccountLinkEvent implements Event, ReplyEvent {
     @JsonPOJOBuilder(withPrefix = "")
@@ -78,18 +74,4 @@ public class AccountLinkEvent implements Event, ReplyEvent {
      * </dl>
      */
     EventMode mode;
-
-    /**
-     * Deprecated constructor.
-     *
-     * @deprecated Use builder method instead. This construct will remove in next major release.
-     */
-    @Deprecated
-    public AccountLinkEvent(
-            String replyToken,
-            Source source,
-            Instant timestamp,
-            LinkContent link) {
-        this(replyToken, source, timestamp, link, null);
-    }
 }

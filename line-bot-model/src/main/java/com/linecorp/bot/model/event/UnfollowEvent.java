@@ -24,8 +24,6 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import com.linecorp.bot.model.event.source.Source;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -35,8 +33,6 @@ import lombok.Value;
 @JsonTypeName("unfollow")
 @Value
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PRIVATE, onConstructor = @__(@Deprecated))
-// TODO: Remove next release. Use builder() instead.
 @JsonDeserialize(builder = UnfollowEvent.UnfollowEventBuilder.class)
 public class UnfollowEvent implements Event {
     @JsonPOJOBuilder(withPrefix = "")
@@ -66,16 +62,4 @@ public class UnfollowEvent implements Event {
      * </dl>
      */
     EventMode mode;
-
-    /**
-     * Deprecated constructor.
-     *
-     * @deprecated Use builder method instead. This construct will remove in next major release.
-     */
-    @Deprecated
-    public UnfollowEvent(
-            final Source source,
-            final Instant timestamp) {
-        this(source, timestamp, null);
-    }
 }

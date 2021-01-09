@@ -64,16 +64,6 @@ public class ManageAudienceClientBuilder {
     /**
      * API Endpoint.
      *
-     * @deprecated use {@link #apiEndPoint(URI apiEndPoint)}.
-     */
-    @Deprecated
-    public ManageAudienceClientBuilder apiEndPoint(String apiEndPoint) {
-        return apiEndPoint(URI.create(apiEndPoint));
-    }
-
-    /**
-     * API Endpoint.
-     *
      * <p>Default value = "https://api.line.me/".
      */ // We can remove this after delete `setApiEndPoint(String apiEndPoint)`.
     public ManageAudienceClientBuilder apiEndPoint(URI apiEndPoint) {
@@ -166,8 +156,9 @@ public class ManageAudienceClientBuilder {
      *
      * <p>To use this method, please add dependency to 'com.squareup.retrofit2:retrofit'.
      *
-     * @param addAuthenticationHeader If true, all default okhttp interceptors ignored.
-     *         You should insert authentication headers yourself.
+     * @param addAuthenticationHeader If it's true, the default authentication headers will be attached
+     *     to all requests.
+     *     Otherwise if it's false, you should insert your own authentication headers by yourself.
      */
     public ManageAudienceClientBuilder okHttpClientBuilder(
             final @NonNull OkHttpClient.Builder okHttpClientBuilder,

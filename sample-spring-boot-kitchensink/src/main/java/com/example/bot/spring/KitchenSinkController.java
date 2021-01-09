@@ -56,6 +56,9 @@ import com.linecorp.bot.model.event.MemberLeftEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
+import com.linecorp.bot.model.event.UnknownEvent;
+import com.linecorp.bot.model.event.UnsendEvent;
+import com.linecorp.bot.model.event.VideoPlayCompleteEvent;
 import com.linecorp.bot.model.event.message.AudioMessageContent;
 import com.linecorp.bot.model.event.message.ContentProvider;
 import com.linecorp.bot.model.event.message.FileMessageContent;
@@ -177,6 +180,8 @@ public class KitchenSinkController {
 
     @EventMapping
     public void handleVideoMessageEvent(MessageEvent<VideoMessageContent> event) throws IOException {
+        log.info("Got video message: duration={}ms", event.getMessage().getDuration());
+
         // You need to install ffmpeg and ImageMagick.
         handleHeavyContent(
                 event.getReplyToken(),
@@ -195,9 +200,22 @@ public class KitchenSinkController {
                                mp4.path + "[0]",
                                previewImg.path.toString());
                     }
+                    String trackingId = UUID.randomUUID().toString();
+                    log.info("Sending video message with trackingId={}", trackingId);
                     reply(event.getReplyToken(),
-                          new VideoMessage(mp4.getUri(), previewImg.uri));
+                          VideoMessage.builder()
+                                      .originalContentUrl(mp4.getUri())
+                                      .previewImageUrl(previewImg.uri)
+                                      .trackingId(trackingId)
+                                      .build());
                 });
+    }
+
+    @EventMapping
+    public void handleVideoPlayCompleteEvent(VideoPlayCompleteEvent event) throws IOException {
+        log.info("Got video play complete: tracking id={}", event.getVideoPlayComplete().getTrackingId());
+        this.replyText(event.getReplyToken(),
+                       "You played " + event.getVideoPlayComplete().getTrackingId());
     }
 
     @EventMapping
@@ -211,6 +229,11 @@ public class KitchenSinkController {
     @EventMapping
     public void handleUnfollowEvent(UnfollowEvent event) {
         log.info("unfollowed this bot: {}", event);
+    }
+
+    @EventMapping
+    public void handleUnknownEvent(UnknownEvent event) {
+        log.info("Got an unknown event!!!!! : {}", event);
     }
 
     @EventMapping
@@ -252,6 +275,11 @@ public class KitchenSinkController {
         log.info("Got memberLeft message: {}", event.getLeft().getMembers()
                                                     .stream().map(Source::getUserId)
                                                     .collect(Collectors.joining(",")));
+    }
+
+    @EventMapping
+    public void handleMemberLeft(UnsendEvent event) {
+        log.info("Got unsend event: {}", event);
     }
 
     @EventMapping

@@ -1,0 +1,31 @@
+{
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [],
+        "position": "absolute",
+        "height": "100%",
+        "background": {
+          "type": "linearGradient",
+          "angle": "217deg",
+          "startColor": "#FF000000",
+          "endColor": "#00FF00"
+        },
+        "width": "100%"
+      }
+    ],
+    "paddingAll": "none",
+    "height": "300px",
+    "background": {
+      "type": "linearGradient",
+      "angle": "137deg",
+      "startColor": "#0000FF",
+      "endColor": "#FF00FF"
+    }
+  }
+}
