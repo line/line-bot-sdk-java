@@ -16,7 +16,7 @@
 
 package com.linecorp.bot.model.response;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -72,13 +72,13 @@ public class NarrowcastProgressResponse {
     /**
      * Narrowcast message request accepted time in milliseconds.
      */
-    ZonedDateTime acceptedTime;
+    Instant acceptedTime;
 
     /**
      * Processing of narrowcast message request completion time in milliseconds. Returned when the phase
      * property is succeeded or failed.
      */
-    ZonedDateTime completedTime;
+    Instant completedTime;
 
     public enum Phase {
         /**
