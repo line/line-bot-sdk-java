@@ -62,6 +62,18 @@
             <td>${progress.errorCode!"-"}</td>
             <td>A brief summary of the error.</td>
         </tr>
+        <tr>
+            <td>acceptedTime</td>
+            <td>${progress.acceptedTime!"-"}</td>
+            <td>Narrowcast message request accepted time in milliseconds.</td>
+        </tr>
+        <tr>
+            <td>completedTime</td>
+            <td>${progress.completedTime!"-"}</td>
+            <td>Processing of narrowcast message request completion time in milliseconds. Returned when the
+                phase property is succeeded or failed.
+            </td>
+        </tr>
     </table>
 
 </@wrapper.main>

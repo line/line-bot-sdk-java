@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.response;
 
+import java.time.ZonedDateTime;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -66,6 +68,17 @@ public class NarrowcastProgressResponse {
      * A brief summary of the error.
      */
     Long errorCode;
+
+    /**
+     * Narrowcast message request accepted time in milliseconds.
+     */
+    ZonedDateTime acceptedTime;
+
+    /**
+     * Processing of narrowcast message request completion time in milliseconds. Returned when the phase
+     * property is succeeded or failed.
+     */
+    ZonedDateTime completedTime;
 
     public enum Phase {
         /**
