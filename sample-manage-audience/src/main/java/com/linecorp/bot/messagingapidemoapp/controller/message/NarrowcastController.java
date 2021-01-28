@@ -130,7 +130,7 @@ public class NarrowcastController {
                             ).build()
             );
         }
-        Recipient recipientObject = recipient != null
+        Recipient recipientObject = StringUtils.isNotBlank(recipient)
                                     ? objectMapper.readValue(recipient, Recipient.class)
                                     : null;
 
