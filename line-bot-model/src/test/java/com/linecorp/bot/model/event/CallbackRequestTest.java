@@ -41,6 +41,8 @@ import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent.StickerResourceType;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent.Emoji;
+import com.linecorp.bot.model.event.message.TextMessageContent.Mention;
+import com.linecorp.bot.model.event.message.TextMessageContent.Mention.Mentionee;
 import com.linecorp.bot.model.event.message.UnknownMessageContent;
 import com.linecorp.bot.model.event.message.VideoMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
@@ -124,6 +126,46 @@ public class CallbackRequestTest {
             assertThat(emojis.get(0).getLength()).isEqualTo(6);
             assertThat(emojis.get(0).getProductId()).isEqualTo("5ac1bfd5040ab15980c9b435");
             assertThat(emojis.get(0).getEmojiId()).isEqualTo("001");
+        });
+    }
+
+    @Test
+    public void textTextMention() throws IOException {
+        parse("callback/text-mention.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            assertThat(callbackRequest.getDestination()).isEqualTo("Uab012345678901234567890123456789");
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(MessageEvent.class);
+            assertThat(event.getSource())
+                    .isInstanceOf(UserSource.class);
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
+            MessageEvent messageEvent = (MessageEvent) event;
+            assertThat(messageEvent.getReplyToken())
+                    .isEqualTo("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA");
+            MessageContent message = messageEvent.getMessage();
+            assertThat(message).isInstanceOf(TextMessageContent.class);
+
+            Mention mention = ((TextMessageContent) message).getMention();
+            assertThat(mention).isInstanceOf(TextMessageContent.Mention.class);
+            assertThat(mention.getMentionees()).isNotNull();
+
+            List<Mentionee> mentionees = mention.getMentionees();
+            assertThat(mentionees).hasSize(2);
+
+            Mentionee mentioneeBrown = mentionees.get(0);
+            assertThat(mentioneeBrown).isInstanceOf(TextMessageContent.Mention.Mentionee.class);
+            assertThat(mentioneeBrown.getIndex()).isEqualTo(13);
+            assertThat(mentioneeBrown.getLength()).isEqualTo(6);
+            assertThat(mentioneeBrown.getUserId()).isEqualTo("U12345678901234567890123456780");
+
+            Mentionee mentioneeCony = mentionees.get(1);
+            assertThat(mentioneeCony).isInstanceOf(TextMessageContent.Mention.Mentionee.class);
+            assertThat(mentioneeCony.getIndex()).isEqualTo(24);
+            assertThat(mentioneeCony.getLength()).isEqualTo(5);
+            assertThat(mentioneeCony.getUserId()).isNull();
         });
     }
 
