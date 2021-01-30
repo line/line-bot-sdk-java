@@ -100,7 +100,7 @@ public class TextMessageContent implements MessageContent {
     public static class Mention {
 
         /**
-         * List of mentioned user information, max of 20
+         * List of mentioned user information, max of 20.
          */
         List<Mentionee> mentionees;
 
