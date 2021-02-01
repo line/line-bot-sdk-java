@@ -50,6 +50,11 @@ public class TextMessageContent implements MessageContent {
      */
     List<Emoji> emojis;
 
+    /**
+     * Mention information.
+     */
+    Mention mention;
+
     @Value
     @Builder(toBuilder = true)
     @JsonDeserialize(builder = TextMessageContent.Emoji.EmojiBuilder.class)
@@ -86,6 +91,53 @@ public class TextMessageContent implements MessageContent {
         @JsonPOJOBuilder(withPrefix = "")
         public static class EmojiBuilder {
             // Providing builder instead of public constructor. Class body is filled by lombok.
+        }
+    }
+
+    @Value
+    @Builder(toBuilder = true)
+    @JsonDeserialize(builder = TextMessageContent.Mention.MentionBuilder.class)
+    public static class Mention {
+
+        /**
+         * List of mentioned user information, max of 20.
+         */
+        List<Mentionee> mentionees;
+
+        @JsonPOJOBuilder(withPrefix = "")
+        public static class MentionBuilder {
+            // Providing builder instead of public constructor. Class body is filled by lombok.
+        }
+
+        @Value
+        @Builder(toBuilder = true)
+        @JsonDeserialize(builder = TextMessageContent.Mention.Mentionee.MentioneeBuilder.class)
+        public static class Mentionee {
+
+            /**
+             * Index position of the user mention for a character in text,
+             * with the first character being at position 0.
+             */
+            int index;
+
+            /**
+             * The length of the text of the mentioned user.
+             * For a mention @example, 8 is the length.
+             */
+            int length;
+
+            /**
+             * User ID of the mentioned user.
+             * Only returned if the user consents to the
+             * LINE Official Account obtaining their user profile information.
+             * Or else will be null.
+             */
+            String userId;
+
+            @JsonPOJOBuilder(withPrefix = "")
+            public static class MentioneeBuilder {
+                // Providing builder instead of public constructor. Class body is filled by lombok.
+            }
         }
     }
 }

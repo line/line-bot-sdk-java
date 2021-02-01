@@ -1,0 +1,33 @@
+{
+  "destination": "Uab012345678901234567890123456789",
+  "events": [
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "message",
+      "timestamp": 1462629479859,
+      "mode": "active",
+      "source": {
+        "type": "user",
+        "userId": "u206d25c2ea6bd87c17655609a1c37cb8"
+      },
+      "message": {
+        "id": "325708",
+        "type": "text",
+        "text": "Hello, world @Brown and @Cony",
+        "mention": {
+          "mentionees": [
+            {
+              "index": 13,
+              "length": 6,
+              "userId": "U12345678901234567890123456780"
+            },
+            {
+              "index": 24,
+              "length": 5
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
