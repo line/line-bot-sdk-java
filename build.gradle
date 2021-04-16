@@ -243,7 +243,6 @@ task codeCoverageReport(type: JacocoReport) {
     }
 }
 
-// https://docs.gradle.org/6.7.1/userguide/publishing_maven.html
 [':line-bot-api-client', ':line-bot-model', 'line-bot-parser', ':line-bot-servlet', ':line-bot-spring-boot', ':line-bot-cli'].each { projectName ->
     project(projectName) { project ->
         apply plugin: 'jacoco'
