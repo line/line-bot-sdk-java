@@ -247,55 +247,53 @@ task codeCoverageReport(type: JacocoReport) {
     project(projectName) { project ->
         apply plugin: 'jacoco'
         apply plugin: 'signing'
-        apply plugin: 'maven'
+        apply plugin: 'maven-publish'
 
         signing {
             required { isReleaseBuild }
             sign configurations.archives
         }
 
-        uploadArchives {
+        publishing {
             repositories {
-                if (isDevBuild) {
-                    mavenLocal()
-                } else {
-                    mavenDeployer {
-                        if (isReleaseBuild) {
-                            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+                if (isReleaseBuild) {
+                    maven {
+                        url = sonatypeRepositoryUrl
+                        credentials {
+                            username sonatypeUsername
+                            password sonatypePassword
                         }
+                    }
+                }
+            }
+            publications {
+                maven(MavenPublication) {
+                    pom {
+                        name = project.name
+                        description = project.description
+                        url = 'https://github.com/line/line-bot-sdk-java'
 
-                        repository(url: sonatypeRepositoryUrl) {
-                            authentication(userName: sonatypeUsername, password: sonatypePassword)
+                        scm {
+                            url = 'scm:git@github.com:line/line-bot-sdk-java.git'
+                            connection = 'scm:git@github.com:line/line-bot-sdk-java.git'
+                            developerConnection = 'scm:git@github.com:line/line-bot-sdk-java.git'
                         }
-
-                        pom.project {
-                            name project.name
-                            packaging 'jar'
-                            description project.description
-                            url 'https://github.com/line/line-bot-sdk-java'
-
-                            scm {
-                                url 'scm:git@github.com:line/line-bot-sdk-java.git'
-                                connection 'scm:git@github.com:line/line-bot-sdk-java.git'
-                                developerConnection 'scm:git@github.com:line/line-bot-sdk-java.git'
+                        licenses {
+                            license {
+                                name = 'Apache'
+                                url = 'https://opensource.org/licenses/Apache-2.0'
                             }
-                            licenses {
-                                license {
-                                    name 'Apache'
-                                    url 'https://opensource.org/licenses/Apache-2.0'
-                                }
+                        }
+                        developers {
+                            developer {
+                                id = 'tokuhirom'
+                                name = 'Tokuhiro Matsuno'
+                                email = 'tokuhirom@gmail.com'
                             }
-                            developers {
-                                developer {
-                                    id 'tokuhirom'
-                                    name 'Tokuhiro Matsuno'
-                                    email 'tokuhirom@gmail.com'
-                                }
-                                developer {
-                                    id 'kazuki-ma'
-                                    name 'Kazuki MATSUDA'
-                                    email 'matsuda.kazuki@gmail.com'
-                                }
+                            developer {
+                                id = 'kazuki-ma'
+                                name = 'Kazuki MATSUDA'
+                                email = 'matsuda.kazuki@gmail.com'
                             }
                         }
                     }
