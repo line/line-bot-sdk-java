@@ -27,11 +27,13 @@ import org.springframework.stereotype.Component;
 import com.linecorp.bot.parser.LineSignatureValidator;
 import com.linecorp.bot.parser.WebhookParser;
 import com.linecorp.bot.spring.boot.interceptor.LineBotServerInterceptor;
+import com.linecorp.bot.spring.boot.support.LineBotDestinationArgumentProcessor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
 
 @Component
 @ConditionalOnWebApplication
-@Import({ LineBotServerInterceptor.class, LineBotServerArgumentProcessor.class })
+@Import({ LineBotServerInterceptor.class, LineBotServerArgumentProcessor.class,
+        LineBotDestinationArgumentProcessor.class})
 public class LineBotWebMvcBeans {
     @Autowired
     private LineBotProperties lineBotProperties;

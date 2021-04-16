@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.spring.boot.support;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -46,6 +47,7 @@ import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.ReplyEvent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
+import com.linecorp.bot.spring.boot.annotation.LineBotDestination;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
@@ -125,37 +127,7 @@ public class LineMessageHandlerSupport {
             return null;
         }
 
-        Preconditions.checkState(method.getParameterCount() == 1,
-                                 "Number of parameter should be 1. But {}",
-                                 (Object[]) method.getParameterTypes());
-        // TODO: Support more than 1 argument. Like MVC's argument resolver?
-
-        final Type type = method.getGenericParameterTypes()[0];
-
-        final Predicate<Event> predicate = new EventPredicate(type);
-        return new HandlerMethod(predicate, consumer, method, getPriority(mapping, type));
-    }
-
-    private int getPriority(final EventMapping mapping, final Type type) {
-        if (mapping.priority() != EventMapping.DEFAULT_PRIORITY_VALUE) {
-            return mapping.priority();
-        }
-
-        if (type == Event.class) {
-            return EventMapping.DEFAULT_PRIORITY_FOR_EVENT_IFACE;
-        }
-
-        if (type instanceof Class) {
-            return ((Class<?>) type).isInterface()
-                   ? EventMapping.DEFAULT_PRIORITY_FOR_IFACE
-                   : EventMapping.DEFAULT_PRIORITY_FOR_CLASS;
-        }
-
-        if (type instanceof ParameterizedType) {
-            return EventMapping.DEFAULT_PRIORITY_FOR_PARAMETRIZED_TYPE;
-        }
-
-        throw new IllegalStateException();
+        return new HandlerMethod(consumer, method, mapping);
     }
 
     @Value
@@ -164,17 +136,81 @@ public class LineMessageHandlerSupport {
         Object object;
         Method handler;
         int priority;
+
+        HandlerMethod(Object object, Method handler, EventMapping mapping) {
+            this.object = object;
+            this.handler = handler;
+
+            // TODO: Support more flexible argument resolver. Like MVC's argument resolver?
+            int parameterCount = handler.getParameterCount();
+            if (parameterCount == 1) {
+                final Type type = handler.getGenericParameterTypes()[0];
+                this.supportType = new EventPredicate(type);
+                this.priority = calcPriority(mapping, type);
+            } else if (parameterCount == 2) {
+                Annotation[] parameterAnnotations = handler.getParameterAnnotations()[0];
+                Preconditions.checkState(
+                        Arrays.stream(parameterAnnotations)
+                              .filter(it -> it instanceof LineBotDestination)
+                              .count() == 1,
+                        "1st argument of the event hnadler should have @LineBotDestination annotation"
+                        + " when the method have 2 arguments."
+                );
+
+                final Type type = handler.getGenericParameterTypes()[1];
+                this.supportType = new EventPredicate(type);
+                this.priority = calcPriority(mapping, type);
+            } else {
+                throw new IllegalStateException("Number of parameter should be 1 or 2."
+                                                + " But " + Arrays.toString(handler.getParameterTypes()));
+            }
+        }
+
+        private int calcPriority(final EventMapping mapping, final Type type) {
+            if (mapping.priority() != EventMapping.DEFAULT_PRIORITY_VALUE) {
+                return mapping.priority();
+            }
+
+            if (type == Event.class) {
+                return EventMapping.DEFAULT_PRIORITY_FOR_EVENT_IFACE;
+            }
+
+            if (type instanceof Class) {
+                return ((Class<?>) type).isInterface()
+                       ? EventMapping.DEFAULT_PRIORITY_FOR_IFACE
+                       : EventMapping.DEFAULT_PRIORITY_FOR_CLASS;
+            }
+
+            if (type instanceof ParameterizedType) {
+                return EventMapping.DEFAULT_PRIORITY_FOR_PARAMETRIZED_TYPE;
+            }
+
+            throw new IllegalStateException();
+        }
+
+        Object invoke(String destination, Event event) throws Exception {
+            int count = handler.getParameterCount();
+            if (count == 1) {
+                return handler.invoke(object, event);
+            } else if (count == 2) {
+                return handler.invoke(object, destination, event);
+            } else {
+                throw new IllegalStateException();
+            }
+        }
     }
 
     @PostMapping("${line.bot.handler.path:/callback}")
-    public void callback(@LineBotMessages List<Event> events) {
-        events.forEach(this::dispatch);
+    public void callback(@LineBotDestination String destination, @LineBotMessages List<Event> events) {
+        events.forEach(event -> {
+            this.dispatch(destination, event);
+        });
     }
 
     @VisibleForTesting
-    void dispatch(Event event) {
+    void dispatch(String destination, Event event) {
         try {
-            dispatchInternal(event);
+            dispatchInternal(destination, event);
         } catch (InvocationTargetException e) {
             log.error("InvocationTargetException occurred.", e);
         } catch (Error | Exception e) {
@@ -182,13 +218,13 @@ public class LineMessageHandlerSupport {
         }
     }
 
-    private void dispatchInternal(final Event event) throws Exception {
+    private void dispatchInternal(final String destination, final Event event) throws Exception {
         final HandlerMethod handlerMethod = eventConsumerList
                 .stream()
                 .filter(consumer -> consumer.getSupportType().test(event))
                 .findFirst()
                 .orElseThrow(() -> new UnsupportedOperationException("Unsupported event type. " + event));
-        final Object returnValue = handlerMethod.getHandler().invoke(handlerMethod.getObject(), event);
+        final Object returnValue = handlerMethod.invoke(destination, event);
 
         handleReturnValue(event, returnValue);
     }
