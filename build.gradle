@@ -247,53 +247,55 @@ task codeCoverageReport(type: JacocoReport) {
     project(projectName) { project ->
         apply plugin: 'jacoco'
         apply plugin: 'signing'
-        apply plugin: 'maven-publish'
+        apply plugin: 'maven'
 
         signing {
             required { isReleaseBuild }
             sign configurations.archives
         }
 
-        publishing {
+        uploadArchives {
             repositories {
-                if (isReleaseBuild) {
-                    maven {
-                        url = sonatypeRepositoryUrl
-                        credentials {
-                            username sonatypeUsername
-                            password sonatypePassword
+                if (isDevBuild) {
+                    mavenLocal()
+                } else {
+                    mavenDeployer {
+                        if (isReleaseBuild) {
+                            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
                         }
-                    }
-                }
-            }
-            publications {
-                maven(MavenPublication) {
-                    pom {
-                        name = project.name
-                        description = project.description
-                        url = 'https://github.com/line/line-bot-sdk-java'
 
-                        scm {
-                            url = 'scm:git@github.com:line/line-bot-sdk-java.git'
-                            connection = 'scm:git@github.com:line/line-bot-sdk-java.git'
-                            developerConnection = 'scm:git@github.com:line/line-bot-sdk-java.git'
+                        repository(url: sonatypeRepositoryUrl) {
+                            authentication(userName: sonatypeUsername, password: sonatypePassword)
                         }
-                        licenses {
-                            license {
-                                name = 'Apache'
-                                url = 'https://opensource.org/licenses/Apache-2.0'
+
+                        pom.project {
+                            name project.name
+                            packaging 'jar'
+                            description project.description
+                            url 'https://github.com/line/line-bot-sdk-java'
+
+                            scm {
+                                url 'scm:git@github.com:line/line-bot-sdk-java.git'
+                                connection 'scm:git@github.com:line/line-bot-sdk-java.git'
+                                developerConnection 'scm:git@github.com:line/line-bot-sdk-java.git'
                             }
-                        }
-                        developers {
-                            developer {
-                                id = 'tokuhirom'
-                                name = 'Tokuhiro Matsuno'
-                                email = 'tokuhirom@gmail.com'
+                            licenses {
+                                license {
+                                    name 'Apache'
+                                    url 'https://opensource.org/licenses/Apache-2.0'
+                                }
                             }
-                            developer {
-                                id = 'kazuki-ma'
-                                name = 'Kazuki MATSUDA'
-                                email = 'matsuda.kazuki@gmail.com'
+                            developers {
+                                developer {
+                                    id 'tokuhirom'
+                                    name 'Tokuhiro Matsuno'
+                                    email 'tokuhirom@gmail.com'
+                                }
+                                developer {
+                                    id 'kazuki-ma'
+                                    name 'Kazuki MATSUDA'
+                                    email 'matsuda.kazuki@gmail.com'
+                                }
                             }
                         }
                     }
