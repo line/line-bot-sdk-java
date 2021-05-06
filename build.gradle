@@ -33,7 +33,7 @@ buildscript {
     dependencies {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.36.0'
         classpath 'com.puppycrawl.tools:checkstyle:8.42'
-        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.0'
+        classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.1'
         classpath 'io.franzbecker:gradle-lombok:4.0.0'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE'
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
@@ -92,7 +92,7 @@ subprojects {
 
         dependencies {
             dependency 'com.google.guava:guava:' + ext['guava.version']
-            dependency 'com.github.stefanbirkner:system-lambda:1.1.1'
+            dependency 'com.github.stefanbirkner:system-lambda:1.2.0'
             dependencySet(group: 'com.squareup.retrofit2', version: ext['retrofit.version']) {
                 entry 'converter-jackson'
                 entry 'retrofit'
@@ -247,53 +247,55 @@ task codeCoverageReport(type: JacocoReport) {
     project(projectName) { project ->
         apply plugin: 'jacoco'
         apply plugin: 'signing'
-        apply plugin: 'maven-publish'
+        apply plugin: 'maven'
 
         signing {
             required { isReleaseBuild }
             sign configurations.archives
         }
 
-        publishing {
+        uploadArchives {
             repositories {
-                if (isReleaseBuild) {
-                    maven {
-                        url = sonatypeRepositoryUrl
-                        credentials {
-                            username sonatypeUsername
-                            password sonatypePassword
+                if (isDevBuild) {
+                    mavenLocal()
+                } else {
+                    mavenDeployer {
+                        if (isReleaseBuild) {
+                            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
                         }
-                    }
-                }
-            }
-            publications {
-                maven(MavenPublication) {
-                    pom {
-                        name = project.name
-                        description = project.description
-                        url = 'https://github.com/line/line-bot-sdk-java'
 
-                        scm {
-                            url = 'scm:git@github.com:line/line-bot-sdk-java.git'
-                            connection = 'scm:git@github.com:line/line-bot-sdk-java.git'
-                            developerConnection = 'scm:git@github.com:line/line-bot-sdk-java.git'
+                        repository(url: sonatypeRepositoryUrl) {
+                            authentication(userName: sonatypeUsername, password: sonatypePassword)
                         }
-                        licenses {
-                            license {
-                                name = 'Apache'
-                                url = 'https://opensource.org/licenses/Apache-2.0'
+
+                        pom.project {
+                            name project.name
+                            packaging 'jar'
+                            description project.description
+                            url 'https://github.com/line/line-bot-sdk-java'
+
+                            scm {
+                                url 'scm:git@github.com:line/line-bot-sdk-java.git'
+                                connection 'scm:git@github.com:line/line-bot-sdk-java.git'
+                                developerConnection 'scm:git@github.com:line/line-bot-sdk-java.git'
                             }
-                        }
-                        developers {
-                            developer {
-                                id = 'tokuhirom'
-                                name = 'Tokuhiro Matsuno'
-                                email = 'tokuhirom@gmail.com'
+                            licenses {
+                                license {
+                                    name 'Apache'
+                                    url 'https://opensource.org/licenses/Apache-2.0'
+                                }
                             }
-                            developer {
-                                id = 'kazuki-ma'
-                                name = 'Kazuki MATSUDA'
-                                email = 'matsuda.kazuki@gmail.com'
+                            developers {
+                                developer {
+                                    id 'tokuhirom'
+                                    name 'Tokuhiro Matsuno'
+                                    email 'tokuhirom@gmail.com'
+                                }
+                                developer {
+                                    id 'kazuki-ma'
+                                    name 'Kazuki MATSUDA'
+                                    email 'matsuda.kazuki@gmail.com'
+                                }
                             }
                         }
                     }
