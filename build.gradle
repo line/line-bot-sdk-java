@@ -21,7 +21,7 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 buildscript {
     ext {
-        kotlin_version = '1.4.32'
+        kotlin_version = '1.5.0'
         spring_boot_version = '2.3.5.RELEASE'
     }
 
@@ -31,7 +31,7 @@ buildscript {
         maven { url 'https://repo.spring.io/plugins-release' }
     }
     dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.36.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.38.0'
         classpath 'com.puppycrawl.tools:checkstyle:8.42'
         classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.1'
         classpath 'io.franzbecker:gradle-lombok:4.0.0'
