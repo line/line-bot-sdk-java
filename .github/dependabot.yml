@@ -1,0 +1,17 @@
+version: 2
+updates:
+- package-ecosystem: gradle
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "20:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: org.springframework.boot:spring-boot-gradle-plugin
+    versions:
+    - 2.4.2
+    - 2.4.3
+    - 2.4.4
+  - dependency-name: gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin
+    versions:
+    - 4.6.1
