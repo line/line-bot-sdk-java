@@ -18,8 +18,8 @@ package com.linecorp.bot.client;
 
 import java.net.URI;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,7 +45,7 @@ public abstract class AbstractWiremockTest {
     protected LineBlobClient lineBlobClient;
     protected ChannelManagementSyncClient channelManagementSyncClient;
 
-    @Before
+    @BeforeEach
     public void setUpWireMock() {
         mockWebServer = new MockWebServer();
         lineMessagingClient = createLineMessagingClient(mockWebServer);
@@ -53,7 +53,7 @@ public abstract class AbstractWiremockTest {
         channelManagementSyncClient = createChannelManagementSyncClient(mockWebServer);
     }
 
-    @After
+    @AfterEach
     public void shutDownWireMock() throws Exception {
         mockWebServer.shutdown();
     }

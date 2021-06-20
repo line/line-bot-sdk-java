@@ -24,7 +24,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DatetimePickerFieldSerializerTest {
     final DatetimePickerFieldSerializer target = new DatetimePickerFieldSerializer();

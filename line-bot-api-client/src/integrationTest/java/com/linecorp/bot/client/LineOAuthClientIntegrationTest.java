@@ -19,19 +19,17 @@ package com.linecorp.bot.client;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assumptions.assumeThat;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.text.ParseException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.yaml.snakeyaml.Yaml;
 
@@ -58,8 +56,8 @@ public class LineOAuthClientIntegrationTest {
     private String channelSecret;
     private String kid;
 
-    @Before
-    public void setUp() throws IOException, ParseException {
+    @BeforeEach
+    public void setUp() throws Exception {
         assumeThat(TEST_RESOURCE)
                 .isNotNull();
 
@@ -77,9 +75,6 @@ public class LineOAuthClientIntegrationTest {
         jwk = JWK.parse((String) map.get("jwk"));
 
         kid = jwk.getKeyID();
-        assumeThat(kid).describedAs("kid must not be null")
-                       .isNotNull();
-
         channelId = String.valueOf(map.get("channelId"));
         channelSecret = (String) map.get("channelSecret");
     }

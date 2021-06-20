@@ -19,7 +19,7 @@ package com.linecorp.bot.model.message;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.linecorp.bot.model.message.sender.Sender;
 

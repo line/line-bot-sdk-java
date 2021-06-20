@@ -22,7 +22,7 @@ import static org.springframework.util.StreamUtils.copyToByteArray;
 
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -27,8 +27,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
 import org.assertj.core.util.Sets;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.linecorp.bot.client.exception.ConflictException;
 import com.linecorp.bot.model.Broadcast;
@@ -51,7 +51,7 @@ public class RetryableLineMessagingClientImplIntegrationTest {
     private RetryableLineMessagingClient target;
     private IntegrationTestSettings settings;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         settings = IntegrationTestSettingsLoader.load();
         target = RetryableLineMessagingClientFactory.create(settings);

@@ -19,24 +19,19 @@ package com.linecorp.bot.client;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.net.URI;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
+@ExtendWith(MockitoExtension.class)
 public class LineMessagingClientBuilderTest extends AbstractWiremockTest {
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
     @Test
     public void testBuildWithFixedToken() throws InterruptedException {
         lineMessagingClient = new LineMessagingClientBuilder()
                 .channelToken("MOCKED_TOKEN")
-                .apiEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
+                .apiEndPoint("http://localhost:" + mockWebServer.getPort())
                 .build();
 
         // Do
@@ -52,7 +47,7 @@ public class LineMessagingClientBuilderTest extends AbstractWiremockTest {
     public void testBuilderWithChannelTokenSupplier() throws InterruptedException {
         lineMessagingClient =
                 LineMessagingClient.builder(() -> "MOCKED_TOKEN")
-                                   .apiEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
+                                   .apiEndPoint("http://localhost:" + mockWebServer.getPort())
                                    .build();
 
         // Do

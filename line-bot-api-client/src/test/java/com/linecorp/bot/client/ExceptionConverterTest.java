@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
 import com.linecorp.bot.client.exception.LineMessagingException;

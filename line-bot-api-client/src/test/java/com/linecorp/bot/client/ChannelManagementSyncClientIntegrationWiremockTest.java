@@ -21,7 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -38,7 +39,8 @@ public class ChannelManagementSyncClientIntegrationWiremockTest
         extends AbstractWiremockTest {
     private static final ObjectMapper OBJECT_MAPPER = ModelObjectMapper.createNewObjectMapper();
 
-    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    @Test
+    @Timeout(ASYNC_TEST_TIMEOUT)
     public void testAddLiffMenu() throws Exception {
         // Mocking
         LiffAppAddResponse response = new LiffAppAddResponse("NEW_LIFF_ID");

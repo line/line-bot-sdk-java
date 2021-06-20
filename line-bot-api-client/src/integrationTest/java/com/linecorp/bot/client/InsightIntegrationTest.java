@@ -19,8 +19,8 @@ package com.linecorp.bot.client;
 import java.io.IOException;
 import java.util.Collections;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.message.TextMessage;
@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 public class InsightIntegrationTest {
     private LineMessagingClient target;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         IntegrationTestSettings settings = IntegrationTestSettingsLoader.load();
         target = LineMessagingClientFactory.create(settings);
