@@ -48,6 +48,10 @@ import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
+import com.linecorp.bot.model.richmenualias.CreateRichMenuAliasRequest;
+import com.linecorp.bot.model.richmenualias.RichMenuAliasListResponse;
+import com.linecorp.bot.model.richmenualias.RichMenuAliasResponse;
+import com.linecorp.bot.model.richmenualias.UpdateRichMenuAliasRequest;
 import com.linecorp.bot.model.room.RoomMemberCountResponse;
 
 import retrofit2.Call;
@@ -397,4 +401,47 @@ interface LineMessagingService {
 
     @POST("v2/bot/channel/webhook/test")
     Call<TestWebhookEndpointResponse> testWebhookEndpoint(@Body TestWebhookEndpointRequest request);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#createRichMenuAlias(CreateRichMenuAliasRequest)
+     */
+    @POST("v2/bot/richmenu/alias")
+    Call<BotApiResponseBody> createRichMenuAlias(@Body CreateRichMenuAliasRequest request);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#updateRichMenuAlias(String, UpdateRichMenuAliasRequest)
+     */
+    @POST("v2/bot/richmenu/alias/{richMenuAliasId}")
+    Call<BotApiResponseBody> updateRichMenuAlias(
+            @Path("richMenuAliasId") String richMenuAliasId,
+            @Body UpdateRichMenuAliasRequest request);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#getRichMenuAliasList()
+     */
+    @GET("v2/bot/richmenu/alias/list")
+    Call<RichMenuAliasListResponse> getRichMenuAliasList();
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#getRichMenuAlias(String)
+     */
+    @GET("v2/bot/richmenu/alias/{richMenuAliasId}")
+    Call<RichMenuAliasResponse> getRichMenuAlias(@Path("richMenuAliasId") String richMenuAliasId);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#deleteRichMenuAlias(String)
+     */
+    @DELETE("v2/bot/richmenu/alias/{richMenuAliasId}")
+    Call<BotApiResponseBody> deleteRichMenuAlias(@Path("richMenuAliasId") String richMenuAliasId);
+
 }

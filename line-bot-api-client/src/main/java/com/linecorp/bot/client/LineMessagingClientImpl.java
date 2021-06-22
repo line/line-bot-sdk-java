@@ -53,6 +53,10 @@ import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
+import com.linecorp.bot.model.richmenualias.CreateRichMenuAliasRequest;
+import com.linecorp.bot.model.richmenualias.RichMenuAliasListResponse;
+import com.linecorp.bot.model.richmenualias.RichMenuAliasResponse;
+import com.linecorp.bot.model.richmenualias.UpdateRichMenuAliasRequest;
 import com.linecorp.bot.model.room.RoomMemberCountResponse;
 
 import lombok.AllArgsConstructor;
@@ -258,6 +262,33 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<BotApiResponse> cancelDefaultRichMenu() {
         return toBotApiFuture(retrofitImpl.cancelDefaultRichMenu());
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> createRichMenuAlias(CreateRichMenuAliasRequest request) {
+        return toBotApiResponseFuture(retrofitImpl.createRichMenuAlias(request));
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> updateRichMenuAlias(String richMenuAliasId,
+                                                                 UpdateRichMenuAliasRequest request) {
+        return toBotApiResponseFuture(retrofitImpl.updateRichMenuAlias(richMenuAliasId, request));
+    }
+
+    @Override
+    public CompletableFuture<RichMenuAliasResponse> getRichMenuAlias(
+            String richMenuAliasId) {
+        return toFuture(retrofitImpl.getRichMenuAlias(richMenuAliasId));
+    }
+
+    @Override
+    public CompletableFuture<RichMenuAliasListResponse> getRichMenuAliasList() {
+        return toFuture(retrofitImpl.getRichMenuAliasList());
+    }
+
+    @Override
+    public CompletableFuture<BotApiResponse> deleteRichMenuAlias(String richMenuAliasId) {
+        return toBotApiResponseFuture(retrofitImpl.deleteRichMenuAlias(richMenuAliasId));
     }
 
     @Override

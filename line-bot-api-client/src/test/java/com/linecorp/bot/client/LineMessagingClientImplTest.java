@@ -77,6 +77,10 @@ import com.linecorp.bot.model.richmenu.RichMenuBulkUnlinkRequest;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
+import com.linecorp.bot.model.richmenualias.CreateRichMenuAliasRequest;
+import com.linecorp.bot.model.richmenualias.RichMenuAliasListResponse;
+import com.linecorp.bot.model.richmenualias.RichMenuAliasResponse;
+import com.linecorp.bot.model.richmenualias.UpdateRichMenuAliasRequest;
 import com.linecorp.bot.model.room.RoomMemberCountResponse;
 
 import okhttp3.Headers;
@@ -715,6 +719,76 @@ public class LineMessagingClientImplTest {
         final TestWebhookEndpointResponse actual = target.testWebhookEndpoint(request).get();
         verify(retrofitMock, only()).testWebhookEndpoint(request);
         assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void createRichMenuAliasTest() throws Exception {
+        final CreateRichMenuAliasRequest request = CreateRichMenuAliasRequest
+                .builder()
+                .richMenuAliasId("richmenu-alias-id")
+                .richMenuId("RICHMENU_ID")
+                .build();
+        whenCall(retrofitMock.createRichMenuAlias(request), BOT_API_SUCCESS_RESPONSE_BODY);
+        final BotApiResponse actual = target.createRichMenuAlias(request).get();
+        verify(retrofitMock, only()).createRichMenuAlias(request);
+        assertThat(actual).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
+    public void updateRichMenuAliasTest() throws Exception {
+        final UpdateRichMenuAliasRequest request = UpdateRichMenuAliasRequest
+                .builder()
+                .richMenuId("RICHMENU_ID")
+                .build();
+        final String richMenuAliasId = "richmenu-alias-id";
+        whenCall(retrofitMock.updateRichMenuAlias(richMenuAliasId, request), BOT_API_SUCCESS_RESPONSE_BODY);
+        final BotApiResponse actual = target.updateRichMenuAlias(richMenuAliasId, request).get();
+        verify(retrofitMock, only()).updateRichMenuAlias(richMenuAliasId, request);
+        assertThat(actual).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
+    public void getRichMenuAliasTest() throws Exception {
+        final String richMenuAliasId = "richmenu-alias-id";
+        final RichMenuAliasResponse response = RichMenuAliasResponse
+                .builder()
+                .richMenuAliasId(richMenuAliasId)
+                .richMenuId("RICHMENU_ID")
+                .build();
+        whenCall(retrofitMock.getRichMenuAlias(richMenuAliasId), response);
+        final RichMenuAliasResponse actual = target.getRichMenuAlias(richMenuAliasId).get();
+        verify(retrofitMock, only()).getRichMenuAlias(richMenuAliasId);
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void getRichMenuAliasListTest() throws Exception {
+        final RichMenuAliasListResponse response = RichMenuAliasListResponse
+                .builder()
+                .alias(RichMenuAliasResponse
+                               .builder()
+                               .richMenuAliasId("richmenu-alias-id-1")
+                               .richMenuId("RICHMENU_ID_1")
+                               .build())
+                .alias(RichMenuAliasResponse
+                               .builder()
+                               .richMenuAliasId("richmenu-alias-id-2")
+                               .richMenuId("RICHMENU_ID_2")
+                               .build())
+                .build();
+        whenCall(retrofitMock.getRichMenuAliasList(), response);
+        final RichMenuAliasListResponse actual = target.getRichMenuAliasList().get();
+        verify(retrofitMock, only()).getRichMenuAliasList();
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void deleteRichMenuAliasTest() throws Exception {
+        final String richMenuAliasId = "richmenu-alias-id";
+        whenCall(retrofitMock.deleteRichMenuAlias(richMenuAliasId), BOT_API_SUCCESS_RESPONSE_BODY);
+        final BotApiResponse actual = target.deleteRichMenuAlias(richMenuAliasId).get();
+        verify(retrofitMock, only()).deleteRichMenuAlias(richMenuAliasId);
+        assertThat(actual).isEqualTo(BOT_API_SUCCESS_RESPONSE);
     }
 
     // Utility methods
