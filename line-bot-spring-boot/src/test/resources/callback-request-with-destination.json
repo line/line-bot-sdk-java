@@ -1,5 +1,5 @@
 {
-  "destination": "U1111111111111111111111",
+  "destination": "U11111111111111111111111111111111",
   "events": [
     {
       "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
@@ -7,7 +7,7 @@
       "timestamp": 1462629479859,
       "source": {
         "type": "user",
-        "userId": "u206d25c2ea6bd87c17655609a1c37cb8"
+        "userId": "U206d25c2ea6bd87c17655609a1c37cb8"
       },
       "message": {
         "id": "325708",

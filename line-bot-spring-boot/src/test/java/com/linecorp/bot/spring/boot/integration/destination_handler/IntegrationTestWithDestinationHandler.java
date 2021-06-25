@@ -103,7 +103,7 @@ public class IntegrationTestWithDestinationHandler {
     public void validCallbackTest() throws Exception {
         server.enqueue(new MockResponse().setBody("{}"));
 
-        String signature = "gE37NHSFgqkPck7uHtXBFR0ahs7+C4ABYCsC7/h1Ji4=";
+        String signature = "JrTTkLoW+Qj8pWajBMzZJ70O3katMjJKUlXaMFiIdkI=";
 
         InputStream resource = getClass().getClassLoader()
                                          .getResourceAsStream("callback-request-with-destination.json");
@@ -123,7 +123,7 @@ public class IntegrationTestWithDestinationHandler {
                 .isEqualTo("{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\","
                            + "\"messages\":["
                            + "{\"type\":\"text\","
-                           + "\"text\":\"Hello, world! with destination U1111111111111111111111\"}],"
+                           + "\"text\":\"Hello, world! with destination U11111111111111111111111111111111\"}],"
                            + "\"notificationDisabled\":false}");
     }
 }
