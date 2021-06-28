@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2021 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -14,16 +14,13 @@
  * under the License.
  */
 
-package com.linecorp.bot.spring.boot;
+package com.linecorp.bot.spring.boot.integration.destination_handler;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.InputStream;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
@@ -38,24 +35,19 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.google.common.io.ByteStreams;
 
 import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.event.Event;
-import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
-import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.spring.boot.IntegrationTest.MyController;
-import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
+import com.linecorp.bot.spring.boot.annotation.EventMapping;
+import com.linecorp.bot.spring.boot.annotation.LineBotDestination;
+import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+import com.linecorp.bot.spring.boot.integration.destination_handler.IntegrationTestWithDestinationHandler.MyController;
 
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -63,11 +55,10 @@ import okhttp3.mockwebserver.RecordedRequest;
 
 // integration test
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { IntegrationTest.class, MyController.class },
-        properties = "line.bot.handler.enabled=false")
+@SpringBootTest(classes = { IntegrationTestWithDestinationHandler.class, MyController.class })
 @WebAppConfiguration
 @SpringBootApplication
-public class IntegrationTest {
+public class IntegrationTestWithDestinationHandler {
 
     static {
         System.setProperty("line.bot.channelSecret", "SECRET");
@@ -80,37 +71,19 @@ public class IntegrationTest {
     private MockMvc mockMvc;
     private static MockWebServer server;
 
-    @RestController
+    @LineMessageHandler
     @Slf4j
     public static class MyController {
         @Autowired
         private LineMessagingClient lineMessagingClient;
 
-        @PostMapping("/callback")
-        public void callback(@NonNull @LineBotMessages List<Event> events) throws Exception {
-            log.info("Got request: {}", events);
-
-            for (Event event : events) {
-                this.handleEvent(event);
-            }
-        }
-
-        private void handleEvent(Event event) throws Exception {
-            if (event instanceof MessageEvent) {
-                MessageContent content = ((MessageEvent) event).getMessage();
-                if (content instanceof TextMessageContent) {
-                    String text = ((TextMessageContent) content).getText();
-                    lineMessagingClient.replyMessage(
-                            new ReplyMessage(((MessageEvent) event).getReplyToken(),
-                                             new TextMessage(text)))
-                                       .get();
-                }
-            } else if (event instanceof FollowEvent) {
-                lineMessagingClient.replyMessage(
-                        new ReplyMessage(((FollowEvent) event).getReplyToken(),
-                                         new TextMessage("follow")))
-                                   .get();
-            }
+        @EventMapping
+        public TextMessage handleTextMessageEvent(@LineBotDestination String destination,
+                                                  MessageEvent<TextMessageContent> event) throws Exception {
+            log.info("Got request: destination={} {}", destination, event);
+            TextMessageContent content = event.getMessage();
+            String text = content.getText();
+            return new TextMessage(text + " " + destination);
         }
     }
 
@@ -127,22 +100,13 @@ public class IntegrationTest {
     }
 
     @Test
-    public void missingSignatureTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/callback")
-                                              .content("{}"))
-               .andDo(print())
-               .andExpect(status().isBadRequest())
-               .andExpect(content().string(containsString("Missing 'X-Line-Signature' header")));
-    }
-
-    @Test
     public void validCallbackTest() throws Exception {
         server.enqueue(new MockResponse().setBody("{}"));
-        server.enqueue(new MockResponse().setBody("{}"));
 
-        String signature = "ECezgIpQNUEp4OSHYd7xGSuFG7e66MLPkCkK1Y28XTU=";
+        String signature = "JrTTkLoW+Qj8pWajBMzZJ70O3katMjJKUlXaMFiIdkI=";
 
-        InputStream resource = getClass().getClassLoader().getResourceAsStream("callback-request.json");
+        InputStream resource = getClass().getClassLoader()
+                                         .getResourceAsStream("callback-request-with-destination.json");
         byte[] json = ByteStreams.toByteArray(resource);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/callback")
@@ -157,16 +121,9 @@ public class IntegrationTest {
         assertThat(request1.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
         assertThat(request1.getBody().readUtf8())
                 .isEqualTo("{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\","
-                           + "\"messages\":[{\"type\":\"text\",\"text\":\"Hello, world\"}],"
-                           + "\"notificationDisabled\":false}");
-
-        // Test request 2
-        RecordedRequest request2 = server.takeRequest(3, TimeUnit.SECONDS);
-        assertThat(request2.getPath()).isEqualTo("/v2/bot/message/reply");
-        assertThat(request2.getHeader("Authorization")).isEqualTo("Bearer TOKEN");
-        assertThat(request2.getBody().readUtf8())
-                .isEqualTo("{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\","
-                           + "\"messages\":[{\"type\":\"text\",\"text\":\"follow\"}],"
+                           + "\"messages\":["
+                           + "{\"type\":\"text\","
+                           + "\"text\":\"Hello, world! with destination U11111111111111111111111111111111\"}],"
                            + "\"notificationDisabled\":false}");
     }
 }

@@ -34,6 +34,7 @@ import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.parser.WebhookParseException;
 import com.linecorp.bot.parser.WebhookParser;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
+import com.linecorp.bot.spring.boot.support.LineBotDestinationArgumentProcessor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
 
 import lombok.AllArgsConstructor;
@@ -64,6 +65,7 @@ public class LineBotServerInterceptor implements HandlerInterceptor {
                 final byte[] payload = StreamUtils.copyToByteArray(request.getInputStream());
                 final CallbackRequest callbackRequest = webhookParser.handle(signatureHeader, payload);
                 LineBotServerArgumentProcessor.setValue(request, callbackRequest);
+                LineBotDestinationArgumentProcessor.setValue(request, callbackRequest);
                 return true;
             } catch (WebhookParseException e) {
                 log.info("LINE Bot callback exception: {}", e.getMessage());

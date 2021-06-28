@@ -49,7 +49,7 @@ You can then get parsed messages like the following:
 @LineMessageHandler
 public class EchoApplication {
     @EventMapping
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
         return new TextMessage(event.getMessage().getText());
     }
@@ -67,6 +67,29 @@ All methods detected by SDK is logged into start up time as follows.
 ```
 c.l.b.s.b.s.LineMessageHandlerSupport    : Mapped "[MessageEvent<TextMessageContent>]" onto public java.util.List<com.linecorp.bot.model.message.TextMessage> com.example.bot.spring.echo.EchoApplication.handleTextMessageEvent(com.linecorp.bot.model.event.MessageEvent<com.linecorp.bot.model.event.message.TextMessageContent>) throws java.lang.Exception
 c.l.b.s.b.s.LineMessageHandlerSupport    : Mapped "[Event]" onto public void com.example.bot.spring.echo.EchoApplication.handleDefaultMessageEvent(com.linecorp.bot.model.event.Event)
+```
+
+### Using destination
+
+LINE Messaging API sends `destination` field in
+a <a href="https://developers.line.biz/en/reference/messaging-api/#request-body">
+request body</a>. You can handle it with `line-bot-spring-boot`.
+
+You can put the String parameter with `@LineBotDestination` as the first parameter of the event handler.
+`line-bot-spring-boot` pass the `destination` field as the argument. Then, put the event object as a second
+parameter.
+
+```java
+
+@LineMessageHandler
+public class EchoApplication {
+    @EventMapping
+    public TextMessage handleTextMessageEvent(@LineBotDestination String destination,
+                                              MessageEvent<TextMessageContent> event) {
+        System.out.println("event: " + event);
+        return new TextMessage(event.getMessage().getText());
+    }
+}
 ```
 
 ## Configuration
