@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import lombok.Builder;
 import lombok.Value;
 
 /**
@@ -32,7 +31,6 @@ import lombok.Value;
  * <p> This action can be configured only with rich menus.
  */
 @Value
-@Builder
 @JsonTypeName("richmenuswitch")
 @JsonInclude(Include.NON_NULL)
 public class RichMenuSwitchAction implements Action {

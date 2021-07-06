@@ -16,22 +16,11 @@
 
 package com.linecorp.bot.model.richmenualias;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-
-import com.linecorp.bot.model.richmenualias.UpdateRichMenuAliasRequest.UpdateRichMenuAliasRequestBuilder;
-
 import lombok.Builder;
 import lombok.Value;
 
 @Value
 @Builder
-@JsonDeserialize(builder = UpdateRichMenuAliasRequestBuilder.class)
 public class UpdateRichMenuAliasRequest {
     String richMenuId;
-
-    @JsonPOJOBuilder(withPrefix = "")
-    public static class UpdateRichMenuAliasRequestBuilder {
-        // Filled by lombok
-    }
 }
