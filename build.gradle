@@ -32,7 +32,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.39.0'
-        classpath 'com.puppycrawl.tools:checkstyle:8.43'
+        classpath 'com.puppycrawl.tools:checkstyle:8.44'
         classpath 'gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.1'
         classpath 'io.franzbecker:gradle-lombok:4.0.0'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE'
