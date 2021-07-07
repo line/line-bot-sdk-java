@@ -28,7 +28,7 @@ import lombok.Value;
  * When this action is tapped, switch between rich menus and a postback event including the rich menu alias ID
  * selected by the user and the specified string in the data field is returned via webhook.
  *
- * <p> This action can be configured only with rich menus.
+ * <p>This action can be configured only with rich menus.
  */
 @Value
 @JsonTypeName("richmenuswitch")
@@ -59,7 +59,7 @@ public class RichMenuSwitchAction implements Action {
      * @param label Label for the action. Max: 20 characters.
      * @param data String returned via webhook in the postback.data property of the postback event.
      *         Max: 300 characters.
-     * @param richMenuAliasId: RichMenuAliasId to switch rich menu to.
+     * @param richMenuAliasId RichMenuAliasId to switch rich menu to.
      */
     @JsonCreator
     public RichMenuSwitchAction(
