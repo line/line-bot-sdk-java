@@ -50,6 +50,10 @@ import com.linecorp.bot.model.richmenu.RichMenu;
 import com.linecorp.bot.model.richmenu.RichMenuIdResponse;
 import com.linecorp.bot.model.richmenu.RichMenuListResponse;
 import com.linecorp.bot.model.richmenu.RichMenuResponse;
+import com.linecorp.bot.model.richmenualias.CreateRichMenuAliasRequest;
+import com.linecorp.bot.model.richmenualias.RichMenuAliasListResponse;
+import com.linecorp.bot.model.richmenualias.RichMenuAliasResponse;
+import com.linecorp.bot.model.richmenualias.UpdateRichMenuAliasRequest;
 import com.linecorp.bot.model.room.RoomMemberCountResponse;
 
 public interface LineMessagingClient {
@@ -339,6 +343,42 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.me/en/reference/messaging-api/#cancel-default-rich-menu">//developers.line.me/en/reference/messaging-api/#cancel-default-rich-menu</a>
      */
     CompletableFuture<BotApiResponse> cancelDefaultRichMenu();
+
+    /**
+     * Create a rich menu alias.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-rich-menu-alias">//developers.line.biz/en/reference/messaging-api/#create-rich-menu-alias</a>
+     */
+    CompletableFuture<BotApiResponse> createRichMenuAlias(CreateRichMenuAliasRequest request);
+
+    /**
+     * Update the rich menu Id which associated with the rich menu alias.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#update-rich-menu-alias">//developers.line.biz/en/reference/messaging-api/#update-rich-menu-alias</a>
+     */
+    CompletableFuture<BotApiResponse> updateRichMenuAlias(String richMenuAliasId,
+                                                          UpdateRichMenuAliasRequest request);
+
+    /**
+     * Get specified rich menu alias.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-rich-menu-alias-by-id">//developers.line.biz/en/reference/messaging-api/#get-rich-menu-alias-by-id</a>
+     */
+    CompletableFuture<RichMenuAliasResponse> getRichMenuAlias(String richMenuAliasId);
+
+    /**
+     * Get rich menu alias list.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-rich-menu-alias-list">//developers.line.biz/en/reference/messaging-api/#get-rich-menu-alias-list</a>
+     */
+    CompletableFuture<RichMenuAliasListResponse> getRichMenuAliasList();
+
+    /**
+     * Delete specified rich menu alias.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#delete-rich-menu-alias">//developers.line.biz/en/reference/messaging-api/#delete-rich-menu-alias</a>
+     */
+    CompletableFuture<BotApiResponse> deleteRichMenuAlias(String richMenuAliasId);
 
     /**
      * Issues a link token used for the account link feature.
