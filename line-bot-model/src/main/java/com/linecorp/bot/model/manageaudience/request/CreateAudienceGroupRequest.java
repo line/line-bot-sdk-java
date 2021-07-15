@@ -18,6 +18,8 @@ package com.linecorp.bot.model.manageaudience.request;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -52,6 +54,7 @@ public class CreateAudienceGroupRequest {
     /**
      * An array of up to 10,000 user IDs or IFAs.
      */
+    @JsonInclude(Include.NON_NULL)
     List<Audience> audiences;
 
     @JsonPOJOBuilder(withPrefix = "")
