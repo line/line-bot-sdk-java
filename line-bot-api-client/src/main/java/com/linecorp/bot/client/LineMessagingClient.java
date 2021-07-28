@@ -34,9 +34,12 @@ import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.BotInfoResponse;
+import com.linecorp.bot.model.response.GetAggregationUnitNameListResponse;
+import com.linecorp.bot.model.response.GetAggregationUnitUsageResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
+import com.linecorp.bot.model.response.GetStatisticsPerUnitResponse;
 import com.linecorp.bot.model.response.GetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
@@ -443,6 +446,32 @@ public interface LineMessagingClient {
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#test-webhook-endpoint">Test webhook endpoint</a>
      */
     CompletableFuture<TestWebhookEndpointResponse> testWebhookEndpoint(TestWebhookEndpointRequest request);
+
+    /**
+     * Get statistics per aggregation unit.
+     * <p>The API can only be used by corporate users who have submitted the required applications.</p>
+     *
+     * @see <a href="https://developers.line.biz/en/reference/partner-docs/#get-statistics-per-unit">Get statistics per unit</a>
+     */
+    CompletableFuture<GetStatisticsPerUnitResponse> getStatisticsPerUnit(String customAggregationUnit,
+                                                                         String from, String to);
+
+    /**
+     * Get number of units used this month.
+     * <p>The API can only be used by corporate users who have submitted the required applications.</p>
+     *
+     * @see <a href="https://developers.line.biz/en/reference/partner-docs/#get-number-of-units-used-this-month">Get number of units used this month</a>
+     */
+    CompletableFuture<GetAggregationUnitUsageResponse> getAggregationUnitUsage();
+
+    /**
+     * Get name list of units used this month.
+     * <p>The API can only be used by corporate users who have submitted the required applications.</p>
+     *
+     * @see <a href="https://developers.line.biz/en/reference/partner-docs/#get-name-list-of-units-used-this-month">Get name list of units used this month</a>
+     */
+    CompletableFuture<GetAggregationUnitNameListResponse> getAggregationUnitNameList(String limit,
+                                                                                     String start);
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));

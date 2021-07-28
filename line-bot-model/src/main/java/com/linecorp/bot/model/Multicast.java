@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.linecorp.bot.model.message.Message;
@@ -31,6 +33,7 @@ import lombok.Value;
  * Send messages to multiple users, groups, and rooms at any time.
  */
 @Value
+@JsonInclude(Include.NON_NULL)
 public class Multicast {
     /**
      * IDs of the receivers.
@@ -56,28 +59,46 @@ public class Multicast {
      */
     boolean notificationDisabled;
 
+    /**
+     * List of aggregation unit name. Case-sensitive.
+     * This functions can only be used by corporate users who have submitted the required applications.
+     *
+     * <p>Max: 1</p>
+     * <p>Maximum aggregation unit name length: 30 characters </p>
+     * <p>Supported character types: Half-width alphanumeric characters and underscore</p>
+     */
+    List<String> customAggregationUnits;
+
     public Multicast(final Set<String> to,
                      final Message message) {
-        this(to, Collections.singletonList(message), false);
+        this(to, Collections.singletonList(message), false, null);
     }
 
     public Multicast(final Set<String> to,
                      final List<Message> messages) {
-        this(to, messages, false);
+        this(to, messages, false, null);
     }
 
     public Multicast(final Set<String> to,
                      final Message message,
                      boolean notificationDisabled) {
-        this(to, Collections.singletonList(message), notificationDisabled);
+        this(to, Collections.singletonList(message), notificationDisabled, null);
+    }
+
+    public Multicast(final Set<String> to,
+                     final List<Message> messages,
+                     boolean notificationDisabled) {
+        this(to, messages, notificationDisabled, null);
     }
 
     @JsonCreator
     public Multicast(@JsonProperty("to") final Set<String> to,
                      @JsonProperty("messages") final List<Message> messages,
-                     @JsonProperty("notificationDisabled") boolean notificationDisabled) {
+                     @JsonProperty("notificationDisabled") boolean notificationDisabled,
+                     @JsonProperty("customAggregationUnits") final List<String> customAggregationUnits) {
         this.to = to;
         this.messages = messages;
         this.notificationDisabled = notificationDisabled;
+        this.customAggregationUnits = customAggregationUnits;
     }
 }
