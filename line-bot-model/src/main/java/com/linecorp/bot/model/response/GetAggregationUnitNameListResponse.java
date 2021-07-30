@@ -31,6 +31,11 @@ import lombok.Value;
 @JsonDeserialize(builder = GetAggregationUnitNameListResponseBuilder.class)
 public class GetAggregationUnitNameListResponse {
     List<String> customAggregationUnits;
+    /**
+     * A continuation token to get the next array of unit names. Non-null only when there are remaining
+     * aggregation units that were not returned in customAggregationUnits in the original request.
+     */
+    @Nullable
     String next;
 
     @JsonPOJOBuilder(withPrefix = "")
