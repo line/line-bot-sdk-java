@@ -50,15 +50,29 @@ public class PushMessage {
      */
     boolean notificationDisabled;
 
+    /**
+     * List of aggregation unit name. Case-sensitive.
+     * This functions can only be used by corporate users who have submitted the required applications.
+     *
+     * <p>Max: 1</p>
+     * <p>Maximum aggregation unit name length: 30 characters </p>
+     * <p>Supported character types: Half-width alphanumeric characters and underscore</p>
+     */
+    List<String> customAggregationUnits;
+
     public PushMessage(String to, Message message) {
-        this(to, Collections.singletonList(message), false);
+        this(to, Collections.singletonList(message), false, null);
     }
 
     public PushMessage(String to, List<Message> messages) {
-        this(to, messages, false);
+        this(to, messages, false, null);
     }
 
     public PushMessage(String to, Message message, boolean notificationDisabled) {
-        this(to, Collections.singletonList(message), notificationDisabled);
+        this(to, Collections.singletonList(message), notificationDisabled, null);
+    }
+
+    public PushMessage(String to, List<Message> messages, boolean notificationDisabled) {
+        this(to, messages, notificationDisabled, null);
     }
 }

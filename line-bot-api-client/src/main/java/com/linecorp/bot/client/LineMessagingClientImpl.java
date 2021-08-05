@@ -35,9 +35,12 @@ import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.BotInfoResponse;
+import com.linecorp.bot.model.response.GetAggregationUnitNameListResponse;
+import com.linecorp.bot.model.response.GetAggregationUnitUsageResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
+import com.linecorp.bot.model.response.GetStatisticsPerUnitResponse;
 import com.linecorp.bot.model.response.GetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
@@ -335,6 +338,23 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     public CompletableFuture<TestWebhookEndpointResponse> testWebhookEndpoint(
             TestWebhookEndpointRequest request) {
         return toFuture(retrofitImpl.testWebhookEndpoint(request));
+    }
+
+    @Override
+    public CompletableFuture<GetStatisticsPerUnitResponse> getStatisticsPerUnit(
+            String customAggregationUnit, String from, String to) {
+        return toFuture(retrofitImpl.getStatisticsPerUnit(customAggregationUnit, from, to));
+    }
+
+    @Override
+    public CompletableFuture<GetAggregationUnitUsageResponse> getAggregationUnitUsage() {
+        return toFuture(retrofitImpl.getAggregationUnitUsage());
+    }
+
+    @Override
+    public CompletableFuture<GetAggregationUnitNameListResponse> getAggregationUnitNameList(
+            String limit, String start) {
+        return toFuture(retrofitImpl.getAggregationUnitNameList(limit, start));
     }
 
     // TODO: Extract this method.

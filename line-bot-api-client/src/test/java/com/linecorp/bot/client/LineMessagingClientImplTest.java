@@ -59,8 +59,14 @@ import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.BotInfoResponse;
+import com.linecorp.bot.model.response.GetAggregationUnitNameListResponse;
+import com.linecorp.bot.model.response.GetAggregationUnitUsageResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
+import com.linecorp.bot.model.response.GetStatisticsPerUnitResponse;
+import com.linecorp.bot.model.response.GetStatisticsPerUnitResponse.Click;
+import com.linecorp.bot.model.response.GetStatisticsPerUnitResponse.Message;
+import com.linecorp.bot.model.response.GetStatisticsPerUnitResponse.Overview;
 import com.linecorp.bot.model.response.GetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
@@ -789,6 +795,73 @@ public class LineMessagingClientImplTest {
         final BotApiResponse actual = target.deleteRichMenuAlias(richMenuAliasId).get();
         verify(retrofitMock, only()).deleteRichMenuAlias(richMenuAliasId);
         assertThat(actual).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
+    public void getStatisticsPerUnitTest() throws Exception {
+        final String customAggregationUnit = "promotion_a";
+        final String from = "20210301";
+        final String to = "20210331";
+
+        final Overview overview = Overview.builder()
+                                          .uniqueImpression(4000L)
+                                          .uniqueClick(3000L)
+                                          .uniqueMediaPlayed(2800L)
+                                          .uniqueMediaPlayed100Percent(2500L)
+                                          .build();
+
+        final Message message = Message.builder()
+                                       .seq(1L)
+                                       .impression(4000L)
+                                       .mediaPlayed(2800L)
+                                       .uniqueMediaPlayed(2701L)
+                                       .build();
+
+        final Click click1 = Click.builder()
+                                  .seq(1L)
+                                  .url("https://example.com/1st")
+                                  .click(2500L)
+                                  .uniqueClick(2500L)
+                                  .uniqueClickOfRequest(2500L)
+                                  .build();
+
+        final GetStatisticsPerUnitResponse response =
+                GetStatisticsPerUnitResponse.builder()
+                                            .messages(singletonList(message))
+                                            .overview(overview)
+                                            .clicks(singletonList(click1))
+                                            .build();
+
+        whenCall(retrofitMock.getStatisticsPerUnit(customAggregationUnit, from, to), response);
+        final GetStatisticsPerUnitResponse actual =
+                target.getStatisticsPerUnit(customAggregationUnit, from, to).get();
+        verify(retrofitMock, only()).getStatisticsPerUnit(customAggregationUnit, from, to);
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void getAggregationUnitUsageTest() throws Exception {
+        final GetAggregationUnitUsageResponse response =
+                GetAggregationUnitUsageResponse.builder().numOfCustomAggregationUnits(100L).build();
+        whenCall(retrofitMock.getAggregationUnitUsage(), response);
+        final GetAggregationUnitUsageResponse actual = target.getAggregationUnitUsage().get();
+        verify(retrofitMock, only()).getAggregationUnitUsage();
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void getAggregationUnitNameListTest() throws Exception {
+        final String limit = "10";
+        final String start = "start";
+        final GetAggregationUnitNameListResponse response =
+                GetAggregationUnitNameListResponse.builder()
+                                                  .customAggregationUnits(singletonList("promotion_a"))
+                                                  .next("next")
+                                                  .build();
+        whenCall(retrofitMock.getAggregationUnitNameList(limit, start), response);
+        final GetAggregationUnitNameListResponse actual = target.getAggregationUnitNameList(limit, start).get();
+        verify(retrofitMock, only()).getAggregationUnitNameList(limit, start);
+        assertThat(actual).isEqualTo(response);
     }
 
     // Utility methods

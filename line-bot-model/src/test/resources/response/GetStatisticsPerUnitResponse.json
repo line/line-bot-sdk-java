@@ -1,0 +1,40 @@
+{
+  "overview": {
+    "uniqueImpression": 4,
+    "uniqueClick": 5,
+    "uniqueMediaPlayed": 2,
+    "uniqueMediaPlayed100Percent": -1
+  },
+  "messages": [
+    {
+      "seq": 1,
+      "impression": 18,
+      "mediaPlayed": 11,
+      "mediaPlayed25Percent": 25289,
+      "mediaPlayed50Percent": 523,
+      "mediaPlayed75Percent": 20,
+      "mediaPlayed100Percent": 9,
+      "uniqueMediaPlayed": 2,
+      "uniqueMediaPlayed25Percent": 1004,
+      "uniqueMediaPlayed50Percent": 204,
+      "uniqueMediaPlayed75Percent": 8,
+      "uniqueMediaPlayed100Percent": 2
+    }
+  ],
+  "clicks": [
+    {
+      "seq": 1,
+      "url": "https://example.com/1st",
+      "click": 100,
+      "uniqueClick": 45,
+      "uniqueClickOfRequest": 12
+    },
+    {
+      "seq": 2,
+      "url": "https://example.com/2nd",
+      "click": 29,
+      "uniqueClick": 10,
+      "uniqueClickOfRequest": 8
+    }
+  ]
+}

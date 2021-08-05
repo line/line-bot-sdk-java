@@ -30,9 +30,12 @@ import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotInfoResponse;
+import com.linecorp.bot.model.response.GetAggregationUnitNameListResponse;
+import com.linecorp.bot.model.response.GetAggregationUnitUsageResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
+import com.linecorp.bot.model.response.GetStatisticsPerUnitResponse;
 import com.linecorp.bot.model.response.GetWebhookEndpointResponse;
 import com.linecorp.bot.model.response.IssueLinkTokenResponse;
 import com.linecorp.bot.model.response.MessageQuotaResponse;
@@ -444,4 +447,31 @@ interface LineMessagingService {
     @DELETE("v2/bot/richmenu/alias/{richMenuAliasId}")
     Call<BotApiResponseBody> deleteRichMenuAlias(@Path("richMenuAliasId") String richMenuAliasId);
 
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#getStatisticsPerUnit(String, String, String)
+     */
+    @GET("v2/bot/insight/message/event/aggregation")
+    Call<GetStatisticsPerUnitResponse> getStatisticsPerUnit(
+            @Query("customAggregationUnit") String customAggregationUnit,
+            @Query("from") String from,
+            @Query("to") String to);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#getAggregationUnitUsage()
+     */
+    @GET("v2/bot/message/aggregation/info")
+    Call<GetAggregationUnitUsageResponse> getAggregationUnitUsage();
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#getAggregationUnitNameList(String, String)
+     */
+    @GET("v2/bot/message/aggregation/list")
+    Call<GetAggregationUnitNameListResponse> getAggregationUnitNameList(@Query("limit") String limit,
+                                                                        @Query("start") String start);
 }
