@@ -18,6 +18,8 @@ package com.linecorp.bot.model.response;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
