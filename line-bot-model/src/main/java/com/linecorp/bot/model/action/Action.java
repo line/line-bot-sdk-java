@@ -35,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
         @JsonSubTypes.Type(LocationAction.class),
         @JsonSubTypes.Type(MessageAction.class),
         @JsonSubTypes.Type(PostbackAction.class),
+        @JsonSubTypes.Type(RichMenuSwitchAction.class),
         @JsonSubTypes.Type(URIAction.class),
 })
 public interface Action {
