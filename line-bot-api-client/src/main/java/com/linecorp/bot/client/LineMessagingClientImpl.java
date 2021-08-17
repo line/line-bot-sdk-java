@@ -31,12 +31,14 @@ import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.request.GetFollowersRequest;
 import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetAggregationUnitNameListResponse;
 import com.linecorp.bot.model.response.GetAggregationUnitUsageResponse;
+import com.linecorp.bot.model.response.GetFollowersResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
@@ -312,6 +314,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     @Override
     public CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowers(String date) {
         return toFuture(retrofitImpl.getNumberOfFollowers(date));
+    }
+
+    @Override
+    public CompletableFuture<GetFollowersResponse> getFollowers(GetFollowersRequest request) {
+        return toFuture(retrofitImpl.getFollowers(request.getNext()));
     }
 
     @Override

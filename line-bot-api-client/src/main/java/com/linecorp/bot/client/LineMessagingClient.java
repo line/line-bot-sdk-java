@@ -30,12 +30,14 @@ import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.request.GetFollowersRequest;
 import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetAggregationUnitNameListResponse;
 import com.linecorp.bot.model.response.GetAggregationUnitUsageResponse;
+import com.linecorp.bot.model.response.GetFollowersResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
@@ -401,6 +403,11 @@ public interface LineMessagingClient {
      * Gets the number of users who have added the bot on or before a specified date.
      */
     CompletableFuture<GetNumberOfFollowersResponse> getNumberOfFollowers(String date);
+
+    /**
+     * Get a list of users who added your LINE Official Account as a friend.
+     */
+    CompletableFuture<GetFollowersResponse> getFollowers(GetFollowersRequest request);
 
     /**
      * Returns statistics about how users interact with narrowcast messages or broadcast messages sent from your

@@ -32,6 +32,7 @@ import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetAggregationUnitNameListResponse;
 import com.linecorp.bot.model.response.GetAggregationUnitUsageResponse;
+import com.linecorp.bot.model.response.GetFollowersResponse;
 import com.linecorp.bot.model.response.GetMessageEventResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
@@ -378,6 +379,12 @@ interface LineMessagingService {
      */
     @GET("v2/bot/insight/followers")
     Call<GetNumberOfFollowersResponse> getNumberOfFollowers(@Query("date") String date);
+
+    /**
+     * Get a list of users who added your LINE Official Account as a friend.
+     */
+    @GET("v2/bot/followers/ids")
+    Call<GetFollowersResponse> getFollowers(@Query("start") String next);
 
     /**
      * Returns statistics about how users interact with narrowcast messages or broadcast messages sent from your
