@@ -23,6 +23,7 @@ import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -41,6 +42,8 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.mockito.stubbing.OngoingStubbing;
 
+import com.google.common.collect.ImmutableList;
+
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
@@ -55,12 +58,14 @@ import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
 import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
 import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.request.GetFollowersRequest;
 import com.linecorp.bot.model.request.SetWebhookEndpointRequest;
 import com.linecorp.bot.model.request.TestWebhookEndpointRequest;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetAggregationUnitNameListResponse;
 import com.linecorp.bot.model.response.GetAggregationUnitUsageResponse;
+import com.linecorp.bot.model.response.GetFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.model.response.GetStatisticsPerUnitResponse;
@@ -861,6 +866,18 @@ public class LineMessagingClientImplTest {
         whenCall(retrofitMock.getAggregationUnitNameList(limit, start), response);
         final GetAggregationUnitNameListResponse actual = target.getAggregationUnitNameList(limit, start).get();
         verify(retrofitMock, only()).getAggregationUnitNameList(limit, start);
+        assertThat(actual).isEqualTo(response);
+    }
+
+    @Test
+    public void getFollowers() throws Exception {
+        final GetFollowersResponse response = GetFollowersResponse
+                .builder()
+                .userIds(ImmutableList.of("U1234"))
+                .build();
+        whenCall(retrofitMock.getFollowers(nullable(String.class)), response);
+        final GetFollowersResponse actual = target.getFollowers(GetFollowersRequest.builder().build()).get();
+        verify(retrofitMock, only()).getFollowers(null);
         assertThat(actual).isEqualTo(response);
     }
 
