@@ -18,7 +18,6 @@ package com.linecorp.bot.client;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
-import static com.github.tomakehurst.wiremock.client.WireMock.getAllServeEvents;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
@@ -31,7 +30,6 @@ import java.net.URI;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 
 import com.linecorp.bot.liff.LiffView;
 import com.linecorp.bot.liff.LiffView.Type;
@@ -62,7 +60,6 @@ public class ChannelManagementSyncClientIntegrationWiremockTest
         final LiffAppAddResponse liffAppAddResponse = channelManagementSyncClient.addLiffApp(request);
 
         // Verify
-        final ServeEvent recordedRequest = getAllServeEvents().get(0);
         verify(postRequestedFor(urlEqualTo("/liff/v1/apps"))
                        .withRequestBody(equalTo(OBJECT_MAPPER.writeValueAsString(request))));
         assertThat(liffAppAddResponse.getLiffId())
