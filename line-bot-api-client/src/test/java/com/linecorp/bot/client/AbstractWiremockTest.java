@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.client;
 
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+
 import java.net.URI;
 
 import org.junit.After;
@@ -23,6 +25,7 @@ import org.junit.Before;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
 
 public abstract class AbstractWiremockTest {
     public static final int ASYNC_TEST_TIMEOUT = 1_000;
@@ -39,8 +42,9 @@ public abstract class AbstractWiremockTest {
 
     @Before
     public void setUpWireMock() {
-        wireMockServer = new WireMockServer();
+        wireMockServer = new WireMockServer(wireMockConfig().dynamicPort());
         wireMockServer.start();
+        WireMock.configureFor("localhost", wireMockServer.port());
 
         lineMessagingClient = createLineMessagingClient(wireMockServer);
         lineBlobClient = createLineBlobClient(wireMockServer);

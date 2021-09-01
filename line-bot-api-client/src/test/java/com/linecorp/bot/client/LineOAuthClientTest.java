@@ -23,6 +23,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowableOfType;
 
@@ -63,8 +64,10 @@ public class LineOAuthClientTest {
 
     @Before
     public void setUp() {
-        wireMockServer = new WireMockServer();
+        wireMockServer = new WireMockServer(wireMockConfig().dynamicPort());
         wireMockServer.start();
+        WireMock.configureFor("localhost", wireMockServer.port());
+
         final String apiEndPoint = wireMockServer.baseUrl();
         target = LineOAuthClient.builder()
                                 .apiEndPoint(URI.create(apiEndPoint))
