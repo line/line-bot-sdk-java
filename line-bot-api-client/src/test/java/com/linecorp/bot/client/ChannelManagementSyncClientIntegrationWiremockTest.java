@@ -41,7 +41,7 @@ public class ChannelManagementSyncClientIntegrationWiremockTest
         extends AbstractWiremockTest {
     private static final ObjectMapper OBJECT_MAPPER = ModelObjectMapper.createNewObjectMapper();
 
-    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    @Test(timeout = 10_000)
     public void testAddLiffMenu() throws Exception {
         // Mocking
         LiffAppAddResponse response = new LiffAppAddResponse("NEW_LIFF_ID");
