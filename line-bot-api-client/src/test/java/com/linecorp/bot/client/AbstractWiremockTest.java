@@ -22,67 +22,54 @@ import org.junit.After;
 import org.junit.Before;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-
-import com.linecorp.bot.model.error.ErrorResponse;
-
-import lombok.SneakyThrows;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
+import com.github.tomakehurst.wiremock.WireMockServer;
 
 public abstract class AbstractWiremockTest {
     public static final int ASYNC_TEST_TIMEOUT = 1_000;
-    private static final ObjectWriter ERROR_RESPONSE_READER = new ObjectMapper().writerFor(ErrorResponse.class);
 
     static {
         SLF4JBridgeHandler.install();
         SLF4JBridgeHandler.removeHandlersForRootLogger();
     }
 
-    protected MockWebServer mockWebServer;
+    protected WireMockServer wireMockServer;
     protected LineMessagingClient lineMessagingClient;
     protected LineBlobClient lineBlobClient;
     protected ChannelManagementSyncClient channelManagementSyncClient;
 
     @Before
     public void setUpWireMock() {
-        mockWebServer = new MockWebServer();
-        lineMessagingClient = createLineMessagingClient(mockWebServer);
-        lineBlobClient = createLineBlobClient(mockWebServer);
-        channelManagementSyncClient = createChannelManagementSyncClient(mockWebServer);
+        wireMockServer = new WireMockServer();
+        wireMockServer.start();
+
+        lineMessagingClient = createLineMessagingClient(wireMockServer);
+        lineBlobClient = createLineBlobClient(wireMockServer);
+        channelManagementSyncClient = createChannelManagementSyncClient(wireMockServer);
     }
 
     @After
-    public void shutDownWireMock() throws Exception {
-        mockWebServer.shutdown();
+    public void shutDownWireMock() {
+        wireMockServer.stop();
     }
 
-    @SneakyThrows
-    public void mocking(final int responseCode, final ErrorResponse errorResponse) {
-        mockWebServer
-                .enqueue(new MockResponse()
-                                 .setResponseCode(responseCode)
-                                 .setBody(ERROR_RESPONSE_READER.writeValueAsString(errorResponse)));
-    }
-
-    protected LineMessagingClient createLineMessagingClient(final MockWebServer mockWebServer) {
+    protected LineMessagingClient createLineMessagingClient(final WireMockServer wireMockServer) {
         return LineMessagingClient.builder("token")
-                                  .apiEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
-                                  .blobEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
+                                  .apiEndPoint(URI.create(wireMockServer.baseUrl()))
+                                  .blobEndPoint(URI.create(wireMockServer.baseUrl()))
                                   .build();
     }
 
-    protected LineBlobClient createLineBlobClient(MockWebServer mockWebServer) {
+    protected LineBlobClient createLineBlobClient(WireMockServer wireMockServer) {
         return LineBlobClient.builder("token")
-                             .apiEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
+                             .apiEndPoint(URI.create(wireMockServer.baseUrl()))
                              .build();
     }
 
-    protected ChannelManagementSyncClient createChannelManagementSyncClient(final MockWebServer mockWebServer) {
+    protected ChannelManagementSyncClient createChannelManagementSyncClient(
+            final WireMockServer wireMockServer) {
         return ChannelManagementSyncClient
                 .builder(() -> "token")
-                .apiEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
+                .apiEndPoint(URI.create(wireMockServer.baseUrl()))
                 .build();
     }
 }

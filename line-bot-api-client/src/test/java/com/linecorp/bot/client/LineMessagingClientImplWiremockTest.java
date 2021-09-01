@@ -16,6 +16,10 @@
 
 package com.linecorp.bot.client;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Arrays;
@@ -26,6 +30,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.client.exception.BadRequestException;
 import com.linecorp.bot.client.exception.ForbiddenException;
@@ -65,7 +71,11 @@ public class LineMessagingClientImplWiremockTest extends AbstractWiremockTest {
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void statusCodeHandlerTest() throws Exception {
         // Mocking
-        mocking(statusCode, ERROR_RESPONSE);
+        stubFor(get(urlEqualTo("/v2/bot/message/TOKEN/content"))
+                        .willReturn(aResponse()
+                                            .withStatus(statusCode)
+                                            .withBody(new ObjectMapper().writeValueAsString(
+                                                    ERROR_RESPONSE))));
 
         // Do
         assertThatThrownBy(() -> lineBlobClient.getMessageContent("TOKEN").get())

@@ -16,6 +16,12 @@
 
 package com.linecorp.bot.client;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
@@ -26,12 +32,9 @@ import org.junit.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.tomakehurst.wiremock.WireMockServer;
 
 import com.linecorp.bot.model.profile.UserProfileResponse;
-
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.RecordedRequest;
 
 public class LineMessagingClientTest {
     static {
@@ -39,15 +42,15 @@ public class LineMessagingClientTest {
         SLF4JBridgeHandler.install();
     }
 
-    private MockWebServer mockWebServer;
+    private WireMockServer wireMockServer;
     private LineMessagingClient target;
 
     @Before
     public void setUp() throws Exception {
-        mockWebServer = new MockWebServer();
-        final String apiEndPoint =
-                "http://" + mockWebServer.getHostName() + ':' + mockWebServer.getPort()
-                + "/CanContainsRelative/";
+        wireMockServer = new WireMockServer();
+        wireMockServer.start();
+
+        final String apiEndPoint = wireMockServer.url("/CanContainsRelative/");
         target = LineMessagingClient
                 .builder("SECRET")
                 .apiEndPoint(URI.create(apiEndPoint))
@@ -56,7 +59,7 @@ public class LineMessagingClientTest {
 
     @After
     public void tearDown() throws Exception {
-        mockWebServer.shutdown();
+        wireMockServer.stop();
     }
 
     @Test
@@ -70,19 +73,18 @@ public class LineMessagingClientTest {
                 .language("en")
                 .build();
 
-        mockWebServer.enqueue(new MockResponse()
-                                      .setResponseCode(200)
-                                      .setBody(new ObjectMapper()
-                                                       .writeValueAsString(profileResponseMock)));
+        stubFor(
+                get(urlEqualTo("/CanContainsRelative/v2/bot/profile/USER_TOKEN")).willReturn(
+                        aResponse().withStatus(200)
+                                   .withBody(new ObjectMapper().writeValueAsString(profileResponseMock))
+                ));
 
         // Do
         final UserProfileResponse actualResponse =
                 target.getProfile("USER_TOKEN").get();
 
         // Verify
-        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
-        assertThat(recordedRequest.getPath())
-                .isEqualTo("/CanContainsRelative/v2/bot/profile/USER_TOKEN");
+        verify(getRequestedFor(urlEqualTo("/CanContainsRelative/v2/bot/profile/USER_TOKEN")));
         assertThat(actualResponse).isEqualTo(profileResponseMock);
     }
 }
