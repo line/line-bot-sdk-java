@@ -16,13 +16,17 @@
 
 package com.linecorp.bot.client;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.net.URI;
+import java.util.concurrent.ExecutionException;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,14 +38,17 @@ public class LineMessagingClientBuilderTest extends AbstractWiremockTest {
     public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Test
-    public void testBuildWithFixedToken() throws InterruptedException {
+    public void testBuildWithFixedToken() throws InterruptedException, ExecutionException {
+        stubFor(get(urlEqualTo("/v2/bot/profile/TEST"))
+                        .willReturn(aResponse().withBody("{}")));
+
         lineMessagingClient = new LineMessagingClientBuilder()
                 .channelToken("MOCKED_TOKEN")
                 .apiEndPoint(URI.create(wireMockServer.baseUrl()))
                 .build();
 
         // Do
-        lineMessagingClient.getProfile("TEST");
+        lineMessagingClient.getProfile("TEST").get();
 
         // Verify
         verify(getRequestedFor(urlEqualTo("/v2/bot/profile/TEST"))
@@ -49,14 +56,17 @@ public class LineMessagingClientBuilderTest extends AbstractWiremockTest {
     }
 
     @Test
-    public void testBuilderWithChannelTokenSupplier() throws InterruptedException {
+    public void testBuilderWithChannelTokenSupplier() throws InterruptedException, ExecutionException {
+        stubFor(get(urlEqualTo("/v2/bot/profile/TEST"))
+                        .willReturn(aResponse().withBody("{}")));
+
         lineMessagingClient =
                 LineMessagingClient.builder(() -> "MOCKED_TOKEN")
                                    .apiEndPoint(URI.create(wireMockServer.baseUrl()))
                                    .build();
 
         // Do
-        lineMessagingClient.getProfile("TEST");
+        lineMessagingClient.getProfile("TEST").get();
 
         // Verify
         verify(getRequestedFor(urlEqualTo("/v2/bot/profile/TEST"))
