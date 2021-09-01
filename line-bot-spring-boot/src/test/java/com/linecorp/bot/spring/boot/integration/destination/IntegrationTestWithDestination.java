@@ -159,7 +159,8 @@ public class IntegrationTestWithDestination {
                                "{\"replyToken\":\"nHuyWiB7yP5Zw52FIkcQobQuGDXCTA\","
                                + "\"messages\":["
                                + "{\"type\":\"text\","
-                               + "\"text\":\"Hello, world! with destination U11111111111111111111111111111111\"}],"
+                               + "\"text\":\"Hello, world! with destination"
+                               + " U11111111111111111111111111111111\"}],"
                                + "\"notificationDisabled\":false}"
                        )));
     }
