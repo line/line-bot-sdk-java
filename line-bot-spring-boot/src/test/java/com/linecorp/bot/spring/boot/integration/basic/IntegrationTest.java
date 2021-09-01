@@ -18,6 +18,7 @@ package com.linecorp.bot.spring.boot.integration.basic;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
@@ -48,7 +49,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.WireMock;
 import com.google.common.io.ByteStreams;
 
 import com.linecorp.bot.client.LineMessagingClient;
@@ -147,7 +147,7 @@ public class IntegrationTest {
 
     @Test
     public void validCallbackTest() throws Exception {
-        stubFor(WireMock.get(urlEqualTo("/"))
+        stubFor(post(urlEqualTo("/v2/bot/message/reply"))
                         .willReturn(aResponse().withBody("{}")));
 
         String signature = "ECezgIpQNUEp4OSHYd7xGSuFG7e66MLPkCkK1Y28XTU=";
