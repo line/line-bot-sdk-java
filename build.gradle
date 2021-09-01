@@ -222,6 +222,10 @@ subprojects {
 
     test {
         useJUnitPlatform()
+        testLogging {
+            // Make sure output from standard out or error is shown in Gradle output.
+            showStandardStreams = true
+        }
     }
 
     project.plugins.withType(SpringBootPlugin) {
