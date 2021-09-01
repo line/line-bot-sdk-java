@@ -17,9 +17,8 @@
 package com.linecorp.bot.spring.boot.integration.destination_handler;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.anyRequestedFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.anyUrl;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.getAllServeEvents;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
@@ -133,8 +132,15 @@ public class IntegrationTestWithDestinationHandler {
                .andDo(print())
                .andExpect(status().isOk());
 
+        // ReplyByReturnValueConsumer.reply sends request to messaging api, and doesn't wait the response.
+        // In this test case, we should wait until wiremock receive the request.
+        int maxRetries = 100;
+        while (getAllServeEvents().size() == 0 && maxRetries > 0) {
+            Thread.sleep(100);
+            maxRetries--;
+        }
+
         // Test request 1
-        verify(anyRequestedFor(anyUrl()));
         verify(postRequestedFor(urlEqualTo("/v2/bot/message/reply"))
                        .withHeader("Authorization", equalTo("Bearer TOKEN"))
                        .withRequestBody(equalTo(
