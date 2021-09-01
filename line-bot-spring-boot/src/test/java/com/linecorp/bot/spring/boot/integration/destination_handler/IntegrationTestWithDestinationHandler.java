@@ -17,6 +17,8 @@
 package com.linecorp.bot.spring.boot.integration.destination_handler;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.anyRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.anyUrl;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
@@ -132,6 +134,7 @@ public class IntegrationTestWithDestinationHandler {
                .andExpect(status().isOk());
 
         // Test request 1
+        verify(anyRequestedFor(anyUrl()));
         verify(postRequestedFor(urlEqualTo("/v2/bot/message/reply"))
                        .withHeader("Authorization", equalTo("Bearer TOKEN"))
                        .withRequestBody(equalTo(
