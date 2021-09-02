@@ -16,6 +16,14 @@
 
 package com.linecorp.bot.client;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowableOfType;
 
@@ -28,15 +36,13 @@ import org.junit.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
 import com.google.common.collect.ImmutableMap;
 
 import com.linecorp.bot.model.oauth.ChannelAccessTokenException;
 import com.linecorp.bot.model.oauth.IssueChannelAccessTokenRequest;
 import com.linecorp.bot.model.oauth.IssueChannelAccessTokenResponse;
-
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.RecordedRequest;
 
 public class LineOAuthClientTest {
     static {
@@ -53,13 +59,16 @@ public class LineOAuthClientTest {
                                            .accessToken("accessToken")
                                            .build();
 
-    private MockWebServer mockWebServer;
+    private WireMockServer wireMockServer;
     private LineOAuthClient target;
 
     @Before
     public void setUp() {
-        mockWebServer = new MockWebServer();
-        final String apiEndPoint = mockWebServer.url("/").toString();
+        wireMockServer = new WireMockServer(wireMockConfig().dynamicPort());
+        wireMockServer.start();
+        WireMock.configureFor("localhost", wireMockServer.port());
+
+        final String apiEndPoint = wireMockServer.baseUrl();
         target = LineOAuthClient.builder()
                                 .apiEndPoint(URI.create(apiEndPoint))
                                 .build();
@@ -67,15 +76,17 @@ public class LineOAuthClientTest {
 
     @After
     public void tearDown() throws Exception {
-        mockWebServer.shutdown();
+        wireMockServer.stop();
     }
 
     @Test
     public void issueToken() throws Exception {
 
-        mockWebServer.enqueue(new MockResponse()
-                                      .setResponseCode(200)
-                                      .setBody(ISSUE_TOKEN_RESPONSE_JSON));
+        stubFor(post(urlEqualTo("/v2/oauth/accessToken")).willReturn(
+                aResponse()
+                        .withStatus(200)
+                        .withBody(ISSUE_TOKEN_RESPONSE_JSON)
+        ));
 
         // Do
         final IssueChannelAccessTokenResponse actualResponse =
@@ -86,22 +97,24 @@ public class LineOAuthClientTest {
                       .join();
 
         // Verify
-        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
-        assertThat(recordedRequest.getPath())
-                .isEqualTo("/v2/oauth/accessToken");
-        assertThat(recordedRequest.getBody().readUtf8())
-                .isEqualTo("grant_type=client_credentials&client_id=clientId&client_secret=clientSecret");
+        verify(postRequestedFor(
+                urlEqualTo("/v2/oauth/accessToken")
+        ).withRequestBody(
+                WireMock.equalTo(
+                        "grant_type=client_credentials&client_id=clientId&client_secret=clientSecret")));
         assertThat(actualResponse).isEqualTo(ISSUE_TOKEN_RESPONSE);
     }
 
     @Test
     public void issueTokenError() throws Exception {
-        mockWebServer.enqueue(new MockResponse()
-                                      .setResponseCode(400)
-                                      .setBody(OBJECT_MAPPER.writeValueAsString(ImmutableMap.of(
-                                              "error", "error",
-                                              "error_description", "errorDetail"
-                                      ))));
+        stubFor(post(urlEqualTo("/v2/oauth/accessToken")).willReturn(
+                aResponse()
+                        .withStatus(400)
+                        .withBody(OBJECT_MAPPER.writeValueAsString(ImmutableMap.of(
+                                "error", "error",
+                                "error_description", "errorDetail"
+                        )))
+        ));
 
         // Do
         final CompletionException actualException =
@@ -113,11 +126,11 @@ public class LineOAuthClientTest {
                                      CompletionException.class);
 
         // Verify
-        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
-        assertThat(recordedRequest.getPath())
-                .isEqualTo("/v2/oauth/accessToken");
-        assertThat(recordedRequest.getBody().readUtf8())
-                .isEqualTo("grant_type=client_credentials&client_id=clientId&client_secret=clientSecret");
+        verify(
+                postRequestedFor(urlEqualTo("/v2/oauth/accessToken"))
+                        .withRequestBody(equalTo(
+                                "grant_type=client_credentials&client_id=clientId&client_secret=clientSecret"
+                        )));
         assertThat(actualException).hasCauseInstanceOf(ChannelAccessTokenException.class);
         final ChannelAccessTokenException e = (ChannelAccessTokenException) actualException.getCause();
         assertThat(e.getError()).isEqualTo("error");
@@ -126,16 +139,16 @@ public class LineOAuthClientTest {
 
     @Test
     public void revokeToken() throws Exception {
-        mockWebServer.enqueue(new MockResponse().setResponseCode(200));
+        stubFor(post(urlEqualTo("/v2/oauth/revoke")).willReturn(
+                aResponse()
+                        .withStatus(200)
+        ));
 
         // Do
         target.revokeChannelToken("accessToken").join();
 
         // Verify
-        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
-        assertThat(recordedRequest.getPath())
-                .isEqualTo("/v2/oauth/revoke");
-        assertThat(recordedRequest.getBody().readUtf8())
-                .isEqualTo("access_token=accessToken");
+        verify(postRequestedFor(urlEqualTo("/v2/oauth/revoke"))
+                       .withRequestBody(equalTo("access_token=accessToken")));
     }
 }

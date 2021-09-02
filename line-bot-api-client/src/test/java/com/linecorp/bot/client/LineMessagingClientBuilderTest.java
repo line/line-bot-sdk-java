@@ -16,52 +16,61 @@
 
 package com.linecorp.bot.client;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.net.URI;
+import java.util.concurrent.ExecutionException;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import okhttp3.mockwebserver.RecordedRequest;
-
 public class LineMessagingClientBuilderTest extends AbstractWiremockTest {
     @Rule
     public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Test
-    public void testBuildWithFixedToken() throws InterruptedException {
+    public void testBuildWithFixedToken() throws InterruptedException, ExecutionException {
+        stubFor(get(urlEqualTo("/v2/bot/profile/TEST"))
+                        .willReturn(aResponse().withBody("{}")));
+
         lineMessagingClient = new LineMessagingClientBuilder()
                 .channelToken("MOCKED_TOKEN")
-                .apiEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
+                .apiEndPoint(URI.create(wireMockServer.baseUrl()))
                 .build();
 
         // Do
-        lineMessagingClient.getProfile("TEST");
+        lineMessagingClient.getProfile("TEST").get();
 
         // Verify
-        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
-        assertThat(recordedRequest.getHeader("Authorization"))
-                .isEqualTo("Bearer MOCKED_TOKEN");
+        verify(getRequestedFor(urlEqualTo("/v2/bot/profile/TEST"))
+                       .withHeader("Authorization", equalTo("Bearer MOCKED_TOKEN")));
     }
 
     @Test
-    public void testBuilderWithChannelTokenSupplier() throws InterruptedException {
+    public void testBuilderWithChannelTokenSupplier() throws InterruptedException, ExecutionException {
+        stubFor(get(urlEqualTo("/v2/bot/profile/TEST"))
+                        .willReturn(aResponse().withBody("{}")));
+
         lineMessagingClient =
                 LineMessagingClient.builder(() -> "MOCKED_TOKEN")
-                                   .apiEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
+                                   .apiEndPoint(URI.create(wireMockServer.baseUrl()))
                                    .build();
 
         // Do
-        lineMessagingClient.getProfile("TEST");
+        lineMessagingClient.getProfile("TEST").get();
 
         // Verify
-        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
-        assertThat(recordedRequest.getHeader("Authorization"))
-                .isEqualTo("Bearer MOCKED_TOKEN");
+        verify(getRequestedFor(urlEqualTo("/v2/bot/profile/TEST"))
+                       .withHeader("Authorization", equalTo("Bearer MOCKED_TOKEN")));
     }
 
     @Test

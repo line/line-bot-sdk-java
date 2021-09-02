@@ -16,8 +16,13 @@
 
 package com.linecorp.bot.client;
 
-import static java.util.Collections.singletonList;
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static org.mockito.Mockito.when;
 
 import java.net.URI;
@@ -28,8 +33,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.RecordedRequest;
+import com.github.tomakehurst.wiremock.WireMockServer;
 
 public class HeaderInterceptorWireMockTest extends AbstractWiremockTest {
     @Rule
@@ -40,29 +44,31 @@ public class HeaderInterceptorWireMockTest extends AbstractWiremockTest {
 
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void forChannelTokenSupplier() throws Exception {
+        stubFor(get(urlEqualTo("/v2/bot/profile/TEST"))
+                        .willReturn(aResponse().withStatus(200)
+                                               .withBody("{}")));
+
         // Do
         when(channelTokenSupplier.get()).thenReturn("1st");
-        lineMessagingClient.getProfile("TEST");
+        lineMessagingClient.getProfile("TEST").get();
 
         // Verify
-        final RecordedRequest request1st = mockWebServer.takeRequest();
-        assertThat(request1st.getHeaders().toMultimap())
-                .containsEntry("Authorization", singletonList("Bearer 1st"));
+        verify(getRequestedFor(urlEqualTo("/v2/bot/profile/TEST"))
+                       .withHeader("Authorization", equalTo("Bearer 1st")));
 
         // Do again with another channel token.
         when(channelTokenSupplier.get()).thenReturn("2nd");
-        lineMessagingClient.getProfile("TEST");
+        lineMessagingClient.getProfile("TEST").get();
 
         // Verify
-        final RecordedRequest request2nd = mockWebServer.takeRequest();
-        assertThat(request2nd.getHeaders().toMultimap())
-                .containsEntry("Authorization", singletonList("Bearer 2nd"));
+        verify(getRequestedFor(urlEqualTo("/v2/bot/profile/TEST"))
+                       .withHeader("Authorization", equalTo("Bearer 2nd")));
     }
 
     @Override
-    protected LineMessagingClient createLineMessagingClient(final MockWebServer mockWebServer) {
+    protected LineMessagingClient createLineMessagingClient(final WireMockServer wireMockServer) {
         return LineMessagingClient.builder(channelTokenSupplier)
-                                  .apiEndPoint(URI.create("http://localhost:" + mockWebServer.getPort()))
+                                  .apiEndPoint(URI.create(wireMockServer.baseUrl()))
                                   .build();
     }
 }

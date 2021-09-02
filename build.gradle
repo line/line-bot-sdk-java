@@ -15,6 +15,7 @@
  */
 
 import com.github.spotbugs.snom.SpotBugsTask
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 // ./gradlew clean && ./gradlew uploadArchives -Prelease
@@ -93,6 +94,7 @@ subprojects {
         dependencies {
             dependency 'com.google.guava:guava:' + ext['guava.version']
             dependency 'com.github.stefanbirkner:system-lambda:1.2.0'
+            dependency "com.github.tomakehurst:wiremock-jre8:2.30.1"
             dependencySet(group: 'com.squareup.retrofit2', version: ext['retrofit.version']) {
                 entry 'converter-jackson'
                 entry 'retrofit'
@@ -111,7 +113,7 @@ subprojects {
 
         testImplementation 'com.google.guava:guava'
         testImplementation 'com.github.stefanbirkner:system-lambda'
-        testImplementation 'com.squareup.okhttp3:mockwebserver'
+        testImplementation 'com.github.tomakehurst:wiremock-jre8'
         testImplementation 'org.hibernate.validator:hibernate-validator'
         testImplementation 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
         testImplementation 'org.springframework.boot:spring-boot-starter-logging'
@@ -221,6 +223,14 @@ subprojects {
 
     test {
         useJUnitPlatform()
+        testLogging {
+            // Make sure output from standard out or error is shown in Gradle output.
+            showStandardStreams true
+            showExceptions true
+            showCauses true
+            showStackTraces true
+            exceptionFormat TestExceptionFormat.FULL
+        }
     }
 
     project.plugins.withType(SpringBootPlugin) {

@@ -16,14 +16,16 @@
 
 package com.linecorp.bot.client;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.delete;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
 import com.linecorp.bot.model.response.BotApiResponse;
-
-import okhttp3.mockwebserver.MockResponse;
 
 public class LineMessagingClientImplRichMenuWiremockTest extends AbstractWiremockTest {
     public static final BotApiResponseBody SUCCESS_BODY = new BotApiResponseBody("", emptyList());
@@ -32,8 +34,11 @@ public class LineMessagingClientImplRichMenuWiremockTest extends AbstractWiremoc
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void status200WithoutBodyTest() throws Exception {
         // Mocking
-        mockWebServer.enqueue(new MockResponse().setResponseCode(200)
-                                                .addHeader("x-line-request-id", "REQUEST_ID"));
+        stubFor(delete(urlEqualTo("/v2/bot/richmenu/RICH_MENU_ID")).willReturn(
+                aResponse()
+                        .withStatus(200)
+                        .withHeader("x-line-request-id", "REQUEST_ID")
+        ));
 
         // Do
         final BotApiResponse botApiResponse = lineMessagingClient.deleteRichMenu("RICH_MENU_ID").get();
@@ -43,12 +48,16 @@ public class LineMessagingClientImplRichMenuWiremockTest extends AbstractWiremoc
     @Test(timeout = ASYNC_TEST_TIMEOUT)
     public void status200WithBodyTest() throws Exception {
         // Mocking
-        mockWebServer.enqueue(new MockResponse().setResponseCode(200)
-                                                .addHeader("x-line-request-id", "REQUEST_ID")
-                                                .setBody("{}"));
+        stubFor(delete(urlEqualTo("/v2/bot/richmenu/RICH_MENU_ID")).willReturn(
+                aResponse()
+                        .withStatus(200)
+                        .withHeader("x-line-request-id", "REQUEST_ID")
+                        .withBody("{}")
+        ));
 
         // Do
-        final BotApiResponse botApiResponse = lineMessagingClient.deleteRichMenu("RICH_MENU_ID").get();
+        final BotApiResponse botApiResponse = lineMessagingClient.deleteRichMenu("RICH_MENU_ID")
+                                                                 .get();
         assertThat(botApiResponse).isEqualTo(SUCCESS);
     }
 }
