@@ -88,6 +88,12 @@
                value="Use AssertJ (org.assertj.core.api.Assumptions.assumeThat) instead." />
     </module>
     <module name="IllegalImport">
+      <property name="id" value="junitRule" />
+      <property name="illegalClasses" value="org.junit.Rule" />
+      <message key="import.illegal"
+               value="Use Junit5 (ExtendWith) instead." />
+    </module>
+    <module name="IllegalImport">
       <property name="id" value="junitExpectedException" />
       <property name="illegalClasses" value="org.junit.rules.ExpectedException" />
       <message key="import.illegal"

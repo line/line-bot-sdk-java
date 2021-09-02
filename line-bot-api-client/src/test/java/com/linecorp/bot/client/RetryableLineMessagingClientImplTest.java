@@ -29,13 +29,12 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.UUID;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.Timeout;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.OngoingStubbing;
 
 import com.linecorp.bot.model.Broadcast;
@@ -54,18 +53,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@ExtendWith(MockitoExtension.class)
+@Timeout(5)
 public class RetryableLineMessagingClientImplTest {
     private static final String REQUEST_ID_FIXTURE = "REQUEST_ID_FIXTURE";
     private static final BotApiResponseBody BOT_API_SUCCESS_RESPONSE_BODY =
             new BotApiResponseBody("", emptyList());
     private static final BotApiResponse BOT_API_SUCCESS_RESPONSE =
             BOT_API_SUCCESS_RESPONSE_BODY.withRequestId(REQUEST_ID_FIXTURE);
-
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
-    @Rule
-    public final Timeout timeoutRule = Timeout.seconds(5);
 
     @Mock
     private LineMessagingService retrofitMock;

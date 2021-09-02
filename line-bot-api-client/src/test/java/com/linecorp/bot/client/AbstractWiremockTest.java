@@ -20,8 +20,8 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 
 import java.net.URI;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -40,7 +40,7 @@ public abstract class AbstractWiremockTest {
     protected LineBlobClient lineBlobClient;
     protected ChannelManagementSyncClient channelManagementSyncClient;
 
-    @Before
+    @BeforeEach
     public void setUpWireMock() {
         wireMockServer = new WireMockServer(wireMockConfig().dynamicPort());
         wireMockServer.start();
@@ -51,7 +51,7 @@ public abstract class AbstractWiremockTest {
         channelManagementSyncClient = createChannelManagementSyncClient(wireMockServer);
     }
 
-    @After
+    @AfterEach
     public void shutDownWireMock() {
         wireMockServer.stop();
     }

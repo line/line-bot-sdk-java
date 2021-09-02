@@ -17,15 +17,13 @@
 package com.linecorp.bot.model.message.flex.component;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import com.linecorp.bot.model.message.flex.component.Icon.IconBuilder;
 import com.linecorp.bot.model.message.flex.component.Image.ImageBuilder;
@@ -33,8 +31,6 @@ import com.linecorp.bot.model.message.flex.component.Image.ImageBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
-@Value
-@RunWith(Parameterized.class)
 public class AspectRatioFormatTest {
 
     @Value
@@ -45,35 +41,32 @@ public class AspectRatioFormatTest {
         String result;
     }
 
-    private static final List<Fixture> VALUES = Arrays.asList(
-            new Fixture(1, 1, "1:1"),
-            new Fixture(1.01, 1.01, "1.01:1.01"),
-            new Fixture(100000, 100000, "100000:100000"),
-            new Fixture(Math.PI, Math.PI, "3.14159:3.14159")
-    );
-
-    @Parameters(name = "{0}")
-    public static Iterable<Fixture[]> testData() {
-        return VALUES.stream().map(x -> new Fixture[] { x }).collect(Collectors.toList());
-    }
-
-    Fixture fixture;
-
-    @Test
-    public void test() {
+    @ParameterizedTest
+    @MethodSource("testSource")
+    public void test(double width, double height, String result) {
         final Image image =
                 new ImageBuilder()
-                        .aspectRatio(fixture.getWidth(), fixture.getHeight())
+                        .aspectRatio(width, height)
                         .build();
-        assertThat(image.getAspectRatio()).isEqualTo(fixture.getResult());
+        assertThat(image.getAspectRatio()).isEqualTo(result);
     }
 
-    @Test
-    public void icon() {
+    @ParameterizedTest
+    @MethodSource("testSource")
+    public void icon(double width, double height, String result) {
         final Icon image =
                 new IconBuilder()
-                        .aspectRatio(fixture.getWidth(), fixture.getHeight())
+                        .aspectRatio(width, height)
                         .build();
-        assertThat(image.getAspectRatio()).isEqualTo(fixture.getResult());
+        assertThat(image.getAspectRatio()).isEqualTo(result);
+    }
+
+    public static Stream<Arguments> testSource() {
+        return Stream.of(
+                arguments(1, 1, "1:1"),
+                arguments(1.01, 1.01, "1.01:1.01"),
+                arguments(100000, 100000, "100000:100000"),
+                arguments(Math.PI, Math.PI, "3.14159:3.14159")
+        );
     }
 }

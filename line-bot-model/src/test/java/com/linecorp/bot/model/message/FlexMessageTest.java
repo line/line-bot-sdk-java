@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.linecorp.bot.model.message.flex.container.Bubble;
 import com.linecorp.bot.model.message.sender.Sender;

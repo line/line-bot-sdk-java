@@ -26,13 +26,11 @@ import static org.mockito.Mockito.when;
 import java.lang.reflect.Method;
 import java.util.function.Predicate;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.google.common.collect.ImmutableMap;
@@ -50,10 +48,8 @@ import com.linecorp.bot.spring.boot.test.EventTestUtil;
 
 import lombok.AllArgsConstructor;
 
+@ExtendWith(MockitoExtension.class)
 public class LineMessageHandlerSupportTest {
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
     @Mock
     private ConfigurableApplicationContext applicationContext;
 
@@ -65,12 +61,6 @@ public class LineMessageHandlerSupportTest {
 
     @InjectMocks
     private LineMessageHandlerSupport target;
-
-    @Before
-    public void setUp() {
-        when(replyByReturnValueConsumerFactory.createForEvent(any()))
-                .thenReturn(replyByReturnValueConsumer);
-    }
 
     @Test
     public void testRefreshForOneItem() throws Exception {
@@ -117,6 +107,8 @@ public class LineMessageHandlerSupportTest {
 
     @Test
     public void dispatchAndReplyMessageTest() {
+        when(replyByReturnValueConsumerFactory.createForEvent(any()))
+                .thenReturn(replyByReturnValueConsumer);
         final MessageEvent event = EventTestUtil.createTextMessage("text");
 
         when(applicationContext.getBeansWithAnnotation(LineMessageHandler.class))
@@ -134,6 +126,8 @@ public class LineMessageHandlerSupportTest {
 
     @Test
     public void dispatchDestination() {
+        when(replyByReturnValueConsumerFactory.createForEvent(any()))
+                .thenReturn(replyByReturnValueConsumer);
         final MessageEvent event = EventTestUtil.createTextMessage("text");
 
         when(applicationContext.getBeansWithAnnotation(LineMessageHandler.class))

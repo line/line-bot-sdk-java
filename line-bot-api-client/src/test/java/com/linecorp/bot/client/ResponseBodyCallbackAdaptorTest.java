@@ -23,13 +23,12 @@ import static org.mockito.Mockito.when;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.Timeout;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.linecorp.bot.client.LineBlobClientImpl.ResponseBodyCallbackAdaptor;
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
@@ -40,19 +39,15 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
+@ExtendWith(MockitoExtension.class)
+@Timeout(1)
 public class ResponseBodyCallbackAdaptorTest {
     private ResponseBodyCallbackAdaptor target;
-
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
-    @Rule
-    public final Timeout timeoutRule = Timeout.seconds(1);
 
     @Mock
     private Call<ResponseBody> call;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         target = new ResponseBodyCallbackAdaptor();
     }

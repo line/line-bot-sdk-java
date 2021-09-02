@@ -19,7 +19,7 @@ package com.linecorp.bot.cli;
 import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ApplicationTest {
     @Test

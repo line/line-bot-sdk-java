@@ -32,15 +32,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.InputStream;
 import java.util.List;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -68,7 +68,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 // integration test
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { IntegrationTest.class, MyController.class },
         properties = "line.bot.handler.enabled=false")
 @WebAppConfiguration
@@ -120,7 +120,7 @@ public class IntegrationTest {
         }
     }
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         server = new WireMockServer(wireMockConfig().dynamicPort());
         server.start();
@@ -129,12 +129,12 @@ public class IntegrationTest {
         System.setProperty("line.bot.apiEndPoint", server.url("/").toString());
     }
 
-    @AfterClass
+    @AfterAll
     public static void afterClass() {
         server.stop();
     }
 
-    @Before
+    @BeforeEach
     public void before() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac)
                                       .build();

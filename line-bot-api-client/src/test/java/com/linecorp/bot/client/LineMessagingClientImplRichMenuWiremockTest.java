@@ -23,7 +23,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import com.linecorp.bot.model.response.BotApiResponse;
 
@@ -31,7 +32,8 @@ public class LineMessagingClientImplRichMenuWiremockTest extends AbstractWiremoc
     public static final BotApiResponseBody SUCCESS_BODY = new BotApiResponseBody("", emptyList());
     public static final BotApiResponse SUCCESS = SUCCESS_BODY.withRequestId("REQUEST_ID");
 
-    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    @Test
+    @Timeout(ASYNC_TEST_TIMEOUT)
     public void status200WithoutBodyTest() throws Exception {
         // Mocking
         stubFor(delete(urlEqualTo("/v2/bot/richmenu/RICH_MENU_ID")).willReturn(
@@ -45,7 +47,8 @@ public class LineMessagingClientImplRichMenuWiremockTest extends AbstractWiremoc
         assertThat(botApiResponse).isEqualTo(SUCCESS);
     }
 
-    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    @Test
+    @Timeout(ASYNC_TEST_TIMEOUT)
     public void status200WithBodyTest() throws Exception {
         // Mocking
         stubFor(delete(urlEqualTo("/v2/bot/richmenu/RICH_MENU_ID")).willReturn(

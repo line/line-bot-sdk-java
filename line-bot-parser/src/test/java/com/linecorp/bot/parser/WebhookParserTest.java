@@ -25,12 +25,11 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.google.common.io.ByteStreams;
 
@@ -39,10 +38,8 @@ import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 
+@ExtendWith(MockitoExtension.class)
 public class WebhookParserTest {
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
     @Mock
     private final SignatureValidator signatureValidator = new MockSignatureValidator();
 
@@ -55,7 +52,7 @@ public class WebhookParserTest {
 
     private WebhookParser parser;
 
-    @Before
+    @BeforeEach
     public void before() {
         parser = new WebhookParser(signatureValidator);
     }

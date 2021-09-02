@@ -30,13 +30,12 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
@@ -46,11 +45,9 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.test.EventTestUtil;
 
+@ExtendWith(MockitoExtension.class)
 public class ReplyByReturnValueConsumerTest {
     private static final MessageEvent EVENT = EventTestUtil.createTextMessage("text");
-
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
     private LineMessagingClient lineMessagingClient;
@@ -60,17 +57,18 @@ public class ReplyByReturnValueConsumerTest {
 
     private ReplyByReturnValueConsumer target;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         target = targetFactory.createForEvent(EVENT);
-        when(lineMessagingClient.replyMessage(any()))
-                .thenReturn(completedFuture(new BotApiResponse("", " success", null)));
     }
 
     // Public methods test
 
     @Test
     public void acceptSingleReplyTest() throws Exception {
+        when(lineMessagingClient.replyMessage(any()))
+                .thenReturn(completedFuture(new BotApiResponse("", " success", null)));
+
         // Do
         target.accept(new TextMessage("Reply Text"));
 
@@ -82,6 +80,9 @@ public class ReplyByReturnValueConsumerTest {
 
     @Test
     public void acceptListReplyTest() throws Exception {
+        when(lineMessagingClient.replyMessage(any()))
+                .thenReturn(completedFuture(new BotApiResponse("", " success", null)));
+
         // Do
         target.accept(singletonList(new TextMessage("Reply Text")));
 

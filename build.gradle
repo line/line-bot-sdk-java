@@ -117,9 +117,6 @@ subprojects {
         testImplementation 'org.hibernate.validator:hibernate-validator'
         testImplementation 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
         testImplementation 'org.springframework.boot:spring-boot-starter-logging'
-        testImplementation("org.junit.vintage:junit-vintage-engine") {
-            exclude group: "org.hamcrest", module: "hamcrest-core"
-        }
     }
 
     compileJava.dependsOn(processResources)
