@@ -30,8 +30,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
@@ -88,10 +87,6 @@ import lombok.extern.slf4j.Slf4j;
 public class MessageJsonReconstructionTest {
     private static final ObjectMapper objectMapper =
             TestUtil.objectMapperWithProductionConfiguration(false);
-
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     public void textMessageTest() {

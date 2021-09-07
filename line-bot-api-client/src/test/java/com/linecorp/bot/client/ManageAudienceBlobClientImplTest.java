@@ -28,13 +28,12 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.assertj.core.util.Files;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.Timeout;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.OngoingStubbing;
 
 import com.linecorp.bot.model.manageaudience.response.CreateAudienceForUploadingResponse;
@@ -46,14 +45,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@ExtendWith(MockitoExtension.class)
+@Timeout(5)
 public class ManageAudienceBlobClientImplTest {
     private static final String REQUEST_ID_FIXTURE = "REQUEST_ID_FIXTURE";
-
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
-    @Rule
-    public final Timeout timeoutRule = Timeout.seconds(5);
 
     @Mock
     private ManageAudienceBlobService retrofitMock;

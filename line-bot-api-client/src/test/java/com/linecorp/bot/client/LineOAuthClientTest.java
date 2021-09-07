@@ -30,9 +30,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.catchThrowableOfType;
 import java.net.URI;
 import java.util.concurrent.CompletionException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,7 +62,7 @@ public class LineOAuthClientTest {
     private WireMockServer wireMockServer;
     private LineOAuthClient target;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         wireMockServer = new WireMockServer(wireMockConfig().dynamicPort());
         wireMockServer.start();
@@ -74,7 +74,7 @@ public class LineOAuthClientTest {
                                 .build();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         wireMockServer.stop();
     }

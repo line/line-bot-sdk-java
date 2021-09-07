@@ -27,22 +27,21 @@ import static org.mockito.Mockito.when;
 
 import java.net.URI;
 
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
+@ExtendWith(MockitoExtension.class)
 public class HeaderInterceptorWireMockTest extends AbstractWiremockTest {
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
     @Mock
     ChannelTokenSupplier channelTokenSupplier;
 
-    @Test(timeout = ASYNC_TEST_TIMEOUT)
+    @Test
+    @Timeout(ASYNC_TEST_TIMEOUT)
     public void forChannelTokenSupplier() throws Exception {
         stubFor(get(urlEqualTo("/v2/bot/profile/TEST"))
                         .willReturn(aResponse().withStatus(200)

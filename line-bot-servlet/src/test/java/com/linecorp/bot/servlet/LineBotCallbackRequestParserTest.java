@@ -25,12 +25,11 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Spy;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.google.common.io.ByteStreams;
@@ -41,17 +40,15 @@ import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.parser.LineSignatureValidator;
 
+@ExtendWith(MockitoExtension.class)
 public class LineBotCallbackRequestParserTest {
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
     @Spy
     private final LineSignatureValidator lineSignatureValidator = new LineSignatureValidator(
             "SECRET".getBytes(StandardCharsets.UTF_8));
 
     private LineBotCallbackRequestParser lineBotCallbackRequestParser;
 
-    @Before
+    @BeforeEach
     public void before() {
         lineBotCallbackRequestParser = new LineBotCallbackRequestParser(lineSignatureValidator);
     }

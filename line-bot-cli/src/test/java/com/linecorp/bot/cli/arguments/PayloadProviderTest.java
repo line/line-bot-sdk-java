@@ -25,21 +25,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
+@ExtendWith(MockitoExtension.class)
 public class PayloadProviderTest {
     private static final TextMessage TEXT_MESSAGE_EXPECTED = new TextMessage("Hello, World!");
-
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
     private PayloadProvider target;

@@ -17,18 +17,16 @@
 package com.linecorp.bot.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FixedChannelTokenSupplierTest {
-    @Test(expected = NullPointerException.class)
+    @Test
     public void constructedInstanceAlwaysNonNullTest() {
-        // Do
-        FixedChannelTokenSupplier.of(null);
-
-        // Verify
-        fail("NullPointerException is not occurred.");
+        assertThatThrownBy(
+                () -> FixedChannelTokenSupplier.of(null)
+        ).isInstanceOf(NullPointerException.class);
     }
 
     @Test

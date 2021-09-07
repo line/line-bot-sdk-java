@@ -17,9 +17,9 @@
 package com.linecorp.bot.model.event.beacon;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.fail;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BeaconContentUtilTest {
     @Test
@@ -31,12 +31,10 @@ public class BeaconContentUtilTest {
         assertThat(bytes).containsExactly(0x01, 0x23);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void parseBytesOrNullTestForInvalidValue() throws Exception {
-        // Do
-        BeaconContentUtil.parseBytesOrNull("invalid");
-
-        fail("Exception is not occurred");
+        assertThatThrownBy(() -> BeaconContentUtil.parseBytesOrNull("invalid"))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test

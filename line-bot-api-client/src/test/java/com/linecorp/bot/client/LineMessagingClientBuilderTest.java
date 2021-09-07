@@ -28,15 +28,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.net.URI;
 import java.util.concurrent.ExecutionException;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class LineMessagingClientBuilderTest extends AbstractWiremockTest {
-    @Rule
-    public final MockitoRule mockitoRule = MockitoJUnit.rule();
-
     @Test
     public void testBuildWithFixedToken() throws InterruptedException, ExecutionException {
         stubFor(get(urlEqualTo("/v2/bot/profile/TEST"))
