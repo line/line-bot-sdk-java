@@ -47,7 +47,7 @@ apply plugin: 'jacoco'
 apply plugin: 'com.github.ben-manes.versions'
 
 group = 'com.linecorp.bot'
-version = '4.6.0'
+version = '4.7.0'
 
 //set build variables based on build type (release, continuous integration, development)
 def isDevBuild
