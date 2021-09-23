@@ -23,7 +23,7 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 buildscript {
     ext {
         kotlin_version = '1.5.30'
-        spring_boot_version = '2.5.4'
+        spring_boot_version = '2.5.5'
     }
 
     repositories {
