@@ -870,9 +870,9 @@ public class LineMessagingClientImplTest {
                 .builder()
                 .userIds(ImmutableList.of("U1234"))
                 .build();
-        whenCall(retrofitMock.getFollowers(nullable(String.class)), response);
+        whenCall(retrofitMock.getFollowers(nullable(String.class), nullable(Integer.class)), response);
         final GetFollowersResponse actual = target.getFollowers(GetFollowersRequest.builder().build()).get();
-        verify(retrofitMock, only()).getFollowers(null);
+        verify(retrofitMock, only()).getFollowers(null, null);
         assertThat(actual).isEqualTo(response);
     }
 

@@ -57,6 +57,14 @@ public class GetFollowersRequest {
     @Nullable
     String next;
 
+    /**
+     * The maximum number of user IDs to retrieve in a single request.
+     * The default value is 300. If you specify a value that exceeds the maximum, the maximum value will be set.
+     * Max value: 1000
+     */
+    @Nullable
+    Integer limit;
+
     public static GetFollowersRequestBuilder fromResponse(GetFollowersResponse response) {
         return builder().next(response.getNext());
     }
