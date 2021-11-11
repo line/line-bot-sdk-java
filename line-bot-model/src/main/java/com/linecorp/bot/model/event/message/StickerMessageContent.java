@@ -80,12 +80,28 @@ public class StickerMessageContent implements MessageContent {
         POPUP_SOUND,
         /**
          * Custom sticker. You can't retrieve the sticker's custom text with the Messaging API.
+         * @deprecated discontinued. {@link StickerResourceType#CUSTOM } is used instead of
+         * {@link StickerResourceType#NAME_TEXT }.
+         * @see StickerResourceType#CUSTOM
          */
+        @Deprecated
         NAME_TEXT,
         /**
          * Message sticker. You can't retrieve the sticker's custom text with the Messaging API.
+         * @deprecated discontinued. {@link StickerResourceType#MESSAGE } is used instead of
+         * {@link StickerResourceType#PER_STICKER_TEXT }.
+         * @see StickerResourceType#MESSAGE
          */
+        @Deprecated
         PER_STICKER_TEXT,
+        /**
+         * Message sticker.
+         */
+        MESSAGE,
+        /**
+         * Custom sticker. You can't retrieve the sticker's custom text with the Messaging API.
+         */
+        CUSTOM,
         @JsonEnumDefaultValue
         UNKNOWN // For implementation of new sticker resource type in the future!
     }
@@ -101,4 +117,11 @@ public class StickerMessageContent implements MessageContent {
      * If the type change in the future, this field will become null.
      */
     List<String> keywords;
+
+    /**
+     * Any text entered by the user.
+     * This property is only included for message stickers.
+     * Max character limit: 100
+     */
+    String text;
 }

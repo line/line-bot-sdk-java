@@ -312,6 +312,42 @@ public class CallbackRequestTest {
     }
 
     @Test
+    public void testStickerWithText() throws IOException {
+        parse("callback/sticker-with-text.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            assertThat(callbackRequest.getEvents()).hasSize(1);
+            Event event = callbackRequest.getEvents().get(0);
+            assertThat(event).isInstanceOf(MessageEvent.class);
+            assertThat(event.getSource())
+                    .isInstanceOf(UserSource.class);
+            assertThat(event.getSource().getUserId())
+                    .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+            assertThat(event.getTimestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z"));
+            assertThat(event.getMode())
+                    .isEqualTo(EventMode.ACTIVE);
+
+            MessageEvent messageEvent = (MessageEvent) event;
+            assertThat(messageEvent.getReplyToken())
+                    .isEqualTo("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA");
+            MessageContent message = messageEvent.getMessage();
+            assertThat(message).isInstanceOf(StickerMessageContent.class);
+            if (message instanceof StickerMessageContent) {
+                assertThat(((StickerMessageContent) message).getStickerId())
+                        .isEqualTo("1");
+                assertThat(((StickerMessageContent) message).getPackageId())
+                        .isEqualTo("1");
+                assertThat(((StickerMessageContent) message).getStickerResourceType())
+                        .isEqualTo(StickerResourceType.MESSAGE);
+                assertThat(((StickerMessageContent) message).getKeywords())
+                        .containsExactly("bed", "sleep", "bedtime");
+                assertThat(((StickerMessageContent) message).getText())
+                        .isEqualTo("userEnteredText");
+            }
+        });
+    }
+
+    @Test
     public void testStickerKeywordsBecomeString() throws IOException {
         parse("callback/sticker-keywords-string.json", callbackRequest -> {
             MessageEvent messageEvent = (MessageEvent) callbackRequest.getEvents().get(0);
