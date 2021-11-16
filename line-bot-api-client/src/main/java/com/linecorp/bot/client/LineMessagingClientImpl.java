@@ -318,7 +318,7 @@ public class LineMessagingClientImpl implements LineMessagingClient {
 
     @Override
     public CompletableFuture<GetFollowersResponse> getFollowers(GetFollowersRequest request) {
-        return toFuture(retrofitImpl.getFollowers(request.getNext()));
+        return toFuture(retrofitImpl.getFollowers(request.getNext(), request.getLimit()));
     }
 
     @Override
