@@ -39,15 +39,6 @@ bootJar {
     mainClassName = 'com.linecorp.bot.cli.Application'
 }
 
-// Reset bootRepackage dependency to remove dependency from bootRepackage to signArchives.
-// This causes circular dependency.
-//
-// Memo: By default, bootRepackage dependsOn the all tasks creating jar including signArchives task.
-// But signArchives should be after repackages.
-bootJar.dependsOn.clear()
-bootJar.dependsOn jar
-signArchives.dependsOn bootJar
-
 // Add exec jar into archives to be uploaded.
 artifacts.add(
     'archives',

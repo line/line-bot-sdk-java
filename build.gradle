@@ -50,7 +50,6 @@ group = 'com.linecorp.bot'
 version = '4.8.0'
 
 //set build variables based on build type (release, continuous integration, development)
-def isDevBuild
 def isReleaseBuild
 def sonatypeRepositoryUrl
 if (hasProperty('release')) {
@@ -60,8 +59,8 @@ if (hasProperty('release')) {
     version += '-SNAPSHOT'
     sonatypeRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
 } else {
-    isDevBuild = true
     version += '-SNAPSHOT'
+    sonatypeRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
 }
 
 allprojects {
@@ -257,60 +256,66 @@ task codeCoverageReport(type: JacocoReport) {
     project(projectName) { project ->
         apply plugin: 'jacoco'
         apply plugin: 'signing'
-        apply plugin: 'maven'
+        apply plugin: 'maven-publish'
 
-        signing {
-            required { isReleaseBuild }
-            sign configurations.archives
+        java {
+            withJavadocJar()
+            withSourcesJar()
         }
 
-        uploadArchives {
-            repositories {
-                if (isDevBuild) {
-                    mavenLocal()
-                } else {
-                    mavenDeployer {
-                        if (isReleaseBuild) {
-                            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    from components.java
+
+                    pom {
+                        name = project.name
+                        packaging = 'jar'
+                        description = project.description
+                        url = 'https://github.com/line/line-bot-sdk-java'
+
+                        scm {
+                            url = 'scm:git@github.com:line/line-bot-sdk-java.git'
+                            connection = 'scm:git@github.com:line/line-bot-sdk-java.git'
+                            developerConnection = 'scm:git@github.com:line/line-bot-sdk-java.git'
                         }
-
-                        repository(url: sonatypeRepositoryUrl) {
-                            authentication(userName: sonatypeUsername, password: sonatypePassword)
+                        licenses {
+                            license {
+                                name = 'Apache'
+                                url = 'https://opensource.org/licenses/Apache-2.0'
+                            }
                         }
-
-                        pom.project {
-                            name project.name
-                            packaging 'jar'
-                            description project.description
-                            url 'https://github.com/line/line-bot-sdk-java'
-
-                            scm {
-                                url 'scm:git@github.com:line/line-bot-sdk-java.git'
-                                connection 'scm:git@github.com:line/line-bot-sdk-java.git'
-                                developerConnection 'scm:git@github.com:line/line-bot-sdk-java.git'
+                        developers {
+                            developer {
+                                id = 'tokuhirom'
+                                name = 'Tokuhiro Matsuno'
+                                email = 'tokuhirom@gmail.com'
                             }
-                            licenses {
-                                license {
-                                    name 'Apache'
-                                    url 'https://opensource.org/licenses/Apache-2.0'
-                                }
-                            }
-                            developers {
-                                developer {
-                                    id 'tokuhirom'
-                                    name 'Tokuhiro Matsuno'
-                                    email 'tokuhirom@gmail.com'
-                                }
-                                developer {
-                                    id 'kazuki-ma'
-                                    name 'Kazuki MATSUDA'
-                                    email 'matsuda.kazuki@gmail.com'
-                                }
+                            developer {
+                                id = 'kazuki-ma'
+                                name = 'Kazuki MATSUDA'
+                                email = 'matsuda.kazuki@gmail.com'
                             }
                         }
                     }
                 }
             }
+            repositories {
+                maven {
+                    url sonatypeRepositoryUrl
+                    if (project.hasProperty("sonatypeUsername")) {
+                        credentials {
+                            username = "${sonatypeUsername}"
+                            password = "${sonatypePassword}"
+                        }
+                    }
+                }
+            }
+        }
+
+        signing {
+            required { isReleaseBuild }
+            sign publishing.publications.mavenJava
         }
     }
 }
