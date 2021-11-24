@@ -36,7 +36,7 @@ bootJar {
         script = file('src/main/resources/launch.script')
     }
     archiveClassifier.set('exec')
-    mainClassName = 'com.linecorp.bot.cli.Application'
+    mainClass = 'com.linecorp.bot.cli.Application'
 }
 
 // Reset bootRepackage dependency to remove dependency from bootRepackage to signArchives.
