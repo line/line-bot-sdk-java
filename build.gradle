@@ -94,7 +94,7 @@ subprojects {
         dependencies {
             dependency 'com.google.guava:guava:' + ext['guava.version']
             dependency 'com.github.stefanbirkner:system-lambda:1.2.0'
-            dependency "com.github.tomakehurst:wiremock-jre8:2.31.0"
+            dependency "com.github.tomakehurst:wiremock-jre8:2.32.0"
             dependencySet(group: 'com.squareup.retrofit2', version: ext['retrofit.version']) {
                 entry 'converter-jackson'
                 entry 'retrofit'
