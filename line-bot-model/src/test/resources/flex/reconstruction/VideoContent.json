@@ -1,0 +1,17 @@
+{
+  "type": "bubble",
+  "size": "kilo",
+  "hero": {
+    "type": "video",
+    "url": "https://example.com/video.mp4",
+    "previewUrl": "https://example.com/video_preview.jpg",
+    "altContent": {
+      "type": "image",
+      "size": "full",
+      "aspectRatio": "20:13",
+      "aspectMode": "cover",
+      "url": "https://example.com/image.jpg"
+    },
+    "aspectRatio": "20:13"
+  }
+}
