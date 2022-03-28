@@ -81,7 +81,8 @@ public class Box implements FlexComponent {
     /**
      * Max width of the box.
      *
-     * The value should be given in pixels or as a percentage of the width of the parent element.
+     * <p>The value should be given in pixels or as a percentage of the width of the parent element.
+     *
      * @see <a href="https://developers.line.biz/en/docs/messaging-api/flex-message-layout/#box-width">Max width of a box</a>
      */
     String maxWidth;
@@ -91,7 +92,8 @@ public class Box implements FlexComponent {
     /**
      * Max height of the box.
      *
-     * The value should be given in pixels or as a percentage of the height of the parent element.
+     * <p>The value should be given in pixels or as a percentage of the height of the parent element.
+     *
      * @see <a href="https://developers.line.biz/en/docs/messaging-api/flex-message-layout/#box-height">Max height of a box</a>
      */
     String maxHeight;

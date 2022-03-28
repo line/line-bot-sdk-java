@@ -20,6 +20,8 @@ import java.net.URI;
 import java.text.DecimalFormat;
 import java.util.function.Supplier;
 
+import javax.annotation.Nullable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -34,10 +36,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Value;
 
-import javax.annotation.Nullable;
-
 /**
- * The following conditions must be met to use the video component:
+ * The following conditions must be met to use the video component.
  *
  * <ul>
  * <li>The video component is specified directly under the hero block</li>
@@ -71,7 +71,7 @@ public class Video implements FlexComponent {
     }
 
     /**
-     * Video file URL (Max character limit: 2000)
+     * Video file URL. (Max character limit: 2000)
      *
      * <ul>
      * <li>Protocol: HTTPS (TLS 1.2 or later)</li>
@@ -83,7 +83,7 @@ public class Video implements FlexComponent {
     URI url;
 
     /**
-     * Preview image URL (Max character limit: 2000)
+     * Preview image URL. (Max character limit: 2000)
      *
      * <ul>
      * <li>Protocol: HTTPS (TLS 1.2 or later)</li>
@@ -97,7 +97,7 @@ public class Video implements FlexComponent {
     /**
      * Alternative content.
      *
-     * The alternative content will be displayed on the screen of a user device that is using a
+     * <p>The alternative content will be displayed on the screen of a user device that is using a
      * version of LINE that doesn't support the video component. Specify a {@link Box} or an {@link Image}.
      */
     @NonNull
@@ -106,9 +106,9 @@ public class Video implements FlexComponent {
     /**
      * Aspect ratio of the video.
      *
-     * {@code width:height} format. Specify the value of {@code width} and {@code height} in the range from 1 to 100000.
-     * However, you can't set {@code height} to a value that is more than three times the value of {@code width}.
-     * The default value is {@code 1:1}.
+     * <p>{@code width:height} format. Specify the value of {@code width} and {@code height} in the range from
+     * 1 to 100000. However, you can't set {@code height} to a value that is more than three times the value of
+     * {@code width}. The default value is {@code 1:1}.
      */
     @Nullable
     String aspectRatio;

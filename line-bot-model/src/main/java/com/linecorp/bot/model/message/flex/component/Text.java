@@ -89,8 +89,8 @@ public class Text implements FlexComponent {
     /**
      * Line spacing in a wrapping text.
      *
-     * Specify a positive integer or decimal number that ends in px. The lineSpacing property doesn't apply to the top
-     * of the start line and the bottom of the last line.
+     * <p>Specify a positive integer or decimal number that ends in px. The lineSpacing property doesn't apply
+     * to the top of the start line and the bottom of the last line.
      * @see <a href="https://developers.line.biz/en/docs/messaging-api/flex-message-elements/#text-line-spacing">Increase the line spacing in a text</a>
      */
     String lineSpacing;
