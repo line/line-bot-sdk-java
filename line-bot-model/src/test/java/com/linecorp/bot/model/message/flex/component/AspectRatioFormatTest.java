@@ -19,6 +19,7 @@ package com.linecorp.bot.model.message.flex.component;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+import java.net.URI;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -53,12 +54,30 @@ public class AspectRatioFormatTest {
 
     @ParameterizedTest
     @MethodSource("testSource")
+    public void video_aspectRatio(double width, double height, String result) throws Exception {
+        final Image altImage =
+                new ImageBuilder()
+                        .aspectRatio(width, height)
+                        .build();
+
+        final Video video =
+                new Video.VideoBuilder()
+                        .aspectRatio(width, height)
+                        .url(new URI("https://example.com/video.mp4"))
+                        .previewUrl(new URI("https://example.com/picture.png"))
+                        .altContent(altImage)
+                        .build();
+        assertThat(video.getAspectRatio()).isEqualTo(result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("testSource")
     public void icon(double width, double height, String result) {
-        final Icon image =
+        final Icon icon =
                 new IconBuilder()
                         .aspectRatio(width, height)
                         .build();
-        assertThat(image.getAspectRatio()).isEqualTo(result);
+        assertThat(icon.getAspectRatio()).isEqualTo(result);
     }
 
     public static Stream<Arguments> testSource() {

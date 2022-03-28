@@ -223,7 +223,8 @@
                 "text": "Buy milk and lettuce before class",
                 "color": "#8C8C8C",
                 "size": "sm",
-                "wrap": true
+                "wrap": true,
+                "lineSpacing": "20px"
               }
             ],
             "flex": 1

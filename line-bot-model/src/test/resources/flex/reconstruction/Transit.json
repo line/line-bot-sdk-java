@@ -50,7 +50,8 @@
     "backgroundColor": "#0367D3",
     "spacing": "md",
     "height": "154px",
-    "paddingTop": "22px"
+    "paddingTop": "22px",
+    "maxWidth": "100%"
   },
   "body": {
     "type": "box",
@@ -91,7 +92,8 @@
                 "height": "12px",
                 "width": "12px",
                 "borderColor": "#EF454D",
-                "borderWidth": "2px"
+                "borderWidth": "2px",
+                "maxHeight": "11px"
               },
               {
                 "type": "filler"

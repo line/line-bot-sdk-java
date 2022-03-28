@@ -30,6 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
         @JsonSubTypes.Type(Button.class),
         @JsonSubTypes.Type(Icon.class),
         @JsonSubTypes.Type(Spacer.class),
+        @JsonSubTypes.Type(Video.class),
 })
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
