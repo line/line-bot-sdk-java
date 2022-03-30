@@ -271,7 +271,7 @@ task codeCoverageReport(type: JacocoReport) {
                     pom {
                         name = project.name
                         packaging = 'jar'
-                        description = project.description
+                        description = 'LINE Bot SDK Java - ' + project.name
                         url = 'https://github.com/line/line-bot-sdk-java'
 
                         scm {
