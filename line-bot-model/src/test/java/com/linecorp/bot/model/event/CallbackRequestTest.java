@@ -755,7 +755,6 @@ public class CallbackRequestTest {
         });
     }
 
-
     @Test
     public void testWebhookRedelivery() throws IOException {
         parse("callback/webhook-redelivery.json", callbackRequest -> {

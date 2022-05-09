@@ -622,7 +622,8 @@ public class KitchenSinkController {
             case "redelivery":
                 this.reply(replyToken,
                         singletonList(new TextMessage("webhookEventId=" + event.getWebhookEventId()
-                            + " deliveryContext.isRedelivery=" + event.getDeliveryContext().getIsRedelivery())));
+                            + " deliveryContext.isRedelivery=" + event.getDeliveryContext().getIsRedelivery())
+                        ));
                 break;
             case "icon":
                 this.reply(replyToken,

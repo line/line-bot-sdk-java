@@ -74,7 +74,6 @@ public class BeaconEvent implements Event, ReplyEvent {
      */
     EventMode mode;
 
-
     /**
      * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
      */
