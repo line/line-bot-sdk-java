@@ -754,4 +754,18 @@ public class CallbackRequestTest {
             assertThat(messageEvent.getMessage()).isInstanceOf(UnknownMessageContent.class);
         });
     }
+
+    @Test
+    public void testWebhookRedelivery() throws IOException {
+        parse("callback/webhook-redelivery.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            Event event = callbackRequest.getEvents().get(0);
+
+            MessageEvent messageEvent = (MessageEvent) event;
+            assertThat(messageEvent.getWebhookEventId())
+                    .isEqualTo("01G2KZKG2DS765NMRH3GZFD8AP");
+            assertThat(messageEvent.getDeliveryContext().getIsRedelivery())
+                    .isEqualTo(true);
+        });
+    }
 }

@@ -619,6 +619,12 @@ public class KitchenSinkController {
                            singletonList(new TextMessage("This message is send without a push notification")),
                            true);
                 break;
+            case "redelivery":
+                this.reply(replyToken,
+                        singletonList(new TextMessage("webhookEventId=" + event.getWebhookEventId()
+                            + " deliveryContext.isRedelivery=" + event.getDeliveryContext().getIsRedelivery())
+                        ));
+                break;
             case "icon":
                 this.reply(replyToken,
                            TextMessage.builder()

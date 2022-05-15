@@ -62,4 +62,14 @@ public class UnfollowEvent implements Event {
      * </dl>
      */
     EventMode mode;
+
+    /**
+     * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
+     */
+    String webhookEventId;
+
+    /**
+     * Get delivery context.
+     */
+    DeliveryContext deliveryContext;
 }
