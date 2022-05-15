@@ -98,7 +98,7 @@ subprojects {
                 entry 'converter-jackson'
                 entry 'retrofit'
             }
-            dependencySet(group: 'io.jsonwebtoken', version: '0.11.3') {
+            dependencySet(group: 'io.jsonwebtoken', version: '0.11.5') {
                 entry 'jjwt-api'
                 entry 'jjwt-impl'
                 entry 'jjwt-jackson'
