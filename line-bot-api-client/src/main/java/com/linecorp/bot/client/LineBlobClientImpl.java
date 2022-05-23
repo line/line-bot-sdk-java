@@ -44,6 +44,7 @@ class LineBlobClientImpl implements LineBlobClient {
     }
 
     @Override
+    @SuppressWarnings("deprecation") // RequestBody.create
     public CompletableFuture<BotApiResponse> setRichMenuImage(
             final String richMenuId, final String contentType, final byte[] content) {
         final RequestBody requestBody = RequestBody.create(MediaType.parse(contentType), content);
