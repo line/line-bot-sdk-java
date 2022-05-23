@@ -44,6 +44,7 @@ public class ManageAudienceBlobClientImpl implements ManageAudienceBlobClient {
     }
 
     @Override
+    @SuppressWarnings("deprecation") // RequestBody.create
     public CompletableFuture<CreateAudienceForUploadingResponse> createAudienceForUploadingUserIds(
             String description, boolean isIfaAudience, String uploadDescription, File file) {
         MultipartBody parts = new MultipartBody.Builder()
@@ -58,6 +59,7 @@ public class ManageAudienceBlobClientImpl implements ManageAudienceBlobClient {
     }
 
     @Override
+    @SuppressWarnings("deprecation") // RequestBody.create
     public CompletableFuture<BotApiResponse> addUserIdsToAudience(long audienceGroupId,
                                                                   String uploadDescription,
                                                                   File file) {
