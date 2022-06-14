@@ -1,0 +1,8 @@
+{
+  "type": "postback",
+  "label": "LABEL",
+  "data": "DATA",
+  "displayText": "DISPLAYTEXT",
+  "inputOption": "openKeyboard",
+  "fillInText": "FILLINTEXT"
+}
