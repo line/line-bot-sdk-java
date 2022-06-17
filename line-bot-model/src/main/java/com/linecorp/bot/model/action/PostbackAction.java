@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import lombok.Builder;
 import lombok.Value;
@@ -40,22 +39,14 @@ import lombok.Value;
 @JsonInclude(Include.NON_NULL)
 public class PostbackAction implements Action {
     public enum InputOptionType {
-        CLOSE_RICH_MENU("closeRichMenu"),
-        OPEN_RICH_MENU("openRichMenu"),
-        OPEN_KEYBOARD("openKeyboard"),
-        OPEN_VOICE("openVoice");
-
-        private final String name;
-
-        InputOptionType(String name) {
-            this.name = name;
-        }
-
-        @Override
-        @JsonValue
-        public String toString() {
-            return this.name;
-        }
+        @JsonProperty("closeRichMenu")
+        CLOSE_RICH_MENU,
+        @JsonProperty("openRichMenu")
+        OPEN_RICH_MENU,
+        @JsonProperty("openKeyboard")
+        OPEN_KEYBOARD,
+        @JsonProperty("openVoice")
+        OPEN_VOICE;
     }
 
     /**
