@@ -209,6 +209,11 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
+    public CompletableFuture<BotApiResponse> validateRichMenuObject(final RichMenu richMenu) {
+        return toBotApiFuture(retrofitImpl.validateRichMenuObject(richMenu));
+    }
+
+    @Override
     public CompletableFuture<RichMenuIdResponse> createRichMenu(final RichMenu richMenu) {
         return toFuture(retrofitImpl.createRichMenu(richMenu));
     }

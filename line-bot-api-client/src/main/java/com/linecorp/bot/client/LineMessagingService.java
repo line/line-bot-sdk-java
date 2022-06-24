@@ -261,6 +261,14 @@ interface LineMessagingService {
     /**
      * Method for Retrofit.
      *
+     * @see LineMessagingClient#validateRichMenuObject(RichMenu)
+     */
+    @POST("v2/bot/richmenu/validate")
+    Call<Void> validateRichMenuObject(@Body RichMenu richMenu);
+
+    /**
+     * Method for Retrofit.
+     *
      * @see LineMessagingClient#createRichMenu(RichMenu)
      */
     @POST("v2/bot/richmenu")
