@@ -46,7 +46,7 @@ class LineBlobClientImpl implements LineBlobClient {
     @Override
     public CompletableFuture<BotApiResponse> setRichMenuImage(
             final String richMenuId, final String contentType, final byte[] content) {
-        final RequestBody requestBody = RequestBody.create(MediaType.parse(contentType), content);
+        final RequestBody requestBody = RequestBody.create(content, MediaType.parse(contentType));
         return LineMessagingClientImpl.toBotApiFuture(
                 retrofitImpl.uploadRichMenuImage(richMenuId, requestBody));
     }
@@ -85,12 +85,20 @@ class LineBlobClientImpl implements LineBlobClient {
         }
 
         private MessageContentResponse convert(final Response<ResponseBody> response) {
+            ResponseBody body = response.body();
+            if (body == null) {
+                throw new NullPointerException("response body is null");
+            }
+            MediaType contentType = body.contentType();
+            if (contentType == null) {
+                throw new NullPointerException("content type is null");
+            }
             return MessageContentResponse
                     .builder()
-                    .length(response.body().contentLength())
+                    .length(body.contentLength())
                     .allHeaders(response.headers().toMultimap())
-                    .mimeType(response.body().contentType().toString())
-                    .stream(response.body().byteStream())
+                    .mimeType(contentType.toString())
+                    .stream(body.byteStream())
                     .build();
         }
     }

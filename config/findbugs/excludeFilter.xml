@@ -14,6 +14,12 @@
     <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
   </Match>
 
+  <!-- Ignore false positive -->
+  <Match>
+    <Class name="com.linecorp.bot.client.LineBlobClientImpl$ResponseBodyCallbackAdaptor" />
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+  </Match>
+
   <Match>
     <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
   </Match>
