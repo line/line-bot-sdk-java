@@ -267,6 +267,15 @@ public interface LineMessagingClient {
     CompletableFuture<RichMenuResponse> getRichMenu(String richMenuId);
 
     /**
+     * Validate a rich menu object.
+     *
+     * <p>You can verify that a rich menu object is valid as a request body for creating rich menu.
+     *
+     * @see <a href="https://developers.line.biz/ja/reference/messaging-api/#validate-rich-menu-object">//developers.line.me/en/docs/messaging-api/reference/#validate-rich-menu-object</a>
+     */
+    CompletableFuture<BotApiResponse> validateRichMenuObject(RichMenu richMenu);
+
+    /**
      * Creates a rich menu.
      *
      * <p>Note: You must upload a rich menu image

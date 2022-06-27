@@ -474,6 +474,19 @@ public class LineMessagingClientImplTest {
     }
 
     @Test
+    public void validateRichMenuObjectTest() throws Exception {
+        final RichMenu richMenuReference = RichMenu.builder().build();
+        whenCall(retrofitMock.validateRichMenuObject(any()), null);
+
+        // Do
+        final BotApiResponse botApiResponse = target.validateRichMenuObject(richMenuReference).get();
+
+        // Verify
+        verify(retrofitMock, only()).validateRichMenuObject(richMenuReference);
+        assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
+    }
+
+    @Test
     public void createRichMenuTest() throws Exception {
         final RichMenu richMenuReference = RichMenu.builder().build();
         whenCall(retrofitMock.createRichMenu(any()), RICH_MENU_ID_RESPONSE);
