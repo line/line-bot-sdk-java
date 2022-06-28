@@ -38,6 +38,17 @@ import lombok.Value;
 @JsonTypeName("postback")
 @JsonInclude(Include.NON_NULL)
 public class PostbackAction implements Action {
+    public enum InputOptionType {
+        @JsonProperty("closeRichMenu")
+        CLOSE_RICH_MENU,
+        @JsonProperty("openRichMenu")
+        OPEN_RICH_MENU,
+        @JsonProperty("openKeyboard")
+        OPEN_KEYBOARD,
+        @JsonProperty("openVoice")
+        OPEN_VOICE;
+    }
+
     /**
      * Label for the action.
      *
@@ -67,6 +78,19 @@ public class PostbackAction implements Action {
     String text;
 
     /**
+     * The display method of such as rich menu based on user action.
+     */
+    InputOptionType inputOption;
+
+    /**
+     * String to be pre-filled in the input field when the keyboard is opened.
+     * Valid only when the inputOption property is set to InputOptionType.OPEN_KEYBOARD.
+     *
+     * <p>Max: 300 characters
+     */
+    String fillInText;
+
+    /**
      * Create new instance.
      *
      * @param label Label for the action. Max: 20 characters.
@@ -82,18 +106,22 @@ public class PostbackAction implements Action {
             @JsonProperty("label") String label,
             @JsonProperty("data") String data,
             @JsonProperty("displayText") String displayText,
-            @JsonProperty("text") String text) {
+            @JsonProperty("text") String text,
+            @JsonProperty("inputOption") InputOptionType inputOption,
+            @JsonProperty("fillInText") String fillinText) {
         this.label = label;
         this.data = data;
         this.displayText = displayText;
         this.text = text;
+        this.inputOption = inputOption;
+        this.fillInText = fillinText;
     }
 
     public PostbackAction(String label, String data, String text) {
-        this(label, data, null, text);
+        this(label, data, null, text, null, null);
     }
 
     public PostbackAction(String label, String data) {
-        this(label, data, null, null);
+        this(label, data, null, null, null, null);
     }
 }
