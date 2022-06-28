@@ -16,6 +16,7 @@
 
 package com.linecorp.bot.client;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
@@ -85,14 +86,8 @@ class LineBlobClientImpl implements LineBlobClient {
         }
 
         private MessageContentResponse convert(final Response<ResponseBody> response) {
-            ResponseBody body = response.body();
-            if (body == null) {
-                throw new NullPointerException("response body is null");
-            }
-            MediaType contentType = body.contentType();
-            if (contentType == null) {
-                throw new NullPointerException("content type is null");
-            }
+            ResponseBody body = Objects.requireNonNull(response.body());
+            MediaType contentType = Objects.requireNonNull(body.contentType());
             return MessageContentResponse
                     .builder()
                     .length(body.contentLength())
