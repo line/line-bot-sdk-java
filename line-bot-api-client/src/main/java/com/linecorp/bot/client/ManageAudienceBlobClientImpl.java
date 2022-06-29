@@ -51,7 +51,7 @@ public class ManageAudienceBlobClientImpl implements ManageAudienceBlobClient {
                 .addFormDataPart("isIfaAudience", String.valueOf(isIfaAudience))
                 .addFormDataPart("uploadDescription", uploadDescription)
                 .addFormDataPart("file", file.getName(),
-                                 RequestBody.create(MediaType.get("text/plain"), file))
+                                 RequestBody.create(file, MediaType.get("text/plain")))
                 .build();
 
         return toFuture(retrofitImpl.createAudienceForUploadingUserIds(parts));
@@ -65,7 +65,7 @@ public class ManageAudienceBlobClientImpl implements ManageAudienceBlobClient {
                 .addFormDataPart("audienceGroupId", String.valueOf(audienceGroupId))
                 .addFormDataPart("uploadDescription", uploadDescription)
                 .addFormDataPart("file", file.getName(),
-                                 RequestBody.create(MediaType.get("text/plain"), file))
+                                 RequestBody.create(file, MediaType.get("text/plain")))
                 .build();
 
         return LineMessagingClientImpl.toBotApiFuture(retrofitImpl.addUserIdsToAudience(
