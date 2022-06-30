@@ -14,10 +14,10 @@
  * under the License.
  */
 
-apply plugin: 'org.springframework.boot'
+apply(plugin: "org.springframework.boot")
 
 dependencies {
-    implementation project(':line-bot-spring-boot')
-    implementation "org.springframework.boot:spring-boot-starter-web"
-    implementation 'com.google.guava:guava'
+    implementation(project(":line-bot-spring-boot"))
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("com.google.guava:guava")
 }

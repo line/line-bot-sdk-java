@@ -22,43 +22,43 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 buildscript {
     ext {
-        kotlin_version = '1.7.0'
-        spring_boot_version = '2.7.1'
+        kotlin_version = "1.7.0"
+        spring_boot_version = "2.7.1"
     }
 
     repositories {
         mavenCentral()
-        maven { url 'https://plugins.gradle.org/m2/' }
-        maven { url 'https://repo.spring.io/plugins-release' }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://repo.spring.io/plugins-release" }
     }
     dependencies {
-        classpath 'com.puppycrawl.tools:checkstyle:10.3.1'
+        classpath "com.puppycrawl.tools:checkstyle:10.3.1"
         classpath "com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.9"
-        classpath 'io.franzbecker:gradle-lombok:5.0.0'
-        classpath 'io.spring.gradle:dependency-management-plugin:1.0.12.RELEASE'
+        classpath "io.franzbecker:gradle-lombok:5.0.0"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.12.RELEASE"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
-apply plugin: 'idea'
-apply plugin: 'jacoco'
+apply(plugin: "idea")
+apply(plugin: "jacoco")
 
-group = 'com.linecorp.bot'
-version = '4.10.0'
+group = "com.linecorp.bot"
+version = "4.10.0"
 
 //set build variables based on build type (release, continuous integration, development)
 def isReleaseBuild
 def sonatypeRepositoryUrl
-if (hasProperty('release')) {
+if (hasProperty("release")) {
     isReleaseBuild = true
-    sonatypeRepositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-} else if (hasProperty('ci')) {
-    version += '-SNAPSHOT'
-    sonatypeRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+    sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+} else if (hasProperty("ci")) {
+    version += "-SNAPSHOT"
+    sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
 } else {
-    version += '-SNAPSHOT'
-    sonatypeRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+    version += "-SNAPSHOT"
+    sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
 }
 
 allprojects {
@@ -68,11 +68,11 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'com.github.spotbugs'
-    apply plugin: 'java-library'
-    apply plugin: 'checkstyle'
-    apply plugin: 'io.franzbecker.gradle-lombok'
-    apply plugin: 'io.spring.dependency-management'
+    apply(plugin: "com.github.spotbugs")
+    apply(plugin: "java-library")
+    apply(plugin: "checkstyle")
+    apply(plugin: "io.franzbecker.gradle-lombok")
+    apply(plugin: "io.spring.dependency-management")
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -80,8 +80,8 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
-    ext['guava.version'] = '30.0-jre'
-    ext['retrofit.version'] = '2.9.0'
+    ext["guava.version"] = "30.0-jre"
+    ext["retrofit.version"] = "2.9.0"
 
     dependencyManagement {
         imports {
@@ -89,31 +89,31 @@ subprojects {
         }
 
         dependencies {
-            dependency 'com.google.guava:guava:' + ext['guava.version']
-            dependency 'com.github.stefanbirkner:system-lambda:1.2.1'
-            dependency "com.github.tomakehurst:wiremock-jre8:2.33.2"
-            dependencySet(group: 'com.squareup.retrofit2', version: ext['retrofit.version']) {
-                entry 'converter-jackson'
-                entry 'retrofit'
+            dependency("com.google.guava:guava:" + ext["guava.version"])
+            dependency("com.github.stefanbirkner:system-lambda:1.2.1")
+            dependency("com.github.tomakehurst:wiremock-jre8:2.33.2")
+            dependencySet(group: "com.squareup.retrofit2", version: ext["retrofit.version"]) {
+                entry("converter-jackson")
+                entry("retrofit")
             }
-            dependencySet(group: 'io.jsonwebtoken', version: '0.11.5') {
-                entry 'jjwt-api'
-                entry 'jjwt-impl'
-                entry 'jjwt-jackson'
+            dependencySet(group: "io.jsonwebtoken", version: "0.11.5") {
+                entry("jjwt-api")
+                entry("jjwt-impl")
+                entry("jjwt-jackson")
             }
         }
     }
 
     dependencies {
-        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+        annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
         // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
 
-        testImplementation 'com.google.guava:guava'
-        testImplementation 'com.github.stefanbirkner:system-lambda'
-        testImplementation 'com.github.tomakehurst:wiremock-jre8'
-        testImplementation 'org.hibernate.validator:hibernate-validator'
-        testImplementation 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
-        testImplementation 'org.springframework.boot:spring-boot-starter-logging'
+        testImplementation("com.google.guava:guava")
+        testImplementation("com.github.stefanbirkner:system-lambda")
+        testImplementation("com.github.tomakehurst:wiremock-jre8")
+        testImplementation("org.hibernate.validator:hibernate-validator")
+        testImplementation("org.springframework.boot:spring-boot-starter-test") // MockHttpServletRequest
+        testImplementation("org.springframework.boot:spring-boot-starter-logging")
     }
 
     compileJava.dependsOn(processResources)
@@ -121,16 +121,16 @@ subprojects {
 
     jar {
         manifest {
-            attributes 'Implementation-Title': project.name,
-                'Implementation-Version': archiveVersion
+            attributes "Implementation-Title": project.name,
+                "Implementation-Version": archiveVersion
         }
     }
 
     lombok {
-        version = '1.18.22'
+        version = "1.18.22"
     }
 
-    if (!project.name.startsWith('sample-') && !project.name.startsWith('test-')) {
+    if (!project.name.startsWith("sample-") && !project.name.startsWith("test-")) {
         task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: compileJava) {
             ext.outputDir = file("$buildDir/delombok")
             outputs.dir(outputDir)
@@ -141,32 +141,32 @@ subprojects {
         }
 
         javadoc {
-            dependsOn delombok
+            dependsOn(delombok)
             source = delombok.outputDir
-            options.encoding = 'UTF-8'
-            options.locale = 'en_US'
-            options.addStringOption('Xdoclint:none', '-quiet')
+            options.encoding = "UTF-8"
+            options.locale = "en_US"
+            options.addStringOption("Xdoclint:none", "-quiet")
             // To create javadoc for generated method&constructor, delombok & run javadoc on delombok.outputDir.
         }
 
-        task javadocJar(type: Jar, dependsOn: 'javadoc') {
-            archiveClassifier.set('javadoc')
-            from javadoc.destinationDir
+        task javadocJar(type: Jar, dependsOn: "javadoc") {
+            archiveClassifier.set("javadoc")
+            from(javadoc.destinationDir)
         }
 
-        task sourcesJar(type: Jar, dependsOn: 'classes') {
-            archiveClassifier.set('sources')
-            from sourceSets.main.allSource
+        task sourcesJar(type: Jar, dependsOn: "classes") {
+            archiveClassifier.set("sources")
+            from(sourceSets.main.allSource)
         }
 
         artifacts {
-            archives javadocJar, sourcesJar
+            archives(javadocJar, sourcesJar)
         }
     }
 
     checkstyle {
         configProperties = [projectDir: rootProject.projectDir]
-        toolVersion = '8.23'
+        toolVersion = "8.23"
     }
 
     tasks.withType(SpotBugsTask) {
@@ -182,11 +182,11 @@ subprojects {
     }
 
     compileJava {
-        options.compilerArgs << '-Xlint:all' << '-Xlint:deprecation' << '-Werror' << '-Xlint:-processing' << '-parameters'
-        options.encoding = 'UTF-8'
+        options.compilerArgs << "-Xlint:all" << "-Xlint:deprecation" << "-Werror" << "-Xlint:-processing" << "-parameters"
+        options.encoding = "UTF-8"
     }
     compileTestJava {
-        options.encoding = 'UTF-8'
+        options.encoding = "UTF-8"
     }
 
     test {
@@ -212,23 +212,23 @@ task codeCoverageReport(type: JacocoReport) {
     onlyIf = { true }
     executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
 
-    [':line-bot-api-client', ':line-bot-model', ':line-bot-servlet', ':line-bot-spring-boot', ':line-bot-cli'].each {
+    [":line-bot-api-client", ":line-bot-model", ":line-bot-servlet", ":line-bot-spring-boot", ":line-bot-cli"].each {
         sourceSets(project(it).sourceSets.main)
     }
 
     reports {
         xml.enabled true
-        xml.destination file('reports/jacoco/report.xml')
+        xml.destination file("reports/jacoco/report.xml")
         html.enabled true
         csv.enabled false
     }
 }
 
-[':line-bot-api-client', ':line-bot-model', 'line-bot-parser', ':line-bot-servlet', ':line-bot-spring-boot', ':line-bot-cli'].each { projectName ->
+[":line-bot-api-client", ":line-bot-model", "line-bot-parser", ":line-bot-servlet", ":line-bot-spring-boot", ":line-bot-cli"].each { projectName ->
     project(projectName) { project ->
-        apply plugin: 'jacoco'
-        apply plugin: 'signing'
-        apply plugin: 'maven-publish'
+        apply(plugin: "jacoco")
+        apply(plugin: "signing")
+        apply(plugin: "maven-publish")
 
         java {
             withJavadocJar()
@@ -238,39 +238,39 @@ task codeCoverageReport(type: JacocoReport) {
         publishing {
             publications {
                 mavenJava(MavenPublication) {
-                    from components.java
+                    from(components.java)
 
                     pom {
                         name = project.name
-                        packaging = 'jar'
+                        packaging = "jar"
                         if (project.description) {
                             description = project.description
                         } else {
-                            description = 'LINE Bot SDK Java - ' + project.name
+                            description = "LINE Bot SDK Java - " + project.name
                         }
-                        url = 'https://github.com/line/line-bot-sdk-java'
+                        url = "https://github.com/line/line-bot-sdk-java"
 
                         scm {
-                            url = 'scm:git@github.com:line/line-bot-sdk-java.git'
-                            connection = 'scm:git@github.com:line/line-bot-sdk-java.git'
-                            developerConnection = 'scm:git@github.com:line/line-bot-sdk-java.git'
+                            url = "scm:git@github.com:line/line-bot-sdk-java.git"
+                            connection = "scm:git@github.com:line/line-bot-sdk-java.git"
+                            developerConnection = "scm:git@github.com:line/line-bot-sdk-java.git"
                         }
                         licenses {
                             license {
-                                name = 'Apache'
-                                url = 'https://opensource.org/licenses/Apache-2.0'
+                                name = "Apache"
+                                url = "https://opensource.org/licenses/Apache-2.0"
                             }
                         }
                         developers {
                             developer {
-                                id = 'tokuhirom'
-                                name = 'Tokuhiro Matsuno'
-                                email = 'tokuhirom@gmail.com'
+                                id = "tokuhirom"
+                                name = "Tokuhiro Matsuno"
+                                email = "tokuhirom@gmail.com"
                             }
                             developer {
-                                id = 'kazuki-ma'
-                                name = 'Kazuki MATSUDA'
-                                email = 'matsuda.kazuki@gmail.com'
+                                id = "kazuki-ma"
+                                name = "Kazuki MATSUDA"
+                                email = "matsuda.kazuki@gmail.com"
                             }
                         }
                     }
@@ -291,7 +291,7 @@ task codeCoverageReport(type: JacocoReport) {
 
         signing {
             required { isReleaseBuild }
-            sign publishing.publications.mavenJava
+            sign(publishing.publications.mavenJava)
         }
     }
 }
