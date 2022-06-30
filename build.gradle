@@ -36,7 +36,7 @@ buildscript {
         classpath 'com.puppycrawl.tools:checkstyle:10.3.1'
         classpath "com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.9"
         classpath 'io.franzbecker:gradle-lombok:5.0.0'
-        classpath 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.12.RELEASE'
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
