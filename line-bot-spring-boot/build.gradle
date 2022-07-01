@@ -15,12 +15,12 @@
  */
 
 dependencies {
-    api project(':line-bot-api-client')
-    api project(':line-bot-model')
-    implementation project(':line-bot-parser')
-    implementation 'org.springframework.boot:spring-boot-autoconfigure'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'com.google.guava:guava'
+    api(project(":line-bot-api-client"))
+    api(project(":line-bot-model"))
+    implementation(project(":line-bot-parser"))
+    implementation("org.springframework.boot:spring-boot-autoconfigure")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("com.google.guava:guava")
 
-    compileOnly 'javax.validation:validation-api'
+    compileOnly("javax.validation:validation-api")
 }

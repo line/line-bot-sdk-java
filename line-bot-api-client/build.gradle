@@ -30,43 +30,43 @@ configurations {
 }
 
 task integrationTest(type: Test) {
-    description = 'Runs integration tests.'
-    group = 'verification'
+    description = "Runs integration tests."
+    group = "verification"
 
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
     shouldRunAfter test
 }
 
-check.dependsOn integrationTest
+check.dependsOn(integrationTest)
 
 dependencies {
-    api project(':line-bot-model')
-    implementation 'org.slf4j:slf4j-api'
-    implementation 'com.squareup.okhttp3:logging-interceptor'
-    implementation 'com.squareup.retrofit2:converter-jackson'
-    implementation 'com.squareup.retrofit2:retrofit'
+    api(project(":line-bot-model"))
+    implementation("org.slf4j:slf4j-api")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation("com.squareup.retrofit2:converter-jackson")
+    implementation("com.squareup.retrofit2:retrofit")
 
-    testCompileOnly 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly("org.projectlombok:lombok")
+    testAnnotationProcessor("org.projectlombok:lombok")
 
-    integrationTestCompileOnly 'org.projectlombok:lombok'
-    integrationTestAnnotationProcessor 'org.projectlombok:lombok'
-    integrationTestImplementation 'com.google.guava:guava'
-    integrationTestImplementation 'io.jsonwebtoken:jjwt-api'
-    integrationTestImplementation 'io.jsonwebtoken:jjwt-jackson'
+    integrationTestCompileOnly("org.projectlombok:lombok")
+    integrationTestAnnotationProcessor("org.projectlombok:lombok")
+    integrationTestImplementation("com.google.guava:guava")
+    integrationTestImplementation("io.jsonwebtoken:jjwt-api")
+    integrationTestImplementation("io.jsonwebtoken:jjwt-jackson")
     // https://github.com/jwtk/jjwt/issues/236 jjwt doens't support JWK parsing, yet.
     // Once jjwt support JWK, we can remove this dependency.
-    integrationTestImplementation 'com.nimbusds:nimbus-jose-jwt:9.23'
-    integrationTestImplementation 'org.springframework.boot:spring-boot-starter-test'
-    integrationTestImplementation 'org.springframework.boot:spring-boot-starter-logging'
-    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-core'
-    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-databind'
-    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-annotations'
-    integrationTestImplementation 'com.fasterxml.jackson.module:jackson-module-parameter-names'
-    integrationTestImplementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+    integrationTestImplementation("com.nimbusds:nimbus-jose-jwt:9.23")
+    integrationTestImplementation("org.springframework.boot:spring-boot-starter-test")
+    integrationTestImplementation("org.springframework.boot:spring-boot-starter-logging")
+    integrationTestImplementation("com.fasterxml.jackson.core:jackson-core")
+    integrationTestImplementation("com.fasterxml.jackson.core:jackson-databind")
+    integrationTestImplementation("com.fasterxml.jackson.core:jackson-annotations")
+    integrationTestImplementation("com.fasterxml.jackson.module:jackson-module-parameter-names")
+    integrationTestImplementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
     integrationTestImplementation("org.junit.vintage:junit-vintage-engine") {
-        exclude group: "org.hamcrest", module: "hamcrest-core"
+        exclude(group: "org.hamcrest", module: "hamcrest-core")
     }
-    integrationTestRuntimeOnly 'io.jsonwebtoken:jjwt-impl'
+    integrationTestRuntimeOnly("io.jsonwebtoken:jjwt-impl")
 }
