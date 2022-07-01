@@ -21,11 +21,6 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 // ./gradlew clean && ./gradlew uploadArchives -Prelease
 
 buildscript {
-    ext {
-        kotlin_version = "1.7.0"
-        spring_boot_version = "2.7.1"
-    }
-
     repositories {
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
@@ -36,8 +31,8 @@ buildscript {
         classpath "com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.9"
         classpath "io.franzbecker:gradle-lombok:5.0.0"
         classpath "io.spring.gradle:dependency-management-plugin:1.0.12.RELEASE"
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.7.1"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0"
     }
 }
 
@@ -80,19 +75,16 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
-    ext["guava.version"] = "30.0-jre"
-    ext["retrofit.version"] = "2.9.0"
-
     dependencyManagement {
         imports {
             mavenBom SpringBootPlugin.BOM_COORDINATES
         }
 
         dependencies {
-            dependency("com.google.guava:guava:" + ext["guava.version"])
+            dependency("com.google.guava:guava:30.0-jre")
             dependency("com.github.stefanbirkner:system-lambda:1.2.1")
             dependency("com.github.tomakehurst:wiremock-jre8:2.33.2")
-            dependencySet(group: "com.squareup.retrofit2", version: ext["retrofit.version"]) {
+            dependencySet(group: "com.squareup.retrofit2", version: "2.9.0") {
                 entry("converter-jackson")
                 entry("retrofit")
             }
