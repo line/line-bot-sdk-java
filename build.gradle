@@ -20,20 +20,12 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 // ./gradlew clean && ./gradlew uploadArchives -Prelease
 
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
-        maven { url "https://repo.spring.io/plugins-release" }
-    }
-    dependencies {
-        classpath "com.puppycrawl.tools:checkstyle:10.3.1"
-        classpath "com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.9"
-        classpath "io.franzbecker:gradle-lombok:5.0.0"
-        classpath "io.spring.gradle:dependency-management-plugin:1.0.12.RELEASE"
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.7.1"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0"
-    }
+plugins {
+    id("org.jetbrains.kotlin.jvm") version "1.7.0" apply false
+    id("com.github.spotbugs") version "5.0.9" apply false
+    id("io.franzbecker.gradle-lombok") version "5.0.0" apply false
+    id("io.spring.dependency-management") version "1.0.12.RELEASE" apply false
+    id("org.springframework.boot") version "2.7.1" apply false
 }
 
 apply(plugin: "idea")
