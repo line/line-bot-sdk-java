@@ -16,29 +16,35 @@
 
 // https://docs.gradle.org/current/userguide/java_testing.html#sec:configuring_java_integration_tests
 sourceSets {
-    integrationTest {
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
+    create("integrationTest") {
+        compileClasspath += sourceSets.main.get().output
+        runtimeClasspath += sourceSets.main.get().output
     }
 }
 
-configurations {
-    integrationTestImplementation.extendsFrom implementation
-    integrationTestRuntimeOnly.extendsFrom runtimeOnly
-    integrationTestCompileOnly.extendsFrom compileOnly
-    integrationTestAnnotationProcessor.extendsFrom annotationProcessor
+val integrationTestImplementation by configurations.getting {
+    extendsFrom(configurations.implementation.get())
+}
+val integrationTestCompileOnly by configurations.getting {
+    extendsFrom(configurations.compileOnly.get())
+}
+val integrationTestAnnotationProcessor by configurations.getting {
+    extendsFrom(configurations.annotationProcessor.get())
+}
+val integrationTestRuntimeOnly by configurations.getting {
+    extendsFrom(configurations.runtimeOnly.get())
 }
 
-task integrationTest(type: Test) {
+val integrationTest = task<Test>("integrationTest") {
     description = "Runs integration tests."
     group = "verification"
 
-    testClassesDirs = sourceSets.integrationTest.output.classesDirs
-    classpath = sourceSets.integrationTest.runtimeClasspath
-    shouldRunAfter test
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+    shouldRunAfter("test")
 }
 
-check.dependsOn(integrationTest)
+tasks.check { dependsOn(integrationTest) }
 
 dependencies {
     api(project(":line-bot-model"))
@@ -66,7 +72,7 @@ dependencies {
     integrationTestImplementation("com.fasterxml.jackson.module:jackson-module-parameter-names")
     integrationTestImplementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
     integrationTestImplementation("org.junit.vintage:junit-vintage-engine") {
-        exclude(group: "org.hamcrest", module: "hamcrest-core")
+        exclude(group = "org.hamcrest", module = "hamcrest-core")
     }
     integrationTestRuntimeOnly("io.jsonwebtoken:jjwt-impl")
 }

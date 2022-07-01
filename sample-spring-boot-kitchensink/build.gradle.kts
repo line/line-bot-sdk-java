@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 LINE Corporation
+ * Copyright 2016 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -14,34 +14,10 @@
  * under the License.
  */
 
-apply(plugin: "org.springframework.boot")
+apply(plugin = "org.springframework.boot")
 
 dependencies {
     implementation(project(":line-bot-spring-boot"))
-    implementation(project(":line-bot-api-client"))
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.google.guava:guava")
-    implementation("org.yaml:snakeyaml")
-}
-
-jar {
-    enabled = true
-    archiveClassifier.set("")
-}
-
-bootJar {
-    enabled = true
-    // Custom Launch Script avoid https://github.com/spring-projects/spring-boot/issues/5164
-    launchScript {
-        script = file("src/main/resources/launch.script")
-    }
-    archiveClassifier.set("exec")
-    mainClass = "com.linecorp.bot.cli.Application"
-}
-
-// Add exec jar into archives to be uploaded.
-artifacts.add(
-    "archives",
-    file("$buildDir/libs/${project.name}-${project.version}-${bootJar.archiveClassifier.get()}.jar")) {
-    classifier = bootJar.archiveClassifier.get()
 }
