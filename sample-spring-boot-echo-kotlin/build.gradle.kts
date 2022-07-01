@@ -1,5 +1,5 @@
-apply(plugin: "kotlin")
-apply(plugin: "org.springframework.boot")
+apply(plugin = "kotlin")
+apply(plugin = "org.springframework.boot")
 
 dependencies {
     implementation(project(":line-bot-spring-boot"))
