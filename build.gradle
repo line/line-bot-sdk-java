@@ -32,7 +32,6 @@ buildscript {
         maven { url 'https://repo.spring.io/plugins-release' }
     }
     dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.42.0'
         classpath 'com.puppycrawl.tools:checkstyle:10.3.1'
         classpath "com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.9"
         classpath 'io.franzbecker:gradle-lombok:5.0.0'
@@ -44,7 +43,6 @@ buildscript {
 
 apply plugin: 'idea'
 apply plugin: 'jacoco'
-apply plugin: 'com.github.ben-manes.versions'
 
 group = 'com.linecorp.bot'
 version = '4.10.0'
@@ -120,32 +118,6 @@ subprojects {
 
     compileJava.dependsOn(processResources)
     // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
-
-    def springManagedModules = [
-        'org.springframework',
-        'com.fasterxml.jackson',
-        'javax.validation',
-        'org.hibernate',
-        'javax.servlet'
-    ];
-    dependencyUpdates.resolutionStrategy {
-        componentSelection { rules ->
-            rules.all { ComponentSelection selection ->
-                boolean springManaged = springManagedModules.any { module ->
-                    selection.candidate.group.startsWith(module)
-                }
-                if (springManaged) {
-                    selection.reject('Spring Managed')
-                }
-                boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
-                    selection.candidate.version ==~ /(?i).*[.-]${qualifier}\d*[.\d-]*/
-                }
-                if (rejected) {
-                    selection.reject('Release candidate')
-                }
-            }
-        }
-    }
 
     jar {
         manifest {
