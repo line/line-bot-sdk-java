@@ -109,7 +109,7 @@ public class LineMessageHandlerSupportTest {
     public void dispatchAndReplyMessageTest() {
         when(replyByReturnValueConsumerFactory.createForEvent(any()))
                 .thenReturn(replyByReturnValueConsumer);
-        final MessageEvent event = EventTestUtil.createTextMessage("text");
+        final MessageEvent<TextMessageContent> event = EventTestUtil.createTextMessage("text");
 
         when(applicationContext.getBeansWithAnnotation(LineMessageHandler.class))
                 .thenReturn(singletonMap("bean", new ReplyHandler("Message from Handler method")));
@@ -128,7 +128,7 @@ public class LineMessageHandlerSupportTest {
     public void dispatchDestination() {
         when(replyByReturnValueConsumerFactory.createForEvent(any()))
                 .thenReturn(replyByReturnValueConsumer);
-        final MessageEvent event = EventTestUtil.createTextMessage("text");
+        final MessageEvent<TextMessageContent> event = EventTestUtil.createTextMessage("text");
 
         when(applicationContext.getBeansWithAnnotation(LineMessageHandler.class))
                 .thenReturn(singletonMap("bean", new DestinationHandler()));
@@ -145,6 +145,7 @@ public class LineMessageHandlerSupportTest {
 
     @LineMessageHandler
     public static class MessageHandler {
+        @SuppressWarnings("rawtypes")
         @EventMapping
         public void generalMessageHandler(MessageEvent messageEvent) {
         }

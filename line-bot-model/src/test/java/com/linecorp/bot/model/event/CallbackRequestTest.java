@@ -59,6 +59,7 @@ import com.linecorp.bot.model.event.things.result.UnknownActionResult;
 import com.linecorp.bot.model.event.things.result.VoidActionResult;
 import com.linecorp.bot.model.testutil.TestUtil;
 
+@SuppressWarnings("rawtypes")
 public class CallbackRequestTest {
     @FunctionalInterface
     interface RequestTester {

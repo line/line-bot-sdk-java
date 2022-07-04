@@ -63,7 +63,7 @@ public class CallbackAdaptorTest {
     @Test
     public void onResponseWithErrorTest() throws Exception {
         Response<Object> response =
-                Response.error(400, ResponseBody.create(parse("application/json"), "{}"));
+                Response.error(400, ResponseBody.create("{}", parse("application/json")));
 
         // Do
         target.onResponse(call, response);
