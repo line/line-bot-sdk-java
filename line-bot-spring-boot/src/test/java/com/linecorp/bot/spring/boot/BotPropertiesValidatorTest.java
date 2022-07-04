@@ -64,9 +64,9 @@ public class BotPropertiesValidatorTest {
         assertThat(constraintViolations)
                 .isNotEmpty()
                 .filteredOn("propertyPath", createPathFromString("channelToken"))
-                .hasOnlyOneElementSatisfying(violation -> {
-                    assertThat(violation.getMessage()).isEqualTo("channelToken is null");
-                });
+                .singleElement()
+                .extracting(ConstraintViolation::getMessage)
+                .isEqualTo("channelToken is null");
     }
 
     @Test
@@ -96,9 +96,8 @@ public class BotPropertiesValidatorTest {
         assertThat(constraintViolations)
                 .isNotEmpty()
                 .filteredOn("propertyPath", createPathFromString("channelToken"))
-                .hasOnlyOneElementSatisfying(violation -> {
-                    assertThat(violation.getMessage())
-                            .isEqualTo("channelToken should be null if channelTokenSupplyMode = SUPPLIER");
-                });
+                .singleElement()
+                .extracting(ConstraintViolation::getMessage)
+                .isEqualTo("channelToken should be null if channelTokenSupplyMode = SUPPLIER");
     }
 }

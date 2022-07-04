@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
 public class ModelObjectMapperTest {
     @Test
@@ -36,7 +36,7 @@ public class ModelObjectMapperTest {
                 .isNull();
 
         // Do
-        first.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        first.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
 
         // Verify
         assertThat(first.getPropertyNamingStrategy())

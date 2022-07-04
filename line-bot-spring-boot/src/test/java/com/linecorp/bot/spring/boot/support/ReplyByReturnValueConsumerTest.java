@@ -41,13 +41,14 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.exception.GeneralLineMessagingException;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.test.EventTestUtil;
 
 @ExtendWith(MockitoExtension.class)
 public class ReplyByReturnValueConsumerTest {
-    private static final MessageEvent EVENT = EventTestUtil.createTextMessage("text");
+    private static final MessageEvent<TextMessageContent> EVENT = EventTestUtil.createTextMessage("text");
 
     @Mock
     private LineMessagingClient lineMessagingClient;

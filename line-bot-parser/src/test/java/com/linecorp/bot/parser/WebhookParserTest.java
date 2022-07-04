@@ -98,6 +98,7 @@ public class WebhookParserTest {
 
         final List<Event> result = callbackRequest.getEvents();
 
+        @SuppressWarnings("rawtypes")
         final MessageEvent messageEvent = (MessageEvent) result.get(0);
         final TextMessageContent text = (TextMessageContent) messageEvent.getMessage();
         assertThat(text.getText()).isEqualTo("Hello, world");
