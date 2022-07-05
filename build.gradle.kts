@@ -27,7 +27,7 @@ plugins {
     id("com.github.spotbugs") version "5.0.9" apply false
     id("io.spring.dependency-management") version "1.0.12.RELEASE" apply false
     id("org.springframework.boot") version "2.7.1" apply false
-    id("io.franzbecker.gradle-lombok") version "5.0.0" apply false
+    id("io.freefair.lombok") version "6.5.0.2"
 }
 
 apply(plugin = "idea")
@@ -60,7 +60,7 @@ subprojects {
         plugin("java-library")
         plugin("checkstyle")
         plugin("io.spring.dependency-management")
-        plugin("io.franzbecker.gradle-lombok")
+        plugin("io.freefair.lombok")
     }
 
     java {
@@ -120,27 +120,13 @@ subprojects {
         }
     }
 
-    configure<io.franzbecker.gradle.lombok.LombokPluginExtension> {
-        version = "1.18.22"
+    lombok {
+        version.set("1.18.22")
     }
 
 
     if (!project.name.startsWith("sample-") && !project.name.startsWith("test-")) {
-        // FIXME: We should use delombok-ed code as a source of javadoc-jar.
-//        val delombok = tasks.register<io.franzbecker.gradle.lombok.task.DelombokTask>("delombok") {
-//            dependsOn(tasks.compileJava)
-//            val outputDir by extra { file("$buildDir/delombok") }
-//            outputs.dir(outputDir)
-//            sourceSets["main"].java.srcDirs.forEach {
-//                inputs.dir(it)
-//                args(it, "-d", outputDir)
-//            }
-//        }
-
         tasks.withType<Javadoc> {
-//            dependsOn(delombok)
-//            val outputDir: File by delombok.get().extra
-//            source = fileTree(outputDir)
             isFailOnError = false
             options.encoding = "UTF-8"
             options.locale = "en_US"
@@ -194,7 +180,7 @@ subprojects {
     tasks.withType(Test::class.java) {
         useJUnitPlatform()
         testLogging {
-//            // Make sure output from standard out or error is shown in Gradle output.
+            // Make sure output from standard out or error is shown in Gradle output.
             showStandardStreams = true
             showExceptions = true
             showCauses = true
