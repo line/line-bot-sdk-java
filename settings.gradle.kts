@@ -14,6 +14,14 @@
  * under the License.
  */
 
+pluginManagement {
+    repositories {
+        mavenCentral()
+        maven { url = uri("https://plugins.gradle.org/m2/") }
+        maven { url = uri("https://repo.spring.io/plugins-release") }
+    }
+}
+
 include("line-bot-api-client")
 include("line-bot-model")
 include("line-bot-servlet")
