@@ -23,7 +23,7 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 plugins {
     `java-library`
     checkstyle
-    id("org.jetbrains.kotlin.jvm") version "1.7.0" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.7.10" apply false
     id("com.github.spotbugs") version "5.0.9" apply false
     id("io.spring.dependency-management") version "1.0.12.RELEASE" apply false
     id("org.springframework.boot") version "2.7.1" apply false
