@@ -22,6 +22,13 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
+
 include("line-bot-api-client")
 include("line-bot-model")
 include("line-bot-servlet")

@@ -48,12 +48,6 @@ version = "4.10.0" + if (isReleaseBuild) {
     "-SNAPSHOT"
 }
 
-allprojects {
-    repositories {
-        mavenCentral()
-    }
-}
-
 subprojects {
     apply {
         plugin("com.github.spotbugs")
