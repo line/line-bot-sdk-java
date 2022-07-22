@@ -22,7 +22,9 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 plugins {
     `java-library`
+    `maven-publish`
     checkstyle
+    signing
     id("org.jetbrains.kotlin.jvm") version "1.7.10" apply false
     id("com.github.spotbugs") version "5.0.9" apply false
     id("io.spring.dependency-management") version "1.0.12.RELEASE" apply false
@@ -279,10 +281,11 @@ listOf(
             }
         }
 
-        tasks.withType<Sign>().configureEach {
+        signing {
             setRequired(isReleaseBuild)
-            val publishing = extensions.findByName("publishing") as PublishingExtension
-            sign(publishing.publications["mavenJava"])
+            publishing.publications.configureEach {
+                sign(this)
+            }
         }
     }
 }
