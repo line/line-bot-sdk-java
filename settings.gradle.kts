@@ -22,6 +22,14 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+    }
+}
+
+
 include("line-bot-api-client")
 include("line-bot-model")
 include("line-bot-servlet")
