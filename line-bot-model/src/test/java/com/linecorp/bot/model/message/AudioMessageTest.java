@@ -29,7 +29,7 @@ public class AudioMessageTest {
 
     @Test
     public void constructor() {
-        AudioMessage message = new AudioMessage(URI.create("https://example.com/"), 3);
+        AudioMessage message = new AudioMessage(URI.create("https://example.com/"), 3L);
         assertThat(message.getOriginalContentUrl()).isEqualTo(URI.create("https://example.com/"));
         assertThat(message.getDuration()).isEqualTo(3);
         assertThat(message.getQuickReply()).isNull();
@@ -41,7 +41,7 @@ public class AudioMessageTest {
         AudioMessage message = AudioMessage
                 .builder()
                 .originalContentUrl(URI.create("https://example.com/"))
-                .duration(3)
+                .duration(3L)
                 .quickReply(null)
                 .sender(Sender.builder()
                               .name("hello")

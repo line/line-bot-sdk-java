@@ -37,6 +37,6 @@ public class VideoMessageContent implements MessageContent {
     /**
      * Length of video file (milliseconds).
      */
-    Integer duration;
+    Long duration;
     ContentProvider contentProvider;
 }

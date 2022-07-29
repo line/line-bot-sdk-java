@@ -38,5 +38,5 @@ public class AudioMessageContent implements MessageContent {
 
     String id;
     ContentProvider contentProvider;
-    Integer duration;
+    Long duration;
 }
