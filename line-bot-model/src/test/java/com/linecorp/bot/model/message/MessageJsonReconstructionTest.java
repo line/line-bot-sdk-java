@@ -124,7 +124,7 @@ public class MessageJsonReconstructionTest {
 
     @Test
     public void audioMessageTest() {
-        test(new AudioMessage(URI.create("http://originalUrl"), 20));
+        test(new AudioMessage(URI.create("http://originalUrl"), 20L));
     }
 
     @Test

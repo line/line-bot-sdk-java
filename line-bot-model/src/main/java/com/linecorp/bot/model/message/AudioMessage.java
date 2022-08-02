@@ -51,7 +51,7 @@ public class AudioMessage implements Message {
     /**
      * Length of audio file (milliseconds).
      */
-    Integer duration;
+    Long duration;
 
     QuickReply quickReply;
 
@@ -62,7 +62,7 @@ public class AudioMessage implements Message {
      *
      * <p>If you want use {@link QuickReply}, please use {@link #builder()} instead.
      */
-    public AudioMessage(final URI originalContentUrl, final Integer duration) {
+    public AudioMessage(final URI originalContentUrl, final Long duration) {
         this(originalContentUrl, duration, null, null);
     }
 

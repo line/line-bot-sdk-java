@@ -174,7 +174,7 @@ public class KitchenSinkController {
                     } else {
                         mp4 = saveContent("mp4", responseBody);
                     }
-                    reply(event.getReplyToken(), new AudioMessage(mp4.getUri(), 100));
+                    reply(event.getReplyToken(), new AudioMessage(mp4.getUri(), 100L));
                 });
     }
 
