@@ -1,0 +1,18 @@
+[versions]
+jsonwebtoken = "0.11.5"
+retrofit2 = "2.9.0"
+jjwt = "0.11.5"
+
+[libraries]
+retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit2" }
+retrofit2-converter-jackson = { module = "com.squareup.retrofit2:converter-jackson", version.ref = "retrofit2" }
+guava = { group = "com.google.guava", name = "guava", version = "31.1-jre" }
+system-lambda = { group = "com.github.stefanbirkner", name = "system-lambda", version = "1.2.1" }
+wiremock = { group = "com.github.tomakehurst", name = "wiremock-jre8", version = "2.33.2" }
+jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
+jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
+jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }
+
+[bundles]
+retrofit2 = ["retrofit2-converter-jackson", "retrofit2-retrofit"]
+

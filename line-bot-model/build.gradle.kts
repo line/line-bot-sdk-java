@@ -23,6 +23,6 @@ dependencies {
 
     testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     testImplementation("com.fasterxml.jackson.module:jackson-module-parameter-names")
-    testImplementation("com.google.guava:guava")
+    testImplementation(libs.guava)
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

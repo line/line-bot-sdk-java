@@ -19,5 +19,5 @@ apply(plugin = "org.springframework.boot")
 dependencies {
     implementation(project(":line-bot-spring-boot"))
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.google.guava:guava")
+    implementation(libs.guava)
 }

@@ -20,12 +20,12 @@ dependencies {
     implementation(project(":line-bot-parser"))
     implementation("org.springframework.boot:spring-boot-autoconfigure")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.google.guava:guava")
+    implementation(libs.guava)
 
     compileOnly("javax.validation:validation-api")
 
-    testImplementation("com.github.stefanbirkner:system-lambda")
-    testImplementation("com.github.tomakehurst:wiremock-jre8")
+    testImplementation(libs.system.lambda)
+    testImplementation(libs.wiremock)
     testImplementation("org.hibernate.validator:hibernate-validator")
     testImplementation("org.springframework.boot:spring-boot-starter-test") // MockHttpServletRequest
     testImplementation("org.springframework.boot:spring-boot-starter-logging")

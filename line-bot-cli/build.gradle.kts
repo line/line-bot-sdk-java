@@ -22,10 +22,10 @@ dependencies {
     implementation(project(":line-bot-spring-boot"))
     implementation(project(":line-bot-api-client"))
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.google.guava:guava")
+    implementation(libs.guava)
     implementation("org.yaml:snakeyaml")
 
-    testImplementation("com.github.stefanbirkner:system-lambda")
+    testImplementation(libs.system.lambda)
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
