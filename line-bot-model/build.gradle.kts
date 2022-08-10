@@ -21,6 +21,8 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-parameter-names")
     implementation("com.google.code.findbugs:jsr305:3.0.2")
 
-    testImplementation("com.fasterxml.jackson.module:jackson-module-parameter-names")
     testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    testImplementation("com.fasterxml.jackson.module:jackson-module-parameter-names")
+    testImplementation("com.google.guava:guava")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

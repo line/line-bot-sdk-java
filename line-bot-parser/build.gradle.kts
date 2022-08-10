@@ -18,4 +18,7 @@ dependencies {
     api(project(":line-bot-model"))
     implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation("org.slf4j:slf4j-api")
+
+    testImplementation("com.google.guava:guava")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

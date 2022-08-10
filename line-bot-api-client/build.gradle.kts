@@ -56,6 +56,10 @@ dependencies {
     testCompileOnly("org.projectlombok:lombok")
     testAnnotationProcessor("org.projectlombok:lombok")
 
+    testImplementation("com.github.stefanbirkner:system-lambda")
+    testImplementation("com.github.tomakehurst:wiremock-jre8")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
     integrationTestCompileOnly("org.projectlombok:lombok")
     integrationTestAnnotationProcessor("org.projectlombok:lombok")
     integrationTestImplementation("com.google.guava:guava")

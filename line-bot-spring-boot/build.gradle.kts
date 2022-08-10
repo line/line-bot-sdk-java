@@ -23,4 +23,13 @@ dependencies {
     implementation("com.google.guava:guava")
 
     compileOnly("javax.validation:validation-api")
+
+    testImplementation("com.github.stefanbirkner:system-lambda")
+    testImplementation("com.github.tomakehurst:wiremock-jre8")
+    testImplementation("org.hibernate.validator:hibernate-validator")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") // MockHttpServletRequest
+    testImplementation("org.springframework.boot:spring-boot-starter-logging")
+
+    // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }

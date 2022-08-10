@@ -22,6 +22,8 @@ dependencies {
     implementation("com.google.guava:guava")
 
     compileOnly("javax.servlet:javax.servlet-api")
-    testImplementation("javax.servlet:javax.servlet-api")
     compileOnly("org.slf4j:slf4j-api")
+
+    testImplementation("javax.servlet:javax.servlet-api")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
