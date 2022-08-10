@@ -88,18 +88,6 @@ subprojects {
         }
     }
 
-    dependencies {
-        annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-        // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
-
-        testImplementation("com.google.guava:guava")
-        testImplementation("com.github.stefanbirkner:system-lambda")
-        testImplementation("com.github.tomakehurst:wiremock-jre8")
-        testImplementation("org.hibernate.validator:hibernate-validator")
-        testImplementation("org.springframework.boot:spring-boot-starter-test") // MockHttpServletRequest
-        testImplementation("org.springframework.boot:spring-boot-starter-logging")
-    }
-
     tasks.named("compileJava") {
         inputs.files(tasks.named("processResources"))
     }

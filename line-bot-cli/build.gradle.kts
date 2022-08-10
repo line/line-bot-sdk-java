@@ -24,6 +24,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.google.guava:guava")
     implementation("org.yaml:snakeyaml")
+
+    testImplementation("com.github.stefanbirkner:system-lambda")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.jar {
