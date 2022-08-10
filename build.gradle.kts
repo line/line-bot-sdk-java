@@ -44,7 +44,7 @@ val sonatypeRepositoryUrl = if (isReleaseBuild) {
 }
 
 group = "com.linecorp.bot"
-version = "5.0.0" + if (isReleaseBuild) {
+version = "5.0.1" + if (isReleaseBuild) {
     ""
 } else {
     "-SNAPSHOT"
