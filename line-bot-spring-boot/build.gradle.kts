@@ -15,6 +15,9 @@
  */
 
 dependencies {
+    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+    annotationProcessor(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+
     api(project(":line-bot-api-client"))
     api(project(":line-bot-model"))
     implementation(project(":line-bot-parser"))

@@ -18,12 +18,13 @@ dependencies {
     api(project(":line-bot-api-client"))
     api(project(":line-bot-model"))
     implementation(project(":line-bot-parser"))
-    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation(libs.jackson.databind)
     implementation(libs.guava)
 
-    compileOnly("javax.servlet:javax.servlet-api")
-    compileOnly("org.slf4j:slf4j-api")
+    compileOnly(libs.javax.servlet.api)
+    compileOnly(libs.slf4j.api)
 
-    testImplementation("javax.servlet:javax.servlet-api")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation(libs.javax.servlet.api)
+    testImplementation(libs.bundles.tests)
+    testImplementation(libs.spring.test) // MockHttpServletRequest
 }

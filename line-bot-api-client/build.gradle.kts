@@ -48,19 +48,21 @@ tasks.check { dependsOn(integrationTest) }
 
 dependencies {
     api(project(":line-bot-model"))
-    implementation("org.slf4j:slf4j-api")
-    implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation(libs.slf4j.api)
+    implementation(libs.okhttp3.logging.interceptor)
     implementation(libs.bundles.retrofit2)
 
-    testCompileOnly("org.projectlombok:lombok")
-    testAnnotationProcessor("org.projectlombok:lombok")
+    testCompileOnly(libs.lombok)
+    testAnnotationProcessor(libs.lombok)
 
     testImplementation(libs.system.lambda)
     testImplementation(libs.wiremock)
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation(libs.bundles.tests)
+    testImplementation(libs.jul.to.slf4j)
 
-    integrationTestCompileOnly("org.projectlombok:lombok")
-    integrationTestAnnotationProcessor("org.projectlombok:lombok")
+    integrationTestImplementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+    integrationTestCompileOnly(libs.lombok)
+    integrationTestAnnotationProcessor(libs.lombok)
     integrationTestImplementation(libs.guava)
     integrationTestImplementation(libs.jjwt.api)
     integrationTestImplementation(libs.jjwt.jackson)

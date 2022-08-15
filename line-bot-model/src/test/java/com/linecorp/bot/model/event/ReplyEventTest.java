@@ -16,15 +16,14 @@
 
 package com.linecorp.bot.model.event;
 
-import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.reflections.scanners.Scanners.SubTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.util.ClassUtils;
+import org.reflections.Reflections;
 
 import com.google.common.base.Preconditions;
 
@@ -40,7 +39,7 @@ public class ReplyEventTest {
         log.info("eventClasses = {}", eventClasses);
 
         for (Class<?> eventClass : eventClasses) {
-            final boolean hasReplyTokenMethod = ClassUtils.hasMethod(eventClass, "getReplyToken");
+            final boolean hasReplyTokenMethod = hasMethod(eventClass, "getReplyToken");
 
             if (hasReplyTokenMethod) {
                 assertThat(ReplyEvent.class)
@@ -49,23 +48,19 @@ public class ReplyEventTest {
         }
     }
 
-    private static List<Class<?>> getAllEventClass() {
-        ClassPathScanningCandidateComponentProvider scanningProvider =
-                new ClassPathScanningCandidateComponentProvider(false);
-        scanningProvider
-                .addIncludeFilter((metadataReader, metadataReaderFactory) -> true);
+    private static boolean hasMethod(Class<?> clazz, String method) {
+        try {
+            clazz.getMethod(method);
+            return true;
+        } catch (NoSuchMethodException e) {
+            return false;
+        }
+    }
 
-        return scanningProvider.findCandidateComponents(Event.class.getPackage().getName())
-                               .stream()
-                               .map(BeanDefinition::getBeanClassName)
-                               .map(className -> {
-                                   try {
-                                       return (Class<?>) Class.forName(className);
-                                   } catch (ClassNotFoundException e) {
-                                       throw new RuntimeException(e);
-                                   }
-                               })
-                               .filter(Event.class::isAssignableFrom)
-                               .collect(toList());
+    private static List<Class<?>> getAllEventClass() {
+        return new ArrayList<>(
+                new Reflections(Event.class.getPackage().getName())
+                        .get(SubTypes.of(Event.class).asClass())
+        );
     }
 }

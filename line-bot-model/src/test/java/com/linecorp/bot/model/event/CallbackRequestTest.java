@@ -26,8 +26,8 @@ import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
-import org.springframework.util.StreamUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -68,7 +68,7 @@ public class CallbackRequestTest {
 
     private void parse(String resourceName, RequestTester callback) throws IOException {
         try (InputStream resource = getClass().getClassLoader().getResourceAsStream(resourceName)) {
-            String json = StreamUtils.copyToString(resource, StandardCharsets.UTF_8);
+            String json = IOUtils.toString(resource, StandardCharsets.UTF_8);
             ObjectMapper objectMapper = TestUtil.objectMapperWithProductionConfiguration(false);
             CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
 

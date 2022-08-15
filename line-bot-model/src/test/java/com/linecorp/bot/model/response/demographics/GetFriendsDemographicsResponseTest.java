@@ -18,10 +18,10 @@ package com.linecorp.bot.model.response.demographics;
 
 import static java.lang.ClassLoader.getSystemResourceAsStream;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.util.StreamUtils.copyToByteArray;
 
 import java.io.IOException;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,7 +38,7 @@ public class GetFriendsDemographicsResponseTest {
 
     @Test
     public void reconstructTest() throws IOException {
-        final byte[] bytes = copyToByteArray(getSystemResourceAsStream("friends-demographics.json"));
+        final byte[] bytes = IOUtils.toByteArray(getSystemResourceAsStream("friends-demographics.json"));
 
         // Do
         final GetFriendsDemographicsResponse deserialized =
