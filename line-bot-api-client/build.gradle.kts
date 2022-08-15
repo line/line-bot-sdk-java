@@ -50,21 +50,20 @@ dependencies {
     api(project(":line-bot-model"))
     implementation("org.slf4j:slf4j-api")
     implementation("com.squareup.okhttp3:logging-interceptor")
-    implementation("com.squareup.retrofit2:converter-jackson")
-    implementation("com.squareup.retrofit2:retrofit")
+    implementation(libs.bundles.retrofit2)
 
     testCompileOnly("org.projectlombok:lombok")
     testAnnotationProcessor("org.projectlombok:lombok")
 
-    testImplementation("com.github.stefanbirkner:system-lambda")
-    testImplementation("com.github.tomakehurst:wiremock-jre8")
+    testImplementation(libs.system.lambda)
+    testImplementation(libs.wiremock)
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     integrationTestCompileOnly("org.projectlombok:lombok")
     integrationTestAnnotationProcessor("org.projectlombok:lombok")
-    integrationTestImplementation("com.google.guava:guava")
-    integrationTestImplementation("io.jsonwebtoken:jjwt-api")
-    integrationTestImplementation("io.jsonwebtoken:jjwt-jackson")
+    integrationTestImplementation(libs.guava)
+    integrationTestImplementation(libs.jjwt.api)
+    integrationTestImplementation(libs.jjwt.jackson)
     // https://github.com/jwtk/jjwt/issues/236 jjwt doens't support JWK parsing, yet.
     // Once jjwt support JWK, we can remove this dependency.
     integrationTestImplementation("com.nimbusds:nimbus-jose-jwt:9.23")
@@ -78,5 +77,5 @@ dependencies {
     integrationTestImplementation("org.junit.vintage:junit-vintage-engine") {
         exclude(group = "org.hamcrest", module = "hamcrest-core")
     }
-    integrationTestRuntimeOnly("io.jsonwebtoken:jjwt-impl")
+    integrationTestRuntimeOnly(libs.jjwt.impl)
 }

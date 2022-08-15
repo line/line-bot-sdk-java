@@ -19,7 +19,7 @@ dependencies {
     api(project(":line-bot-model"))
     implementation(project(":line-bot-parser"))
     implementation("com.fasterxml.jackson.core:jackson-databind")
-    implementation("com.google.guava:guava")
+    implementation(libs.guava)
 
     compileOnly("javax.servlet:javax.servlet-api")
     compileOnly("org.slf4j:slf4j-api")

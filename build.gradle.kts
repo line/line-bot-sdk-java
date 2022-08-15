@@ -14,7 +14,6 @@
  * under the License.
  */
 
-import com.github.spotbugs.snom.SpotBugsTask
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
@@ -27,7 +26,6 @@ plugins {
     signing
     id("org.jetbrains.kotlin.jvm") version "1.7.10" apply false
     id("com.github.spotbugs") version "5.0.9" apply false
-    id("io.spring.dependency-management") version "1.0.13.RELEASE" apply false
     id("org.springframework.boot") version "2.7.2" apply false
     id("io.freefair.lombok") version "6.5.0.3"
 }
@@ -55,7 +53,6 @@ subprojects {
         plugin("com.github.spotbugs")
         plugin("java-library")
         plugin("checkstyle")
-        plugin("io.spring.dependency-management")
         plugin("io.freefair.lombok")
     }
 
@@ -67,25 +64,9 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
-    configure<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension> {
-        imports {
-            mavenBom(SpringBootPlugin.BOM_COORDINATES)
-        }
-
-        dependencies {
-            dependency("com.google.guava:guava:31.1-jre")
-            dependency("com.github.stefanbirkner:system-lambda:1.2.1")
-            dependency("com.github.tomakehurst:wiremock-jre8:2.33.2")
-            dependencySet("com.squareup.retrofit2:2.9.0") {
-                entry("converter-jackson")
-                entry("retrofit")
-            }
-            dependencySet("io.jsonwebtoken:0.11.5") {
-                entry("jjwt-api")
-                entry("jjwt-impl")
-                entry("jjwt-jackson")
-            }
-        }
+    dependencies {
+        implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+        annotationProcessor(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
     }
 
     tasks.named("compileJava") {
