@@ -8,7 +8,7 @@ junit = "5.8.2"
 slf4j = "1.7.36"
 json-path = "2.7.0"
 mockito = "4.5.1"
-okhttp3 = "4.9.3"
+okhttp3 = "4.10.0"
 
 [libraries]
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit2" }
