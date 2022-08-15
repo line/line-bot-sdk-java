@@ -2,17 +2,61 @@
 jsonwebtoken = "0.11.5"
 retrofit2 = "2.9.0"
 jjwt = "0.11.5"
+jackson = "2.13.3"
+assertj = "3.22.0"
+junit = "5.8.2"
+slf4j = "1.7.36"
+json-path = "2.7.0"
+mockito = "4.5.1"
+okhttp3 = "4.9.3"
 
 [libraries]
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit2" }
 retrofit2-converter-jackson = { module = "com.squareup.retrofit2:converter-jackson", version.ref = "retrofit2" }
 guava = { group = "com.google.guava", name = "guava", version = "31.1-jre" }
 system-lambda = { group = "com.github.stefanbirkner", name = "system-lambda", version = "1.2.1" }
-wiremock = { group = "com.github.tomakehurst", name = "wiremock-jre8", version = "2.33.2" }
 jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
 jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
 jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }
+lombok = { module = "org.projectlombok:lombok", version = "1.18.24" }
+
+okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3" }
+
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
+jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackson-module-parameter-names", version.ref = "jackson" }
+
+findbugs-jsr305 = { module = "com.google.code.findbugs:jsr305", version = "3.0.2" }
+
+javax-servlet-api = { module = "javax.servlet:javax.servlet-api", version = "4.0.1" }
+
+# logging
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+jul-to-slf4j = { module = "org.slf4j:jul-to-slf4j", version.ref = "slf4j" }
+
+# tests
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit" }
+json-path = { module = "com.jayway.jsonpath:json-path", version.ref = "json-path" }
+json-path-assert = { module = "com.jayway.jsonpath:json-path-assert", version.ref = "json-path" }
+jsonassert = { module = "org.skyscreamer:jsonassert", version = "1.5.1" }
+commons-io = { module = "commons-io:commons-io", version = "2.11.0" }
+reflections = { module = "org.reflections:reflections", version = "0.10.2" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
+spring-test = { module = "org.springframework:spring-test", version = "5.3.22" }
+wiremock = { group = "com.github.tomakehurst", name = "wiremock-jre8", version = "2.33.2" }
+
 
 [bundles]
 retrofit2 = ["retrofit2-converter-jackson", "retrofit2-retrofit"]
-
+tests = [
+    "assertj-core",
+    "junit-jupiter-api", "junit-jupiter-params", "junit-vintage-engine",
+    "slf4j-api",
+    "json-path", "json-path-assert", "jsonassert",
+    "mockito-core", "mockito-junit-jupiter",
+]

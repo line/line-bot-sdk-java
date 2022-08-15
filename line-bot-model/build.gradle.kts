@@ -15,14 +15,14 @@
  */
 
 dependencies {
-    api("com.fasterxml.jackson.core:jackson-databind") // Provide configured ObjectMapper.
-    implementation("com.fasterxml.jackson.core:jackson-annotations")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-    implementation("com.fasterxml.jackson.module:jackson-module-parameter-names")
-    implementation("com.google.code.findbugs:jsr305:3.0.2")
+    api(libs.jackson.databind) // Provide configured ObjectMapper.
+    implementation(libs.jackson.annotations)
+    implementation(libs.jackson.datatype.jsr310)
+    implementation(libs.jackson.module.parameter.names)
+    implementation(libs.findbugs.jsr305)
 
-    testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-    testImplementation("com.fasterxml.jackson.module:jackson-module-parameter-names")
     testImplementation(libs.guava)
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation(libs.reflections)
+    testImplementation(libs.commons.io)
+    testImplementation(libs.bundles.tests)
 }

@@ -64,11 +64,6 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
-    dependencies {
-        implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-        annotationProcessor(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-    }
-
     tasks.named("compileJava") {
         inputs.files(tasks.named("processResources"))
     }

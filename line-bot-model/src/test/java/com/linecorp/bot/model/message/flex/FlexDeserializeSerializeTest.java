@@ -18,7 +18,6 @@ package com.linecorp.bot.model.message.flex;
 
 import static java.lang.ClassLoader.getSystemResource;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static org.springframework.util.StreamUtils.copyToString;
 
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
@@ -27,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -59,7 +59,7 @@ public class FlexDeserializeSerializeTest {
         return dynamicTest(resource.getFileName().toString(), () -> {
             final FileInputStream fileInputStream = new FileInputStream(resource.toFile());
 
-            final String json = copyToString(fileInputStream, StandardCharsets.UTF_8);
+            final String json = IOUtils.toString(fileInputStream, StandardCharsets.UTF_8);
             log.debug("JSON                : {}", json);
 
             final FlexContainer flexContainer = mapper.readValue(json, FlexContainer.class);
