@@ -26,7 +26,7 @@ plugins {
     signing
     id("org.jetbrains.kotlin.jvm") version "1.7.10" apply false
     id("com.github.spotbugs") version "5.0.9" apply false
-    id("org.springframework.boot") version "2.7.2" apply false
+    id("org.springframework.boot") version "2.7.3" apply false
     id("io.freefair.lombok") version "6.5.0.3"
 }
 
