@@ -41,7 +41,7 @@ This project contains the following modules:
 
 This project contains the following sample projects:
 
- * sample-spring-boot-echo: A simple echo server. It includes a Heroku button.
+ * sample-spring-boot-echo: A simple echo server.
  * sample-spring-boot-kitchensink: Full featured sample code.
 
 
