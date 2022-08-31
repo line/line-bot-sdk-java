@@ -27,7 +27,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.7.10" apply false
     id("com.github.spotbugs") version "5.0.10" apply false
     id("org.springframework.boot") version "2.7.3" apply false
-    id("io.freefair.lombok") version "6.5.0.3"
+    id("io.freefair.lombok") version "6.5.1"
 }
 
 apply(plugin = "idea")
