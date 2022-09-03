@@ -2,7 +2,7 @@
 jsonwebtoken = "0.11.5"
 retrofit2 = "2.9.0"
 jjwt = "0.11.5"
-jackson = "2.13.3"
+jackson = "2.13.4"
 assertj = "3.23.1"
 junit = "5.9.0"
 slf4j = "1.7.36"
