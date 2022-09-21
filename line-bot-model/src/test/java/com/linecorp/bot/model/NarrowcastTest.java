@@ -79,6 +79,18 @@ public class NarrowcastTest {
     }
 
     @Test
+    public void testRecipientSerializeAudience() throws JsonProcessingException {
+            ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+            String content = "{\"audienceGroupId\":59693,\"type\":\"audience\"}";
+            Recipient recipient = objectMapper.readValue(
+                            content,
+                            Recipient.class);
+            assertThat(recipient).isInstanceOf(AudienceRecipient.class);
+            String json = objectMapper.writeValueAsString(recipient);
+            assertThat(json).isEqualTo(content);
+    }
+
+    @Test
     public void testRecipientDeserializeOperator() throws JsonProcessingException {
         ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
         Recipient recipient = objectMapper.readValue(
