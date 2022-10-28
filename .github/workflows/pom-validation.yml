@@ -8,14 +8,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '1.8', '11.x', '17' ] # LTS's.
+        java: [ '8', '11', '17' ] # We want to test on LTSs.
     steps:
-    - name: actions/setup-java@v1 (JDK ${{ matrix.java }})
-      uses: actions/setup-java@v1
+    - name: actions/setup-java@v3 (JDK ${{ matrix.java }})
+      uses: actions/setup-java@v3
       with:
+        distribution: 'temurin'
         java-version: ${{ matrix.java }}
         architecture: x64
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - run: |
         mkdir -p ~/.gradle
         echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
