@@ -48,7 +48,7 @@ reflections = { module = "org.reflections:reflections", version = "0.10.2" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
 spring-test = { module = "org.springframework:spring-test", version = "5.3.23" }
-wiremock = { group = "com.github.tomakehurst", name = "wiremock-jre8", version = "2.33.2" }
+wiremock = { group = "com.github.tomakehurst", name = "wiremock-jre8", version = "2.35.0" }
 
 
 [bundles]
