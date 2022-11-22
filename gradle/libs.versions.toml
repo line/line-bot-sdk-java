@@ -7,7 +7,7 @@ assertj = "3.23.1"
 junit = "5.9.1"
 slf4j = "1.7.36"
 json-path = "2.7.0"
-mockito = "4.8.1"
+mockito = "4.9.0"
 okhttp3 = "4.10.0"
 
 [libraries]
@@ -47,7 +47,7 @@ commons-io = { module = "commons-io:commons-io", version = "2.11.0" }
 reflections = { module = "org.reflections:reflections", version = "0.10.2" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
-spring-test = { module = "org.springframework:spring-test", version = "5.3.23" }
+spring-test = { module = "org.springframework:spring-test", version = "5.3.24" }
 wiremock = { group = "com.github.tomakehurst", name = "wiremock-jre8", version = "2.35.0" }
 
 
