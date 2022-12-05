@@ -24,10 +24,10 @@ plugins {
     `maven-publish`
     checkstyle
     signing
-    id("org.jetbrains.kotlin.jvm") version "1.7.20" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.7.22" apply false
     id("com.github.spotbugs") version "5.0.13" apply false
-    id("org.springframework.boot") version "2.7.5" apply false
-    id("io.freefair.lombok") version "6.5.1"
+    id("org.springframework.boot") version "2.7.6" apply false
+    id("io.freefair.lombok") version "6.6"
 }
 
 apply(plugin = "idea")
