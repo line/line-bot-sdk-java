@@ -24,7 +24,7 @@ plugins {
     `maven-publish`
     checkstyle
     signing
-    id("org.jetbrains.kotlin.jvm") version "1.7.22" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.8.0" apply false
     id("com.github.spotbugs") version "5.0.13" apply false
     id("org.springframework.boot") version "2.7.7" apply false
     id("io.freefair.lombok") version "6.6.1"
