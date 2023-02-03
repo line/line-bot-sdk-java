@@ -127,8 +127,8 @@ This library provides the Spring Boot binding.
 And there are some incompatible changes between Spring Boot 2.x and 3.x.
 As a result, line-bot-sdk-java maintainers maintain two maintenance lines until the end of the life of Spring Boot 2.x.
 
-- line-bot-sdk-java 6.x supports Spring Boot 3.x and Jakarta EE(Branch: master).
-- line-bot-sdk-java 5.x supports Spring Boot 2.x and Java EE(branch: maint/5.x).
+- line-bot-sdk-java 6.x supports Spring Boot 3.x and Jakarta EE, Java 17+(Branch: master).
+- line-bot-sdk-java 5.x supports Spring Boot 2.x and Java EE, Java 8+(branch: maint/5.x).
 
 Spring Boot 2.x is scheduled for retirement on 2023/11/18. This means that line-bot-sdk-java 5.x will be retired on 2023/11/18.
 https://endoflife.date/spring-boot
