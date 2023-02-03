@@ -21,7 +21,10 @@ logging:
       %m%n%wEx
 
 ---
-spring.profiles: debug
+spring:
+  config:
+    activate:
+      on-profile: "debug"
 logging:
   level:
     root: DEBUG

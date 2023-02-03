@@ -26,7 +26,7 @@ plugins {
     signing
     id("org.jetbrains.kotlin.jvm") version "1.8.10" apply false
     id("com.github.spotbugs") version "5.0.13" apply false
-    id("org.springframework.boot") version "2.7.8" apply false
+    id("org.springframework.boot") version "3.0.2" apply false
     id("io.freefair.lombok") version "6.6.1"
 }
 
@@ -57,8 +57,8 @@ subprojects {
     }
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     group = rootProject.group

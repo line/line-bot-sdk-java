@@ -20,6 +20,7 @@ dependencies {
     implementation(libs.jackson.datatype.jsr310)
     implementation(libs.jackson.module.parameter.names)
     implementation(libs.findbugs.jsr305)
+    compileOnly(libs.jakarta.annotation.api)
 
     testImplementation(libs.guava)
     testImplementation(libs.reflections)

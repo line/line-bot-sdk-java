@@ -16,7 +16,7 @@
 
 package com.linecorp.bot.spring.boot.support;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

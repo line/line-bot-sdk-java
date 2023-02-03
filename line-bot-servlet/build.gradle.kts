@@ -21,10 +21,10 @@ dependencies {
     implementation(libs.jackson.databind)
     implementation(libs.guava)
 
-    compileOnly(libs.javax.servlet.api)
+    compileOnly(libs.jakarta.servlet.api)
     compileOnly(libs.slf4j.api)
 
-    testImplementation(libs.javax.servlet.api)
+    testImplementation(libs.jakarta.servlet.api)
     testImplementation(libs.bundles.tests)
     testImplementation(libs.spring.test) // MockHttpServletRequest
 }

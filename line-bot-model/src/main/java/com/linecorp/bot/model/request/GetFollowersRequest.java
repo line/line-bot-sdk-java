@@ -16,7 +16,7 @@
 
 package com.linecorp.bot.model.request;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import com.linecorp.bot.model.response.GetFollowersResponse;
 
