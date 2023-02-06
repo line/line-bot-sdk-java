@@ -56,7 +56,7 @@ import com.linecorp.bot.model.narrowcast.filter.OperatorDemographicFilter;
 import com.linecorp.bot.model.narrowcast.filter.SubscriptionPeriodDemographicFilter.SubscriptionPeriod;
 import com.linecorp.bot.model.narrowcast.recipient.Recipient;
 
-import io.micrometer.core.instrument.util.StringUtils;
+import io.micrometer.common.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
