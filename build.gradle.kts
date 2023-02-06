@@ -42,7 +42,7 @@ val sonatypeRepositoryUrl = if (isReleaseBuild) {
 }
 
 group = "com.linecorp.bot"
-version = "6.0.0" + if (isReleaseBuild) {
+version = "6.1.0" + if (isReleaseBuild) {
     ""
 } else {
     "-SNAPSHOT"
