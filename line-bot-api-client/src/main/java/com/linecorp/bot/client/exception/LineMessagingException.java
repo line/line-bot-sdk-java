@@ -21,6 +21,7 @@ import com.linecorp.bot.model.error.ErrorResponse;
 import lombok.Getter;
 
 @Getter
+@SuppressWarnings("serial")
 public abstract class LineMessagingException extends Exception {
     static final long SERIAL_VERSION_UID = 0x001_003; // 1.3.x
     private static final long serialVersionUID = SERIAL_VERSION_UID;
