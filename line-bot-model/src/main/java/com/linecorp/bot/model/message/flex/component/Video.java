@@ -20,7 +20,7 @@ import java.net.URI;
 import java.text.DecimalFormat;
 import java.util.function.Supplier;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

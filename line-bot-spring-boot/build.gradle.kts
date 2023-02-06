@@ -25,7 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation(libs.guava)
 
-    compileOnly("javax.validation:validation-api")
+    compileOnly("jakarta.validation:jakarta.validation-api")
 
     testImplementation(libs.system.lambda)
     testImplementation(libs.wiremock)

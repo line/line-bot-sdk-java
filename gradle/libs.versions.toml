@@ -29,7 +29,8 @@ jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackso
 
 findbugs-jsr305 = { module = "com.google.code.findbugs:jsr305", version = "3.0.2" }
 
-javax-servlet-api = { module = "javax.servlet:javax.servlet-api", version = "4.0.1" }
+jakarta-servlet-api = { module = "jakarta.servlet:jakarta.servlet-api", version = "6.0.0" }
+jakarta-annotation-api = { module = "jakarta.annotation:jakarta.annotation-api", version = "2.1.1" }
 
 # logging
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
@@ -47,8 +48,9 @@ commons-io = { module = "commons-io:commons-io", version = "2.11.0" }
 reflections = { module = "org.reflections:reflections", version = "0.10.2" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
-spring-test = { module = "org.springframework:spring-test", version = "5.3.25" }
-wiremock = { group = "com.github.tomakehurst", name = "wiremock-jre8", version = "2.35.0" }
+spring-test = { module = "org.springframework:spring-test", version = "6.0.4" }
+# https://github.com/wiremock/wiremock/issues/1760
+wiremock = { group = "com.github.tomakehurst", name = "wiremock", version = "3.0.0-beta-2" }
 
 
 [bundles]

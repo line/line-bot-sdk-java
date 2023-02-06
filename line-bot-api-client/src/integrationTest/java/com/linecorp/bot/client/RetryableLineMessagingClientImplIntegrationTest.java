@@ -78,7 +78,7 @@ public class RetryableLineMessagingClientImplIntegrationTest {
                         new Broadcast(new TextMessage(message), false)
                 ).get()
         ).isInstanceOf(ExecutionException.class)
-         .getCause()
+         .cause()
          .isInstanceOf(ConflictException.class);
     }
 
@@ -103,7 +103,7 @@ public class RetryableLineMessagingClientImplIntegrationTest {
                                       false)
                 ).get()
         ).isInstanceOf(ExecutionException.class)
-         .getCause()
+         .cause()
          .isInstanceOf(ConflictException.class);
     }
 
@@ -126,7 +126,7 @@ public class RetryableLineMessagingClientImplIntegrationTest {
                         new PushMessage(settings.getUserId(), new TextMessage(message), true)
                 ).get()
         ).isInstanceOf(ExecutionException.class)
-         .getCause()
+         .cause()
          .isInstanceOf(ConflictException.class);
     }
 
@@ -144,7 +144,7 @@ public class RetryableLineMessagingClientImplIntegrationTest {
         assertThatThrownBy(
                 () -> target.narrowcast(retryKey, request).get()
         ).isInstanceOf(ExecutionException.class)
-         .getCause()
+         .cause()
          .isInstanceOf(ConflictException.class);
     }
 }

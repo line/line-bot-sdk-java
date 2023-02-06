@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.model.message.Message;
 
-import io.micrometer.core.instrument.util.StringUtils;
+import io.micrometer.common.util.StringUtils;
 import lombok.AllArgsConstructor;
 
 @Component

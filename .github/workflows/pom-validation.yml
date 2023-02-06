@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '8', '11', '17' ] # We want to test on LTSs.
+        java: [ '17' ] # We want to test on LTSs.
     steps:
     - name: actions/setup-java@v3 (JDK ${{ matrix.java }})
       uses: actions/setup-java@v3

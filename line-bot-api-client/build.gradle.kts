@@ -59,6 +59,7 @@ dependencies {
     testImplementation(libs.wiremock)
     testImplementation(libs.bundles.tests)
     testImplementation(libs.jul.to.slf4j)
+    testImplementation(libs.guava)
 
     integrationTestImplementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
     integrationTestCompileOnly(libs.lombok)
