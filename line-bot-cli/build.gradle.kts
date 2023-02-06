@@ -24,7 +24,6 @@ dependencies {
     implementation(project(":line-bot-spring-boot"))
     implementation(project(":line-bot-api-client"))
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-properties-migrator")
     implementation(libs.guava)
     implementation("org.yaml:snakeyaml")
 
