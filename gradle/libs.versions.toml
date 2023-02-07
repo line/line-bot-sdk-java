@@ -19,6 +19,7 @@ jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
 jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
 jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }
 lombok = { module = "org.projectlombok:lombok", version = "1.18.26" }
+logback = { module = "ch.qos.logback:logback-classic", version = "1.4.5" }
 
 okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3" }
 
@@ -40,7 +41,7 @@ jul-to-slf4j = { module = "org.slf4j:jul-to-slf4j", version.ref = "slf4j" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
-junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
 json-path = { module = "com.jayway.jsonpath:json-path", version.ref = "json-path" }
 json-path-assert = { module = "com.jayway.jsonpath:json-path-assert", version.ref = "json-path" }
 jsonassert = { module = "org.skyscreamer:jsonassert", version = "1.5.1" }
@@ -57,8 +58,8 @@ wiremock = { group = "com.github.tomakehurst", name = "wiremock", version = "3.0
 retrofit2 = ["retrofit2-converter-jackson", "retrofit2-retrofit"]
 tests = [
     "assertj-core",
-    "junit-jupiter-api", "junit-jupiter-params", "junit-vintage-engine",
-    "slf4j-api",
+    "junit-jupiter-api", "junit-jupiter-params", "junit-jupiter-engine",
+    "slf4j-api", "logback",
     "json-path", "json-path-assert", "jsonassert",
     "mockito-core", "mockito-junit-jupiter",
 ]
