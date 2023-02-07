@@ -19,8 +19,14 @@ package com.linecorp.bot.client;
 import static java.util.Collections.singleton;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
+import com.linecorp.bot.model.Narrowcast;
+import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.narrowcast.Filter;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -53,7 +59,11 @@ public class LineMessagingClientImplIntegrationTest {
 
     private static void testApiCall(Callable<Object> f) throws Exception {
         final Object response = f.call();
-        log.info(response.toString());
+        if (response == null) {
+            log.info("null");
+        } else {
+            log.info(response.toString());
+        }
     }
 
     @Test
@@ -120,5 +130,82 @@ public class LineMessagingClientImplIntegrationTest {
         final BotInfoResponse botInfoResponse = target.getBotInfo().get();
 
         log.info(botInfoResponse.toString());
+    }
+
+    @Test
+    public void validateReply() throws Exception {
+        testApiCall(
+                () -> target.validateReply(new ReplyMessage("replyToken", new TextMessage("Push"), true))
+                        .get()
+        );
+
+        String longText = new String(new char[10000]).replace('\0', 'a');
+        Assertions.assertThatThrownBy(() -> {
+            testApiCall(
+                    () -> target.validateReply(new ReplyMessage("replyToken", new TextMessage(longText))).get()
+            );
+        }).isInstanceOf(ExecutionException.class);
+    }
+
+    @Test
+    public void validatePush() throws Exception {
+        testApiCall(
+                () -> target.validatePush(new PushMessage(settings.getUserId(), new TextMessage("Push"), true))
+                        .get()
+        );
+
+        String longText = new String(new char[10000]).replace('\0', 'a');
+        Assertions.assertThatThrownBy(() -> {
+            testApiCall(
+                    () -> target.validatePush(new PushMessage(settings.getUserId(), new TextMessage(longText))).get()
+            );
+        }).isInstanceOf(ExecutionException.class);
+    }
+
+    @Test
+    public void validateMulticast() throws Exception {
+        testApiCall(
+                () -> target.validateMulticast(new Multicast(Collections.singleton(settings.getUserId()), new TextMessage("Push"), true))
+                        .get()
+        );
+
+        String longText = new String(new char[10000]).replace('\0', 'a');
+        Assertions.assertThatThrownBy(() -> {
+            testApiCall(
+                    () -> target.validateMulticast(new Multicast(Collections.singleton(settings.getUserId()), new TextMessage(longText))).get()
+            );
+        }).isInstanceOf(ExecutionException.class);
+    }
+
+    @Test
+    public void validateNarrowcast() throws Exception {
+        testApiCall(
+                () -> target.validateNarrowcast(new Narrowcast(new TextMessage("Push"), Filter.builder().build()))
+                        .get()
+        );
+
+        String longText = new String(new char[10000]).replace('\0', 'a');
+        Assertions.assertThatThrownBy(() -> {
+            testApiCall(
+                    () -> target.validateNarrowcast(new Narrowcast(new TextMessage(longText), Filter.builder().build()))
+                            .get()
+            );
+        }).isInstanceOf(ExecutionException.class);
+    }
+
+    @Test
+    public void validateBroadcast() throws Exception {
+        testApiCall(
+                () -> target.validateBroadcast(new Broadcast(new TextMessage("Push")))
+                        .get()
+        );
+
+        String longText = new String(new char[10000]).replace('\0', 'a');
+        Assertions.assertThatThrownBy(() -> {
+            testApiCall(
+                    () -> target.validateBroadcast(new Broadcast(new TextMessage(longText)))
+                            .get()
+            );
+        }).isInstanceOf(ExecutionException.class);
     }
 }
