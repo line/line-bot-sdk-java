@@ -77,8 +77,5 @@ dependencies {
     integrationTestImplementation("com.fasterxml.jackson.core:jackson-annotations")
     integrationTestImplementation("com.fasterxml.jackson.module:jackson-module-parameter-names")
     integrationTestImplementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
-    integrationTestImplementation("org.junit.vintage:junit-vintage-engine") {
-        exclude(group = "org.hamcrest", module = "hamcrest-core")
-    }
     integrationTestRuntimeOnly(libs.jjwt.impl)
 }
