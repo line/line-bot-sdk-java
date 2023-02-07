@@ -23,17 +23,17 @@ import java.util.Collections;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
-import com.linecorp.bot.model.Narrowcast;
-import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.narrowcast.Filter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
+import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.narrowcast.Filter;
 import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
 import com.linecorp.bot.model.response.GetNumberOfMessageDeliveriesResponse;
@@ -157,7 +157,8 @@ public class LineMessagingClientImplIntegrationTest {
         String longText = new String(new char[10000]).replace('\0', 'a');
         Assertions.assertThatThrownBy(() -> {
             testApiCall(
-                    () -> target.validatePush(new PushMessage(settings.getUserId(), new TextMessage(longText))).get()
+                    () -> target.validatePush(new PushMessage(
+                            settings.getUserId(), new TextMessage(longText))).get()
             );
         }).isInstanceOf(ExecutionException.class);
     }
@@ -165,14 +166,16 @@ public class LineMessagingClientImplIntegrationTest {
     @Test
     public void validateMulticast() throws Exception {
         testApiCall(
-                () -> target.validateMulticast(new Multicast(Collections.singleton(settings.getUserId()), new TextMessage("Push"), true))
+                () -> target.validateMulticast(new Multicast(
+                        Collections.singleton(settings.getUserId()), new TextMessage("Push"), true))
                         .get()
         );
 
         String longText = new String(new char[10000]).replace('\0', 'a');
         Assertions.assertThatThrownBy(() -> {
             testApiCall(
-                    () -> target.validateMulticast(new Multicast(Collections.singleton(settings.getUserId()), new TextMessage(longText))).get()
+                    () -> target.validateMulticast(new Multicast(
+                            Collections.singleton(settings.getUserId()), new TextMessage(longText))).get()
             );
         }).isInstanceOf(ExecutionException.class);
     }
@@ -180,14 +183,16 @@ public class LineMessagingClientImplIntegrationTest {
     @Test
     public void validateNarrowcast() throws Exception {
         testApiCall(
-                () -> target.validateNarrowcast(new Narrowcast(new TextMessage("Push"), Filter.builder().build()))
+                () -> target.validateNarrowcast(new Narrowcast(
+                        new TextMessage("Push"), Filter.builder().build()))
                         .get()
         );
 
         String longText = new String(new char[10000]).replace('\0', 'a');
         Assertions.assertThatThrownBy(() -> {
             testApiCall(
-                    () -> target.validateNarrowcast(new Narrowcast(new TextMessage(longText), Filter.builder().build()))
+                    () -> target.validateNarrowcast(new Narrowcast(
+                            new TextMessage(longText), Filter.builder().build()))
                             .get()
             );
         }).isInstanceOf(ExecutionException.class);
