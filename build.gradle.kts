@@ -117,7 +117,7 @@ subprojects {
         configProperties = mapOf(
             "projectDir" to rootProject.projectDir.toString(),
         )
-        toolVersion = "8.23"
+        toolVersion = "10.7.0"
     }
 
     tasks.withType(com.github.spotbugs.snom.SpotBugsTask::class.java) {

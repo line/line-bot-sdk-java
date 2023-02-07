@@ -64,6 +64,12 @@
               value="Old document domain devdocs.line.me is no longer available." />
   </module>
 
+  <module name="LineLength">
+    <property name="max" value="112" />
+    <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://" />
+  </module>
+
+
   <module name="TreeWalker">
     <module name="SuppressWarningsHolder" />
 
@@ -162,16 +168,10 @@
       <property name="excludeScope" value="package" />
     </module>
     <module name="JavadocMethod">
-      <property name="scope" value="protected" />
-      <property name="excludeScope" value="package" />
+      <property name="accessModifiers" value="protected" />
       <property name="allowMissingParamTags" value="true" />
-      <property name="allowMissingThrowsTags" value="true" />
       <property name="allowMissingReturnTag" value="true" />
-      <property name="minLineCount" value="1" />
       <property name="allowedAnnotations" value="Override, Test" />
-      <property name="allowThrowsTagsForSubclasses" value="true" />
-      <property name="allowUndeclaredRTE" value="true" />
-      <property name="suppressLoadErrors" value="true" />
       <property name="tokens" value="METHOD_DEF" />
     </module>
     <module name="JavadocParagraph" />
@@ -247,11 +247,6 @@
       <property name="format" value="^[A-Z][a-zA-Z0-9]+$" />
       <message key="name.invalidPattern"
                value="Type name ''{0}'' must match pattern ''{1}''." />
-    </module>
-
-    <module name="LineLength">
-      <property name="max" value="112" />
-      <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://" />
     </module>
 
     <module name="EmptyForIteratorPad" />
