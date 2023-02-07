@@ -489,4 +489,44 @@ interface LineMessagingService {
     @GET("v2/bot/message/aggregation/list")
     Call<GetAggregationUnitNameListResponse> getAggregationUnitNameList(@Query("limit") String limit,
                                                                         @Query("start") String start);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#validateReply(ReplyMessage)
+     */
+    @POST("v2/bot/message/validate/reply")
+    Call<Void> validateReply(@Body ReplyMessage replyMessage);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#validatePush(PushMessage)
+     */
+    @POST("v2/bot/message/validate/push")
+    Call<Void> validatePush(@Body PushMessage pushMessage);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#validateMulticast(Multicast)
+     */
+    @POST("v2/bot/message/validate/multicast")
+    Call<Void> validateMulticast(@Body Multicast multicast);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#validateNarrowcast(Narrowcast)
+     */
+    @POST("v2/bot/message/validate/narrowcast")
+    Call<Void> validateNarrowcast(@Body Narrowcast narrowcast);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#validateBroadcast(Broadcast)
+     */
+    @POST("v2/bot/message/validate/broadcast")
+    Call<Void> validateBroadcast(@Body Broadcast broadcast);
 }

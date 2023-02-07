@@ -489,6 +489,41 @@ public interface LineMessagingClient {
     CompletableFuture<GetAggregationUnitNameListResponse> getAggregationUnitNameList(String limit,
                                                                                      String start);
 
+    /**
+     * Validate message objects of a reply message.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-reply-message">//developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-reply-message</a>
+     */
+    CompletableFuture<Void> validateReply(ReplyMessage replyMessage);
+
+    /**
+     * Validate message objects of a push message.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-push-message">//developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-push-message</a>
+     */
+    CompletableFuture<Void> validatePush(PushMessage pushMessage);
+
+    /**
+     * Validate message objects of a multicast message.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-multicast-message">//developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-multicast-message</a>
+     */
+    CompletableFuture<Void> validateMulticast(Multicast multicast);
+
+    /**
+     * Validate message objects of a narrowcast message.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-narrowcast-message">//developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-narrowcast-message</a>
+     */
+    CompletableFuture<Void> validateNarrowcast(Narrowcast narrowcast);
+
+    /**
+     * Validate message objects of a broadcast message.
+     *
+     * @see <a href="https://developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-broadcast-message">//developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-broadcast-message</a>
+     */
+    CompletableFuture<Void> validateBroadcast(Broadcast broadcast);
+
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));
     }

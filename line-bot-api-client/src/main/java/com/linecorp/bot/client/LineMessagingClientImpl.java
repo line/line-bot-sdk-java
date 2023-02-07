@@ -369,6 +369,31 @@ public class LineMessagingClientImpl implements LineMessagingClient {
         return toFuture(retrofitImpl.getAggregationUnitNameList(limit, start));
     }
 
+    @Override
+    public CompletableFuture<Void> validateReply(ReplyMessage replyMessage) {
+        return toFuture(retrofitImpl.validateReply(replyMessage));
+    }
+
+    @Override
+    public CompletableFuture<Void> validatePush(PushMessage pushMessage) {
+        return toFuture(retrofitImpl.validatePush(pushMessage));
+    }
+
+    @Override
+    public CompletableFuture<Void> validateMulticast(Multicast multicast) {
+        return toFuture(retrofitImpl.validateMulticast(multicast));
+    }
+
+    @Override
+    public CompletableFuture<Void> validateNarrowcast(Narrowcast narrowcast) {
+        return toFuture(retrofitImpl.validateNarrowcast(narrowcast));
+    }
+
+    @Override
+    public CompletableFuture<Void> validateBroadcast(Broadcast broadcast) {
+        return toFuture(retrofitImpl.validateBroadcast(broadcast));
+    }
+
     // TODO: Extract this method.
     static <T> CompletableFuture<T> toFuture(Call<T> callToWrap) {
         final CallbackAdaptor<T> completableFuture = new CallbackAdaptor<>();
