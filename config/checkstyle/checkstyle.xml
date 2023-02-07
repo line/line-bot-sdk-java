@@ -173,7 +173,6 @@
       <property name="allowMissingParamTags" value="true" />
       <property name="allowMissingThrowsTags" value="true" />
       <property name="allowMissingReturnTag" value="true" />
-      <property name="minLineCount" value="1" />
       <property name="allowedAnnotations" value="Override, Test" />
       <property name="allowThrowsTagsForSubclasses" value="true" />
       <property name="allowUndeclaredRTE" value="true" />
