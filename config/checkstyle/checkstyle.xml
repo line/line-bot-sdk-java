@@ -171,12 +171,8 @@
       <property name="scope" value="protected" />
       <property name="excludeScope" value="package" />
       <property name="allowMissingParamTags" value="true" />
-      <property name="allowMissingThrowsTags" value="true" />
       <property name="allowMissingReturnTag" value="true" />
       <property name="allowedAnnotations" value="Override, Test" />
-      <property name="allowThrowsTagsForSubclasses" value="true" />
-      <property name="allowUndeclaredRTE" value="true" />
-      <property name="suppressLoadErrors" value="true" />
       <property name="tokens" value="METHOD_DEF" />
     </module>
     <module name="JavadocParagraph" />
