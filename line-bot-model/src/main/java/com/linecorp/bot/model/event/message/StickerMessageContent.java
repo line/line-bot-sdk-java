@@ -81,7 +81,7 @@ public class StickerMessageContent implements MessageContent {
         /**
          * Custom sticker. You can't retrieve the sticker's custom text with the Messaging API.
          * @deprecated discontinued. {@link StickerResourceType#CUSTOM } is used instead of
-         * {@link StickerResourceType#NAME_TEXT }.
+         *     {@link StickerResourceType#NAME_TEXT }.
          * @see StickerResourceType#CUSTOM
          */
         @Deprecated
@@ -89,7 +89,7 @@ public class StickerMessageContent implements MessageContent {
         /**
          * Message sticker. You can't retrieve the sticker's custom text with the Messaging API.
          * @deprecated discontinued. {@link StickerResourceType#MESSAGE } is used instead of
-         * {@link StickerResourceType#PER_STICKER_TEXT }.
+         *     {@link StickerResourceType#PER_STICKER_TEXT }.
          * @see StickerResourceType#MESSAGE
          */
         @Deprecated
