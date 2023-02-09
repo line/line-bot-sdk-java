@@ -20,13 +20,16 @@ import static java.util.Collections.singleton;
 
 import java.io.IOException;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.linecorp.bot.model.Broadcast;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.ValidateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotInfoResponse;
 import com.linecorp.bot.model.response.GetNumberOfFollowersResponse;
@@ -53,7 +56,11 @@ public class LineMessagingClientImplIntegrationTest {
 
     private static void testApiCall(Callable<Object> f) throws Exception {
         final Object response = f.call();
-        log.info(response.toString());
+        if (response == null) {
+            log.info("null");
+        } else {
+            log.info(response.toString());
+        }
     }
 
     @Test
@@ -120,5 +127,83 @@ public class LineMessagingClientImplIntegrationTest {
         final BotInfoResponse botInfoResponse = target.getBotInfo().get();
 
         log.info(botInfoResponse.toString());
+    }
+
+    @Test
+    public void validateReply() throws Exception {
+        testApiCall(
+                () -> target.validateReply(new ValidateMessage(new TextMessage("Push")))
+                        .get()
+        );
+
+        String longText = new String(new char[10000]).replace('\0', 'a');
+        Assertions.assertThatThrownBy(() -> {
+            testApiCall(
+                    () -> target.validateReply(new ValidateMessage(new TextMessage(longText))).get()
+            );
+        }).isInstanceOf(ExecutionException.class);
+    }
+
+    @Test
+    public void validatePush() throws Exception {
+        testApiCall(
+                () -> target.validatePush(new ValidateMessage(new TextMessage("Push")))
+                        .get()
+        );
+
+        String longText = new String(new char[10000]).replace('\0', 'a');
+        Assertions.assertThatThrownBy(() -> {
+            testApiCall(
+                    () -> target.validatePush(new ValidateMessage(new TextMessage(longText))).get()
+            );
+        }).isInstanceOf(ExecutionException.class);
+    }
+
+    @Test
+    public void validateMulticast() throws Exception {
+        testApiCall(
+                () -> target.validateMulticast(new ValidateMessage(new TextMessage("Push")))
+                        .get()
+        );
+
+        String longText = new String(new char[10000]).replace('\0', 'a');
+        Assertions.assertThatThrownBy(() -> {
+            testApiCall(
+                    () -> target.validateMulticast(new ValidateMessage(new TextMessage(longText))).get()
+            );
+        }).isInstanceOf(ExecutionException.class);
+    }
+
+    @Test
+    public void validateNarrowcast() throws Exception {
+        testApiCall(
+                () -> target.validateNarrowcast(new ValidateMessage(
+                        new TextMessage("Push")))
+                        .get()
+        );
+
+        String longText = new String(new char[10000]).replace('\0', 'a');
+        Assertions.assertThatThrownBy(() -> {
+            testApiCall(
+                    () -> target.validateNarrowcast(new ValidateMessage(new TextMessage(longText)))
+                            .get()
+            );
+        }).isInstanceOf(ExecutionException.class);
+    }
+
+    @Test
+    public void validateBroadcast() throws Exception {
+        testApiCall(
+                () -> target.validateBroadcast(new ValidateMessage(new TextMessage("Push")))
+                        .get()
+        );
+
+        String longText = new String(new char[10000]).replace('\0', 'a');
+        Assertions.assertThatThrownBy(() -> {
+            testApiCall(
+                    () -> target.validateBroadcast(new ValidateMessage(new TextMessage(longText)))
+                            .get()
+            );
+        }).isInstanceOf(ExecutionException.class);
     }
 }
