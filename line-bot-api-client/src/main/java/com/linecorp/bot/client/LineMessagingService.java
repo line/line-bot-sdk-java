@@ -23,6 +23,7 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.ValidateMessage;
 import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
@@ -493,40 +494,40 @@ interface LineMessagingService {
     /**
      * Method for Retrofit.
      *
-     * @see LineMessagingClient#validateReply(ReplyMessage)
+     * @see LineMessagingClient#validateReply(ValidateMessage)
      */
     @POST("v2/bot/message/validate/reply")
-    Call<Void> validateReply(@Body ReplyMessage replyMessage);
+    Call<Void> validateReply(@Body ValidateMessage validateMessage);
 
     /**
      * Method for Retrofit.
      *
-     * @see LineMessagingClient#validatePush(PushMessage)
+     * @see LineMessagingClient#validatePush(ValidateMessage)
      */
     @POST("v2/bot/message/validate/push")
-    Call<Void> validatePush(@Body PushMessage pushMessage);
+    Call<Void> validatePush(@Body ValidateMessage validateMessage);
 
     /**
      * Method for Retrofit.
      *
-     * @see LineMessagingClient#validateMulticast(Multicast)
+     * @see LineMessagingClient#validateMulticast(ValidateMessage)
      */
     @POST("v2/bot/message/validate/multicast")
-    Call<Void> validateMulticast(@Body Multicast multicast);
+    Call<Void> validateMulticast(@Body ValidateMessage validateMessage);
 
     /**
      * Method for Retrofit.
      *
-     * @see LineMessagingClient#validateNarrowcast(Narrowcast)
+     * @see LineMessagingClient#validateNarrowcast(ValidateMessage)
      */
     @POST("v2/bot/message/validate/narrowcast")
-    Call<Void> validateNarrowcast(@Body Narrowcast narrowcast);
+    Call<Void> validateNarrowcast(@Body ValidateMessage validateMessage);
 
     /**
      * Method for Retrofit.
      *
-     * @see LineMessagingClient#validateBroadcast(Broadcast)
+     * @see LineMessagingClient#validateBroadcast(ValidateMessage)
      */
     @POST("v2/bot/message/validate/broadcast")
-    Call<Void> validateBroadcast(@Body Broadcast broadcast);
+    Call<Void> validateBroadcast(@Body ValidateMessage validateMessage);
 }

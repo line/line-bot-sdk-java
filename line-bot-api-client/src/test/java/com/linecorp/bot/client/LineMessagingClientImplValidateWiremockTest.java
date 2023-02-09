@@ -22,20 +22,14 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-import com.linecorp.bot.model.Broadcast;
-import com.linecorp.bot.model.Multicast;
-import com.linecorp.bot.model.Narrowcast;
-import com.linecorp.bot.model.PushMessage;
-import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.ValidateMessage;
 import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.narrowcast.Filter;
 
 public class LineMessagingClientImplValidateWiremockTest extends AbstractWiremockTest {
     @Override
@@ -57,7 +51,7 @@ public class LineMessagingClientImplValidateWiremockTest extends AbstractWiremoc
 
         // Do
         lineMessagingClient.validateReply(
-                new ReplyMessage("AAAAA", TextMessage.builder()
+                new ValidateMessage(TextMessage.builder()
                         .text("Hello").build())
         ).get();
     }
@@ -74,7 +68,7 @@ public class LineMessagingClientImplValidateWiremockTest extends AbstractWiremoc
 
         // Do
         lineMessagingClient.validatePush(
-                new PushMessage("AAAAA", TextMessage.builder()
+                new ValidateMessage(TextMessage.builder()
                         .text("Hello").build())
         ).get();
     }
@@ -91,7 +85,7 @@ public class LineMessagingClientImplValidateWiremockTest extends AbstractWiremoc
 
         // Do
         lineMessagingClient.validateMulticast(
-                new Multicast(Collections.singleton("AAAAA"), TextMessage.builder()
+                new ValidateMessage(TextMessage.builder()
                         .text("Hello").build())
         ).get();
     }
@@ -108,8 +102,7 @@ public class LineMessagingClientImplValidateWiremockTest extends AbstractWiremoc
 
         // Do
         lineMessagingClient.validateNarrowcast(
-                new Narrowcast(TextMessage.builder()
-                        .text("Hello").build(), Filter.builder().build())
+                new ValidateMessage(TextMessage.builder().text("Hello").build())
         ).get();
     }
 
@@ -125,7 +118,7 @@ public class LineMessagingClientImplValidateWiremockTest extends AbstractWiremoc
 
         // Do
         lineMessagingClient.validateBroadcast(
-                new Broadcast(TextMessage.builder()
+                new ValidateMessage(TextMessage.builder()
                         .text("Hello").build())
         ).get();
     }
@@ -153,8 +146,7 @@ public class LineMessagingClientImplValidateWiremockTest extends AbstractWiremoc
 
         // Do
         assertThatThrownBy(() -> lineMessagingClient.validateReply(
-                new ReplyMessage("AAAAA", TextMessage.builder()
-                .text("Hello").build())).get())
+                new ValidateMessage(TextMessage.builder().text("Hello").build())).get())
                 .isInstanceOf(ExecutionException.class)
                 .hasRootCauseInstanceOf(Exception.class)
                 .hasRootCauseMessage("The request body has 1 error(s) : "

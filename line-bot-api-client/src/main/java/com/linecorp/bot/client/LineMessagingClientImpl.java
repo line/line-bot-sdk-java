@@ -27,6 +27,7 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.ValidateMessage;
 import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
@@ -370,28 +371,28 @@ public class LineMessagingClientImpl implements LineMessagingClient {
     }
 
     @Override
-    public CompletableFuture<Void> validateReply(ReplyMessage replyMessage) {
-        return toFuture(retrofitImpl.validateReply(replyMessage));
+    public CompletableFuture<Void> validateReply(ValidateMessage validateMessage) {
+        return toFuture(retrofitImpl.validateReply(validateMessage));
     }
 
     @Override
-    public CompletableFuture<Void> validatePush(PushMessage pushMessage) {
-        return toFuture(retrofitImpl.validatePush(pushMessage));
+    public CompletableFuture<Void> validatePush(ValidateMessage validateMessage) {
+        return toFuture(retrofitImpl.validatePush(validateMessage));
     }
 
     @Override
-    public CompletableFuture<Void> validateMulticast(Multicast multicast) {
-        return toFuture(retrofitImpl.validateMulticast(multicast));
+    public CompletableFuture<Void> validateMulticast(ValidateMessage validateMessage) {
+        return toFuture(retrofitImpl.validateMulticast(validateMessage));
     }
 
     @Override
-    public CompletableFuture<Void> validateNarrowcast(Narrowcast narrowcast) {
-        return toFuture(retrofitImpl.validateNarrowcast(narrowcast));
+    public CompletableFuture<Void> validateNarrowcast(ValidateMessage validateMessage) {
+        return toFuture(retrofitImpl.validateNarrowcast(validateMessage));
     }
 
     @Override
-    public CompletableFuture<Void> validateBroadcast(Broadcast broadcast) {
-        return toFuture(retrofitImpl.validateBroadcast(broadcast));
+    public CompletableFuture<Void> validateBroadcast(ValidateMessage validateMessage) {
+        return toFuture(retrofitImpl.validateBroadcast(validateMessage));
     }
 
     // TODO: Extract this method.

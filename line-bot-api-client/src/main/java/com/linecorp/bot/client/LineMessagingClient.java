@@ -24,6 +24,7 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.ValidateMessage;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.group.GroupMemberCountResponse;
@@ -494,35 +495,35 @@ public interface LineMessagingClient {
      *
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-reply-message">//developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-reply-message</a>
      */
-    CompletableFuture<Void> validateReply(ReplyMessage replyMessage);
+    CompletableFuture<Void> validateReply(ValidateMessage validateMessage);
 
     /**
      * Validate message objects of a push message.
      *
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-push-message">//developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-push-message</a>
      */
-    CompletableFuture<Void> validatePush(PushMessage pushMessage);
+    CompletableFuture<Void> validatePush(ValidateMessage validateMessage);
 
     /**
      * Validate message objects of a multicast message.
      *
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-multicast-message">//developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-multicast-message</a>
      */
-    CompletableFuture<Void> validateMulticast(Multicast multicast);
+    CompletableFuture<Void> validateMulticast(ValidateMessage validateMessage);
 
     /**
      * Validate message objects of a narrowcast message.
      *
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-narrowcast-message">//developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-narrowcast-message</a>
      */
-    CompletableFuture<Void> validateNarrowcast(Narrowcast narrowcast);
+    CompletableFuture<Void> validateNarrowcast(ValidateMessage validateMessage);
 
     /**
      * Validate message objects of a broadcast message.
      *
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-broadcast-message">//developers.line.biz/en/reference/messaging-api/#validate-message-objects-of-broadcast-message</a>
      */
-    CompletableFuture<Void> validateBroadcast(Broadcast broadcast);
+    CompletableFuture<Void> validateBroadcast(ValidateMessage validateMessage);
 
     static LineMessagingClientBuilder builder(String channelToken) {
         return builder(FixedChannelTokenSupplier.of(channelToken));
