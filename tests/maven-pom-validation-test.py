@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-from pathlib import Path
 import os.path
 import re
 import shutil
 import subprocess
 import sys
+from pathlib import Path
 
 # remove old files
 shutil.rmtree(os.path.expanduser("~/.m2/repository/com/linecorp/bot/"), ignore_errors=True)
