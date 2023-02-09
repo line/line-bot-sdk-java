@@ -23,6 +23,7 @@ import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.Narrowcast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.ValidateMessage;
 import com.linecorp.bot.model.group.GroupMemberCountResponse;
 import com.linecorp.bot.model.group.GroupSummaryResponse;
 import com.linecorp.bot.model.profile.MembersIdsResponse;
@@ -489,4 +490,44 @@ interface LineMessagingService {
     @GET("v2/bot/message/aggregation/list")
     Call<GetAggregationUnitNameListResponse> getAggregationUnitNameList(@Query("limit") String limit,
                                                                         @Query("start") String start);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#validateReply(ValidateMessage)
+     */
+    @POST("v2/bot/message/validate/reply")
+    Call<Void> validateReply(@Body ValidateMessage validateMessage);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#validatePush(ValidateMessage)
+     */
+    @POST("v2/bot/message/validate/push")
+    Call<Void> validatePush(@Body ValidateMessage validateMessage);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#validateMulticast(ValidateMessage)
+     */
+    @POST("v2/bot/message/validate/multicast")
+    Call<Void> validateMulticast(@Body ValidateMessage validateMessage);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#validateNarrowcast(ValidateMessage)
+     */
+    @POST("v2/bot/message/validate/narrowcast")
+    Call<Void> validateNarrowcast(@Body ValidateMessage validateMessage);
+
+    /**
+     * Method for Retrofit.
+     *
+     * @see LineMessagingClient#validateBroadcast(ValidateMessage)
+     */
+    @POST("v2/bot/message/validate/broadcast")
+    Call<Void> validateBroadcast(@Body ValidateMessage validateMessage);
 }
