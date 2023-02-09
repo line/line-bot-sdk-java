@@ -15,7 +15,6 @@
  */
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 // ./gradlew clean && ./gradlew uploadArchives -Prelease
 
