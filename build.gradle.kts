@@ -168,7 +168,7 @@ tasks.register<JacocoReport>("codeCoverageReport") {
         xml.required.set(true)
         html.required.set(true)
         csv.required.set(false)
-        xml.destination = file("reports/jacoco/report.xml")
+        xml.outputLocation.set(file("reports/jacoco/report.xml"))
     }
 }
 
