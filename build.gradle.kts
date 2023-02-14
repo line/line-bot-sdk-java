@@ -155,6 +155,8 @@ subprojects {
 
 
 tasks.register<JacocoReport>("codeCoverageReport") {
+    dependsOn(tasks["test"])
+
     val sourceSets = project.extensions.getByType<SourceSetContainer>()
 
     onlyIf { true }
