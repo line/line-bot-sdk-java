@@ -40,10 +40,10 @@ public class AudioMessage implements Message {
      * URL of audio file.
      *
      * <ul>
+     * <li>URL of audio file (Max character limit: 2000)</li>
      * <li>HTTPS</li>
      * <li>m4a</li>
-     * <li>Less than 1 minute</li>
-     * <li>Max 10 MB</li>
+     * <li>Max file size: 200 MB</li>
      * </ul>
      */
     URI originalContentUrl;
