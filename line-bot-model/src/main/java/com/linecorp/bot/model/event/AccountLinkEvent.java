@@ -43,11 +43,6 @@ public class AccountLinkEvent implements Event, ReplyEvent {
     }
 
     /**
-     * Token for replying to this event.
-     */
-    String replyToken;
-
-    /**
      * JSON object which contains the source of the event.
      */
     Source source;
@@ -56,11 +51,6 @@ public class AccountLinkEvent implements Event, ReplyEvent {
      * Time of the event.
      */
     Instant timestamp;
-
-    /**
-     * Content of the account link event.
-     */
-    LinkContent link;
 
     /**
      * Channel state.
@@ -84,4 +74,14 @@ public class AccountLinkEvent implements Event, ReplyEvent {
      * Get delivery context.
      */
     DeliveryContext deliveryContext;
+
+    /**
+     * Token for replying to this event.
+     */
+    String replyToken;
+
+    /**
+     * Content of the account link event.
+     */
+    LinkContent link;
 }

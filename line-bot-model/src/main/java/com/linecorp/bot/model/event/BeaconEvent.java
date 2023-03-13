@@ -42,19 +42,9 @@ public class BeaconEvent implements Event, ReplyEvent {
     }
 
     /**
-     * Token for replying to this event.
-     */
-    String replyToken;
-
-    /**
      * JSON object which contains the source of the event.
      */
     Source source;
-
-    /**
-     * Content of the beacon event.
-     */
-    BeaconContent beacon;
 
     /**
      * Time of the event.
@@ -83,4 +73,15 @@ public class BeaconEvent implements Event, ReplyEvent {
      * Get delivery context.
      */
     DeliveryContext deliveryContext;
+
+    /**
+     * Token for replying to this event.
+     */
+    String replyToken;
+
+    /**
+     * Content of the beacon event.
+     */
+    BeaconContent beacon;
+
 }

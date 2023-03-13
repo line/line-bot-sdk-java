@@ -44,19 +44,9 @@ public class MessageEvent<T extends MessageContent> implements Event, ReplyEvent
     }
 
     /**
-     * Token for replying to this event.
-     */
-    String replyToken;
-
-    /**
      * JSON object which contains the source of the event.
      */
     Source source;
-
-    /**
-     * Message body.
-     */
-    T message;
 
     /**
      * Time of the event.
@@ -85,4 +75,14 @@ public class MessageEvent<T extends MessageContent> implements Event, ReplyEvent
      * Get delivery context.
      */
     DeliveryContext deliveryContext;
+
+    /**
+     * Token for replying to this event.
+     */
+    String replyToken;
+
+    /**
+     * Message body.
+     */
+    T message;
 }

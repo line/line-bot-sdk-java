@@ -49,11 +49,6 @@ public class MemberLeftEvent implements Event {
     Instant timestamp;
 
     /**
-     * User ID of users who joined.
-     */
-    LeftMembers left;
-
-    /**
      * Channel state.
      * <dl>
      * <dt>active</dt>
@@ -75,6 +70,11 @@ public class MemberLeftEvent implements Event {
      * Get delivery context.
      */
     DeliveryContext deliveryContext;
+
+    /**
+     * User ID of users who joined.
+     */
+    LeftMembers left;
 
     @Value
     @Builder(toBuilder = true)
