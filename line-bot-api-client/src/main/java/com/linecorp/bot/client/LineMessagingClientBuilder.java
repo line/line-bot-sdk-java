@@ -237,17 +237,6 @@ public class LineMessagingClientBuilder {
      * Creates a new {@link LineMessagingService}.
      */
     public LineMessagingClient build() {
-        return new LineMessagingClientImpl(
-                buildRetrofitIface(apiEndPoint, LineMessagingService.class),
-                buildBlobClient());
-    }
-
-    /**
-     * Creates a new {@link LineMessagingService}.
-     */
-    private LineBlobClient buildBlobClient() {
-        return new LineBlobClientImpl(buildRetrofitIface(
-                blobEndPoint,
-                LineBlobService.class));
+        return new LineMessagingClientImpl(buildRetrofitIface(apiEndPoint, LineMessagingService.class));
     }
 }
