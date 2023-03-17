@@ -20,9 +20,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonSubTypes({
-        @JsonSubTypes.Type(VoidActionResult.class),
         @JsonSubTypes.Type(BinaryActionResult.class),
         @JsonSubTypes.Type(UnknownActionResult.class),
+        @JsonSubTypes.Type(VoidActionResult.class),
 })
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

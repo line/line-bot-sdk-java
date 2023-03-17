@@ -21,8 +21,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonSubTypes({
         @JsonSubTypes.Type(LinkThingsContent.class),
-        @JsonSubTypes.Type(UnlinkThingsContent.class),
         @JsonSubTypes.Type(ScenarioResultThingsContent.class),
+        @JsonSubTypes.Type(UnlinkThingsContent.class),
 })
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

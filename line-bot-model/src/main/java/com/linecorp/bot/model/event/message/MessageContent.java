@@ -23,13 +23,13 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  * Abstract interface of the message content.
  */
 @JsonSubTypes({
-        @JsonSubTypes.Type(TextMessageContent.class),
+        @JsonSubTypes.Type(AudioMessageContent.class),
+        @JsonSubTypes.Type(FileMessageContent.class),
         @JsonSubTypes.Type(ImageMessageContent.class),
         @JsonSubTypes.Type(LocationMessageContent.class),
-        @JsonSubTypes.Type(AudioMessageContent.class),
-        @JsonSubTypes.Type(VideoMessageContent.class),
         @JsonSubTypes.Type(StickerMessageContent.class),
-        @JsonSubTypes.Type(FileMessageContent.class),
+        @JsonSubTypes.Type(TextMessageContent.class),
+        @JsonSubTypes.Type(VideoMessageContent.class),
 })
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

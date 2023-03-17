@@ -27,17 +27,17 @@ import com.linecorp.bot.model.event.source.Source;
  * Abstract interface of events.
  */
 @JsonSubTypes({
-        @JsonSubTypes.Type(MessageEvent.class),
-        @JsonSubTypes.Type(UnfollowEvent.class),
+        @JsonSubTypes.Type(AccountLinkEvent.class),
+        @JsonSubTypes.Type(BeaconEvent.class),
         @JsonSubTypes.Type(FollowEvent.class),
         @JsonSubTypes.Type(JoinEvent.class),
         @JsonSubTypes.Type(LeaveEvent.class),
-        @JsonSubTypes.Type(PostbackEvent.class),
-        @JsonSubTypes.Type(BeaconEvent.class),
-        @JsonSubTypes.Type(AccountLinkEvent.class),
-        @JsonSubTypes.Type(ThingsEvent.class),
         @JsonSubTypes.Type(MemberJoinedEvent.class),
         @JsonSubTypes.Type(MemberLeftEvent.class),
+        @JsonSubTypes.Type(MessageEvent.class),
+        @JsonSubTypes.Type(PostbackEvent.class),
+        @JsonSubTypes.Type(ThingsEvent.class),
+        @JsonSubTypes.Type(UnfollowEvent.class),
         @JsonSubTypes.Type(UnsendEvent.class),
         @JsonSubTypes.Type(VideoPlayCompleteEvent.class)
 })

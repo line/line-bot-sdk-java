@@ -49,7 +49,7 @@ class LineBlobClientImpl implements LineBlobClient {
             final String richMenuId, final String contentType, final byte[] content) {
         final RequestBody requestBody = RequestBody.create(content, MediaType.parse(contentType));
         return LineMessagingClientImpl.toBotApiFuture(
-                retrofitImpl.uploadRichMenuImage(richMenuId, requestBody));
+                retrofitImpl.setRichMenuImage(richMenuId, requestBody));
     }
 
     private static CompletableFuture<MessageContentResponse> toMessageContentResponseFuture(

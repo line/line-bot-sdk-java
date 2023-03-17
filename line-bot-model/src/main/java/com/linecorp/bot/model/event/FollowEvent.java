@@ -41,11 +41,6 @@ public class FollowEvent implements Event, ReplyEvent {
     }
 
     /**
-     * Token for replying to this event.
-     */
-    String replyToken;
-
-    /**
      * JSON object which contains the source of the event.
      */
     Source source;
@@ -77,4 +72,10 @@ public class FollowEvent implements Event, ReplyEvent {
      * Get delivery context.
      */
     DeliveryContext deliveryContext;
+
+    /**
+     * Token for replying to this event.
+     */
+    String replyToken;
+
 }
