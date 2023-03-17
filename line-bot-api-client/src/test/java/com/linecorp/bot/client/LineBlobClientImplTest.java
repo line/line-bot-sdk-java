@@ -90,7 +90,7 @@ public class LineBlobClientImplTest {
 
     @Test
     public void uploadRichMenuImageTest() throws Exception {
-        whenCall(retrofitMock.uploadRichMenuImage(any(), any()),
+        whenCall(retrofitMock.setRichMenuImage(any(), any()),
                  null);
 
         // Do
@@ -99,7 +99,7 @@ public class LineBlobClientImplTest {
 
         // Verify
         verify(retrofitMock, only())
-                .uploadRichMenuImage(eq("ID"), any());
+                .setRichMenuImage(eq("ID"), any());
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
 
     }

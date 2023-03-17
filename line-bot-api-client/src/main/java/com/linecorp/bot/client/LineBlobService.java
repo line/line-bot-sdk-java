@@ -50,7 +50,7 @@ interface LineBlobService {
      * @see LineBlobClient#setRichMenuImage(String, String, byte[])
      */
     @POST("v2/bot/richmenu/{richMenuId}/content")
-    Call<Void> uploadRichMenuImage(
+    Call<Void> setRichMenuImage(
             @Path("richMenuId") String richMenuId,
             @Body RequestBody requestBody);
 }
