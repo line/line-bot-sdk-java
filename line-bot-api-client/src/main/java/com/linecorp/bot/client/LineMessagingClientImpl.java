@@ -85,8 +85,6 @@ public class LineMessagingClientImpl implements LineMessagingClient {
 
     private final LineMessagingService retrofitImpl;
 
-    private final LineBlobClient blobDelegationTarget;
-
     @Override
     public CompletableFuture<BotApiResponse> replyMessage(final ReplyMessage replyMessage) {
         return toBotApiResponseFuture(retrofitImpl.replyMessage(replyMessage));
