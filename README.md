@@ -27,8 +27,7 @@ This library requires Java 8 or later.
 
 We've uploaded this library to the Maven Central Repository. You can install the modules using Maven or Gradle.
 
-http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.linecorp.bot%22
-
+https://central.sonatype.com/search?smo=true&q=com.linecorp.bot
 
 ## Modules
 
