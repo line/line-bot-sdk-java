@@ -24,7 +24,7 @@ plugins {
     checkstyle
     signing
     id("org.jetbrains.kotlin.jvm") version "1.8.10" apply false
-    id("com.github.spotbugs") version "5.0.13" apply false
+    id("com.github.spotbugs") version "5.0.14" apply false
     id("org.springframework.boot") version "3.0.4" apply false
     id("io.freefair.lombok") version "8.0.1"
 }
