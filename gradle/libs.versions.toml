@@ -51,7 +51,7 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
 spring-test = { module = "org.springframework:spring-test", version = "6.0.7" }
 # https://github.com/wiremock/wiremock/issues/1760
-wiremock = { group = "com.github.tomakehurst", name = "wiremock", version = "3.0.0-beta-5" }
+wiremock = { group = "com.github.tomakehurst", name = "wiremock", version = "3.0.0-beta-6" }
 
 
 [bundles]
