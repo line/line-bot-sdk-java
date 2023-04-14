@@ -174,7 +174,6 @@ listOf(
     ":line-bot-parser",
     ":line-bot-servlet",
     ":line-bot-spring-boot",
-    ":line-bot-cli"
 ).forEach { projectName ->
     project(projectName) {
         apply(plugin = "jacoco")
