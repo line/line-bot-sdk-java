@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 LINE Corporation
+ * Copyright 2023 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -49,7 +49,7 @@ class LineBlobClientImpl implements LineBlobClient {
             final String richMenuId, final String contentType, final byte[] content) {
         final RequestBody requestBody = RequestBody.create(content, MediaType.parse(contentType));
         return LineMessagingClientImpl.toBotApiFuture(
-                retrofitImpl.uploadRichMenuImage(richMenuId, requestBody));
+                retrofitImpl.setRichMenuImage(richMenuId, requestBody));
     }
 
     private static CompletableFuture<MessageContentResponse> toMessageContentResponseFuture(

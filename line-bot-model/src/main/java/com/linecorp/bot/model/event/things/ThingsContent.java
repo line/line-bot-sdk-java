@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 LINE Corporation
+ * Copyright 2023 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -21,8 +21,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonSubTypes({
         @JsonSubTypes.Type(LinkThingsContent.class),
-        @JsonSubTypes.Type(UnlinkThingsContent.class),
         @JsonSubTypes.Type(ScenarioResultThingsContent.class),
+        @JsonSubTypes.Type(UnlinkThingsContent.class),
 })
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

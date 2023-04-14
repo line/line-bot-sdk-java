@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2023 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -41,11 +41,6 @@ public class FollowEvent implements Event, ReplyEvent {
     }
 
     /**
-     * Token for replying to this event.
-     */
-    String replyToken;
-
-    /**
      * JSON object which contains the source of the event.
      */
     Source source;
@@ -77,4 +72,10 @@ public class FollowEvent implements Event, ReplyEvent {
      * Get delivery context.
      */
     DeliveryContext deliveryContext;
+
+    /**
+     * Token for replying to this event.
+     */
+    String replyToken;
+
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 LINE Corporation
+ * Copyright 2023 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -49,11 +49,6 @@ public class MemberLeftEvent implements Event {
     Instant timestamp;
 
     /**
-     * User ID of users who joined.
-     */
-    LeftMembers left;
-
-    /**
      * Channel state.
      * <dl>
      * <dt>active</dt>
@@ -75,6 +70,11 @@ public class MemberLeftEvent implements Event {
      * Get delivery context.
      */
     DeliveryContext deliveryContext;
+
+    /**
+     * User ID of users who joined.
+     */
+    LeftMembers left;
 
     @Value
     @Builder(toBuilder = true)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 LINE Corporation
+ * Copyright 2023 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -90,7 +90,7 @@ public class LineBlobClientImplTest {
 
     @Test
     public void uploadRichMenuImageTest() throws Exception {
-        whenCall(retrofitMock.uploadRichMenuImage(any(), any()),
+        whenCall(retrofitMock.setRichMenuImage(any(), any()),
                  null);
 
         // Do
@@ -99,7 +99,7 @@ public class LineBlobClientImplTest {
 
         // Verify
         verify(retrofitMock, only())
-                .uploadRichMenuImage(eq("ID"), any());
+                .setRichMenuImage(eq("ID"), any());
         assertThat(botApiResponse).isEqualTo(BOT_API_SUCCESS_RESPONSE);
 
     }

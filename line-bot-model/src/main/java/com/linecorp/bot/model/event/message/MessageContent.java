@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2023 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -23,13 +23,13 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  * Abstract interface of the message content.
  */
 @JsonSubTypes({
-        @JsonSubTypes.Type(TextMessageContent.class),
+        @JsonSubTypes.Type(AudioMessageContent.class),
+        @JsonSubTypes.Type(FileMessageContent.class),
         @JsonSubTypes.Type(ImageMessageContent.class),
         @JsonSubTypes.Type(LocationMessageContent.class),
-        @JsonSubTypes.Type(AudioMessageContent.class),
-        @JsonSubTypes.Type(VideoMessageContent.class),
         @JsonSubTypes.Type(StickerMessageContent.class),
-        @JsonSubTypes.Type(FileMessageContent.class),
+        @JsonSubTypes.Type(TextMessageContent.class),
+        @JsonSubTypes.Type(VideoMessageContent.class),
 })
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

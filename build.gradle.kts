@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2023 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -24,10 +24,10 @@ plugins {
     checkstyle
     signing
     jacoco
-    id("org.jetbrains.kotlin.jvm") version "1.8.10" apply false
-    id("com.github.spotbugs") version "5.0.13" apply false
-    id("org.springframework.boot") version "3.0.4" apply false
-    id("io.freefair.lombok") version "6.6.3"
+    id("org.jetbrains.kotlin.jvm") version "1.8.20" apply false
+    id("com.github.spotbugs") version "5.0.14" apply false
+    id("org.springframework.boot") version "3.0.5" apply false
+    id("io.freefair.lombok") version "8.0.1"
 }
 
 apply(plugin = "idea")

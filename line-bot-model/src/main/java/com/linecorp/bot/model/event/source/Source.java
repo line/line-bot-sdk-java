@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2023 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -20,9 +20,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonSubTypes({
-        @JsonSubTypes.Type(UserSource.class),
         @JsonSubTypes.Type(GroupSource.class),
         @JsonSubTypes.Type(RoomSource.class),
+        @JsonSubTypes.Type(UserSource.class),
 })
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

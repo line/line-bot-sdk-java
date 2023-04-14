@@ -5,9 +5,9 @@ jjwt = "0.11.5"
 jackson = "2.14.2"
 assertj = "3.24.2"
 junit = "5.9.2"
-slf4j = "2.0.6"
-json-path = "2.7.0"
-mockito = "5.1.1"
+slf4j = "2.0.7"
+json-path = "2.8.0"
+mockito = "5.3.0"
 okhttp3 = "4.10.0"
 
 [libraries]
@@ -19,7 +19,7 @@ jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
 jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
 jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }
 lombok = { module = "org.projectlombok:lombok", version = "1.18.26" }
-logback = { module = "ch.qos.logback:logback-classic", version = "1.4.5" }
+logback = { module = "ch.qos.logback:logback-classic", version = "1.4.6" }
 
 okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3" }
 
@@ -49,9 +49,9 @@ commons-io = { module = "commons-io:commons-io", version = "2.11.0" }
 reflections = { module = "org.reflections:reflections", version = "0.10.2" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
-spring-test = { module = "org.springframework:spring-test", version = "6.0.6" }
+spring-test = { module = "org.springframework:spring-test", version = "6.0.8" }
 # https://github.com/wiremock/wiremock/issues/1760
-wiremock = { group = "com.github.tomakehurst", name = "wiremock", version = "3.0.0-beta-3" }
+wiremock = { group = "com.github.tomakehurst", name = "wiremock", version = "3.0.0-beta-7" }
 
 
 [bundles]
