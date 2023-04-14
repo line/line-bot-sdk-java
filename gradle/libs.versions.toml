@@ -49,7 +49,7 @@ commons-io = { module = "commons-io:commons-io", version = "2.11.0" }
 reflections = { module = "org.reflections:reflections", version = "0.10.2" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
-spring-test = { module = "org.springframework:spring-test", version = "6.0.7" }
+spring-test = { module = "org.springframework:spring-test", version = "6.0.8" }
 # https://github.com/wiremock/wiremock/issues/1760
 wiremock = { group = "com.github.tomakehurst", name = "wiremock", version = "3.0.0-beta-7" }
 
