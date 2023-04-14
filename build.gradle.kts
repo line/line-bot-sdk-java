@@ -172,7 +172,6 @@ listOf(
     ":line-bot-api-client",
     ":line-bot-model",
     ":line-bot-parser",
-    ":line-bot-servlet",
     ":line-bot-spring-boot",
 ).forEach { projectName ->
     project(projectName) {
