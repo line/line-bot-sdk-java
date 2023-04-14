@@ -82,9 +82,7 @@ jobs:
         java-version: 17
         architecture: x64
     - uses: actions/checkout@v3
-    - run: |
-        mkdir -p ~/.gradle
-        echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
-    - run: ./gradlew -v
-    - run: ./gradlew test codeCoverageReport
-    - run:  bash <(curl -s https://codecov.io/bash)
+    - run: ./gradlew --no-daemon build
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+

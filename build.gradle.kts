@@ -23,6 +23,7 @@ plugins {
     `maven-publish`
     checkstyle
     signing
+    jacoco
     id("org.jetbrains.kotlin.jvm") version "1.8.20" apply false
     id("com.github.spotbugs") version "5.0.14" apply false
     id("org.springframework.boot") version "3.0.5" apply false
@@ -30,7 +31,6 @@ plugins {
 }
 
 apply(plugin = "idea")
-apply(plugin = "jacoco")
 
 //set build variables based on build type (release, continuous integration, development)
 val isReleaseBuild = hasProperty("release")
@@ -53,6 +53,7 @@ subprojects {
         plugin("java-library")
         plugin("checkstyle")
         plugin("io.freefair.lombok")
+        plugin("jacoco")
     }
 
     java {
@@ -151,26 +152,21 @@ subprojects {
     tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
         systemProperties = System.getProperties() as Map<String, Any>
     }
-}
 
-
-tasks.register<JacocoReport>("codeCoverageReport") {
-    val sourceSets = project.extensions.getByType<SourceSetContainer>()
-
-    onlyIf { true }
-    executionData.setFrom(project.fileTree(".") { include("**/build/jacoco/*.exec") })
-
-    listOf(":line-bot-api-client", ":line-bot-model", ":line-bot-servlet", ":line-bot-spring-boot", ":line-bot-cli").forEach {
-        sourceSets(project(it).sourceSets["main"])
+    tasks.test {
+        finalizedBy(tasks.jacocoTestReport)
     }
 
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
-        csv.required.set(false)
-        xml.destination = file("reports/jacoco/report.xml")
+    tasks.jacocoTestReport {
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+            csv.required.set(false)
+            xml.outputLocation.set(file("reports/jacoco/report.xml"))
+        }
     }
 }
+
 
 listOf(
     ":line-bot-api-client",
