@@ -2,7 +2,7 @@
 target/
 build/
 out/
-/*/reports/
+/**/reports/
 /reports/
 
 # gradle
