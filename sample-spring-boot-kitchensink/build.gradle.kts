@@ -14,7 +14,10 @@
  * under the License.
  */
 
-apply(plugin = "org.springframework.boot")
+plugins {
+    id("sdk.java")
+    id("sdk.spring-boot")
+}
 
 dependencies {
     implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))

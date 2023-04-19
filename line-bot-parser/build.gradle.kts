@@ -14,6 +14,12 @@
  * under the License.
  */
 
+plugins {
+    id("sdk.java")
+    id("sdk.javadoc")
+    id("sdk.publish")
+}
+
 dependencies {
     api(project(":line-bot-model"))
     implementation(libs.jackson.databind)
