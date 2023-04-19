@@ -14,6 +14,12 @@
  * under the License.
  */
 
+plugins {
+    id("sdk.java")
+    id("sdk.javadoc")
+    id("sdk.publish")
+}
+
 dependencies {
     implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
     annotationProcessor(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))

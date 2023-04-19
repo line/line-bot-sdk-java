@@ -36,9 +36,6 @@ for fname in root.glob("**/*.pom"):
     if fname.name.startswith("line-bot-spring-boot"):
         # line-bot-spring-boot can depends on spring-boot bom.
         continue
-    if fname.name.startswith("line-bot-cli"):
-        # we don't upload line-bot-cli to the maven central.
-        continue
 
     print(f"======= {fname}")
     with open(fname, "r") as fp:

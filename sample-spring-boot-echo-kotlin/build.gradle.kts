@@ -14,8 +14,12 @@
  * under the License.
  */
 
-apply(plugin = "kotlin")
-apply(plugin = "org.springframework.boot")
+plugins {
+    id("sdk.java")
+    id("sdk.spring-boot")
+    kotlin("jvm") version "1.7.22"
+    kotlin("plugin.spring") version "1.7.22"
+}
 
 dependencies {
     implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))

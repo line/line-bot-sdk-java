@@ -35,7 +35,6 @@ This project contains the following modules:
 
  * line-bot-api-client: API client library for the Messaging API
  * line-bot-model: Model classes for the Messaging API
- * line-bot-servlet: Java servlet utilities for bot servers
  * line-bot-spring-boot: Spring Boot auto configuration library for bot servers
 
 This project contains the following sample projects:

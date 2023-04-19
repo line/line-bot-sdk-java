@@ -14,6 +14,12 @@
  * under the License.
  */
 
+plugins {
+    id("sdk.java")
+    id("sdk.javadoc")
+    id("sdk.publish")
+}
+
 dependencies {
     api(libs.jackson.databind) // Provide configured ObjectMapper.
     implementation(libs.jackson.annotations)
