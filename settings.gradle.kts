@@ -36,7 +36,7 @@ include("line-bot-spring-boot")
 include("line-bot-parser")
 
 // samples
-include("sample-spring-boot-echo")
-include("sample-spring-boot-echo-kotlin")
-include("sample-spring-boot-kitchensink")
-include("sample-manage-audience")
+include("samples:sample-spring-boot-echo")
+include("samples:sample-spring-boot-echo-kotlin")
+include("samples:sample-spring-boot-kitchensink")
+include("samples:sample-manage-audience")
