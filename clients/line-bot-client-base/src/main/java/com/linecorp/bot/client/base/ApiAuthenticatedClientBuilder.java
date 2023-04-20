@@ -24,12 +24,20 @@ import com.linecorp.bot.client.base.channel.ChannelTokenSupplier;
 import com.linecorp.bot.client.base.channel.FixedChannelTokenSupplier;
 
 public class ApiAuthenticatedClientBuilder<T> extends ApiClientBuilder<T> {
-    public ApiAuthenticatedClientBuilder(URI apiEndPoint, Class<T> clientClass, ExceptionBuilder exceptionBuilder, ChannelTokenSupplier channelTokenSupplier) {
+    public ApiAuthenticatedClientBuilder(
+            URI apiEndPoint,
+            Class<T> clientClass,
+            ExceptionBuilder exceptionBuilder,
+            ChannelTokenSupplier channelTokenSupplier) {
         super(apiEndPoint, clientClass, exceptionBuilder);
         this.channelTokenSupplier = channelTokenSupplier;
     }
 
-    public ApiAuthenticatedClientBuilder(URI apiEndPoint, Class<T> clientClass, ExceptionBuilder exceptionBuilder, String channelToken) {
+    public ApiAuthenticatedClientBuilder(
+            URI apiEndPoint,
+            Class<T> clientClass,
+            ExceptionBuilder exceptionBuilder,
+            String channelToken) {
         super(apiEndPoint, clientClass, exceptionBuilder);
         this.channelTokenSupplier = FixedChannelTokenSupplier.of(channelToken);
     }
