@@ -25,7 +25,7 @@ import com.linecorp.bot.client.base.exception.AbstractLineClientException;
 import okhttp3.Response;
 
 /**
- * A general {@link Exception} for LINE Messaging API.
+ * A general {@link Exception} for Manage auidence API.
  */
 @SuppressWarnings("serial")
 public class ManageAudienceClientException extends AbstractLineClientException {
