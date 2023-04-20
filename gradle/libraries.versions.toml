@@ -19,7 +19,7 @@ jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
 jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
 jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }
 lombok = { module = "org.projectlombok:lombok", version = "1.18.26" }
-logback = { module = "ch.qos.logback:logback-classic", version = "1.4.6" }
+logback = { module = "ch.qos.logback:logback-classic", version = "1.4.7" }
 
 okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp3" }
 okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3" }
