@@ -1,0 +1,18 @@
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * {{description}}{{^description}}Gets or Sets {{{name}}}{{/description}}
+ */
+public enum {{{datatypeWithEnum}}}{{^datatypeWithEnum}}{{{classname}}}{{/datatypeWithEnum}} {
+  {{#allowableValues}}{{#enumVars}}
+    {{#enumDescription}}
+    /**
+     * {{.}}
+     */
+     {{/enumDescription}}
+    @JsonProperty({{{value}}})
+  {{{name}}},
+  {{/enumVars}}{{/allowableValues}}
+    @JsonEnumDefaultValue
+    UNDEFINED
+}
