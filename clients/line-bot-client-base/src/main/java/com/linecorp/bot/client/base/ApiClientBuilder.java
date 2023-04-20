@@ -61,21 +61,21 @@ public class ApiClientBuilder<T> {
     /**
      * Connection timeout.
      *
-     * <p>Default value = 10_000 ms.
+     * <p>Default value = 10 seconds.
      */
     private Duration connectTimeout = Duration.ofSeconds(10);
 
     /**
      * Connection timeout.
      *
-     * <p>Default value = 10_000ms.
+     * <p>Default value = 10 seconds.
      */
     private Duration readTimeout = Duration.ofSeconds(10);
 
     /**
      * Write timeout.
      *
-     * <p>Default value = 10_000ms.
+     * <p>Default value = 10 seconds.
      */
     private Duration writeTimeout = Duration.ofSeconds(10);
 
