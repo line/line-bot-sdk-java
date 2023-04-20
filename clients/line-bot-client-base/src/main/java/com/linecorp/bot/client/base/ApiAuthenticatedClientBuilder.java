@@ -61,7 +61,7 @@ public class ApiAuthenticatedClientBuilder<T> extends ApiClientBuilder<T> {
         if (addAuthenticationHeader) {
             requireNonNull(channelTokenSupplier,
                     "You need to set the channelTokenSupplier"
-                            + " for the ManageAudienceClientBuilder before building instance.");
+                            + " for the ApiAuthenticatedClientBuilder before building instance.");
             this.addInterceptor(HeaderInterceptor.forChannelTokenSupplier(channelTokenSupplier));
         }
         return super.build();
@@ -69,7 +69,7 @@ public class ApiAuthenticatedClientBuilder<T> extends ApiClientBuilder<T> {
 
     @Override
     public String toString() {
-        return "AbstractAuthenticatedClientBuilder{"
+        return "ApiAuthenticatedClientBuilder{"
                 + "channelTokenSupplier=" + channelTokenSupplier
                 + ", addAuthenticationHeader=" + addAuthenticationHeader
                 + ", (" + super.toString()
