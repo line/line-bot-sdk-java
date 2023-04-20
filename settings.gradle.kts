@@ -49,7 +49,7 @@ include("clients:line-bot-client-base")
 include("clients:line-bot-insight-client")
 include("clients:line-bot-manage-audience-client")
 include("clients:line-bot-messaging-api-client")
-include("clients:line-bot-channel-access-token-client")
+include("clients:line-channel-access-token-client")
 include("clients:line-liff-client")
 
 // samples
