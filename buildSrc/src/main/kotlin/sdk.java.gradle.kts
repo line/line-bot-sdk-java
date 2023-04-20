@@ -90,4 +90,3 @@ tasks.jacocoTestReport {
     }
 }
 
-val libs = the<LibrariesForLibs>()
