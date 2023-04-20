@@ -2,6 +2,7 @@
  * Copyright (c) 2023 LINE Corporation. All rights reserved.
  * LINE Corporation PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
+import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
     id("com.github.spotbugs")
@@ -88,3 +89,5 @@ tasks.jacocoTestReport {
         xml.outputLocation.set(file("reports/jacoco/report.xml"))
     }
 }
+
+val libs = the<LibrariesForLibs>()

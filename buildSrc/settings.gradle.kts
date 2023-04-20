@@ -14,20 +14,23 @@
  * under the License.
  */
 
-plugins {
-    id("sdk.java")
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
 }
 
-dependencies {
-    implementation(project(":line-bot-jackson"))
+@Suppress("UnstableApiUsage")
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
 
-    implementation(libs.okhttp3)
-    implementation(libs.slf4j.api)
-    implementation(libs.okhttp3.logging.interceptor)
-    implementation(libs.bundles.retrofit2)
-
-    compileOnly(libs.jackson.annotations)
-    implementation(libs.jackson.datatype.jsr310)
-
-    testImplementation(libs.bundles.tests)
+    versionCatalogs {
+        create("libs") {
+            from(files("../gradle/libraries.versions.toml"))
+        }
+    }
 }
