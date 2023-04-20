@@ -57,7 +57,9 @@ public class BotAwareJacksonConverter extends Converter.Factory {
         if (type == UploadFile.class) {
             return this::buildRequestBodyFromUploadFile;
         } else {
-            return jacksonConverterFactory.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+            return jacksonConverterFactory.requestBodyConverter(
+                    type, parameterAnnotations, methodAnnotations, retrofit
+            );
         }
     }
 
