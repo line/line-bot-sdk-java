@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "type": "memberLeft",
+      "source": {
+        "groupId": "C1234567890",
+        "type": "group"
+      },
+      "timestamp": 1553506027708,
+      "mode": "active",
+      "left": {
+        "members": [
+          {
+            "userId": "U111111",
+            "type": "user"
+          }
+        ]
+      }
+    }
+  ],
+  "destination": "Uab012345678901234567890123456789"
+}
