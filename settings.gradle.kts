@@ -22,18 +22,35 @@ pluginManagement {
     }
 }
 
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenCentral()
     }
+
+    versionCatalogs {
+        create("libs") {
+            from(files("./gradle/libraries.versions.toml"))
+        }
+    }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include("line-bot-api-client")
 include("line-bot-model")
 include("line-bot-spring-boot")
 include("line-bot-parser")
+include("line-bot-jackson")
+
+// openapi based clients
+include("clients:line-bot-client-base")
+include("clients:line-bot-insight-client")
+include("clients:line-bot-manage-audience-client")
+include("clients:line-bot-messaging-api-client")
+include("clients:line-channel-access-token-client")
+include("clients:line-liff-client")
 
 // samples
 include("samples:sample-spring-boot-echo")

@@ -26,6 +26,8 @@ jobs:
         java-version: ${{ matrix.java }}
         architecture: x64
     - uses: actions/checkout@v3
+      with:
+        submodules: true
     - run: |
         mkdir -p ~/.gradle
         echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
@@ -45,6 +47,8 @@ jobs:
         java-version: 17
         architecture: x64
     - uses: actions/checkout@v3
+      with:
+        submodules: true
     - run: |
         mkdir -p ~/.gradle
         echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
@@ -63,6 +67,8 @@ jobs:
         java-version: 17
         architecture: x64
     - uses: actions/checkout@v3
+      with:
+        submodules: true
     - run: |
         mkdir -p ~/.gradle
         echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
@@ -82,6 +88,8 @@ jobs:
         java-version: 17
         architecture: x64
     - uses: actions/checkout@v3
+      with:
+        submodules: true
     - run: ./gradlew --no-daemon build
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3

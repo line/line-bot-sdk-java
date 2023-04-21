@@ -88,3 +88,4 @@ tasks.jacocoTestReport {
         xml.outputLocation.set(file("reports/jacoco/report.xml"))
     }
 }
+

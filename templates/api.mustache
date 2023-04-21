@@ -1,0 +1,90 @@
+{{>licenseInfo}}
+package {{package}};
+
+import java.net.URI;
+
+import java.util.concurrent.CompletableFuture;
+
+import com.linecorp.bot.client.base.ApiAuthenticatedClientBuilder;
+import com.linecorp.bot.client.base.ApiClientBuilder;
+import com.linecorp.bot.client.base.Result;
+import com.linecorp.bot.client.base.BlobContent;
+import com.linecorp.bot.client.base.UploadFile;
+import com.linecorp.bot.client.base.channel.ChannelTokenSupplier;
+
+import retrofit2.Call;
+import retrofit2.http.*;
+
+import okhttp3.RequestBody;
+import okhttp3.MultipartBody;
+
+{{#imports}}import {{import}};
+{{/imports}}
+
+{{^fullJavaUtil}}
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+{{/fullJavaUtil}}
+
+{{#operations}}
+@javax.annotation.Generated(value = "{{generatorClass}}")
+public interface {{classname}} {
+    {{#operation}}
+        /**
+        * {{summary}}
+        * {{notes}}
+        {{#allParams}}
+            * @param {{paramName}} {{description}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{.}}{{/defaultValue}}){{/required}}
+        {{/allParams}}
+        * @return {{^doNotUseRx}}{{#useRxJava2}}{{#returnType}}Observable&lt;{{#isResponseFile}}BlobContent{{/isResponseFile}}{{^isResponseFile}}{{returnType}}{{/isResponseFile}}&gt;{{/returnType}}{{^returnType}}Completable{{/returnType}}{{/useRxJava2}}{{#useRxJava3}}{{#returnType}}Observable&lt;{{#isResponseFile}}BlobContent{{/isResponseFile}}{{^isResponseFile}}{{returnType}}{{/isResponseFile}}&gt;{{/returnType}}{{^returnType}}Completable{{/returnType}}{{/useRxJava3}}{{/doNotUseRx}}{{#doNotUseRx}}Call&lt;{{#isResponseFile}}BlobContent{{/isResponseFile}}{{^isResponseFile}}{{returnType}}{{^returnType}}Void{{/returnType}}{{/isResponseFile}}&gt;{{/doNotUseRx}}
+        {{#isDeprecated}}
+            * @deprecated
+{{/isDeprecated}}
+{{#externalDocs}}
+     * {{description}}
+     * @see <a href="{{url}}">{{summary}} Documentation</a>
+{{/externalDocs}}
+     */
+   {{#isDeprecated}}
+        @Deprecated
+    {{/isDeprecated}}
+    {{^formParams}}
+        {{#prioritizedContentTypes}}
+            {{#-first}}
+                @Headers({
+                "Content-Type:{{{mediaType}}}"
+                })
+            {{/-first}}
+        {{/prioritizedContentTypes}}
+    {{/formParams}}
+    {{#isResponseFile}}
+    @Streaming
+    {{/isResponseFile}}
+    @{{httpMethod}}("{{{path}}}")
+    {{#formParams}}
+    {{#-first}}
+    {{#isMultipart}}@Multipart{{/isMultipart}}{{^isMultipart}}@FormUrlEncoded{{/isMultipart}}
+    {{/-first}}
+    {{/formParams}}
+    CompletableFuture<Result<{{#isResponseFile}}BlobContent{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{^returnType}}Void{{/returnType}}{{/isResponseFile}}>> {{operationId}}({{^allParams}});{{/allParams}}{{#allParams}}{{>libraries/retrofit2/queryParams}}{{>libraries/retrofit2/pathParams}}{{>libraries/retrofit2/headerParams}}{{>libraries/retrofit2/bodyParams}}{{>libraries/retrofit2/formParams}}{{^-last}}, {{/-last}}{{#-last}});{{/-last}}{{/allParams}}
+
+{{/operation}}
+
+{{#authenticated}}
+    public static ApiAuthenticatedClientBuilder<{{classname}}> builder(String channelToken) {
+        return new ApiAuthenticatedClientBuilder<>(URI.create("{{#lambda.endpoint}}{{classname}}{{/lambda.endpoint}}"), {{classname}}.class, new {{#lambda.exceptionbuilderclassname}}{{classname}}{{/lambda.exceptionbuilderclassname}}(), channelToken);
+    }
+    public static ApiAuthenticatedClientBuilder<{{classname}}> builder(ChannelTokenSupplier channelTokenSupplier) {
+        return new ApiAuthenticatedClientBuilder<>(URI.create("{{#lambda.endpoint}}{{classname}}{{/lambda.endpoint}}"), {{classname}}.class, new {{#lambda.exceptionbuilderclassname}}{{classname}}{{/lambda.exceptionbuilderclassname}}(), channelTokenSupplier);
+    }
+{{/authenticated}}
+{{^authenticated}}
+    public static ApiClientBuilder<{{classname}}> builder() {
+        return new ApiClientBuilder<>(URI.create("{{#lambda.endpoint}}{{classname}}{{/lambda.endpoint}}"), {{classname}}.class, new {{#lambda.exceptionbuilderclassname}}{{classname}}{{/lambda.exceptionbuilderclassname}}());
+    }
+{{/authenticated}}
+}
+{{/operations}}

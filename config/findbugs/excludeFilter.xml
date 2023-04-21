@@ -18,6 +18,9 @@
   <Match>
     <Bug pattern="OBL_UNSATISFIED_OBLIGATION" />
   </Match>
+  <Match>
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" /> <!-- Not supporting Objects.requireNonNull... -->
+  </Match>
 
   <!-- False positive with Java 11 https://github.com/spotbugs/spotbugs/issues/878 -->
   <Match>
@@ -26,7 +29,7 @@
 
   <!-- Ignore lombok's redundant check -->
   <Match>
-    <Class name="com.linecorp.bot.client.IntegrationTestSettings" />
+    <Class name="com.linecorp.bot.client.utils.IntegrationTestSettings" />
     <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
   </Match>
 
@@ -34,6 +37,11 @@
   <Match>
     <Class name="com.linecorp.bot.client.LineBlobClientImpl$ResponseBodyCallbackAdaptor" />
     <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+  </Match>
+
+  <!-- Ignore false positive -->
+  <Match>
+    <Bug pattern="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" />
   </Match>
 
   <Match>
