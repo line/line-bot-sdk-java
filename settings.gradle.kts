@@ -52,6 +52,12 @@ include("clients:line-bot-messaging-api-client")
 include("clients:line-channel-access-token-client")
 include("clients:line-liff-client")
 
+// spring-boot integration
+include("spring-boot:line-bot-scpring-boot-client")
+include("spring-boot:line-bot-scpring-boot-handler")
+include("spring-boot:line-bot-scpring-boot-web")
+include("spring-boot:line-bot-scpring-boot-webmvc")
+
 // samples
 include("samples:sample-spring-boot-echo")
 include("samples:sample-spring-boot-echo-kotlin")
