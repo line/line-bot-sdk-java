@@ -7,7 +7,7 @@ assertj = "3.24.2"
 junit = "5.9.2"
 slf4j = "2.0.7"
 json-path = "2.8.0"
-mockito = "5.3.0"
+mockito = "5.3.1"
 okhttp3 = "4.10.0"
 
 [libraries]
