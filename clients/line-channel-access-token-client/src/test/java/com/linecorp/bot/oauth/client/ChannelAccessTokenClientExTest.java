@@ -125,7 +125,8 @@ public class ChannelAccessTokenClientExTest {
                                 "grant_type=client_credentials&client_id=clientId&client_secret=clientSecret"
                         )));
         assertThat(actualException).hasCauseInstanceOf(ChannelAccessTokenClientException.class);
-        final ChannelAccessTokenClientException e = (ChannelAccessTokenClientException) actualException.getCause();
+        final ChannelAccessTokenClientException e =
+                (ChannelAccessTokenClientException) actualException.getCause();
         assertThat(e.getError()).isEqualTo("error");
         assertThat(e.getErrorDescription()).isEqualTo("errorDetail");
     }
