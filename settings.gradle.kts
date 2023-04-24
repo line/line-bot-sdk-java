@@ -44,6 +44,9 @@ include("line-bot-spring-boot")
 include("line-bot-parser")
 include("line-bot-jackson")
 
+// openapi based webhook
+include("line-bot-webhook")
+
 // openapi based clients
 include("clients:line-bot-client-base")
 include("clients:line-bot-insight-client")

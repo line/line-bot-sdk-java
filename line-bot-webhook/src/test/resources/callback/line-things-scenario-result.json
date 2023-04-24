@@ -1,0 +1,40 @@
+{
+  "events": [
+    {
+      "type": "things",
+      "replyToken": "0f3779fba3b349968c5d07db31eab56f",
+      "source": {
+        "userId": "uXXX",
+        "type": "user"
+      },
+      "timestamp": 1547817848122,
+      "mode": "active",
+      "things": {
+        "type": "scenarioResult",
+        "deviceId": "tXXX",
+        "result": {
+          "scenarioId": "XXX",
+          "revision": 2,
+          "startTime": 1547817845950,
+          "endTime": 1547817845952,
+          "resultCode": "success",
+          "bleNotificationPayload": "AQ==",
+          "actionResults": [
+            {
+              "type": "binary",
+              "data": "/w=="
+            },
+            {
+              "type": "void"
+            },
+            {
+              "type": "unknowType",
+              "unknowProperty": "fuga"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "destination": "uXXX"
+}

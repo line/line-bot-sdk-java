@@ -1,0 +1,14 @@
+{
+  "destination": "Uab012345678901234567890123456789",
+  "events": [
+    {
+      "type": "leave",
+      "timestamp": 1462629479859,
+      "mode": "active",
+      "source": {
+        "type": "group",
+        "groupId": "cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    }
+  ]
+}
