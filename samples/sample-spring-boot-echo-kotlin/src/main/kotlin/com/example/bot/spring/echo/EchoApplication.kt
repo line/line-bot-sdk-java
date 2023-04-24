@@ -16,13 +16,14 @@
 
 package com.example.bot.spring.echo
 
-import com.linecorp.bot.model.event.Event
-import com.linecorp.bot.model.event.MessageEvent
-import com.linecorp.bot.model.event.message.TextMessageContent
-import com.linecorp.bot.model.message.Message
-import com.linecorp.bot.model.message.TextMessage
-import com.linecorp.bot.spring.boot.annotation.EventMapping
-import com.linecorp.bot.spring.boot.annotation.LineMessageHandler
+import com.linecorp.bot.messaging.client.MessagingApiClient
+import com.linecorp.bot.messaging.model.ReplyMessageRequest
+import com.linecorp.bot.messaging.model.TextMessage
+import com.linecorp.bot.spring.boot.handler.annotation.EventMapping
+import com.linecorp.bot.spring.boot.handler.annotation.LineMessageHandler
+import com.linecorp.bot.webhook.model.Event
+import com.linecorp.bot.webhook.model.MessageEvent
+import com.linecorp.bot.webhook.model.TextMessageContent
 import org.slf4j.LoggerFactory
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -33,14 +34,23 @@ fun main(args: Array<String>) {
 
 @SpringBootApplication
 @LineMessageHandler
-open class EchoApplication {
+open class EchoApplication(private val messagingApiClient: MessagingApiClient) {
     private val log = LoggerFactory.getLogger(EchoApplication::class.java)
 
     @EventMapping
-    fun handleTextMessageEvent(event: MessageEvent<TextMessageContent>): Message {
+    fun handleTextMessageEvent(event: MessageEvent) {
         log.info("event: $event")
-        val originalMessageText = event.message.text
-        return TextMessage(originalMessageText)
+        val message = event.message
+        if (message is TextMessageContent) {
+            val originalMessageText = message.text
+            messagingApiClient.replyMessage(
+                ReplyMessageRequest(
+                    event.replyToken,
+                    listOf(TextMessage(originalMessageText)),
+                    false
+                )
+            )
+        }
     }
 
     @EventMapping

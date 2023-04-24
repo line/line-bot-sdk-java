@@ -14,18 +14,21 @@
  * under the License.
  */
 
-package com.linecorp.bot.messagingapidemoapp.controller;
+package com.example.bot.spring;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@Controller
-public class RootController {
-    public RootController() {
-    }
+import org.junit.jupiter.api.Test;
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
+import com.linecorp.bot.messaging.model.FlexMessage;
+
+class ExampleFlexMessageSupplierTest {
+
+    @Test
+    void get() {
+        ExampleFlexMessageSupplier supplier = new ExampleFlexMessageSupplier();
+        FlexMessage flexMessage = supplier.get();
+        assertThat(flexMessage)
+                .isInstanceOf(FlexMessage.class);
     }
 }

@@ -25,28 +25,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.linecorp.bot.client.LineMessagingClient;
-
-import lombok.RequiredArgsConstructor;
+import com.linecorp.bot.messaging.client.MessagingApiClient;
 
 @Controller
-@RequiredArgsConstructor
 public class ReportController {
-    private final LineMessagingClient client;
+    private final MessagingApiClient client;
     private static final DateTimeFormatter PATTERN = DateTimeFormatter.ofPattern("uuuuMMdd");
+
+    public ReportController(MessagingApiClient client) {
+        this.client = client;
+    }
 
     @GetMapping("/message/report/quota")
     public CompletableFuture<String> show(Model model) {
         CompletableFuture<Void> quotaFuture = client
                 .getMessageQuota()
-                .thenAccept(messageQuota -> model.addAttribute("quota", messageQuota));
+                .thenAccept(messageQuota -> model.addAttribute("quota", messageQuota.body()));
         CompletableFuture<Void> totalUsageFuture = client
                 .getMessageQuotaConsumption()
                 .thenAccept(
-                        response -> model.addAttribute("totalUsage", response.getTotalUsage()));
+                        result -> model.addAttribute("totalUsage", result.body().totalUsage()));
 
         return CompletableFuture.allOf(quotaFuture, totalUsageFuture)
-                                .thenApply(it -> "message/report/quota");
+                .thenApply(it -> "message/report/quota");
     }
 
     @GetMapping("/message/report/sent")
@@ -58,20 +59,20 @@ public class ReportController {
         }
 
         model.addAttribute("date", LocalDate.parse(date, PATTERN)
-                                            .format(DateTimeFormatter.ISO_DATE));
+                .format(DateTimeFormatter.ISO_DATE));
 
         return CompletableFuture.allOf(
                 client.getNumberOfSentReplyMessages(date).thenApply(
-                        it -> model.addAttribute("reply", it)
+                        it -> model.addAttribute("reply", it.body())
                 ),
                 client.getNumberOfSentPushMessages(date).thenApply(
-                        it -> model.addAttribute("push", it)
+                        it -> model.addAttribute("push", it.body())
                 ),
                 client.getNumberOfSentBroadcastMessages(date).thenApply(
-                        it -> model.addAttribute("broadcast", it)
+                        it -> model.addAttribute("broadcast", it.body())
                 ),
                 client.getNumberOfSentMulticastMessages(date).thenApply(
-                        it -> model.addAttribute("multicast", it)
+                        it -> model.addAttribute("multicast", it.body())
                 )
         ).thenApply(it -> "message/report/sent");
     }

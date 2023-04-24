@@ -1,15 +1,15 @@
-<#-- @ftlvariable name="audienceGroup" type="com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse" -->
-<#-- @ftlvariable name="jobs" type="java.util.List<com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse.Job>" -->
+<#-- @ftlvariable name="audienceGroup" type="com.linecorp.bot.audience.model.GetAudienceDataResponse" -->
+<#-- @ftlvariable name="jobs" type="java.util.List<com.linecorp.bot.audience.model.GetAudienceDataResponse.Job>" -->
 <#import "../__wrapper.ftlh" as wrapper>
 <@wrapper.main>
 <h1>LINE Messaging API Demo App</h1>
 
-    <#if audienceGroup.permission.name() == "READ_WRITE">
-        <a href="/manage_audience/update_description/${audienceGroup.audienceGroupId}" class="btn btn-primary">Rename
+    <#if audienceGroup.permission().name() == "READ_WRITE">
+        <a href="/manage_audience/update_description/${audienceGroup.audienceGroupId()}" class="btn btn-primary">Rename
             audience group</a>
-        <a href="/manage_audience/add_audience/${audienceGroup.audienceGroupId}" class="btn btn-primary">Add
+        <a href="/manage_audience/add_audience/${audienceGroup.audienceGroupId()}" class="btn btn-primary">Add
             audience for this audience group.</a>
-        <a href="/manage_audience/add_audience_by_file/${audienceGroup.audienceGroupId}"
+        <a href="/manage_audience/add_audience_by_file/${audienceGroup.audienceGroupId()}"
            class="btn btn-primary">Add
             audience for this audience group(By file)</a>
     <#else>
@@ -21,51 +21,51 @@
 <table class="table table-bordered table-hover">
     <tr>
         <th>audienceGroupId</th>
-        <td>${audienceGroup.audienceGroupId?c}</td>
+        <td>${audienceGroup.audienceGroupId()?c}</td>
     </tr>
     <tr>
         <th>type</th>
-        <td>${audienceGroup.type}</td>
+        <td>${audienceGroup.type()}</td>
     </tr>
     <tr>
         <th>description</th>
-        <td>${audienceGroup.description}</td>
+        <td>${audienceGroup.description()}</td>
     </tr>
     <tr>
         <th>status</th>
-        <td>${audienceGroup.status}</td>
+        <td>${audienceGroup.status()}</td>
     </tr>
     <tr>
         <th>failed type</th>
-        <td>${audienceGroup.failedType!"-"}</td>
+        <td>${audienceGroup.failedType()!"-"}</td>
     </tr>
     <tr>
         <th>audience count</th>
-        <td>${audienceGroup.audienceCount}</td>
+        <td>${audienceGroup.audienceCount()}</td>
     </tr>
     <tr>
         <th>created</th>
-        <td>${(audienceGroup.created*1000)?number_to_datetime?iso_local_nz}</td>
+        <td>${(audienceGroup.created()*1000)?number_to_datetime?iso_local_nz}</td>
     </tr>
     <tr>
         <th>requestId</th>
-        <td>${audienceGroup.requestId!"-"}</td>
+        <td>${audienceGroup.requestId()!"-"}</td>
     </tr>
     <tr>
         <th>clickUrl</th>
-        <td>${audienceGroup.clickUrl!"-"}</td>
+        <td>${audienceGroup.clickUrl()!"-"}</td>
     </tr>
     <tr>
         <th>permission</th>
-        <td>${audienceGroup.permission!"-"}</td>
+        <td>${audienceGroup.permission()!"-"}</td>
     </tr>
     <tr>
         <th>create route</th>
-        <td>${audienceGroup.createRoute!"-"}</td>
+        <td>${audienceGroup.createRoute()!"-"}</td>
     </tr>
     <tr>
         <th>is ifa audience</th>
-        <td>${audienceGroup.isIfaAudience?string('IFA', 'userId')}</td>
+        <td>${audienceGroup.isIfaAudience()?string('IFA', 'userId')}</td>
     </tr>
 </table>
 
@@ -82,18 +82,18 @@
     </tr>
     <#list jobs as job>
         <tr>
-            <td>${job.audienceGroupJobId?c}</td>
-            <td>${job.description!"-"}</td>
-            <td>${job.type}</td>
-            <td>${job.jobStatus}</td>
-            <td>${job.failedType!"-"}</td>
-            <td>${job.audienceCount}</td>
-            <td>${(job.created*1000)?number_to_datetime?iso_local_nz}</td>
+            <td>${job.audienceGroupJobId()?c}</td>
+            <td>${job.description()!"-"}</td>
+            <td>${job.type()}</td>
+            <td>${job.jobStatus()}</td>
+            <td>${job.failedType()!"-"}</td>
+            <td>${job.audienceCount()}</td>
+            <td>${(job.created()*1000)?number_to_datetime?iso_local_nz}</td>
         </tr>
     </#list>
 </table>
 
-    <form method="POST" action="/manage_audience/${audienceGroup.audienceGroupId}/delete"
+    <form method="POST" action="/manage_audience/${audienceGroup.audienceGroupId()}/delete"
           onsubmit="return confirm('Do you want to delete this audience group? This operation cannot undo.')">
         <input type="submit" value="DELETE" class="btn btn-danger">
     </form>

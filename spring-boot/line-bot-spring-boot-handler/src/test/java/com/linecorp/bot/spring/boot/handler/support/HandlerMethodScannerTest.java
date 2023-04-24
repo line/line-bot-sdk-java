@@ -40,9 +40,17 @@ class HandlerMethodScannerTest {
     @Test
     void testScan() {
         List<HandlerMethod> result = scanner.scan(List.of(new MyHandlers()));
-        result.forEach(handlerMethod -> System.out.println(handlerMethod.handler().getName() + " " + handlerMethod.priority()));
-        assertThat(result.stream().map(handlerMethod -> handlerMethod.handler().getName()).collect(Collectors.toList()))
-                .isEqualTo(List.of("customPriority", "messageEventWithContent", "messageEvent", "eventWithDestination", "event"));
+        result.forEach(handlerMethod ->
+                System.out.println(handlerMethod.handler().getName() + " " + handlerMethod.priority()));
+        assertThat(result.stream()
+                .map(handlerMethod -> handlerMethod.handler().getName())
+                .collect(Collectors.toList())
+        ).isEqualTo(List.of(
+                "customPriority",
+                "messageEventWithContent",
+                "messageEvent",
+                "eventWithDestination",
+                "event"));
     }
 
     public static class MyHandlers {

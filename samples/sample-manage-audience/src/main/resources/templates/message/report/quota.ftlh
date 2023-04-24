@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="totalUsage" type="java.lang.Long" -->
+<#-- @ftlvariable name="quota" type="com.linecorp.bot.messaging.model.MessageQuotaResponse" -->
 <#import "../../__wrapper.ftlh" as wrapper>
 <@wrapper.main>
 
@@ -6,11 +7,11 @@
     <table class="table">
         <tr>
             <th>Type</th>
-            <td>${quota.type}</td>
+            <td>${quota.type()}</td>
         </tr>
         <tr>
             <th>Value</th>
-            <td>${quota.getValue()}</td>
+            <td>${quota.value()}</td>
         </tr>
     </table>
 

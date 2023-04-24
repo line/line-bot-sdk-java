@@ -22,35 +22,32 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.linecorp.bot.client.ChannelTokenSupplier;
-import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.spring.boot.LineBotProperties;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Value;
-import okhttp3.Headers;
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import okio.Buffer;
-import okio.BufferedSource;
+import com.linecorp.bot.client.base.channel.ChannelTokenSupplier;
+import com.linecorp.bot.client.base.http.HttpChain;
+import com.linecorp.bot.client.base.http.HttpInterceptor;
+import com.linecorp.bot.client.base.http.HttpMediaType;
+import com.linecorp.bot.client.base.http.HttpRequest;
+import com.linecorp.bot.client.base.http.HttpRequestBody;
+import com.linecorp.bot.client.base.http.HttpResponse;
+import com.linecorp.bot.client.base.http.HttpResponseBody;
+import com.linecorp.bot.messaging.client.MessagingApiClient;
+import com.linecorp.bot.spring.boot.core.properties.LineBotProperties;
 
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(LineBotProperties.class)
-@AllArgsConstructor
 public class LineBotConfiguration {
-    private LineBotProperties lineBotProperties;
+    private final LineBotProperties lineBotProperties;
+
+    public LineBotConfiguration(LineBotProperties lineBotProperties) {
+        this.lineBotProperties = lineBotProperties;
+    }
 
     @Bean
     public MyInterceptor myInterceptor() {
@@ -58,27 +55,26 @@ public class LineBotConfiguration {
     }
 
     @Bean
-    public LineMessagingClient lineMessagingClient(ChannelTokenSupplier channelTokenSupplier,
-                                                   MyInterceptor myInterceptor) {
-        return LineMessagingClient
+    public MessagingApiClient messagingApiClient(ChannelTokenSupplier channelTokenSupplier,
+                                                 MyInterceptor myInterceptor) {
+        return MessagingApiClient
                 .builder(channelTokenSupplier)
-                .apiEndPoint(lineBotProperties.getApiEndPoint())
-                .blobEndPoint(lineBotProperties.getBlobEndPoint())
-                .connectTimeout(lineBotProperties.getConnectTimeout())
-                .readTimeout(lineBotProperties.getReadTimeout())
-                .writeTimeout(lineBotProperties.getWriteTimeout())
-                .additionalInterceptors(Collections.singletonList(myInterceptor))
+                .apiEndPoint(lineBotProperties.apiEndPoint())
+                .connectTimeout(lineBotProperties.connectTimeout())
+                .readTimeout(lineBotProperties.readTimeout())
+                .writeTimeout(lineBotProperties.writeTimeout())
+                .addInterceptor(myInterceptor)
                 .build();
     }
 
-    public static class MyInterceptor implements Interceptor {
-        private List<ApiCallLog> logs = new ArrayList<>();
+    public static class MyInterceptor implements HttpInterceptor {
+        private final List<ApiCallLog> logs = new ArrayList<>();
 
         @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request request = chain.request();
+        public HttpResponse intercept(HttpChain chain) throws IOException {
+            HttpRequest request = chain.request();
             ApiCallRequest apiCallRequest = ApiCallRequest.create(request);
-            Response response = chain.proceed(request);
+            HttpResponse response = chain.proceed(request);
             ApiCallResponse apiCallResponse = ApiCallResponse.create(response);
             ApiCallLog apiCallLog = new ApiCallLog(apiCallRequest, apiCallResponse);
             logs.add(apiCallLog);
@@ -93,25 +89,28 @@ public class LineBotConfiguration {
         }
     }
 
-    @Value
-    public static class ApiCallLog {
-        ApiCallRequest request;
-        ApiCallResponse response;
+    public record ApiCallLog(
+            ApiCallRequest request,
+            ApiCallResponse response
+    ) {
     }
 
-    @Builder
-    @Getter
-    public static class ApiCallRequest {
-        public static ApiCallRequest create(Request request) throws IOException {
-            return ApiCallRequest.builder()
-                                 .method(request.method())
-                                 .url(request.url().toString())
-                                 .headers(buildHeaders(request.headers()))
-                                 .body(buildBody(request.body()))
-                                 .build();
+    public record ApiCallRequest(
+            String method,
+            String url,
+            List<HeaderEntry> headers,
+            String body
+    ) {
+        public static ApiCallRequest create(HttpRequest request) throws IOException {
+            return new ApiCallRequest(
+                    request.method(),
+                    request.url().toString(),
+                    buildHeaders(request.headers()),
+                    buildBody(request.body())
+            );
         }
 
-        private static String buildBody(RequestBody body) throws IOException {
+        private static String buildBody(HttpRequestBody body) throws IOException {
             if (body == null) {
                 return "<EMPTY>";
             }
@@ -122,65 +121,56 @@ public class LineBotConfiguration {
                 return "<ONESHOT>";
             }
             boolean result = false;
-            MediaType mediaType = body.contentType();
+            HttpMediaType mediaType = body.contentType();
             if (mediaType != null) {
                 String type = mediaType.type();
                 result = "text".equals(type) || "application".equals(type);
             }
             if (result) {
-                Buffer buffer = new Buffer();
-                body.writeTo(buffer);
-                return buffer.readString(StandardCharsets.UTF_8);
+                return new String(body.readByteArray(), StandardCharsets.UTF_8);
             } else {
                 return "<BINARY: " + body.contentType() + ">";
             }
         }
-
-        String method;
-        String url;
-        List<HeaderEntry> headers;
-        String body;
     }
 
-    @Value
-    public static class HeaderEntry {
-        String name;
-        String value;
+    public record HeaderEntry(
+            String name,
+            String value
+    ) {
     }
 
-    private static List<HeaderEntry> buildHeaders(Headers headers) {
-        return headers.names()
-                      .stream()
-                      .flatMap(name -> headers.values(name)
-                                              .stream()
-                                              .map(value -> new HeaderEntry(name, value)))
-                      .collect(Collectors.toList());
+    private static List<HeaderEntry> buildHeaders(Map<String, List<String>> headers) {
+        return headers.keySet()
+                .stream()
+                .flatMap(name -> headers.get(name)
+                        .stream()
+                        .map(value -> new HeaderEntry(name, value)))
+                .collect(Collectors.toList());
     }
 
-    @Builder
-    @Getter
-    public static class ApiCallResponse {
-        public static ApiCallResponse create(Response response) throws IOException {
-            return ApiCallResponse.builder()
-                                  .code(response.code())
-                                  .message(response.message())
-                                  .headers(buildHeaders(response.headers()))
-                                  .body(buildBody(response.body()))
-                                  .build();
+    public record ApiCallResponse(
+            int code,
+            String message,
+            List<HeaderEntry> headers,
+            String body
+    ) {
+        public static ApiCallResponse create(HttpResponse response) throws IOException {
+            return new ApiCallResponse(
+                    response.code(),
+                    response.message(),
+                    buildHeaders(response.headers()),
+                    buildBody(response.body())
+            );
         }
-
-        int code;
-        String message;
-        List<HeaderEntry> headers;
-        String body;
     }
 
-    private static String buildBody(ResponseBody body) throws IOException {
+    private static String buildBody(HttpResponseBody body) throws IOException {
         if (body == null) {
             return "<EMPTY>";
         }
 
-        MediaType contentType = body.contentType();
+        HttpMediaType contentType = body.contentType();
         if (contentType == null) {
             return "<BINARY>";
         }
@@ -194,10 +184,7 @@ public class LineBotConfiguration {
                     return "<BINARY: " + contentType + ">";
                 }
             }
-            BufferedSource source = body.source();
-            source.request(Long.MAX_VALUE); // Buffer the entire body.
-            Buffer buffer = source.getBuffer();
-            return buffer.clone().readString(charset);
+            return new String(body.readByteArray(), charset);
         } else {
             return "<BINARY: " + body.contentType() + ">";
         }

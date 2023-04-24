@@ -1,4 +1,8 @@
 <#-- @ftlvariable name="totalUsage" type="java.lang.Long" -->
+<#-- @ftlvariable name="broadcast" type="com.linecorp.bot.messaging.model.NumberOfMessagesResponse" -->
+<#-- @ftlvariable name="multicast" type="com.linecorp.bot.messaging.model.NumberOfMessagesResponse" -->
+<#-- @ftlvariable name="push" type="com.linecorp.bot.messaging.model.NumberOfMessagesResponse" -->
+<#-- @ftlvariable name="reply" type="com.linecorp.bot.messaging.model.NumberOfMessagesResponse" -->
 <#import "../../__wrapper.ftlh" as wrapper>
 <@wrapper.main>
 
@@ -17,23 +21,23 @@
         </tr>
         <tr>
             <td>Broadcast</td>
-            <td>${broadcast.status}</td>
-            <td>${broadcast.success}</td>
+            <td>${broadcast.status()}</td>
+            <td>${broadcast.success()!"-"}</td>
         </tr>
         <tr>
             <td>Multicast</td>
-            <td>${multicast.status}</td>
-            <td>${multicast.success}</td>
+            <td>${multicast.status()}</td>
+            <td>${multicast.success()!"-"}</td>
         </tr>
         <tr>
             <td>Push</td>
-            <td>${push.status}</td>
-            <td>${push.success}</td>
+            <td>${push.status()}</td>
+            <td>${push.success()!"-"}</td>
         </tr>
         <tr>
             <td>Reply</td>
-            <td>${reply.status}</td>
-            <td>${reply.success}</td>
+            <td>${reply.status()}</td>
+            <td>${reply.success()!"-"}</td>
         </tr>
     </table>
 </@wrapper.main>

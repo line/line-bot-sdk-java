@@ -30,7 +30,8 @@ public class MessageContentArgumentResolver implements ArgumentResolver {
 
     @Override
     public boolean isSupported(Event event) {
-        return event instanceof MessageEvent && klass.isAssignableFrom(((MessageEvent) event).message().getClass());
+        return event instanceof MessageEvent
+                && klass.isAssignableFrom(((MessageEvent) event).message().getClass());
     }
 
     @Override

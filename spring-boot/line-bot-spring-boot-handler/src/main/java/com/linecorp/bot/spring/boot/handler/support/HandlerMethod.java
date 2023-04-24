@@ -118,6 +118,7 @@ record HandlerMethod(
     }
 
     public boolean isSupported(Event event) {
-        return this.argumentResolvers.stream().allMatch(argumentResolver -> argumentResolver.isSupported(event));
+        return this.argumentResolvers.stream()
+                .allMatch(argumentResolver -> argumentResolver.isSupported(event));
     }
 }

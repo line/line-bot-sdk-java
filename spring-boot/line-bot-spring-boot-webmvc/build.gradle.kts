@@ -16,7 +16,6 @@
 
 plugins {
     id("sdk.java")
-    id("sdk.spring-boot")
 }
 
 dependencies {

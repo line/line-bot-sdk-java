@@ -1,3 +1,4 @@
+<#-- @ftlvariable name="response" type="com.linecorp.bot.messaging.model.TestWebhookEndpointResponse" -->
 <#import "../__wrapper.ftlh" as wrapper>
 <@wrapper.main>
 
@@ -6,23 +7,23 @@
     <table class="table table-bordered">
         <tr>
             <th>Success</th>
-            <td>${response.success!?c}</td>
+            <td>${response.success()!?c}</td>
         </tr>
         <tr>
             <th>timestamp</th>
-            <td>${response.timestamp.epochSecond!}</td>
+            <td>${response.timestamp().toEpochSecond()!}</td>
         </tr>
         <tr>
             <th>statusCode</th>
-            <td>${response.statusCode}</td>
+            <td>${response.statusCode()}</td>
         </tr>
         <tr>
             <th>Reason</th>
-            <td>${response.reason!"-"}</td>
+            <td>${response.reason()!"-"}</td>
         </tr>
         <tr>
             <th>Detail</th>
-            <td>${response.detail!"-"}</td>
+            <td>${response.detail()!"-"}</td>
         </tr>
     </table>
 

@@ -33,10 +33,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.google.common.io.ByteStreams;
 
-import com.linecorp.bot.model.event.CallbackRequest;
-import com.linecorp.bot.model.event.Event;
-import com.linecorp.bot.model.event.MessageEvent;
-import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.webhook.model.CallbackRequest;
+import com.linecorp.bot.webhook.model.Event;
+import com.linecorp.bot.webhook.model.MessageEvent;
+import com.linecorp.bot.webhook.model.TextMessageContent;
 
 @ExtendWith(MockitoExtension.class)
 public class WebhookParserTest {
@@ -96,16 +96,16 @@ public class WebhookParserTest {
 
         assertThat(callbackRequest).isNotNull();
 
-        final List<Event> result = callbackRequest.getEvents();
+        final List<Event> result = callbackRequest.events();
 
         @SuppressWarnings("rawtypes")
         final MessageEvent messageEvent = (MessageEvent) result.get(0);
-        final TextMessageContent text = (TextMessageContent) messageEvent.getMessage();
-        assertThat(text.getText()).isEqualTo("Hello, world");
+        final TextMessageContent text = (TextMessageContent) messageEvent.message();
+        assertThat(text.text()).isEqualTo("Hello, world");
 
-        final String followedUserId = messageEvent.getSource().getUserId();
+        final String followedUserId = messageEvent.source().userId();
         assertThat(followedUserId).isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
-        assertThat(messageEvent.getTimestamp()).isEqualTo(
-                Instant.parse("2016-05-07T13:57:59.859Z"));
+        assertThat(messageEvent.timestamp()).isEqualTo(
+                Instant.parse("2016-05-07T13:57:59.859Z").toEpochMilli());
     }
 }

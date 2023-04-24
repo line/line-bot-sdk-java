@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,52 +36,61 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.client.ManageAudienceClient;
-import com.linecorp.bot.model.Narrowcast;
-import com.linecorp.bot.model.manageaudience.AudienceGroupStatus;
-import com.linecorp.bot.model.message.Message;
-import com.linecorp.bot.model.narrowcast.Filter;
-import com.linecorp.bot.model.narrowcast.Limit;
-import com.linecorp.bot.model.narrowcast.filter.AgeDemographicFilter;
-import com.linecorp.bot.model.narrowcast.filter.AgeDemographicFilter.Age;
-import com.linecorp.bot.model.narrowcast.filter.AppTypeDemographicFilter;
-import com.linecorp.bot.model.narrowcast.filter.AppTypeDemographicFilter.AppType;
-import com.linecorp.bot.model.narrowcast.filter.AreaDemographicFilter;
-import com.linecorp.bot.model.narrowcast.filter.AreaDemographicFilter.AreaCode;
-import com.linecorp.bot.model.narrowcast.filter.DemographicFilter;
-import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter;
-import com.linecorp.bot.model.narrowcast.filter.GenderDemographicFilter.Gender;
-import com.linecorp.bot.model.narrowcast.filter.OperatorDemographicFilter;
-import com.linecorp.bot.model.narrowcast.filter.SubscriptionPeriodDemographicFilter.SubscriptionPeriod;
-import com.linecorp.bot.model.narrowcast.recipient.Recipient;
+import com.linecorp.bot.audience.client.ManageAudienceClient;
+import com.linecorp.bot.audience.model.AudienceGroupStatus;
+import com.linecorp.bot.insight.model.AppTypeTile;
+import com.linecorp.bot.insight.model.SubscriptionPeriodTile;
+import com.linecorp.bot.messaging.client.MessagingApiClient;
+import com.linecorp.bot.messaging.model.AgeDemographic;
+import com.linecorp.bot.messaging.model.AgeDemographicFilter;
+import com.linecorp.bot.messaging.model.AppTypeDemographic;
+import com.linecorp.bot.messaging.model.AppTypeDemographicFilter;
+import com.linecorp.bot.messaging.model.AreaDemographic;
+import com.linecorp.bot.messaging.model.AreaDemographicFilter;
+import com.linecorp.bot.messaging.model.DemographicFilter;
+import com.linecorp.bot.messaging.model.Filter;
+import com.linecorp.bot.messaging.model.GenderDemographic;
+import com.linecorp.bot.messaging.model.GenderDemographicFilter;
+import com.linecorp.bot.messaging.model.Limit;
+import com.linecorp.bot.messaging.model.Message;
+import com.linecorp.bot.messaging.model.NarrowcastRequest;
+import com.linecorp.bot.messaging.model.OperatorDemographicFilter;
+import com.linecorp.bot.messaging.model.Recipient;
 
 import io.micrometer.common.util.StringUtils;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
-@AllArgsConstructor
 public class NarrowcastController {
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(NarrowcastController.class);
     private final ManageAudienceClient client;
-    private final LineMessagingClient messagingClient;
+    private final MessagingApiClient messagingClient;
     private final MessageHelper messageHelper;
     private final ObjectMapper objectMapper;
 
+    public NarrowcastController(
+            ManageAudienceClient client,
+            MessagingApiClient messagingClient,
+            MessageHelper messageHelper,
+            ObjectMapper objectMapper) {
+        this.client = client;
+        this.messagingClient = messagingClient;
+        this.messageHelper = messageHelper;
+        this.objectMapper = objectMapper;
+    }
+
     @GetMapping("/message/narrowcast")
     public CompletableFuture<String> narrowcast(Model model) {
-        model.addAttribute("ages", Age.values());
-        model.addAttribute("appTypes", AppType.values());
-        model.addAttribute("areaCodes", AreaCode.values());
-        model.addAttribute("subscriptionPeriods", SubscriptionPeriod.values());
+        model.addAttribute("ages", AgeDemographic.values());
+        model.addAttribute("appTypes", AppTypeTile.AppType.values());
+        model.addAttribute("areaCodes", AreaDemographic.values());
+        model.addAttribute("subscriptionPeriods", SubscriptionPeriodTile.SubscriptionPeriod.values());
         return client.getAudienceGroups(
-                1L, null, AudienceGroupStatus.READY, 40L, true,
-                null)
-                     .thenApply(response -> {
-                         model.addAttribute("audienceGroups", response.getAudienceGroups());
-                         return "message/narrowcast/form";
-                     });
+                        1L, null, AudienceGroupStatus.READY, 40L, true,
+                        null)
+                .thenApply(result -> {
+                    model.addAttribute("audienceGroups", result.body().audienceGroups());
+                    return "message/narrowcast/form";
+                });
     }
 
     @PostMapping("/message/narrowcast")
@@ -100,53 +110,45 @@ public class NarrowcastController {
         List<DemographicFilter> condition = new ArrayList<>();
 
         if (gender != null) {
-            condition.add(GenderDemographicFilter.builder()
-                                                 .oneOf(singletonList(Gender.valueOf(gender)))
-                                                 .build());
+            condition.add(new GenderDemographicFilter(
+                    singletonList(GenderDemographic.valueOf(gender))
+            ));
         }
         if (StringUtils.isNotBlank(ageGte) || StringUtils.isNotBlank(ageLt)) {
             log.info("ageGte={} ageLt={}", ageGte, ageLt);
-            AgeDemographicFilter filter = AgeDemographicFilter
-                    .builder()
-                    .gte(StringUtils.isBlank(ageGte) ? null : Age.valueOf(ageGte))
-                    .lt(StringUtils.isBlank(ageLt) ? null : Age.valueOf(ageLt))
-                    .build();
+            AgeDemographicFilter filter = new AgeDemographicFilter(
+                    StringUtils.isBlank(ageGte) ? null : AgeDemographic.valueOf(ageGte),
+                    StringUtils.isBlank(ageLt) ? null : AgeDemographic.valueOf(ageLt)
+            );
             condition.add(filter);
         }
         if (StringUtils.isNotBlank(appType)) {
-            condition.add(AppTypeDemographicFilter.builder()
-                                                  .oneOf(singletonList(AppType.valueOf(appType)))
-                                                  .build());
+            condition.add(new AppTypeDemographicFilter(
+                    singletonList(AppTypeDemographic.valueOf(appType))
+            ));
         }
         if (areaCode != null && areaCode.length > 0) {
             condition.add(
-                    AreaDemographicFilter
-                            .builder()
-                            .oneOf(
-                                    Arrays.stream(areaCode)
-                                          .map(AreaCode::valueOf)
-                                          .collect(Collectors.toList())
-                            ).build()
+                    new AreaDemographicFilter(
+                            Arrays.stream(areaCode)
+                                    .map(AreaDemographic::valueOf)
+                                    .collect(Collectors.toList())
+                    )
             );
         }
         Recipient recipientObject = StringUtils.isNotBlank(recipient)
-                                    ? objectMapper.readValue(recipient, Recipient.class)
-                                    : null;
+                ? objectMapper.readValue(recipient, Recipient.class)
+                : null;
 
-        Narrowcast narrowcast = new Narrowcast(
+        NarrowcastRequest narrowcast = new NarrowcastRequest(
                 messageList,
                 recipientObject,
-                Filter.builder()
-                      .demographic(
-                              OperatorDemographicFilter.builder()
-                                                       .and(condition)
-                                                       .build()
-                      ).build(),
-                maxLimit == null ? null : Limit.builder().max(maxLimit).build(),
+                new Filter(new OperatorDemographicFilter(condition, null, null)),
+                maxLimit == null ? null : new Limit(maxLimit, false),
                 notificationDisabled
         );
-        return messagingClient.narrowcast(narrowcast).thenApply(
-                response -> new RedirectView("/message/narrowcast/" + response.getRequestId())
+        return messagingClient.narrowcast(null, narrowcast).thenApply(
+                response -> new RedirectView("/message/narrowcast/" + response.requestId())
         );
     }
 
@@ -155,11 +157,11 @@ public class NarrowcastController {
         model.addAttribute("requestId", requestId);
 
         return messagingClient.getNarrowcastProgress(requestId)
-                              .thenApply(response -> {
-                                  model.addAttribute("progress", response);
-                                  return "message/narrowcast/progress";
+                .thenApply(response -> {
+                    model.addAttribute("progress", response.body());
+                    return "message/narrowcast/progress";
 
-                              });
+                });
     }
 
 }

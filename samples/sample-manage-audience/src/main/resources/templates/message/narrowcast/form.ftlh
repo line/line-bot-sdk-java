@@ -1,9 +1,9 @@
-<#-- @ftlvariable name="subscriptionPeriods" type="com.linecorp.bot.model.Narrowcast.SubscriptionPeriodDemographicFilter.SubscriptionPeriod[]" -->
-<#-- @ftlvariable name="areaCodes" type="com.linecorp.bot.model.Narrowcast.AreaDemographicFilter.AreaCode[]" -->
-<#-- @ftlvariable name="appTypes" type="com.linecorp.bot.model.Narrowcast.AppTypeDemographicFilter.AppType[]" -->
-<#-- @ftlvariable name="ages" type="com.linecorp.bot.model.Narrowcast.AgeDemographicFilter.Age[]" -->
-<#-- @ftlvariable name="audienceGroup" type="com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse" -->
-<#-- @ftlvariable name="jobs" type="java.util.List<com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse.Job>" -->
+<#-- @ftlvariable name="subscriptionPeriods" type="com.linecorp.bot.insight.model.SubscriptionPeriodTile.SubscriptionPeriod[]" -->
+<#-- @ftlvariable name="areaCodes" type="com.linecorp.bot.messaging.model.AreaDemographic[]" -->
+<#-- @ftlvariable name="appTypes" type="com.linecorp.bot.insight.model.AppTypeTile.AppType[]" -->
+<#-- @ftlvariable name="ages" type="com.linecorp.bot.insight.model.AgeTile.Age[]" -->
+<#-- @ftlvariable name="audienceGroup" type="com.linecorp.bot.audience.model.GetAudienceDataResponse" -->
+<#-- @ftlvariable name="jobs" type="java.util.List<com.linecorp.bot.audience.model.GetAudienceDataResponse.Job>" -->
 <#import "../../__wrapper.ftlh" as wrapper>
 <@wrapper.main>
     <h1>Send narrowcast message</h1>
@@ -34,9 +34,9 @@
                         </tr>
                         <#list audienceGroups as audienceGroup>
                             <tr>
-                                <td>${audienceGroup.audienceGroupId}</td>
-                                <td>${audienceGroup.description}</td>
-                                <td>${audienceGroup.type}</td>
+                                <td>${audienceGroup.audienceGroupId()}</td>
+                                <td>${audienceGroup.description()}</td>
+                                <td>${audienceGroup.type()}</td>
                             </tr>
                         </#list>
                     </table>

@@ -25,7 +25,7 @@ dependencies {
     annotationProcessor(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 
     api(project(":line-bot-api-client"))
-    api(project(":line-bot-model"))
+    api(project(":line-bot-webhook"))
     implementation(project(":line-bot-parser"))
     implementation("org.springframework.boot:spring-boot-autoconfigure")
     implementation("org.springframework.boot:spring-boot-starter-web")

@@ -6,29 +6,29 @@
     <#list logs as log>
         <div class="row">
             <div class="col-sm-6">
-                <p>${log.request.method} ${log.request.url}</p>
+                <p>${log.request().method()} ${log.request().url()}</p>
                 <table class="table table-hover">
-                    <#list log.request.headers as header>
+                    <#list log.request().headers() as header>
                         <tr>
-                            <th>${header.name}</th>
-                            <td>${header.value}</td>
+                            <th>${header.name()}</th>
+                            <td>${header.value()}</td>
                         </tr>
                     </#list>
                 </table>
-                <pre><code id="requestLog${log?index}">${log.request.body!"-"}</code></pre>
+                <pre><code id="requestLog${log?index}">${log.request().body()!"-"}</code></pre>
                 <button class="prettify-btn bnt" data-target="requestLog${log?index}">Prettify</button>
             </div>
             <div class="col-sm-6">
-                <p>${log.response.code} ${log.response.message}</p>
+                <p>${log.response().code()} ${log.response().message()}</p>
                 <table class="table table-hover">
-                    <#list log.response.headers as header>
+                    <#list log.response().headers() as header>
                         <tr>
-                            <th>${header.name}</th>
-                            <td>${header.value}</td>
+                            <th>${header.name()}</th>
+                            <td>${header.value()}</td>
                         </tr>
                     </#list>
                 </table>
-                <pre><code id="responseLog${log?index}">${log.response.body!"-"}</code></pre>
+                <pre><code id="responseLog${log?index}">${log.response().body()!"-"}</code></pre>
                 <button class="prettify-btn bnt" data-target="responseLog${log?index}">Prettify</button>
             </div>
         </div>
@@ -45,7 +45,7 @@
       const elems = document.getElementsByClassName("prettify-btn")
       for (let i = 0; i < elems.length; i++) {
         let idx = i;
-        elems[idx].addEventListener('click', e => {
+        elems[idx].addEventListener('click', _ => {
           const target = elems[idx].getAttribute("data-target");
           const targetElement = document.getElementById(target);
           const src = targetElement.innerText;

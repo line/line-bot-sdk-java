@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,26 +33,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.linecorp.bot.client.ManageAudienceBlobClient;
-import com.linecorp.bot.client.ManageAudienceClient;
-import com.linecorp.bot.model.manageaudience.AudienceGroup;
-import com.linecorp.bot.model.manageaudience.request.AddAudienceToAudienceGroupRequest;
-import com.linecorp.bot.model.manageaudience.request.Audience;
-import com.linecorp.bot.model.manageaudience.request.CreateAudienceGroupRequest;
-import com.linecorp.bot.model.manageaudience.request.CreateClickBasedAudienceGroupRequest;
-import com.linecorp.bot.model.manageaudience.request.CreateImpBasedAudienceGroupRequest;
-import com.linecorp.bot.model.manageaudience.request.UpdateAudienceGroupDescriptionRequest;
+import com.linecorp.bot.audience.client.ManageAudienceBlobClient;
+import com.linecorp.bot.audience.client.ManageAudienceClient;
+import com.linecorp.bot.audience.model.AddAudienceToAudienceGroupRequest;
+import com.linecorp.bot.audience.model.Audience;
+import com.linecorp.bot.audience.model.AudienceGroup;
+import com.linecorp.bot.audience.model.CreateAudienceGroupRequest;
+import com.linecorp.bot.audience.model.CreateClickBasedAudienceGroupRequest;
+import com.linecorp.bot.audience.model.CreateImpBasedAudienceGroupRequest;
+import com.linecorp.bot.audience.model.GetAudienceDataResponse;
+import com.linecorp.bot.audience.model.UpdateAudienceGroupDescriptionRequest;
+import com.linecorp.bot.client.base.UploadFile;
 
 import io.micrometer.common.util.StringUtils;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@AllArgsConstructor
-@Slf4j
 public class ManageAudienceController {
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(ManageAudienceController.class);
     private final ManageAudienceClient client;
     private final ManageAudienceBlobClient blobClient;
+
+    public ManageAudienceController(ManageAudienceClient client, ManageAudienceBlobClient blobClient) {
+        this.client = client;
+        this.blobClient = blobClient;
+    }
 
     @GetMapping("/manage_audience/")
     public CompletableFuture<String> list(
@@ -59,17 +64,17 @@ public class ManageAudienceController {
             @RequestParam(value = "page", defaultValue = "1") long page
     ) {
         return client.getAudienceGroups(page, null, null, 40L, null,
-                                        null)
-                     .thenApply(response -> {
-                         model.addAttribute("response", response);
-                         return "manage_audience/list";
-                     });
+                        null)
+                .thenApply(response -> {
+                    model.addAttribute("response", response.body());
+                    return "manage_audience/list";
+                });
     }
 
     @PostMapping("/manage_audience/{audienceGroupId}/delete")
     public CompletableFuture<RedirectView> delete(@PathVariable long audienceGroupId) {
         return client.deleteAudienceGroup(audienceGroupId)
-                     .thenApply(response -> new RedirectView("/manage_audience/"));
+                .thenApply(response -> new RedirectView("/manage_audience/"));
     }
 
     @GetMapping("/manage_audience/{audienceGroupId}")
@@ -77,11 +82,12 @@ public class ManageAudienceController {
             Model model,
             @PathVariable long audienceGroupId) {
         return client.getAudienceData(audienceGroupId)
-                     .thenApply(response -> {
-                         model.addAttribute("audienceGroup", response.getAudienceGroup());
-                         model.addAttribute("jobs", response.getJobs());
-                         return "manage_audience/show";
-                     });
+                .thenApply(result -> {
+                    GetAudienceDataResponse response = result.body();
+                    model.addAttribute("audienceGroup", response.audienceGroup());
+                    model.addAttribute("jobs", response.jobs());
+                    return "manage_audience/show";
+                });
     }
 
     @GetMapping("/manage_audience/upload")
@@ -97,20 +103,20 @@ public class ManageAudienceController {
             @RequestParam String audiences
     ) {
         List<Audience> audiencesList = Arrays.stream(audiences.split("\r?\n"))
-                                             .map(it -> it.replaceAll("\\s", ""))
-                                             .filter(StringUtils::isNotBlank)
-                                             .map(Audience::new)
-                                             .collect(Collectors.toList());
+                .map(it -> it.replaceAll("\\s", ""))
+                .filter(StringUtils::isNotBlank)
+                .map(Audience::new)
+                .collect(Collectors.toList());
 
-        CreateAudienceGroupRequest request = CreateAudienceGroupRequest.builder()
-                                                                       .description(description)
-                                                                       .isIfaAudience(isIfaAudience)
-                                                                       .uploadDescription(uploadDescription)
-                                                                       .audiences(audiencesList)
-                                                                       .build();
+        CreateAudienceGroupRequest request = new CreateAudienceGroupRequest(
+                description,
+                isIfaAudience,
+                uploadDescription,
+                audiencesList
+        );
         return client.createAudienceGroup(request)
-                     .thenApply(
-                             response -> new RedirectView("/manage_audience/" + response.getAudienceGroupId()));
+                .thenApply(
+                        result -> new RedirectView("/manage_audience/" + result.body().audienceGroupId()));
     }
 
     @GetMapping("/manage_audience/upload_by_file")
@@ -130,9 +136,10 @@ public class ManageAudienceController {
         file.transferTo(convFile);
 
         return blobClient.createAudienceForUploadingUserIds(
-                description, isIfaAudience, uploadDescription, convFile
+                description, isIfaAudience, uploadDescription,
+                UploadFile.fromFile(convFile)
         ).thenApply(
-                response -> new RedirectView("/manage_audience/" + response.getAudienceGroupId())
+                result -> new RedirectView("/manage_audience/" + result.body().audienceGroupId())
         ).whenComplete((a, b) -> {
             boolean deleted = convFile.delete();
             log.info("Deleted temporary file: {}", deleted);
@@ -143,21 +150,20 @@ public class ManageAudienceController {
     public CompletableFuture<String> updateDescription(@PathVariable Long audienceGroupId,
                                                        Model model) {
         return client.getAudienceData(audienceGroupId)
-                     .thenApply(response -> {
-                         model.addAttribute("audienceGroup", response.getAudienceGroup());
-                         return "manage_audience/update_description";
-                     });
+                .thenApply(result -> {
+                    model.addAttribute("audienceGroup", result.body().audienceGroup());
+                    return "manage_audience/update_description";
+                });
     }
 
     @PostMapping("/manage_audience/update_description/{audienceGroupId}")
     public CompletableFuture<RedirectView> postUpdateDescription(@PathVariable Long audienceGroupId,
                                                                  @RequestParam String description) {
-        UpdateAudienceGroupDescriptionRequest request = UpdateAudienceGroupDescriptionRequest
-                .builder()
-                .description(description)
-                .build();
+        UpdateAudienceGroupDescriptionRequest request = new UpdateAudienceGroupDescriptionRequest(
+                description
+        );
         return client.updateAudienceGroupDescription(audienceGroupId, request)
-                     .thenApply(response -> new RedirectView("/manage_audience/" + audienceGroupId));
+                .thenApply(response -> new RedirectView("/manage_audience/" + audienceGroupId));
     }
 
     // Create impression based audience group
@@ -170,14 +176,13 @@ public class ManageAudienceController {
     @PostMapping("/manage_audience/imp")
     public CompletableFuture<RedirectView> postImp(@RequestParam String description,
                                                    @RequestParam String requestId) {
-        CreateImpBasedAudienceGroupRequest request = CreateImpBasedAudienceGroupRequest
-                .builder()
-                .description(description)
-                .requestId(requestId)
-                .build();
+        CreateImpBasedAudienceGroupRequest request = new CreateImpBasedAudienceGroupRequest(
+                description,
+                requestId
+        );
         return client.createImpBasedAudienceGroup(request)
-                     .thenApply(
-                             response -> new RedirectView("/manage_audience/" + response.getAudienceGroupId()));
+                .thenApply(
+                        result -> new RedirectView("/manage_audience/" + result.body().audienceGroupId()));
     }
 
     // Create click based audience group
@@ -190,15 +195,15 @@ public class ManageAudienceController {
     @PostMapping("/manage_audience/click")
     public CompletableFuture<RedirectView> postClick(@RequestParam String description,
                                                      @RequestParam String requestId) {
-        CreateClickBasedAudienceGroupRequest request = CreateClickBasedAudienceGroupRequest
-                .builder()
-                .description(description)
-                .requestId(requestId)
-                .build();
+        CreateClickBasedAudienceGroupRequest request = new CreateClickBasedAudienceGroupRequest(
+                description,
+                requestId,
+                null
+        );
         return client
                 .createClickBasedAudienceGroup(request)
                 .thenApply(
-                        response -> new RedirectView("/manage_audience/" + response.getAudienceGroupId())
+                        result -> new RedirectView("/manage_audience/" + result.body().audienceGroupId())
                 );
     }
 
@@ -206,11 +211,11 @@ public class ManageAudienceController {
     public CompletableFuture<String> addAudience(@PathVariable Long audienceGroupId,
                                                  Model model) {
         return client.getAudienceData(audienceGroupId)
-                     .thenApply(response -> {
-                         AudienceGroup audienceGroup = response.getAudienceGroup();
-                         model.addAttribute("audienceGroup", audienceGroup);
-                         return "manage_audience/add_audience";
-                     });
+                .thenApply(result -> {
+                    AudienceGroup audienceGroup = result.body().audienceGroup();
+                    model.addAttribute("audienceGroup", audienceGroup);
+                    return "manage_audience/add_audience";
+                });
     }
 
     @PostMapping("/manage_audience/add_audience/{audienceGroupId}")
@@ -219,29 +224,28 @@ public class ManageAudienceController {
             @RequestParam(required = false) String uploadDescription,
             @RequestParam String audiences) {
         List<Audience> audienceList = Arrays.stream(audiences.split("\r?\n"))
-                                            .map(it -> it.replaceAll("\\s+", ""))
-                                            .filter(it -> it.length() > 0)
-                                            .map(Audience::new)
-                                            .collect(Collectors.toList());
-        AddAudienceToAudienceGroupRequest request = AddAudienceToAudienceGroupRequest
-                .builder()
-                .audienceGroupId(audienceGroupId)
-                .audiences(audienceList)
-                .uploadDescription(uploadDescription)
-                .build();
+                .map(it -> it.replaceAll("\\s+", ""))
+                .filter(it -> it.length() > 0)
+                .map(Audience::new)
+                .collect(Collectors.toList());
+        AddAudienceToAudienceGroupRequest request = new AddAudienceToAudienceGroupRequest(
+                audienceGroupId,
+                uploadDescription,
+                audienceList
+        );
         return client.addAudienceToAudienceGroup(request)
-                     .thenApply(it -> new RedirectView("/manage_audience/" + audienceGroupId));
+                .thenApply(it -> new RedirectView("/manage_audience/" + audienceGroupId));
     }
 
     @GetMapping("/manage_audience/add_audience_by_file/{audienceGroupId}")
     public CompletableFuture<String> addAudienceByFile(@PathVariable Long audienceGroupId,
                                                        Model model) {
         return client.getAudienceData(audienceGroupId)
-                     .thenApply(response -> {
-                         AudienceGroup audienceGroup = response.getAudienceGroup();
-                         model.addAttribute("audienceGroup", audienceGroup);
-                         return "manage_audience/add_audience_by_file";
-                     });
+                .thenApply(result -> {
+                    AudienceGroup audienceGroup = result.body().audienceGroup();
+                    model.addAttribute("audienceGroup", audienceGroup);
+                    return "manage_audience/add_audience_by_file";
+                });
     }
 
     @PostMapping("/manage_audience/add_audience_by_file/{audienceGroupId}")
@@ -254,7 +258,8 @@ public class ManageAudienceController {
         file.transferTo(convFile);
 
         return blobClient.addUserIdsToAudience(
-                audienceGroupId, uploadDescription, convFile
+                audienceGroupId, uploadDescription,
+                UploadFile.fromFile(convFile)
         ).thenApply(
                 it -> new RedirectView("/manage_audience/" + audienceGroupId)
         ).whenComplete((a, b) -> {

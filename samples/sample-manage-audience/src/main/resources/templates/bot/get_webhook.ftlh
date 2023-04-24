@@ -1,3 +1,5 @@
+<#-- @ftlvariable name="webhook" type="com.linecorp.bot.messaging.model.GetWebhookEndpointResponse" -->
+<#-- @ftlvariable name="exception" type="com.linecorp.bot.messaging.client.MessagingApiClientException" -->
 <#import "../__wrapper.ftlh" as wrapper>
 <@wrapper.main>
 
@@ -5,17 +7,17 @@
 
     <h2>Webhook information</h2>
 
-    <#if notFoundException??>
-        <p>This bot doesn't have an webhook endpoint: ${notFoundException.message}</p>
+    <#if exception??>
+        <p>This bot doesn't have an webhook endpoint: ${exception.message}</p>
     <#else>
         <table class="table table-bordered">
             <tr>
                 <th>endpoint</th>
-                <td>${webhook.endpoint}</td>
+                <td>${webhook.endpoint()}</td>
             </tr>
             <tr>
                 <th>active</th>
-                <td>${webhook.active?c}</td>
+                <td>${webhook.active()?c}</td>
             </tr>
         </table>
     </#if>

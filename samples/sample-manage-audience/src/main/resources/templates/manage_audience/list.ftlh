@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="audienceGroups" type="com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse" -->
+<#-- @ftlvariable name="audienceGroups" type="com.linecorp.bot.audience.model.GetAudienceGroupsResponse" -->
 <#import "../__wrapper.ftlh" as wrapper>
 <@wrapper.main>
 
@@ -24,33 +24,33 @@
             <th>create route</th>
             <th>is ifa audience</th>
         </tr>
-        <#list response.audienceGroups as audienceGroup>
+        <#list response.audienceGroups() as audienceGroup>
             <tr>
                 <td>
-                    <a href="/manage_audience/${audienceGroup.audienceGroupId?c}">${audienceGroup.audienceGroupId?c}</a>
+                    <a href="/manage_audience/${audienceGroup.audienceGroupId()?c}">${audienceGroup.audienceGroupId()?c}</a>
                 </td>
-                <td>${audienceGroup.type}</td>
-                <td>${audienceGroup.description}</td>
-                <td style="<#if audienceGroup.status="EXPIRED">color: red</#if>">${audienceGroup.status}</td>
-                <td>${audienceGroup.failedType!"-"}</td>
-                <td>${audienceGroup.audienceCount}</td>
-                <td>${(audienceGroup.created*1000)?number_to_datetime?iso_local_nz}</td>
-                <td>${audienceGroup.requestId!"-"}</td>
-                <td>${audienceGroup.clickUrl!"-"}</td>
-                <td>${audienceGroup.permission!"-"}</td>
-                <td>${audienceGroup.createRoute!"-"}</td>
-                <td>${audienceGroup.isIfaAudience?string('IFA', 'userId')}</td>
+                <td>${audienceGroup.type()}</td>
+                <td>${audienceGroup.description()}</td>
+                <td style="<#if audienceGroup.status()="EXPIRED">color: red</#if>">${audienceGroup.status()}</td>
+                <td>${audienceGroup.failedType()!"-"}</td>
+                <td>${audienceGroup.audienceCount()}</td>
+                <td>${(audienceGroup.created()*1000)?number_to_datetime?iso_local_nz}</td>
+                <td>${audienceGroup.requestId()!"-"}</td>
+                <td>${audienceGroup.clickUrl()!"-"}</td>
+                <td>${audienceGroup.permission()!"-"}</td>
+                <td>${audienceGroup.createRoute()!"-"}</td>
+                <td>${audienceGroup.isIfaAudience()?string('IFA', 'userId')}</td>
             </tr>
         </#list>
     </table>
 
-    <p>current page: ${response.page}</p>
+    <p>current page: ${response.page()}</p>
     <p>
-        <#if (response.page > 1)>
-            <a href="/manage_audience/?page=${response.page-1}">←← </a>
+        <#if (response.page() > 1)>
+            <a href="/manage_audience/?page=${response.page()-1}">←← </a>
         </#if>
-        <#if response.hasNextPage>
-            <a href="/manage_audience/?page=${response.page+1}"> →→</a>
+        <#if response.hasNextPage()>
+            <a href="/manage_audience/?page=${response.page()+1}"> →→</a>
         </#if>
     </p>
 </@wrapper.main>

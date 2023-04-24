@@ -19,6 +19,7 @@ package com.linecorp.bot.messagingapidemoapp.controller.message;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,19 +28,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.model.PushMessage;
-import com.linecorp.bot.model.message.Message;
-
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import com.linecorp.bot.messaging.client.MessagingApiClient;
+import com.linecorp.bot.messaging.model.Message;
+import com.linecorp.bot.messaging.model.PushMessageRequest;
 
 @Controller
-@AllArgsConstructor
-@Slf4j
 public class PushController {
-    private final LineMessagingClient client;
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(PushController.class);
+
+    private final MessagingApiClient client;
     private final MessageHelper messageHelper;
+
+    public PushController(MessagingApiClient client, MessageHelper messageHelper) {
+        this.client = client;
+        this.messageHelper = messageHelper;
+    }
 
     @GetMapping("/message/push")
     public String push() {
@@ -52,8 +55,9 @@ public class PushController {
                                                     @RequestParam Boolean notificationDisabled) {
         List<Message> messageList = messageHelper.buildMessages(messages);
         return client.pushMessage(
-                new PushMessage(to, messageList, notificationDisabled))
-                     .thenApply(response -> new RedirectView("/message/push/" + response.getRequestId()));
+                        null,
+                        new PushMessageRequest(to, messageList, notificationDisabled, null))
+                .thenApply(response -> new RedirectView("/message/push/" + response.requestId()));
     }
 
     @GetMapping("/message/push/{requestId}")

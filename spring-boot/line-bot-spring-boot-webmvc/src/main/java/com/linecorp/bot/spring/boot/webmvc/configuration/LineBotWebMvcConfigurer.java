@@ -38,7 +38,9 @@ public class LineBotWebMvcConfigurer implements WebMvcConfigurer {
     private final LineBotServerArgumentProcessor lineBotServerArgumentProcessor;
     private final LineBotDestinationArgumentProcessor lineBotDestinationArgumentProcessor;
 
-    public LineBotWebMvcConfigurer(LineBotServerInterceptor lineBotServerInterceptor, LineBotServerArgumentProcessor lineBotServerArgumentProcessor, LineBotDestinationArgumentProcessor lineBotDestinationArgumentProcessor) {
+    public LineBotWebMvcConfigurer(LineBotServerInterceptor lineBotServerInterceptor,
+                                   LineBotServerArgumentProcessor lineBotServerArgumentProcessor,
+                                   LineBotDestinationArgumentProcessor lineBotDestinationArgumentProcessor) {
         this.lineBotServerInterceptor = lineBotServerInterceptor;
         this.lineBotServerArgumentProcessor = lineBotServerArgumentProcessor;
         this.lineBotDestinationArgumentProcessor = lineBotDestinationArgumentProcessor;
