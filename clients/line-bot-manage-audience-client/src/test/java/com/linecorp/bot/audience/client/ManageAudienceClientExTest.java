@@ -134,7 +134,9 @@ public class ManageAudienceClientExTest {
                         urlEqualTo("/v2/bot/audienceGroup/upload")
                 )
                         .withRequestBody(equalTo("""
-                                {"audienceGroupId":400,"uploadDescription":"This is dummy","audiences":[{"id":"AAAA"},{"id":"BBBB"}]}"""))
+                                {"audienceGroupId":400,
+                                "uploadDescription":"This is dummy",
+                                "audiences":[{"id":"AAAA"},{"id":"BBBB"}]}""".replace("\n", "")))
         );
     }
 }
