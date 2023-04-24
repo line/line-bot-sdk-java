@@ -56,10 +56,10 @@ include("clients:line-channel-access-token-client")
 include("clients:line-liff-client")
 
 // spring-boot integration
-include("spring-boot:line-bot-scpring-boot-client")
-include("spring-boot:line-bot-scpring-boot-handler")
-include("spring-boot:line-bot-scpring-boot-web")
-include("spring-boot:line-bot-scpring-boot-webmvc")
+include("spring-boot:line-bot-spring-boot-client")
+include("spring-boot:line-bot-spring-boot-handler")
+include("spring-boot:line-bot-spring-boot-web")
+include("spring-boot:line-bot-spring-boot-webmvc")
 
 // samples
 include("samples:sample-spring-boot-echo")
