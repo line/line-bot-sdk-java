@@ -19,7 +19,7 @@ import org.gradle.accessors.dm.LibrariesForLibs
 plugins {
     // https://openapi-generator.tech/docs/plugins/
     id("org.openapi.generator")
-    `java-library`
+    id("sdk.java")
 }
 
 val libs = the<LibrariesForLibs>()
