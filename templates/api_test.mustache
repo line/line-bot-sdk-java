@@ -70,6 +70,11 @@ public class {{classname}}Test {
             .build();
     }
 
+    @AfterEach
+    public void tearDown() {
+        wireMockServer.stop();
+    }
+
 {{#operations}}
     {{#operation}}
     @Test
