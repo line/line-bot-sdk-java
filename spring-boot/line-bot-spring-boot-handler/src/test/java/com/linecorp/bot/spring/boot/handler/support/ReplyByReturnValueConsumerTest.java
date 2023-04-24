@@ -131,26 +131,26 @@ public class ReplyByReturnValueConsumerTest {
                 .contains("EXCEPTION HAPPEN!");
     }
 
-    //    @Test
-    //    public void errorInMessagingApiClientLoggingTest() throws Exception {
-    //        reset(MessagingApiClient);
-    //        when(MessagingApiClient.replyMessage(any()))
-    //                .thenReturn(new CompletableFuture<BotApiResponse>() {{
-    //                    completeExceptionally(new GeneralLineMessagingException("EXCEPTION HAPPEN!", null, null));
-    //                }});
-    //
-    //        // Do
-    //        String systemOut = tapSystemOut(() -> {
-    //            final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
-    //            target.accept(returnValue);
-    //            returnValue.complete(singletonList(new TextMessage("Reply Text")));
-    //        });
-    //
-    //        // Verify
-    //        assertThat(systemOut)
-    //                .contains("failed")
-    //                .contains("EXCEPTION HAPPEN!");
-    //    }
+    @Test
+    public void errorInMessagingApiClientLoggingTest() throws Exception {
+        reset(MessagingApiClient);
+        when(MessagingApiClient.replyMessage(any()))
+                .thenReturn(new CompletableFuture<BotApiResponse>() {{
+                    completeExceptionally(new GeneralLineMessagingException("EXCEPTION HAPPEN!", null, null));
+                }});
+
+        // Do
+        String systemOut = tapSystemOut(() -> {
+            final CompletableFuture<List<TextMessage>> returnValue = new CompletableFuture<>();
+            target.accept(returnValue);
+            returnValue.complete(singletonList(new TextMessage("Reply Text")));
+        });
+
+        // Verify
+        assertThat(systemOut)
+                .contains("failed")
+                .contains("EXCEPTION HAPPEN!");
+    }
 
     // Internal method test.
     @Test
