@@ -27,4 +27,5 @@
 
   <!-- Suppress all checks in generated sources -->
   <suppress checks=".*" files="[\\/]gen-src[\\/]" />
+  <suppress checks=".*" files="[\\/]generated[\\/]" />
 </suppressions>

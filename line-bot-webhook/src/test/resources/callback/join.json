@@ -1,0 +1,15 @@
+{
+  "destination": "Uab012345678901234567890123456789",
+  "events": [
+    {
+      "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+      "type": "join",
+      "timestamp": 1462629479859,
+      "mode": "active",
+      "source": {
+        "type": "group",
+        "groupId": "cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    }
+  ]
+}

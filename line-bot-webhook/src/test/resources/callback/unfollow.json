@@ -1,0 +1,14 @@
+{
+  "destination": "Uab012345678901234567890123456789",
+  "events": [
+    {
+      "type": "unfollow",
+      "timestamp": 1462629479859,
+      "mode": "active",
+      "source": {
+        "type": "user",
+        "userId": "u206d25c2ea6bd87c17655609a1c37cb8"
+      }
+    }
+  ]
+}
