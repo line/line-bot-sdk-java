@@ -64,3 +64,6 @@ include("samples:sample-spring-boot-echo")
 include("samples:sample-spring-boot-echo-kotlin")
 include("samples:sample-spring-boot-kitchensink")
 include("samples:sample-manage-audience")
+
+// integration test
+include("line-bot-integration-test")
