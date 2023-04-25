@@ -28,4 +28,7 @@
   <!-- Suppress all checks in generated sources -->
   <suppress checks=".*" files="[\\/]gen-src[\\/]" />
   <suppress checks=".*" files="[\\/]generated[\\/]" />
+
+  <!-- integrationTest contains long sentence -->
+  <suppress checks="LineLength" files="[\\/]integrationTest[\\/]" />
 </suppressions>
