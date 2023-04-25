@@ -1,7 +1,0 @@
-{
-  "type": "postback",
-  "label": "LABEL",
-  "data": "DATA",
-  "displayText": "DISPLAYTEXT",
-  "inputOption": "openRichMenu"
-}

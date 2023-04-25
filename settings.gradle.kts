@@ -38,8 +38,7 @@ dependencyResolutionManagement {
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-include("line-bot-api-client")
-include("line-bot-model")
+// core components
 include("line-bot-parser")
 include("line-bot-jackson")
 
