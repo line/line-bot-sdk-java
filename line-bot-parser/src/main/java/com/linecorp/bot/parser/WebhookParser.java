@@ -16,20 +16,21 @@
 
 package com.linecorp.bot.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+
+import org.slf4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.jackson.ModelObjectMapper;
 import com.linecorp.bot.webhook.model.CallbackRequest;
 
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class WebhookParser {
     public static final String SIGNATURE_HEADER_NAME = "X-Line-Signature";
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(WebhookParser.class);
 
     private final ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
     private final SignatureValidator signatureValidator;
@@ -39,15 +40,15 @@ public class WebhookParser {
      *
      * @param signatureValidator LINE messaging API's signature validator
      */
-    public WebhookParser(@NonNull SignatureValidator signatureValidator) {
-        this.signatureValidator = signatureValidator;
+    public WebhookParser(SignatureValidator signatureValidator) {
+        this.signatureValidator = requireNonNull(signatureValidator);
     }
 
     /**
      * Parses a request.
      *
      * @param signature X-Line-Signature header.
-     * @param payload Request body.
+     * @param payload   Request body.
      * @return Parsed result. If there's an error, this method sends response.
      * @throws WebhookParseException There's an error around signature.
      */

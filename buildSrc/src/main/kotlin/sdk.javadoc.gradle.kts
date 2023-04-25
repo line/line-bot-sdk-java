@@ -12,7 +12,6 @@ tasks.withType<Javadoc> {
     options.encoding = "UTF-8"
     options.locale = "en_US"
     (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
-    // To create javadoc for generated method&constructor, delombok & run javadoc on delombok.outputDir.
 }
 
 val javadocJar = tasks.register<Jar>("javadocJar") {
