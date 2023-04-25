@@ -27,12 +27,6 @@
     <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE" />
   </Match>
 
-  <!-- Ignore lombok's redundant check -->
-  <Match>
-    <Class name="com.linecorp.bot.client.utils.IntegrationTestSettings" />
-    <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
-  </Match>
-
   <!-- Ignore false positive -->
   <Match>
     <Class name="com.linecorp.bot.client.LineBlobClientImpl$ResponseBodyCallbackAdaptor" />

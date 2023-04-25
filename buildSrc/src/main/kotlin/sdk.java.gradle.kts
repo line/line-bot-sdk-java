@@ -7,7 +7,6 @@ plugins {
     id("com.github.spotbugs")
     id("java-library")
     id("checkstyle")
-    id("io.freefair.lombok")
     id("jacoco")
 }
 
@@ -33,10 +32,6 @@ tasks.withType<Jar> {
             )
         )
     }
-}
-
-lombok {
-    version.set("1.18.26")
 }
 
 configure<CheckstyleExtension> {
