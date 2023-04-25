@@ -15,7 +15,7 @@
  */
 
 plugins {
-    `java-library`
+    id("sdk.java")
 }
 
 dependencies {

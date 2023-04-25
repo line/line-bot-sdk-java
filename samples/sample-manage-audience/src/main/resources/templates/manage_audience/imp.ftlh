@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="audienceGroups" type="com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse" -->
+<#-- @ftlvariable name="audienceGroups" type="com.linecorp.bot.audience.model.GetAudienceGroupsResponse" -->
 <#import "../__wrapper.ftlh" as wrapper>
 <@wrapper.main>
 

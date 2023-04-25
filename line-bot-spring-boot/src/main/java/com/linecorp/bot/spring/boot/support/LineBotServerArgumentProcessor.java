@@ -26,8 +26,8 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
+import com.linecorp.bot.webhook.model.CallbackRequest;
 
 @Component
 public class LineBotServerArgumentProcessor implements HandlerMethodArgumentResolver {
@@ -46,6 +46,6 @@ public class LineBotServerArgumentProcessor implements HandlerMethodArgumentReso
     }
 
     public static void setValue(HttpServletRequest request, CallbackRequest callbackRequest) {
-        request.setAttribute(PROPERTY_NAME, callbackRequest.getEvents());
+        request.setAttribute(PROPERTY_NAME, callbackRequest.events());
     }
 }

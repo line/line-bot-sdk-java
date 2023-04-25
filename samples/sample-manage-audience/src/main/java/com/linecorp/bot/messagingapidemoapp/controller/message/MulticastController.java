@@ -20,9 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,20 +31,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.model.Multicast;
-import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.messaging.client.MessagingApiClient;
+import com.linecorp.bot.messaging.model.Message;
+import com.linecorp.bot.messaging.model.MulticastRequest;
 
 import io.micrometer.common.util.StringUtils;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@AllArgsConstructor
-@Slf4j
 public class MulticastController {
-    private final LineMessagingClient client;
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(MulticastController.class);
+    private final MessagingApiClient client;
     private final MessageHelper messageHelper;
+
+    public MulticastController(MessagingApiClient client, MessageHelper messageHelper) {
+        this.client = client;
+        this.messageHelper = messageHelper;
+    }
 
     @GetMapping("/message/multicast")
     public String multicast() {
@@ -54,16 +56,16 @@ public class MulticastController {
     @PostMapping("/message/multicast")
     public CompletableFuture<RedirectView> postMulticast(@RequestParam String to,
                                                          @RequestParam String[] messages,
-                                                         @RequestParam Boolean notificationDisabled)
-            throws ExecutionException, InterruptedException {
+                                                         @RequestParam Boolean notificationDisabled) {
         Set<String> toList = Arrays.stream(to.split("\r?\n"))
-                                   .filter(StringUtils::isNotBlank)
-                                   .collect(Collectors.toSet());
+                .filter(StringUtils::isNotBlank)
+                .collect(Collectors.toSet());
 
         List<Message> messageList = messageHelper.buildMessages(messages);
         return client.multicast(
-                new Multicast(toList, messageList, notificationDisabled))
-                     .thenApply(response -> new RedirectView("/message/multicast/" + response.getRequestId()));
+                        null,
+                        new MulticastRequest(messageList, toList.stream().toList(), notificationDisabled, null))
+                .thenApply(response -> new RedirectView("/message/multicast/" + response.requestId()));
     }
 
     @GetMapping("/message/multicast/{requestId}")

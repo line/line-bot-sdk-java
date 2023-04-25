@@ -19,7 +19,7 @@ import org.gradle.accessors.dm.LibrariesForLibs
 plugins {
     // https://openapi-generator.tech/docs/plugins/
     id("org.openapi.generator")
-    `java-library`
+    id("sdk.java")
 }
 
 val libs = the<LibrariesForLibs>()
@@ -29,7 +29,7 @@ dependencies {
     implementation(project(":line-bot-jackson"))
 
     implementation(libs.slf4j.api)
-    implementation(libs.bundles.retrofit2)
+    api(libs.retrofit2.retrofit)
 
     compileOnly(libs.javax.annotation)
     compileOnly(libs.jakarta.annotation.api)

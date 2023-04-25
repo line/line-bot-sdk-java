@@ -21,7 +21,9 @@ plugins {
 }
 
 dependencies {
-    api(project(":line-bot-model"))
+    api(project(":line-bot-webhook"))
+    api(project(":line-bot-jackson"))
+
     implementation(libs.jackson.databind)
     implementation(libs.slf4j.api)
 

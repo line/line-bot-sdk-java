@@ -30,12 +30,12 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.linecorp.bot.model.event.CallbackRequest;
 import com.linecorp.bot.parser.WebhookParseException;
 import com.linecorp.bot.parser.WebhookParser;
 import com.linecorp.bot.spring.boot.annotation.LineBotMessages;
 import com.linecorp.bot.spring.boot.support.LineBotDestinationArgumentProcessor;
 import com.linecorp.bot.spring.boot.support.LineBotServerArgumentProcessor;
+import com.linecorp.bot.webhook.model.CallbackRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

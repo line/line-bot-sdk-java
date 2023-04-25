@@ -16,164 +16,158 @@
 
 package com.example.bot.spring;
 
-import static java.util.Arrays.asList;
-
-import java.net.URI;
 import java.util.function.Supplier;
 
-import com.linecorp.bot.model.action.URIAction;
-import com.linecorp.bot.model.message.FlexMessage;
-import com.linecorp.bot.model.message.flex.component.Box;
-import com.linecorp.bot.model.message.flex.component.Button;
-import com.linecorp.bot.model.message.flex.component.Button.ButtonHeight;
-import com.linecorp.bot.model.message.flex.component.Button.ButtonStyle;
-import com.linecorp.bot.model.message.flex.component.Icon;
-import com.linecorp.bot.model.message.flex.component.Image;
-import com.linecorp.bot.model.message.flex.component.Image.ImageAspectMode;
-import com.linecorp.bot.model.message.flex.component.Image.ImageAspectRatio;
-import com.linecorp.bot.model.message.flex.component.Image.ImageSize;
-import com.linecorp.bot.model.message.flex.component.Separator;
-import com.linecorp.bot.model.message.flex.component.Spacer;
-import com.linecorp.bot.model.message.flex.component.Text;
-import com.linecorp.bot.model.message.flex.component.Text.TextWeight;
-import com.linecorp.bot.model.message.flex.container.Bubble;
-import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
-import com.linecorp.bot.model.message.flex.unit.FlexLayout;
-import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.linecorp.bot.messaging.model.FlexMessage;
 
 public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
     @Override
     public FlexMessage get() {
-        final Image heroBlock =
-                Image.builder()
-                     .url(URI.create("https://example.com/cafe.jpg"))
-                     .size(ImageSize.FULL_WIDTH)
-                     .aspectRatio(ImageAspectRatio.R20TO13)
-                     .aspectMode(ImageAspectMode.Cover)
-                     .action(new URIAction("label", URI.create("http://example.com"), null))
-                     .build();
+        String json = """
+                {
+                  "type" : "flex",
+                  "altText" : "ALT",
+                  "contents" : {
+                    "type" : "bubble",
+                    "hero" : {
+                      "type" : "image",
+                      "url" : "https://example.com/cafe.jpg",
+                      "size" : "full",
+                      "aspectRatio" : "20:13",
+                      "aspectMode" : "cover",
+                      "action" : {
+                        "type" : "uri",
+                        "label" : "label",
+                        "uri" : "http://example.com"
+                      }
+                    },
+                    "body" : {
+                      "type" : "box",
+                      "layout" : "vertical",
+                      "contents" : [ {
+                        "type" : "text",
+                        "text" : "Brown Cafe",
+                        "size" : "xl",
+                        "weight" : "bold"
+                      }, {
+                        "type" : "box",
+                        "layout" : "baseline",
+                        "contents" : [ {
+                          "type" : "icon",
+                          "url" : "https://example.com/gold_star.png",
+                          "size" : "sm"
+                        }, {
+                          "type" : "icon",
+                          "url" : "https://example.com/gold_star.png",
+                          "size" : "sm"
+                        }, {
+                          "type" : "icon",
+                          "url" : "https://example.com/gold_star.png",
+                          "size" : "sm"
+                        }, {
+                          "type" : "icon",
+                          "url" : "https://example.com/gold_star.png",
+                          "size" : "sm"
+                        }, {
+                          "type" : "icon",
+                          "url" : "https://example.com/gray_star.png",
+                          "size" : "sm"
+                        }, {
+                          "type" : "text",
+                          "flex" : 0,
+                          "text" : "4.0",
+                          "size" : "sm",
+                          "color" : "#999999",
+                          "margin" : "md"
+                        } ],
+                        "margin" : "md"
+                      }, {
+                        "type" : "box",
+                        "layout" : "vertical",
+                        "contents" : [ {
+                          "type" : "box",
+                          "layout" : "baseline",
+                          "contents" : [ {
+                            "type" : "text",
+                            "flex" : 1,
+                            "text" : "Place",
+                            "size" : "sm",
+                            "color" : "#aaaaaa"
+                          }, {
+                            "type" : "text",
+                            "flex" : 5,
+                            "text" : "Shinjuku, Tokyo",
+                            "size" : "sm",
+                            "color" : "#666666",
+                            "wrap" : true
+                          } ],
+                          "spacing" : "sm"
+                        }, {
+                          "type" : "box",
+                          "layout" : "baseline",
+                          "contents" : [ {
+                            "type" : "text",
+                            "flex" : 1,
+                            "text" : "Time",
+                            "size" : "sm",
+                            "color" : "#aaaaaa"
+                          }, {
+                            "type" : "text",
+                            "flex" : 5,
+                            "text" : "10:00 - 23:00",
+                            "size" : "sm",
+                            "color" : "#666666",
+                            "wrap" : true
+                          } ],
+                          "spacing" : "sm"
+                        } ],
+                        "spacing" : "sm",
+                        "margin" : "lg"
+                      } ]
+                    },
+                    "footer" : {
+                      "type" : "box",
+                      "layout" : "vertical",
+                      "contents" : [ {
+                        "type" : "spacer",
+                        "size" : "sm"
+                      }, {
+                        "type" : "button",
+                        "style" : "link",
+                        "action" : {
+                          "type" : "uri",
+                          "label" : "CALL",
+                          "uri" : "tel:000000"
+                        },
+                        "height" : "sm"
+                      }, {
+                        "type" : "separator"
+                      }, {
+                        "type" : "button",
+                        "style" : "link",
+                        "action" : {
+                          "type" : "uri",
+                          "label" : "WEBSITE",
+                          "uri" : "https://example.com"
+                        },
+                        "height" : "sm"
+                      } ],
+                      "spacing" : "sm"
+                    }
+                  }
+                }
+                """;
 
-        final Box bodyBlock = createBodyBlock();
-        final Box footerBlock = createFooterBlock();
-        final Bubble bubble =
-                Bubble.builder()
-                      .hero(heroBlock)
-                      .body(bodyBlock)
-                      .footer(footerBlock)
-                      .build();
-
-        return new FlexMessage("ALT", bubble);
-    }
-
-    private Box createFooterBlock() {
-        final Spacer spacer = Spacer.builder().size(FlexMarginSize.SM).build();
-        final Button callAction = Button
-                .builder()
-                .style(ButtonStyle.LINK)
-                .height(ButtonHeight.SMALL)
-                .action(new URIAction("CALL", URI.create("tel:000000"), null))
-                .build();
-        final Separator separator = Separator.builder().build();
-        final Button websiteAction =
-                Button.builder()
-                      .style(ButtonStyle.LINK)
-                      .height(ButtonHeight.SMALL)
-                      .action(new URIAction("WEBSITE", URI.create("https://example.com"), null))
-                      .build();
-
-        return Box.builder()
-                  .layout(FlexLayout.VERTICAL)
-                  .spacing(FlexMarginSize.SM)
-                  .contents(asList(spacer, callAction, separator, websiteAction))
-                  .build();
-    }
-
-    private Box createBodyBlock() {
-        final Text title =
-                Text.builder()
-                    .text("Brown Cafe")
-                    .weight(TextWeight.BOLD)
-                    .size(FlexFontSize.XL)
-                    .build();
-
-        final Box review = createReviewBox();
-
-        final Box info = createInfoBox();
-
-        return Box.builder()
-                  .layout(FlexLayout.VERTICAL)
-                  .contents(asList(title, review, info))
-                  .build();
-    }
-
-    private Box createInfoBox() {
-        final Box place = Box
-                .builder()
-                .layout(FlexLayout.BASELINE)
-                .spacing(FlexMarginSize.SM)
-                .contents(asList(
-                        Text.builder()
-                            .text("Place")
-                            .color("#aaaaaa")
-                            .size(FlexFontSize.SM)
-                            .flex(1)
-                            .build(),
-                        Text.builder()
-                            .text("Shinjuku, Tokyo")
-                            .wrap(true)
-                            .color("#666666")
-                            .size(FlexFontSize.SM)
-                            .flex(5)
-                            .build()
-                ))
-                .build();
-        final Box time =
-                Box.builder()
-                   .layout(FlexLayout.BASELINE)
-                   .spacing(FlexMarginSize.SM)
-                   .contents(asList(
-                           Text.builder()
-                               .text("Time")
-                               .color("#aaaaaa")
-                               .size(FlexFontSize.SM)
-                               .flex(1)
-                               .build(),
-                           Text.builder()
-                               .text("10:00 - 23:00")
-                               .wrap(true)
-                               .color("#666666")
-                               .size(FlexFontSize.SM)
-                               .flex(5)
-                               .build()
-                   ))
-                   .build();
-
-        return Box.builder()
-                  .layout(FlexLayout.VERTICAL)
-                  .margin(FlexMarginSize.LG)
-                  .spacing(FlexMarginSize.SM)
-                  .contents(asList(place, time))
-                  .build();
-    }
-
-    private Box createReviewBox() {
-        final Icon goldStar =
-                Icon.builder().size(FlexFontSize.SM).url(URI.create("https://example.com/gold_star.png")).build();
-        final Icon grayStar =
-                Icon.builder().size(FlexFontSize.SM).url(URI.create("https://example.com/gray_star.png")).build();
-        final Text point =
-                Text.builder()
-                    .text("4.0")
-                    .size(FlexFontSize.SM)
-                    .color("#999999")
-                    .margin(FlexMarginSize.MD)
-                    .flex(0)
-                    .build();
-
-        return Box.builder()
-                  .layout(FlexLayout.BASELINE)
-                  .margin(FlexMarginSize.MD)
-                  .contents(asList(goldStar, goldStar, goldStar, goldStar, grayStar, point))
-                  .build();
+        ObjectMapper objectMapper = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        try {
+            return objectMapper.readValue(json, FlexMessage.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

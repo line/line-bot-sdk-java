@@ -19,134 +19,146 @@ package com.example.bot.spring;
 import static java.util.Collections.singletonList;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.google.common.io.ByteStreams;
+import com.linecorp.bot.client.base.BlobContent;
+import com.linecorp.bot.client.base.Result;
+import com.linecorp.bot.messaging.client.MessagingApiBlobClient;
+import com.linecorp.bot.messaging.client.MessagingApiClient;
+import com.linecorp.bot.messaging.model.AudioMessage;
+import com.linecorp.bot.messaging.model.ButtonsTemplate;
+import com.linecorp.bot.messaging.model.CarouselColumn;
+import com.linecorp.bot.messaging.model.CarouselTemplate;
+import com.linecorp.bot.messaging.model.ConfirmTemplate;
+import com.linecorp.bot.messaging.model.DatetimePickerAction;
+import com.linecorp.bot.messaging.model.GroupMemberCountResponse;
+import com.linecorp.bot.messaging.model.GroupSummaryResponse;
+import com.linecorp.bot.messaging.model.ImageCarouselColumn;
+import com.linecorp.bot.messaging.model.ImageCarouselTemplate;
+import com.linecorp.bot.messaging.model.ImageMessage;
+import com.linecorp.bot.messaging.model.ImagemapArea;
+import com.linecorp.bot.messaging.model.ImagemapBaseSize;
+import com.linecorp.bot.messaging.model.ImagemapExternalLink;
+import com.linecorp.bot.messaging.model.ImagemapMessage;
+import com.linecorp.bot.messaging.model.ImagemapVideo;
+import com.linecorp.bot.messaging.model.LocationMessage;
+import com.linecorp.bot.messaging.model.Message;
+import com.linecorp.bot.messaging.model.MessageAction;
+import com.linecorp.bot.messaging.model.MessageImagemapAction;
+import com.linecorp.bot.messaging.model.PostbackAction;
+import com.linecorp.bot.messaging.model.ReplyMessageRequest;
+import com.linecorp.bot.messaging.model.RoomMemberCountResponse;
+import com.linecorp.bot.messaging.model.Sender;
+import com.linecorp.bot.messaging.model.StickerMessage;
+import com.linecorp.bot.messaging.model.TemplateMessage;
+import com.linecorp.bot.messaging.model.TextMessage;
+import com.linecorp.bot.messaging.model.URIAction;
+import com.linecorp.bot.messaging.model.URIImagemapAction;
+import com.linecorp.bot.messaging.model.UserProfileResponse;
+import com.linecorp.bot.messaging.model.VideoMessage;
+import com.linecorp.bot.spring.boot.handler.annotation.EventMapping;
+import com.linecorp.bot.spring.boot.handler.annotation.LineMessageHandler;
+import com.linecorp.bot.webhook.model.AudioMessageContent;
+import com.linecorp.bot.webhook.model.BeaconEvent;
+import com.linecorp.bot.webhook.model.ContentProvider;
+import com.linecorp.bot.webhook.model.Event;
+import com.linecorp.bot.webhook.model.FileMessageContent;
+import com.linecorp.bot.webhook.model.FollowEvent;
+import com.linecorp.bot.webhook.model.GroupSource;
+import com.linecorp.bot.webhook.model.ImageMessageContent;
+import com.linecorp.bot.webhook.model.JoinEvent;
+import com.linecorp.bot.webhook.model.LocationMessageContent;
+import com.linecorp.bot.webhook.model.MemberJoinedEvent;
+import com.linecorp.bot.webhook.model.MemberLeftEvent;
+import com.linecorp.bot.webhook.model.MessageEvent;
+import com.linecorp.bot.webhook.model.PostbackEvent;
+import com.linecorp.bot.webhook.model.RoomSource;
+import com.linecorp.bot.webhook.model.Source;
+import com.linecorp.bot.webhook.model.StickerMessageContent;
+import com.linecorp.bot.webhook.model.TextMessageContent;
+import com.linecorp.bot.webhook.model.UnfollowEvent;
+import com.linecorp.bot.webhook.model.UnknownEvent;
+import com.linecorp.bot.webhook.model.UnsendEvent;
+import com.linecorp.bot.webhook.model.VideoMessageContent;
+import com.linecorp.bot.webhook.model.VideoPlayCompleteEvent;
 
-import com.linecorp.bot.client.LineBlobClient;
-import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.client.MessageContentResponse;
-import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.action.DatetimePickerAction;
-import com.linecorp.bot.model.action.MessageAction;
-import com.linecorp.bot.model.action.PostbackAction;
-import com.linecorp.bot.model.action.URIAction;
-import com.linecorp.bot.model.event.BeaconEvent;
-import com.linecorp.bot.model.event.Event;
-import com.linecorp.bot.model.event.FollowEvent;
-import com.linecorp.bot.model.event.JoinEvent;
-import com.linecorp.bot.model.event.MemberJoinedEvent;
-import com.linecorp.bot.model.event.MemberLeftEvent;
-import com.linecorp.bot.model.event.MessageEvent;
-import com.linecorp.bot.model.event.PostbackEvent;
-import com.linecorp.bot.model.event.UnfollowEvent;
-import com.linecorp.bot.model.event.UnknownEvent;
-import com.linecorp.bot.model.event.UnsendEvent;
-import com.linecorp.bot.model.event.VideoPlayCompleteEvent;
-import com.linecorp.bot.model.event.message.AudioMessageContent;
-import com.linecorp.bot.model.event.message.ContentProvider;
-import com.linecorp.bot.model.event.message.FileMessageContent;
-import com.linecorp.bot.model.event.message.ImageMessageContent;
-import com.linecorp.bot.model.event.message.LocationMessageContent;
-import com.linecorp.bot.model.event.message.StickerMessageContent;
-import com.linecorp.bot.model.event.message.TextMessageContent;
-import com.linecorp.bot.model.event.message.VideoMessageContent;
-import com.linecorp.bot.model.event.source.GroupSource;
-import com.linecorp.bot.model.event.source.RoomSource;
-import com.linecorp.bot.model.event.source.Source;
-import com.linecorp.bot.model.group.GroupMemberCountResponse;
-import com.linecorp.bot.model.group.GroupSummaryResponse;
-import com.linecorp.bot.model.message.AudioMessage;
-import com.linecorp.bot.model.message.ImageMessage;
-import com.linecorp.bot.model.message.ImagemapMessage;
-import com.linecorp.bot.model.message.LocationMessage;
-import com.linecorp.bot.model.message.Message;
-import com.linecorp.bot.model.message.StickerMessage;
-import com.linecorp.bot.model.message.TemplateMessage;
-import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.message.VideoMessage;
-import com.linecorp.bot.model.message.imagemap.ImagemapArea;
-import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
-import com.linecorp.bot.model.message.imagemap.ImagemapExternalLink;
-import com.linecorp.bot.model.message.imagemap.ImagemapVideo;
-import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
-import com.linecorp.bot.model.message.imagemap.URIImagemapAction;
-import com.linecorp.bot.model.message.sender.Sender;
-import com.linecorp.bot.model.message.template.ButtonsTemplate;
-import com.linecorp.bot.model.message.template.CarouselColumn;
-import com.linecorp.bot.model.message.template.CarouselTemplate;
-import com.linecorp.bot.model.message.template.ConfirmTemplate;
-import com.linecorp.bot.model.message.template.ImageCarouselColumn;
-import com.linecorp.bot.model.message.template.ImageCarouselTemplate;
-import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.model.room.RoomMemberCountResponse;
-import com.linecorp.bot.spring.boot.annotation.EventMapping;
-import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
-
-import lombok.NonNull;
-import lombok.Value;
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @LineMessageHandler
 public class KitchenSinkController {
-    @Autowired
-    private LineMessagingClient lineMessagingClient;
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(KitchenSinkController.class);
 
-    @Autowired
-    private LineBlobClient lineBlobClient;
+    private final MessagingApiClient messagingApiClient;
 
-    @EventMapping
-    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
-        TextMessageContent message = event.getMessage();
-        handleTextContent(event.getReplyToken(), event, message);
+    private final MessagingApiBlobClient messagingApiBlobClient;
+
+    public KitchenSinkController(
+            MessagingApiClient messagingApiClient,
+            MessagingApiBlobClient messagingApiBlobClient) {
+        this.messagingApiClient = messagingApiClient;
+        this.messagingApiBlobClient = messagingApiBlobClient;
     }
 
     @EventMapping
-    public void handleStickerMessageEvent(MessageEvent<StickerMessageContent> event) {
-        handleSticker(event.getReplyToken(), event.getMessage());
+    public void handleTextMessageEvent(MessageEvent event,
+                                       TextMessageContent textMessageContent) throws Exception {
+        handleTextContent(event.replyToken(), event, textMessageContent);
     }
 
     @EventMapping
-    public void handleLocationMessageEvent(MessageEvent<LocationMessageContent> event) {
-        LocationMessageContent locationMessage = event.getMessage();
-        reply(event.getReplyToken(), new LocationMessage(
-                locationMessage.getTitle(),
-                locationMessage.getAddress(),
-                locationMessage.getLatitude(),
-                locationMessage.getLongitude()
-        ));
+    public void handleStickerMessageEvent(MessageEvent event,
+                                          StickerMessageContent stickerMessageContent) throws IOException {
+        // this operation may throw exception if the sticker is not listed on https://developers.line.biz/en/docs/messaging-api/sticker-list/.
+        reply(event.replyToken(), new StickerMessage(
+                stickerMessageContent.packageId(), stickerMessageContent.stickerId())
+        );
     }
 
     @EventMapping
-    public void handleImageMessageEvent(MessageEvent<ImageMessageContent> event) throws IOException {
+    public void handleLocationMessageEvent(MessageEvent event,
+                                           LocationMessageContent locationMessageContent) throws IOException {
+        // title is the optional field in webhook event. but it's required field in reply API.
+        String title = locationMessageContent.title();
+        if (title == null) {
+            title = "Your Location";
+        }
+        reply(event.replyToken(), new LocationMessage(
+                null,
+                null,
+                title,
+                locationMessageContent.address(),
+                locationMessageContent.latitude(),
+                locationMessageContent.longitude()));
+    }
+
+    @EventMapping
+    public void handleImageMessageEvent(MessageEvent event,
+                                        ImageMessageContent imageMessageContent) throws IOException {
         // You need to install ImageMagick
         handleHeavyContent(
-                event.getReplyToken(),
-                event.getMessage().getId(),
+                event.replyToken(),
+                imageMessageContent.id(),
                 responseBody -> {
-                    final ContentProvider provider = event.getMessage().getContentProvider();
+                    final ContentProvider provider = imageMessageContent.contentProvider();
                     final DownloadedContent jpg;
                     final DownloadedContent previewImg;
-                    if (provider.isExternal()) {
-                        jpg = new DownloadedContent(null, provider.getOriginalContentUrl());
-                        previewImg = new DownloadedContent(null, provider.getPreviewImageUrl());
+                    if (provider.type() == ContentProvider.Type.EXTERNAL) {
+                        jpg = new DownloadedContent(null, provider.originalContentUrl());
+                        previewImg = new DownloadedContent(null, provider.previewImageUrl());
                     } else {
                         jpg = saveContent("jpg", responseBody);
                         previewImg = createTempFile("jpg");
@@ -156,74 +168,72 @@ public class KitchenSinkController {
                                 jpg.path.toString(),
                                 previewImg.path.toString());
                     }
-                    reply(event.getReplyToken(),
-                          new ImageMessage(jpg.getUri(), previewImg.getUri()));
+                    reply(event.replyToken(),
+                            new ImageMessage(jpg.uri(), previewImg.uri()));
                 });
     }
 
     @EventMapping
-    public void handleAudioMessageEvent(MessageEvent<AudioMessageContent> event) throws IOException {
+    public void handleAudioMessageEvent(MessageEvent event,
+                                        AudioMessageContent audioMessageContent) throws IOException {
         handleHeavyContent(
-                event.getReplyToken(),
-                event.getMessage().getId(),
+                event.replyToken(),
+                audioMessageContent.id(),
                 responseBody -> {
-                    final ContentProvider provider = event.getMessage().getContentProvider();
+                    final ContentProvider provider = audioMessageContent.contentProvider();
                     final DownloadedContent mp4;
-                    if (provider.isExternal()) {
-                        mp4 = new DownloadedContent(null, provider.getOriginalContentUrl());
+                    if (provider.type() == ContentProvider.Type.EXTERNAL) {
+                        mp4 = new DownloadedContent(null, provider.originalContentUrl());
                     } else {
                         mp4 = saveContent("mp4", responseBody);
                     }
-                    reply(event.getReplyToken(), new AudioMessage(mp4.getUri(), 100L));
+                    reply(event.replyToken(), new AudioMessage(mp4.uri(), 100L));
                 });
     }
 
     @EventMapping
-    public void handleVideoMessageEvent(MessageEvent<VideoMessageContent> event) throws IOException {
-        log.info("Got video message: duration={}ms", event.getMessage().getDuration());
+    public void handleVideoMessageEvent(MessageEvent event,
+                                        VideoMessageContent videoMessageContent) throws IOException {
+        log.info("Got video message: duration={}ms", videoMessageContent.duration());
 
         // You need to install ffmpeg and ImageMagick.
         handleHeavyContent(
-                event.getReplyToken(),
-                event.getMessage().getId(),
+                event.replyToken(),
+                videoMessageContent.id(),
                 responseBody -> {
-                    final ContentProvider provider = event.getMessage().getContentProvider();
+                    final ContentProvider provider = videoMessageContent.contentProvider();
                     final DownloadedContent mp4;
                     final DownloadedContent previewImg;
-                    if (provider.isExternal()) {
-                        mp4 = new DownloadedContent(null, provider.getOriginalContentUrl());
-                        previewImg = new DownloadedContent(null, provider.getPreviewImageUrl());
+                    if (provider.type() == ContentProvider.Type.EXTERNAL) {
+                        mp4 = new DownloadedContent(null, provider.originalContentUrl());
+                        previewImg = new DownloadedContent(null, provider.previewImageUrl());
                     } else {
                         mp4 = saveContent("mp4", responseBody);
                         previewImg = createTempFile("jpg");
                         system("convert",
-                               mp4.path + "[0]",
-                               previewImg.path.toString());
+                                mp4.path + "[0]",
+                                previewImg.path.toString());
                     }
                     String trackingId = UUID.randomUUID().toString();
                     log.info("Sending video message with trackingId={}", trackingId);
-                    reply(event.getReplyToken(),
-                          VideoMessage.builder()
-                                      .originalContentUrl(mp4.getUri())
-                                      .previewImageUrl(previewImg.uri)
-                                      .trackingId(trackingId)
-                                      .build());
+                    reply(event.replyToken(),
+                            new VideoMessage(mp4.uri(), previewImg.uri, trackingId));
                 });
     }
 
     @EventMapping
-    public void handleVideoPlayCompleteEvent(VideoPlayCompleteEvent event) throws IOException {
-        log.info("Got video play complete: tracking id={}", event.getVideoPlayComplete().getTrackingId());
-        this.replyText(event.getReplyToken(),
-                       "You played " + event.getVideoPlayComplete().getTrackingId());
+    public void handleVideoPlayCompleteEvent(VideoPlayCompleteEvent event) {
+        log.info("Got video play complete: tracking id={}", event.videoPlayComplete().trackingId());
+        this.replyText(event.replyToken(),
+                "You played " + event.videoPlayComplete().trackingId());
     }
 
     @EventMapping
-    public void handleFileMessageEvent(MessageEvent<FileMessageContent> event) {
-        this.reply(event.getReplyToken(),
-                   new TextMessage(String.format("Received '%s'(%d bytes)",
-                                                 event.getMessage().getFileName(),
-                                                 event.getMessage().getFileSize())));
+    public void handleFileMessageEvent(MessageEvent event, FileMessageContent fileMessageContent) {
+        this.reply(event.replyToken(),
+                new TextMessage(String.format("Received '%s'(%d bytes)",
+                        fileMessageContent.fileName(),
+                        fileMessageContent.fileSize())));
     }
 
     @EventMapping
@@ -238,43 +248,43 @@ public class KitchenSinkController {
 
     @EventMapping
     public void handleFollowEvent(FollowEvent event) {
-        String replyToken = event.getReplyToken();
+        String replyToken = event.replyToken();
         this.replyText(replyToken, "Got followed event");
     }
 
     @EventMapping
     public void handleJoinEvent(JoinEvent event) {
-        String replyToken = event.getReplyToken();
-        this.replyText(replyToken, "Joined " + event.getSource());
+        String replyToken = event.replyToken();
+        this.replyText(replyToken, "Joined " + event.source());
     }
 
     @EventMapping
     public void handlePostbackEvent(PostbackEvent event) {
-        String replyToken = event.getReplyToken();
+        String replyToken = event.replyToken();
         this.replyText(replyToken,
-                       "Got postback data " + event.getPostbackContent().getData() + ", param " + event
-                               .getPostbackContent().getParams().toString());
+                "Got postback data " + event.postback().data() + ", param " + event
+                        .postback().params());
     }
 
     @EventMapping
     public void handleBeaconEvent(BeaconEvent event) {
-        String replyToken = event.getReplyToken();
-        this.replyText(replyToken, "Got beacon message " + event.getBeacon().getHwid());
+        String replyToken = event.replyToken();
+        this.replyText(replyToken, "Got beacon message " + event.beacon().hwid());
     }
 
     @EventMapping
     public void handleMemberJoined(MemberJoinedEvent event) {
-        String replyToken = event.getReplyToken();
-        this.replyText(replyToken, "Got memberJoined message " + event.getJoined().getMembers()
-                                                                      .stream().map(Source::getUserId)
-                                                                      .collect(Collectors.joining(",")));
+        String replyToken = event.replyToken();
+        this.replyText(replyToken, "Got memberJoined message " + event.joined().members()
+                .stream().map(Source::userId)
+                .collect(Collectors.joining(",")));
     }
 
     @EventMapping
     public void handleMemberLeft(MemberLeftEvent event) {
-        log.info("Got memberLeft message: {}", event.getLeft().getMembers()
-                                                    .stream().map(Source::getUserId)
-                                                    .collect(Collectors.joining(",")));
+        log.info("Got memberLeft message: {}", event.left().members()
+                .stream().map(Source::userId)
+                .collect(Collectors.joining(",")));
     }
 
     @EventMapping
@@ -287,20 +297,26 @@ public class KitchenSinkController {
         log.info("Received message(Ignored): {}", event);
     }
 
-    private void reply(@NonNull String replyToken, @NonNull Message message) {
+    private void reply(String replyToken, Message message) {
+        Objects.requireNonNull(replyToken, "replyToken");
+        Objects.requireNonNull(message, "message");
         reply(replyToken, singletonList(message));
     }
 
-    private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
+    private void reply(String replyToken, List<Message> messages) {
+        Objects.requireNonNull(replyToken, "replyToken");
+        Objects.requireNonNull(messages, "messages");
         reply(replyToken, messages, false);
     }
 
-    private void reply(@NonNull String replyToken,
-                       @NonNull List<Message> messages,
+    private void reply(String replyToken,
+                       List<Message> messages,
                        boolean notificationDisabled) {
         try {
-            BotApiResponse apiResponse = lineMessagingClient
-                    .replyMessage(new ReplyMessage(replyToken, messages, notificationDisabled))
+            Objects.requireNonNull(replyToken, "replyToken");
+            Objects.requireNonNull(messages, "messages");
+            Result<Void> apiResponse = messagingApiClient
+                    .replyMessage(new ReplyMessageRequest(replyToken, messages, notificationDisabled))
                     .get();
             log.info("Sent messages: {}", apiResponse);
         } catch (InterruptedException | ExecutionException e) {
@@ -308,7 +324,9 @@ public class KitchenSinkController {
         }
     }
 
-    private void replyText(@NonNull String replyToken, @NonNull String message) {
+    private void replyText(String replyToken, String message) {
+        Objects.requireNonNull(replyToken, "replyToken");
+        Objects.requireNonNull(message, "message");
         if (replyToken.isEmpty()) {
             throw new IllegalArgumentException("replyToken must not be empty");
         }
@@ -319,69 +337,64 @@ public class KitchenSinkController {
     }
 
     private void handleHeavyContent(String replyToken, String messageId,
-                                    Consumer<MessageContentResponse> messageConsumer) {
-        final MessageContentResponse response;
+                                    Consumer<BlobContent> messageConsumer) {
         try {
-            response = lineBlobClient.getMessageContent(messageId)
-                                     .get();
+            BlobContent response = messagingApiBlobClient.getMessageContent(messageId)
+                    .get().body();
+            messageConsumer.accept(response);
         } catch (InterruptedException | ExecutionException e) {
             reply(replyToken, new TextMessage("Cannot get image: " + e.getMessage()));
             throw new RuntimeException(e);
         }
-        messageConsumer.accept(response);
     }
 
-    private void handleSticker(String replyToken, StickerMessageContent content) {
-        reply(replyToken, new StickerMessage(
-                content.getPackageId(), content.getStickerId())
-        );
-    }
-
-    private void handleTextContent(String replyToken, Event event, TextMessageContent content)
+    private void handleTextContent(String replyToken, MessageEvent event, TextMessageContent content)
             throws Exception {
-        final String text = content.getText();
+        final String text = content.text();
 
         log.info("Got text message from replyToken:{}: text:{} emojis:{}", replyToken, text,
-                 content.getEmojis());
+                content.emojis());
         switch (text) {
-            case "profile": {
+            case "profile" -> {
                 log.info("Invoking 'profile' command: source:{}",
-                         event.getSource());
-                final String userId = event.getSource().getUserId();
+                        event.source());
+                final String userId = event.source().userId();
                 if (userId != null) {
-                    if (event.getSource() instanceof GroupSource) {
-                        lineMessagingClient
-                                .getGroupMemberProfile(((GroupSource) event.getSource()).getGroupId(), userId)
-                                .whenComplete((profile, throwable) -> {
+                    if (event.source() instanceof GroupSource) {
+                        messagingApiClient
+                                .getGroupMemberProfile(((GroupSource) event.source()).groupId(), userId)
+                                .whenComplete((result, throwable) -> {
                                     if (throwable != null) {
                                         this.replyText(replyToken, throwable.getMessage());
                                         return;
                                     }
+                                    UserProfileResponse profile = result.body();
 
                                     this.reply(
                                             replyToken,
                                             Arrays.asList(new TextMessage("(from group)"),
-                                                          new TextMessage(
-                                                                  "Display name: " + profile.getDisplayName()),
-                                                          new ImageMessage(profile.getPictureUrl(),
-                                                                           profile.getPictureUrl()))
+                                                    new TextMessage(
+                                                            "Display name: " + profile.displayName()),
+                                                    new ImageMessage(profile.pictureUrl(),
+                                                            profile.pictureUrl()))
                                     );
                                 });
                     } else {
-                        lineMessagingClient
+                        messagingApiClient
                                 .getProfile(userId)
-                                .whenComplete((profile, throwable) -> {
+                                .whenComplete((result, throwable) -> {
                                     if (throwable != null) {
                                         this.replyText(replyToken, throwable.getMessage());
                                         return;
                                     }
+                                    UserProfileResponse profile = result.body();
 
                                     this.reply(
                                             replyToken,
                                             Arrays.asList(new TextMessage(
-                                                                  "Display name: " + profile.getDisplayName()),
-                                                          new TextMessage("Status message: "
-                                                                          + profile.getStatusMessage()))
+                                                            "Display name: " + profile.displayName()),
+                                                    new TextMessage("Status message: "
+                                                            + profile.statusMessage()))
                                     );
 
                                 });
@@ -389,267 +402,253 @@ public class KitchenSinkController {
                 } else {
                     this.replyText(replyToken, "Bot can't use profile API without user ID");
                 }
-                break;
             }
-            case "bye": {
-                Source source = event.getSource();
+            case "bye" -> {
+                Source source = event.source();
                 if (source instanceof GroupSource) {
                     this.replyText(replyToken, "Leaving group");
-                    lineMessagingClient.leaveGroup(((GroupSource) source).getGroupId()).get();
+                    messagingApiClient.leaveGroup(((GroupSource) source).groupId()).get();
                 } else if (source instanceof RoomSource) {
                     this.replyText(replyToken, "Leaving room");
-                    lineMessagingClient.leaveRoom(((RoomSource) source).getRoomId()).get();
+                    messagingApiClient.leaveRoom(((RoomSource) source).roomId()).get();
                 } else {
                     this.replyText(replyToken, "Bot can't leave from 1:1 chat");
                 }
-                break;
             }
-            case "group_summary": {
-                Source source = event.getSource();
+            case "group_summary" -> {
+                Source source = event.source();
                 if (source instanceof GroupSource) {
-                    GroupSummaryResponse groupSummary = lineMessagingClient.getGroupSummary(
-                            ((GroupSource) source).getGroupId()).get();
+                    GroupSummaryResponse groupSummary = messagingApiClient.getGroupSummary(
+                            ((GroupSource) source).groupId()).get().body();
                     this.replyText(replyToken, "Group summary: " + groupSummary);
                 } else {
                     this.replyText(replyToken, "You can't use 'group_summary' command for "
-                                               + source);
+                            + source);
                 }
-                break;
             }
-            case "group_member_count": {
-                Source source = event.getSource();
+            case "group_member_count" -> {
+                Source source = event.source();
                 if (source instanceof GroupSource) {
-                    GroupMemberCountResponse groupMemberCountResponse = lineMessagingClient.getGroupMemberCount(
-                            ((GroupSource) source).getGroupId()).get();
+                    GroupMemberCountResponse groupMemberCountResponse = messagingApiClient.getGroupMemberCount(
+                            ((GroupSource) source).groupId()).get().body();
                     this.replyText(replyToken, "Group member count: "
-                                               + groupMemberCountResponse.getCount());
+                            + groupMemberCountResponse.count());
                 } else {
                     this.replyText(replyToken, "You can't use 'group_member_count' command  for "
-                                               + source);
+                            + source);
                 }
-                break;
             }
-            case "room_member_count": {
-                Source source = event.getSource();
+            case "room_member_count" -> {
+                Source source = event.source();
                 if (source instanceof RoomSource) {
-                    RoomMemberCountResponse roomMemberCountResponse = lineMessagingClient.getRoomMemberCount(
-                            ((RoomSource) source).getRoomId()).get();
+                    RoomMemberCountResponse roomMemberCountResponse = messagingApiClient.getRoomMemberCount(
+                            ((RoomSource) source).roomId()).get().body();
                     this.replyText(replyToken, "Room member count: "
-                                               + roomMemberCountResponse.getCount());
+                            + roomMemberCountResponse.count());
                 } else {
                     this.replyText(replyToken, "You can't use 'room_member_count' command  for "
-                                               + source);
+                            + source);
                 }
-                break;
             }
-            case "confirm": {
+            case "confirm" -> {
                 ConfirmTemplate confirmTemplate = new ConfirmTemplate(
                         "Do it?",
-                        new MessageAction("Yes", "Yes!"),
-                        new MessageAction("No", "No!")
+                        List.of(
+                                new MessageAction("Yes", "Yes!"),
+                                new MessageAction("No", "No!")
+                        )
                 );
                 TemplateMessage templateMessage = new TemplateMessage("Confirm alt text", confirmTemplate);
                 this.reply(replyToken, templateMessage);
-                break;
             }
-            case "buttons": {
+            case "buttons" -> {
                 URI imageUrl = createUri("/static/buttons/1040.jpg");
                 ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
                         imageUrl,
-                        "My button sample",
-                        "Hello, my button",
+                        null,
+                        null,
+                        null,
+                        "My button sample", // title
+                        "Hello, my button", // text
+                        null,
                         Arrays.asList(
                                 new URIAction("Go to line.me",
-                                              URI.create("https://line.me"), null),
+                                        URI.create("https://line.me"), null),
                                 new PostbackAction("Say hello1",
-                                                   "hello こんにちは"),
+                                        "hello こんにちは",
+                                        null,
+                                        null,
+                                        null,
+                                        null),
                                 new PostbackAction("言 hello2",
-                                                   "hello こんにちは",
-                                                   "hello こんにちは"),
+                                        "hello こんにちは",
+                                        null,
+                                        "hello こんにちは",
+                                        null,
+                                        null),
                                 new MessageAction("Say message",
-                                                  "Rice=米")
+                                        "Rice=米")
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
                 this.reply(replyToken, templateMessage);
-                break;
             }
-            case "carousel": {
+            case "carousel" -> {
                 URI imageUrl = createUri("/static/buttons/1040.jpg");
                 CarouselTemplate carouselTemplate = new CarouselTemplate(
                         Arrays.asList(
-                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
+                                new CarouselColumn(imageUrl, null, "hoge", "fuga", null, List.of(
                                         new URIAction("Go to line.me",
-                                                      URI.create("https://line.me"), null),
+                                                URI.create("https://line.me"), null),
                                         new URIAction("Go to line.me",
-                                                      URI.create("https://line.me"), null),
+                                                URI.create("https://line.me"), null),
                                         new PostbackAction("Say hello1",
-                                                           "hello こんにちは")
+                                                "hello こんにちは",
+                                                null,
+                                                null,
+                                                null,
+                                                null)
                                 )),
-                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
+                                new CarouselColumn(imageUrl, null, "hoge", "fuga", null, List.of(
                                         new PostbackAction("言 hello2",
-                                                           "hello こんにちは",
-                                                           "hello こんにちは"),
+                                                "hello こんにちは",
+                                                null,
+                                                "hello こんにちは",
+                                                null,
+                                                null
+                                        ),
                                         new PostbackAction("言 hello2",
-                                                           "hello こんにちは",
-                                                           "hello こんにちは"),
+                                                "hello こんにちは",
+                                                null,
+                                                "hello こんにちは",
+                                                null,
+                                                null),
                                         new MessageAction("Say message",
-                                                          "Rice=米")
+                                                "Rice=米")
                                 )),
-                                new CarouselColumn(imageUrl, "Datetime Picker",
-                                                   "Please select a date, time or datetime", Arrays.asList(
-                                        DatetimePickerAction.OfLocalDatetime
-                                                .builder()
-                                                .label("Datetime")
-                                                .data("action=sel")
-                                                .initial(LocalDateTime.parse("2017-06-18T06:15"))
-                                                .min(LocalDateTime.parse("1900-01-01T00:00"))
-                                                .max(LocalDateTime.parse("2100-12-31T23:59"))
-                                                .build(),
-                                        DatetimePickerAction.OfLocalDate
-                                                .builder()
-                                                .label("Date")
-                                                .data("action=sel&only=date")
-                                                .initial(LocalDate.parse("2017-06-18"))
-                                                .min(LocalDate.parse("1900-01-01"))
-                                                .max(LocalDate.parse("2100-12-31"))
-                                                .build(),
-                                        DatetimePickerAction.OfLocalTime
-                                                .builder()
-                                                .label("Time")
-                                                .data("action=sel&only=time")
-                                                .initial(LocalTime.parse("06:15"))
-                                                .min(LocalTime.parse("00:00"))
-                                                .max(LocalTime.parse("23:59"))
-                                                .build()
-                                ))
-                        ));
+                                new CarouselColumn(imageUrl, null,
+                                        "Datetime Picker",
+                                        "Please select a date, time or datetime", null,
+                                        Arrays.asList(
+                                                new DatetimePickerAction(
+                                                        "Datetime",
+                                                        "action=sel",
+                                                        DatetimePickerAction.Mode.DATETIME,
+                                                        "2017-06-18T06:15",
+                                                        "2100-12-31T23:59",
+                                                        "1900-01-01T00:00"
+                                                ),
+                                                new DatetimePickerAction(
+                                                        "Date",
+                                                        "action=sel&only=date",
+                                                        DatetimePickerAction.Mode.DATE,
+                                                        "2017-06-18",
+                                                        "2100-12-31",
+                                                        "1900-01-01"
+                                                ),
+                                                new DatetimePickerAction(
+                                                        "Time",
+                                                        "action=sel&only=time",
+                                                        DatetimePickerAction.Mode.TIME,
+                                                        "06:15",
+                                                        "23:59",
+                                                        "00:00"
+                                                )
+                                        ))
+                        ), null, null);
                 TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);
                 this.reply(replyToken, templateMessage);
-                break;
             }
-            case "image_carousel": {
+            case "image_carousel" -> {
                 URI imageUrl = createUri("/static/buttons/1040.jpg");
                 ImageCarouselTemplate imageCarouselTemplate = new ImageCarouselTemplate(
                         Arrays.asList(
                                 new ImageCarouselColumn(imageUrl,
-                                                        new URIAction("Goto line.me",
-                                                                      URI.create("https://line.me"), null)
+                                        new URIAction("Goto line.me",
+                                                URI.create("https://line.me"), null)
                                 ),
                                 new ImageCarouselColumn(imageUrl,
-                                                        new MessageAction("Say message",
-                                                                          "Rice=米")
+                                        new MessageAction("Say message",
+                                                "Rice=米")
                                 ),
                                 new ImageCarouselColumn(imageUrl,
-                                                        new PostbackAction("言 hello2",
-                                                                           "hello こんにちは",
-                                                                           "hello こんにちは")
+                                        new PostbackAction("言 hello3",
+                                                "hello こんにちは",
+                                                "hello こんにちは",
+                                                null,
+                                                null,
+                                                null)
                                 )
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("ImageCarousel alt text",
-                                                                      imageCarouselTemplate);
+                        imageCarouselTemplate);
                 this.reply(replyToken, templateMessage);
-                break;
             }
-            case "imagemap":
-                //            final String baseUrl,
-                //            final String altText,
-                //            final ImagemapBaseSize imagemapBaseSize,
-                //            final List<ImagemapAction> actions) {
-                this.reply(replyToken, ImagemapMessage
-                        .builder()
-                        .baseUrl(createUri("/static/rich"))
-                        .altText("This is alt text")
-                        .baseSize(new ImagemapBaseSize(1040, 1040))
-                        .actions(Arrays.asList(
-                                URIImagemapAction.builder()
-                                                 .linkUri("https://store.line.me/family/manga/en")
-                                                 .area(new ImagemapArea(0, 0, 520, 520))
-                                                 .build(),
-                                URIImagemapAction.builder()
-                                                 .linkUri("https://store.line.me/family/music/en")
-                                                 .area(new ImagemapArea(520, 0, 520, 520))
-                                                 .build(),
-                                URIImagemapAction.builder()
-                                                 .linkUri("https://store.line.me/family/play/en")
-                                                 .area(new ImagemapArea(0, 520, 520, 520))
-                                                 .build(),
-                                MessageImagemapAction.builder()
-                                                     .text("URANAI!")
-                                                     .area(new ImagemapArea(520, 520, 520, 520))
-                                                     .build()
-                        ))
-                        .build());
-                break;
-            case "imagemap_video":
-                this.reply(replyToken, ImagemapMessage
-                        .builder()
-                        .baseUrl(createUri("/static/imagemap_video"))
-                        .altText("This is an imagemap with video")
-                        .baseSize(new ImagemapBaseSize(722, 1040))
-                        .video(
-                                ImagemapVideo.builder()
-                                             .originalContentUrl(
-                                                     createUri("/static/imagemap_video/originalContent.mp4"))
-                                             .previewImageUrl(
-                                                     createUri("/static/imagemap_video/previewImage.jpg"))
-                                             .area(new ImagemapArea(40, 46, 952, 536))
-                                             .externalLink(
-                                                     new ImagemapExternalLink(
-                                                             URI.create("https://example.com/see_more.html"),
-                                                             "See More")
-                                             )
-                                             .build()
-                        )
-                        .actions(singletonList(
-                                MessageImagemapAction.builder()
-                                                     .text("NIXIE CLOCK")
-                                                     .area(new ImagemapArea(260, 600, 450, 86))
-                                                     .build()
-                        ))
-                        .build());
-                break;
-            case "flex":
-                this.reply(replyToken, new ExampleFlexMessageSupplier().get());
-                break;
-            case "quickreply":
-                this.reply(replyToken, new MessageWithQuickReplySupplier().get());
-                break;
-            case "no_notify":
-                this.reply(replyToken,
-                           singletonList(new TextMessage("This message is send without a push notification")),
-                           true);
-                break;
-            case "redelivery":
-                this.reply(replyToken,
-                        singletonList(new TextMessage("webhookEventId=" + event.getWebhookEventId()
-                            + " deliveryContext.isRedelivery=" + event.getDeliveryContext().getIsRedelivery())
-                        ));
-                break;
-            case "icon":
-                this.reply(replyToken,
-                           TextMessage.builder()
-                                      .text("Hello, I'm cat! Meow~")
-                                      .sender(Sender.builder()
-                                                    .name("Cat")
-                                                    .iconUrl(createUri("/static/icon/cat.png"))
-                                                    .build())
-                                      .build());
-                break;
-            default:
+            case "imagemap" -> this.reply(replyToken, new ImagemapMessage(
+                    null,
+                    null,
+                    createUri("/static/rich"),
+                    "This is alt text",
+                    new ImagemapBaseSize(1040, 1040),
+                    Arrays.asList(
+                            new URIImagemapAction(new ImagemapArea(0, 0, 520, 520), "https://store.line.me/family/manga/en", null),
+                            new URIImagemapAction(new ImagemapArea(520, 0, 520, 520), "https://store.line.me/family/music/en", null),
+                            new URIImagemapAction(new ImagemapArea(0, 520, 520, 520), "https://store.line.me/family/play/en", null),
+                            new MessageImagemapAction(new ImagemapArea(520, 520, 520, 520), "URANAI!", null)
+                    ),
+                    null
+            ));
+            case "imagemap_video" -> this.reply(replyToken, new ImagemapMessage(
+                    null,
+                    null,
+                    createUri("/static/imagemap_video"),
+                    "This is an imagemap with video",
+                    new ImagemapBaseSize(722, 1040),
+                    List.of(
+                            new MessageImagemapAction(
+                                    new ImagemapArea(260, 600, 450, 86),
+                                    "NIXIE CLOCK",
+                                    null
+                            )
+                    ),
+                    new ImagemapVideo(
+                            createUri("/static/imagemap_video/originalContent.mp4"),
+                            createUri("/static/imagemap_video/previewImage.jpg"),
+                            new ImagemapArea(40, 46, 952, 536),
+                            new ImagemapExternalLink(
+                                    URI.create("https://example.com/see_more.html"),
+                                    "See More")
+                    )
+            ));
+            case "flex" -> this.reply(replyToken, new ExampleFlexMessageSupplier().get());
+            case "quickreply" -> this.reply(replyToken, new MessageWithQuickReplySupplier().get());
+            case "no_notify" -> this.reply(replyToken,
+                    singletonList(new TextMessage("This message is send without a push notification")),
+                    true);
+            case "redelivery" -> this.reply(replyToken,
+                    singletonList(new TextMessage("webhookEventId=" + event.webhookEventId()
+                            + " deliveryContext.isRedelivery=" + event.deliveryContext().isRedelivery())
+                    ));
+            case "icon" -> this.reply(replyToken,
+                    new TextMessage(
+                            null,
+                            new Sender("Cat", createUri("/static/icon/cat.png")),
+                            "Hello, I'm cat! Meow~",
+                            null));
+            default -> {
                 log.info("Returns echo message {}: {}", replyToken, text);
                 this.replyText(
                         replyToken,
                         text
                 );
-                break;
+            }
         }
     }
 
     private static URI createUri(String path) {
         return ServletUriComponentsBuilder.fromCurrentContextPath()
-                                          .scheme("https")
-                                          .path(path).build()
-                                          .toUri();
+                .scheme("https")
+                .path(path).build()
+                .toUri();
     }
 
     private void system(String... args) {
@@ -666,12 +665,14 @@ public class KitchenSinkController {
         }
     }
 
-    private static DownloadedContent saveContent(String ext, MessageContentResponse responseBody) {
-        log.info("Got content-type: {}", responseBody);
+    private static DownloadedContent saveContent(String ext, BlobContent blobContent) {
+        log.info("Got content-type: {}", blobContent);
 
         DownloadedContent tempFile = createTempFile(ext);
         try (OutputStream outputStream = Files.newOutputStream(tempFile.path)) {
-            ByteStreams.copy(responseBody.getStream(), outputStream);
+            try (InputStream byteStream = blobContent.byteStream()) {
+                byteStream.transferTo(outputStream);
+            }
             log.info("Saved {}: {}", ext, tempFile);
             return tempFile;
         } catch (IOException e) {
@@ -688,9 +689,9 @@ public class KitchenSinkController {
                 createUri("/downloaded/" + tempFile.getFileName()));
     }
 
-    @Value
-    private static class DownloadedContent {
-        Path path;
-        URI uri;
+    private record DownloadedContent(
+            Path path,
+            URI uri
+    ) {
     }
 }

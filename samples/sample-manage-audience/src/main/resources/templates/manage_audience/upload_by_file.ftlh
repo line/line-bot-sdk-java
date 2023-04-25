@@ -1,4 +1,3 @@
-<#-- @ftlvariable name="audienceGroups" type="com.linecorp.bot.model.manageaudience.response.GetAudienceGroupsResponse" -->
 <#import "../__wrapper.ftlh" as wrapper>
 <@wrapper.main>
 

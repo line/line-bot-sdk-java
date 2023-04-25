@@ -21,8 +21,8 @@ import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.model.event.CallbackRequest;
-import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
+import com.linecorp.bot.jackson.ModelObjectMapper;
+import com.linecorp.bot.webhook.model.CallbackRequest;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +66,7 @@ public class WebhookParser {
         }
 
         final CallbackRequest callbackRequest = objectMapper.readValue(payload, CallbackRequest.class);
-        if (callbackRequest == null || callbackRequest.getEvents() == null) {
+        if (callbackRequest == null || callbackRequest.events() == null) {
             throw new WebhookParseException("Invalid content");
         }
         return callbackRequest;

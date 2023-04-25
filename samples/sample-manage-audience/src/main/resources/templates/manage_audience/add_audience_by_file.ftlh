@@ -1,10 +1,10 @@
-<#-- @ftlvariable name="audienceGroup" type="com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse" -->
-<#-- @ftlvariable name="jobs" type="java.util.List<com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse.Job>" -->
+<#-- @ftlvariable name="audienceGroup" type="com.linecorp.bot.audience.model.GetAudienceDataResponse" -->
+<#-- @ftlvariable name="jobs" type="java.util.List<com.linecorp.bot.audience.model.GetAudienceDataResponse.Job>" -->
 <#import "../__wrapper.ftlh" as wrapper>
 <@wrapper.main>
-    <h1>Add more audience into ${audienceGroup.description}(ID: ${audienceGroup.audienceGroupId})</h1>
+    <h1>Add more audience into ${audienceGroup.description()}(ID: ${audienceGroup.audienceGroupId()})</h1>
 
-    <form method="post" action="/manage_audience/add_audience_by_file/${audienceGroup.audienceGroupId}"
+    <form method="post" action="/manage_audience/add_audience_by_file/${audienceGroup.audienceGroupId()}"
           enctype="multipart/form-data">
         <div class="form-group">
             <label for="uploadDescription">uploadDescription(Optional)</label>

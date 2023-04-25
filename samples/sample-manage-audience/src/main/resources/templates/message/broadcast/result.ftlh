@@ -1,6 +1,4 @@
-<#-- @ftlvariable name="progress" type="com.linecorp.bot.model.response.NarrowcastProgressResponse" -->
-<#-- @ftlvariable name="audienceGroup" type="com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse" -->
-<#-- @ftlvariable name="jobs" type="java.util.List<com.linecorp.bot.model.manageaudience.response.GetAudienceDataResponse.Job>" -->
+<#-- @ftlvariable name="requestId" type="java.lang.String" -->
 <#import "../../__wrapper.ftlh" as wrapper>
 <@wrapper.main>
     <h1>Broadcast result</h1>

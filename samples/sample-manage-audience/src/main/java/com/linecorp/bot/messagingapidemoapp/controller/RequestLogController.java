@@ -27,12 +27,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.linecorp.bot.messagingapidemoapp.configuration.LineBotConfiguration.ApiCallLog;
 import com.linecorp.bot.messagingapidemoapp.configuration.LineBotConfiguration.MyInterceptor;
 
-import lombok.AllArgsConstructor;
-
 @Controller
-@AllArgsConstructor
 public class RequestLogController {
     private final MyInterceptor myInterceptor;
+
+    public RequestLogController(MyInterceptor myInterceptor) {
+        this.myInterceptor = myInterceptor;
+    }
 
     @GetMapping("/request_log/")
     public String index(Model model) {

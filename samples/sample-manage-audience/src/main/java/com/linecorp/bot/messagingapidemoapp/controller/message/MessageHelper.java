@@ -25,25 +25,27 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.messaging.model.Message;
 
 import io.micrometer.common.util.StringUtils;
-import lombok.AllArgsConstructor;
 
 @Component
-@AllArgsConstructor
 public class MessageHelper {
     private final ObjectMapper objectMapper;
 
+    public MessageHelper(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     public List<Message> buildMessages(String[] messages) {
         return Arrays.stream(messages)
-                     .filter(StringUtils::isNotBlank)
-                     .map(it -> {
-                         try {
-                             return objectMapper.readValue(it, Message.class);
-                         } catch (JsonProcessingException e) {
-                             throw new RuntimeException(e);
-                         }
-                     }).collect(Collectors.toList());
+                .filter(StringUtils::isNotBlank)
+                .map(it -> {
+                    try {
+                        return objectMapper.readValue(it, Message.class);
+                    } catch (JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).collect(Collectors.toList());
     }
 }

@@ -40,7 +40,6 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include("line-bot-api-client")
 include("line-bot-model")
-include("line-bot-spring-boot")
 include("line-bot-parser")
 include("line-bot-jackson")
 
@@ -54,6 +53,12 @@ include("clients:line-bot-manage-audience-client")
 include("clients:line-bot-messaging-api-client")
 include("clients:line-channel-access-token-client")
 include("clients:line-liff-client")
+
+// spring-boot integration
+include("spring-boot:line-bot-spring-boot-client")
+include("spring-boot:line-bot-spring-boot-handler")
+include("spring-boot:line-bot-spring-boot-web")
+include("spring-boot:line-bot-spring-boot-webmvc")
 
 // samples
 include("samples:sample-spring-boot-echo")
