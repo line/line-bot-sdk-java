@@ -17,8 +17,8 @@
 plugins {
     id("sdk.java")
     id("sdk.spring-boot")
-    kotlin("jvm") version "1.8.20"
-    kotlin("plugin.spring") version "1.8.20"
+    kotlin("jvm") version "1.8.21"
+    kotlin("plugin.spring") version "1.8.21"
 }
 
 dependencies {
