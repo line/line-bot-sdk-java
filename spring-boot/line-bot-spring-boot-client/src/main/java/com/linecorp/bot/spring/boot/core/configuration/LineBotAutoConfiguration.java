@@ -25,9 +25,11 @@ import com.linecorp.bot.audience.client.ManageAudienceBlobClient;
 import com.linecorp.bot.audience.client.ManageAudienceClient;
 import com.linecorp.bot.client.base.channel.ChannelTokenSupplier;
 import com.linecorp.bot.client.base.channel.FixedChannelTokenSupplier;
+import com.linecorp.bot.insight.client.InsightClient;
 import com.linecorp.bot.liff.client.LiffClient;
 import com.linecorp.bot.messaging.client.MessagingApiBlobClient;
 import com.linecorp.bot.messaging.client.MessagingApiClient;
+import com.linecorp.bot.oauth.client.ChannelAccessTokenClient;
 import com.linecorp.bot.spring.boot.core.properties.LineBotProperties;
 
 /**
@@ -125,6 +127,34 @@ public class LineBotAutoConfiguration {
     public ManageAudienceClient manageAudienceClient(
             final ChannelTokenSupplier channelTokenSupplier) {
         return ManageAudienceClient
+                .builder(channelTokenSupplier)
+                .apiEndPoint(lineBotProperties.apiEndPoint())
+                .connectTimeout(lineBotProperties.connectTimeout())
+                .readTimeout(lineBotProperties.readTimeout())
+                .writeTimeout(lineBotProperties.writeTimeout())
+                .build();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ChannelAccessTokenClient channelAccessTokenClient(
+            final ChannelTokenSupplier channelTokenSupplier
+    ) {
+        return ChannelAccessTokenClient
+                .builder(channelTokenSupplier)
+                .apiEndPoint(lineBotProperties.apiEndPoint())
+                .connectTimeout(lineBotProperties.connectTimeout())
+                .readTimeout(lineBotProperties.readTimeout())
+                .writeTimeout(lineBotProperties.writeTimeout())
+                .build();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public InsightClient insightClient(
+            final ChannelTokenSupplier channelTokenSupplier
+    ) {
+        return InsightClient
                 .builder(channelTokenSupplier)
                 .apiEndPoint(lineBotProperties.apiEndPoint())
                 .connectTimeout(lineBotProperties.connectTimeout())
