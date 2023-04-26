@@ -20,7 +20,7 @@ See the official API documentation for more information.
 
 ## Requirements
 
-This library requires Java 8 or later.
+This library requires Java 17 or later.
 
 
 ## Installation
@@ -48,22 +48,6 @@ This project contains the following sample projects:
 The line-bot-spring-boot module lets you build a bot application as a Spring Boot application.
 
 ```java
-/*
- * Copyright 2016 LINE Corporation
- *
- * LINE Corporation licenses this file to you under the Apache License,
- * version 2.0 (the "License"); you may not use this file except in compliance
- * with the License. You may obtain a copy of the License at:
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations
- * under the License.
- */
-
 package com.example.bot.spring.echo;
 
 import org.springframework.boot.SpringApplication;
@@ -104,6 +88,7 @@ Note: You don't need to use an add-on like Fixie to have static IP addresses for
 
 
 ## Help and media
+
 FAQ: https://developers.line.biz/en/faq/
 
 Community Q&A: https://www.line-community.me/questions
@@ -119,6 +104,25 @@ This project respects semantic versioning.
 
 See http://semver.org/.
 
+## Version 7.x
+
+LINE's SDK developer team decides to generate SDK code based on OpenAPI spec.
+As a result, LINE bot sdk 7.x is not compatible with 6.x. But it can follow the future API changes very quickly.
+
+- `line-bot-model` and `line-bot-api-client` are splitted to `line-bot-webhook` and `clients/` modules
+- `line-bot-servlet` is no longer supported.
+- `line-bot-cli` is no longer supported.
+- `line-bot-spring-boot` was splitted.
+  - Splitted to following modules.
+    - `line-bot-spring-boot-client` is a client bean configuraion module.
+      - If you want to write spring-boot API client,
+    - `line-bot-spring-boot-handler` is a handler configuration.
+      - You don't need to depend this explicitly.
+    - `line-bot-spring-boot-web` is a spring-web binding.
+      - You don't need to depend this explicitly.
+    - `line-bot-spring-boot-web` is a spring-webmvc binding.
+      - **usually, you want to depend on this module.**
+
 ## Version 5.x and 6.x
 
 This library provides the Spring Boot binding.
@@ -132,6 +136,7 @@ Spring Boot 2.x is scheduled for retirement on 2023/11/18. This means that line-
 https://endoflife.date/spring-boot
 
 We will add new features to line-bot-sdk-java 6.x. But if you send us a backport patch for maint/5.x branch, we might apply it :)
+
 ## Contributing
 
 Please check [CONTRIBUTING](CONTRIBUTING.md) before making a contribution.
