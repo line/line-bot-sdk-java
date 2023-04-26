@@ -63,6 +63,7 @@ dependencies {
     integrationTestImplementation(project(":clients:line-channel-access-token-client"))
     integrationTestImplementation(project(":clients:line-bot-messaging-api-client"))
     integrationTestImplementation(project(":clients:line-bot-manage-audience-client"))
+    integrationTestImplementation(project(":clients:line-bot-module-attach-client"))
     integrationTestImplementation(project(":clients:line-bot-insight-client"))
     integrationTestImplementation(project(":line-bot-jackson"))
     integrationTestImplementation(libs.jjwt.api)

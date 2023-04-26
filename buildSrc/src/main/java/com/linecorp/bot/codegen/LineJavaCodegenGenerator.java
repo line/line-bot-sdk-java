@@ -172,11 +172,7 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
         return super.addMustacheLambdas()
                 .put("endpoint", (fragment, writer) -> {
                     String text = fragment.execute();
-                    writer.write(
-                            text.contains("Blob")
-                                    ? "https://api-data.line.me"
-                                    : "https://api.line.me"
-                    );
+                    writer.write(this.getEndpointFromClassName(text));
                 })
                 .put("exceptionbuilderclassname", (fragment, writer) -> {
                     String text = fragment.execute();
@@ -186,5 +182,15 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
                                     + "ExceptionBuilder"
                     );
                 });
+    }
+
+    private String getEndpointFromClassName(String className) {
+        if (className.equals("LineModuleAttachClient")) {
+            return "https://manager.line.biz";
+        } else if (className.contains("Blob")) {
+            return "https://api-data.line.me";
+        } else {
+            return "https://api.line.me";
+        }
     }
 }
