@@ -24,7 +24,6 @@ import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.linecorp.bot.client.base.LineClientJsonParseException;
 import com.linecorp.bot.client.utils.IntegrationTestSettings;
 import com.linecorp.bot.client.utils.IntegrationTestSettingsLoader;
 import com.linecorp.bot.moduleattach.client.LineModuleAttachClient;
