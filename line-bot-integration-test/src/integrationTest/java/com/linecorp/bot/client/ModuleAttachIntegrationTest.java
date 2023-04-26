@@ -28,6 +28,7 @@ import com.linecorp.bot.client.base.LineClientJsonParseException;
 import com.linecorp.bot.client.utils.IntegrationTestSettings;
 import com.linecorp.bot.client.utils.IntegrationTestSettingsLoader;
 import com.linecorp.bot.moduleattach.client.LineModuleAttachClient;
+import com.linecorp.bot.moduleattach.client.LineModuleAttachClientException;
 
 public class ModuleAttachIntegrationTest {
     private LineModuleAttachClient target;
@@ -41,7 +42,7 @@ public class ModuleAttachIntegrationTest {
     }
 
     @Test
-    public void createAudienceGroup() throws Exception {
+    public void createAudienceGroup() {
         // https://developers.line.biz/en/reference/partner-docs/#link-attach-by-operation-module-channel-provider
         assertThatThrownBy(() -> {
             target
@@ -59,7 +60,7 @@ public class ModuleAttachIntegrationTest {
                     ).get();
         }).isInstanceOf(ExecutionException.class)
                 .cause()
-                .isInstanceOf(LineClientJsonParseException.class)
-                .hasFieldOrPropertyWithValue("code", 404);
+                .isInstanceOf(LineModuleAttachClientException.class)
+                .hasFieldOrPropertyWithValue("code", 400);
     }
 }
