@@ -16,7 +16,6 @@
 
 plugins {
     id("sdk.java-library")
-    id("sdk.javadoc")
     id("sdk.publish")
 }
 
