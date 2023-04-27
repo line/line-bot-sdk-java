@@ -18,6 +18,7 @@ plugins {
     id("sdk.java")
     // https://openapi-generator.tech/docs/plugins/
     id("org.openapi.generator")
+    id("sdk.publish")
 }
 
 
