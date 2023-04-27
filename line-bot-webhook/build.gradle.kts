@@ -15,7 +15,7 @@
  */
 
 plugins {
-    id("sdk.java")
+    id("sdk.java-library")
     // https://openapi-generator.tech/docs/plugins/
     id("org.openapi.generator")
 }
