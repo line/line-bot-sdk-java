@@ -14,13 +14,13 @@
  * under the License.
  */
 
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-
 // ./gradlew clean && ./gradlew uploadArchives -Prelease
 
 group = "com.linecorp.bot"
-version = "6.1.0" + if (hasProperty("release")) {
-    ""
-} else {
-    "-SNAPSHOT"
-}
+version = System.getenv("SDK_VERSION") ?: (
+    "6.1.0" + if (hasProperty("release")) {
+        ""
+    } else {
+        "-SNAPSHOT"
+    }
+    )

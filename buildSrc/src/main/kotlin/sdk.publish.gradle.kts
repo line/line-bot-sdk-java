@@ -5,16 +5,7 @@
 
 plugins {
     id("jacoco")
-    id("signing")
     id("maven-publish")
-}
-
-//set build variables based on build type (release, continuous integration, development)
-val isReleaseBuild = hasProperty("release")
-val sonatypeRepositoryUrl = if (isReleaseBuild) {
-    "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-} else {
-    "https://oss.sonatype.org/content/repositories/snapshots/"
 }
 
 configure<JavaPluginExtension> {
@@ -64,21 +55,13 @@ configure<PublishingExtension> {
         }
         repositories {
             maven {
-                url = uri(sonatypeRepositoryUrl)
-                if (project.hasProperty("sonatypeUsername")) {
-                    credentials {
-                        username = properties["sonatypeUsername"] as String
-                        password = properties["sonatypePassword"] as String
-                    }
+                name = "OSSRH"
+                url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                credentials {
+                    username = System.getenv("MAVEN_USERNAME")
+                    password = System.getenv("MAVEN_PASSWORD")
                 }
             }
         }
-    }
-}
-
-signing {
-    setRequired(isReleaseBuild)
-    publishing.publications.configureEach {
-        sign(this)
     }
 }
