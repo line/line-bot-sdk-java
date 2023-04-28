@@ -14,14 +14,18 @@
  * under the License.
  */
 
+package com.linecorp.bot.moduleattach.client;
 
-plugins {
-    id("sdk.openapi")
-    id("sdk.publish")
-}
+import com.linecorp.bot.client.base.exception.AbstractLineClientException;
 
-openApiGenerate {
-    inputSpec.set("$rootDir/line-openapi/liff.yml")
-    apiPackage.set("com.linecorp.bot.liff.client")
-    modelPackage.set("com.linecorp.bot.liff.model")
+import okhttp3.Response;
+
+/**
+ * A general {@link Exception} for Module Attach API.
+ */
+@SuppressWarnings("serial")
+public class LineModuleAttachClientException extends AbstractLineClientException {
+    public LineModuleAttachClientException(Response response) {
+        super(response, "");
+    }
 }

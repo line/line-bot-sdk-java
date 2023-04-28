@@ -14,14 +14,21 @@
  * under the License.
  */
 
+package com.linecorp.bot.moduleattach.client;
 
-plugins {
-    id("sdk.openapi")
-    id("sdk.publish")
-}
+import java.io.IOException;
 
-openApiGenerate {
-    inputSpec.set("$rootDir/line-openapi/liff.yml")
-    apiPackage.set("com.linecorp.bot.liff.client")
-    modelPackage.set("com.linecorp.bot.liff.model")
+import com.linecorp.bot.client.base.AbstractExceptionBuilder;
+
+import okhttp3.Response;
+
+public class LineModuleAttachExceptionBuilder extends AbstractExceptionBuilder<Object> {
+    public LineModuleAttachExceptionBuilder() {
+        super(Object.class);
+    }
+
+    @Override
+    protected IOException buildException(Response response, Object errorBody) {
+        return new LineModuleAttachClientException(response);
+    }
 }

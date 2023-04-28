@@ -76,6 +76,10 @@ tasks {
     }
 }
 
+tasks.named<Jar>("sourcesJar") {
+    dependsOn(tasks.named("openApiGenerate"))
+}
+
 sourceSets {
     getByName("main") {
         java {

@@ -63,6 +63,12 @@ public record LineBotProperties(
         @Valid @NotNull URI blobEndPoint,
 
         /*
+         * managerEndPoint. default = https://manager.line.biz
+         */
+        @DefaultValue("https://manager.line.biz/")
+        @Valid @NotNull URI managerEndPoint,
+
+        /*
          * Connection timeout in milliseconds.
          */
         @DefaultValue("10s")

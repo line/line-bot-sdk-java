@@ -21,7 +21,7 @@ plugins {
 }
 
 openApiGenerate {
-    inputSpec.set("$rootDir/line-openapi/liff.yml")
-    apiPackage.set("com.linecorp.bot.liff.client")
-    modelPackage.set("com.linecorp.bot.liff.model")
+    inputSpec.set("$rootDir/line-openapi/module-attach.yml")
+    apiPackage.set("com.linecorp.bot.moduleattach.client")
+    modelPackage.set("com.linecorp.bot.moduleattach.model")
 }
