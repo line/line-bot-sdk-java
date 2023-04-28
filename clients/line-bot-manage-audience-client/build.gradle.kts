@@ -17,6 +17,7 @@
 
 plugins {
     id("sdk.openapi")
+    id("sdk.publish")
 }
 
 openApiGenerate {
