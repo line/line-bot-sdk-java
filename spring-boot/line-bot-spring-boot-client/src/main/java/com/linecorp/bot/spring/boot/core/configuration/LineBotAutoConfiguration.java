@@ -29,8 +29,8 @@ import com.linecorp.bot.insight.client.InsightClient;
 import com.linecorp.bot.liff.client.LiffClient;
 import com.linecorp.bot.messaging.client.MessagingApiBlobClient;
 import com.linecorp.bot.messaging.client.MessagingApiClient;
-import com.linecorp.bot.oauth.client.ChannelAccessTokenClient;
 import com.linecorp.bot.moduleattach.client.LineModuleAttachClient;
+import com.linecorp.bot.oauth.client.ChannelAccessTokenClient;
 import com.linecorp.bot.spring.boot.core.properties.LineBotProperties;
 
 /**
