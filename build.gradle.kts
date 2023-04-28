@@ -14,7 +14,9 @@
  * under the License.
  */
 
-// ./gradlew clean && ./gradlew uploadArchives -Prelease
+plugins {
+    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
+}
 
 group = "com.linecorp.bot"
 version = System.getenv("SDK_VERSION") ?: (
@@ -24,3 +26,13 @@ version = System.getenv("SDK_VERSION") ?: (
         "-SNAPSHOT"
     }
     )
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/"))
+            username.set(System.getenv("MAVEN_USERNAME"))
+            password.set(System.getenv("MAVEN_PASSWORD"))
+        }
+    }
+}
