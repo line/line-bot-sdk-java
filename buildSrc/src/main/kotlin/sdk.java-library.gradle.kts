@@ -7,7 +7,6 @@ plugins {
     id("com.github.spotbugs")
     id("java-library")
     id("checkstyle")
-    id("jacoco")
 }
 
 java {
@@ -68,19 +67,6 @@ tasks.withType(Test::class.java) {
         showCauses = true
         showStackTraces = true
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
-    }
-}
-
-tasks.test {
-    finalizedBy(tasks.jacocoTestReport)
-}
-
-tasks.jacocoTestReport {
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
-        csv.required.set(false)
-        xml.outputLocation.set(file("reports/jacoco/report.xml"))
     }
 }
 

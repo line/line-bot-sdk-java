@@ -4,7 +4,6 @@
  */
 
 plugins {
-    id("jacoco")
     id("signing")
     id("maven-publish")
 }
