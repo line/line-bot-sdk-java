@@ -29,6 +29,7 @@ dependencies {
     api(project(":clients:line-channel-access-token-client"))
     api(project(":clients:line-bot-manage-audience-client"))
     api(project(":clients:line-bot-messaging-api-client"))
+    api(project(":clients:line-bot-module-attach-client"))
     api(project(":clients:line-bot-client-base"))
 
     implementation("org.springframework.boot:spring-boot-autoconfigure")

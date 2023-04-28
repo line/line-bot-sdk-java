@@ -52,6 +52,7 @@ public class BotPropertiesValidatorTest {
                 "SECRET",
                 URI.create("https://api.line.me/"),
                 URI.create("https://api-data.line.me/"),
+                URI.create("https://manager.line.biz/"),
                 Duration.ofSeconds(10),
                 Duration.ofSeconds(10),
                 Duration.ofSeconds(10)
