@@ -18,6 +18,7 @@ plugins {
     id("sdk.java-library")
     // https://openapi-generator.tech/docs/plugins/
     id("org.openapi.generator")
+    id("sdk.publish")
 }
 
 
@@ -57,6 +58,10 @@ tasks {
     compileJava {
         dependsOn(openApiGenerate)
     }
+}
+
+tasks.named<Jar>("sourcesJar") {
+    dependsOn(tasks.named("openApiGenerate"))
 }
 
 sourceSets {

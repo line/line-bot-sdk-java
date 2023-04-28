@@ -16,6 +16,7 @@
 
 plugins {
     id("sdk.java-library")
+    id("sdk.publish")
 }
 
 dependencies {
