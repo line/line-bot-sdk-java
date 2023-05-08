@@ -49,6 +49,7 @@ import com.linecorp.bot.messaging.model.ConfirmTemplate;
 import com.linecorp.bot.messaging.model.DatetimePickerAction;
 import com.linecorp.bot.messaging.model.GroupMemberCountResponse;
 import com.linecorp.bot.messaging.model.GroupSummaryResponse;
+import com.linecorp.bot.messaging.model.GroupUserProfileResponse;
 import com.linecorp.bot.messaging.model.ImageCarouselColumn;
 import com.linecorp.bot.messaging.model.ImageCarouselTemplate;
 import com.linecorp.bot.messaging.model.ImageMessage;
@@ -368,7 +369,7 @@ public class KitchenSinkController {
                                         this.replyText(replyToken, throwable.getMessage());
                                         return;
                                     }
-                                    UserProfileResponse profile = result.body();
+                                    GroupUserProfileResponse profile = result.body();
 
                                     this.reply(
                                             replyToken,
