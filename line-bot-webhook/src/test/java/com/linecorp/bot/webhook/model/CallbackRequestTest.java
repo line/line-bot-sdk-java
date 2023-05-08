@@ -131,13 +131,13 @@ public class CallbackRequestTest {
             List<Mentionee> mentionees = mention.mentionees();
             assertThat(mentionees).hasSize(2);
 
-            UserMentionee mentioneeBrown = (UserMentionee)mentionees.get(0);
+            UserMentionee mentioneeBrown = (UserMentionee) mentionees.get(0);
             assertThat(mentioneeBrown).isInstanceOf(UserMentionee.class);
             Assertions.assertThat(mentioneeBrown.index()).isEqualTo(13);
             Assertions.assertThat(mentioneeBrown.length()).isEqualTo(6);
             Assertions.assertThat(mentioneeBrown.userId()).isEqualTo("U12345678901234567890123456780");
 
-            AllMentionee mentioneeCony = (AllMentionee)mentionees.get(1);
+            AllMentionee mentioneeCony = (AllMentionee) mentionees.get(1);
             assertThat(mentioneeCony).isInstanceOf(AllMentionee.class);
             Assertions.assertThat(mentioneeCony.index()).isEqualTo(24);
             Assertions.assertThat(mentioneeCony.length()).isEqualTo(5);
@@ -327,7 +327,7 @@ public class CallbackRequestTest {
     public void testStickerKeywordsBecomeArray() throws IOException {
         parse("callback/sticker-keywords-array.json", callbackRequest -> {
             MessageEvent messageEvent = (MessageEvent) callbackRequest.events().get(0);
-            StickerMessageContent message = (StickerMessageContent)messageEvent.message();
+            StickerMessageContent message = (StickerMessageContent) messageEvent.message();
             Assertions.assertThat(message.keywords()).isEqualTo(List.of("keyword"));
         });
     }
@@ -569,7 +569,7 @@ public class CallbackRequestTest {
 
             final ScenarioResult result = things.result();
             Assertions.assertThat(result.scenarioId()).isEqualTo("XXX");
-            Assertions.assertThat(result.revision()).isEqualTo("2");
+            Assertions.assertThat(result.revision()).isEqualTo(2);
             Assertions.assertThat(result.startTime()).isEqualTo(1547817845950L);
             Assertions.assertThat(result.endTime()).isEqualTo(1547817845952L);
             Assertions.assertThat(result.resultCode()).isEqualTo("success");
@@ -610,8 +610,8 @@ public class CallbackRequestTest {
 
             MemberJoinedEvent memberJoinedEvent = (MemberJoinedEvent) event;
             String uids = memberJoinedEvent.joined().members().stream()
-                                           .map(Source::userId)
-                                           .collect(Collectors.joining(","));
+                    .map(Source::userId)
+                    .collect(Collectors.joining(","));
             assertThat(uids).isEqualTo("U111111");
         });
     }
@@ -628,8 +628,8 @@ public class CallbackRequestTest {
 
             MemberLeftEvent memberLeftEvent = (MemberLeftEvent) event;
             String uids = memberLeftEvent.left().members().stream()
-                                         .map(Source::userId)
-                                         .collect(Collectors.joining(","));
+                    .map(Source::userId)
+                    .collect(Collectors.joining(","));
             assertThat(uids).isEqualTo("U111111");
         });
     }
