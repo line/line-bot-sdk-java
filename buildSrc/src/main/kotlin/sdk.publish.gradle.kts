@@ -64,3 +64,16 @@ configure<PublishingExtension> {
         }
     }
 }
+
+val signingKeyId = rootProject.findProperty("signingKeyId") as String?
+val signingKey = rootProject.findProperty("signingKey") as String?
+val signingPassword = rootProject.findProperty("signingPassword") as String?
+
+signing {
+    if (System.getenv("CI") != null && signingKey != null) {
+        useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+        setRequired({ true })
+        sign(publishing.publications["mavenJava"])
+    }
+}
+
