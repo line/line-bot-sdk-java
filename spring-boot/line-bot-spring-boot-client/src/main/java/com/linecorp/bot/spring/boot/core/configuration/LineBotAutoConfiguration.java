@@ -29,8 +29,10 @@ import com.linecorp.bot.insight.client.InsightClient;
 import com.linecorp.bot.liff.client.LiffClient;
 import com.linecorp.bot.messaging.client.MessagingApiBlobClient;
 import com.linecorp.bot.messaging.client.MessagingApiClient;
+import com.linecorp.bot.module.client.ModuleClient;
 import com.linecorp.bot.moduleattach.client.LineModuleAttachClient;
 import com.linecorp.bot.oauth.client.ChannelAccessTokenClient;
+import com.linecorp.bot.shop.client.ShopClient;
 import com.linecorp.bot.spring.boot.core.properties.LineBotProperties;
 
 /**
@@ -172,6 +174,34 @@ public class LineBotAutoConfiguration {
         return LineModuleAttachClient
                 .builder(channelTokenSupplier)
                 .apiEndPoint(lineBotProperties.managerEndPoint())
+                .connectTimeout(lineBotProperties.connectTimeout())
+                .readTimeout(lineBotProperties.readTimeout())
+                .writeTimeout(lineBotProperties.writeTimeout())
+                .build();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ModuleClient moduleClient(
+            final ChannelTokenSupplier channelTokenSupplier
+    ) {
+        return ModuleClient
+                .builder(channelTokenSupplier)
+                .apiEndPoint(lineBotProperties.apiEndPoint())
+                .connectTimeout(lineBotProperties.connectTimeout())
+                .readTimeout(lineBotProperties.readTimeout())
+                .writeTimeout(lineBotProperties.writeTimeout())
+                .build();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ShopClient shopClient(
+            final ChannelTokenSupplier channelTokenSupplier
+    ) {
+        return ShopClient
+                .builder(channelTokenSupplier)
+                .apiEndPoint(lineBotProperties.apiEndPoint())
                 .connectTimeout(lineBotProperties.connectTimeout())
                 .readTimeout(lineBotProperties.readTimeout())
                 .writeTimeout(lineBotProperties.writeTimeout())
