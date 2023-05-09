@@ -14,13 +14,25 @@
  * under the License.
  */
 
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-
-// ./gradlew clean && ./gradlew uploadArchives -Prelease
+plugins {
+    id("io.github.gradle-nexus.publish-plugin")
+}
 
 group = "com.linecorp.bot"
-version = "6.1.0" + if (hasProperty("release")) {
-    ""
-} else {
-    "-SNAPSHOT"
+version = System.getenv("SDK_VERSION") ?: (
+    "6.1.0" + if (hasProperty("release")) {
+        ""
+    } else {
+        "-SNAPSHOT"
+    }
+    )
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/"))
+            username.set(System.getenv("MAVEN_USERNAME"))
+            password.set(System.getenv("MAVEN_PASSWORD"))
+        }
+    }
 }

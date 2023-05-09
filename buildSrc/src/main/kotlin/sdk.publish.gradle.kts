@@ -8,14 +8,6 @@ plugins {
     id("maven-publish")
 }
 
-//set build variables based on build type (release, continuous integration, development)
-val isReleaseBuild = hasProperty("release")
-val sonatypeRepositoryUrl = if (isReleaseBuild) {
-    "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-} else {
-    "https://oss.sonatype.org/content/repositories/snapshots/"
-}
-
 configure<JavaPluginExtension> {
     withJavadocJar()
     withSourcesJar()
@@ -63,21 +55,26 @@ configure<PublishingExtension> {
         }
         repositories {
             maven {
-                url = uri(sonatypeRepositoryUrl)
-                if (project.hasProperty("sonatypeUsername")) {
-                    credentials {
-                        username = properties["sonatypeUsername"] as String
-                        password = properties["sonatypePassword"] as String
-                    }
+                name = "OSSRH"
+                url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                credentials {
+                    username = System.getenv("MAVEN_USERNAME")
+                    password = System.getenv("MAVEN_PASSWORD")
                 }
             }
         }
     }
 }
 
+val signingKeyId = rootProject.findProperty("signingKeyId") as String?
+val signingKey = rootProject.findProperty("signingKey") as String?
+val signingPassword = rootProject.findProperty("signingPassword") as String?
+
 signing {
-    setRequired(isReleaseBuild)
-    publishing.publications.configureEach {
-        sign(this)
+    if (System.getenv("CI") != null && signingKey != null) {
+        useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+        setRequired({ true })
+        sign(publishing.publications["mavenJava"])
     }
 }
+
