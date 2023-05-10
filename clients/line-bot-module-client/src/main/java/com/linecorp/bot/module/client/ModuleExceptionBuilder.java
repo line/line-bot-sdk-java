@@ -19,19 +19,16 @@ package com.linecorp.bot.module.client;
 import java.io.IOException;
 
 import com.linecorp.bot.client.base.AbstractExceptionBuilder;
-import com.linecorp.bot.module.model.ErrorResponse;
 
 import okhttp3.Response;
 
-public class ModuleExceptionBuilder extends AbstractExceptionBuilder<ErrorResponse> {
+public class ModuleExceptionBuilder extends AbstractExceptionBuilder<Object> {
     public ModuleExceptionBuilder() {
-        super(ErrorResponse.class);
+        super(Object.class);
     }
 
     @Override
-    protected IOException buildException(Response response, ErrorResponse errorBody) {
-        return new ModuleClientException(
-                response,
-                errorBody.message(), errorBody.details());
+    protected IOException buildException(Response response, Object errorBody) {
+        return new ModuleClientException(response);
     }
 }

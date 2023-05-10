@@ -16,11 +16,7 @@
 
 package com.linecorp.bot.module.client;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.linecorp.bot.client.base.exception.AbstractLineClientException;
-import com.linecorp.bot.module.model.ErrorDetail;
 
 import okhttp3.Response;
 
@@ -29,27 +25,7 @@ import okhttp3.Response;
  */
 @SuppressWarnings("serial")
 public class ModuleClientException extends AbstractLineClientException {
-    /**
-     * An error summary.
-     */
-    private final String error;
-
-    /**
-     * Details of the error. Not returned in certain situations.
-     */
-    private final List<ErrorDetail> details;
-
-    public ModuleClientException(Response response, String error, List<ErrorDetail> details) {
-        super(response, "error='" + error + "' details=" + details);
-        this.error = error;
-        this.details = details;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public List<ErrorDetail> getDetails() {
-        return Collections.unmodifiableList(details);
+    public ModuleClientException(Response response) {
+        super(response, "An error occurred.");
     }
 }
