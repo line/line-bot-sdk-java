@@ -16,19 +16,16 @@
 
 package com.linecorp.bot.module.client;
 
-import java.io.IOException;
-
-import com.linecorp.bot.client.base.AbstractExceptionBuilder;
+import com.linecorp.bot.client.base.exception.AbstractLineClientException;
 
 import okhttp3.Response;
 
-public class ModuleExceptionBuilder extends AbstractExceptionBuilder<Object> {
-    public ModuleExceptionBuilder() {
-        super(Object.class);
-    }
-
-    @Override
-    protected IOException buildException(Response response, Object errorBody) {
-        return new ModuleClientException(response);
+/**
+ * An API call exception for module API.
+ */
+@SuppressWarnings("serial")
+public class LineModuleClientException extends AbstractLineClientException {
+    public LineModuleClientException(Response response) {
+        super(response, "An error occurred.");
     }
 }

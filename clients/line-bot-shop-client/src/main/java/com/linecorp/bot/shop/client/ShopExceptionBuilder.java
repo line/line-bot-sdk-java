@@ -30,8 +30,6 @@ public class ShopExceptionBuilder extends AbstractExceptionBuilder<ErrorResponse
 
     @Override
     protected IOException buildException(Response response, ErrorResponse errorBody) {
-        return new ShopClientException(
-                response,
-                errorBody.message(), errorBody.details());
+        return new ShopClientException(response, errorBody.message());
     }
 }

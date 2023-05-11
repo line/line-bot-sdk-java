@@ -16,11 +16,7 @@
 
 package com.linecorp.bot.shop.client;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.linecorp.bot.client.base.exception.AbstractLineClientException;
-import com.linecorp.bot.shop.model.ErrorDetail;
 
 import okhttp3.Response;
 
@@ -34,22 +30,12 @@ public class ShopClientException extends AbstractLineClientException {
      */
     private final String error;
 
-    /**
-     * Details of the error. Not returned in certain situations.
-     */
-    private final List<ErrorDetail> details;
-
-    public ShopClientException(Response response, String error, List<ErrorDetail> details) {
-        super(response, "error='" + error + "' details=" + details);
+    public ShopClientException(Response response, String error) {
+        super(response, "error='" + error);
         this.error = error;
-        this.details = details;
     }
 
     public String getError() {
         return error;
-    }
-
-    public List<ErrorDetail> getDetails() {
-        return Collections.unmodifiableList(details);
     }
 }

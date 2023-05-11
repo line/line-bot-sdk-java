@@ -29,7 +29,7 @@ import com.linecorp.bot.insight.client.InsightClient;
 import com.linecorp.bot.liff.client.LiffClient;
 import com.linecorp.bot.messaging.client.MessagingApiBlobClient;
 import com.linecorp.bot.messaging.client.MessagingApiClient;
-import com.linecorp.bot.module.client.ModuleClient;
+import com.linecorp.bot.module.client.LineModuleClient;
 import com.linecorp.bot.moduleattach.client.LineModuleAttachClient;
 import com.linecorp.bot.oauth.client.ChannelAccessTokenClient;
 import com.linecorp.bot.shop.client.ShopClient;
@@ -182,10 +182,10 @@ public class LineBotAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ModuleClient moduleClient(
+    public LineModuleClient moduleClient(
             final ChannelTokenSupplier channelTokenSupplier
     ) {
-        return ModuleClient
+        return LineModuleClient
                 .builder(channelTokenSupplier)
                 .apiEndPoint(lineBotProperties.apiEndPoint())
                 .connectTimeout(lineBotProperties.connectTimeout())
