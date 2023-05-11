@@ -7,9 +7,12 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.openapitools.codegen.CodegenDiscriminator;
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenOperation;
 import org.openapitools.codegen.CodegenParameter;
@@ -94,14 +97,6 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
             // and put @JsonTypeName annotation.
             if (codegenModel.parent != null) {
                 addImplements(codegenModel, codegenModel.parent);
-
-                String name = codegenModel.name.replace(codegenModel.parent, "");
-                if (codegenModel.parent.equals("FlexComponent") || codegenModel.parent.equals("FlexContainer")) {
-                    // Flex related components are prefixed.
-                    name = name.replace("Flex", "");
-                }
-                name = name.equals("URI") ? "uri" : lowerFirst(name);
-                codegenModel.getVendorExtensions().put("x-javatypename", name);
             }
 
             // Implements ReplyEvent if the class has "replyToken" field.
@@ -126,9 +121,36 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
         return modelsMap;
     }
 
-    private String lowerFirst(String name) {
-        String lower = name.toLowerCase();
-        return lower.charAt(0) + name.substring(1);
+    @Override
+    public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
+        final Map<String, ModelsMap> processed = super.postProcessAllModels(objs);
+
+        for (Map.Entry<String, ModelsMap> entry : processed.entrySet()) {
+            entry.setValue(postProcessModelsMap(entry.getValue()));
+        }
+
+        return processed;
+    }
+
+    private ModelsMap postProcessModelsMap(ModelsMap objs) {
+        for (ModelMap m : objs.getModels()) {
+            CodegenModel codegenModel = m.getModel();
+            if (codegenModel.parentModel != null) {
+                String name = mappingName(codegenModel.name, codegenModel.parentModel.getDiscriminator());
+                codegenModel.getVendorExtensions().put("x-javatypename", name);
+            }
+        }
+
+        return objs;
+    }
+
+    private String mappingName(String modelName, CodegenDiscriminator discriminator) {
+        String valueToSearch = "#/components/schemas/" + modelName;
+        return discriminator.getMapping().entrySet().stream()
+                .filter(entry -> valueToSearch.equals(entry.getValue()))
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Key not found (" + modelName + ") mapping (" + discriminator.getMapping() + ")"));
     }
 
     private String indent4(String s) {
