@@ -39,8 +39,8 @@ dependencyResolutionManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 // core components
-include("line-bot-parser")
 include("line-bot-jackson")
+include("line-bot-parser")
 
 // openapi based webhook
 include("line-bot-webhook")
@@ -51,6 +51,8 @@ include("clients:line-bot-insight-client")
 include("clients:line-bot-manage-audience-client")
 include("clients:line-bot-messaging-api-client")
 include("clients:line-bot-module-attach-client")
+include("clients:line-bot-module-client")
+include("clients:line-bot-shop-client")
 include("clients:line-channel-access-token-client")
 include("clients:line-liff-client")
 
@@ -61,10 +63,10 @@ include("spring-boot:line-bot-spring-boot-web")
 include("spring-boot:line-bot-spring-boot-webmvc")
 
 // samples
+include("samples:sample-manage-audience")
 include("samples:sample-spring-boot-echo")
 include("samples:sample-spring-boot-echo-kotlin")
 include("samples:sample-spring-boot-kitchensink")
-include("samples:sample-manage-audience")
 
 // integration test
 include("line-bot-integration-test")

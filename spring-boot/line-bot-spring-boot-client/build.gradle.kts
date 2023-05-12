@@ -24,13 +24,14 @@ dependencies {
     annotationProcessor(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 
     api(project(":clients:line-bot-client-base"))
-    api(project(":clients:line-liff-client"))
     api(project(":clients:line-bot-insight-client"))
-    api(project(":clients:line-channel-access-token-client"))
     api(project(":clients:line-bot-manage-audience-client"))
     api(project(":clients:line-bot-messaging-api-client"))
     api(project(":clients:line-bot-module-attach-client"))
-    api(project(":clients:line-bot-client-base"))
+    api(project(":clients:line-bot-module-client"))
+    api(project(":clients:line-bot-shop-client"))
+    api(project(":clients:line-channel-access-token-client"))
+    api(project(":clients:line-liff-client"))
 
     implementation("org.springframework.boot:spring-boot-autoconfigure")
     implementation("org.springframework.boot:spring-boot-starter")
