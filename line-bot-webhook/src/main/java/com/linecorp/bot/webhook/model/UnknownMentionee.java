@@ -16,5 +16,5 @@
 
 package com.linecorp.bot.webhook.model;
 
-public record UnknownMentionee(String userId) implements Source {
+public record UnknownMentionee(String userId) implements Mentionee {
 }
