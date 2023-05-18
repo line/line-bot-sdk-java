@@ -13,7 +13,7 @@ jobs:
   test:
     name: test (JDK ${{ matrix.java }})
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
