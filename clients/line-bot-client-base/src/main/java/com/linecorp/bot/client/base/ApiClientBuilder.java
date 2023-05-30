@@ -87,7 +87,7 @@ public class ApiClientBuilder<T> {
      */
     private List<Interceptor> additionalInterceptors = new ArrayList<>();
 
-    private Proxy proxy = null;
+    private Proxy proxy;
 
     /**
      * API Endpoint.
