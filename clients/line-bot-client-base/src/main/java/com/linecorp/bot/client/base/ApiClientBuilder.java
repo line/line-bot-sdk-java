@@ -18,6 +18,7 @@ package com.linecorp.bot.client.base;
 
 import static java.util.Objects.requireNonNull;
 
+import java.net.Proxy;
 import java.net.URI;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -86,6 +87,8 @@ public class ApiClientBuilder<T> {
      */
     private List<Interceptor> additionalInterceptors = new ArrayList<>();
 
+    private Proxy proxy = null;
+
     /**
      * API Endpoint.
      */
@@ -135,6 +138,11 @@ public class ApiClientBuilder<T> {
                 .setLevel(Level.BODY);
     }
 
+    public ApiClientBuilder<T> proxy(Proxy proxy) {
+        this.proxy = proxy;
+        return this;
+    }
+
     /**
      * Creates a new Client.
      */
@@ -159,6 +167,10 @@ public class ApiClientBuilder<T> {
                 throw this.exceptionBuilder.build(response);
             }
         });
+
+        if (this.proxy != null) {
+            okHttpClientBuilder.proxy(this.proxy);
+        }
 
         final Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .addConverterFactory(BotAwareJacksonConverter.create(objectMapper));

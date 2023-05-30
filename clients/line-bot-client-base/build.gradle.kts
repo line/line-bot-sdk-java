@@ -30,5 +30,7 @@ dependencies {
     compileOnly(libs.jackson.annotations)
     implementation(libs.jackson.datatype.jsr310)
 
+    testImplementation(libs.wiremock)
     testImplementation(libs.bundles.tests)
+    testImplementation(libs.socks.proxy.server)
 }
