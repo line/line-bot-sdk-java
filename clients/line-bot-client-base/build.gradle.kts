@@ -33,4 +33,5 @@ dependencies {
     testImplementation(libs.wiremock)
     testImplementation(libs.bundles.tests)
     testImplementation(libs.socks.proxy.server)
+    testImplementation(libs.littleproxy)
 }

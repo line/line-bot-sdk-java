@@ -31,6 +31,8 @@ import java.util.concurrent.CompletableFuture;
 
 import org.bbottema.javasocksproxyserver.SocksServer;
 import org.junit.jupiter.api.Test;
+import org.littleshoot.proxy.HttpProxyServer;
+import org.littleshoot.proxy.impl.DefaultHttpProxyServer;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
@@ -102,6 +104,46 @@ class ApiClientBuilderTest {
         assertThat(client.get().join().body().message).isEqualTo("OK");
 
         wireMockServer.stop();
+    }
+
+    @Test
+    void httpProxy() {
+        int httpProxyPort = 9080;
+
+        HttpProxyServer proxyServer =
+                DefaultHttpProxyServer.bootstrap()
+                        .withPort(httpProxyPort)
+                        .start();
+
+        WireMockServer wireMockServer = new WireMockServer(wireMockConfig().dynamicPort());
+        wireMockServer.start();
+        WireMock.configureFor("localhost", wireMockServer.port());
+
+        stubFor(get(urlPathTemplate("/")).willReturn(
+                aResponse()
+                        .withStatus(200)
+                        .withHeader("content-type", "application/json")
+                        .withBody("{\"message\":\"OK\"}")));
+
+        ApiClientBuilder<MyClient> apiClientBuilder = new ApiClientBuilder<>(
+                URI.create(wireMockServer.baseUrl()),
+                MyClient.class,
+                new AbstractExceptionBuilder<>(MyErrorResponse.class) {
+                    @Override
+                    protected IOException buildException(Response response, MyErrorResponse errorBody) {
+                        return new MyClientException();
+                    }
+                });
+
+        MyClient client = apiClientBuilder.proxy(new Proxy(
+                        Proxy.Type.HTTP,
+                        new InetSocketAddress("127.0.0.1", httpProxyPort)
+                ))
+                .build();
+        assertThat(client.get().join().body().message).isEqualTo("OK");
+
+        wireMockServer.stop();
+        proxyServer.stop();
     }
 
     public interface MyClient {
