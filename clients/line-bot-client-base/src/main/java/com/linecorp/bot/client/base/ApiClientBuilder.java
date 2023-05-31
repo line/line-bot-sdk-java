@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.client.base.http.HttpAuthenticator;
 import com.linecorp.bot.client.base.http.HttpChain;
 import com.linecorp.bot.client.base.http.HttpInterceptor;
 import com.linecorp.bot.client.base.http.HttpResponse;
@@ -89,6 +90,8 @@ public class ApiClientBuilder<T> {
 
     private Proxy proxy;
 
+    private HttpAuthenticator proxyAuthenticator;
+
     /**
      * API Endpoint.
      */
@@ -143,6 +146,11 @@ public class ApiClientBuilder<T> {
         return this;
     }
 
+    public ApiClientBuilder<T> proxyAuthenticator(HttpAuthenticator proxyAuthenticator) {
+        this.proxyAuthenticator = proxyAuthenticator;
+        return this;
+    }
+
     /**
      * Creates a new Client.
      */
@@ -170,6 +178,12 @@ public class ApiClientBuilder<T> {
 
         if (this.proxy != null) {
             okHttpClientBuilder.proxy(this.proxy);
+        }
+
+        if (this.proxyAuthenticator != null) {
+            okHttpClientBuilder.proxyAuthenticator((route, response) ->
+                    this.proxyAuthenticator.authenticate(new HttpResponse(response))
+                            .toOkHttpRequest());
         }
 
         final Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
