@@ -160,7 +160,7 @@ class ApiClientBuilderTest {
 
     @SuppressWarnings("serial")
     public static class MyClientException extends IOException {
-        public MyClientException() {
+        MyClientException() {
         }
     }
 }
