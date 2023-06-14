@@ -239,17 +239,17 @@ public class ApiClientBuilder<T> {
 
     @Override
     public String toString() {
-        return "ApiClientBuilder{" +
-                "objectMapper=" + objectMapper +
-                ", clientClass=" + clientClass +
-                ", exceptionBuilder=" + exceptionBuilder +
-                ", apiEndPoint=" + apiEndPoint +
-                ", connectTimeout=" + connectTimeout +
-                ", readTimeout=" + readTimeout +
-                ", writeTimeout=" + writeTimeout +
-                ", additionalInterceptors=" + additionalInterceptors +
-                ", maxRequests=" + maxRequests +
-                ", maxRequestsPerHost=" + maxRequestsPerHost +
-                '}';
+        return "ApiClientBuilder{"
+                + "objectMapper=" + objectMapper
+                + ", clientClass=" + clientClass
+                + ", exceptionBuilder=" + exceptionBuilder
+                + ", apiEndPoint=" + apiEndPoint
+                + ", connectTimeout=" + connectTimeout
+                + ", readTimeout=" + readTimeout
+                + ", writeTimeout=" + writeTimeout
+                + ", additionalInterceptors=" + additionalInterceptors
+                + ", maxRequests=" + maxRequests
+                + ", maxRequestsPerHost=" + maxRequestsPerHost
+                + '}';
     }
 }
