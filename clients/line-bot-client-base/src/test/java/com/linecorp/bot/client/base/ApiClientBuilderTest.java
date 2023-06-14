@@ -22,6 +22,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -37,6 +39,8 @@ import org.littleshoot.proxy.impl.DefaultHttpProxyServer;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
+import okhttp3.Dispatcher;
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import retrofit2.http.GET;
 
@@ -162,5 +166,38 @@ class ApiClientBuilderTest {
     public static class MyClientException extends IOException {
         MyClientException() {
         }
+    }
+
+    interface Foo {
+    }
+
+    @Test
+    void maxRequests() {
+        OkHttpClient.Builder builder = spy(OkHttpClient.Builder.class);
+        Dispatcher dispatcher = spy(Dispatcher.class);
+
+        ApiClientBuilder<Foo> apiClientBuilder = new ApiClientBuilder<>(URI.create("https://example.com"), Foo.class, new ExceptionBuilder() {
+            @Override
+            public IOException build(Response response) {
+                return null;
+            }
+        }) {
+            @Override
+            OkHttpClient.Builder createBuilder() {
+                return builder;
+            }
+
+            @Override
+            Dispatcher createDispatcher() {
+                return dispatcher;
+            }
+        };
+        apiClientBuilder.maxRequests(40)
+                .maxRequestsPerHost(30)
+                .build();
+
+        verify(dispatcher).setMaxRequests(40);
+        verify(dispatcher).setMaxRequestsPerHost(30);
+        verify(builder).dispatcher(dispatcher);
     }
 }
