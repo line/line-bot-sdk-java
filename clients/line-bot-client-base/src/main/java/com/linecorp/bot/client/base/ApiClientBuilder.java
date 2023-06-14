@@ -36,6 +36,7 @@ import com.linecorp.bot.client.base.http.HttpInterceptor;
 import com.linecorp.bot.client.base.http.HttpResponse;
 import com.linecorp.bot.jackson.ModelObjectMapper;
 
+import okhttp3.Dispatcher;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -92,6 +93,10 @@ public class ApiClientBuilder<T> {
 
     private HttpAuthenticator proxyAuthenticator;
 
+    private Integer maxRequests = 64;
+
+    private Integer maxRequestsPerHost = 5;
+
     /**
      * API Endpoint.
      */
@@ -134,6 +139,25 @@ public class ApiClientBuilder<T> {
         return this;
     }
 
+    /**
+     * The maximum number of requests to execute concurrently.
+     * Default: 64
+     */
+    public ApiClientBuilder<T> maxRequests(Integer maxRequests) {
+        this.maxRequests = maxRequests;
+        return this;
+    }
+
+    /**
+     * The maximum number of requests for each host to execute concurrently.
+     * Default: 5
+     */
+    // https://square.github.io/okhttp/4.x/okhttp/okhttp3/-dispatcher/max-requests-per-host/
+    public ApiClientBuilder<T> maxRequestsPerHost(Integer maxRequestsPerHost) {
+        this.maxRequestsPerHost = maxRequestsPerHost;
+        return this;
+    }
+
     private static Interceptor buildLoggingInterceptor() {
         final Logger slf4jLogger = LoggerFactory.getLogger("com.linecorp.bot.client.wire");
 
@@ -151,11 +175,21 @@ public class ApiClientBuilder<T> {
         return this;
     }
 
+    // visible for testing
+    OkHttpClient.Builder createBuilder() {
+        return new OkHttpClient.Builder();
+    }
+
+    // visible for testing
+    Dispatcher createDispatcher() {
+        return new Dispatcher();
+    }
+
     /**
      * Creates a new Client.
      */
     public T build() {
-        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
+        OkHttpClient.Builder okHttpClientBuilder = createBuilder();
         additionalInterceptors.forEach(okHttpClientBuilder::addInterceptor);
         okHttpClientBuilder.addInterceptor(buildLoggingInterceptor());
 
@@ -164,6 +198,12 @@ public class ApiClientBuilder<T> {
                 .connectTimeout(connectTimeout)
                 .readTimeout(readTimeout)
                 .writeTimeout(writeTimeout);
+
+        // configure dispatcher
+        Dispatcher dispatcher = createDispatcher();
+        dispatcher.setMaxRequests(maxRequests);
+        dispatcher.setMaxRequestsPerHost(maxRequestsPerHost);
+        okHttpClientBuilder.dispatcher(dispatcher);
 
         // Error handling.
         okHttpClientBuilder.addInterceptor(chain -> {
@@ -197,13 +237,19 @@ public class ApiClientBuilder<T> {
         return retrofit.create(clientClass);
     }
 
+    @Override
     public String toString() {
-        return "ApiClientBuilder(clientClass=" + this.clientClass
-                + ", apiEndPoint=" + this.apiEndPoint
-                + ", connectTimeout=" + this.connectTimeout
-                + ", readTimeout=" + this.readTimeout
-                + ", writeTimeout=" + this.writeTimeout
-                + ", additionalInterceptors=" + this.additionalInterceptors
-                + ")";
+        return "ApiClientBuilder{"
+                + "objectMapper=" + objectMapper
+                + ", clientClass=" + clientClass
+                + ", exceptionBuilder=" + exceptionBuilder
+                + ", apiEndPoint=" + apiEndPoint
+                + ", connectTimeout=" + connectTimeout
+                + ", readTimeout=" + readTimeout
+                + ", writeTimeout=" + writeTimeout
+                + ", additionalInterceptors=" + additionalInterceptors
+                + ", maxRequests=" + maxRequests
+                + ", maxRequestsPerHost=" + maxRequestsPerHost
+                + '}';
     }
 }
