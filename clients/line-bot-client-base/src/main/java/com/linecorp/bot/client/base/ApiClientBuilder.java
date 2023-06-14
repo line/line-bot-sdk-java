@@ -18,6 +18,7 @@ package com.linecorp.bot.client.base;
 
 import static java.util.Objects.requireNonNull;
 
+import java.net.Proxy;
 import java.net.URI;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.linecorp.bot.client.base.http.HttpAuthenticator;
 import com.linecorp.bot.client.base.http.HttpChain;
 import com.linecorp.bot.client.base.http.HttpInterceptor;
 import com.linecorp.bot.client.base.http.HttpResponse;
@@ -86,6 +88,10 @@ public class ApiClientBuilder<T> {
      */
     private List<Interceptor> additionalInterceptors = new ArrayList<>();
 
+    private Proxy proxy;
+
+    private HttpAuthenticator proxyAuthenticator;
+
     /**
      * API Endpoint.
      */
@@ -135,6 +141,16 @@ public class ApiClientBuilder<T> {
                 .setLevel(Level.BODY);
     }
 
+    public ApiClientBuilder<T> proxy(Proxy proxy) {
+        this.proxy = proxy;
+        return this;
+    }
+
+    public ApiClientBuilder<T> proxyAuthenticator(HttpAuthenticator proxyAuthenticator) {
+        this.proxyAuthenticator = proxyAuthenticator;
+        return this;
+    }
+
     /**
      * Creates a new Client.
      */
@@ -159,6 +175,16 @@ public class ApiClientBuilder<T> {
                 throw this.exceptionBuilder.build(response);
             }
         });
+
+        if (this.proxy != null) {
+            okHttpClientBuilder.proxy(this.proxy);
+        }
+
+        if (this.proxyAuthenticator != null) {
+            okHttpClientBuilder.proxyAuthenticator((route, response) ->
+                    this.proxyAuthenticator.authenticate(new HttpResponse(response))
+                            .toOkHttpRequest());
+        }
 
         final Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .addConverterFactory(BotAwareJacksonConverter.create(objectMapper));

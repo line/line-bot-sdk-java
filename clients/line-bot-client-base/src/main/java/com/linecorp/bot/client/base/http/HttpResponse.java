@@ -55,4 +55,8 @@ public class HttpResponse {
         }
         return new HttpResponseBody(body);
     }
+
+    public HttpRequest request() {
+        return new HttpRequest(this.response.request());
+    }
 }

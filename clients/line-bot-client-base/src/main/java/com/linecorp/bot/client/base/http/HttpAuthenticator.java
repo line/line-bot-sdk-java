@@ -14,24 +14,8 @@
  * under the License.
  */
 
-plugins {
-    id("sdk.java-library")
-    id("sdk.publish")
-}
+package com.linecorp.bot.client.base.http;
 
-dependencies {
-    implementation(project(":line-bot-jackson"))
-
-    implementation(libs.okhttp3)
-    implementation(libs.slf4j.api)
-    implementation(libs.okhttp3.logging.interceptor)
-    implementation(libs.bundles.retrofit2)
-
-    compileOnly(libs.jackson.annotations)
-    implementation(libs.jackson.datatype.jsr310)
-
-    testImplementation(libs.wiremock)
-    testImplementation(libs.bundles.tests)
-    testImplementation(libs.socks.proxy.server)
-    testImplementation(libs.littleproxy)
+public interface HttpAuthenticator {
+    HttpRequest authenticate(HttpResponse response);
 }

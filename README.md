@@ -4,11 +4,10 @@
 [![javadoc](https://javadoc.io/badge2/com.linecorp.bot/line-bot-model/javadoc.svg)](https://javadoc.io/doc/com.linecorp.bot/line-bot-model)
 [![codecov](https://codecov.io/gh/line/line-bot-sdk-java/branch/master/graph/badge.svg)](https://codecov.io/gh/line/line-bot-sdk-java)
 
-
 ## Introduction
 
-The LINE Messaging API SDK for Java makes it easy to develop bots using LINE Messaging API, and you can create a sample bot within minutes.
-
+The LINE Messaging API SDK for Java makes it easy to develop bots using LINE Messaging API, and you can create a sample
+bot within minutes.
 
 ## Documentation
 
@@ -17,11 +16,9 @@ See the official API documentation for more information.
 - English: https://developers.line.biz/en/docs/messaging-api/overview/
 - Japanese: https://developers.line.biz/ja/docs/messaging-api/overview/
 
-
 ## Requirements
 
 This library requires Java 17 or later.
-
 
 ## Installation
 
@@ -33,15 +30,14 @@ https://central.sonatype.com/search?smo=true&q=com.linecorp.bot
 
 This project contains the following modules:
 
- * line-bot-api-client: API client library for the Messaging API
- * line-bot-model: Model classes for the Messaging API
- * line-bot-spring-boot: Spring Boot auto configuration library for bot servers
+* line-bot-api-client: API client library for the Messaging API
+* line-bot-model: Model classes for the Messaging API
+* line-bot-spring-boot: Spring Boot auto configuration library for bot servers
 
 This project contains the following sample projects:
 
- * sample-spring-boot-echo: A simple echo server.
- * sample-spring-boot-kitchensink: Full featured sample code.
-
+* sample-spring-boot-echo: A simple echo server.
+* sample-spring-boot-kitchensink: Full featured sample code.
 
 ## Spring Boot integration
 
@@ -82,10 +78,17 @@ public class EchoApplication {
 
 ## How do I use a proxy server?
 
-You can use `LineMessagingServiceBuilder` to configure a proxy server. It accepts your own OkHttpBuilder instance.
+You can use a proxy with this module.
 
-Note: You don't need to use an add-on like Fixie to have static IP addresses for proxy servers. You can make API calls without entering IP addresses on the server IP whitelist.
+        api = MessagingApiClient.builder("MY_OWN_TOKEN")
+                .apiEndPoint(URI.create("https://api.line.me/"))
+                .proxy(new Proxy(Proxy.Type.HTTP,
+                        new InetSocketAddress("proxy.example.com", 8080)
+                ))
+                .build();
 
+Note: You don't need to use an add-on like Fixie to have static IP addresses for proxy servers. You can make API calls
+without entering IP addresses on the server IP whitelist.
 
 ## Help and media
 
@@ -96,7 +99,6 @@ Community Q&A: https://www.line-community.me/questions
 News: https://developers.line.biz/en/news/
 
 Twitter: [@LINE_DEV](https://twitter.com/LINE_DEV)
-
 
 ## Versioning
 
@@ -113,15 +115,15 @@ As a result, LINE bot sdk 7.x is not compatible with 6.x. But it can follow the 
 - `line-bot-servlet` is no longer supported.
 - `line-bot-cli` is no longer supported.
 - `line-bot-spring-boot` was splitted.
-  - Splitted to following modules.
-    - `line-bot-spring-boot-client` is a client bean configuraion module.
-      - If you want to write spring-boot API client,
-    - `line-bot-spring-boot-handler` is a handler configuration.
-      - You don't need to depend this explicitly.
-    - `line-bot-spring-boot-web` is a spring-web binding.
-      - You don't need to depend this explicitly.
-    - `line-bot-spring-boot-web` is a spring-webmvc binding.
-      - **usually, you want to depend on this module.**
+    - Splitted to following modules.
+        - `line-bot-spring-boot-client` is a client bean configuraion module.
+            - If you want to write spring-boot API client,
+        - `line-bot-spring-boot-handler` is a handler configuration.
+            - You don't need to depend this explicitly.
+        - `line-bot-spring-boot-web` is a spring-web binding.
+            - You don't need to depend this explicitly.
+        - `line-bot-spring-boot-web` is a spring-webmvc binding.
+            - **usually, you want to depend on this module.**
 
 ## Version 5.x and 6.x
 
@@ -132,10 +134,12 @@ As a result, line-bot-sdk-java maintainers maintain two maintenance lines until 
 - line-bot-sdk-java 6.x supports Spring Boot 3.x and Jakarta EE, Java 17+(Branch: master).
 - line-bot-sdk-java 5.x supports Spring Boot 2.x and Java EE, Java 8+(branch: maint/5.x).
 
-Spring Boot 2.x is scheduled for retirement on 2023/11/18. This means that line-bot-sdk-java 5.x will be retired on 2023/11/18.
+Spring Boot 2.x is scheduled for retirement on 2023/11/18. This means that line-bot-sdk-java 5.x will be retired on
+2023/11/18.
 https://endoflife.date/spring-boot
 
-We will add new features to line-bot-sdk-java 6.x. But if you send us a backport patch for maint/5.x branch, we might apply it :)
+We will add new features to line-bot-sdk-java 6.x. But if you send us a backport patch for maint/5.x branch, we might
+apply it :)
 
 ## Contributing
 
