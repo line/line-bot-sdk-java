@@ -21,28 +21,51 @@ package com.linecorp.bot.client.base;
 import java.io.File;
 
 public interface UploadFile {
-
     /**
      * Upload file from String.
      */
+    static StringUploadFile fromString(String src, String contentType) {
+        return new StringUploadFile(src, contentType);
+    }
+
+    /**
+     * Upload file from String.
+     * content-type is hard-coded as `text/plain`.
+     *
+     * @deprecated use `fromString(String, String)` instead.
+     */
+    @Deprecated
     static StringUploadFile fromString(String src) {
-        return new StringUploadFile(src);
+        return new StringUploadFile(src, "text/plain");
     }
 
     /**
      * Upload file from File.
      */
+    static FileUploadFile fromFile(File src, String contentType) {
+        return new FileUploadFile(src, contentType);
+    }
+
+    /**
+     * Upload file from File.
+     * content-type is hard-coded as `text/plain`.
+     *
+     * @deprecated use `fromFile(File, String)` instead.
+     */
+    @Deprecated
     static FileUploadFile fromFile(File src) {
-        return new FileUploadFile(src);
+        return new FileUploadFile(src, "text/plain");
     }
 
     record StringUploadFile(
-            String src
+            String src,
+            String contentType
     ) implements UploadFile {
     }
 
     record FileUploadFile(
-            File src
+            File src,
+            String contentType
     ) implements UploadFile {
     }
 }
