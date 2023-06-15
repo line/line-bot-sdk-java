@@ -137,7 +137,7 @@ public class ManageAudienceController {
 
         return blobClient.createAudienceForUploadingUserIds(
                 description, isIfaAudience, uploadDescription,
-                UploadFile.fromFile(convFile)
+                UploadFile.fromFile(convFile, "text/plain")
         ).thenApply(
                 result -> new RedirectView("/manage_audience/" + result.body().audienceGroupId())
         ).whenComplete((a, b) -> {
@@ -259,7 +259,7 @@ public class ManageAudienceController {
 
         return blobClient.addUserIdsToAudience(
                 audienceGroupId, uploadDescription,
-                UploadFile.fromFile(convFile)
+                UploadFile.fromFile(convFile, "text/plain")
         ).thenApply(
                 it -> new RedirectView("/manage_audience/" + audienceGroupId)
         ).whenComplete((a, b) -> {

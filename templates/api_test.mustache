@@ -87,7 +87,7 @@ public class {{classname}}Test {
 
         {{#allParams}}
         {{#isFile}}
-            UploadFile {{paramName}} = UploadFile.fromString("HELLO_FILE");
+            UploadFile {{paramName}} = UploadFile.fromString("HELLO_FILE", "text/plain");
         {{/isFile}}
         {{^isFile}}
             {{{dataType}}} {{paramName}} = Arranger.some({{dataType}}.class{{#mockMessage}}, Map.of("message", () -> new TextMessage("hello"), "recipient", () -> null, "filter", () -> null){{/mockMessage}});
