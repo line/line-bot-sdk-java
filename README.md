@@ -122,7 +122,7 @@ As a result, LINE bot sdk 7.x is not compatible with 6.x. But it can follow the 
             - You don't need to depend this explicitly.
         - `line-bot-spring-boot-web` is a spring-web binding.
             - You don't need to depend this explicitly.
-        - `line-bot-spring-boot-web` is a spring-webmvc binding.
+        - `line-bot-spring-boot-webmvc` is a spring-webmvc binding.
             - **usually, you want to depend on this module.**
 
 ## Version 5.x and 6.x
