@@ -22,8 +22,7 @@ jobs:
           submodules: recursive
       - name: Update submodules
         run: git submodule update --remote --recursive
-      - uses: actions/checkout@v3
-        run: |
+      - run: |
           echo "CURRENT_DATETIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
           git config user.name github-actions
           git config user.email github-actions@github.com
