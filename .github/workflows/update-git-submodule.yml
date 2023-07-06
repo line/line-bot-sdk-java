@@ -23,13 +23,13 @@ jobs:
       - name: Update submodules
         run: git submodule update --remote --recursive
       - run: |
-          echo "CURRENT_DATETIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+          CURRENT_DATETIME=$(date +'%Y%m%d%H%M%S')
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git checkout -b update-diff-${{ env.CURRENT_DATETIME }}
+          git checkout -b update-diff-$CURRENT_DATETIME
           git add .
           git commit -m "Update line-openapi"
-          git push origin update-diff-${{ env.CURRENT_DATETIME }}
+          git push origin update-diff-$CURRENT_DATETIME
           gh pr create -B ${{ github.ref_name }} --title "Update line-openapi" --body ""
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
