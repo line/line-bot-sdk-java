@@ -1,0 +1,36 @@
+# Definition of GitHub Actions.
+# Designed to working both LINE's and forked repository.
+#
+# Note:
+#  Memory:
+#    VM Spec = 2core, 7G RAM. as of 2019-10. https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions
+#    There are possiblity that speed up build by setting xmx manually. But using default now.
+#  Gradle Deamon:
+#    Disabled via appending ~/.gradle/gradle.properties
+name: Update line-openapi manually
+on:
+  workflow_dispatch
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Setup
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Update submodules
+        run: git submodule update --remote --recursive
+      - uses: actions/checkout@v3
+        run: |
+          echo "CURRENT_DATETIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b update-diff-${{ env.CURRENT_DATETIME }}
+          git add .
+          git commit -m "Update line-openapi"
+          git push origin update-diff-${{ env.CURRENT_DATETIME }}
+          gh pr create -B ${{ github.ref_name }} --title "Update line-openapi" --body ""
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
