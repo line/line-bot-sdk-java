@@ -122,9 +122,11 @@ Here's a brief summary of the current status of each version:
 | --- | --- | --- | --- | --- |
 | 7.x | May 18, 2023 | Active Development | TBD | TBD |
 | 6.x | February 6, 2023 | Maintenance Phase | May 18, 2023 | November 18, 2023 |
-| 5.x | August 4, 2022 | EOL | February 6, 2023 | November 18, 2023 |
+| 5.x | August 4, 2022 | Maintenance Phase(※) | February 6, 2023 | November 18, 2023 |
 
 "Active Development Until" indicates when the version will transition into the maintenance phase, while "End of Life Date" indicates when the version will no longer be supported.
+
+※: Exceptionally extended deadline
 
 ## Version 7.x
 
