@@ -56,7 +56,7 @@ spring-test = { module = "org.springframework:spring-test", version = "6.0.11" }
 wiremock = { group = "com.github.tomakehurst", name = "wiremock", version = "3.0.0-beta-10" }
 test-arranger = { module = "com.ocadotechnology.gembus:test-arranger", version = "1.5.7.1" }
 socks-proxy-server = { module = "com.github.bbottema:java-socks-proxy-server", version = "2.0.0" }
-littleproxy = { module = "xyz.rogfam:littleproxy", version = "2.0.18" }
+littleproxy = { module = "xyz.rogfam:littleproxy", version = "2.0.19" }
 
 [bundles]
 retrofit2 = ["retrofit2-converter-jackson", "retrofit2-retrofit"]
