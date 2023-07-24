@@ -86,5 +86,6 @@ public interface {{classname}} {
         return new ApiClientBuilder<>(URI.create("{{#lambda.endpoint}}{{classname}}{{/lambda.endpoint}}"), {{classname}}.class, new {{#lambda.exceptionbuilderclassname}}{{classname}}{{/lambda.exceptionbuilderclassname}}());
     }
 {{/authenticated}}
+{{#lambda.injectbody}}{{classname}}{{/lambda.injectbody}}
 }
 {{/operations}}

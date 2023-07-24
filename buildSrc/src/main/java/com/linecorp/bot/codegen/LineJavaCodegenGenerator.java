@@ -107,18 +107,27 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
             }
 
             // fill src/main/resources/body/*.java to the body of the class.
-            try (InputStream inputStream = getClass().getClassLoader()
-                    .getResourceAsStream("body/" + codegenModel.name + ".java")) {
-                if (inputStream != null) {
-                    String src = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-                    codegenModel.vendorExtensions.put("x-body", indent4(src));
-                }
-            } catch (IOException e) {
-                // do nothing.
-            }
+            String body = readPartialBody("body/model/" + codegenModel.name + ".java");
+            codegenModel.vendorExtensions.put("x-body", body);
         }
 
         return modelsMap;
+    }
+
+    private String readPartialBody(String path) {
+        // fill src/main/resources/body/*.java to the body of the class.
+        try (InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream(path)) {
+            if (inputStream != null) {
+                System.out.println("Partial body file found: " + path);
+                String src = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+                return indent4(src);
+            }
+        } catch (IOException e) {
+            // do nothing.
+        }
+        System.out.println("Partial body file NOT found: " + path);
+        return null;
     }
 
     @Override
@@ -203,6 +212,13 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
                                     .replace("Client", "")
                                     + "ExceptionBuilder"
                     );
+                })
+                .put("injectbody", (fragment, writer) -> {
+                    String text = fragment.execute();
+                    String body = readPartialBody("body/api/" + text + ".java");
+                    if (body != null) {
+                        writer.write(body);
+                    }
                 });
     }
 
