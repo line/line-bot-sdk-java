@@ -31,8 +31,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.google.common.io.ByteStreams;
-
 import com.linecorp.bot.webhook.model.CallbackRequest;
 import com.linecorp.bot.webhook.model.Event;
 import com.linecorp.bot.webhook.model.MessageEvent;
@@ -88,7 +86,7 @@ public class WebhookParserTest {
     public void testCallRequest() throws Exception {
         final InputStream resource = getClass().getClassLoader().getResourceAsStream(
                 "callback-request.json");
-        final byte[] payload = ByteStreams.toByteArray(resource);
+        final byte[] payload = resource.readAllBytes();
 
         when(signatureValidator.validateSignature(payload, "SSSSIGNATURE")).thenReturn(true);
 
