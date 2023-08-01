@@ -53,7 +53,7 @@ mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.
 spring-test = { module = "org.springframework:spring-test", version = "6.0.11" }
 # https://github.com/wiremock/wiremock/issues/1760
 wiremock = { group = "com.github.tomakehurst", name = "wiremock", version = "3.0.0-beta-10" }
-test-arranger = { module = "com.ocadotechnology.gembus:test-arranger", version = "1.5.7.1" }
+test-arranger = { module = "com.ocadotechnology.gembus:test-arranger", version = "1.5.9" }
 socks-proxy-server = { module = "com.github.bbottema:java-socks-proxy-server", version = "2.0.0" }
 littleproxy = { module = "xyz.rogfam:littleproxy", version = "2.0.19" }
 
