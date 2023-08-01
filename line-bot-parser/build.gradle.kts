@@ -26,6 +26,5 @@ dependencies {
     implementation(libs.jackson.databind)
     implementation(libs.slf4j.api)
 
-    testImplementation(libs.guava)
     testImplementation(libs.bundles.tests)
 }
