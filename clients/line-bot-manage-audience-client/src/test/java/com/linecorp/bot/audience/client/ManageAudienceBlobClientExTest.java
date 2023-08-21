@@ -29,7 +29,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 import java.net.URI;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,8 +40,6 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
-import com.linecorp.bot.audience.model.AddAudienceToAudienceGroupRequest;
-import com.linecorp.bot.audience.model.Audience;
 import com.linecorp.bot.client.base.UploadFile;
 
 @ExtendWith(MockitoExtension.class)
