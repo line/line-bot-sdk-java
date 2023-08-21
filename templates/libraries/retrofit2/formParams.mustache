@@ -1,4 +1,4 @@
 {{#isFormParam}}
     {{^isFile}}{{#isMultipart}}@Part{{/isMultipart}}{{^isMultipart}}@Field{{/isMultipart}}("{{baseName}}") {{{dataType}}} {{paramName}}{{/isFile}}
-    {{#isFile}}{{#isMultipart}}@Part("{{baseName}}"){{/isMultipart}}{{^isMultipart}}@Field("{{baseName}}"){{/isMultipart}} UploadFile {{paramName}}{{/isFile}}
+    {{#isFile}}{{#isMultipart}}@Part("{{baseName}}\"; filename=\"{{baseName}}"){{/isMultipart}}{{^isMultipart}}@Field("{{baseName}}"){{/isMultipart}} UploadFile {{paramName}}{{/isFile}}
 {{/isFormParam}}
