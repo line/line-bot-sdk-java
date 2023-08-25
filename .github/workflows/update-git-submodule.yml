@@ -30,6 +30,6 @@ jobs:
           git add .
           git commit -m "Update line-openapi"
           git push origin update-diff-$CURRENT_DATETIME
-          gh pr create -B ${{ github.ref_name }} --title "Update line-openapi" --body ""
+          gh pr create -B ${{ github.ref_name }} --title "Update line-openapi" --body "" --label "line-openapi-update"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
