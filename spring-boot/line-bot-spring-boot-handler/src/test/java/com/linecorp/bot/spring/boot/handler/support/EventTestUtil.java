@@ -41,6 +41,8 @@ public final class EventTestUtil {
                         "id",
                         text,
                         null,
+                        null,
+                        null,
                         null
                 )
         );

@@ -64,6 +64,7 @@ import com.linecorp.bot.messaging.model.MessageAction;
 import com.linecorp.bot.messaging.model.MessageImagemapAction;
 import com.linecorp.bot.messaging.model.PostbackAction;
 import com.linecorp.bot.messaging.model.ReplyMessageRequest;
+import com.linecorp.bot.messaging.model.ReplyMessageResponse;
 import com.linecorp.bot.messaging.model.RoomMemberCountResponse;
 import com.linecorp.bot.messaging.model.Sender;
 import com.linecorp.bot.messaging.model.StickerMessage;
@@ -316,7 +317,7 @@ public class KitchenSinkController {
         try {
             Objects.requireNonNull(replyToken, "replyToken");
             Objects.requireNonNull(messages, "messages");
-            Result<Void> apiResponse = messagingApiClient
+            Result<ReplyMessageResponse> apiResponse = messagingApiClient
                     .replyMessage(new ReplyMessageRequest(replyToken, messages, notificationDisabled))
                     .get();
             log.info("Sent messages: {}", apiResponse);
@@ -634,6 +635,7 @@ public class KitchenSinkController {
                             null,
                             new Sender("Cat", createUri("/static/icon/cat.png")),
                             "Hello, I'm cat! Meow~",
+                            null,
                             null));
             default -> {
                 log.info("Returns echo message {}: {}", replyToken, text);

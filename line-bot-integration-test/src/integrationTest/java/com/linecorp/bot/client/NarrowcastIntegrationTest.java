@@ -90,7 +90,7 @@ public class NarrowcastIntegrationTest {
     }
 
     private void testNarrowcast(NarrowcastRequest narrowcast) throws Exception {
-        Result<Void> response = target.narrowcast(null, narrowcast).get();
+        Result<Object> response = target.narrowcast(null, narrowcast).get();
         log.info("Narrowcast response={}", response);
         for (int i = 0; i < 10; i++) {
             NarrowcastProgressResponse progressResponse = target.getNarrowcastProgress(

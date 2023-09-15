@@ -32,10 +32,10 @@ class MessageContentArgumentResolverTest {
         var resolver = new MessageContentArgumentResolver(TextMessageContent.class);
         assertThat(resolver.isSupported(
                 new MessageEvent(null, null, null, null, null, null,
-                        new TextMessageContent("aaa", "bbb", null, null)))).isTrue();
+                        new TextMessageContent("aaa", "bbb", null, null, null, null)))).isTrue();
         assertThat(resolver.isSupported(
                 new MessageEvent(null, null, null, null, null, null,
-                        new ImageMessageContent("aaa", null, null)))).isFalse();
+                        new ImageMessageContent("aaa", null, null, null)))).isFalse();
         assertThat(resolver.isSupported(
                 new MemberJoinedEvent(null, null, null, null, null, null,
                         null))).isFalse();
@@ -44,7 +44,7 @@ class MessageContentArgumentResolverTest {
     @Test
     void resolve() {
         var resolver = new MessageContentArgumentResolver(TextMessageContent.class);
-        TextMessageContent textMessageContent = new TextMessageContent("aaa", "bbb", null, null);
+        TextMessageContent textMessageContent = new TextMessageContent("aaa", "bbb", null, null, null, null);
         assertThat(resolver.resolve(
                 "AAAA", new MessageEvent(
                         null, null, null, null, null, null,
