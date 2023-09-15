@@ -58,7 +58,7 @@ public class InsightIntegrationTest {
         checkNumberOfFollowersForNarrowcast();
 
         // Send narrowcast message.
-        Result<Void> result = messagingApiClient.narrowcast(
+        Result<Object> result = messagingApiClient.narrowcast(
                 null, new NarrowcastRequest(
                         List.of(new TextMessage("Narrowcast test(gender=male)")),
                         null,

@@ -31,6 +31,7 @@ import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.messaging.client.MessagingApiClient;
 import com.linecorp.bot.messaging.model.Message;
 import com.linecorp.bot.messaging.model.ReplyMessageRequest;
+import com.linecorp.bot.messaging.model.ReplyMessageResponse;
 import com.linecorp.bot.webhook.model.Event;
 import com.linecorp.bot.webhook.model.ReplyEvent;
 
@@ -103,7 +104,7 @@ class ReplyByReturnValueConsumer implements Consumer<Object> {
         // DO NOT BLOCK HERE, otherwise, next message processing will be BLOCKED.
     }
 
-    private void logging(final Result<Void> unused, final Throwable throwable) {
+    private void logging(final Result<ReplyMessageResponse> unused, final Throwable throwable) {
         if (throwable == null) {
             log.debug("Reply message success");
         } else {

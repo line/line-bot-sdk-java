@@ -1,3 +1,3 @@
 public TextMessage(String text) {
-    this(null, null, text, null);
+    this(null, null, text, null, null);
 }

@@ -49,6 +49,6 @@ public class MessageWithQuickReplySupplier implements Supplier<Message> {
 
         final QuickReply quickReply = new QuickReply(items);
 
-        return new TextMessage(quickReply, null, "Message with QuickReply", null);
+        return new TextMessage(quickReply, null, "Message with QuickReply", null, null);
     }
 }
