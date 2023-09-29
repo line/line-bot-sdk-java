@@ -46,7 +46,7 @@ junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", vers
 json-path = { module = "com.jayway.jsonpath:json-path", version.ref = "json-path" }
 json-path-assert = { module = "com.jayway.jsonpath:json-path-assert", version.ref = "json-path" }
 jsonassert = { module = "org.skyscreamer:jsonassert", version = "1.5.1" }
-commons-io = { module = "commons-io:commons-io", version = "2.13.0" }
+commons-io = { module = "commons-io:commons-io", version = "2.14.0" }
 reflections = { module = "org.reflections:reflections", version = "0.10.2" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
