@@ -1,0 +1,5 @@
+src/main/java/com/linecorp/bot/module/client/LineModuleClient.java
+src/main/java/com/linecorp/bot/module/model/AcquireChatControlRequest.java
+src/main/java/com/linecorp/bot/module/model/DetachModuleRequest.java
+src/main/java/com/linecorp/bot/module/model/GetModulesResponse.java
+src/main/java/com/linecorp/bot/module/model/ModuleBot.java

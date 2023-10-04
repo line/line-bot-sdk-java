@@ -19,8 +19,3 @@ plugins {
     id("sdk.publish")
 }
 
-openApiGenerate {
-    inputSpec.set("$rootDir/line-openapi/channel-access-token.yml")
-    apiPackage.set("com.linecorp.bot.oauth.client")
-    modelPackage.set("com.linecorp.bot.oauth.model")
-}

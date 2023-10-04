@@ -19,10 +19,3 @@ plugins {
     id("sdk.publish")
 }
 
-openApiGenerate {
-    inputSpec.set("$rootDir/line-openapi/messaging-api.yml")
-    apiPackage.set("com.linecorp.bot.messaging.client")
-    modelPackage.set("com.linecorp.bot.messaging.model")
-
-    additionalProperties.put("mockMessage", "true")
-}

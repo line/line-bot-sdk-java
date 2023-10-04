@@ -16,8 +16,6 @@
 
 plugins {
     id("sdk.java-library")
-    // https://openapi-generator.tech/docs/plugins/
-    id("org.openapi.generator")
     id("sdk.publish")
 }
 
@@ -26,49 +24,10 @@ dependencies {
     compileOnly(libs.jackson.annotations)
     compileOnly(libs.javax.annotation)
     compileOnly(libs.jakarta.annotation.api)
+    api(libs.retrofit2.retrofit)
 
     testImplementation(libs.bundles.tests)
     testImplementation(libs.jackson.databind)
-}
-
-openApiGenerate {
-    generatorName.set("line-java-codegen")
-    inputSpec.set("$rootDir/line-openapi/webhook.yml")
-    outputDir.set("$buildDir/generated")
-    modelPackage.set("com.linecorp.bot.webhook.model")
-
-    globalProperties.set(mapOf(
-        // "debugModels" to "",
-        "supportingFiles" to "",
-        "models" to "",
-        "modelDocs" to "false",
-        "modelTests" to "false",
-    ))
-
-    additionalProperties.set(mapOf(
-        "dateLibrary" to "java8",
-        "templateDir" to "$rootDir/templates",
-        "openApiNullable" to "false",
-    ))
-}
-
-tasks {
-    val openApiGenerate by getting
-
-    compileJava {
-        dependsOn(openApiGenerate)
-    }
-}
-
-tasks.named<Jar>("sourcesJar") {
-    dependsOn(tasks.named("openApiGenerate"))
-}
-
-sourceSets {
-    getByName("main") {
-        java {
-            srcDir("$buildDir/generated/src/main/java")
-        }
-    }
+    testImplementation(libs.wiremock)
 }
 

@@ -19,8 +19,3 @@ plugins {
     id("sdk.publish")
 }
 
-openApiGenerate {
-    inputSpec.set("$rootDir/line-openapi/shop.yml")
-    apiPackage.set("com.linecorp.bot.shop.client")
-    modelPackage.set("com.linecorp.bot.shop.model")
-}
