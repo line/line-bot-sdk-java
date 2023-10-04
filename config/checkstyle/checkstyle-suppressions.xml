@@ -31,4 +31,7 @@
 
   <!-- integrationTest contains long sentence -->
   <suppress checks="LineLength" files="[\\/]integrationTest[\\/]" />
+
+  <!-- openapi generated code -->
+  <suppress checks=".*" files="[\\/](client|model)[\\/]" />
 </suppressions>

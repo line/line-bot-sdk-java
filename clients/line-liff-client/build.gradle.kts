@@ -20,8 +20,3 @@ plugins {
     id("sdk.publish")
 }
 
-openApiGenerate {
-    inputSpec.set("$rootDir/line-openapi/liff.yml")
-    apiPackage.set("com.linecorp.bot.liff.client")
-    modelPackage.set("com.linecorp.bot.liff.model")
-}

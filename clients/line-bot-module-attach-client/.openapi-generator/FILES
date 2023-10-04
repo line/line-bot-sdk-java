@@ -1,0 +1,2 @@
+src/main/java/com/linecorp/bot/moduleattach/client/LineModuleAttachClient.java
+src/main/java/com/linecorp/bot/moduleattach/model/AttachModuleResponse.java

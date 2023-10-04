@@ -1,0 +1,3 @@
+src/main/java/com/linecorp/bot/shop/client/ShopClient.java
+src/main/java/com/linecorp/bot/shop/model/ErrorResponse.java
+src/main/java/com/linecorp/bot/shop/model/MissionStickerRequest.java

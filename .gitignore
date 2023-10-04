@@ -60,3 +60,4 @@ integration_test_settings.yml
 
 # Mac
 .DS_Store
+bin/

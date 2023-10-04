@@ -20,8 +20,3 @@ plugins {
     id("sdk.publish")
 }
 
-openApiGenerate {
-    inputSpec.set("$rootDir/line-openapi/manage-audience.yml")
-    apiPackage.set("com.linecorp.bot.audience.client")
-    modelPackage.set("com.linecorp.bot.audience.model")
-}

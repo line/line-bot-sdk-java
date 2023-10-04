@@ -1,0 +1,10 @@
+src/main/java/com/linecorp/bot/liff/client/LiffClient.java
+src/main/java/com/linecorp/bot/liff/model/AddLiffAppRequest.java
+src/main/java/com/linecorp/bot/liff/model/AddLiffAppResponse.java
+src/main/java/com/linecorp/bot/liff/model/GetAllLiffAppsResponse.java
+src/main/java/com/linecorp/bot/liff/model/LiffApp.java
+src/main/java/com/linecorp/bot/liff/model/LiffBotPrompt.java
+src/main/java/com/linecorp/bot/liff/model/LiffFeatures.java
+src/main/java/com/linecorp/bot/liff/model/LiffScope.java
+src/main/java/com/linecorp/bot/liff/model/LiffView.java
+src/main/java/com/linecorp/bot/liff/model/UpdateLiffAppRequest.java

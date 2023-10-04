@@ -18,9 +18,3 @@ plugins {
     id("sdk.openapi")
     id("sdk.publish")
 }
-
-openApiGenerate {
-    inputSpec.set("$rootDir/line-openapi/insight.yml")
-    apiPackage.set("com.linecorp.bot.insight.client")
-    modelPackage.set("com.linecorp.bot.insight.model")
-}
