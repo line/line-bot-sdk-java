@@ -36,40 +36,42 @@ import com.linecorp.bot.messaging.model.Action;
 import java.net.URI;
 
 
-
 /**
  * QuickReplyItem
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record QuickReplyItem (
-    /**
-     * URL of the icon that is displayed at the beginning of the button
-     */
+/**
+    * URL of the icon that is displayed at the beginning of the button
+    */
+    
 
     @JsonProperty("imageUrl")
     URI imageUrl,
-    /**
-     * Get action
-     */
+/**
+    * Get action
+    */
+    
 
     @JsonProperty("action")
     Action action,
-    /**
-     * &#x60;action&#x60;
-     */
+/**
+    * &#x60;action&#x60;
+    */
+    
 
     @JsonProperty("type")
     String type
+
 )  {
 
-
-
-    public QuickReplyItem(Action action) {
-        this(null, action, "action");
-    }
-    public QuickReplyItem(URI imageUrl, Action action) {
-        this(imageUrl, action, "action");
-    }
+public QuickReplyItem(Action action) {
+    this(null, action, "action");
+}
+public QuickReplyItem(URI imageUrl, Action action) {
+    this(imageUrl, action, "action");
 }
 
+}

@@ -36,35 +36,37 @@ import com.linecorp.bot.webhook.model.ContentProvider;
 import com.linecorp.bot.webhook.model.MessageContent;
 
 
-
 /**
  * AudioMessageContent
  */
 @JsonTypeName("audio")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AudioMessageContent (
-    /**
-     * Message ID
-     */
+/**
+    * Message ID
+    */
+    
 
     @JsonProperty("id")
     String id,
-    /**
-     * Get contentProvider
-     */
+/**
+    * Get contentProvider
+    */
+    
 
     @JsonProperty("contentProvider")
     ContentProvider contentProvider,
-    /**
-     * Length of audio file (milliseconds)
-     */
+/**
+    * Length of audio file (milliseconds)
+    */
+    
 
     @JsonProperty("duration")
     Long duration
-) implements MessageContent  {
 
+) implements MessageContent {
 
 
 }
-

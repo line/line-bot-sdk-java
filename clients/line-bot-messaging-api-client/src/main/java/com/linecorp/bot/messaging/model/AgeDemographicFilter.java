@@ -36,28 +36,30 @@ import com.linecorp.bot.messaging.model.AgeDemographic;
 import com.linecorp.bot.messaging.model.DemographicFilter;
 
 
-
 /**
  * AgeDemographicFilter
  */
 @JsonTypeName("age")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AgeDemographicFilter (
-    /**
-     * Get gte
-     */
+/**
+    * Get gte
+    */
+    
 
     @JsonProperty("gte")
     AgeDemographic gte,
-    /**
-     * Get lt
-     */
+/**
+    * Get lt
+    */
+    
 
     @JsonProperty("lt")
     AgeDemographic lt
-) implements DemographicFilter  {
+
+) implements DemographicFilter {
 
 
 }
-

@@ -35,72 +35,75 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.Action;
 
 
-
 /**
  * PostbackAction
  */
 @JsonTypeName("postback")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record PostbackAction (
-    /**
-     * Label for the action.
-     */
+/**
+    * Label for the action.
+    */
+    
 
     @JsonProperty("label")
     String label,
-    /**
-     * Get data
-     */
+/**
+    * Get data
+    */
+    
 
     @JsonProperty("data")
     String data,
-    /**
-     * Get displayText
-     */
+/**
+    * Get displayText
+    */
+    
 
     @JsonProperty("displayText")
     String displayText,
-    /**
-     * Get text
-     */
+/**
+    * Get text
+    */
+    
 
     @JsonProperty("text")
     String text,
-    /**
-     * Get inputOption
-     */
+/**
+    * Get inputOption
+    */
+    
 
     @JsonProperty("inputOption")
     InputOption inputOption,
-    /**
-     * Get fillInText
-     */
+/**
+    * Get fillInText
+    */
+    
 
     @JsonProperty("fillInText")
     String fillInText
-) implements Action  {
 
-
-
-
-    /**
+) implements Action {
+/**
      * Gets or Sets inputOption
      */
     public enum InputOption {
-      @JsonProperty("closeRichMenu")
+@JsonProperty("closeRichMenu")
       CLOSERICHMENU,
-      @JsonProperty("openRichMenu")
+    @JsonProperty("openRichMenu")
       OPENRICHMENU,
-      @JsonProperty("openKeyboard")
+    @JsonProperty("openKeyboard")
       OPENKEYBOARD,
-      @JsonProperty("openVoice")
+    @JsonProperty("openVoice")
       OPENVOICE,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

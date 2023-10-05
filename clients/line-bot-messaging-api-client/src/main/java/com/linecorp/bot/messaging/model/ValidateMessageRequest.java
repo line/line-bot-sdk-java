@@ -38,20 +38,22 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * ValidateMessageRequest
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ValidateMessageRequest (
-    /**
-     * Array of message objects to validate
-     */
+/**
+    * Array of message objects to validate
+    */
+    
 
     @JsonProperty("messages")
     List<Message> messages
+
 )  {
 
-}
 
+}

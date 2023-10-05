@@ -34,13 +34,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * ModuleContent
  */
 @JsonSubTypes({
+
         @JsonSubTypes.Type(value = AttachedModuleContent.class, name = "attached"),
+
         @JsonSubTypes.Type(value = DetachedModuleContent.class, name = "detached"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -52,4 +54,3 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public interface ModuleContent {
 
 }
-

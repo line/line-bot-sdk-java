@@ -35,21 +35,23 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.FlexComponent;
 
 
-
 /**
  * FlexFiller
  */
 @JsonTypeName("filler")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexFiller (
-    /**
-     * Get flex
-     */
+/**
+    * Get flex
+    */
+    
 
     @JsonProperty("flex")
     Integer flex
-) implements FlexComponent  {
+
+) implements FlexComponent {
+
 
 }
-

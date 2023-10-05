@@ -34,27 +34,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Job status
  */
 public enum AudienceGroupJobStatus {
-  
+
+    
     @JsonProperty("QUEUED")
   QUEUED,
-  
+    
     @JsonProperty("WORKING")
   WORKING,
-  
+    
     @JsonProperty("FINISHED")
   FINISHED,
-  
+    
     @JsonProperty("FAILED")
   FAILED,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

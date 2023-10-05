@@ -35,13 +35,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.ImagemapArea;
 
 
-
 /**
  * ImagemapAction
  */
 @JsonSubTypes({
+
         @JsonSubTypes.Type(value = MessageImagemapAction.class, name = "message"),
+
         @JsonSubTypes.Type(value = URIImagemapAction.class, name = "uri"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -52,6 +54,4 @@ import com.linecorp.bot.messaging.model.ImagemapArea;
 )
 public interface ImagemapAction {
 
-
 }
-

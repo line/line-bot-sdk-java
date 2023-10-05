@@ -35,46 +35,49 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.net.URI;
 
 
-
 /**
  * Provider of the media file.
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ContentProvider (
-    /**
-     * Provider of the image file.
-     */
+/**
+    * Provider of the image file.
+    */
+    
 
     @JsonProperty("type")
     Type type,
-    /**
-     * URL of the image file. Only included when contentProvider.type is external.
-     */
+/**
+    * URL of the image file. Only included when contentProvider.type is external.
+    */
+    
 
     @JsonProperty("originalContentUrl")
     URI originalContentUrl,
-    /**
-     * URL of the preview image. Only included when contentProvider.type is external.
-     */
+/**
+    * URL of the preview image. Only included when contentProvider.type is external.
+    */
+    
 
     @JsonProperty("previewImageUrl")
     URI previewImageUrl
+
 )  {
-    /**
+/**
      * Provider of the image file.
      */
     public enum Type {
-      @JsonProperty("line")
+@JsonProperty("line")
       LINE,
-      @JsonProperty("external")
+    @JsonProperty("external")
       EXTERNAL,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
-
 }
-

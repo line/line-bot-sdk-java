@@ -34,15 +34,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Template
  */
 @JsonSubTypes({
+
         @JsonSubTypes.Type(value = ButtonsTemplate.class, name = "buttons"),
+
         @JsonSubTypes.Type(value = CarouselTemplate.class, name = "carousel"),
+
         @JsonSubTypes.Type(value = ConfirmTemplate.class, name = "confirm"),
+
         @JsonSubTypes.Type(value = ImageCarouselTemplate.class, name = "image_carousel"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -54,4 +58,3 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public interface Template {
 
 }
-

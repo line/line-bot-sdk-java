@@ -34,39 +34,39 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Gets or Sets AgeDemographic
  */
 public enum AgeDemographic {
-  
+
+    
     @JsonProperty("age_15")
   AGE_15,
-  
+    
     @JsonProperty("age_20")
   AGE_20,
-  
+    
     @JsonProperty("age_25")
   AGE_25,
-  
+    
     @JsonProperty("age_30")
   AGE_30,
-  
+    
     @JsonProperty("age_35")
   AGE_35,
-  
+    
     @JsonProperty("age_40")
   AGE_40,
-  
+    
     @JsonProperty("age_45")
   AGE_45,
-  
+    
     @JsonProperty("age_50")
   AGE_50,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

@@ -39,28 +39,30 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * ConfirmTemplate
  */
 @JsonTypeName("confirm")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ConfirmTemplate (
-    /**
-     * Get text
-     */
+/**
+    * Get text
+    */
+    
 
     @JsonProperty("text")
     String text,
-    /**
-     * Get actions
-     */
+/**
+    * Get actions
+    */
+    
 
     @JsonProperty("actions")
     List<Action> actions
-) implements Template  {
+
+) implements Template {
 
 
 }
-

@@ -36,27 +36,29 @@ import com.linecorp.bot.messaging.model.Action;
 import com.linecorp.bot.messaging.model.RichMenuBounds;
 
 
-
 /**
  * Rich menu area
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuArea (
-    /**
-     * Get bounds
-     */
+/**
+    * Get bounds
+    */
+    
 
     @JsonProperty("bounds")
     RichMenuBounds bounds,
-    /**
-     * Get action
-     */
+/**
+    * Get action
+    */
+    
 
     @JsonProperty("action")
     Action action
+
 )  {
 
 
 }
-

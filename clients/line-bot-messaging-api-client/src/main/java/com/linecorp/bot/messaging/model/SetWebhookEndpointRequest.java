@@ -35,20 +35,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.net.URI;
 
 
-
 /**
  * SetWebhookEndpointRequest
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record SetWebhookEndpointRequest (
-    /**
-     * A valid webhook URL.
-     */
+/**
+    * A valid webhook URL.
+    */
+    
 
     @JsonProperty("endpoint")
     URI endpoint
+
 )  {
 
-}
 
+}

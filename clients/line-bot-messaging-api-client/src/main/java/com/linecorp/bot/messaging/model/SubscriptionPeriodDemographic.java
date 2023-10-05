@@ -34,30 +34,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Gets or Sets SubscriptionPeriodDemographic
  */
 public enum SubscriptionPeriodDemographic {
-  
+
+    
     @JsonProperty("day_7")
   DAY_7,
-  
+    
     @JsonProperty("day_30")
   DAY_30,
-  
+    
     @JsonProperty("day_90")
   DAY_90,
-  
+    
     @JsonProperty("day_180")
   DAY_180,
-  
+    
     @JsonProperty("day_365")
   DAY_365,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

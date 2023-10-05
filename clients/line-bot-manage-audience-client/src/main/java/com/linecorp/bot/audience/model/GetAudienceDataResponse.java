@@ -39,27 +39,29 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * Get audience data
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetAudienceDataResponse (
-    /**
-     * Get audienceGroup
-     */
+/**
+    * Get audienceGroup
+    */
+    
 
     @JsonProperty("audienceGroup")
     AudienceGroup audienceGroup,
-    /**
-     * An array of jobs. This array is used to keep track of each attempt to add new user IDs or IFAs to an audience for uploading user IDs. Empty array is returned for any other type of audience. Max: 50 
-     */
+/**
+    * An array of jobs. This array is used to keep track of each attempt to add new user IDs or IFAs to an audience for uploading user IDs. Empty array is returned for any other type of audience. Max: 50 
+    */
+    
 
     @JsonProperty("jobs")
     List<AudienceGroupJob> jobs
+
 )  {
 
 
 }
-

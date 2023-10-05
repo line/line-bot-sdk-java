@@ -40,34 +40,36 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * Response object for &#x60;get statistics per unit&#x60;
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetStatisticsPerUnitResponse (
-    /**
-     * Get overview
-     */
+/**
+    * Get overview
+    */
+    
 
     @JsonProperty("overview")
     GetStatisticsPerUnitResponseOverview overview,
-    /**
-     * Array of information about individual message bubbles.
-     */
+/**
+    * Array of information about individual message bubbles.
+    */
+    
 
     @JsonProperty("messages")
     List<GetStatisticsPerUnitResponseMessage> messages,
-    /**
-     * Array of information about opened URLs in the message.
-     */
+/**
+    * Array of information about opened URLs in the message.
+    */
+    
 
     @JsonProperty("clicks")
     List<GetStatisticsPerUnitResponseClick> clicks
+
 )  {
 
 
-
 }
-

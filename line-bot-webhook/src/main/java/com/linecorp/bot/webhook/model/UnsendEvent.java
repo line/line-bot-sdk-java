@@ -39,56 +39,58 @@ import com.linecorp.bot.webhook.model.Source;
 import com.linecorp.bot.webhook.model.UnsendDetail;
 
 
-
 /**
  * Event object for when the user unsends a message.
  */
 @JsonTypeName("unsend")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record UnsendEvent (
-    /**
-     * Get source
-     */
+/**
+    * Get source
+    */
+    
 
     @JsonProperty("source")
     Source source,
-    /**
-     * Time of the event in milliseconds.
-     */
+/**
+    * Time of the event in milliseconds.
+    */
+    
 
     @JsonProperty("timestamp")
     Long timestamp,
-    /**
-     * Get mode
-     */
+/**
+    * Get mode
+    */
+    
 
     @JsonProperty("mode")
     EventMode mode,
-    /**
-     * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
-     */
+/**
+    * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
+    */
+    
 
     @JsonProperty("webhookEventId")
     String webhookEventId,
-    /**
-     * Get deliveryContext
-     */
+/**
+    * Get deliveryContext
+    */
+    
 
     @JsonProperty("deliveryContext")
     DeliveryContext deliveryContext,
-    /**
-     * Get unsend
-     */
+/**
+    * Get unsend
+    */
+    
 
     @JsonProperty("unsend")
     UnsendDetail unsend
-) implements Event  {
 
-
-
-
+) implements Event {
 
 
 }
-

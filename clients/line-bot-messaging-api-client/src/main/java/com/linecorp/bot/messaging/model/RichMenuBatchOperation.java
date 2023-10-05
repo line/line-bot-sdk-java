@@ -34,14 +34,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Rich menu operation object represents the batch operation to the rich menu linked to the user.
  */
 @JsonSubTypes({
+
         @JsonSubTypes.Type(value = RichMenuBatchLinkOperation.class, name = "link"),
+
         @JsonSubTypes.Type(value = RichMenuBatchUnlinkOperation.class, name = "unlink"),
+
         @JsonSubTypes.Type(value = RichMenuBatchUnlinkAllOperation.class, name = "unlinkAll"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -53,4 +56,3 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public interface RichMenuBatchOperation {
 
 }
-

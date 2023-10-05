@@ -44,63 +44,65 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * ImagemapMessage
  */
 @JsonTypeName("imagemap")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ImagemapMessage (
-    /**
-     * Get quickReply
-     */
+/**
+    * Get quickReply
+    */
+    
 
     @JsonProperty("quickReply")
     QuickReply quickReply,
-    /**
-     * Get sender
-     */
+/**
+    * Get sender
+    */
+    
 
     @JsonProperty("sender")
     Sender sender,
-    /**
-     * Get baseUrl
-     */
+/**
+    * Get baseUrl
+    */
+    
 
     @JsonProperty("baseUrl")
     URI baseUrl,
-    /**
-     * Get altText
-     */
+/**
+    * Get altText
+    */
+    
 
     @JsonProperty("altText")
     String altText,
-    /**
-     * Get baseSize
-     */
+/**
+    * Get baseSize
+    */
+    
 
     @JsonProperty("baseSize")
     ImagemapBaseSize baseSize,
-    /**
-     * Get actions
-     */
+/**
+    * Get actions
+    */
+    
 
     @JsonProperty("actions")
     List<ImagemapAction> actions,
-    /**
-     * Get video
-     */
+/**
+    * Get video
+    */
+    
 
     @JsonProperty("video")
     ImagemapVideo video
-) implements Message  {
 
-
-
-
-
+) implements Message {
 
 
 }
-

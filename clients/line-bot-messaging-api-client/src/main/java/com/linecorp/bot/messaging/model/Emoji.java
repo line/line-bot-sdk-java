@@ -34,34 +34,36 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Emoji
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record Emoji (
-    /**
-     * Get index
-     */
+/**
+    * Get index
+    */
+    
 
     @JsonProperty("index")
     Integer index,
-    /**
-     * Get productId
-     */
+/**
+    * Get productId
+    */
+    
 
     @JsonProperty("productId")
     String productId,
-    /**
-     * Get emojiId
-     */
+/**
+    * Get emojiId
+    */
+    
 
     @JsonProperty("emojiId")
     String emojiId
+
 )  {
 
 
-
 }
-

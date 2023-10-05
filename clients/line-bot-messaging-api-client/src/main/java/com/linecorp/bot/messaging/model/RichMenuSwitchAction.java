@@ -35,35 +35,37 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.Action;
 
 
-
 /**
  * RichMenuSwitchAction
  */
 @JsonTypeName("richmenuswitch")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuSwitchAction (
-    /**
-     * Label for the action.
-     */
+/**
+    * Label for the action.
+    */
+    
 
     @JsonProperty("label")
     String label,
-    /**
-     * Get data
-     */
+/**
+    * Get data
+    */
+    
 
     @JsonProperty("data")
     String data,
-    /**
-     * Get richMenuAliasId
-     */
+/**
+    * Get richMenuAliasId
+    */
+    
 
     @JsonProperty("richMenuAliasId")
     String richMenuAliasId
-) implements Action  {
 
+) implements Action {
 
 
 }
-

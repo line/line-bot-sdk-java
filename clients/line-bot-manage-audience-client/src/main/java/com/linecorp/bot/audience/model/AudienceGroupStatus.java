@@ -34,33 +34,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Status
  */
 public enum AudienceGroupStatus {
-  
+
+    
     @JsonProperty("IN_PROGRESS")
   IN_PROGRESS,
-  
+    
     @JsonProperty("READY")
   READY,
-  
+    
     @JsonProperty("FAILED")
   FAILED,
-  
+    
     @JsonProperty("EXPIRED")
   EXPIRED,
-  
+    
     @JsonProperty("INACTIVE")
   INACTIVE,
-  
+    
     @JsonProperty("ACTIVATING")
   ACTIVATING,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

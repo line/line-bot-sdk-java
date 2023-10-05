@@ -34,41 +34,43 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * ImagemapArea
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ImagemapArea (
-    /**
-     * Get x
-     */
+/**
+    * Get x
+    */
+    
 
     @JsonProperty("x")
     Integer x,
-    /**
-     * Get y
-     */
+/**
+    * Get y
+    */
+    
 
     @JsonProperty("y")
     Integer y,
-    /**
-     * Get width
-     */
+/**
+    * Get width
+    */
+    
 
     @JsonProperty("width")
     Integer width,
-    /**
-     * Get height
-     */
+/**
+    * Get height
+    */
+    
 
     @JsonProperty("height")
     Integer height
+
 )  {
 
 
-
-
 }
-

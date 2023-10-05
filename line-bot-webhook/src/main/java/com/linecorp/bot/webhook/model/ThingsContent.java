@@ -34,14 +34,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * ThingsContent
  */
 @JsonSubTypes({
+
         @JsonSubTypes.Type(value = LinkThingsContent.class, name = "link"),
+
         @JsonSubTypes.Type(value = ScenarioResultThingsContent.class, name = "scenarioResult"),
+
         @JsonSubTypes.Type(value = UnlinkThingsContent.class, name = "unlink"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -53,4 +56,3 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public interface ThingsContent {
 
 }
-

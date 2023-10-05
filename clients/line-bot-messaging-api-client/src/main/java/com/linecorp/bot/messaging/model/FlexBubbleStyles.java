@@ -35,41 +35,43 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.FlexBlockStyle;
 
 
-
 /**
  * FlexBubbleStyles
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexBubbleStyles (
-    /**
-     * Get header
-     */
+/**
+    * Get header
+    */
+    
 
     @JsonProperty("header")
     FlexBlockStyle header,
-    /**
-     * Get hero
-     */
+/**
+    * Get hero
+    */
+    
 
     @JsonProperty("hero")
     FlexBlockStyle hero,
-    /**
-     * Get body
-     */
+/**
+    * Get body
+    */
+    
 
     @JsonProperty("body")
     FlexBlockStyle body,
-    /**
-     * Get footer
-     */
+/**
+    * Get footer
+    */
+    
 
     @JsonProperty("footer")
     FlexBlockStyle footer
+
 )  {
 
 
-
-
 }
-

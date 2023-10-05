@@ -35,28 +35,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.Action;
 
 
-
 /**
  * MessageAction
  */
 @JsonTypeName("message")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record MessageAction (
-    /**
-     * Label for the action.
-     */
+/**
+    * Label for the action.
+    */
+    
 
     @JsonProperty("label")
     String label,
-    /**
-     * Get text
-     */
+/**
+    * Get text
+    */
+    
 
     @JsonProperty("text")
     String text
-) implements Action  {
+
+) implements Action {
 
 
 }
-

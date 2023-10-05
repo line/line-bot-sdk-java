@@ -38,45 +38,47 @@ import com.linecorp.bot.messaging.model.Sender;
 import java.net.URI;
 
 
-
 /**
  * ImageMessage
  */
 @JsonTypeName("image")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ImageMessage (
-    /**
-     * Get quickReply
-     */
+/**
+    * Get quickReply
+    */
+    
 
     @JsonProperty("quickReply")
     QuickReply quickReply,
-    /**
-     * Get sender
-     */
+/**
+    * Get sender
+    */
+    
 
     @JsonProperty("sender")
     Sender sender,
-    /**
-     * Get originalContentUrl
-     */
+/**
+    * Get originalContentUrl
+    */
+    
 
     @JsonProperty("originalContentUrl")
     URI originalContentUrl,
-    /**
-     * Get previewImageUrl
-     */
+/**
+    * Get previewImageUrl
+    */
+    
 
     @JsonProperty("previewImageUrl")
     URI previewImageUrl
-) implements Message  {
 
+) implements Message {
 
-
-
-    public ImageMessage(URI originalContentUrl, URI previewImageUrl) {
-        this(null, null, originalContentUrl, previewImageUrl);
-    }
+public ImageMessage(URI originalContentUrl, URI previewImageUrl) {
+    this(null, null, originalContentUrl, previewImageUrl);
 }
 
+}

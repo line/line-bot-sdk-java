@@ -34,27 +34,29 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * LiffFeatures
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record LiffFeatures (
-    /**
-     * &#x60;true&#x60; if the LIFF app supports Bluetooth® Low Energy for LINE Things. &#x60;false&#x60; otherwise. 
-     */
+/**
+    * &#x60;true&#x60; if the LIFF app supports Bluetooth® Low Energy for LINE Things. &#x60;false&#x60; otherwise. 
+    */
+    
 
     @JsonProperty("ble")
     Boolean ble,
-    /**
-     * &#x60;true&#x60; to use the 2D code reader in the LIFF app. false otherwise. The default value is &#x60;false&#x60;. 
-     */
+/**
+    * &#x60;true&#x60; to use the 2D code reader in the LIFF app. false otherwise. The default value is &#x60;false&#x60;. 
+    */
+    
 
     @JsonProperty("qrCode")
     Boolean qrCode
+
 )  {
 
 
 }
-

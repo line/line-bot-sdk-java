@@ -34,41 +34,44 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * AppTypeTile
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AppTypeTile (
-    /**
-     * users&#39; OS
-     */
+/**
+    * users&#39; OS
+    */
+    
 
     @JsonProperty("appType")
     AppType appType,
-    /**
-     * Percentage
-     */
+/**
+    * Percentage
+    */
+    
 
     @JsonProperty("percentage")
     Double percentage
+
 )  {
-    /**
+/**
      * users&#39; OS
      */
     public enum AppType {
-      @JsonProperty("ios")
+@JsonProperty("ios")
       IOS,
-      @JsonProperty("android")
+    @JsonProperty("android")
       ANDROID,
-      @JsonProperty("others")
+    @JsonProperty("others")
       OTHERS,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

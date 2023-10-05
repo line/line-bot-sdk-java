@@ -36,27 +36,29 @@ import com.linecorp.bot.messaging.model.Action;
 import java.net.URI;
 
 
-
 /**
  * ImageCarouselColumn
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ImageCarouselColumn (
-    /**
-     * Get imageUrl
-     */
+/**
+    * Get imageUrl
+    */
+    
 
     @JsonProperty("imageUrl")
     URI imageUrl,
-    /**
-     * Get action
-     */
+/**
+    * Get action
+    */
+    
 
     @JsonProperty("action")
     Action action
+
 )  {
 
 
 }
-

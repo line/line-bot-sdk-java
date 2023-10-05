@@ -1,0 +1,51 @@
+{# @pebvariable name="model" type="org.openapitools.codegen.CodegenModel" -#}
+{# @pebvariable name="generatorClass" type="java.lang.String" -#}
+/**
+ * {{ model.description | escape }}{% if model.description == "" or model.description == null %}{{model.classname}}{% endif %}{% if model.isDeprecated %}
+ * @deprecated{% endif %}
+ */
+{%- if model.isDeprecated -%}
+@Deprecated
+{% endif %}
+{% if model.parentModel != null -%}
+@JsonTypeName("{{ javatype(model) }}")
+{% endif %}
+@JsonInclude(Include.NON_NULL)
+@javax.annotation.Generated(value = "{{generatorClass}}")
+public record {{model.classname}} (
+{% for var in model.allVars -%}
+    /**
+    {% if var.description -%}
+     * {{ var.description | escape }}
+    {% endif -%}
+    {% if not var.description -%}
+     * Get {{ var.name | escape }}
+    {% endif -%}
+    {% if var.minimum -%}
+     * minimum: {{var.minimum}}
+    {% endif -%}
+    {% if var.maximum -%}
+     * maximum: {{var.maximum}}
+    {% endif -%}
+    {% if var.deprecated -%}
+     * @deprecated
+    {% endif -%}
+    {% if var.externalDocs -%}
+     * {{var.externalDocs.description}}
+     * @see <a href="{{var.externalDocs.url}}">{{ var.externalDocs.summary | escape }} Documentation</a>
+    {% endif -%}
+     */
+    {% if var.deprecated %}
+    @Deprecated
+    {% endif %}
+
+    @JsonProperty("{{var.baseName}}")
+    {{var.datatypeWithEnum}} {{var.name}}{% if not loop.last %},{% endif %}
+{% endfor %}
+) {% for impl in model.vendorExtensions.get("x-implements") %}{% if loop.first %}implements {% endif %}{{ impl }}{% if not loop.last %}, {% endif %}{% endfor %} {
+{% import "../macros/model_inner_enum.pebble" -%}
+{% for var in model.allVars -%}
+    {%- if var.isEnum %}{{ model_inner_enum(var) }}{% endif -%}
+{% endfor %}
+{% if ["AudioMessage", "FlexMessage", "ImageMessage", "LocationMessage", "QuickReplyItem", "StickerMessage", "TemplateMessage", "TextMessage", "VideoMessage"] contains model.classname %}{% include "../body/model/" + model.classname + ".java" %}{% endif %}
+}

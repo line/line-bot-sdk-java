@@ -51,12 +51,12 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.3.0</version>
                 <executions>
-                    <execution>
-                        <id>default-jar</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
+                  <execution>
+                    <id>default-jar</id>
+                    <goals>
+                      <goal>jar</goal>
+                    </goals>
+                  </execution>
                 </executions>
                 <configuration>
                 </configuration>
@@ -104,6 +104,19 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-shade-plugin</artifactId>
+              <version>3.5.1</version>
+              <executions>
+                <execution>
+                  <phase>package</phase>
+                  <goals>
+                    <goal>shade</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -122,6 +135,11 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.4.11</version>
+        </dependency>
+        <dependency>
+          <groupId>io.pebbletemplates</groupId>
+          <artifactId>pebble</artifactId>
+          <version>3.2.1</version>
         </dependency>
     </dependencies>
     <properties>

@@ -37,27 +37,29 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * RichMenuBulkLinkRequest
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuBulkLinkRequest (
-    /**
-     * ID of a rich menu
-     */
+/**
+    * ID of a rich menu
+    */
+    
 
     @JsonProperty("richMenuId")
     String richMenuId,
-    /**
-     * Array of user IDs. Found in the &#x60;source&#x60; object of webhook event objects. Do not use the LINE ID used in LINE.
-     */
+/**
+    * Array of user IDs. Found in the &#x60;source&#x60; object of webhook event objects. Do not use the LINE ID used in LINE.
+    */
+    
 
     @JsonProperty("userIds")
     List<String> userIds
+
 )  {
 
 
 }
-

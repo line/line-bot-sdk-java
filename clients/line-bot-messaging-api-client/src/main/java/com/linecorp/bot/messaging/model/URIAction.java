@@ -37,35 +37,37 @@ import com.linecorp.bot.messaging.model.AltUri;
 import java.net.URI;
 
 
-
 /**
  * URIAction
  */
 @JsonTypeName("uri")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record URIAction (
-    /**
-     * Label for the action.
-     */
+/**
+    * Label for the action.
+    */
+    
 
     @JsonProperty("label")
     String label,
-    /**
-     * Get uri
-     */
+/**
+    * Get uri
+    */
+    
 
     @JsonProperty("uri")
     URI uri,
-    /**
-     * Get altUri
-     */
+/**
+    * Get altUri
+    */
+    
 
     @JsonProperty("altUri")
     AltUri altUri
-) implements Action  {
 
+) implements Action {
 
 
 }
-

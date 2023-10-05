@@ -34,27 +34,29 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Error response of the Channel access token
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ErrorResponse (
-    /**
-     * Error summary
-     */
+/**
+    * Error summary
+    */
+    
 
     @JsonProperty("error")
     String error,
-    /**
-     * Details of the error. Not returned in certain situations.
-     */
+/**
+    * Details of the error. Not returned in certain situations.
+    */
+    
 
     @JsonProperty("error_description")
     String errorDescription
+
 )  {
 
 
 }
-

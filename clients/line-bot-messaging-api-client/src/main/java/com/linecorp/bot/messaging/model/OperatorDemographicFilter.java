@@ -38,35 +38,37 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * OperatorDemographicFilter
  */
 @JsonTypeName("operator")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record OperatorDemographicFilter (
-    /**
-     * Get and
-     */
+/**
+    * Get and
+    */
+    
 
     @JsonProperty("and")
     List<DemographicFilter> and,
-    /**
-     * Get or
-     */
+/**
+    * Get or
+    */
+    
 
     @JsonProperty("or")
     List<DemographicFilter> or,
-    /**
-     * Get not
-     */
+/**
+    * Get not
+    */
+    
 
     @JsonProperty("not")
     DemographicFilter not
-) implements DemographicFilter  {
 
+) implements DemographicFilter {
 
 
 }
-

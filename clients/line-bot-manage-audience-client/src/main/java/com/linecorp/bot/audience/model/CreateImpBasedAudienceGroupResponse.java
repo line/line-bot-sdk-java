@@ -35,48 +35,50 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.audience.model.AudienceGroupType;
 
 
-
 /**
  * Create audience for impression-based retargeting
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record CreateImpBasedAudienceGroupResponse (
-    /**
-     * The audience ID.
-     */
+/**
+    * The audience ID.
+    */
+    
 
     @JsonProperty("audienceGroupId")
     Long audienceGroupId,
-    /**
-     * Get type
-     */
+/**
+    * Get type
+    */
+    
 
     @JsonProperty("type")
     AudienceGroupType type,
-    /**
-     * The audience&#39;s name.
-     */
+/**
+    * The audience&#39;s name.
+    */
+    
 
     @JsonProperty("description")
     String description,
-    /**
-     * When the audience was created (in UNIX time).
-     */
+/**
+    * When the audience was created (in UNIX time).
+    */
+    
 
     @JsonProperty("created")
     Long created,
-    /**
-     * The request ID that was specified when the audience was created.
-     */
+/**
+    * The request ID that was specified when the audience was created.
+    */
+    
 
     @JsonProperty("requestId")
     String requestId
+
 )  {
 
 
-
-
-
 }
-

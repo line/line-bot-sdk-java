@@ -37,49 +37,51 @@ import com.linecorp.bot.messaging.model.FlexComponent;
 import java.net.URI;
 
 
-
 /**
  * FlexVideo
  */
 @JsonTypeName("video")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexVideo (
-    /**
-     * Get url
-     */
+/**
+    * Get url
+    */
+    
 
     @JsonProperty("url")
     URI url,
-    /**
-     * Get previewUrl
-     */
+/**
+    * Get previewUrl
+    */
+    
 
     @JsonProperty("previewUrl")
     URI previewUrl,
-    /**
-     * Get altContent
-     */
+/**
+    * Get altContent
+    */
+    
 
     @JsonProperty("altContent")
     FlexComponent altContent,
-    /**
-     * Get aspectRatio
-     */
+/**
+    * Get aspectRatio
+    */
+    
 
     @JsonProperty("aspectRatio")
     String aspectRatio,
-    /**
-     * Get action
-     */
+/**
+    * Get action
+    */
+    
 
     @JsonProperty("action")
     Action action
-) implements FlexComponent  {
 
-
-
+) implements FlexComponent {
 
 
 }
-

@@ -35,28 +35,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.webhook.model.Mentionee;
 
 
-
 /**
  * Mentioned target is entire group
  */
 @JsonTypeName("all")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AllMentionee (
-    /**
-     * Index position of the user mention for a character in text, with the first character being at position 0.
-     */
+/**
+    * Index position of the user mention for a character in text, with the first character being at position 0.
+    */
+    
 
     @JsonProperty("index")
     Integer index,
-    /**
-     * The length of the text of the mentioned user. For a mention @example, 8 is the length.
-     */
+/**
+    * The length of the text of the mentioned user. For a mention @example, 8 is the length.
+    */
+    
 
     @JsonProperty("length")
     Integer length
-) implements Mentionee  {
+
+) implements Mentionee {
 
 
 }
-

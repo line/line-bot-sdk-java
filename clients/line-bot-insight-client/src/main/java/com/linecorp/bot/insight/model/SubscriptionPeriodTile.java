@@ -34,49 +34,52 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * SubscriptionPeriodTile
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record SubscriptionPeriodTile (
-    /**
-     * Subscription period. Possible values: &#x60;within7days&#x60;, &#x60;within90days&#x60;, &#x60;unknown&#x60; etc.
-     */
+/**
+    * Subscription period. Possible values: &#x60;within7days&#x60;, &#x60;within90days&#x60;, &#x60;unknown&#x60; etc.
+    */
+    
 
     @JsonProperty("subscriptionPeriod")
     SubscriptionPeriod subscriptionPeriod,
-    /**
-     * Percentage. Possible values: [0.0,100.0] e.g. 0, 2.9, 37.6.
-     */
+/**
+    * Percentage. Possible values: [0.0,100.0] e.g. 0, 2.9, 37.6.
+    */
+    
 
     @JsonProperty("percentage")
     Double percentage
+
 )  {
-    /**
+/**
      * Subscription period. Possible values: &#x60;within7days&#x60;, &#x60;within90days&#x60;, &#x60;unknown&#x60; etc.
      */
     public enum SubscriptionPeriod {
-      @JsonProperty("within7days")
+@JsonProperty("within7days")
       WITHIN7DAYS,
-      @JsonProperty("within30days")
+    @JsonProperty("within30days")
       WITHIN30DAYS,
-      @JsonProperty("within90days")
+    @JsonProperty("within90days")
       WITHIN90DAYS,
-      @JsonProperty("within180days")
+    @JsonProperty("within180days")
       WITHIN180DAYS,
-      @JsonProperty("within365days")
+    @JsonProperty("within365days")
       WITHIN365DAYS,
-      @JsonProperty("over365days")
+    @JsonProperty("over365days")
       OVER365DAYS,
-      @JsonProperty("unknown")
+    @JsonProperty("unknown")
       UNKNOWN,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

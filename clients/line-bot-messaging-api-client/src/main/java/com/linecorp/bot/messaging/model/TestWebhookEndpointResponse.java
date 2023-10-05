@@ -35,48 +35,50 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.OffsetDateTime;
 
 
-
 /**
  * TestWebhookEndpointResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record TestWebhookEndpointResponse (
-    /**
-     * Result of the communication from the LINE platform to the webhook URL.
-     */
+/**
+    * Result of the communication from the LINE platform to the webhook URL.
+    */
+    
 
     @JsonProperty("success")
     Boolean success,
-    /**
-     * Time of the event in milliseconds. Even in the case of a redelivered webhook, it represents the time the event occurred, not the time it was redelivered. 
-     */
+/**
+    * Time of the event in milliseconds. Even in the case of a redelivered webhook, it represents the time the event occurred, not the time it was redelivered. 
+    */
+    
 
     @JsonProperty("timestamp")
     OffsetDateTime timestamp,
-    /**
-     * The HTTP status code. If the webhook response isn&#39;t received, the status code is set to zero or a negative number.
-     */
+/**
+    * The HTTP status code. If the webhook response isn&#39;t received, the status code is set to zero or a negative number.
+    */
+    
 
     @JsonProperty("statusCode")
     Integer statusCode,
-    /**
-     * Reason for the response.
-     */
+/**
+    * Reason for the response.
+    */
+    
 
     @JsonProperty("reason")
     String reason,
-    /**
-     * Details of the response.
-     */
+/**
+    * Details of the response.
+    */
+    
 
     @JsonProperty("detail")
     String detail
+
 )  {
 
 
-
-
-
 }
-

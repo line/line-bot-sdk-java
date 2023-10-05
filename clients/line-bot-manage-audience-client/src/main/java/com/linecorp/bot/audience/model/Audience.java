@@ -34,20 +34,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Audience
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record Audience (
-    /**
-     * A user ID or IFA. You can specify an empty array.
-     */
+/**
+    * A user ID or IFA. You can specify an empty array.
+    */
+    
 
     @JsonProperty("id")
     String id
+
 )  {
 
-}
 
+}

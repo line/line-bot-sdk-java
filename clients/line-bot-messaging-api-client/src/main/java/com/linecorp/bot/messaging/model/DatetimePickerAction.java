@@ -35,70 +35,73 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.Action;
 
 
-
 /**
  * DatetimePickerAction
  */
 @JsonTypeName("datetimepicker")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record DatetimePickerAction (
-    /**
-     * Label for the action.
-     */
+/**
+    * Label for the action.
+    */
+    
 
     @JsonProperty("label")
     String label,
-    /**
-     * Get data
-     */
+/**
+    * Get data
+    */
+    
 
     @JsonProperty("data")
     String data,
-    /**
-     * Get mode
-     */
+/**
+    * Get mode
+    */
+    
 
     @JsonProperty("mode")
     Mode mode,
-    /**
-     * Get initial
-     */
+/**
+    * Get initial
+    */
+    
 
     @JsonProperty("initial")
     String initial,
-    /**
-     * Get max
-     */
+/**
+    * Get max
+    */
+    
 
     @JsonProperty("max")
     String max,
-    /**
-     * Get min
-     */
+/**
+    * Get min
+    */
+    
 
     @JsonProperty("min")
     String min
-) implements Action  {
 
-
-    /**
+) implements Action {
+/**
      * Gets or Sets mode
      */
     public enum Mode {
-      @JsonProperty("date")
+@JsonProperty("date")
       DATE,
-      @JsonProperty("time")
+    @JsonProperty("time")
       TIME,
-      @JsonProperty("datetime")
+    @JsonProperty("datetime")
       DATETIME,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
-
-
 }
-

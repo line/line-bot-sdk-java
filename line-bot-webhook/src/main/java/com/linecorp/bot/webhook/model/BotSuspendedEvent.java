@@ -38,49 +38,51 @@ import com.linecorp.bot.webhook.model.EventMode;
 import com.linecorp.bot.webhook.model.Source;
 
 
-
 /**
  * This event indicates that the LINE Official Account has been suspended (Suspend). Sent to the webhook URL server of the module channel.
  */
 @JsonTypeName("botSuspended")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record BotSuspendedEvent (
-    /**
-     * Get source
-     */
+/**
+    * Get source
+    */
+    
 
     @JsonProperty("source")
     Source source,
-    /**
-     * Time of the event in milliseconds.
-     */
+/**
+    * Time of the event in milliseconds.
+    */
+    
 
     @JsonProperty("timestamp")
     Long timestamp,
-    /**
-     * Get mode
-     */
+/**
+    * Get mode
+    */
+    
 
     @JsonProperty("mode")
     EventMode mode,
-    /**
-     * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
-     */
+/**
+    * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
+    */
+    
 
     @JsonProperty("webhookEventId")
     String webhookEventId,
-    /**
-     * Get deliveryContext
-     */
+/**
+    * Get deliveryContext
+    */
+    
 
     @JsonProperty("deliveryContext")
     DeliveryContext deliveryContext
-) implements Event  {
 
-
-
+) implements Event {
 
 
 }
-

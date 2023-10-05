@@ -34,20 +34,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * AddLiffAppResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AddLiffAppResponse (
-    /**
-     * Get liffId
-     */
+/**
+    * Get liffId
+    */
+    
 
     @JsonProperty("liffId")
     String liffId
+
 )  {
 
-}
 
+}

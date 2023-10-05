@@ -40,97 +40,99 @@ import com.linecorp.bot.audience.model.AudienceGroupType;
 import java.net.URI;
 
 
-
 /**
  * Audience group
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AudienceGroup (
-    /**
-     * The audience ID.
-     */
+/**
+    * The audience ID.
+    */
+    
 
     @JsonProperty("audienceGroupId")
     Long audienceGroupId,
-    /**
-     * Get type
-     */
+/**
+    * Get type
+    */
+    
 
     @JsonProperty("type")
     AudienceGroupType type,
-    /**
-     * The audience&#39;s name.
-     */
+/**
+    * The audience&#39;s name.
+    */
+    
 
     @JsonProperty("description")
     String description,
-    /**
-     * Get status
-     */
+/**
+    * Get status
+    */
+    
 
     @JsonProperty("status")
     AudienceGroupStatus status,
-    /**
-     * Get failedType
-     */
+/**
+    * Get failedType
+    */
+    
 
     @JsonProperty("failedType")
     AudienceGroupFailedType failedType,
-    /**
-     * The number of users included in the audience.
-     */
+/**
+    * The number of users included in the audience.
+    */
+    
 
     @JsonProperty("audienceCount")
     Long audienceCount,
-    /**
-     * When the audience was created (in UNIX time).
-     */
+/**
+    * When the audience was created (in UNIX time).
+    */
+    
 
     @JsonProperty("created")
     Long created,
-    /**
-     * The request ID that was specified when the audience was created. This is only included when &#x60;audienceGroup.type&#x60; is CLICK or IMP. 
-     */
+/**
+    * The request ID that was specified when the audience was created. This is only included when &#x60;audienceGroup.type&#x60; is CLICK or IMP. 
+    */
+    
 
     @JsonProperty("requestId")
     String requestId,
-    /**
-     * The URL that was specified when the audience was created. This is only included when &#x60;audienceGroup.type&#x60; is CLICK and link URL is specified. 
-     */
+/**
+    * The URL that was specified when the audience was created. This is only included when &#x60;audienceGroup.type&#x60; is CLICK and link URL is specified. 
+    */
+    
 
     @JsonProperty("clickUrl")
     URI clickUrl,
-    /**
-     * The value indicating the type of account to be sent, as specified when creating the audience for uploading user IDs. 
-     */
+/**
+    * The value indicating the type of account to be sent, as specified when creating the audience for uploading user IDs. 
+    */
+    
 
     @JsonProperty("isIfaAudience")
     Boolean isIfaAudience,
-    /**
-     * Get permission
-     */
+/**
+    * Get permission
+    */
+    
 
     @JsonProperty("permission")
     AudienceGroupPermission permission,
-    /**
-     * Get createRoute
-     */
+/**
+    * Get createRoute
+    */
+    
 
     @JsonProperty("createRoute")
     AudienceGroupCreateRoute createRoute
+
 )  {
 
 
-
-
-
-
-
-
-
-
-
-
 }
-

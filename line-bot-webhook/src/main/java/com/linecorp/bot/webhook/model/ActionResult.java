@@ -34,39 +34,42 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * ActionResult
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ActionResult (
-    /**
-     * Get type
-     */
+/**
+    * Get type
+    */
+    
 
     @JsonProperty("type")
     Type type,
-    /**
-     * Base64-encoded binary data
-     */
+/**
+    * Base64-encoded binary data
+    */
+    
 
     @JsonProperty("data")
     String data
+
 )  {
-    /**
+/**
      * Gets or Sets type
      */
     public enum Type {
-      @JsonProperty("void")
+@JsonProperty("void")
       VOID,
-      @JsonProperty("binary")
+    @JsonProperty("binary")
       BINARY,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

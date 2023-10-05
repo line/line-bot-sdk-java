@@ -38,34 +38,36 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * AudienceMatchMessagesRequest
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AudienceMatchMessagesRequest (
-    /**
-     * Destination of the message (A value obtained by hashing the telephone number, which is another value normalized to E.164 format, with SHA256).
-     */
+/**
+    * Destination of the message (A value obtained by hashing the telephone number, which is another value normalized to E.164 format, with SHA256).
+    */
+    
 
     @JsonProperty("messages")
     List<Message> messages,
-    /**
-     * Message to send.
-     */
+/**
+    * Message to send.
+    */
+    
 
     @JsonProperty("to")
     List<String> to,
-    /**
-     * &#x60;true&#x60;: The user doesn’t receive a push notification when a message is sent. &#x60;false&#x60;: The user receives a push notification when the message is sent (unless they have disabled push notifications in LINE and/or their device). The default value is false. 
-     */
+/**
+    * &#x60;true&#x60;: The user doesn’t receive a push notification when a message is sent. &#x60;false&#x60;: The user receives a push notification when the message is sent (unless they have disabled push notifications in LINE and/or their device). The default value is false. 
+    */
+    
 
     @JsonProperty("notificationDisabled")
     Boolean notificationDisabled
+
 )  {
 
 
-
 }
-

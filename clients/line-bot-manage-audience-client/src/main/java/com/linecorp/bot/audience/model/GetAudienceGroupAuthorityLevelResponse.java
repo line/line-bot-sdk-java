@@ -35,20 +35,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.audience.model.AudienceGroupAuthorityLevel;
 
 
-
 /**
  * Get the authority level of the audience
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetAudienceGroupAuthorityLevelResponse (
-    /**
-     * Get authorityLevel
-     */
+/**
+    * Get authorityLevel
+    */
+    
 
     @JsonProperty("authorityLevel")
     AudienceGroupAuthorityLevel authorityLevel
+
 )  {
 
-}
 
+}

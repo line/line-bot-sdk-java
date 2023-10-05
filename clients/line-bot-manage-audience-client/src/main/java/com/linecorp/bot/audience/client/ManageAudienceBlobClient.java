@@ -15,7 +15,6 @@
  */
 
 package com.linecorp.bot.audience.client;
-
 import java.net.URI;
 
 import java.util.concurrent.CompletableFuture;
@@ -36,6 +35,7 @@ import okhttp3.MultipartBody;
 import com.linecorp.bot.audience.model.CreateAudienceGroupResponse;
 import java.io.File;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,27 +44,27 @@ import java.util.Set;
 
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public interface ManageAudienceBlobClient {
+
         /**
         * 
         * Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by file).
             * @param audienceGroupId The audience ID. (optional)
             * @param uploadDescription The description to register with the job (optional)
             * @param _file A text file with one user ID or IFA entered per line. Specify text/plain as Content-Type. Max file number: 1 Max number: 1,500,000  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#update-upload-audience-group-by-file"> Documentation</a>
-     */
+    */
+    
+    
     @PUT("/v2/bot/audienceGroup/upload/byFile")
     @Multipart
-    CompletableFuture<Result<Void>> addUserIdsToAudience(
-    @Part("audienceGroupId") Long audienceGroupId
+        
     
-, 
-    @Part("uploadDescription") String uploadDescription
     
-, 
     
-    @Part("file\"; filename=\"file") UploadFile _file
-);
+    CompletableFuture<Result<Void>> addUserIdsToAudience(@Part("audienceGroupId") Long audienceGroupId, @Part("uploadDescription") String uploadDescription, @Part("file\"; filename=\"file") UploadFile _file
+    );
+
 
         /**
         * 
@@ -73,24 +73,22 @@ public interface ManageAudienceBlobClient {
             * @param isIfaAudience To specify recipients by IFAs: set &#x60;true&#x60;. To specify recipients by user IDs: set &#x60;false&#x60; or omit isIfaAudience property.  (optional)
             * @param uploadDescription The description to register for the job (in &#x60;jobs[].description&#x60;).  (optional)
             * @param _file A text file with one user ID or IFA entered per line. Specify text/plain as Content-Type. Max file number: 1 Max number: 1,500,000  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-upload-audience-group-by-file"> Documentation</a>
-     */
+    */
+    
+    
     @POST("/v2/bot/audienceGroup/upload/byFile")
     @Multipart
-    CompletableFuture<Result<CreateAudienceGroupResponse>> createAudienceForUploadingUserIds(
-    @Part("description") String description
+        
     
-, 
-    @Part("isIfaAudience") Boolean isIfaAudience
     
-, 
-    @Part("uploadDescription") String uploadDescription
     
-, 
     
-    @Part("file\"; filename=\"file") UploadFile _file
-);
+    CompletableFuture<Result<CreateAudienceGroupResponse>> createAudienceForUploadingUserIds(@Part("description") String description, @Part("isIfaAudience") Boolean isIfaAudience, @Part("uploadDescription") String uploadDescription, @Part("file\"; filename=\"file") UploadFile _file
+    );
+
+
 
 
     public static ApiAuthenticatedClientBuilder<ManageAudienceBlobClient> builder(String channelToken) {
@@ -99,5 +97,6 @@ public interface ManageAudienceBlobClient {
     public static ApiAuthenticatedClientBuilder<ManageAudienceBlobClient> builder(ChannelTokenSupplier channelTokenSupplier) {
         return new ApiAuthenticatedClientBuilder<>(URI.create("https://api-data.line.me"), ManageAudienceBlobClient.class, new ManageAudienceExceptionBuilder(), channelTokenSupplier);
     }
+
 
 }

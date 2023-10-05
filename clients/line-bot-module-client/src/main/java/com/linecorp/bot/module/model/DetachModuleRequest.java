@@ -34,20 +34,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Unlink (detach) the module channel by the operation of the module channel administrator
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record DetachModuleRequest (
-    /**
-     * User ID of the LINE Official Account bot attached to the module channel.
-     */
+/**
+    * User ID of the LINE Official Account bot attached to the module channel.
+    */
+    
 
     @JsonProperty("botId")
     String botId
+
 )  {
 
-}
 
+}

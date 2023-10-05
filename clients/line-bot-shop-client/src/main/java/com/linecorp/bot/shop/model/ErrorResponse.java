@@ -34,20 +34,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * ErrorResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ErrorResponse (
-    /**
-     * Message containing information about the error.
-     */
+/**
+    * Message containing information about the error.
+    */
+    
 
     @JsonProperty("message")
     String message
+
 )  {
 
-}
 
+}

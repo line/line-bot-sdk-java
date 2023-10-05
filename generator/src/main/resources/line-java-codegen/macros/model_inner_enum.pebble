@@ -1,0 +1,16 @@
+{%- macro model_inner_enum(var) -%}
+{# @pebvariable name="var" type="org.openapitools.codegen.CodegenProperty" -#}
+    /**
+     * {{ var.description | escape }}{% if not var.description%}Gets or Sets {{var.name}}{% endif %}
+     */
+    public enum {{var.datatypeWithEnum}} {
+{% if var.allowableValues != null -%}
+    {% for enum in var.allowableValues.get("enumVars") -%}
+      @JsonProperty({{ enum.value }})
+      {{enum.name}},
+    {% endfor %}
+{% endif %}
+      @JsonEnumDefaultValue
+      UNDEFINED;
+    }
+{% endmacro -%}

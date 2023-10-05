@@ -15,7 +15,6 @@
  */
 
 package com.linecorp.bot.insight.client;
-
 import java.net.URI;
 
 import java.util.concurrent.CompletableFuture;
@@ -39,6 +38,7 @@ import com.linecorp.bot.insight.model.GetNumberOfFollowersResponse;
 import com.linecorp.bot.insight.model.GetNumberOfMessageDeliveriesResponse;
 import com.linecorp.bot.insight.model.GetStatisticsPerUnitResponse;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,47 +47,65 @@ import java.util.Set;
 
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public interface InsightClient {
+
         /**
         * 
         * Retrieves the demographic attributes for a LINE Official Account&#39;s friends.You can only retrieve information about friends for LINE Official Accounts created by users in Japan (JP), Thailand (TH), Taiwan (TW) and Indonesia (ID). 
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-demographic"> Documentation</a>
-     */
+    */
+    
+    
     @GET("/v2/bot/insight/demographic")
-    CompletableFuture<Result<GetFriendsDemographicsResponse>> getFriendsDemographics();
+    
+    CompletableFuture<Result<GetFriendsDemographicsResponse>> getFriendsDemographics(
+    );
+
 
         /**
         * Get user interaction statistics
         * Returns statistics about how users interact with narrowcast messages or broadcast messages sent from your LINE Official Account. 
             * @param requestId Request ID of a narrowcast message or broadcast message. Each Messaging API request has a request ID.  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-message-event">Get user interaction statistics Documentation</a>
-     */
+    */
+    
+    
     @GET("/v2/bot/insight/message/event")
+    
     CompletableFuture<Result<GetMessageEventResponse>> getMessageEvent(@Query("requestId") String requestId
-);
+    );
+
 
         /**
         * Get number of followers
         * Returns the number of users who have added the LINE Official Account on or before a specified date. 
             * @param date Date for which to retrieve the number of followers.  Format: yyyyMMdd (e.g. 20191231) Timezone: UTC+9  (optional)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-number-of-followers">Get number of followers Documentation</a>
-     */
+    */
+    
+    
     @GET("/v2/bot/insight/followers")
+    
     CompletableFuture<Result<GetNumberOfFollowersResponse>> getNumberOfFollowers(@Query("date") String date
-);
+    );
+
 
         /**
         * Get number of message deliveries
         * Returns the number of messages sent from LINE Official Account on a specified day. 
             * @param date Date for which to retrieve number of sent messages. - Format: yyyyMMdd (e.g. 20191231) - Timezone: UTC+9  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-number-of-delivery-messages">Get number of message deliveries Documentation</a>
-     */
+    */
+    
+    
     @GET("/v2/bot/insight/message/delivery")
+    
     CompletableFuture<Result<GetNumberOfMessageDeliveriesResponse>> getNumberOfMessageDeliveries(@Query("date") String date
-);
+    );
+
 
         /**
         * 
@@ -95,14 +113,17 @@ public interface InsightClient {
             * @param customAggregationUnit Name of aggregation unit specified when sending the message. Case-sensitive. For example, &#x60;Promotion_a&#x60; and &#x60;Promotion_A&#x60; are regarded as different unit names.  (required)
             * @param from Start date of aggregation period.  Format: yyyyMMdd (e.g. 20210301) Time zone: UTC+9  (required)
             * @param to End date of aggregation period. The end date can be specified for up to 30 days later. For example, if the start date is 20210301, the latest end date is 20210331.  Format: yyyyMMdd (e.g. 20210301) Time zone: UTC+9  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-statistics-per-unit"> Documentation</a>
-     */
+    */
+    
+    
     @GET("/v2/bot/insight/message/event/aggregation")
-    CompletableFuture<Result<GetStatisticsPerUnitResponse>> getStatisticsPerUnit(@Query("customAggregationUnit") String customAggregationUnit
-, @Query("from") String from
-, @Query("to") String to
-);
+    
+    CompletableFuture<Result<GetStatisticsPerUnitResponse>> getStatisticsPerUnit(@Query("customAggregationUnit") String customAggregationUnit, @Query("from") String from, @Query("to") String to
+    );
+
+
 
 
     public static ApiAuthenticatedClientBuilder<InsightClient> builder(String channelToken) {
@@ -111,5 +132,6 @@ public interface InsightClient {
     public static ApiAuthenticatedClientBuilder<InsightClient> builder(ChannelTokenSupplier channelTokenSupplier) {
         return new ApiAuthenticatedClientBuilder<>(URI.create("https://api.line.me"), InsightClient.class, new InsightExceptionBuilder(), channelTokenSupplier);
     }
+
 
 }

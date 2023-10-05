@@ -1,6 +1,11 @@
-{{>licenseInfo}}
+{# @pebvariable name="imports" type="java.util.List<java.util.Map<String, String>>" -#}
+{# @pebvariable name="operations" type="org.openapitools.codegen.model.OperationMap" -#}
+{# @pebvariable name="generatorClass" type="java.lang.String" -#}
+{# @pebvariable name="classname" type="java.lang.String" -#}
+{# @pebvariable name="authenticated" type="boolean" -#}
+{% include "./licenseInfo.pebble" %}
 
-package {{package}};
+package {# @pebvariable name="package" type="java.lang.String" -#}{{package}};
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,10 +30,13 @@ import java.net.URI;
 
 import java.util.Map;
 
-{{#lambda.importTextMessage}}{{classname}}{{/lambda.importTextMessage}}
+{% if classname == "MessagingApiClient" or classname == "MessagingApiBlobClient" %}
+import com.linecorp.bot.messaging.model.TextMessage;
+{% endif %}
 
-{{#imports}}import {{import}};
-{{/imports}}
+{% for import in imports -%}
+import {{import.import}};
+{% endfor %}
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,7 +71,7 @@ public class {{classname}}Test {
         configureFor("localhost", wireMockServer.port());
 
 
-        api = {{classname}}.builder({{#authenticated}}"MY_OWN_TOKEN"{{/authenticated}})
+        api = {{classname}}.builder({% if authenticated %}"MY_OWN_TOKEN"{% endif %})
             .apiEndPoint(URI.create(wireMockServer.baseUrl()))
             .build();
     }
@@ -73,33 +81,30 @@ public class {{classname}}Test {
         wireMockServer.stop();
     }
 
-{{#operations}}
-    {{#operation}}
+{% for op in operations.operation -%}
     @Test
-    public void {{operationId}}Test() {
-        stubFor({{#lambda.lowercase}}{{httpMethod}}{{/lambda.lowercase}}(urlPathTemplate("{{{path}}}")).willReturn(
+    public void {{op.operationId}}Test() {
+        stubFor({{op.httpMethod|lower}}(urlPathTemplate("{{op.path}}")).willReturn(
             aResponse()
                 .withStatus(200)
                 .withHeader("content-type", "application/json")
                 .withBody("{}")));
 
-        {{#allParams}}
-        {{#isFile}}
-            UploadFile {{paramName}} = UploadFile.fromString("HELLO_FILE", "text/plain");
-        {{/isFile}}
-        {{^isFile}}
-            {{{dataType}}} {{paramName}} = Arranger.some({{dataType}}.class{{#lambda.messageMock}}{{classname}}{{/lambda.messageMock}});
-        {{/isFile}}
-        {{/allParams}}
+    {% for param in op.allParams -%}
+        {% if param.isFile %}
+            UploadFile {{param.paramName}} = UploadFile.fromString("HELLO_FILE", "text/plain");
+        {% else %}
+            {{param.dataType}} {{param.paramName}} = Arranger.some({{param.dataType}}.class{% if classname == "MessagingApiClient" or classname == "MessagingApiBlobClient" %}, Map.of("message", () -> new TextMessage("hello"), "recipient", () -> null, "filter", () -> null){% endif %});
+        {% endif %}
+    {% endfor %}
 
-        {{#returnType}}{{#isResponseFile}}BlobContent{{/isResponseFile}}{{^isResponseFile}}{{{.}}}{{/isResponseFile}} response = {{/returnType}}api.{{operationId}}({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}).join().body();
+    {% if op.returnType %}{% if op.isResponseFile %}BlobContent{% else %}{{ op.returnType }}{% endif %} response = {% endif %}api.{{op.operationId}}({% for param in op.allParams %}{{param.paramName}}{% if not loop.last %}, {% endif %}{% endfor %}).join().body();
 
-        {{#returnType}}
+    {% if op.returnType %}
         assertThat(response).isNotNull();
-        {{/returnType}}
+    {% endif %}
         // TODO: test validations
     }
 
-    {{/operation}}
-{{/operations}}
+{% endfor %}
 }

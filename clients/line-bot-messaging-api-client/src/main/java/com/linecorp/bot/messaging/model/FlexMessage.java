@@ -38,45 +38,47 @@ import com.linecorp.bot.messaging.model.QuickReply;
 import com.linecorp.bot.messaging.model.Sender;
 
 
-
 /**
  * FlexMessage
  */
 @JsonTypeName("flex")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexMessage (
-    /**
-     * Get quickReply
-     */
+/**
+    * Get quickReply
+    */
+    
 
     @JsonProperty("quickReply")
     QuickReply quickReply,
-    /**
-     * Get sender
-     */
+/**
+    * Get sender
+    */
+    
 
     @JsonProperty("sender")
     Sender sender,
-    /**
-     * Get altText
-     */
+/**
+    * Get altText
+    */
+    
 
     @JsonProperty("altText")
     String altText,
-    /**
-     * Get contents
-     */
+/**
+    * Get contents
+    */
+    
 
     @JsonProperty("contents")
     FlexContainer contents
-) implements Message  {
 
+) implements Message {
 
-
-
-    public FlexMessage(String altText, FlexContainer contents) {
-        this(null, null, altText, contents);
-    }
+public FlexMessage(String altText, FlexContainer contents) {
+    this(null, null, altText, contents);
 }
 
+}

@@ -39,56 +39,58 @@ import com.linecorp.bot.webhook.model.ModuleContent;
 import com.linecorp.bot.webhook.model.Source;
 
 
-
 /**
  * This event indicates that the module channel has been attached to the LINE Official Account. Sent to the webhook URL server of the module channel.
  */
 @JsonTypeName("module")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ModuleEvent (
-    /**
-     * Get source
-     */
+/**
+    * Get source
+    */
+    
 
     @JsonProperty("source")
     Source source,
-    /**
-     * Time of the event in milliseconds.
-     */
+/**
+    * Time of the event in milliseconds.
+    */
+    
 
     @JsonProperty("timestamp")
     Long timestamp,
-    /**
-     * Get mode
-     */
+/**
+    * Get mode
+    */
+    
 
     @JsonProperty("mode")
     EventMode mode,
-    /**
-     * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
-     */
+/**
+    * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
+    */
+    
 
     @JsonProperty("webhookEventId")
     String webhookEventId,
-    /**
-     * Get deliveryContext
-     */
+/**
+    * Get deliveryContext
+    */
+    
 
     @JsonProperty("deliveryContext")
     DeliveryContext deliveryContext,
-    /**
-     * Get module
-     */
+/**
+    * Get module
+    */
+    
 
     @JsonProperty("module")
     ModuleContent module
-) implements Event  {
 
-
-
-
+) implements Event {
 
 
 }
-

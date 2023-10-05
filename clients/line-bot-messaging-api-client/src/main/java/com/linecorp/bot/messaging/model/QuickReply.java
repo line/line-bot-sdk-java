@@ -38,20 +38,22 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * Quick reply
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record QuickReply (
-    /**
-     * Quick reply button objects.
-     */
+/**
+    * Quick reply button objects.
+    */
+    
 
     @JsonProperty("items")
     List<QuickReplyItem> items
+
 )  {
 
-}
 
+}

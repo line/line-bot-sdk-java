@@ -37,27 +37,29 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * GetAggregationUnitNameListResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetAggregationUnitNameListResponse (
-    /**
-     * An array of strings indicating the names of aggregation units used this month.
-     */
+/**
+    * An array of strings indicating the names of aggregation units used this month.
+    */
+    
 
     @JsonProperty("customAggregationUnits")
     List<String> customAggregationUnits,
-    /**
-     * A continuation token to get the next array of unit names. Returned only when there are remaining aggregation units that weren&#39;t returned in customAggregationUnits in the original request.  
-     */
+/**
+    * A continuation token to get the next array of unit names. Returned only when there are remaining aggregation units that weren&#39;t returned in customAggregationUnits in the original request.  
+    */
+    
 
     @JsonProperty("next")
     String next
+
 )  {
 
 
 }
-

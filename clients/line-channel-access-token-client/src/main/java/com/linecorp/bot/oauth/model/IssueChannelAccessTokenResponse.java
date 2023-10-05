@@ -34,41 +34,43 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Issued channel access token
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record IssueChannelAccessTokenResponse (
-    /**
-     * Channel access token. 
-     */
+/**
+    * Channel access token. 
+    */
+    
 
     @JsonProperty("access_token")
     String accessToken,
-    /**
-     * Amount of time in seconds from issue to expiration of the channel access token
-     */
+/**
+    * Amount of time in seconds from issue to expiration of the channel access token
+    */
+    
 
     @JsonProperty("expires_in")
     Integer expiresIn,
-    /**
-     * A token type.
-     */
+/**
+    * A token type.
+    */
+    
 
     @JsonProperty("token_type")
     String tokenType,
-    /**
-     * Unique key ID for identifying the channel access token.
-     */
+/**
+    * Unique key ID for identifying the channel access token.
+    */
+    
 
     @JsonProperty("key_id")
     String keyId
+
 )  {
 
 
-
-
 }
-

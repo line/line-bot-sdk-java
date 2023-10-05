@@ -35,20 +35,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.ChatReference;
 
 
-
 /**
  * MarkMessagesAsReadRequest
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record MarkMessagesAsReadRequest (
-    /**
-     * Get chat
-     */
+/**
+    * Get chat
+    */
+    
 
     @JsonProperty("chat")
     ChatReference chat
+
 )  {
 
-}
 
+}

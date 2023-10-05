@@ -36,27 +36,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 /**
  * PostbackContent
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record PostbackContent (
-    /**
-     * Postback data
-     */
+/**
+    * Postback data
+    */
+    
 
     @JsonProperty("data")
     String data,
-    /**
-     * Get params
-     */
+/**
+    * Get params
+    */
+    
 
     @JsonProperty("params")
     Map<String, String> params
+
 )  {
 
 
 }
-

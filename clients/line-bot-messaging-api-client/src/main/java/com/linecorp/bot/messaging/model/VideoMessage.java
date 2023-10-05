@@ -38,52 +38,54 @@ import com.linecorp.bot.messaging.model.Sender;
 import java.net.URI;
 
 
-
 /**
  * VideoMessage
  */
 @JsonTypeName("video")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record VideoMessage (
-    /**
-     * Get quickReply
-     */
+/**
+    * Get quickReply
+    */
+    
 
     @JsonProperty("quickReply")
     QuickReply quickReply,
-    /**
-     * Get sender
-     */
+/**
+    * Get sender
+    */
+    
 
     @JsonProperty("sender")
     Sender sender,
-    /**
-     * Get originalContentUrl
-     */
+/**
+    * Get originalContentUrl
+    */
+    
 
     @JsonProperty("originalContentUrl")
     URI originalContentUrl,
-    /**
-     * Get previewImageUrl
-     */
+/**
+    * Get previewImageUrl
+    */
+    
 
     @JsonProperty("previewImageUrl")
     URI previewImageUrl,
-    /**
-     * Get trackingId
-     */
+/**
+    * Get trackingId
+    */
+    
 
     @JsonProperty("trackingId")
     String trackingId
-) implements Message  {
 
+) implements Message {
 
-
-
-
-    public VideoMessage(URI originalContentUrl, URI previewImageUrl, String trackingId) {
-        this(null, null, originalContentUrl, previewImageUrl, trackingId);
-    }
+public VideoMessage(URI originalContentUrl, URI previewImageUrl, String trackingId) {
+    this(null, null, originalContentUrl, previewImageUrl, trackingId);
 }
 
+}

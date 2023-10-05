@@ -39,21 +39,23 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * ImageCarouselTemplate
  */
 @JsonTypeName("image_carousel")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ImageCarouselTemplate (
-    /**
-     * Get columns
-     */
+/**
+    * Get columns
+    */
+    
 
     @JsonProperty("columns")
     List<ImageCarouselColumn> columns
-) implements Template  {
+
+) implements Template {
+
 
 }
-

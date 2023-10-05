@@ -37,42 +37,44 @@ import com.linecorp.bot.webhook.model.ImageSet;
 import com.linecorp.bot.webhook.model.MessageContent;
 
 
-
 /**
  * ImageMessageContent
  */
 @JsonTypeName("image")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ImageMessageContent (
-    /**
-     * Message ID
-     */
+/**
+    * Message ID
+    */
+    
 
     @JsonProperty("id")
     String id,
-    /**
-     * Get contentProvider
-     */
+/**
+    * Get contentProvider
+    */
+    
 
     @JsonProperty("contentProvider")
     ContentProvider contentProvider,
-    /**
-     * Get imageSet
-     */
+/**
+    * Get imageSet
+    */
+    
 
     @JsonProperty("imageSet")
     ImageSet imageSet,
-    /**
-     * Quote token to quote this message. 
-     */
+/**
+    * Quote token to quote this message. 
+    */
+    
 
     @JsonProperty("quoteToken")
     String quoteToken
-) implements MessageContent  {
 
-
+) implements MessageContent {
 
 
 }
-

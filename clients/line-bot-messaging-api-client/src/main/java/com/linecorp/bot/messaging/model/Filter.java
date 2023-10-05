@@ -35,20 +35,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.DemographicFilter;
 
 
-
 /**
  * Filter for narrowcast
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record Filter (
-    /**
-     * Get demographic
-     */
+/**
+    * Get demographic
+    */
+    
 
     @JsonProperty("demographic")
     DemographicFilter demographic
+
 )  {
 
-}
 
+}

@@ -36,20 +36,29 @@ import com.linecorp.bot.messaging.model.QuickReply;
 import com.linecorp.bot.messaging.model.Sender;
 
 
-
 /**
  * Message
  */
 @JsonSubTypes({
+
         @JsonSubTypes.Type(value = AudioMessage.class, name = "audio"),
+
         @JsonSubTypes.Type(value = FlexMessage.class, name = "flex"),
+
         @JsonSubTypes.Type(value = ImageMessage.class, name = "image"),
+
         @JsonSubTypes.Type(value = ImagemapMessage.class, name = "imagemap"),
+
         @JsonSubTypes.Type(value = LocationMessage.class, name = "location"),
+
         @JsonSubTypes.Type(value = StickerMessage.class, name = "sticker"),
+
         @JsonSubTypes.Type(value = TemplateMessage.class, name = "template"),
+
         @JsonSubTypes.Type(value = TextMessage.class, name = "text"),
+
         @JsonSubTypes.Type(value = VideoMessage.class, name = "video"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -60,7 +69,4 @@ import com.linecorp.bot.messaging.model.Sender;
 )
 public interface Message {
 
-
-
 }
-

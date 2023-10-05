@@ -40,34 +40,36 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * Statistics about how users interact with narrowcast messages or broadcast messages sent from your LINE Official Account.
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetMessageEventResponse (
-    /**
-     * Get overview
-     */
+/**
+    * Get overview
+    */
+    
 
     @JsonProperty("overview")
     GetMessageEventResponseOverview overview,
-    /**
-     * Array of information about individual message bubbles.
-     */
+/**
+    * Array of information about individual message bubbles.
+    */
+    
 
     @JsonProperty("messages")
     List<GetMessageEventResponseMessage> messages,
-    /**
-     * Array of information about opened URLs in the message.
-     */
+/**
+    * Array of information about opened URLs in the message.
+    */
+    
 
     @JsonProperty("clicks")
     List<GetMessageEventResponseClick> clicks
+
 )  {
 
 
-
 }
-

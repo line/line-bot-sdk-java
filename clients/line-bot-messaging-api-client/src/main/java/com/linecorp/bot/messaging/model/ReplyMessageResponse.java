@@ -38,20 +38,22 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * ReplyMessageResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ReplyMessageResponse (
-    /**
-     * Array of sent messages.
-     */
+/**
+    * Array of sent messages.
+    */
+    
 
     @JsonProperty("sentMessages")
     List<SentMessage> sentMessages
+
 )  {
 
-}
 
+}

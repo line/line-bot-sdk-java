@@ -35,21 +35,23 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.webhook.model.ThingsContent;
 
 
-
 /**
  * UnlinkThingsContent
  */
 @JsonTypeName("unlink")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record UnlinkThingsContent (
-    /**
-     * Device ID of the device that has been linked with LINE.
-     */
+/**
+    * Device ID of the device that has been linked with LINE.
+    */
+    
 
     @JsonProperty("deviceId")
     String deviceId
-) implements ThingsContent  {
+
+) implements ThingsContent {
+
 
 }
-

@@ -38,49 +38,51 @@ import com.linecorp.bot.webhook.model.EventMode;
 import com.linecorp.bot.webhook.model.Source;
 
 
-
 /**
  * This event indicates that the module channel has been switched to Standby Channel by calling Acquire Control API or Release Control API. Sent to the webhook URL server of the module channel.
  */
 @JsonTypeName("deactivated")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record DeactivatedEvent (
-    /**
-     * Get source
-     */
+/**
+    * Get source
+    */
+    
 
     @JsonProperty("source")
     Source source,
-    /**
-     * Time of the event in milliseconds.
-     */
+/**
+    * Time of the event in milliseconds.
+    */
+    
 
     @JsonProperty("timestamp")
     Long timestamp,
-    /**
-     * Get mode
-     */
+/**
+    * Get mode
+    */
+    
 
     @JsonProperty("mode")
     EventMode mode,
-    /**
-     * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
-     */
+/**
+    * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
+    */
+    
 
     @JsonProperty("webhookEventId")
     String webhookEventId,
-    /**
-     * Get deliveryContext
-     */
+/**
+    * Get deliveryContext
+    */
+    
 
     @JsonProperty("deliveryContext")
     DeliveryContext deliveryContext
-) implements Event  {
 
-
-
+) implements Event {
 
 
 }
-

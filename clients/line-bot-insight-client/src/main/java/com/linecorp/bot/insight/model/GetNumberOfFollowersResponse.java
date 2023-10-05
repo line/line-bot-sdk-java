@@ -34,55 +34,58 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Get number of followers
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetNumberOfFollowersResponse (
-    /**
-     * Calculation status.
-     */
+/**
+    * Calculation status.
+    */
+    
 
     @JsonProperty("status")
     Status status,
-    /**
-     * The number of times, as of the specified date, that a user added this LINE Official Account as a friend for the first time. The number doesn&#39;t decrease even if a user later blocks the account or when they delete their LINE account. 
-     */
+/**
+    * The number of times, as of the specified date, that a user added this LINE Official Account as a friend for the first time. The number doesn&#39;t decrease even if a user later blocks the account or when they delete their LINE account. 
+    */
+    
 
     @JsonProperty("followers")
     Long followers,
-    /**
-     * The number of users, as of the specified date, that the LINE Official Account can reach through targeted messages based on gender, age, and/or region. This number only includes users who are active on LINE or LINE services and whose demographics have a high level of certainty. 
-     */
+/**
+    * The number of users, as of the specified date, that the LINE Official Account can reach through targeted messages based on gender, age, and/or region. This number only includes users who are active on LINE or LINE services and whose demographics have a high level of certainty. 
+    */
+    
 
     @JsonProperty("targetedReaches")
     Long targetedReaches,
-    /**
-     * The number of users blocking the account as of the specified date. The number decreases when a user unblocks the account.   
-     */
+/**
+    * The number of users blocking the account as of the specified date. The number decreases when a user unblocks the account.   
+    */
+    
 
     @JsonProperty("blocks")
     Long blocks
+
 )  {
-    /**
+/**
      * Calculation status.
      */
     public enum Status {
-      @JsonProperty("ready")
+@JsonProperty("ready")
       READY,
-      @JsonProperty("unready")
+    @JsonProperty("unready")
       UNREADY,
-      @JsonProperty("out_of_service")
+    @JsonProperty("out_of_service")
       OUT_OF_SERVICE,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
-
-
 }
-

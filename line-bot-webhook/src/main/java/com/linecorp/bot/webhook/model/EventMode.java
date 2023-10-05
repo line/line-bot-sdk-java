@@ -34,21 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Channel state.
  */
 public enum EventMode {
-  
+
+    
     @JsonProperty("active")
   ACTIVE,
-  
+    
     @JsonProperty("standby")
   STANDBY,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

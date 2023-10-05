@@ -38,27 +38,29 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * RichMenuBatchRequest
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuBatchRequest (
-    /**
-     * Array of Rich menu operation object...
-     */
+/**
+    * Array of Rich menu operation object...
+    */
+    
 
     @JsonProperty("operations")
     List<RichMenuBatchOperation> operations,
-    /**
-     * Key for retry. Key value is a string matching the regular expression pattern
-     */
+/**
+    * Key for retry. Key value is a string matching the regular expression pattern
+    */
+    
 
     @JsonProperty("resumeRequestKey")
     String resumeRequestKey
+
 )  {
 
 
 }
-

@@ -34,104 +34,107 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Get number of message deliveries
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetNumberOfMessageDeliveriesResponse (
-    /**
-     * Status of the counting process.
-     */
+/**
+    * Status of the counting process.
+    */
+    
 
     @JsonProperty("status")
     Status status,
-    /**
-     * Number of messages sent to all of this LINE Official Account&#39;s friends (broadcast messages).
-     */
+/**
+    * Number of messages sent to all of this LINE Official Account&#39;s friends (broadcast messages).
+    */
+    
 
     @JsonProperty("broadcast")
     Long broadcast,
-    /**
-     * Number of messages sent to some of this LINE Official Account&#39;s friends, based on specific attributes (targeted messages).
-     */
+/**
+    * Number of messages sent to some of this LINE Official Account&#39;s friends, based on specific attributes (targeted messages).
+    */
+    
 
     @JsonProperty("targeting")
     Long targeting,
-    /**
-     * Number of auto-response messages sent.
-     */
+/**
+    * Number of auto-response messages sent.
+    */
+    
 
     @JsonProperty("autoResponse")
     Long autoResponse,
-    /**
-     * Number of greeting messages sent.
-     */
+/**
+    * Number of greeting messages sent.
+    */
+    
 
     @JsonProperty("welcomeResponse")
     Long welcomeResponse,
-    /**
-     * Number of messages sent from LINE Official Account Manager [Chat screen](https://www.linebiz.com/jp/manual/OfficialAccountManager/chats/) (only available in Japanese).
-     */
+/**
+    * Number of messages sent from LINE Official Account Manager [Chat screen](https://www.linebiz.com/jp/manual/OfficialAccountManager/chats/) (only available in Japanese).
+    */
+    
 
     @JsonProperty("chat")
     Long chat,
-    /**
-     * Number of broadcast messages sent with the &#x60;Send broadcast message&#x60; Messaging API operation.
-     */
+/**
+    * Number of broadcast messages sent with the &#x60;Send broadcast message&#x60; Messaging API operation.
+    */
+    
 
     @JsonProperty("apiBroadcast")
     Long apiBroadcast,
-    /**
-     * Number of push messages sent with the &#x60;Send push message&#x60; Messaging API operation.
-     */
+/**
+    * Number of push messages sent with the &#x60;Send push message&#x60; Messaging API operation.
+    */
+    
 
     @JsonProperty("apiPush")
     Long apiPush,
-    /**
-     * Number of multicast messages sent with the &#x60;Send multicast message&#x60; Messaging API operation.
-     */
+/**
+    * Number of multicast messages sent with the &#x60;Send multicast message&#x60; Messaging API operation.
+    */
+    
 
     @JsonProperty("apiMulticast")
     Long apiMulticast,
-    /**
-     * Number of narrowcast messages sent with the &#x60;Send narrowcast message&#x60; Messaging API operation.
-     */
+/**
+    * Number of narrowcast messages sent with the &#x60;Send narrowcast message&#x60; Messaging API operation.
+    */
+    
 
     @JsonProperty("apiNarrowcast")
     Long apiNarrowcast,
-    /**
-     * Number of replies sent with the &#x60;Send reply message&#x60; Messaging API operation.
-     */
+/**
+    * Number of replies sent with the &#x60;Send reply message&#x60; Messaging API operation.
+    */
+    
 
     @JsonProperty("apiReply")
     Long apiReply
+
 )  {
-    /**
+/**
      * Status of the counting process.
      */
     public enum Status {
-      @JsonProperty("ready")
+@JsonProperty("ready")
       READY,
-      @JsonProperty("unready")
+    @JsonProperty("unready")
       UNREADY,
-      @JsonProperty("out_of_service")
+    @JsonProperty("out_of_service")
       OUT_OF_SERVICE,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
-
-
-
-
-
-
-
-
-
 }
-

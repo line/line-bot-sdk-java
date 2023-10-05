@@ -39,21 +39,23 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * FlexCarousel
  */
 @JsonTypeName("carousel")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexCarousel (
-    /**
-     * Get contents
-     */
+/**
+    * Get contents
+    */
+    
 
     @JsonProperty("contents")
     List<FlexBubble> contents
-) implements FlexContainer  {
+
+) implements FlexContainer {
+
 
 }
-

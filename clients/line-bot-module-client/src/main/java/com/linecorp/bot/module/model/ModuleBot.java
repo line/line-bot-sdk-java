@@ -34,48 +34,50 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * basic information about the bot.
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ModuleBot (
-    /**
-     * Bot&#39;s user ID
-     */
+/**
+    * Bot&#39;s user ID
+    */
+    
 
     @JsonProperty("userId")
     String userId,
-    /**
-     * Bot&#39;s basic ID
-     */
+/**
+    * Bot&#39;s basic ID
+    */
+    
 
     @JsonProperty("basicId")
     String basicId,
-    /**
-     * Bot&#39;s premium ID. Not included in the response if the premium ID isn&#39;t set.
-     */
+/**
+    * Bot&#39;s premium ID. Not included in the response if the premium ID isn&#39;t set.
+    */
+    
 
     @JsonProperty("premiumId")
     String premiumId,
-    /**
-     * Bot&#39;s display name
-     */
+/**
+    * Bot&#39;s display name
+    */
+    
 
     @JsonProperty("displayName")
     String displayName,
-    /**
-     * Profile image URL. Image URL starting with &#x60;https://&#x60;. Not included in the response if the bot doesn&#39;t have a profile image.
-     */
+/**
+    * Profile image URL. Image URL starting with &#x60;https://&#x60;. Not included in the response if the bot doesn&#39;t have a profile image.
+    */
+    
 
     @JsonProperty("pictureUrl")
     String pictureUrl
+
 )  {
 
 
-
-
-
 }
-

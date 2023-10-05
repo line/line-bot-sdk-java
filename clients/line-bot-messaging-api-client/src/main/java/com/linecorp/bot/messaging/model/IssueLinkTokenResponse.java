@@ -34,20 +34,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * IssueLinkTokenResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record IssueLinkTokenResponse (
-    /**
-     * Link token. Link tokens are valid for 10 minutes and can only be used once.  
-     */
+/**
+    * Link token. Link tokens are valid for 10 minutes and can only be used once.  
+    */
+    
 
     @JsonProperty("linkToken")
     String linkToken
+
 )  {
 
-}
 
+}

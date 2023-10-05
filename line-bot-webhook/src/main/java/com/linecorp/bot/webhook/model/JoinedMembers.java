@@ -38,20 +38,22 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * JoinedMembers
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record JoinedMembers (
-    /**
-     * Users who joined. Array of source user objects.
-     */
+/**
+    * Users who joined. Array of source user objects.
+    */
+    
 
     @JsonProperty("members")
     List<UserSource> members
+
 )  {
 
-}
 
+}

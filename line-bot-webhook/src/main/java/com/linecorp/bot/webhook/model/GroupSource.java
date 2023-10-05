@@ -35,28 +35,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.webhook.model.Source;
 
 
-
 /**
  * GroupSource
  */
 @JsonTypeName("group")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GroupSource (
-    /**
-     * Group ID of the source group chat
-     */
+/**
+    * Group ID of the source group chat
+    */
+    
 
     @JsonProperty("groupId")
     String groupId,
-    /**
-     * ID of the source user. Only included in message events. Only users of LINE for iOS and LINE for Android are included in userId.
-     */
+/**
+    * ID of the source user. Only included in message events. Only users of LINE for iOS and LINE for Android are included in userId.
+    */
+    
 
     @JsonProperty("userId")
     String userId
-) implements Source  {
+
+) implements Source {
 
 
 }
-

@@ -34,21 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * authority level
  */
 public enum AudienceGroupAuthorityLevel {
-  
+
+    
     @JsonProperty("PUBLIC")
   PUBLIC,
-  
+    
     @JsonProperty("PRIVATE")
   PRIVATE,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

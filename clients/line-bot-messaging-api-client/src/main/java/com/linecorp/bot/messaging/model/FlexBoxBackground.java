@@ -34,12 +34,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * FlexBoxBackground
  */
 @JsonSubTypes({
+
         @JsonSubTypes.Type(value = FlexBoxLinearGradient.class, name = "linearGradient"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -51,4 +52,3 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public interface FlexBoxBackground {
 
 }
-

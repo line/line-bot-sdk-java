@@ -37,52 +37,54 @@ import com.linecorp.bot.messaging.model.QuickReply;
 import com.linecorp.bot.messaging.model.Sender;
 
 
-
 /**
  * StickerMessage
  */
 @JsonTypeName("sticker")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record StickerMessage (
-    /**
-     * Get quickReply
-     */
+/**
+    * Get quickReply
+    */
+    
 
     @JsonProperty("quickReply")
     QuickReply quickReply,
-    /**
-     * Get sender
-     */
+/**
+    * Get sender
+    */
+    
 
     @JsonProperty("sender")
     Sender sender,
-    /**
-     * Get packageId
-     */
+/**
+    * Get packageId
+    */
+    
 
     @JsonProperty("packageId")
     String packageId,
-    /**
-     * Get stickerId
-     */
+/**
+    * Get stickerId
+    */
+    
 
     @JsonProperty("stickerId")
     String stickerId,
-    /**
-     * Quote token of the message you want to quote.
-     */
+/**
+    * Quote token of the message you want to quote.
+    */
+    
 
     @JsonProperty("quoteToken")
     String quoteToken
-) implements Message  {
 
+) implements Message {
 
-
-
-
-    public StickerMessage(String packageId, String stickerId) {
-        this(null, null, packageId, stickerId, null);
-    }
+public StickerMessage(String packageId, String stickerId) {
+    this(null, null, packageId, stickerId, null);
 }
 
+}

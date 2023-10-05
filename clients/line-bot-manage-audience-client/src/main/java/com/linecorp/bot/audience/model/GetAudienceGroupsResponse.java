@@ -38,55 +38,57 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * Gets data for more than one audience.
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetAudienceGroupsResponse (
-    /**
-     * An array of audience data. If there are no audiences that match the specified filter, an empty array will be returned.
-     */
+/**
+    * An array of audience data. If there are no audiences that match the specified filter, an empty array will be returned.
+    */
+    
 
     @JsonProperty("audienceGroups")
     List<AudienceGroup> audienceGroups,
-    /**
-     * true when this is not the last page.
-     */
+/**
+    * true when this is not the last page.
+    */
+    
 
     @JsonProperty("hasNextPage")
     Boolean hasNextPage,
-    /**
-     * The total number of audiences that can be returned with the specified filter.
-     */
+/**
+    * The total number of audiences that can be returned with the specified filter.
+    */
+    
 
     @JsonProperty("totalCount")
     Long totalCount,
-    /**
-     * Of the audiences you can get with the specified filter, the number of audiences with the update permission set to READ_WRITE.
-     */
+/**
+    * Of the audiences you can get with the specified filter, the number of audiences with the update permission set to READ_WRITE.
+    */
+    
 
     @JsonProperty("readWriteAudienceGroupTotalCount")
     Long readWriteAudienceGroupTotalCount,
-    /**
-     * The current page number.
-     */
+/**
+    * The current page number.
+    */
+    
 
     @JsonProperty("page")
     Long page,
-    /**
-     * The maximum number of audiences on the current page.
-     */
+/**
+    * The maximum number of audiences on the current page.
+    */
+    
 
     @JsonProperty("size")
     Long size
+
 )  {
 
 
-
-
-
-
 }
-

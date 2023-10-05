@@ -40,256 +40,265 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * FlexText
  */
 @JsonTypeName("text")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexText (
-    /**
-     * Get flex
-     */
+/**
+    * Get flex
+    */
+    
 
     @JsonProperty("flex")
     Integer flex,
-    /**
-     * Get text
-     */
+/**
+    * Get text
+    */
+    
 
     @JsonProperty("text")
     String text,
-    /**
-     * Get size
-     */
+/**
+    * Get size
+    */
+    
 
     @JsonProperty("size")
     String size,
-    /**
-     * Get align
-     */
+/**
+    * Get align
+    */
+    
 
     @JsonProperty("align")
     Align align,
-    /**
-     * Get gravity
-     */
+/**
+    * Get gravity
+    */
+    
 
     @JsonProperty("gravity")
     Gravity gravity,
-    /**
-     * Get color
-     */
+/**
+    * Get color
+    */
+    
 
     @JsonProperty("color")
     String color,
-    /**
-     * Get weight
-     */
+/**
+    * Get weight
+    */
+    
 
     @JsonProperty("weight")
     Weight weight,
-    /**
-     * Get style
-     */
+/**
+    * Get style
+    */
+    
 
     @JsonProperty("style")
     Style style,
-    /**
-     * Get decoration
-     */
+/**
+    * Get decoration
+    */
+    
 
     @JsonProperty("decoration")
     Decoration decoration,
-    /**
-     * Get wrap
-     */
+/**
+    * Get wrap
+    */
+    
 
     @JsonProperty("wrap")
     Boolean wrap,
-    /**
-     * Get lineSpacing
-     */
+/**
+    * Get lineSpacing
+    */
+    
 
     @JsonProperty("lineSpacing")
     String lineSpacing,
-    /**
-     * Get margin
-     */
+/**
+    * Get margin
+    */
+    
 
     @JsonProperty("margin")
     String margin,
-    /**
-     * Get position
-     */
+/**
+    * Get position
+    */
+    
 
     @JsonProperty("position")
     Position position,
-    /**
-     * Get offsetTop
-     */
+/**
+    * Get offsetTop
+    */
+    
 
     @JsonProperty("offsetTop")
     String offsetTop,
-    /**
-     * Get offsetBottom
-     */
+/**
+    * Get offsetBottom
+    */
+    
 
     @JsonProperty("offsetBottom")
     String offsetBottom,
-    /**
-     * Get offsetStart
-     */
+/**
+    * Get offsetStart
+    */
+    
 
     @JsonProperty("offsetStart")
     String offsetStart,
-    /**
-     * Get offsetEnd
-     */
+/**
+    * Get offsetEnd
+    */
+    
 
     @JsonProperty("offsetEnd")
     String offsetEnd,
-    /**
-     * Get action
-     */
+/**
+    * Get action
+    */
+    
 
     @JsonProperty("action")
     Action action,
-    /**
-     * Get maxLines
-     */
+/**
+    * Get maxLines
+    */
+    
 
     @JsonProperty("maxLines")
     Integer maxLines,
-    /**
-     * Get contents
-     */
+/**
+    * Get contents
+    */
+    
 
     @JsonProperty("contents")
     List<FlexSpan> contents,
-    /**
-     * Get adjustMode
-     */
+/**
+    * Get adjustMode
+    */
+    
 
     @JsonProperty("adjustMode")
     AdjustMode adjustMode,
-    /**
-     * Get scaling
-     */
+/**
+    * Get scaling
+    */
+    
 
     @JsonProperty("scaling")
     Boolean scaling
-) implements FlexComponent  {
 
-
-
-    /**
+) implements FlexComponent {
+/**
      * Gets or Sets align
      */
     public enum Align {
-      @JsonProperty("start")
+@JsonProperty("start")
       START,
-      @JsonProperty("end")
+    @JsonProperty("end")
       END,
-      @JsonProperty("center")
+    @JsonProperty("center")
       CENTER,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-    /**
+/**
      * Gets or Sets gravity
      */
     public enum Gravity {
-      @JsonProperty("top")
+@JsonProperty("top")
       TOP,
-      @JsonProperty("bottom")
+    @JsonProperty("bottom")
       BOTTOM,
-      @JsonProperty("center")
+    @JsonProperty("center")
       CENTER,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-
-    /**
+/**
      * Gets or Sets weight
      */
     public enum Weight {
-      @JsonProperty("regular")
+@JsonProperty("regular")
       REGULAR,
-      @JsonProperty("bold")
+    @JsonProperty("bold")
       BOLD,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-    /**
+/**
      * Gets or Sets style
      */
     public enum Style {
-      @JsonProperty("normal")
+@JsonProperty("normal")
       NORMAL,
-      @JsonProperty("italic")
+    @JsonProperty("italic")
       ITALIC,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-    /**
+/**
      * Gets or Sets decoration
      */
     public enum Decoration {
-      @JsonProperty("none")
+@JsonProperty("none")
       NONE,
-      @JsonProperty("underline")
+    @JsonProperty("underline")
       UNDERLINE,
-      @JsonProperty("line-through")
+    @JsonProperty("line-through")
       LINE_THROUGH,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-
-
-
-    /**
+/**
      * Gets or Sets position
      */
     public enum Position {
-      @JsonProperty("relative")
+@JsonProperty("relative")
       RELATIVE,
-      @JsonProperty("absolute")
+    @JsonProperty("absolute")
       ABSOLUTE,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-
-
-
-
-
-
-
-    /**
+/**
      * Gets or Sets adjustMode
      */
     public enum AdjustMode {
-      @JsonProperty("shrink-to-fit")
+@JsonProperty("shrink-to-fit")
       SHRINK_TO_FIT,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

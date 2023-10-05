@@ -34,18 +34,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Job Type
  */
 public enum AudienceGroupJobType {
-  
+
+    
     @JsonProperty("DIFF_ADD")
   DIFF_ADD,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

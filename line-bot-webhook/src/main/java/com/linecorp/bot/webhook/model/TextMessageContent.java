@@ -40,56 +40,58 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * TextMessageContent
  */
 @JsonTypeName("text")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record TextMessageContent (
-    /**
-     * Message ID
-     */
+/**
+    * Message ID
+    */
+    
 
     @JsonProperty("id")
     String id,
-    /**
-     * Message text.
-     */
+/**
+    * Message text.
+    */
+    
 
     @JsonProperty("text")
     String text,
-    /**
-     * Array of one or more LINE emoji objects. Only included in the message event when the text property contains a LINE emoji.
-     */
+/**
+    * Array of one or more LINE emoji objects. Only included in the message event when the text property contains a LINE emoji.
+    */
+    
 
     @JsonProperty("emojis")
     List<Emoji> emojis,
-    /**
-     * Get mention
-     */
+/**
+    * Get mention
+    */
+    
 
     @JsonProperty("mention")
     Mention mention,
-    /**
-     * Quote token to quote this message. 
-     */
+/**
+    * Quote token to quote this message. 
+    */
+    
 
     @JsonProperty("quoteToken")
     String quoteToken,
-    /**
-     * Message ID of a quoted message. Only included when the received message quotes a past message.
-     */
+/**
+    * Message ID of a quoted message. Only included when the received message quotes a past message.
+    */
+    
 
     @JsonProperty("quotedMessageId")
     String quotedMessageId
-) implements MessageContent  {
 
-
-
-
+) implements MessageContent {
 
 
 }
-

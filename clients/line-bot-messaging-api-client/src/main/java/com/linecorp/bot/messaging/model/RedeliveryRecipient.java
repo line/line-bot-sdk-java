@@ -35,21 +35,23 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.Recipient;
 
 
-
 /**
  * RedeliveryRecipient
  */
 @JsonTypeName("redelivery")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RedeliveryRecipient (
-    /**
-     * Get requestId
-     */
+/**
+    * Get requestId
+    */
+    
 
     @JsonProperty("requestId")
     String requestId
-) implements Recipient  {
+
+) implements Recipient {
+
 
 }
-

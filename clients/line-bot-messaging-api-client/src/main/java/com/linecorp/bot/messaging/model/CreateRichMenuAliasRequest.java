@@ -34,27 +34,29 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * CreateRichMenuAliasRequest
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record CreateRichMenuAliasRequest (
-    /**
-     * Rich menu alias ID, which can be any ID, unique for each channel.
-     */
+/**
+    * Rich menu alias ID, which can be any ID, unique for each channel.
+    */
+    
 
     @JsonProperty("richMenuAliasId")
     String richMenuAliasId,
-    /**
-     * The rich menu ID to be associated with the rich menu alias.
-     */
+/**
+    * The rich menu ID to be associated with the rich menu alias.
+    */
+    
 
     @JsonProperty("richMenuId")
     String richMenuId
+
 )  {
 
 
 }
-

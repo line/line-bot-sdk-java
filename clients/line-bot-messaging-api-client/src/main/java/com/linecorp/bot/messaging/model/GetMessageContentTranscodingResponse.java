@@ -34,34 +34,37 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Transcoding response
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetMessageContentTranscodingResponse (
-    /**
-     * The preparation status. One of:  &#x60;processing&#x60;: Preparing to get content. &#x60;succeeded&#x60;: Ready to get the content. You can get the content sent by users. &#x60;failed&#x60;: Failed to prepare to get the content. 
-     */
+/**
+    * The preparation status. One of:  &#x60;processing&#x60;: Preparing to get content. &#x60;succeeded&#x60;: Ready to get the content. You can get the content sent by users. &#x60;failed&#x60;: Failed to prepare to get the content. 
+    */
+    
 
     @JsonProperty("status")
     Status status
+
 )  {
-    /**
+/**
      * The preparation status. One of:  &#x60;processing&#x60;: Preparing to get content. &#x60;succeeded&#x60;: Ready to get the content. You can get the content sent by users. &#x60;failed&#x60;: Failed to prepare to get the content. 
      */
     public enum Status {
-      @JsonProperty("processing")
+@JsonProperty("processing")
       PROCESSING,
-      @JsonProperty("succeeded")
+    @JsonProperty("succeeded")
       SUCCEEDED,
-      @JsonProperty("failed")
+    @JsonProperty("failed")
       FAILED,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
 }
-

@@ -35,94 +35,99 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.FlexComponent;
 
 
-
 /**
  * FlexSpan
  */
 @JsonTypeName("span")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexSpan (
-    /**
-     * Get text
-     */
+/**
+    * Get text
+    */
+    
 
     @JsonProperty("text")
     String text,
-    /**
-     * Get size
-     */
+/**
+    * Get size
+    */
+    
 
     @JsonProperty("size")
     String size,
-    /**
-     * Get color
-     */
+/**
+    * Get color
+    */
+    
 
     @JsonProperty("color")
     String color,
-    /**
-     * Get weight
-     */
+/**
+    * Get weight
+    */
+    
 
     @JsonProperty("weight")
     Weight weight,
-    /**
-     * Get style
-     */
+/**
+    * Get style
+    */
+    
 
     @JsonProperty("style")
     Style style,
-    /**
-     * Get decoration
-     */
+/**
+    * Get decoration
+    */
+    
 
     @JsonProperty("decoration")
     Decoration decoration
-) implements FlexComponent  {
 
-
-
-    /**
+) implements FlexComponent {
+/**
      * Gets or Sets weight
      */
     public enum Weight {
-      @JsonProperty("regular")
+@JsonProperty("regular")
       REGULAR,
-      @JsonProperty("bold")
+    @JsonProperty("bold")
       BOLD,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-    /**
+/**
      * Gets or Sets style
      */
     public enum Style {
-      @JsonProperty("normal")
+@JsonProperty("normal")
       NORMAL,
-      @JsonProperty("italic")
+    @JsonProperty("italic")
       ITALIC,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-    /**
+/**
      * Gets or Sets decoration
      */
     public enum Decoration {
-      @JsonProperty("none")
+@JsonProperty("none")
       NONE,
-      @JsonProperty("underline")
+    @JsonProperty("underline")
       UNDERLINE,
-      @JsonProperty("line-through")
+    @JsonProperty("line-through")
       LINE_THROUGH,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
 }
-

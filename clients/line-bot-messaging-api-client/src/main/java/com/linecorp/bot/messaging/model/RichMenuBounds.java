@@ -34,49 +34,51 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Rich menu bounds
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuBounds (
-    /**
-     * Horizontal position relative to the top-left corner of the area.
-     * minimum: 0
-     * maximum: 2147483647
-     */
+/**
+    * Horizontal position relative to the top-left corner of the area.
+    * minimum: 0
+    * maximum: 2147483647
+    */
+    
 
     @JsonProperty("x")
     Long x,
-    /**
-     * Vertical position relative to the top-left corner of the area.
-     * minimum: 0
-     * maximum: 2147483647
-     */
+/**
+    * Vertical position relative to the top-left corner of the area.
+    * minimum: 0
+    * maximum: 2147483647
+    */
+    
 
     @JsonProperty("y")
     Long y,
-    /**
-     * Width of the area.
-     * minimum: 1
-     * maximum: 2147483647
-     */
+/**
+    * Width of the area.
+    * minimum: 1
+    * maximum: 2147483647
+    */
+    
 
     @JsonProperty("width")
     Long width,
-    /**
-     * Height of the area.
-     * minimum: 1
-     * maximum: 2147483647
-     */
+/**
+    * Height of the area.
+    * minimum: 1
+    * maximum: 2147483647
+    */
+    
 
     @JsonProperty("height")
     Long height
+
 )  {
 
 
-
-
 }
-

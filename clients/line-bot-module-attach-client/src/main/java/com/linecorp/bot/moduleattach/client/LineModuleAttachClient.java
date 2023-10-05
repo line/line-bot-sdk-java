@@ -15,7 +15,6 @@
  */
 
 package com.linecorp.bot.moduleattach.client;
-
 import java.net.URI;
 
 import java.util.concurrent.CompletableFuture;
@@ -35,6 +34,7 @@ import okhttp3.MultipartBody;
 
 import com.linecorp.bot.moduleattach.model.AttachModuleResponse;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +43,7 @@ import java.util.Set;
 
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public interface LineModuleAttachClient {
+
         /**
         * 
         * Attach by operation of the module channel provider
@@ -56,42 +57,28 @@ public interface LineModuleAttachClient {
             * @param basicSearchId If you specified a value for basic_search_id in the URL for authentication and authorization, specify the same value. (optional)
             * @param scope If you specified a value for scope in the URL for authentication and authorization, specify the same value. (optional)
             * @param brandType If you specified a value for brand_type in the URL for authentication and authorization, specify the same value. (optional)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/partner-docs/#link-attach-by-operation-module-channel-provider"> Documentation</a>
-     */
+    */
+    
+    
     @POST("/module/auth/v1/token")
     @FormUrlEncoded
-    CompletableFuture<Result<AttachModuleResponse>> attachModule(
-    @Field("grant_type") String grantType
+        
     
-, 
-    @Field("code") String code
     
-, 
-    @Field("redirect_uri") String redirectUri
     
-, 
-    @Field("code_verifier") String codeVerifier
     
-, 
-    @Field("client_id") String clientId
     
-, 
-    @Field("client_secret") String clientSecret
     
-, 
-    @Field("region") String region
     
-, 
-    @Field("basic_search_id") String basicSearchId
     
-, 
-    @Field("scope") String scope
     
-, 
-    @Field("brand_type") String brandType
     
-);
+    CompletableFuture<Result<AttachModuleResponse>> attachModule(@Field("grant_type") String grantType, @Field("code") String code, @Field("redirect_uri") String redirectUri, @Field("code_verifier") String codeVerifier, @Field("client_id") String clientId, @Field("client_secret") String clientSecret, @Field("region") String region, @Field("basic_search_id") String basicSearchId, @Field("scope") String scope, @Field("brand_type") String brandType
+    );
+
+
 
 
     public static ApiAuthenticatedClientBuilder<LineModuleAttachClient> builder(String channelToken) {
@@ -100,5 +87,6 @@ public interface LineModuleAttachClient {
     public static ApiAuthenticatedClientBuilder<LineModuleAttachClient> builder(ChannelTokenSupplier channelTokenSupplier) {
         return new ApiAuthenticatedClientBuilder<>(URI.create("https://manager.line.biz"), LineModuleAttachClient.class, new LineModuleAttachExceptionBuilder(), channelTokenSupplier);
     }
+
 
 }

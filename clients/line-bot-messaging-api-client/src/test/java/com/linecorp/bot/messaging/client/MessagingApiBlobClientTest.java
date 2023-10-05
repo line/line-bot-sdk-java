@@ -40,10 +40,13 @@ import java.net.URI;
 
 import java.util.Map;
 
+
 import com.linecorp.bot.messaging.model.TextMessage;
+
 
 import java.io.File;
 import com.linecorp.bot.messaging.model.GetMessageContentTranscodingResponse;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,7 +91,7 @@ public class MessagingApiBlobClientTest {
         wireMockServer.stop();
     }
 
-    @Test
+@Test
     public void getMessageContentTest() {
         stubFor(get(urlPathTemplate("/v2/bot/message/{messageId}/content")).willReturn(
             aResponse()
@@ -96,15 +99,20 @@ public class MessagingApiBlobClientTest {
                 .withHeader("content-type", "application/json")
                 .withBody("{}")));
 
+    
             String messageId = Arranger.some(String.class, Map.of("message", () -> new TextMessage("hello"), "recipient", () -> null, "filter", () -> null));
+        
+    
 
-        BlobContent response = api.getMessageContent(messageId).join().body();
+    BlobContent response = api.getMessageContent(messageId).join().body();
 
+    
         assertThat(response).isNotNull();
+    
         // TODO: test validations
     }
 
-    @Test
+@Test
     public void getMessageContentPreviewTest() {
         stubFor(get(urlPathTemplate("/v2/bot/message/{messageId}/content/preview")).willReturn(
             aResponse()
@@ -112,15 +120,20 @@ public class MessagingApiBlobClientTest {
                 .withHeader("content-type", "application/json")
                 .withBody("{}")));
 
+    
             String messageId = Arranger.some(String.class, Map.of("message", () -> new TextMessage("hello"), "recipient", () -> null, "filter", () -> null));
+        
+    
 
-        BlobContent response = api.getMessageContentPreview(messageId).join().body();
+    BlobContent response = api.getMessageContentPreview(messageId).join().body();
 
+    
         assertThat(response).isNotNull();
+    
         // TODO: test validations
     }
 
-    @Test
+@Test
     public void getMessageContentTranscodingByMessageIdTest() {
         stubFor(get(urlPathTemplate("/v2/bot/message/{messageId}/content/transcoding")).willReturn(
             aResponse()
@@ -128,15 +141,20 @@ public class MessagingApiBlobClientTest {
                 .withHeader("content-type", "application/json")
                 .withBody("{}")));
 
+    
             String messageId = Arranger.some(String.class, Map.of("message", () -> new TextMessage("hello"), "recipient", () -> null, "filter", () -> null));
+        
+    
 
-        GetMessageContentTranscodingResponse response = api.getMessageContentTranscodingByMessageId(messageId).join().body();
+    GetMessageContentTranscodingResponse response = api.getMessageContentTranscodingByMessageId(messageId).join().body();
 
+    
         assertThat(response).isNotNull();
+    
         // TODO: test validations
     }
 
-    @Test
+@Test
     public void getRichMenuImageTest() {
         stubFor(get(urlPathTemplate("/v2/bot/richmenu/{richMenuId}/content")).willReturn(
             aResponse()
@@ -144,15 +162,20 @@ public class MessagingApiBlobClientTest {
                 .withHeader("content-type", "application/json")
                 .withBody("{}")));
 
+    
             String richMenuId = Arranger.some(String.class, Map.of("message", () -> new TextMessage("hello"), "recipient", () -> null, "filter", () -> null));
+        
+    
 
-        BlobContent response = api.getRichMenuImage(richMenuId).join().body();
+    BlobContent response = api.getRichMenuImage(richMenuId).join().body();
 
+    
         assertThat(response).isNotNull();
+    
         // TODO: test validations
     }
 
-    @Test
+@Test
     public void setRichMenuImageTest() {
         stubFor(post(urlPathTemplate("/v2/bot/richmenu/{richMenuId}/content")).willReturn(
             aResponse()
@@ -160,12 +183,19 @@ public class MessagingApiBlobClientTest {
                 .withHeader("content-type", "application/json")
                 .withBody("{}")));
 
+    
             String richMenuId = Arranger.some(String.class, Map.of("message", () -> new TextMessage("hello"), "recipient", () -> null, "filter", () -> null));
+        
+    
             UploadFile body = UploadFile.fromString("HELLO_FILE", "text/plain");
+        
+    
 
-        api.setRichMenuImage(richMenuId, body).join().body();
+    api.setRichMenuImage(richMenuId, body).join().body();
 
+    
         // TODO: test validations
     }
+
 
 }

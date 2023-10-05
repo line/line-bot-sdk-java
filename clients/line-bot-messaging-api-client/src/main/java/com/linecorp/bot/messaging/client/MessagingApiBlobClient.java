@@ -15,7 +15,6 @@
  */
 
 package com.linecorp.bot.messaging.client;
-
 import java.net.URI;
 
 import java.util.concurrent.CompletableFuture;
@@ -36,6 +35,7 @@ import okhttp3.MultipartBody;
 import java.io.File;
 import com.linecorp.bot.messaging.model.GetMessageContentTranscodingResponse;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,65 +44,86 @@ import java.util.Set;
 
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public interface MessagingApiBlobClient {
+
         /**
         * 
         * Download image, video, and audio data sent from users.
             * @param messageId Message ID of video or audio (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-content"> Documentation</a>
-     */
+    */
+    
     @Streaming
+    
     @GET("/v2/bot/message/{messageId}/content")
+    
     CompletableFuture<Result<BlobContent>> getMessageContent(@Path("messageId") String messageId
-);
+    );
+
 
         /**
         * 
         * Get a preview image of the image or video
             * @param messageId Message ID of image or video (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-image-or-video-preview"> Documentation</a>
-     */
+    */
+    
     @Streaming
+    
     @GET("/v2/bot/message/{messageId}/content/preview")
+    
     CompletableFuture<Result<BlobContent>> getMessageContentPreview(@Path("messageId") String messageId
-);
+    );
+
 
         /**
         * 
         * Verify the preparation status of a video or audio for getting
             * @param messageId Message ID of video or audio (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#verify-video-or-audio-preparation-status"> Documentation</a>
-     */
+    */
+    
+    
     @GET("/v2/bot/message/{messageId}/content/transcoding")
+    
     CompletableFuture<Result<GetMessageContentTranscodingResponse>> getMessageContentTranscodingByMessageId(@Path("messageId") String messageId
-);
+    );
+
 
         /**
         * 
         * Download rich menu image.
             * @param richMenuId ID of the rich menu with the image to be downloaded (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#download-rich-menu-image"> Documentation</a>
-     */
+    */
+    
     @Streaming
+    
     @GET("/v2/bot/richmenu/{richMenuId}/content")
+    
     CompletableFuture<Result<BlobContent>> getRichMenuImage(@Path("richMenuId") String richMenuId
-);
+    );
+
 
         /**
         * 
         * Upload rich menu image
             * @param richMenuId The ID of the rich menu to attach the image to (required)
             * @param body  (optional)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#upload-rich-menu-image"> Documentation</a>
-     */
+    */
+    
+    
     @POST("/v2/bot/richmenu/{richMenuId}/content")
-    CompletableFuture<Result<Void>> setRichMenuImage(@Path("richMenuId") String richMenuId
-, @Body UploadFile body
-);
+    
+    CompletableFuture<Result<Void>> setRichMenuImage(@Path("richMenuId") String richMenuId, @Body UploadFile body
+    );
+
+
 
 
     public static ApiAuthenticatedClientBuilder<MessagingApiBlobClient> builder(String channelToken) {
@@ -111,5 +132,6 @@ public interface MessagingApiBlobClient {
     public static ApiAuthenticatedClientBuilder<MessagingApiBlobClient> builder(ChannelTokenSupplier channelTokenSupplier) {
         return new ApiAuthenticatedClientBuilder<>(URI.create("https://api-data.line.me"), MessagingApiBlobClient.class, new MessagingApiExceptionBuilder(), channelTokenSupplier);
     }
+
 
 }

@@ -38,98 +38,101 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * StickerMessageContent
  */
 @JsonTypeName("sticker")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record StickerMessageContent (
-    /**
-     * Message ID
-     */
+/**
+    * Message ID
+    */
+    
 
     @JsonProperty("id")
     String id,
-    /**
-     * Package ID
-     */
+/**
+    * Package ID
+    */
+    
 
     @JsonProperty("packageId")
     String packageId,
-    /**
-     * Sticker ID
-     */
+/**
+    * Sticker ID
+    */
+    
 
     @JsonProperty("stickerId")
     String stickerId,
-    /**
-     * Get stickerResourceType
-     */
+/**
+    * Get stickerResourceType
+    */
+    
 
     @JsonProperty("stickerResourceType")
     StickerResourceType stickerResourceType,
-    /**
-     * Array of up to 15 keywords describing the sticker. If a sticker has 16 or more keywords, a random selection of 15 keywords will be returned. The keyword selection is random for each event, so different keywords may be returned for the same sticker. 
-     */
+/**
+    * Array of up to 15 keywords describing the sticker. If a sticker has 16 or more keywords, a random selection of 15 keywords will be returned. The keyword selection is random for each event, so different keywords may be returned for the same sticker. 
+    */
+    
 
     @JsonProperty("keywords")
     List<String> keywords,
-    /**
-     * Any text entered by the user. This property is only included for message stickers. Max character limit: 100 
-     */
+/**
+    * Any text entered by the user. This property is only included for message stickers. Max character limit: 100 
+    */
+    
 
     @JsonProperty("text")
     String text,
-    /**
-     * Quote token to quote this message. 
-     */
+/**
+    * Quote token to quote this message. 
+    */
+    
 
     @JsonProperty("quoteToken")
     String quoteToken,
-    /**
-     * Message ID of a quoted message. Only included when the received message quotes a past message.  
-     */
+/**
+    * Message ID of a quoted message. Only included when the received message quotes a past message.  
+    */
+    
 
     @JsonProperty("quotedMessageId")
     String quotedMessageId
-) implements MessageContent  {
 
-
-
-    /**
+) implements MessageContent {
+/**
      * Gets or Sets stickerResourceType
      */
     public enum StickerResourceType {
-      @JsonProperty("STATIC")
+@JsonProperty("STATIC")
       STATIC,
-      @JsonProperty("ANIMATION")
+    @JsonProperty("ANIMATION")
       ANIMATION,
-      @JsonProperty("SOUND")
+    @JsonProperty("SOUND")
       SOUND,
-      @JsonProperty("ANIMATION_SOUND")
+    @JsonProperty("ANIMATION_SOUND")
       ANIMATION_SOUND,
-      @JsonProperty("POPUP")
+    @JsonProperty("POPUP")
       POPUP,
-      @JsonProperty("POPUP_SOUND")
+    @JsonProperty("POPUP_SOUND")
       POPUP_SOUND,
-      @JsonProperty("CUSTOM")
+    @JsonProperty("CUSTOM")
       CUSTOM,
-      @JsonProperty("MESSAGE")
+    @JsonProperty("MESSAGE")
       MESSAGE,
-      @JsonProperty("NAME_TEXT")
+    @JsonProperty("NAME_TEXT")
       NAME_TEXT,
-      @JsonProperty("PER_STICKER_TEXT")
+    @JsonProperty("PER_STICKER_TEXT")
       PER_STICKER_TEXT,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
-
-
-
 }
-

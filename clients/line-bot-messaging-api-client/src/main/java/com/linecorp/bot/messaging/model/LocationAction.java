@@ -35,21 +35,23 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.Action;
 
 
-
 /**
  * LocationAction
  */
 @JsonTypeName("location")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record LocationAction (
-    /**
-     * Label for the action.
-     */
+/**
+    * Label for the action.
+    */
+    
 
     @JsonProperty("label")
     String label
-) implements Action  {
+
+) implements Action {
+
 
 }
-

@@ -35,14 +35,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.RichMenuBatchOperation;
 
 
-
 /**
  * Unlink the rich menu from all users linked to the rich menu.
  */
 @JsonTypeName("unlinkAll")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuBatchUnlinkAllOperation (
-) implements RichMenuBatchOperation  {
-}
 
+) implements RichMenuBatchOperation {
+
+
+}

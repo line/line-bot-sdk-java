@@ -49,6 +49,12 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
     public LineJavaCodegenGenerator() {
         super();
         embeddedTemplateDir = "line-java-codegen";
+        apiTemplateFiles.remove("api.mustache");
+        apiTemplateFiles.put("line-java-codegen/api.pebble", ".java");
+        apiTestTemplateFiles.remove("api_test.mustache");
+        apiTestTemplateFiles.put("line-java-codegen/api_test.pebble", ".java");
+        modelTemplateFiles.remove("model.mustache");
+        modelTemplateFiles.put("line-java-codegen/model.pebble", ".java");
     }
 
     public CodegenType getTag() {
@@ -126,10 +132,6 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
                     addImplements(codegenModel, "ReplyEvent");
                 }
             }
-
-            // fill src/main/resources/body/*.java to the body of the class.
-            String body = readPartialBody("body/model/" + codegenModel.name + ".java");
-            codegenModel.vendorExtensions.put("x-body", body);
         }
 
         return modelsMap;
@@ -149,38 +151,6 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
         }
         System.out.println("Partial body file NOT found: " + path);
         return null;
-    }
-
-    @Override
-    public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
-        final Map<String, ModelsMap> processed = super.postProcessAllModels(objs);
-
-        for (Map.Entry<String, ModelsMap> entry : processed.entrySet()) {
-            entry.setValue(postProcessModelsMap(entry.getValue()));
-        }
-
-        return processed;
-    }
-
-    private ModelsMap postProcessModelsMap(ModelsMap objs) {
-        for (ModelMap m : objs.getModels()) {
-            CodegenModel codegenModel = m.getModel();
-            if (codegenModel.parentModel != null) {
-                String name = mappingName(codegenModel.name, codegenModel.parentModel.getDiscriminator());
-                codegenModel.getVendorExtensions().put("x-javatypename", name);
-            }
-        }
-
-        return objs;
-    }
-
-    private String mappingName(String modelName, CodegenDiscriminator discriminator) {
-        String valueToSearch = "#/components/schemas/" + modelName;
-        return discriminator.getMapping().entrySet().stream()
-                .filter(entry -> valueToSearch.equals(entry.getValue()))
-                .map(Map.Entry::getKey)
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Key not found (" + modelName + ") mapping (" + discriminator.getMapping() + ")"));
     }
 
     private String indent4(String s) {
@@ -217,54 +187,5 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
                 .collect(Collectors.toList());
 
         return op;
-    }
-
-    @Override
-    protected ImmutableMap.Builder<String, Mustache.Lambda> addMustacheLambdas() {
-        return super.addMustacheLambdas()
-                .put("endpoint", (fragment, writer) -> {
-                    String text = fragment.execute();
-                    writer.write(this.getEndpointFromClassName(text));
-                })
-                .put("exceptionbuilderclassname", (fragment, writer) -> {
-                    String text = fragment.execute();
-                    writer.write(
-                            text.replace("BlobClient", "")
-                                    .replace("Client", "")
-                                    + "ExceptionBuilder"
-                    );
-                })
-                .put("importTextMessage", ((fragment, writer) -> {
-                    // TODO: I know. this is silly hack. But it works.
-                    String text = fragment.execute();
-                    if (text.contains("MessagingApi")) {
-                        writer.write("import com.linecorp.bot.messaging.model.TextMessage;");
-                    }
-                }))
-                .put("messageMock", ((fragment, writer) -> {
-                    // TODO: Ditto.
-                    String text = fragment.execute();
-                    if (text.contains("MessagingApi")) {
-                        String src = ", Map.of(\"message\", () -> new TextMessage(\"hello\"), \"recipient\", () -> null, \"filter\", () -> null)";
-                        writer.write(src);
-                    }
-                }))
-                .put("injectbody", (fragment, writer) -> {
-                    String text = fragment.execute();
-                    String body = readPartialBody("body/api/" + text + ".java");
-                    if (body != null) {
-                        writer.write(body);
-                    }
-                });
-    }
-
-    private String getEndpointFromClassName(String className) {
-        if (className.equals("LineModuleAttachClient")) {
-            return "https://manager.line.biz";
-        } else if (className.contains("Blob")) {
-            return "https://api-data.line.me";
-        } else {
-            return "https://api.line.me";
-        }
     }
 }

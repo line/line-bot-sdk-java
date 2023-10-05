@@ -40,263 +40,269 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * FlexBox
  */
 @JsonTypeName("box")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexBox (
-    /**
-     * Get layout
-     */
+/**
+    * Get layout
+    */
+    
 
     @JsonProperty("layout")
     Layout layout,
-    /**
-     * Get flex
-     */
+/**
+    * Get flex
+    */
+    
 
     @JsonProperty("flex")
     Integer flex,
-    /**
-     * Get contents
-     */
+/**
+    * Get contents
+    */
+    
 
     @JsonProperty("contents")
     List<FlexComponent> contents,
-    /**
-     * Get spacing
-     */
+/**
+    * Get spacing
+    */
+    
 
     @JsonProperty("spacing")
     String spacing,
-    /**
-     * Get margin
-     */
+/**
+    * Get margin
+    */
+    
 
     @JsonProperty("margin")
     String margin,
-    /**
-     * Get position
-     */
+/**
+    * Get position
+    */
+    
 
     @JsonProperty("position")
     Position position,
-    /**
-     * Get offsetTop
-     */
+/**
+    * Get offsetTop
+    */
+    
 
     @JsonProperty("offsetTop")
     String offsetTop,
-    /**
-     * Get offsetBottom
-     */
+/**
+    * Get offsetBottom
+    */
+    
 
     @JsonProperty("offsetBottom")
     String offsetBottom,
-    /**
-     * Get offsetStart
-     */
+/**
+    * Get offsetStart
+    */
+    
 
     @JsonProperty("offsetStart")
     String offsetStart,
-    /**
-     * Get offsetEnd
-     */
+/**
+    * Get offsetEnd
+    */
+    
 
     @JsonProperty("offsetEnd")
     String offsetEnd,
-    /**
-     * Get backgroundColor
-     */
+/**
+    * Get backgroundColor
+    */
+    
 
     @JsonProperty("backgroundColor")
     String backgroundColor,
-    /**
-     * Get borderColor
-     */
+/**
+    * Get borderColor
+    */
+    
 
     @JsonProperty("borderColor")
     String borderColor,
-    /**
-     * Get borderWidth
-     */
+/**
+    * Get borderWidth
+    */
+    
 
     @JsonProperty("borderWidth")
     String borderWidth,
-    /**
-     * Get cornerRadius
-     */
+/**
+    * Get cornerRadius
+    */
+    
 
     @JsonProperty("cornerRadius")
     String cornerRadius,
-    /**
-     * Get width
-     */
+/**
+    * Get width
+    */
+    
 
     @JsonProperty("width")
     String width,
-    /**
-     * Get maxWidth
-     */
+/**
+    * Get maxWidth
+    */
+    
 
     @JsonProperty("maxWidth")
     String maxWidth,
-    /**
-     * Get height
-     */
+/**
+    * Get height
+    */
+    
 
     @JsonProperty("height")
     String height,
-    /**
-     * Get maxHeight
-     */
+/**
+    * Get maxHeight
+    */
+    
 
     @JsonProperty("maxHeight")
     String maxHeight,
-    /**
-     * Get paddingAll
-     */
+/**
+    * Get paddingAll
+    */
+    
 
     @JsonProperty("paddingAll")
     String paddingAll,
-    /**
-     * Get paddingTop
-     */
+/**
+    * Get paddingTop
+    */
+    
 
     @JsonProperty("paddingTop")
     String paddingTop,
-    /**
-     * Get paddingBottom
-     */
+/**
+    * Get paddingBottom
+    */
+    
 
     @JsonProperty("paddingBottom")
     String paddingBottom,
-    /**
-     * Get paddingStart
-     */
+/**
+    * Get paddingStart
+    */
+    
 
     @JsonProperty("paddingStart")
     String paddingStart,
-    /**
-     * Get paddingEnd
-     */
+/**
+    * Get paddingEnd
+    */
+    
 
     @JsonProperty("paddingEnd")
     String paddingEnd,
-    /**
-     * Get action
-     */
+/**
+    * Get action
+    */
+    
 
     @JsonProperty("action")
     Action action,
-    /**
-     * Get justifyContent
-     */
+/**
+    * Get justifyContent
+    */
+    
 
     @JsonProperty("justifyContent")
     JustifyContent justifyContent,
-    /**
-     * Get alignItems
-     */
+/**
+    * Get alignItems
+    */
+    
 
     @JsonProperty("alignItems")
     AlignItems alignItems,
-    /**
-     * Get background
-     */
+/**
+    * Get background
+    */
+    
 
     @JsonProperty("background")
     FlexBoxBackground background
-) implements FlexComponent  {
-    /**
+
+) implements FlexComponent {
+/**
      * Gets or Sets layout
      */
     public enum Layout {
-      @JsonProperty("horizontal")
+@JsonProperty("horizontal")
       HORIZONTAL,
-      @JsonProperty("vertical")
+    @JsonProperty("vertical")
       VERTICAL,
-      @JsonProperty("baseline")
+    @JsonProperty("baseline")
       BASELINE,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-
-
-
-
-    /**
+/**
      * Gets or Sets position
      */
     public enum Position {
-      @JsonProperty("relative")
+@JsonProperty("relative")
       RELATIVE,
-      @JsonProperty("absolute")
+    @JsonProperty("absolute")
       ABSOLUTE,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
+/**
      * Gets or Sets justifyContent
      */
     public enum JustifyContent {
-      @JsonProperty("center")
+@JsonProperty("center")
       CENTER,
-      @JsonProperty("flex-start")
+    @JsonProperty("flex-start")
       FLEX_START,
-      @JsonProperty("flex-end")
+    @JsonProperty("flex-end")
       FLEX_END,
-      @JsonProperty("space-between")
+    @JsonProperty("space-between")
       SPACE_BETWEEN,
-      @JsonProperty("space-around")
+    @JsonProperty("space-around")
       SPACE_AROUND,
-      @JsonProperty("space-evenly")
+    @JsonProperty("space-evenly")
       SPACE_EVENLY,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-    /**
+/**
      * Gets or Sets alignItems
      */
     public enum AlignItems {
-      @JsonProperty("center")
+@JsonProperty("center")
       CENTER,
-      @JsonProperty("flex-start")
+    @JsonProperty("flex-start")
       FLEX_START,
-      @JsonProperty("flex-end")
+    @JsonProperty("flex-end")
       FLEX_END,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

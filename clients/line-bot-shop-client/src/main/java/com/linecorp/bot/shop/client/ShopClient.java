@@ -15,7 +15,6 @@
  */
 
 package com.linecorp.bot.shop.client;
-
 import java.net.URI;
 
 import java.util.concurrent.CompletableFuture;
@@ -35,6 +34,7 @@ import okhttp3.MultipartBody;
 
 import com.linecorp.bot.shop.model.MissionStickerRequest;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,16 +43,22 @@ import java.util.Set;
 
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public interface ShopClient {
+
         /**
         * 
         * Sends a mission sticker.
             * @param missionStickerRequest  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/partner-docs/#send-mission-stickers-v3"> Documentation</a>
-     */
+    */
+    
+    
     @POST("/shop/v3/mission")
+    
     CompletableFuture<Result<Void>> missionStickerV3(@Body MissionStickerRequest missionStickerRequest
-);
+    );
+
+
 
 
     public static ApiAuthenticatedClientBuilder<ShopClient> builder(String channelToken) {
@@ -61,5 +67,6 @@ public interface ShopClient {
     public static ApiAuthenticatedClientBuilder<ShopClient> builder(ChannelTokenSupplier channelTokenSupplier) {
         return new ApiAuthenticatedClientBuilder<>(URI.create("https://api.line.me"), ShopClient.class, new ShopExceptionBuilder(), channelTokenSupplier);
     }
+
 
 }

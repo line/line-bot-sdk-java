@@ -37,59 +37,61 @@ import com.linecorp.bot.messaging.model.QuickReply;
 import com.linecorp.bot.messaging.model.Sender;
 
 
-
 /**
  * LocationMessage
  */
 @JsonTypeName("location")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record LocationMessage (
-    /**
-     * Get quickReply
-     */
+/**
+    * Get quickReply
+    */
+    
 
     @JsonProperty("quickReply")
     QuickReply quickReply,
-    /**
-     * Get sender
-     */
+/**
+    * Get sender
+    */
+    
 
     @JsonProperty("sender")
     Sender sender,
-    /**
-     * Get title
-     */
+/**
+    * Get title
+    */
+    
 
     @JsonProperty("title")
     String title,
-    /**
-     * Get address
-     */
+/**
+    * Get address
+    */
+    
 
     @JsonProperty("address")
     String address,
-    /**
-     * Get latitude
-     */
+/**
+    * Get latitude
+    */
+    
 
     @JsonProperty("latitude")
     Double latitude,
-    /**
-     * Get longitude
-     */
+/**
+    * Get longitude
+    */
+    
 
     @JsonProperty("longitude")
     Double longitude
-) implements Message  {
 
+) implements Message {
 
-
-
-
-
-    public LocationMessage(String title, String address, Double latitude, Double longitude) {
-        this(null, null, title, address, latitude, longitude);
-    }
+public LocationMessage(String title, String address, Double latitude, Double longitude) {
+    this(null, null, title, address, latitude, longitude);
 }
 
+}

@@ -16,24 +16,20 @@ def remove_previous_files(target):
 def run_command(command):
     proc = subprocess.run(command, shell=True, text=True, capture_output=True)
 
+    if proc.returncode != 0:
+        print("\n\nSTDOUT:\n\n")
+        print(proc.stdout)
+
     if len(proc.stderr) != 0:
         print("\n\nSTDERR:\n\n")
         print(proc.stderr)
         print("\n\n")
 
     if proc.returncode != 0:
-        print("\n\nSTDOUT:\n\n")
-        print(proc.stdout)
         print(f"\n\nCommand '{command}' returned non-zero exit status {proc.returncode}.")
         sys.exit(1)
 
     return proc.stdout.strip()
-
-def format_code(target):
-    orig_pwd = os.getcwd()
-    os.chdir(target)
-    run_command(f'java -jar {orig_pwd}/tools/google-java-format-1.18.0-all-deps.jar -r @.openapi-generator/FILES')
-    os.chdir(orig_pwd)
 
 def main():
 
@@ -64,6 +60,7 @@ def main():
                     -cp ./tools/openapi-generator-cli.jar:./generator/target/line-java-codegen-1.0.0.jar \\
                     org.openapitools.codegen.OpenAPIGenerator \\
                     generate \\
+                    -e pebble \\
                     -g line-java-codegen \\
                     -o {component['outdir']} \\
                     --global-property modelDocs=false \\
@@ -80,7 +77,6 @@ def main():
                     --additional-properties=apiNameSuffix=Client \\
                     --additional-properties=authenticated=true'''
         run_command(command)
-        # format_code(component['outdir'])
 
     ## webhook requires only models.
     sourceYaml = "webhook.yml"
@@ -95,6 +91,7 @@ def main():
                 -cp ./tools/openapi-generator-cli.jar:./generator/target/line-java-codegen-1.0.0.jar \\
                 org.openapitools.codegen.OpenAPIGenerator \\
                 generate \\
+                -e pebble \\
                 -g line-java-codegen \\
                 -o line-bot-webhook/ \\
                 --global-property modelDocs=false,modelTests=false,apiDocs=false,api=false \\
@@ -106,7 +103,6 @@ def main():
                 --additional-properties=openApiNullable=false
               '''
     run_command(command)
-    # format_code('line-bot-webhook')
 
 
 if __name__ == "__main__":

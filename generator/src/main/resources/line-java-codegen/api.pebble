@@ -1,0 +1,87 @@
+{# @pebvariable name="imports" type="java.util.List<java.util.Map<String, String>>" -#}
+{# @pebvariable name="operations" type="org.openapitools.codegen.model.OperationMap" -#}
+{# @pebvariable name="package" type="java.lang.String" -#}
+{# @pebvariable name="generatorClass" type="java.lang.String" -#}
+{# @pebvariable name="classname" type="java.lang.String" -#}
+{# @pebvariable name="authenticated" type="java.lang.Boolean" -#}
+{% include "./licenseInfo.pebble" %}
+package {{ package }};
+{% import "./macros/api_param.pebble" %}
+{%- macro exceptionbuilderclassname(classname) -%}
+{{ classname.replace("BlobClient", "").replace("Client", "") + "ExceptionBuilder" }}
+{%- endmacro -%}
+
+import java.net.URI;
+
+import java.util.concurrent.CompletableFuture;
+
+import com.linecorp.bot.client.base.ApiAuthenticatedClientBuilder;
+import com.linecorp.bot.client.base.ApiClientBuilder;
+import com.linecorp.bot.client.base.Result;
+import com.linecorp.bot.client.base.BlobContent;
+import com.linecorp.bot.client.base.UploadFile;
+import com.linecorp.bot.client.base.channel.ChannelTokenSupplier;
+
+import retrofit2.Call;
+import retrofit2.http.*;
+
+import okhttp3.RequestBody;
+import okhttp3.MultipartBody;
+
+{% for import in imports -%}
+import {{import.import}};
+{% endfor %}
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+@javax.annotation.Generated(value = "{{generatorClass}}")
+public interface {{classname}} {
+{% for op in operations.operation %}
+        /**
+        * {{op.summary | escape }}
+        * {{op.notes | escape }}
+    {% for param in op.allParams %}        * @param {{ param.paramName | escape }} {{param.description | escape }}{% if param.required %} (required){% else %} (optional{% if param.defaultValue %}, default to {{param.defaultValue}}{% endif %}){% endif %}
+    {% endfor -%}
+    {% if op.isDeprecated -%}
+        * @deprecated
+    {% endif -%}
+    {% if op.externalDocs != null -%}
+     * {{op.externalDocs.description}}
+     * @see <a href="{{op.externalDocs.url}}">{{op.summary}} Documentation</a>
+    {% endif -%}
+     */
+    {% if op.isDeprecated -%}
+        @Deprecated
+    {% endif %}
+    {% if op.isResponseFile -%}
+    @Streaming
+    {% endif %}
+    @{{op.httpMethod}}("{{op.path}}")
+    {% for param in op.formParams -%}
+        {% if loop.first -%}
+            {% if op.isMultipart %}@Multipart{% else %}@FormUrlEncoded{% endif %}
+        {% endif %}
+    {% endfor %}
+    CompletableFuture<Result<{% if op.isResponseFile %}BlobContent{% elseif op.returnType %}{{ op.returnType }}{% else %}Void{% endif %}>> {{op.operationId}}({%- for param in op.allParams -%}{{ api_param(param, op) }}{%- if not loop.last %}, {% endif -%}{%- endfor %}
+    );
+
+{% endfor %}
+
+{% if authenticated %}
+    public static ApiAuthenticatedClientBuilder<{{classname}}> builder(String channelToken) {
+        return new ApiAuthenticatedClientBuilder<>(URI.create("{{ endpoint(classname) }}"), {{classname}}.class, new {{ exceptionbuilderclassname(classname) }}(), channelToken);
+    }
+    public static ApiAuthenticatedClientBuilder<{{classname}}> builder(ChannelTokenSupplier channelTokenSupplier) {
+        return new ApiAuthenticatedClientBuilder<>(URI.create("{{ endpoint(classname) }}"), {{classname}}.class, new {{ exceptionbuilderclassname(classname) }}(), channelTokenSupplier);
+    }
+{% else %}
+    public static ApiClientBuilder<{{classname}}> builder() {
+        return new ApiClientBuilder<>(URI.create("{{ endpoint(classname) }}"), {{classname}}.class, new {{ exceptionbuilderclassname(classname) }}());
+    }
+{% endif %}
+{% if ["LiffClient"] contains classname %}{% include "./body/api/" + classname + ".java" %}{% endif %}
+}

@@ -34,24 +34,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Failed type
  */
 public enum AudienceGroupFailedType {
-  
+
+    
     @JsonProperty("AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT")
   AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT,
-  
+    
     @JsonProperty("INTERNAL_ERROR")
   INTERNAL_ERROR,
-  
+    
     @JsonProperty("null")
   NULL,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-
