@@ -48,7 +48,6 @@ public interface MessagingApiBlobClient {
         * 
         * Download image, video, and audio data sent from users.
             * @param messageId Message ID of video or audio (required)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-content"> Documentation</a>
      */
@@ -61,7 +60,6 @@ public interface MessagingApiBlobClient {
         * 
         * Get a preview image of the image or video
             * @param messageId Message ID of image or video (required)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-image-or-video-preview"> Documentation</a>
      */
@@ -74,7 +72,6 @@ public interface MessagingApiBlobClient {
         * 
         * Verify the preparation status of a video or audio for getting
             * @param messageId Message ID of video or audio (required)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#verify-video-or-audio-preparation-status"> Documentation</a>
      */
@@ -86,7 +83,6 @@ public interface MessagingApiBlobClient {
         * 
         * Download rich menu image.
             * @param richMenuId ID of the rich menu with the image to be downloaded (required)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#download-rich-menu-image"> Documentation</a>
      */
@@ -100,7 +96,6 @@ public interface MessagingApiBlobClient {
         * Upload rich menu image
             * @param richMenuId The ID of the rich menu to attach the image to (required)
             * @param body  (optional)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#upload-rich-menu-image"> Documentation</a>
      */

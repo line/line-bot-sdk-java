@@ -50,7 +50,6 @@ public interface InsightClient {
         /**
         * 
         * Retrieves the demographic attributes for a LINE Official Account&#39;s friends.You can only retrieve information about friends for LINE Official Accounts created by users in Japan (JP), Thailand (TH), Taiwan (TW) and Indonesia (ID). 
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-demographic"> Documentation</a>
      */
@@ -61,7 +60,6 @@ public interface InsightClient {
         * Get user interaction statistics
         * Returns statistics about how users interact with narrowcast messages or broadcast messages sent from your LINE Official Account. 
             * @param requestId Request ID of a narrowcast message or broadcast message. Each Messaging API request has a request ID.  (required)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-message-event">Get user interaction statistics Documentation</a>
      */
@@ -73,7 +71,6 @@ public interface InsightClient {
         * Get number of followers
         * Returns the number of users who have added the LINE Official Account on or before a specified date. 
             * @param date Date for which to retrieve the number of followers.  Format: yyyyMMdd (e.g. 20191231) Timezone: UTC+9  (optional)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-number-of-followers">Get number of followers Documentation</a>
      */
@@ -85,7 +82,6 @@ public interface InsightClient {
         * Get number of message deliveries
         * Returns the number of messages sent from LINE Official Account on a specified day. 
             * @param date Date for which to retrieve number of sent messages. - Format: yyyyMMdd (e.g. 20191231) - Timezone: UTC+9  (required)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-number-of-delivery-messages">Get number of message deliveries Documentation</a>
      */
@@ -99,7 +95,6 @@ public interface InsightClient {
             * @param customAggregationUnit Name of aggregation unit specified when sending the message. Case-sensitive. For example, &#x60;Promotion_a&#x60; and &#x60;Promotion_A&#x60; are regarded as different unit names.  (required)
             * @param from Start date of aggregation period.  Format: yyyyMMdd (e.g. 20210301) Time zone: UTC+9  (required)
             * @param to End date of aggregation period. The end date can be specified for up to 30 days later. For example, if the start date is 20210301, the latest end date is 20210331.  Format: yyyyMMdd (e.g. 20210301) Time zone: UTC+9  (required)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-statistics-per-unit"> Documentation</a>
      */

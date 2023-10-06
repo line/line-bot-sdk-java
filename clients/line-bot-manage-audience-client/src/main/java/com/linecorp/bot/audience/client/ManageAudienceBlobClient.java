@@ -50,7 +50,6 @@ public interface ManageAudienceBlobClient {
             * @param audienceGroupId The audience ID. (optional)
             * @param uploadDescription The description to register with the job (optional)
             * @param _file A text file with one user ID or IFA entered per line. Specify text/plain as Content-Type. Max file number: 1 Max number: 1,500,000  (required)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#update-upload-audience-group-by-file"> Documentation</a>
      */
@@ -74,7 +73,6 @@ public interface ManageAudienceBlobClient {
             * @param isIfaAudience To specify recipients by IFAs: set &#x60;true&#x60;. To specify recipients by user IDs: set &#x60;false&#x60; or omit isIfaAudience property.  (optional)
             * @param uploadDescription The description to register for the job (in &#x60;jobs[].description&#x60;).  (optional)
             * @param _file A text file with one user ID or IFA entered per line. Specify text/plain as Content-Type. Max file number: 1 Max number: 1,500,000  (required)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-upload-audience-group-by-file"> Documentation</a>
      */

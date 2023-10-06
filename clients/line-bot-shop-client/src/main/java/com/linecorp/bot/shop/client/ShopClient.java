@@ -47,7 +47,6 @@ public interface ShopClient {
         * 
         * Sends a mission sticker.
             * @param missionStickerRequest  (required)
-        * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/partner-docs/#send-mission-stickers-v3"> Documentation</a>
      */
