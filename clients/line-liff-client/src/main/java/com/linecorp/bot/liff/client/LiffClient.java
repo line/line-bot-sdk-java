@@ -50,7 +50,6 @@ public interface LiffClient {
         * 
         * Adding the LIFF app to a channel
             * @param addLiffAppRequest  (required)
-        * @return CompletableFuture<Result<AddLiffAppResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/liff-server/#add-liff-app"> Documentation</a>
      */
@@ -62,7 +61,6 @@ public interface LiffClient {
         * Delete LIFF app from a channel
         * Deletes a LIFF app from a channel. 
             * @param liffId ID of the LIFF app to be updated (required)
-        * @return CompletableFuture<Result<Void>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/liff-server/#delete-liff-app">Delete LIFF app from a channel Documentation</a>
      */
@@ -73,7 +71,6 @@ public interface LiffClient {
         /**
         * Get all LIFF apps
         * Gets information on all the LIFF apps added to the channel.
-        * @return CompletableFuture<Result<GetAllLiffAppsResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/liff-server/#get-all-liff-apps">Get all LIFF apps Documentation</a>
      */
@@ -85,7 +82,6 @@ public interface LiffClient {
         * Update LIFF app settings
             * @param liffId ID of the LIFF app to be updated (required)
             * @param updateLiffAppRequest  (required)
-        * @return CompletableFuture<Result<Void>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/liff-server/#update-liff-app"> Documentation</a>
      */

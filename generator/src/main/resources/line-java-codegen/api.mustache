@@ -39,7 +39,6 @@ public interface {{classname}} {
         {{#allParams}}
             * @param {{{paramName}}} {{{description}}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
         {{/allParams}}
-        * @return CompletableFuture<Result<{{#isResponseFile}}BlobContent{{/isResponseFile}}{{^isResponseFile}}{{{returnType}}}{{^returnType}}Void{{/returnType}}{{/isResponseFile}}>>
         {{#isDeprecated}}
             * @deprecated
 {{/isDeprecated}}
