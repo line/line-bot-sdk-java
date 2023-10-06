@@ -55,7 +55,7 @@ public record GenderTile (
     Double percentage
 )  {
     /**
-     * users' gender
+     * users&#39; gender
      */
     public enum Gender {
       @JsonProperty("male")

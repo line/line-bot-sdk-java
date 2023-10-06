@@ -34,10 +34,10 @@ import java.util.Set;
 public interface {{classname}} {
     {{#operation}}
         /**
-        * {{{summary}}}
-        * {{{notes}}}
+        * {{summary}}
+        * {{notes}}
         {{#allParams}}
-            * @param {{{paramName}}} {{{description}}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
+            * @param {{paramName}} {{description}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
         {{/allParams}}
         {{#isDeprecated}}
             * @deprecated

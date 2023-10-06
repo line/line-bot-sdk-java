@@ -55,7 +55,7 @@ public record SubscriptionPeriodTile (
     Double percentage
 )  {
     /**
-     * Subscription period. Possible values: `within7days`, `within90days`, `unknown` etc.
+     * Subscription period. Possible values: &#x60;within7days&#x60;, &#x60;within90days&#x60;, &#x60;unknown&#x60; etc.
      */
     public enum SubscriptionPeriod {
       @JsonProperty("within7days")

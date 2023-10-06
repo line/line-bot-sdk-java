@@ -91,7 +91,7 @@ public record BotInfoResponse (
 
 
     /**
-     * Chat settings set in the LINE Official Account Manager. One of:  `chat`: Chat is set to \"On\". `bot`: Chat is set to \"Off\". 
+     * Chat settings set in the LINE Official Account Manager. One of:  &#x60;chat&#x60;: Chat is set to \&quot;On\&quot;. &#x60;bot&#x60;: Chat is set to \&quot;Off\&quot;. 
      */
     public enum ChatMode {
       @JsonProperty("chat")
@@ -104,7 +104,7 @@ public record BotInfoResponse (
 
 
     /**
-     * Automatic read setting for messages. If the chat is set to \"Off\", auto is returned. If the chat is set to \"On\", manual is returned.  `auto`: Auto read setting is enabled. `manual`: Auto read setting is disabled.  
+     * Automatic read setting for messages. If the chat is set to \&quot;Off\&quot;, auto is returned. If the chat is set to \&quot;On\&quot;, manual is returned.  &#x60;auto&#x60;: Auto read setting is enabled. &#x60;manual&#x60;: Auto read setting is disabled.  
      */
     public enum MarkAsReadMode {
       @JsonProperty("auto")

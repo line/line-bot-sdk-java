@@ -55,7 +55,7 @@ public record AgeTile (
     Double percentage
 )  {
     /**
-     * users' age
+     * users&#39; age
      */
     public enum Age {
       @JsonProperty("from0to14")

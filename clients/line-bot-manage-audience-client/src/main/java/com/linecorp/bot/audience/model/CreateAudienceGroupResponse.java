@@ -94,7 +94,7 @@ public record CreateAudienceGroupResponse (
 )  {
 
     /**
-     * How the audience was created.  `MESSAGING_API`: An audience created with Messaging API. 
+     * How the audience was created.  &#x60;MESSAGING_API&#x60;: An audience created with Messaging API. 
      */
     public enum CreateRoute {
       @JsonProperty("MESSAGING_API")
@@ -108,7 +108,7 @@ public record CreateAudienceGroupResponse (
 
 
     /**
-     * Audience's update permission. Audiences linked to the same channel will be READ_WRITE.  `READ`: Can use only. `READ_WRITE`: Can use and update. 
+     * Audience&#39;s update permission. Audiences linked to the same channel will be READ_WRITE.  &#x60;READ&#x60;: Can use only. &#x60;READ_WRITE&#x60;: Can use and update. 
      */
     public enum Permission {
       @JsonProperty("READ")

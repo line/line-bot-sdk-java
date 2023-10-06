@@ -49,7 +49,7 @@ import java.util.Set;
 public interface InsightClient {
         /**
         * 
-        * Retrieves the demographic attributes for a LINE Official Account's friends.You can only retrieve information about friends for LINE Official Accounts created by users in Japan (JP), Thailand (TH), Taiwan (TW) and Indonesia (ID). 
+        * Retrieves the demographic attributes for a LINE Official Account&#39;s friends.You can only retrieve information about friends for LINE Official Accounts created by users in Japan (JP), Thailand (TH), Taiwan (TW) and Indonesia (ID). 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-demographic"> Documentation</a>
      */
@@ -92,7 +92,7 @@ public interface InsightClient {
         /**
         * 
         * You can check the per-unit statistics of how users interact with push messages and multicast messages sent from your LINE Official Account. 
-            * @param customAggregationUnit Name of aggregation unit specified when sending the message. Case-sensitive. For example, `Promotion_a` and `Promotion_A` are regarded as different unit names.  (required)
+            * @param customAggregationUnit Name of aggregation unit specified when sending the message. Case-sensitive. For example, &#x60;Promotion_a&#x60; and &#x60;Promotion_A&#x60; are regarded as different unit names.  (required)
             * @param from Start date of aggregation period.  Format: yyyyMMdd (e.g. 20210301) Time zone: UTC+9  (required)
             * @param to End date of aggregation period. The end date can be specified for up to 30 days later. For example, if the start date is 20210301, the latest end date is 20210331.  Format: yyyyMMdd (e.g. 20210301) Time zone: UTC+9  (required)
      * 

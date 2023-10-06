@@ -55,7 +55,7 @@ public record AppTypeTile (
     Double percentage
 )  {
     /**
-     * users' OS
+     * users&#39; OS
      */
     public enum AppType {
       @JsonProperty("ios")

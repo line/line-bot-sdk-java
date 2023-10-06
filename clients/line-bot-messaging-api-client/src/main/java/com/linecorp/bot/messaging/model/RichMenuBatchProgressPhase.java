@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * The current status. One of:  `ongoing`: Rich menu batch control is in progress. `succeeded`: Rich menu batch control is complete. `failed`: Rich menu batch control failed.           This means that the rich menu for one or more users couldn't be controlled.            There may also be users whose operations have been successfully completed. 
+ * The current status. One of:  &#x60;ongoing&#x60;: Rich menu batch control is in progress. &#x60;succeeded&#x60;: Rich menu batch control is complete. &#x60;failed&#x60;: Rich menu batch control failed.           This means that the rich menu for one or more users couldn&#39;t be controlled.            There may also be users whose operations have been successfully completed. 
  */
 public enum RichMenuBatchProgressPhase {
   
