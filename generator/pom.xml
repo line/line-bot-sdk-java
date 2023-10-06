@@ -52,9 +52,9 @@
                 <version>3.3.0</version>
                 <executions>
                     <execution>
+                        <id>default-jar</id>
                         <goals>
                             <goal>jar</goal>
-                            <goal>test-jar</goal>
                         </goals>
                     </execution>
                 </executions>
