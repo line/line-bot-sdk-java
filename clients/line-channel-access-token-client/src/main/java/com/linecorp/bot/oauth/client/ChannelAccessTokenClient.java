@@ -53,7 +53,7 @@ public interface ChannelAccessTokenClient {
         * Gets all valid channel access token key IDs.
             * @param clientAssertionType `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` (required)
             * @param clientAssertion A JSON Web Token (JWT) (opens new window)the client needs to create and sign with the private key. (required)
-        * @return 
+        * @return CompletableFuture<Result<ChannelAccessTokenKeyIdsResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-all-valid-channel-access-token-key-ids-v2-1"> Documentation</a>
      */
@@ -68,7 +68,7 @@ public interface ChannelAccessTokenClient {
             * @param grantType `client_credentials` (optional)
             * @param clientId Channel ID. (optional)
             * @param clientSecret Channel secret. (optional)
-        * @return 
+        * @return CompletableFuture<Result<IssueShortLivedChannelAccessTokenResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#issue-shortlived-channel-access-token"> Documentation</a>
      */
@@ -91,7 +91,7 @@ public interface ChannelAccessTokenClient {
             * @param grantType client_credentials (optional)
             * @param clientAssertionType urn:ietf:params:oauth:client-assertion-type:jwt-bearer (optional)
             * @param clientAssertion A JSON Web Token the client needs to create and sign with the private key of the Assertion Signing Key. (optional)
-        * @return 
+        * @return CompletableFuture<Result<IssueChannelAccessTokenResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#issue-channel-access-token-v2-1"> Documentation</a>
      */
@@ -116,7 +116,7 @@ public interface ChannelAccessTokenClient {
             * @param clientAssertion A JSON Web Token the client needs to create and sign with the private key of the Assertion Signing Key. (optional)
             * @param clientId Channel ID. (optional)
             * @param clientSecret Channel secret. (optional)
-        * @return 
+        * @return CompletableFuture<Result<IssueStatelessChannelAccessTokenResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#issue-stateless-channel-access-token"> Documentation</a>
      */
@@ -143,7 +143,7 @@ public interface ChannelAccessTokenClient {
         * 
         * Revoke short-lived or long-lived channel access token
             * @param accessToken Channel access token (optional)
-        * @return 
+        * @return CompletableFuture<Result<Void>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#revoke-longlived-or-shortlived-channel-access-token"> Documentation</a>
      */
@@ -160,7 +160,7 @@ public interface ChannelAccessTokenClient {
             * @param clientId Channel ID (optional)
             * @param clientSecret Channel Secret (optional)
             * @param accessToken Channel access token (optional)
-        * @return 
+        * @return CompletableFuture<Result<Void>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#revoke-channel-access-token-v2-1"> Documentation</a>
      */
@@ -181,7 +181,7 @@ public interface ChannelAccessTokenClient {
         * 
         * Verify the validity of short-lived and long-lived channel access tokens
             * @param accessToken A short-lived or long-lived channel access token. (optional)
-        * @return 
+        * @return CompletableFuture<Result<VerifyChannelAccessTokenResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#verfiy-channel-access-token"> Documentation</a>
      */
@@ -196,7 +196,7 @@ public interface ChannelAccessTokenClient {
         * 
         * You can verify whether a Channel access token with a user-specified expiration (Channel Access Token v2.1) is valid.
             * @param accessToken Channel access token with a user-specified expiration (Channel Access Token v2.1). (required)
-        * @return 
+        * @return CompletableFuture<Result<VerifyChannelAccessTokenResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#verfiy-channel-access-token-v2-1"> Documentation</a>
      */

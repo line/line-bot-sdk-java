@@ -56,7 +56,7 @@ public interface LineModuleAttachClient {
             * @param basicSearchId If you specified a value for basic_search_id in the URL for authentication and authorization, specify the same value. (optional)
             * @param scope If you specified a value for scope in the URL for authentication and authorization, specify the same value. (optional)
             * @param brandType If you specified a value for brand_type in the URL for authentication and authorization, specify the same value. (optional)
-        * @return 
+        * @return CompletableFuture<Result<AttachModuleResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/partner-docs/#link-attach-by-operation-module-channel-provider"> Documentation</a>
      */

@@ -61,7 +61,7 @@ public interface ManageAudienceClient {
         * 
         * Activate audience
             * @param audienceGroupId The audience ID. (required)
-        * @return 
+        * @return CompletableFuture<Result<Void>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#activate-audience-group"> Documentation</a>
      */
@@ -73,7 +73,7 @@ public interface ManageAudienceClient {
         * 
         * Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by JSON)
             * @param addAudienceToAudienceGroupRequest  (required)
-        * @return 
+        * @return CompletableFuture<Result<Void>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#update-upload-audience-group"> Documentation</a>
      */
@@ -85,7 +85,7 @@ public interface ManageAudienceClient {
         * 
         * Create audience for uploading user IDs (by JSON)
             * @param createAudienceGroupRequest  (required)
-        * @return 
+        * @return CompletableFuture<Result<CreateAudienceGroupResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-upload-audience-group"> Documentation</a>
      */
@@ -97,7 +97,7 @@ public interface ManageAudienceClient {
         * 
         * Create audience for click-based retargeting
             * @param createClickBasedAudienceGroupRequest  (required)
-        * @return 
+        * @return CompletableFuture<Result<CreateClickBasedAudienceGroupResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-click-audience-group"> Documentation</a>
      */
@@ -109,7 +109,7 @@ public interface ManageAudienceClient {
         * 
         * Create audience for impression-based retargeting
             * @param createImpBasedAudienceGroupRequest  (required)
-        * @return 
+        * @return CompletableFuture<Result<CreateImpBasedAudienceGroupResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-imp-audience-group"> Documentation</a>
      */
@@ -121,7 +121,7 @@ public interface ManageAudienceClient {
         * 
         * Delete audience
             * @param audienceGroupId The audience ID. (required)
-        * @return 
+        * @return CompletableFuture<Result<Void>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#delete-audience-group"> Documentation</a>
      */
@@ -133,7 +133,7 @@ public interface ManageAudienceClient {
         * 
         * Gets audience data.
             * @param audienceGroupId The audience ID. (required)
-        * @return 
+        * @return CompletableFuture<Result<GetAudienceDataResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-audience-group"> Documentation</a>
      */
@@ -144,7 +144,7 @@ public interface ManageAudienceClient {
         /**
         * 
         * Get the authority level of the audience
-        * @return 
+        * @return CompletableFuture<Result<GetAudienceGroupAuthorityLevelResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-authority-level"> Documentation</a>
      */
@@ -160,7 +160,7 @@ public interface ManageAudienceClient {
             * @param size The number of audiences per page. Default: 20 Max: 40  (optional)
             * @param includesExternalPublicGroups true (default): Get public audiences created in all channels linked to the same bot. false: Get audiences created in the same channel.  (optional)
             * @param createRoute How the audience was created. If omitted, all audiences are included.  `OA_MANAGER`: Return only audiences created with LINE Official Account Manager (opens new window). `MESSAGING_API`: Return only audiences created with Messaging API.  (optional)
-        * @return 
+        * @return CompletableFuture<Result<GetAudienceGroupsResponse>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-audience-groups"> Documentation</a>
      */
@@ -177,7 +177,7 @@ public interface ManageAudienceClient {
         * 
         * Change the authority level of the audience
             * @param updateAudienceGroupAuthorityLevelRequest  (required)
-        * @return 
+        * @return CompletableFuture<Result<Void>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#change-authority-level"> Documentation</a>
      */
@@ -190,7 +190,7 @@ public interface ManageAudienceClient {
         * Renames an existing audience.
             * @param audienceGroupId The audience ID. (required)
             * @param updateAudienceGroupDescriptionRequest  (required)
-        * @return 
+        * @return CompletableFuture<Result<Void>>
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#set-description-audience-group"> Documentation</a>
      */
