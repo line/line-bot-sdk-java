@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 /**
- * webhook&#39;s delivery context information
+ * webhook's delivery context information
  */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")

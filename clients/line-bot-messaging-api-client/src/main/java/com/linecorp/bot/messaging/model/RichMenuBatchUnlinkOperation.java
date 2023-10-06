@@ -37,7 +37,7 @@ import com.linecorp.bot.messaging.model.RichMenuBatchOperation;
 
 
 /**
- * Unlink the rich menu for all users linked to the rich menu specified in the &#x60;from&#x60; property.
+ * Unlink the rich menu for all users linked to the rich menu specified in the `from` property.
  */
 @JsonTypeName("unlink")
 @JsonInclude(Include.NON_NULL)

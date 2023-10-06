@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Array of scopes required for some LIFF SDK methods to function. The default value is &#x60;[\&quot;profile\&quot;, \&quot;chat_message.write\&quot;]&#x60;.  
+ * Array of scopes required for some LIFF SDK methods to function. The default value is `[\"profile\", \"chat_message.write\"]`.  
  */
 public enum LiffScope {
   

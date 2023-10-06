@@ -51,7 +51,7 @@ public interface ChannelAccessTokenClient {
         /**
         * 
         * Gets all valid channel access token key IDs.
-            * @param clientAssertionType &#x60;urn:ietf:params:oauth:client-assertion-type:jwt-bearer&#x60; (required)
+            * @param clientAssertionType `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` (required)
             * @param clientAssertion A JSON Web Token (JWT) (opens new window)the client needs to create and sign with the private key. (required)
         * @return 
      * 
@@ -65,7 +65,7 @@ public interface ChannelAccessTokenClient {
         /**
         * 
         * Issue short-lived channel access token
-            * @param grantType &#x60;client_credentials&#x60; (optional)
+            * @param grantType `client_credentials` (optional)
             * @param clientId Channel ID. (optional)
             * @param clientSecret Channel secret. (optional)
         * @return 
@@ -110,9 +110,9 @@ public interface ChannelAccessTokenClient {
 
         /**
         * 
-        * Issues a new stateless channel access token, which doesn&#39;t have max active token limit unlike the other token types. The newly issued token is only valid for 15 minutes but can not be revoked until it naturally expires. 
-            * @param grantType &#x60;client_credentials&#x60; (optional)
-            * @param clientAssertionType URL-encoded value of &#x60;urn:ietf:params:oauth:client-assertion-type:jwt-bearer&#x60; (optional)
+        * Issues a new stateless channel access token, which doesn't have max active token limit unlike the other token types. The newly issued token is only valid for 15 minutes but can not be revoked until it naturally expires. 
+            * @param grantType `client_credentials` (optional)
+            * @param clientAssertionType URL-encoded value of `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` (optional)
             * @param clientAssertion A JSON Web Token the client needs to create and sign with the private key of the Assertion Signing Key. (optional)
             * @param clientId Channel ID. (optional)
             * @param clientSecret Channel secret. (optional)

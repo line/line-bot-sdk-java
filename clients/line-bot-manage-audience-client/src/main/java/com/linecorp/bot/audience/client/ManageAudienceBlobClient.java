@@ -70,9 +70,9 @@ public interface ManageAudienceBlobClient {
         /**
         * 
         * Create audience for uploading user IDs (by file).
-            * @param description The audience&#39;s name. This is case-insensitive, meaning AUDIENCE and audience are considered identical. Max character limit: 120  (optional)
-            * @param isIfaAudience To specify recipients by IFAs: set &#x60;true&#x60;. To specify recipients by user IDs: set &#x60;false&#x60; or omit isIfaAudience property.  (optional)
-            * @param uploadDescription The description to register for the job (in &#x60;jobs[].description&#x60;).  (optional)
+            * @param description The audience's name. This is case-insensitive, meaning AUDIENCE and audience are considered identical. Max character limit: 120  (optional)
+            * @param isIfaAudience To specify recipients by IFAs: set `true`. To specify recipients by user IDs: set `false` or omit isIfaAudience property.  (optional)
+            * @param uploadDescription The description to register for the job (in `jobs[].description`).  (optional)
             * @param _file A text file with one user ID or IFA entered per line. Specify text/plain as Content-Type. Max file number: 1 Max number: 1,500,000  (required)
         * @return 
      * 

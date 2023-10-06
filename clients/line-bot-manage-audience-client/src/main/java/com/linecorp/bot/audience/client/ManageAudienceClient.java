@@ -159,7 +159,7 @@ public interface ManageAudienceClient {
             * @param status The status of the audience(s) to return. If omitted, the status of the audience(s) will not be used as a search criterion.  (optional)
             * @param size The number of audiences per page. Default: 20 Max: 40  (optional)
             * @param includesExternalPublicGroups true (default): Get public audiences created in all channels linked to the same bot. false: Get audiences created in the same channel.  (optional)
-            * @param createRoute How the audience was created. If omitted, all audiences are included.  &#x60;OA_MANAGER&#x60;: Return only audiences created with LINE Official Account Manager (opens new window). &#x60;MESSAGING_API&#x60;: Return only audiences created with Messaging API.  (optional)
+            * @param createRoute How the audience was created. If omitted, all audiences are included.  `OA_MANAGER`: Return only audiences created with LINE Official Account Manager (opens new window). `MESSAGING_API`: Return only audiences created with Messaging API.  (optional)
         * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-audience-groups"> Documentation</a>

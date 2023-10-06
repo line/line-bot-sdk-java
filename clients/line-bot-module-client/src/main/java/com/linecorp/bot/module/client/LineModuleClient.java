@@ -48,7 +48,7 @@ public interface LineModuleClient {
         /**
         * 
         * If the Standby Channel wants to take the initiative (Chat Control), it calls the Acquire Control API. The channel that was previously an Active Channel will automatically switch to a Standby Channel. 
-            * @param chatId The &#x60;userId&#x60;, &#x60;roomId&#x60;, or &#x60;groupId&#x60; (required)
+            * @param chatId The `userId`, `roomId`, or `groupId` (required)
             * @param acquireChatControlRequest  (optional)
         * @return 
      * 
@@ -74,7 +74,7 @@ public interface LineModuleClient {
         /**
         * 
         * Gets a list of basic information about the bots of multiple LINE Official Accounts that have attached module channels.
-            * @param start Value of the continuation token found in the next property of the JSON object returned in the response. If you can&#39;t get all basic information about the bots in one request, include this parameter to get the remaining array.  (optional)
+            * @param start Value of the continuation token found in the next property of the JSON object returned in the response. If you can't get all basic information about the bots in one request, include this parameter to get the remaining array.  (optional)
             * @param limit Specify the maximum number of bots that you get basic information from. The default value is 100. Max value: 100  (optional, default to 100)
         * @return 
      * 
@@ -88,7 +88,7 @@ public interface LineModuleClient {
         /**
         * 
         * To return the initiative (Chat Control) of Active Channel to Primary Channel, call the Release Control API. 
-            * @param chatId The &#x60;userId&#x60;, &#x60;roomId&#x60;, or &#x60;groupId&#x60; (required)
+            * @param chatId The `userId`, `roomId`, or `groupId` (required)
         * @return 
      * 
      * @see <a href="https://developers.line.biz/en/reference/partner-docs/#release-control-api"> Documentation</a>
