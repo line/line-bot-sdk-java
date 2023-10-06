@@ -33,3 +33,4 @@ jobs:
           echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
       - run: ./gradlew -v
       - run: ./gradlew build
+      - run: cd generator && mvn package
