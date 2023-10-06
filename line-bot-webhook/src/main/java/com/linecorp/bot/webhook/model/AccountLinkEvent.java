@@ -41,7 +41,7 @@ import com.linecorp.bot.webhook.model.Source;
 
 
 /**
- * Event object for when a user has linked their LINE account with a provider's service account. You can reply to account link events.
+ * Event object for when a user has linked their LINE account with a provider&#39;s service account. You can reply to account link events.
  */
 @JsonTypeName("accountLink")
 @JsonInclude(Include.NON_NULL)

@@ -37,7 +37,7 @@ import com.linecorp.bot.messaging.model.RichMenuBatchOperation;
 
 
 /**
- * Replace the rich menu with the rich menu specified in the `to` property for all users linked to the rich menu specified in the `from` property.
+ * Replace the rich menu with the rich menu specified in the &#x60;to&#x60; property for all users linked to the rich menu specified in the &#x60;from&#x60; property.
  */
 @JsonTypeName("link")
 @JsonInclude(Include.NON_NULL)

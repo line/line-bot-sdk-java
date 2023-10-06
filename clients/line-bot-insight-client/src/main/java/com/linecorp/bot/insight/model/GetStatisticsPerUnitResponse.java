@@ -42,7 +42,7 @@ import java.util.List;
 
 
 /**
- * Response object for `get statistics per unit`
+ * Response object for &#x60;get statistics per unit&#x60;
  */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
