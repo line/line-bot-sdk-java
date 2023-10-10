@@ -18,7 +18,9 @@ package com.linecorp.bot.client.base;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
+import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 
 public class BlobContent {
@@ -40,5 +42,13 @@ public class BlobContent {
      */
     public String string() throws IOException {
         return responseBody.string();
+    }
+
+    /**
+     * Returns the content type of the response.
+     */
+    public String mimeType() {
+        MediaType contentType = Objects.requireNonNull(responseBody.contentType());
+        return contentType.toString();
     }
 }

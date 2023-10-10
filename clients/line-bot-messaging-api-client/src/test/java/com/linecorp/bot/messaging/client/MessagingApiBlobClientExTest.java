@@ -103,7 +103,7 @@ public class MessagingApiBlobClientExTest {
         stubFor(get(urlEqualTo("/v2/bot/message/aaaa/content")).willReturn(
                 aResponse()
                         .withStatus(200)
-                        .withHeader("content-type", "application/octet-stream")
+                        .withHeader("content-type", "image/jpeg")
                         .withHeader("x-line-request-id", "ppp")
                         .withBody("JPG]]]]]]")));
 
@@ -114,6 +114,7 @@ public class MessagingApiBlobClientExTest {
         // Verify
         assertThat(result.requestId()).isEqualTo("ppp");
         assertThat(requireNonNull(result.body()).string()).isEqualTo("JPG]]]]]]");
+        assertThat(requireNonNull(result.body().mimeType())).isEqualTo("image/jpeg");
     }
 
     @Test
