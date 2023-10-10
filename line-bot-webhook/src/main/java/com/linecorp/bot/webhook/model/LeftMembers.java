@@ -49,7 +49,6 @@ public record LeftMembers (
     * Users who left. Array of source user objects.
     */
     
-
     @JsonProperty("members")
     List<UserSource> members
 

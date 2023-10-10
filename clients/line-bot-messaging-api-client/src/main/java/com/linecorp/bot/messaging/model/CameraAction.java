@@ -47,7 +47,6 @@ public record CameraAction (
     * Label for the action.
     */
     
-
     @JsonProperty("label")
     String label
 

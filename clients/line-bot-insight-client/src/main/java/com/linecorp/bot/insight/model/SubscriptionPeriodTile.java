@@ -45,14 +45,12 @@ public record SubscriptionPeriodTile (
     * Subscription period. Possible values: &#x60;within7days&#x60;, &#x60;within90days&#x60;, &#x60;unknown&#x60; etc.
     */
     
-
     @JsonProperty("subscriptionPeriod")
     SubscriptionPeriod subscriptionPeriod,
 /**
     * Percentage. Possible values: [0.0,100.0] e.g. 0, 2.9, 37.6.
     */
     
-
     @JsonProperty("percentage")
     Double percentage
 

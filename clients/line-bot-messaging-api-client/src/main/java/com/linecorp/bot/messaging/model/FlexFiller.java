@@ -47,7 +47,6 @@ public record FlexFiller (
     * Get flex
     */
     
-
     @JsonProperty("flex")
     Integer flex
 

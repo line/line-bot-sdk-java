@@ -51,7 +51,6 @@ public record ImageCarouselTemplate (
     * Get columns
     */
     
-
     @JsonProperty("columns")
     List<ImageCarouselColumn> columns
 

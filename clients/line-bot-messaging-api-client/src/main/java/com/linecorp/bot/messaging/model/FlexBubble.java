@@ -51,56 +51,48 @@ public record FlexBubble (
     * Get direction
     */
     
-
     @JsonProperty("direction")
     Direction direction,
 /**
     * Get styles
     */
     
-
     @JsonProperty("styles")
     FlexBubbleStyles styles,
 /**
     * Get header
     */
     
-
     @JsonProperty("header")
     FlexBox header,
 /**
     * Get hero
     */
     
-
     @JsonProperty("hero")
     FlexComponent hero,
 /**
     * Get body
     */
     
-
     @JsonProperty("body")
     FlexBox body,
 /**
     * Get footer
     */
     
-
     @JsonProperty("footer")
     FlexBox footer,
 /**
     * Get size
     */
     
-
     @JsonProperty("size")
     Size size,
 /**
     * Get action
     */
     
-
     @JsonProperty("action")
     Action action
 

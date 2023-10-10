@@ -46,35 +46,30 @@ public record CreateImpBasedAudienceGroupResponse (
     * The audience ID.
     */
     
-
     @JsonProperty("audienceGroupId")
     Long audienceGroupId,
 /**
     * Get type
     */
     
-
     @JsonProperty("type")
     AudienceGroupType type,
 /**
     * The audience&#39;s name.
     */
     
-
     @JsonProperty("description")
     String description,
 /**
     * When the audience was created (in UNIX time).
     */
     
-
     @JsonProperty("created")
     Long created,
 /**
     * The request ID that was specified when the audience was created.
     */
     
-
     @JsonProperty("requestId")
     String requestId
 

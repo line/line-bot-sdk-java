@@ -45,21 +45,18 @@ public record VerifyChannelAccessTokenResponse (
     * The channel ID for which the channel access token was issued.
     */
     
-
     @JsonProperty("client_id")
     String clientId,
 /**
     * Number of seconds before the channel access token expires.
     */
     
-
     @JsonProperty("expires_in")
     Long expiresIn,
 /**
     * Permissions granted to the channel access token.
     */
     
-
     @JsonProperty("scope")
     String scope
 

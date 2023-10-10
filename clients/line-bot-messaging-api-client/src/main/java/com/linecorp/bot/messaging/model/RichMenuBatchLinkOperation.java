@@ -47,14 +47,12 @@ public record RichMenuBatchLinkOperation (
     * Get from
     */
     
-
     @JsonProperty("from")
     String from,
 /**
     * Get to
     */
     
-
     @JsonProperty("to")
     String to
 

@@ -45,14 +45,12 @@ public record SentMessage (
     * ID of the sent message.
     */
     
-
     @JsonProperty("id")
     String id,
 /**
     * Quote token of the message. Only included when a message object that can be specified as a quote target was sent as a push or reply message. 
     */
     
-
     @JsonProperty("quoteToken")
     String quoteToken
 

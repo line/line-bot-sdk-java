@@ -45,35 +45,30 @@ public record GetMessageEventResponseClick (
     * The URL&#39;s serial number.
     */
     
-
     @JsonProperty("seq")
     Integer seq,
 /**
     * URL.
     */
     
-
     @JsonProperty("url")
     String url,
 /**
     * Number of times the URL was opened.
     */
     
-
     @JsonProperty("click")
     Long click,
 /**
     * Number of users that opened the URL.
     */
     
-
     @JsonProperty("uniqueClick")
     Long uniqueClick,
 /**
     * Number of users who opened this url through any link in the message. If a message contains two links to the same URL and a user opens both links, they&#39;re counted only once.
     */
     
-
     @JsonProperty("uniqueClickOfRequest")
     Long uniqueClickOfRequest
 

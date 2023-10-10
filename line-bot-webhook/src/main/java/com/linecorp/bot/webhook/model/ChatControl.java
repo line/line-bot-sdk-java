@@ -45,7 +45,6 @@ public record ChatControl (
     * Get expireAt
     */
     
-
     @JsonProperty("expireAt")
     Long expireAt
 

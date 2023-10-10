@@ -47,21 +47,18 @@ public record RichMenuSwitchAction (
     * Label for the action.
     */
     
-
     @JsonProperty("label")
     String label,
 /**
     * Get data
     */
     
-
     @JsonProperty("data")
     String data,
 /**
     * Get richMenuAliasId
     */
     
-
     @JsonProperty("richMenuAliasId")
     String richMenuAliasId
 

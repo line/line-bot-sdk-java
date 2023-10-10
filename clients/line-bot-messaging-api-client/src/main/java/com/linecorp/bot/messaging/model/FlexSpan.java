@@ -47,42 +47,36 @@ public record FlexSpan (
     * Get text
     */
     
-
     @JsonProperty("text")
     String text,
 /**
     * Get size
     */
     
-
     @JsonProperty("size")
     String size,
 /**
     * Get color
     */
     
-
     @JsonProperty("color")
     String color,
 /**
     * Get weight
     */
     
-
     @JsonProperty("weight")
     Weight weight,
 /**
     * Get style
     */
     
-
     @JsonProperty("style")
     Style style,
 /**
     * Get decoration
     */
     
-
     @JsonProperty("decoration")
     Decoration decoration
 

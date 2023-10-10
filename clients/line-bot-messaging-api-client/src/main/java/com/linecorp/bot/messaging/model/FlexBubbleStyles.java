@@ -46,28 +46,24 @@ public record FlexBubbleStyles (
     * Get header
     */
     
-
     @JsonProperty("header")
     FlexBlockStyle header,
 /**
     * Get hero
     */
     
-
     @JsonProperty("hero")
     FlexBlockStyle hero,
 /**
     * Get body
     */
     
-
     @JsonProperty("body")
     FlexBlockStyle body,
 /**
     * Get footer
     */
     
-
     @JsonProperty("footer")
     FlexBlockStyle footer
 

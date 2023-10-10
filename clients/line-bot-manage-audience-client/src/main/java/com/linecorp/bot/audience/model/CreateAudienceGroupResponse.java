@@ -47,56 +47,48 @@ public record CreateAudienceGroupResponse (
     * The audience ID.
     */
     
-
     @JsonProperty("audienceGroupId")
     Long audienceGroupId,
 /**
     * How the audience was created.  &#x60;MESSAGING_API&#x60;: An audience created with Messaging API. 
     */
     
-
     @JsonProperty("createRoute")
     CreateRoute createRoute,
 /**
     * Get type
     */
     
-
     @JsonProperty("type")
     AudienceGroupType type,
 /**
     * The audience&#39;s name.
     */
     
-
     @JsonProperty("description")
     String description,
 /**
     * When the audience was created (in UNIX time).
     */
     
-
     @JsonProperty("created")
     Long created,
 /**
     * Audience&#39;s update permission. Audiences linked to the same channel will be READ_WRITE.  &#x60;READ&#x60;: Can use only. &#x60;READ_WRITE&#x60;: Can use and update. 
     */
     
-
     @JsonProperty("permission")
     Permission permission,
 /**
     * Time of audience expiration. Only returned for specific audiences. 
     */
     
-
     @JsonProperty("expireTimestamp")
     BigDecimal expireTimestamp,
 /**
     * The value indicating the type of account to be sent, as specified when creating the audience for uploading user IDs. One of:  &#x60;true&#x60;: Accounts are specified with IFAs. &#x60;false&#x60; (default): Accounts are specified with user IDs. 
     */
     
-
     @JsonProperty("isIfaAudience")
     Boolean isIfaAudience
 

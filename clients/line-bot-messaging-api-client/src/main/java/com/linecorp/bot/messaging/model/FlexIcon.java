@@ -48,70 +48,60 @@ public record FlexIcon (
     * Get url
     */
     
-
     @JsonProperty("url")
     URI url,
 /**
     * Get size
     */
     
-
     @JsonProperty("size")
     String size,
 /**
     * Get aspectRatio
     */
     
-
     @JsonProperty("aspectRatio")
     String aspectRatio,
 /**
     * Get margin
     */
     
-
     @JsonProperty("margin")
     String margin,
 /**
     * Get position
     */
     
-
     @JsonProperty("position")
     Position position,
 /**
     * Get offsetTop
     */
     
-
     @JsonProperty("offsetTop")
     String offsetTop,
 /**
     * Get offsetBottom
     */
     
-
     @JsonProperty("offsetBottom")
     String offsetBottom,
 /**
     * Get offsetStart
     */
     
-
     @JsonProperty("offsetStart")
     String offsetStart,
 /**
     * Get offsetEnd
     */
     
-
     @JsonProperty("offsetEnd")
     String offsetEnd,
 /**
     * Get scaling
     */
     
-
     @JsonProperty("scaling")
     Boolean scaling
 

@@ -48,14 +48,12 @@ public record ScenarioResultThingsContent (
     * Device ID of the device that has been linked with LINE.
     */
     
-
     @JsonProperty("deviceId")
     String deviceId,
 /**
     * Get result
     */
     
-
     @JsonProperty("result")
     ScenarioResult result
 

@@ -46,14 +46,12 @@ public record Sender (
     * Display name. Certain words such as &#x60;LINE&#x60; may not be used.
     */
     
-
     @JsonProperty("name")
     String name,
 /**
     * URL of the image to display as an icon when sending a message
     */
     
-
     @JsonProperty("iconUrl")
     URI iconUrl
 

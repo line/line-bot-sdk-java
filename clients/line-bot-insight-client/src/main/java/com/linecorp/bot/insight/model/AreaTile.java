@@ -45,14 +45,12 @@ public record AreaTile (
     * users&#39; country and region
     */
     
-
     @JsonProperty("area")
     String area,
 /**
     * Percentage
     */
     
-
     @JsonProperty("percentage")
     Double percentage
 

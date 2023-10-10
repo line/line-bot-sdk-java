@@ -45,28 +45,24 @@ public record ImagemapArea (
     * Get x
     */
     
-
     @JsonProperty("x")
     Integer x,
 /**
     * Get y
     */
     
-
     @JsonProperty("y")
     Integer y,
 /**
     * Get width
     */
     
-
     @JsonProperty("width")
     Integer width,
 /**
     * Get height
     */
     
-
     @JsonProperty("height")
     Integer height
 

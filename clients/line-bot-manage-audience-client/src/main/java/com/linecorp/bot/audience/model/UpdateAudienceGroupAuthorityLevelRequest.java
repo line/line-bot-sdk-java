@@ -46,7 +46,6 @@ public record UpdateAudienceGroupAuthorityLevelRequest (
     * Get authorityLevel
     */
     
-
     @JsonProperty("authorityLevel")
     AudienceGroupAuthorityLevel authorityLevel
 

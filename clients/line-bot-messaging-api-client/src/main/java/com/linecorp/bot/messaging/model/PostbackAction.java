@@ -47,42 +47,36 @@ public record PostbackAction (
     * Label for the action.
     */
     
-
     @JsonProperty("label")
     String label,
 /**
     * Get data
     */
     
-
     @JsonProperty("data")
     String data,
 /**
     * Get displayText
     */
     
-
     @JsonProperty("displayText")
     String displayText,
 /**
     * Get text
     */
     
-
     @JsonProperty("text")
     String text,
 /**
     * Get inputOption
     */
     
-
     @JsonProperty("inputOption")
     InputOption inputOption,
 /**
     * Get fillInText
     */
     
-
     @JsonProperty("fillInText")
     String fillInText
 

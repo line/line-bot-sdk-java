@@ -46,7 +46,6 @@ public record MarkMessagesAsReadRequest (
     * Get chat
     */
     
-
     @JsonProperty("chat")
     ChatReference chat
 

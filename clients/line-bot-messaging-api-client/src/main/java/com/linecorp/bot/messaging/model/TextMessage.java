@@ -53,35 +53,30 @@ public record TextMessage (
     * Get quickReply
     */
     
-
     @JsonProperty("quickReply")
     QuickReply quickReply,
 /**
     * Get sender
     */
     
-
     @JsonProperty("sender")
     Sender sender,
 /**
     * Get text
     */
     
-
     @JsonProperty("text")
     String text,
 /**
     * Get emojis
     */
     
-
     @JsonProperty("emojis")
     List<Emoji> emojis,
 /**
     * Quote token of the message you want to quote.
     */
     
-
     @JsonProperty("quoteToken")
     String quoteToken
 

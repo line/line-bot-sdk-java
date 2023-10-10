@@ -45,14 +45,12 @@ public record RichMenuAliasResponse (
     * Rich menu alias ID.
     */
     
-
     @JsonProperty("richMenuAliasId")
     String richMenuAliasId,
 /**
     * The rich menu ID associated with the rich menu alias.
     */
     
-
     @JsonProperty("richMenuId")
     String richMenuId
 

@@ -50,28 +50,24 @@ public record TemplateMessage (
     * Get quickReply
     */
     
-
     @JsonProperty("quickReply")
     QuickReply quickReply,
 /**
     * Get sender
     */
     
-
     @JsonProperty("sender")
     Sender sender,
 /**
     * Get altText
     */
     
-
     @JsonProperty("altText")
     String altText,
 /**
     * Get template
     */
     
-
     @JsonProperty("template")
     Template template
 

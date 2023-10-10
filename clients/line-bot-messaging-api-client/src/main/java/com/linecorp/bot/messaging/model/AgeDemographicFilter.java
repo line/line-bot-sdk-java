@@ -48,14 +48,12 @@ public record AgeDemographicFilter (
     * Get gte
     */
     
-
     @JsonProperty("gte")
     AgeDemographic gte,
 /**
     * Get lt
     */
     
-
     @JsonProperty("lt")
     AgeDemographic lt
 

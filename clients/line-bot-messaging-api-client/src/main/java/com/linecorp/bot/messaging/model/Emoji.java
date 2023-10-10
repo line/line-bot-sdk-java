@@ -45,21 +45,18 @@ public record Emoji (
     * Get index
     */
     
-
     @JsonProperty("index")
     Integer index,
 /**
     * Get productId
     */
     
-
     @JsonProperty("productId")
     String productId,
 /**
     * Get emojiId
     */
     
-
     @JsonProperty("emojiId")
     String emojiId
 

@@ -47,7 +47,6 @@ public record AudienceRecipient (
     * Get audienceGroupId
     */
     
-
     @JsonProperty("audienceGroupId")
     Long audienceGroupId
 

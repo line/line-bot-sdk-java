@@ -51,7 +51,6 @@ public record GenderDemographicFilter (
     * Get oneOf
     */
     
-
     @JsonProperty("oneOf")
     List<GenderDemographic> oneOf
 

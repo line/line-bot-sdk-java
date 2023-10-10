@@ -46,14 +46,12 @@ public record Limit (
     * minimum: 1
     */
     
-
     @JsonProperty("max")
     Integer max,
 /**
     * If true, the message will be sent within the maximum number of deliverable messages. The default value is &#x60;false&#x60;.  Targets will be selected at random. 
     */
     
-
     @JsonProperty("upToRemainingQuota")
     Boolean upToRemainingQuota
 

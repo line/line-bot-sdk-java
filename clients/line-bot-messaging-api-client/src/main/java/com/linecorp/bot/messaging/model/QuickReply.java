@@ -49,7 +49,6 @@ public record QuickReply (
     * Quick reply button objects.
     */
     
-
     @JsonProperty("items")
     List<QuickReplyItem> items
 

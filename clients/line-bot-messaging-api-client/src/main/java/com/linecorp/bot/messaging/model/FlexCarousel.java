@@ -51,7 +51,6 @@ public record FlexCarousel (
     * Get contents
     */
     
-
     @JsonProperty("contents")
     List<FlexBubble> contents
 

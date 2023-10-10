@@ -49,14 +49,12 @@ public record GetModulesResponse (
     * Array of Bot list Item objects representing basic information about the bot.
     */
     
-
     @JsonProperty("bots")
     List<ModuleBot> bots,
 /**
     * Continuation token. Used to get the next array of basic bot information. This property is only returned if there are more unreturned results. 
     */
     
-
     @JsonProperty("next")
     String next
 

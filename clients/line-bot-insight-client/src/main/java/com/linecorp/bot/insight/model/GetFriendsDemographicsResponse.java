@@ -53,42 +53,36 @@ public record GetFriendsDemographicsResponse (
     * true if friend demographic information is available.
     */
     
-
     @JsonProperty("available")
     Boolean available,
 /**
     * Percentage per gender.
     */
     
-
     @JsonProperty("genders")
     List<GenderTile> genders,
 /**
     * Percentage per age group.
     */
     
-
     @JsonProperty("ages")
     List<AgeTile> ages,
 /**
     * Percentage per area.
     */
     
-
     @JsonProperty("areas")
     List<AreaTile> areas,
 /**
     * Percentage by OS.
     */
     
-
     @JsonProperty("appTypes")
     List<AppTypeTile> appTypes,
 /**
     * Percentage per friendship duration.
     */
     
-
     @JsonProperty("subscriptionPeriods")
     List<SubscriptionPeriodTile> subscriptionPeriods
 

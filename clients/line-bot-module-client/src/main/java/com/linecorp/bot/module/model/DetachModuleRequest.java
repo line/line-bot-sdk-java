@@ -45,7 +45,6 @@ public record DetachModuleRequest (
     * User ID of the LINE Official Account bot attached to the module channel.
     */
     
-
     @JsonProperty("botId")
     String botId
 

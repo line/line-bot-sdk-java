@@ -45,7 +45,6 @@ public record AltUri (
     * Get desktop
     */
     
-
     @JsonProperty("desktop")
     String desktop
 

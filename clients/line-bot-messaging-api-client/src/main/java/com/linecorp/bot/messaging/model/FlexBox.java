@@ -52,189 +52,162 @@ public record FlexBox (
     * Get layout
     */
     
-
     @JsonProperty("layout")
     Layout layout,
 /**
     * Get flex
     */
     
-
     @JsonProperty("flex")
     Integer flex,
 /**
     * Get contents
     */
     
-
     @JsonProperty("contents")
     List<FlexComponent> contents,
 /**
     * Get spacing
     */
     
-
     @JsonProperty("spacing")
     String spacing,
 /**
     * Get margin
     */
     
-
     @JsonProperty("margin")
     String margin,
 /**
     * Get position
     */
     
-
     @JsonProperty("position")
     Position position,
 /**
     * Get offsetTop
     */
     
-
     @JsonProperty("offsetTop")
     String offsetTop,
 /**
     * Get offsetBottom
     */
     
-
     @JsonProperty("offsetBottom")
     String offsetBottom,
 /**
     * Get offsetStart
     */
     
-
     @JsonProperty("offsetStart")
     String offsetStart,
 /**
     * Get offsetEnd
     */
     
-
     @JsonProperty("offsetEnd")
     String offsetEnd,
 /**
     * Get backgroundColor
     */
     
-
     @JsonProperty("backgroundColor")
     String backgroundColor,
 /**
     * Get borderColor
     */
     
-
     @JsonProperty("borderColor")
     String borderColor,
 /**
     * Get borderWidth
     */
     
-
     @JsonProperty("borderWidth")
     String borderWidth,
 /**
     * Get cornerRadius
     */
     
-
     @JsonProperty("cornerRadius")
     String cornerRadius,
 /**
     * Get width
     */
     
-
     @JsonProperty("width")
     String width,
 /**
     * Get maxWidth
     */
     
-
     @JsonProperty("maxWidth")
     String maxWidth,
 /**
     * Get height
     */
     
-
     @JsonProperty("height")
     String height,
 /**
     * Get maxHeight
     */
     
-
     @JsonProperty("maxHeight")
     String maxHeight,
 /**
     * Get paddingAll
     */
     
-
     @JsonProperty("paddingAll")
     String paddingAll,
 /**
     * Get paddingTop
     */
     
-
     @JsonProperty("paddingTop")
     String paddingTop,
 /**
     * Get paddingBottom
     */
     
-
     @JsonProperty("paddingBottom")
     String paddingBottom,
 /**
     * Get paddingStart
     */
     
-
     @JsonProperty("paddingStart")
     String paddingStart,
 /**
     * Get paddingEnd
     */
     
-
     @JsonProperty("paddingEnd")
     String paddingEnd,
 /**
     * Get action
     */
     
-
     @JsonProperty("action")
     Action action,
 /**
     * Get justifyContent
     */
     
-
     @JsonProperty("justifyContent")
     JustifyContent justifyContent,
 /**
     * Get alignItems
     */
     
-
     @JsonProperty("alignItems")
     AlignItems alignItems,
 /**
     * Get background
     */
     
-
     @JsonProperty("background")
     FlexBoxBackground background
 

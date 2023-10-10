@@ -47,42 +47,36 @@ public record DatetimePickerAction (
     * Label for the action.
     */
     
-
     @JsonProperty("label")
     String label,
 /**
     * Get data
     */
     
-
     @JsonProperty("data")
     String data,
 /**
     * Get mode
     */
     
-
     @JsonProperty("mode")
     Mode mode,
 /**
     * Get initial
     */
     
-
     @JsonProperty("initial")
     String initial,
 /**
     * Get max
     */
     
-
     @JsonProperty("max")
     String max,
 /**
     * Get min
     */
     
-
     @JsonProperty("min")
     String min
 

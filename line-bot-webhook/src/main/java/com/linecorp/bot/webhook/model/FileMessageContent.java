@@ -47,21 +47,18 @@ public record FileMessageContent (
     * Message ID
     */
     
-
     @JsonProperty("id")
     String id,
 /**
     * File name
     */
     
-
     @JsonProperty("fileName")
     String fileName,
 /**
     * File size in bytes
     */
     
-
     @JsonProperty("fileSize")
     Integer fileSize
 

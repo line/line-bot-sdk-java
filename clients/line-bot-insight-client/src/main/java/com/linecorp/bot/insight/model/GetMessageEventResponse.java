@@ -51,21 +51,18 @@ public record GetMessageEventResponse (
     * Get overview
     */
     
-
     @JsonProperty("overview")
     GetMessageEventResponseOverview overview,
 /**
     * Array of information about individual message bubbles.
     */
     
-
     @JsonProperty("messages")
     List<GetMessageEventResponseMessage> messages,
 /**
     * Array of information about opened URLs in the message.
     */
     
-
     @JsonProperty("clicks")
     List<GetMessageEventResponseClick> clicks
 

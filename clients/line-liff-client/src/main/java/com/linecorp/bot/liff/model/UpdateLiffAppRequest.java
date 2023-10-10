@@ -52,42 +52,36 @@ public record UpdateLiffAppRequest (
     * Get view
     */
     
-
     @JsonProperty("view")
     LiffView view,
 /**
     * Name of the LIFF app.  The LIFF app name can&#39;t include \&quot;LINE\&quot; or similar strings, or inappropriate strings. 
     */
     
-
     @JsonProperty("description")
     String description,
 /**
     * Get features
     */
     
-
     @JsonProperty("features")
     LiffFeatures features,
 /**
     * How additional information in LIFF URLs is handled. Specify &#x60;concat&#x60;. 
     */
     
-
     @JsonProperty("permanentLinkPattern")
     String permanentLinkPattern,
 /**
     * Get scope
     */
     
-
     @JsonProperty("scope")
     List<LiffScope> scope,
 /**
     * Get botPrompt
     */
     
-
     @JsonProperty("botPrompt")
     LiffBotPrompt botPrompt
 

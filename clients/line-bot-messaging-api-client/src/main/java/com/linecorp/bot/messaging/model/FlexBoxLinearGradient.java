@@ -47,35 +47,30 @@ public record FlexBoxLinearGradient (
     * Get angle
     */
     
-
     @JsonProperty("angle")
     String angle,
 /**
     * Get startColor
     */
     
-
     @JsonProperty("startColor")
     String startColor,
 /**
     * Get endColor
     */
     
-
     @JsonProperty("endColor")
     String endColor,
 /**
     * Get centerColor
     */
     
-
     @JsonProperty("centerColor")
     String centerColor,
 /**
     * Get centerPosition
     */
     
-
     @JsonProperty("centerPosition")
     String centerPosition
 

@@ -49,28 +49,24 @@ public record ImageMessageContent (
     * Message ID
     */
     
-
     @JsonProperty("id")
     String id,
 /**
     * Get contentProvider
     */
     
-
     @JsonProperty("contentProvider")
     ContentProvider contentProvider,
 /**
     * Get imageSet
     */
     
-
     @JsonProperty("imageSet")
     ImageSet imageSet,
 /**
     * Quote token to quote this message. 
     */
     
-
     @JsonProperty("quoteToken")
     String quoteToken
 

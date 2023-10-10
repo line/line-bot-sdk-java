@@ -45,7 +45,6 @@ public record AddLiffAppResponse (
     * Get liffId
     */
     
-
     @JsonProperty("liffId")
     String liffId
 

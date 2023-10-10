@@ -45,7 +45,6 @@ public record UpdateAudienceGroupDescriptionRequest (
     * The audience&#39;s name. This is case-insensitive, meaning AUDIENCE and audience are considered identical. Max character limit: 120 
     */
     
-
     @JsonProperty("description")
     String description
 

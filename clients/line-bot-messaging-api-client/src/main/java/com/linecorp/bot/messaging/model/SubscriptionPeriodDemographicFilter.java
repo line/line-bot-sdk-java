@@ -48,14 +48,12 @@ public record SubscriptionPeriodDemographicFilter (
     * Get gte
     */
     
-
     @JsonProperty("gte")
     SubscriptionPeriodDemographic gte,
 /**
     * Get lt
     */
     
-
     @JsonProperty("lt")
     SubscriptionPeriodDemographic lt
 

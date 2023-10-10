@@ -45,21 +45,18 @@ public record FlexBlockStyle (
     * Get backgroundColor
     */
     
-
     @JsonProperty("backgroundColor")
     String backgroundColor,
 /**
     * Get separator
     */
     
-
     @JsonProperty("separator")
     Boolean separator,
 /**
     * Get separatorColor
     */
     
-
     @JsonProperty("separatorColor")
     String separatorColor
 

@@ -45,7 +45,6 @@ public record RichMenuIdResponse (
     * Rich menu ID
     */
     
-
     @JsonProperty("richMenuId")
     String richMenuId
 

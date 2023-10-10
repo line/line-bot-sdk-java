@@ -49,14 +49,12 @@ public record RichMenuBatchRequest (
     * Array of Rich menu operation object...
     */
     
-
     @JsonProperty("operations")
     List<RichMenuBatchOperation> operations,
 /**
     * Key for retry. Key value is a string matching the regular expression pattern
     */
     
-
     @JsonProperty("resumeRequestKey")
     String resumeRequestKey
 

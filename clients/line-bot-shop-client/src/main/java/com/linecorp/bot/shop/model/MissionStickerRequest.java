@@ -45,28 +45,24 @@ public record MissionStickerRequest (
     * Destination user ID
     */
     
-
     @JsonProperty("to")
     String to,
 /**
     * Package ID for a set of stickers
     */
     
-
     @JsonProperty("productId")
     String productId,
 /**
     * &#x60;STICKER&#x60;
     */
     
-
     @JsonProperty("productType")
     String productType,
 /**
     * &#x60;false&#x60;
     */
     
-
     @JsonProperty("sendPresentMessage")
     Boolean sendPresentMessage
 

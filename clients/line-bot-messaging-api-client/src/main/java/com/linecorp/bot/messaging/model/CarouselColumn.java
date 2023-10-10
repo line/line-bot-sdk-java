@@ -50,42 +50,36 @@ public record CarouselColumn (
     * Get thumbnailImageUrl
     */
     
-
     @JsonProperty("thumbnailImageUrl")
     URI thumbnailImageUrl,
 /**
     * Get imageBackgroundColor
     */
     
-
     @JsonProperty("imageBackgroundColor")
     String imageBackgroundColor,
 /**
     * Get title
     */
     
-
     @JsonProperty("title")
     String title,
 /**
     * Get text
     */
     
-
     @JsonProperty("text")
     String text,
 /**
     * Get defaultAction
     */
     
-
     @JsonProperty("defaultAction")
     Action defaultAction,
 /**
     * Get actions
     */
     
-
     @JsonProperty("actions")
     List<Action> actions
 

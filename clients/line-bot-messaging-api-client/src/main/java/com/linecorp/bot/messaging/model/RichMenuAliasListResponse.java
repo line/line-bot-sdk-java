@@ -49,7 +49,6 @@ public record RichMenuAliasListResponse (
     * Rich menu aliases.
     */
     
-
     @JsonProperty("aliases")
     List<RichMenuAliasResponse> aliases
 

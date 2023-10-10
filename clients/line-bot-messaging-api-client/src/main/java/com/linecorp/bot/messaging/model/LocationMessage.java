@@ -49,42 +49,36 @@ public record LocationMessage (
     * Get quickReply
     */
     
-
     @JsonProperty("quickReply")
     QuickReply quickReply,
 /**
     * Get sender
     */
     
-
     @JsonProperty("sender")
     Sender sender,
 /**
     * Get title
     */
     
-
     @JsonProperty("title")
     String title,
 /**
     * Get address
     */
     
-
     @JsonProperty("address")
     String address,
 /**
     * Get latitude
     */
     
-
     @JsonProperty("latitude")
     Double latitude,
 /**
     * Get longitude
     */
     
-
     @JsonProperty("longitude")
     Double longitude
 

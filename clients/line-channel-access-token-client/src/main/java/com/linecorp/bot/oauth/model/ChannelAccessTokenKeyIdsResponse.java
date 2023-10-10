@@ -48,7 +48,6 @@ public record ChannelAccessTokenKeyIdsResponse (
     * Array of channel access token key IDs.
     */
     
-
     @JsonProperty("kids")
     List<String> kids
 

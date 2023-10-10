@@ -47,7 +47,6 @@ public record RedeliveryRecipient (
     * Get requestId
     */
     
-
     @JsonProperty("requestId")
     String requestId
 

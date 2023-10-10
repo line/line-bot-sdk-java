@@ -46,7 +46,6 @@ public record TestWebhookEndpointRequest (
     * A webhook URL to be validated.
     */
     
-
     @JsonProperty("endpoint")
     URI endpoint
 

@@ -45,7 +45,6 @@ public record ChatReference (
     * The target user ID
     */
     
-
     @JsonProperty("userId")
     String userId
 

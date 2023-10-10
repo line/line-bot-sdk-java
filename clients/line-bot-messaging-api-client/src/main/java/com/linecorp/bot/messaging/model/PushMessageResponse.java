@@ -49,7 +49,6 @@ public record PushMessageResponse (
     * Array of sent messages.
     */
     
-
     @JsonProperty("sentMessages")
     List<SentMessage> sentMessages
 

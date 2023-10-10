@@ -46,14 +46,12 @@ public record MessageQuotaResponse (
     * Get type
     */
     
-
     @JsonProperty("type")
     QuotaType type,
 /**
     * The target limit for sending messages in the current month. This property is returned when the &#x60;type&#x60; property has a value of &#x60;limited&#x60;. 
     */
     
-
     @JsonProperty("value")
     Long value
 

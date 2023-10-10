@@ -47,7 +47,6 @@ public record RichMenuBounds (
     * maximum: 2147483647
     */
     
-
     @JsonProperty("x")
     Long x,
 /**
@@ -56,7 +55,6 @@ public record RichMenuBounds (
     * maximum: 2147483647
     */
     
-
     @JsonProperty("y")
     Long y,
 /**
@@ -65,7 +63,6 @@ public record RichMenuBounds (
     * maximum: 2147483647
     */
     
-
     @JsonProperty("width")
     Long width,
 /**
@@ -74,7 +71,6 @@ public record RichMenuBounds (
     * maximum: 2147483647
     */
     
-
     @JsonProperty("height")
     Long height
 

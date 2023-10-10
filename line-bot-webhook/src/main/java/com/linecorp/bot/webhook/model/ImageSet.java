@@ -45,21 +45,18 @@ public record ImageSet (
     * Image set ID. Only included when multiple images are sent simultaneously.
     */
     
-
     @JsonProperty("id")
     String id,
 /**
     * An index starting from 1, indicating the image number in a set of images sent simultaneously. Only included when multiple images are sent simultaneously. However, it won&#39;t be included if the sender is using LINE 11.15 or earlier for Android.
     */
     
-
     @JsonProperty("index")
     Integer index,
 /**
     * The total number of images sent simultaneously.
     */
     
-
     @JsonProperty("total")
     Integer total
 

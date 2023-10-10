@@ -48,28 +48,24 @@ public record ImagemapVideo (
     * Get originalContentUrl
     */
     
-
     @JsonProperty("originalContentUrl")
     URI originalContentUrl,
 /**
     * Get previewImageUrl
     */
     
-
     @JsonProperty("previewImageUrl")
     URI previewImageUrl,
 /**
     * Get area
     */
     
-
     @JsonProperty("area")
     ImagemapArea area,
 /**
     * Get externalLink
     */
     
-
     @JsonProperty("externalLink")
     ImagemapExternalLink externalLink
 

@@ -45,14 +45,12 @@ public record CreateRichMenuAliasRequest (
     * Rich menu alias ID, which can be any ID, unique for each channel.
     */
     
-
     @JsonProperty("richMenuAliasId")
     String richMenuAliasId,
 /**
     * The rich menu ID to be associated with the rich menu alias.
     */
     
-
     @JsonProperty("richMenuId")
     String richMenuId
 

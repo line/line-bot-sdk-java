@@ -47,14 +47,12 @@ public record PostbackContent (
     * Postback data
     */
     
-
     @JsonProperty("data")
     String data,
 /**
     * Get params
     */
     
-
     @JsonProperty("params")
     Map<String, String> params
 

@@ -46,21 +46,18 @@ public record GroupSummaryResponse (
     * Group ID
     */
     
-
     @JsonProperty("groupId")
     String groupId,
 /**
     * Group name
     */
     
-
     @JsonProperty("groupName")
     String groupName,
 /**
     * Group icon URL. Not included in the response if the user doesn&#39;t set a group profile icon.
     */
     
-
     @JsonProperty("pictureUrl")
     URI pictureUrl
 

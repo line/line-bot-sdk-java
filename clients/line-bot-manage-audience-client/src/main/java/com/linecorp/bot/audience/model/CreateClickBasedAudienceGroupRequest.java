@@ -46,21 +46,18 @@ public record CreateClickBasedAudienceGroupRequest (
     * The audience&#39;s name. This is case-insensitive, meaning AUDIENCE and audience are considered identical. Max character limit: 120 
     */
     
-
     @JsonProperty("description")
     String description,
 /**
     * The request ID of a broadcast or narrowcast message sent in the past 60 days. Each Messaging API request has a request ID. 
     */
     
-
     @JsonProperty("requestId")
     String requestId,
 /**
     * The URL clicked by the user. If empty, users who clicked any URL in the message are added to the list of recipients. Max character limit: 2,000 
     */
     
-
     @JsonProperty("clickUrl")
     URI clickUrl
 

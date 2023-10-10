@@ -51,14 +51,12 @@ public record ConfirmTemplate (
     * Get text
     */
     
-
     @JsonProperty("text")
     String text,
 /**
     * Get actions
     */
     
-
     @JsonProperty("actions")
     List<Action> actions
 

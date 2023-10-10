@@ -47,7 +47,6 @@ public record RichMenuBatchUnlinkOperation (
     * Get from
     */
     
-
     @JsonProperty("from")
     String from
 

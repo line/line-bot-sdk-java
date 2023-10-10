@@ -45,14 +45,12 @@ public record AgeTile (
     * users&#39; age
     */
     
-
     @JsonProperty("age")
     Age age,
 /**
     * Percentage
     */
     
-
     @JsonProperty("percentage")
     Double percentage
 

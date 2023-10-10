@@ -48,28 +48,24 @@ public record VideoMessageContent (
     * Message ID
     */
     
-
     @JsonProperty("id")
     String id,
 /**
     * Length of video file (milliseconds)
     */
     
-
     @JsonProperty("duration")
     Long duration,
 /**
     * Get contentProvider
     */
     
-
     @JsonProperty("contentProvider")
     ContentProvider contentProvider,
 /**
     * Quote token to quote this message. 
     */
     
-
     @JsonProperty("quoteToken")
     String quoteToken
 

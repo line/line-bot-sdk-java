@@ -45,21 +45,18 @@ public record BeaconContent (
     * Hardware ID of the beacon that was detected
     */
     
-
     @JsonProperty("hwid")
     String hwid,
 /**
     * Type of beacon event.
     */
     
-
     @JsonProperty("type")
     Type type,
 /**
     * Device message of beacon that was detected.
     */
     
-
     @JsonProperty("dm")
     String dm
 

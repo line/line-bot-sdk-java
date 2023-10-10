@@ -45,14 +45,12 @@ public record ErrorResponse (
     * Error summary
     */
     
-
     @JsonProperty("error")
     String error,
 /**
     * Details of the error. Not returned in certain situations.
     */
     
-
     @JsonProperty("error_description")
     String errorDescription
 

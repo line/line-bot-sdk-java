@@ -50,21 +50,18 @@ public record OperatorDemographicFilter (
     * Get and
     */
     
-
     @JsonProperty("and")
     List<DemographicFilter> and,
 /**
     * Get or
     */
     
-
     @JsonProperty("or")
     List<DemographicFilter> or,
 /**
     * Get not
     */
     
-
     @JsonProperty("not")
     DemographicFilter not
 

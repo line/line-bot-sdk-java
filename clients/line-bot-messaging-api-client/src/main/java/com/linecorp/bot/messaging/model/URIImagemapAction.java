@@ -48,21 +48,18 @@ public record URIImagemapAction (
     * Get area
     */
     
-
     @JsonProperty("area")
     ImagemapArea area,
 /**
     * Get linkUri
     */
     
-
     @JsonProperty("linkUri")
     String linkUri,
 /**
     * Get label
     */
     
-
     @JsonProperty("label")
     String label
 

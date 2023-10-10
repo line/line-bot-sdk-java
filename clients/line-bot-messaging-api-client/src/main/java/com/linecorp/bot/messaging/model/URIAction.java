@@ -49,21 +49,18 @@ public record URIAction (
     * Label for the action.
     */
     
-
     @JsonProperty("label")
     String label,
 /**
     * Get uri
     */
     
-
     @JsonProperty("uri")
     URI uri,
 /**
     * Get altUri
     */
     
-
     @JsonProperty("altUri")
     AltUri altUri
 

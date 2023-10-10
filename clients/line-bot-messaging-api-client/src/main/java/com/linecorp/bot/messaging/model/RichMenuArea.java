@@ -47,14 +47,12 @@ public record RichMenuArea (
     * Get bounds
     */
     
-
     @JsonProperty("bounds")
     RichMenuBounds bounds,
 /**
     * Get action
     */
     
-
     @JsonProperty("action")
     Action action
 

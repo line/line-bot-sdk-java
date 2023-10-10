@@ -45,28 +45,24 @@ public record GetStatisticsPerUnitResponseOverview (
     * Number of users who opened the message, meaning they displayed at least 1 bubble.
     */
     
-
     @JsonProperty("uniqueImpression")
     Long uniqueImpression,
 /**
     * Number of users who opened any URL in the message.
     */
     
-
     @JsonProperty("uniqueClick")
     Long uniqueClick,
 /**
     * Number of users who started playing any video or audio in the message.
     */
     
-
     @JsonProperty("uniqueMediaPlayed")
     Long uniqueMediaPlayed,
 /**
     * Number of users who played the entirety of any video or audio in the message.
     */
     
-
     @JsonProperty("uniqueMediaPlayed100Percent")
     Long uniqueMediaPlayed100Percent
 

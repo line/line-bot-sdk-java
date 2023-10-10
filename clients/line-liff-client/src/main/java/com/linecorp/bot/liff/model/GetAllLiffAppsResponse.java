@@ -49,7 +49,6 @@ public record GetAllLiffAppsResponse (
     * Get apps
     */
     
-
     @JsonProperty("apps")
     List<LiffApp> apps
 

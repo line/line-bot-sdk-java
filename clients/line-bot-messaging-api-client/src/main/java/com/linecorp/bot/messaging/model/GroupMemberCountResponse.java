@@ -45,7 +45,6 @@ public record GroupMemberCountResponse (
     * The count of members in the group chat. The number returned excludes the LINE Official Account.
     */
     
-
     @JsonProperty("count")
     Integer count
 

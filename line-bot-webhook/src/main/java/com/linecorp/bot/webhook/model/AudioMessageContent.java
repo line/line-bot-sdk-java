@@ -48,21 +48,18 @@ public record AudioMessageContent (
     * Message ID
     */
     
-
     @JsonProperty("id")
     String id,
 /**
     * Get contentProvider
     */
     
-
     @JsonProperty("contentProvider")
     ContentProvider contentProvider,
 /**
     * Length of audio file (milliseconds)
     */
     
-
     @JsonProperty("duration")
     Long duration
 

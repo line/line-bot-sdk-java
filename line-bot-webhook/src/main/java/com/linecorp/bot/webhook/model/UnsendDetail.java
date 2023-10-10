@@ -45,7 +45,6 @@ public record UnsendDetail (
     * The message ID of the unsent message
     */
     
-
     @JsonProperty("messageId")
     String messageId
 

@@ -45,7 +45,6 @@ public record AcquireChatControlRequest (
     * &#x60;True&#x60;: After the time limit (ttl) has passed, the initiative (Chat Control) will return to the Primary Channel. (Default) &#x60;False&#x60;: There&#39;s no time limit and the initiative (Chat Control) doesn&#39;t change over time. 
     */
     
-
     @JsonProperty("expired")
     Boolean expired,
 /**
@@ -53,7 +52,6 @@ public record AcquireChatControlRequest (
     * maximum: 31536000
     */
     
-
     @JsonProperty("ttl")
     Integer ttl
 

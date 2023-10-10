@@ -46,35 +46,30 @@ public record UserProfileResponse (
     * User&#39;s display name
     */
     
-
     @JsonProperty("displayName")
     String displayName,
 /**
     * User ID
     */
     
-
     @JsonProperty("userId")
     String userId,
 /**
     * Profile image URL. &#x60;https&#x60; image URL. Not included in the response if the user doesn&#39;t have a profile image.
     */
     
-
     @JsonProperty("pictureUrl")
     URI pictureUrl,
 /**
     * User&#39;s status message. Not included in the response if the user doesn&#39;t have a status message.
     */
     
-
     @JsonProperty("statusMessage")
     String statusMessage,
 /**
     * User&#39;s language, as a BCP 47 language tag. Not included in the response if the user hasn&#39;t yet consented to the LINE Privacy Policy.
     */
     
-
     @JsonProperty("language")
     String language
 

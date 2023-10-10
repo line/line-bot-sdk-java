@@ -47,14 +47,12 @@ public record MessageAction (
     * Label for the action.
     */
     
-
     @JsonProperty("label")
     String label,
 /**
     * Get text
     */
     
-
     @JsonProperty("text")
     String text
 

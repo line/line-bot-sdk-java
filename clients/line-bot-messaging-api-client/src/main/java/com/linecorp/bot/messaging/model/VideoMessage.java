@@ -50,35 +50,30 @@ public record VideoMessage (
     * Get quickReply
     */
     
-
     @JsonProperty("quickReply")
     QuickReply quickReply,
 /**
     * Get sender
     */
     
-
     @JsonProperty("sender")
     Sender sender,
 /**
     * Get originalContentUrl
     */
     
-
     @JsonProperty("originalContentUrl")
     URI originalContentUrl,
 /**
     * Get previewImageUrl
     */
     
-
     @JsonProperty("previewImageUrl")
     URI previewImageUrl,
 /**
     * Get trackingId
     */
     
-
     @JsonProperty("trackingId")
     String trackingId
 

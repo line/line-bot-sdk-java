@@ -52,42 +52,36 @@ public record TextMessageContent (
     * Message ID
     */
     
-
     @JsonProperty("id")
     String id,
 /**
     * Message text.
     */
     
-
     @JsonProperty("text")
     String text,
 /**
     * Array of one or more LINE emoji objects. Only included in the message event when the text property contains a LINE emoji.
     */
     
-
     @JsonProperty("emojis")
     List<Emoji> emojis,
 /**
     * Get mention
     */
     
-
     @JsonProperty("mention")
     Mention mention,
 /**
     * Quote token to quote this message. 
     */
     
-
     @JsonProperty("quoteToken")
     String quoteToken,
 /**
     * Message ID of a quoted message. Only included when the received message quotes a past message.
     */
     
-
     @JsonProperty("quotedMessageId")
     String quotedMessageId
 

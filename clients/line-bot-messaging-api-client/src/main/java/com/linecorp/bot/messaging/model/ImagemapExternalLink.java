@@ -46,14 +46,12 @@ public record ImagemapExternalLink (
     * Get linkUri
     */
     
-
     @JsonProperty("linkUri")
     URI linkUri,
 /**
     * Get label
     */
     
-
     @JsonProperty("label")
     String label
 

@@ -45,14 +45,12 @@ public record GenderTile (
     * users&#39; gender
     */
     
-
     @JsonProperty("gender")
     Gender gender,
 /**
     * Percentage
     */
     
-
     @JsonProperty("percentage")
     Double percentage
 

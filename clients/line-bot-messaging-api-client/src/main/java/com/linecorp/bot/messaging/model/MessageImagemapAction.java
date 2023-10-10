@@ -48,21 +48,18 @@ public record MessageImagemapAction (
     * Get area
     */
     
-
     @JsonProperty("area")
     ImagemapArea area,
 /**
     * Get text
     */
     
-
     @JsonProperty("text")
     String text,
 /**
     * Get label
     */
     
-
     @JsonProperty("label")
     String label
 

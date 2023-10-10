@@ -45,28 +45,24 @@ public record IssueChannelAccessTokenResponse (
     * Channel access token. 
     */
     
-
     @JsonProperty("access_token")
     String accessToken,
 /**
     * Amount of time in seconds from issue to expiration of the channel access token
     */
     
-
     @JsonProperty("expires_in")
     Integer expiresIn,
 /**
     * A token type.
     */
     
-
     @JsonProperty("token_type")
     String tokenType,
 /**
     * Unique key ID for identifying the channel access token.
     */
     
-
     @JsonProperty("key_id")
     String keyId
 

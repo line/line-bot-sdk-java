@@ -48,56 +48,48 @@ public record AudienceGroupJob (
     * A job ID.
     */
     
-
     @JsonProperty("audienceGroupJobId")
     Long audienceGroupJobId,
 /**
     * An audience ID.
     */
     
-
     @JsonProperty("audienceGroupId")
     Long audienceGroupId,
 /**
     * The job&#39;s description.
     */
     
-
     @JsonProperty("description")
     String description,
 /**
     * Get type
     */
     
-
     @JsonProperty("type")
     AudienceGroupJobType type,
 /**
     * Get jobStatus
     */
     
-
     @JsonProperty("jobStatus")
     AudienceGroupJobStatus jobStatus,
 /**
     * Get failedType
     */
     
-
     @JsonProperty("failedType")
     AudienceGroupJobFailedType failedType,
 /**
     * The number of accounts (recipients) that were added or removed.
     */
     
-
     @JsonProperty("audienceCount")
     Long audienceCount,
 /**
     * When the job was created (in UNIX time).
     */
     
-
     @JsonProperty("created")
     Long created
 

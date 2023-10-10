@@ -52,154 +52,132 @@ public record FlexText (
     * Get flex
     */
     
-
     @JsonProperty("flex")
     Integer flex,
 /**
     * Get text
     */
     
-
     @JsonProperty("text")
     String text,
 /**
     * Get size
     */
     
-
     @JsonProperty("size")
     String size,
 /**
     * Get align
     */
     
-
     @JsonProperty("align")
     Align align,
 /**
     * Get gravity
     */
     
-
     @JsonProperty("gravity")
     Gravity gravity,
 /**
     * Get color
     */
     
-
     @JsonProperty("color")
     String color,
 /**
     * Get weight
     */
     
-
     @JsonProperty("weight")
     Weight weight,
 /**
     * Get style
     */
     
-
     @JsonProperty("style")
     Style style,
 /**
     * Get decoration
     */
     
-
     @JsonProperty("decoration")
     Decoration decoration,
 /**
     * Get wrap
     */
     
-
     @JsonProperty("wrap")
     Boolean wrap,
 /**
     * Get lineSpacing
     */
     
-
     @JsonProperty("lineSpacing")
     String lineSpacing,
 /**
     * Get margin
     */
     
-
     @JsonProperty("margin")
     String margin,
 /**
     * Get position
     */
     
-
     @JsonProperty("position")
     Position position,
 /**
     * Get offsetTop
     */
     
-
     @JsonProperty("offsetTop")
     String offsetTop,
 /**
     * Get offsetBottom
     */
     
-
     @JsonProperty("offsetBottom")
     String offsetBottom,
 /**
     * Get offsetStart
     */
     
-
     @JsonProperty("offsetStart")
     String offsetStart,
 /**
     * Get offsetEnd
     */
     
-
     @JsonProperty("offsetEnd")
     String offsetEnd,
 /**
     * Get action
     */
     
-
     @JsonProperty("action")
     Action action,
 /**
     * Get maxLines
     */
     
-
     @JsonProperty("maxLines")
     Integer maxLines,
 /**
     * Get contents
     */
     
-
     @JsonProperty("contents")
     List<FlexSpan> contents,
 /**
     * Get adjustMode
     */
     
-
     @JsonProperty("adjustMode")
     AdjustMode adjustMode,
 /**
     * Get scaling
     */
     
-
     @JsonProperty("scaling")
     Boolean scaling
 

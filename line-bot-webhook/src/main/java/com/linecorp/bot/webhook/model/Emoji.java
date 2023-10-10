@@ -45,28 +45,24 @@ public record Emoji (
     * Index position for a character in text, with the first character being at position 0.
     */
     
-
     @JsonProperty("index")
     Integer index,
 /**
     * The length of the LINE emoji string. For LINE emoji (hello), 7 is the length.
     */
     
-
     @JsonProperty("length")
     Integer length,
 /**
     * Product ID for a LINE emoji set.
     */
     
-
     @JsonProperty("productId")
     String productId,
 /**
     * ID for a LINE emoji inside a set.
     */
     
-
     @JsonProperty("emojiId")
     String emojiId
 

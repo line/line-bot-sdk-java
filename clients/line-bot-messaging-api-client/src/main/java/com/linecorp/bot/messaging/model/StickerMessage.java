@@ -49,35 +49,30 @@ public record StickerMessage (
     * Get quickReply
     */
     
-
     @JsonProperty("quickReply")
     QuickReply quickReply,
 /**
     * Get sender
     */
     
-
     @JsonProperty("sender")
     Sender sender,
 /**
     * Get packageId
     */
     
-
     @JsonProperty("packageId")
     String packageId,
 /**
     * Get stickerId
     */
     
-
     @JsonProperty("stickerId")
     String stickerId,
 /**
     * Quote token of the message you want to quote.
     */
     
-
     @JsonProperty("quoteToken")
     String quoteToken
 

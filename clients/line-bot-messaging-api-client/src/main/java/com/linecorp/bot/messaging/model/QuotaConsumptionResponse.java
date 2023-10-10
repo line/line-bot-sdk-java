@@ -45,7 +45,6 @@ public record QuotaConsumptionResponse (
     * The number of sent messages in the current month
     */
     
-
     @JsonProperty("totalUsage")
     Long totalUsage
 

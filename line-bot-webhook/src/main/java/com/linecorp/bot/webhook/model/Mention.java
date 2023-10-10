@@ -49,7 +49,6 @@ public record Mention (
     * Array of one or more mention objects. Max: 20 mentions
     */
     
-
     @JsonProperty("mentionees")
     List<Mentionee> mentionees
 

@@ -51,7 +51,6 @@ public record AppTypeDemographicFilter (
     * Get oneOf
     */
     
-
     @JsonProperty("oneOf")
     List<AppTypeDemographic> oneOf
 

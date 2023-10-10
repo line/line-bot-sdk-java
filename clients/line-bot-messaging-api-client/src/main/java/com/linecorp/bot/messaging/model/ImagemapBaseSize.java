@@ -45,14 +45,12 @@ public record ImagemapBaseSize (
     * Get height
     */
     
-
     @JsonProperty("height")
     Integer height,
 /**
     * Get width
     */
     
-
     @JsonProperty("width")
     Integer width
 

@@ -50,21 +50,18 @@ public record OperatorRecipient (
     * Create a new recipient object by taking the logical conjunction (AND) of the specified array of recipient objects. 
     */
     
-
     @JsonProperty("and")
     List<Recipient> and,
 /**
     * Create a new recipient object by taking the logical disjunction (OR) of the specified array of recipient objects. 
     */
     
-
     @JsonProperty("or")
     List<Recipient> or,
 /**
     * Get not
     */
     
-
     @JsonProperty("not")
     Recipient not
 

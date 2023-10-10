@@ -47,21 +47,18 @@ public record QuickReplyItem (
     * URL of the icon that is displayed at the beginning of the button
     */
     
-
     @JsonProperty("imageUrl")
     URI imageUrl,
 /**
     * Get action
     */
     
-
     @JsonProperty("action")
     Action action,
 /**
     * &#x60;action&#x60;
     */
     
-
     @JsonProperty("type")
     String type
 

@@ -49,35 +49,30 @@ public record FlexVideo (
     * Get url
     */
     
-
     @JsonProperty("url")
     URI url,
 /**
     * Get previewUrl
     */
     
-
     @JsonProperty("previewUrl")
     URI previewUrl,
 /**
     * Get altContent
     */
     
-
     @JsonProperty("altContent")
     FlexComponent altContent,
 /**
     * Get aspectRatio
     */
     
-
     @JsonProperty("aspectRatio")
     String aspectRatio,
 /**
     * Get action
     */
     
-
     @JsonProperty("action")
     Action action
 

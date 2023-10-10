@@ -47,7 +47,6 @@ public record UnlinkThingsContent (
     * Device ID of the device that has been linked with LINE.
     */
     
-
     @JsonProperty("deviceId")
     String deviceId
 

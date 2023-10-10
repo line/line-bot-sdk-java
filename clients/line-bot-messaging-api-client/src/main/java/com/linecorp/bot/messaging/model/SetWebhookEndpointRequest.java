@@ -46,7 +46,6 @@ public record SetWebhookEndpointRequest (
     * A valid webhook URL.
     */
     
-
     @JsonProperty("endpoint")
     URI endpoint
 

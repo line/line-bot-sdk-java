@@ -49,7 +49,6 @@ public record RichMenuListResponse (
     * Rich menus
     */
     
-
     @JsonProperty("richmenus")
     List<RichMenuResponse> richmenus
 

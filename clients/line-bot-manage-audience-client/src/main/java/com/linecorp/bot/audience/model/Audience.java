@@ -45,7 +45,6 @@ public record Audience (
     * A user ID or IFA. You can specify an empty array.
     */
     
-
     @JsonProperty("id")
     String id
 

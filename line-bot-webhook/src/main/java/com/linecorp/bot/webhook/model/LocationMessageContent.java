@@ -47,35 +47,30 @@ public record LocationMessageContent (
     * Message ID
     */
     
-
     @JsonProperty("id")
     String id,
 /**
     * Title
     */
     
-
     @JsonProperty("title")
     String title,
 /**
     * Address
     */
     
-
     @JsonProperty("address")
     String address,
 /**
     * Latitude
     */
     
-
     @JsonProperty("latitude")
     Double latitude,
 /**
     * Longitude
     */
     
-
     @JsonProperty("longitude")
     Double longitude
 

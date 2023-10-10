@@ -51,21 +51,18 @@ public record GetStatisticsPerUnitResponse (
     * Get overview
     */
     
-
     @JsonProperty("overview")
     GetStatisticsPerUnitResponseOverview overview,
 /**
     * Array of information about individual message bubbles.
     */
     
-
     @JsonProperty("messages")
     List<GetStatisticsPerUnitResponseMessage> messages,
 /**
     * Array of information about opened URLs in the message.
     */
     
-
     @JsonProperty("clicks")
     List<GetStatisticsPerUnitResponseClick> clicks
 

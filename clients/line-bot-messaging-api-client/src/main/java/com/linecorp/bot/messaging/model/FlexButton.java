@@ -48,98 +48,84 @@ public record FlexButton (
     * Get flex
     */
     
-
     @JsonProperty("flex")
     Integer flex,
 /**
     * Get color
     */
     
-
     @JsonProperty("color")
     String color,
 /**
     * Get style
     */
     
-
     @JsonProperty("style")
     Style style,
 /**
     * Get action
     */
     
-
     @JsonProperty("action")
     Action action,
 /**
     * Get gravity
     */
     
-
     @JsonProperty("gravity")
     Gravity gravity,
 /**
     * Get margin
     */
     
-
     @JsonProperty("margin")
     String margin,
 /**
     * Get position
     */
     
-
     @JsonProperty("position")
     Position position,
 /**
     * Get offsetTop
     */
     
-
     @JsonProperty("offsetTop")
     String offsetTop,
 /**
     * Get offsetBottom
     */
     
-
     @JsonProperty("offsetBottom")
     String offsetBottom,
 /**
     * Get offsetStart
     */
     
-
     @JsonProperty("offsetStart")
     String offsetStart,
 /**
     * Get offsetEnd
     */
     
-
     @JsonProperty("offsetEnd")
     String offsetEnd,
 /**
     * Get height
     */
     
-
     @JsonProperty("height")
     Height height,
 /**
     * Get adjustMode
     */
     
-
     @JsonProperty("adjustMode")
     AdjustMode adjustMode,
 /**
     * Get scaling
     */
     
-
     @JsonProperty("scaling")
     Boolean scaling
 

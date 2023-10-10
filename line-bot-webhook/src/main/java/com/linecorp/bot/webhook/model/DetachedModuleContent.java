@@ -47,14 +47,12 @@ public record DetachedModuleContent (
     * Detached LINE Official Account bot user ID
     */
     
-
     @JsonProperty("botId")
     String botId,
 /**
     * Reason for detaching
     */
     
-
     @JsonProperty("reason")
     Reason reason
 

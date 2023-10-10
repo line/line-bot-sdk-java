@@ -45,14 +45,12 @@ public record ActionResult (
     * Get type
     */
     
-
     @JsonProperty("type")
     Type type,
 /**
     * Base64-encoded binary data
     */
     
-
     @JsonProperty("data")
     String data
 

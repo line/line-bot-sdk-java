@@ -49,7 +49,6 @@ public record ValidateMessageRequest (
     * Array of message objects to validate
     */
     
-
     @JsonProperty("messages")
     List<Message> messages
 

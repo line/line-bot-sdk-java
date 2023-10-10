@@ -47,14 +47,12 @@ public record RoomSource (
     * ID of the source user. Only included in message events. Only users of LINE for iOS and LINE for Android are included in userId.
     */
     
-
     @JsonProperty("userId")
     String userId,
 /**
     * Room ID of the source multi-person chat
     */
     
-
     @JsonProperty("roomId")
     String roomId
 

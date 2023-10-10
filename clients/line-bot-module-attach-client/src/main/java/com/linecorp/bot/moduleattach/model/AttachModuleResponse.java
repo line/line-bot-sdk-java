@@ -48,14 +48,12 @@ public record AttachModuleResponse (
     * User ID of the bot on the LINE Official Account.
     */
     
-
     @JsonProperty("bot_id")
     String botId,
 /**
     * Permissions (scope) granted by the LINE Official Account admin.
     */
     
-
     @JsonProperty("scopes")
     List<String> scopes
 

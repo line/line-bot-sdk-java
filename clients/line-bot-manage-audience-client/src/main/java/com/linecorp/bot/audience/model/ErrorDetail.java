@@ -45,14 +45,12 @@ public record ErrorDetail (
     * Details of the error. Not included in the response under certain situations.
     */
     
-
     @JsonProperty("message")
     String message,
 /**
     * Location of where the error occurred. Returns the JSON field name or query parameter name of the request. Not included in the response under certain situations.
     */
     
-
     @JsonProperty("property")
     String property
 

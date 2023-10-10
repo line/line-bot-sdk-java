@@ -47,14 +47,12 @@ public record ImageCarouselColumn (
     * Get imageUrl
     */
     
-
     @JsonProperty("imageUrl")
     URI imageUrl,
 /**
     * Get action
     */
     
-
     @JsonProperty("action")
     Action action
 

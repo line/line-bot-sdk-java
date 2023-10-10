@@ -50,42 +50,36 @@ public record FollowEvent (
     * Get source
     */
     
-
     @JsonProperty("source")
     Source source,
 /**
     * Time of the event in milliseconds.
     */
     
-
     @JsonProperty("timestamp")
     Long timestamp,
 /**
     * Get mode
     */
     
-
     @JsonProperty("mode")
     EventMode mode,
 /**
     * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
     */
     
-
     @JsonProperty("webhookEventId")
     String webhookEventId,
 /**
     * Get deliveryContext
     */
     
-
     @JsonProperty("deliveryContext")
     DeliveryContext deliveryContext,
 /**
     * Reply token used to send reply message to this event
     */
     
-
     @JsonProperty("replyToken")
     String replyToken
 

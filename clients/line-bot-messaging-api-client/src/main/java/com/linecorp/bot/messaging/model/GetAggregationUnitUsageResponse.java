@@ -45,7 +45,6 @@ public record GetAggregationUnitUsageResponse (
     * Number of aggregation units used this month.
     */
     
-
     @JsonProperty("numOfCustomAggregationUnits")
     Long numOfCustomAggregationUnits
 

@@ -49,21 +49,18 @@ public record AddAudienceToAudienceGroupRequest (
     * The audience ID.
     */
     
-
     @JsonProperty("audienceGroupId")
     Long audienceGroupId,
 /**
     * The audience&#39;s name.
     */
     
-
     @JsonProperty("uploadDescription")
     String uploadDescription,
 /**
     * An array of up to 10,000 user IDs or IFAs.
     */
     
-
     @JsonProperty("audiences")
     List<Audience> audiences
 

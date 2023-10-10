@@ -45,7 +45,6 @@ public record VideoPlayComplete (
     * ID used to identify a video. Returns the same value as the trackingId assigned to the video message.
     */
     
-
     @JsonProperty("trackingId")
     String trackingId
 

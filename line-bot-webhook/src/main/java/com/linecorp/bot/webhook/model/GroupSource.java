@@ -47,14 +47,12 @@ public record GroupSource (
     * Group ID of the source group chat
     */
     
-
     @JsonProperty("groupId")
     String groupId,
 /**
     * ID of the source user. Only included in message events. Only users of LINE for iOS and LINE for Android are included in userId.
     */
     
-
     @JsonProperty("userId")
     String userId
 

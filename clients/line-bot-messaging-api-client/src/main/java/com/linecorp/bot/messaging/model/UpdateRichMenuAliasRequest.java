@@ -45,7 +45,6 @@ public record UpdateRichMenuAliasRequest (
     * The rich menu ID to be associated with the rich menu alias.
     */
     
-
     @JsonProperty("richMenuId")
     String richMenuId
 

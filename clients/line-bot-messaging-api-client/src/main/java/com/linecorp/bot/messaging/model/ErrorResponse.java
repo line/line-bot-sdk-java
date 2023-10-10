@@ -50,21 +50,18 @@ public record ErrorResponse (
     * Message containing information about the error.
     */
     
-
     @JsonProperty("message")
     String message,
 /**
     * An array of error details. If the array is empty, this property will not be included in the response.
     */
     
-
     @JsonProperty("details")
     List<ErrorDetail> details,
 /**
     * Array of sent messages.
     */
     
-
     @JsonProperty("sentMessages")
     List<SentMessage> sentMessages
 

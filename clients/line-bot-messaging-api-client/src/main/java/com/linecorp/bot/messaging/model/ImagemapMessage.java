@@ -56,49 +56,42 @@ public record ImagemapMessage (
     * Get quickReply
     */
     
-
     @JsonProperty("quickReply")
     QuickReply quickReply,
 /**
     * Get sender
     */
     
-
     @JsonProperty("sender")
     Sender sender,
 /**
     * Get baseUrl
     */
     
-
     @JsonProperty("baseUrl")
     URI baseUrl,
 /**
     * Get altText
     */
     
-
     @JsonProperty("altText")
     String altText,
 /**
     * Get baseSize
     */
     
-
     @JsonProperty("baseSize")
     ImagemapBaseSize baseSize,
 /**
     * Get actions
     */
     
-
     @JsonProperty("actions")
     List<ImagemapAction> actions,
 /**
     * Get video
     */
     
-
     @JsonProperty("video")
     ImagemapVideo video
 

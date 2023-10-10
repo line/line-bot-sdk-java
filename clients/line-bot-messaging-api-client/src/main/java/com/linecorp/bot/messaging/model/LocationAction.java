@@ -47,7 +47,6 @@ public record LocationAction (
     * Label for the action.
     */
     
-
     @JsonProperty("label")
     String label
 

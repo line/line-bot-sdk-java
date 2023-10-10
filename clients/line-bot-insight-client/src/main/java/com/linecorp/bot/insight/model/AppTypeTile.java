@@ -45,14 +45,12 @@ public record AppTypeTile (
     * users&#39; OS
     */
     
-
     @JsonProperty("appType")
     AppType appType,
 /**
     * Percentage
     */
     
-
     @JsonProperty("percentage")
     Double percentage
 

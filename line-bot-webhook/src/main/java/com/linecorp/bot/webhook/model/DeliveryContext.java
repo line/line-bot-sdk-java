@@ -45,7 +45,6 @@ public record DeliveryContext (
     * Whether the webhook event is a redelivered one or not.
     */
     
-
     @JsonProperty("isRedelivery")
     Boolean isRedelivery
 

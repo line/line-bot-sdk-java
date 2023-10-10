@@ -45,49 +45,42 @@ public record GetMessageEventResponseOverview (
     * Request ID.
     */
     
-
     @JsonProperty("requestId")
     String requestId,
 /**
     * UNIX timestamp for message delivery time in seconds.
     */
     
-
     @JsonProperty("timestamp")
     Long timestamp,
 /**
     * Number of messages delivered. This property shows values of less than 20. However, if all messages have not been sent, it will be null. 
     */
     
-
     @JsonProperty("delivered")
     Long delivered,
 /**
     * Number of users who opened the message, meaning they displayed at least 1 bubble.
     */
     
-
     @JsonProperty("uniqueImpression")
     Long uniqueImpression,
 /**
     * Number of users who opened any URL in the message.
     */
     
-
     @JsonProperty("uniqueClick")
     Long uniqueClick,
 /**
     * Number of users who started playing any video or audio in the message.
     */
     
-
     @JsonProperty("uniqueMediaPlayed")
     Long uniqueMediaPlayed,
 /**
     * Number of users who played the entirety of any video or audio in the message.
     */
     
-
     @JsonProperty("uniqueMediaPlayed100Percent")
     Long uniqueMediaPlayed100Percent
 

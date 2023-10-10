@@ -47,7 +47,6 @@ public record RichMenuSize (
     * maximum: 2147483647
     */
     
-
     @JsonProperty("width")
     Long width,
 /**
@@ -56,7 +55,6 @@ public record RichMenuSize (
     * maximum: 2147483647
     */
     
-
     @JsonProperty("height")
     Long height
 

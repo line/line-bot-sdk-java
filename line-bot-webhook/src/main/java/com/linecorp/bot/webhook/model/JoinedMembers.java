@@ -49,7 +49,6 @@ public record JoinedMembers (
     * Users who joined. Array of source user objects.
     */
     
-
     @JsonProperty("members")
     List<UserSource> members
 

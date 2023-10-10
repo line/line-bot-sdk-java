@@ -45,14 +45,12 @@ public record LinkContent (
     * One of the following values to indicate whether linking the account was successful or not
     */
     
-
     @JsonProperty("result")
     Result result,
 /**
     * Specified nonce (number used once) when verifying the user ID.
     */
     
-
     @JsonProperty("nonce")
     String nonce
 

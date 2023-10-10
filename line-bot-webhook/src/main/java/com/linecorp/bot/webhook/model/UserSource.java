@@ -47,7 +47,6 @@ public record UserSource (
     * ID of the source user
     */
     
-
     @JsonProperty("userId")
     String userId
 

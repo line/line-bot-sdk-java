@@ -51,21 +51,18 @@ public record CarouselTemplate (
     * Get columns
     */
     
-
     @JsonProperty("columns")
     List<CarouselColumn> columns,
 /**
     * Get imageAspectRatio
     */
     
-
     @JsonProperty("imageAspectRatio")
     String imageAspectRatio,
 /**
     * Get imageSize
     */
     
-
     @JsonProperty("imageSize")
     String imageSize
 

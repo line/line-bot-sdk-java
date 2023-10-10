@@ -47,14 +47,12 @@ public record FlexSeparator (
     * Get margin
     */
     
-
     @JsonProperty("margin")
     String margin,
 /**
     * Get color
     */
     
-
     @JsonProperty("color")
     String color
 

@@ -52,49 +52,42 @@ public record LiffApp (
     * LIFF app ID
     */
     
-
     @JsonProperty("liffId")
     String liffId,
 /**
     * Get view
     */
     
-
     @JsonProperty("view")
     LiffView view,
 /**
     * Name of the LIFF app
     */
     
-
     @JsonProperty("description")
     String description,
 /**
     * Get features
     */
     
-
     @JsonProperty("features")
     LiffFeatures features,
 /**
     * How additional information in LIFF URLs is handled. concat is returned. 
     */
     
-
     @JsonProperty("permanentLinkPattern")
     String permanentLinkPattern,
 /**
     * Get scope
     */
     
-
     @JsonProperty("scope")
     List<LiffScope> scope,
 /**
     * Get botPrompt
     */
     
-
     @JsonProperty("botPrompt")
     LiffBotPrompt botPrompt
 

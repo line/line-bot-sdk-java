@@ -45,7 +45,6 @@ public record ErrorResponse (
     * Message containing information about the error.
     */
     
-
     @JsonProperty("message")
     String message
 

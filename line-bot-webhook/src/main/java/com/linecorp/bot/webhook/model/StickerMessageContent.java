@@ -50,56 +50,48 @@ public record StickerMessageContent (
     * Message ID
     */
     
-
     @JsonProperty("id")
     String id,
 /**
     * Package ID
     */
     
-
     @JsonProperty("packageId")
     String packageId,
 /**
     * Sticker ID
     */
     
-
     @JsonProperty("stickerId")
     String stickerId,
 /**
     * Get stickerResourceType
     */
     
-
     @JsonProperty("stickerResourceType")
     StickerResourceType stickerResourceType,
 /**
     * Array of up to 15 keywords describing the sticker. If a sticker has 16 or more keywords, a random selection of 15 keywords will be returned. The keyword selection is random for each event, so different keywords may be returned for the same sticker. 
     */
     
-
     @JsonProperty("keywords")
     List<String> keywords,
 /**
     * Any text entered by the user. This property is only included for message stickers. Max character limit: 100 
     */
     
-
     @JsonProperty("text")
     String text,
 /**
     * Quote token to quote this message. 
     */
     
-
     @JsonProperty("quoteToken")
     String quoteToken,
 /**
     * Message ID of a quoted message. Only included when the received message quotes a past message.  
     */
     
-
     @JsonProperty("quotedMessageId")
     String quotedMessageId
 

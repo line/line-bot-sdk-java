@@ -46,7 +46,6 @@ public record Filter (
     * Get demographic
     */
     
-
     @JsonProperty("demographic")
     DemographicFilter demographic
 

@@ -51,7 +51,6 @@ public record AreaDemographicFilter (
     * Get oneOf
     */
     
-
     @JsonProperty("oneOf")
     List<AreaDemographic> oneOf
 

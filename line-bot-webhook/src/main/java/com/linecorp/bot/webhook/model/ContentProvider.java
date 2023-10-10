@@ -46,21 +46,18 @@ public record ContentProvider (
     * Provider of the image file.
     */
     
-
     @JsonProperty("type")
     Type type,
 /**
     * URL of the image file. Only included when contentProvider.type is external.
     */
     
-
     @JsonProperty("originalContentUrl")
     URI originalContentUrl,
 /**
     * URL of the preview image. Only included when contentProvider.type is external.
     */
     
-
     @JsonProperty("previewImageUrl")
     URI previewImageUrl
 
