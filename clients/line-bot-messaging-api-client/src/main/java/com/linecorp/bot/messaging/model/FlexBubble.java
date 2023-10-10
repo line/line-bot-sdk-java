@@ -39,104 +39,100 @@ import com.linecorp.bot.messaging.model.FlexComponent;
 import com.linecorp.bot.messaging.model.FlexContainer;
 
 
-
 /**
  * FlexBubble
  */
 @JsonTypeName("bubble")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexBubble (
-    /**
-     * Get direction
-     */
-
+/**
+    * Get direction
+    */
+    
     @JsonProperty("direction")
     Direction direction,
-    /**
-     * Get styles
-     */
-
+/**
+    * Get styles
+    */
+    
     @JsonProperty("styles")
     FlexBubbleStyles styles,
-    /**
-     * Get header
-     */
-
+/**
+    * Get header
+    */
+    
     @JsonProperty("header")
     FlexBox header,
-    /**
-     * Get hero
-     */
-
+/**
+    * Get hero
+    */
+    
     @JsonProperty("hero")
     FlexComponent hero,
-    /**
-     * Get body
-     */
-
+/**
+    * Get body
+    */
+    
     @JsonProperty("body")
     FlexBox body,
-    /**
-     * Get footer
-     */
-
+/**
+    * Get footer
+    */
+    
     @JsonProperty("footer")
     FlexBox footer,
-    /**
-     * Get size
-     */
-
+/**
+    * Get size
+    */
+    
     @JsonProperty("size")
     Size size,
-    /**
-     * Get action
-     */
-
+/**
+    * Get action
+    */
+    
     @JsonProperty("action")
     Action action
-) implements FlexContainer  {
-    /**
+
+) implements FlexContainer {
+/**
      * Gets or Sets direction
      */
     public enum Direction {
-      @JsonProperty("ltr")
+@JsonProperty("ltr")
       LTR,
-      @JsonProperty("rtl")
+    @JsonProperty("rtl")
       RTL,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-
-
-
-
-
-    /**
+/**
      * Gets or Sets size
      */
     public enum Size {
-      @JsonProperty("nano")
+@JsonProperty("nano")
       NANO,
-      @JsonProperty("micro")
+    @JsonProperty("micro")
       MICRO,
-      @JsonProperty("deca")
+    @JsonProperty("deca")
       DECA,
-      @JsonProperty("hecto")
+    @JsonProperty("hecto")
       HECTO,
-      @JsonProperty("kilo")
+    @JsonProperty("kilo")
       KILO,
-      @JsonProperty("mega")
+    @JsonProperty("mega")
       MEGA,
-      @JsonProperty("giga")
+    @JsonProperty("giga")
       GIGA,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

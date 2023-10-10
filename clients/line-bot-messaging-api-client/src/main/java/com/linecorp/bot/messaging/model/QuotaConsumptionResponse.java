@@ -34,20 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * QuotaConsumptionResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record QuotaConsumptionResponse (
-    /**
-     * The number of sent messages in the current month
-     */
-
+/**
+    * The number of sent messages in the current month
+    */
+    
     @JsonProperty("totalUsage")
     Long totalUsage
+
 )  {
 
-}
 
+}

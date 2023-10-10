@@ -34,34 +34,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * FlexBlockStyle
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexBlockStyle (
-    /**
-     * Get backgroundColor
-     */
-
+/**
+    * Get backgroundColor
+    */
+    
     @JsonProperty("backgroundColor")
     String backgroundColor,
-    /**
-     * Get separator
-     */
-
+/**
+    * Get separator
+    */
+    
     @JsonProperty("separator")
     Boolean separator,
-    /**
-     * Get separatorColor
-     */
-
+/**
+    * Get separatorColor
+    */
+    
     @JsonProperty("separatorColor")
     String separatorColor
+
 )  {
 
 
-
 }
-

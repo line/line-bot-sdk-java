@@ -36,7 +36,6 @@ import com.linecorp.bot.messaging.model.QuickReply;
 import com.linecorp.bot.messaging.model.Sender;
 
 
-
 /**
  * Message
  */
@@ -50,6 +49,7 @@ import com.linecorp.bot.messaging.model.Sender;
         @JsonSubTypes.Type(value = TemplateMessage.class, name = "template"),
         @JsonSubTypes.Type(value = TextMessage.class, name = "text"),
         @JsonSubTypes.Type(value = VideoMessage.class, name = "video"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -60,7 +60,4 @@ import com.linecorp.bot.messaging.model.Sender;
 )
 public interface Message {
 
-
-
 }
-

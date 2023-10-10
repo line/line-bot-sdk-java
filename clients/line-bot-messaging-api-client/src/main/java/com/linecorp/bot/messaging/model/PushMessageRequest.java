@@ -38,41 +38,39 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * PushMessageRequest
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record PushMessageRequest (
-    /**
-     * ID of the receiver.
-     */
-
+/**
+    * ID of the receiver.
+    */
+    
     @JsonProperty("to")
     String to,
-    /**
-     * List of Message objects.
-     */
-
+/**
+    * List of Message objects.
+    */
+    
     @JsonProperty("messages")
     List<Message> messages,
-    /**
-     * &#x60;true&#x60;: The user doesn’t receive a push notification when a message is sent. &#x60;false&#x60;: The user receives a push notification when the message is sent (unless they have disabled push notifications in LINE and/or their device). The default value is false. 
-     */
-
+/**
+    * &#x60;true&#x60;: The user doesn’t receive a push notification when a message is sent. &#x60;false&#x60;: The user receives a push notification when the message is sent (unless they have disabled push notifications in LINE and/or their device). The default value is false. 
+    */
+    
     @JsonProperty("notificationDisabled")
     Boolean notificationDisabled,
-    /**
-     * List of aggregation unit name. Case-sensitive. This functions can only be used by corporate users who have submitted the required applications. 
-     */
-
+/**
+    * List of aggregation unit name. Case-sensitive. This functions can only be used by corporate users who have submitted the required applications. 
+    */
+    
     @JsonProperty("customAggregationUnits")
     List<String> customAggregationUnits
+
 )  {
 
 
-
-
 }
-

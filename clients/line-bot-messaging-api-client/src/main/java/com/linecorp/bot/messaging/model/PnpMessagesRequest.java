@@ -38,34 +38,33 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * PnpMessagesRequest
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record PnpMessagesRequest (
-    /**
-     * Message to be sent.
-     */
-
+/**
+    * Message to be sent.
+    */
+    
     @JsonProperty("messages")
     List<Message> messages,
-    /**
-     * Message destination. Specify a phone number that has been normalized to E.164 format and hashed with SHA256.
-     */
-
+/**
+    * Message destination. Specify a phone number that has been normalized to E.164 format and hashed with SHA256.
+    */
+    
     @JsonProperty("to")
     String to,
-    /**
-     * &#x60;true&#x60;: The user doesn’t receive a push notification when a message is sent. &#x60;false&#x60;: The user receives a push notification when the message is sent (unless they have disabled push notifications in LINE and/or their device). The default value is false. 
-     */
-
+/**
+    * &#x60;true&#x60;: The user doesn’t receive a push notification when a message is sent. &#x60;false&#x60;: The user receives a push notification when the message is sent (unless they have disabled push notifications in LINE and/or their device). The default value is false. 
+    */
+    
     @JsonProperty("notificationDisabled")
     Boolean notificationDisabled
+
 )  {
 
 
-
 }
-

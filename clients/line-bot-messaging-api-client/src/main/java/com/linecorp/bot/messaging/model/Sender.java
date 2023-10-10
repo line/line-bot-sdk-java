@@ -35,27 +35,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.net.URI;
 
 
-
 /**
  * Change icon and display name
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record Sender (
-    /**
-     * Display name. Certain words such as &#x60;LINE&#x60; may not be used.
-     */
-
+/**
+    * Display name. Certain words such as &#x60;LINE&#x60; may not be used.
+    */
+    
     @JsonProperty("name")
     String name,
-    /**
-     * URL of the image to display as an icon when sending a message
-     */
-
+/**
+    * URL of the image to display as an icon when sending a message
+    */
+    
     @JsonProperty("iconUrl")
     URI iconUrl
+
 )  {
 
 
 }
-

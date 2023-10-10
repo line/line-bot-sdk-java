@@ -34,34 +34,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Issued short-lived channel access token
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record IssueShortLivedChannelAccessTokenResponse (
-    /**
-     * A short-lived channel access token. Valid for 30 days. Note: Channel access tokens cannot be refreshed. 
-     */
-
+/**
+    * A short-lived channel access token. Valid for 30 days. Note: Channel access tokens cannot be refreshed. 
+    */
+    
     @JsonProperty("access_token")
     String accessToken,
-    /**
-     * Time until channel access token expires in seconds from time the token is issued.
-     */
-
+/**
+    * Time until channel access token expires in seconds from time the token is issued.
+    */
+    
     @JsonProperty("expires_in")
     Integer expiresIn,
-    /**
-     * Token type. The value is always &#x60;Bearer&#x60;.
-     */
-
+/**
+    * Token type. The value is always &#x60;Bearer&#x60;.
+    */
+    
     @JsonProperty("token_type")
     String tokenType
+
 )  {
 
 
-
 }
-

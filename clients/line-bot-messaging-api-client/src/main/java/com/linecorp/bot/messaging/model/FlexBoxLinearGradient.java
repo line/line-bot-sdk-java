@@ -35,49 +35,46 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.FlexBoxBackground;
 
 
-
 /**
  * FlexBoxLinearGradient
  */
 @JsonTypeName("linearGradient")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexBoxLinearGradient (
-    /**
-     * Get angle
-     */
-
+/**
+    * Get angle
+    */
+    
     @JsonProperty("angle")
     String angle,
-    /**
-     * Get startColor
-     */
-
+/**
+    * Get startColor
+    */
+    
     @JsonProperty("startColor")
     String startColor,
-    /**
-     * Get endColor
-     */
-
+/**
+    * Get endColor
+    */
+    
     @JsonProperty("endColor")
     String endColor,
-    /**
-     * Get centerColor
-     */
-
+/**
+    * Get centerColor
+    */
+    
     @JsonProperty("centerColor")
     String centerColor,
-    /**
-     * Get centerPosition
-     */
-
+/**
+    * Get centerPosition
+    */
+    
     @JsonProperty("centerPosition")
     String centerPosition
-) implements FlexBoxBackground  {
 
-
-
+) implements FlexBoxBackground {
 
 
 }
-

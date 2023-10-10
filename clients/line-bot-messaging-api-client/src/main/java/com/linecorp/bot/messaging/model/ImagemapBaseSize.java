@@ -34,27 +34,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * ImagemapBaseSize
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ImagemapBaseSize (
-    /**
-     * Get height
-     */
-
+/**
+    * Get height
+    */
+    
     @JsonProperty("height")
     Integer height,
-    /**
-     * Get width
-     */
-
+/**
+    * Get width
+    */
+    
     @JsonProperty("width")
     Integer width
+
 )  {
 
 
 }
-

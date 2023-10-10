@@ -35,34 +35,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.net.URI;
 
 
-
 /**
  * GroupSummaryResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GroupSummaryResponse (
-    /**
-     * Group ID
-     */
-
+/**
+    * Group ID
+    */
+    
     @JsonProperty("groupId")
     String groupId,
-    /**
-     * Group name
-     */
-
+/**
+    * Group name
+    */
+    
     @JsonProperty("groupName")
     String groupName,
-    /**
-     * Group icon URL. Not included in the response if the user doesn&#39;t set a group profile icon.
-     */
-
+/**
+    * Group icon URL. Not included in the response if the user doesn&#39;t set a group profile icon.
+    */
+    
     @JsonProperty("pictureUrl")
     URI pictureUrl
+
 )  {
 
 
-
 }
-

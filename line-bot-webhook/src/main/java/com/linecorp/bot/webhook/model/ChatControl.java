@@ -34,20 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * ChatControl
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ChatControl (
-    /**
-     * Get expireAt
-     */
-
+/**
+    * Get expireAt
+    */
+    
     @JsonProperty("expireAt")
     Long expireAt
+
 )  {
 
-}
 
+}

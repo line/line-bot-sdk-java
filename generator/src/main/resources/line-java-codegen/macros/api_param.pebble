@@ -1,0 +1,22 @@
+{%- macro api_param(param, op) -%}
+{#- @pebvariable name="param" type="org.openapitools.codegen.CodegenParameter" -#}
+{#- @pebvariable name="op" type="org.openapitools.codegen.CodegenOperation" -#}
+{%- if param.isQueryParam %}@Query("{{param.baseName}}") {% if param.collectionFormat %}{{ abort() }}{% else %}{{ param.dataType }}{% endif %} {{ param.paramName }}
+{%- elseif param.isPathParam -%}
+@Path("{{param.baseName}}") {{param.dataType}} {{param.paramName}}
+{%- elseif param.isHeaderParam -%}
+@Header("{{param.baseName}}") {{param.dataType}} {{param.paramName}}
+{%- elseif param.isBodyParam -%}
+@Body {% if param.isFile %}UploadFile{% else %}{{ param.dataType }}{% endif %} {{param.paramName}}
+{%- elseif param.isFormParam -%}
+    {%- if param.isFile -%}
+        {% if op.isMultipart -%}
+            @Part("{{param.baseName}}\"; filename=\"{{param.baseName}}")
+        {%- else -%}
+            @Field("{{param.baseName}}")
+        {%- endif %} UploadFile {{param.paramName}}
+    {%- else -%}
+        {%- if op.isMultipart %}@Part{% else %}@Field{% endif %}("{{param.baseName}}") {{param.dataType}} {{param.paramName}}
+    {%- endif %}
+{%- endif -%}
+{%- endmacro -%}

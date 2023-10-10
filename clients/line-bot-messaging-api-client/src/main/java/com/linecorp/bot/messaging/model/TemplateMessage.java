@@ -38,45 +38,43 @@ import com.linecorp.bot.messaging.model.Sender;
 import com.linecorp.bot.messaging.model.Template;
 
 
-
 /**
  * TemplateMessage
  */
 @JsonTypeName("template")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record TemplateMessage (
-    /**
-     * Get quickReply
-     */
-
+/**
+    * Get quickReply
+    */
+    
     @JsonProperty("quickReply")
     QuickReply quickReply,
-    /**
-     * Get sender
-     */
-
+/**
+    * Get sender
+    */
+    
     @JsonProperty("sender")
     Sender sender,
-    /**
-     * Get altText
-     */
-
+/**
+    * Get altText
+    */
+    
     @JsonProperty("altText")
     String altText,
-    /**
-     * Get template
-     */
-
+/**
+    * Get template
+    */
+    
     @JsonProperty("template")
     Template template
-) implements Message  {
 
+) implements Message {
 
-
-
-    public TemplateMessage(String altText, Template template) {
-        this(null, null, altText, template);
-    }
+public TemplateMessage(String altText, Template template) {
+    this(null, null, altText, template);
 }
 
+}

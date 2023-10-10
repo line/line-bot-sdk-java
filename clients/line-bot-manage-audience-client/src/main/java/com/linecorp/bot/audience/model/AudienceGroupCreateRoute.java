@@ -34,27 +34,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * How the audience was created. One of:  - &#x60;OA_MANAGER&#x60;: Audience created with [LINE Official Account Manager](https://manager.line.biz/). - &#x60;MESSAGING_API&#x60;: Audience created with Messaging API. - &#x60;POINT_AD&#x60;: Audience created with [LINE Points Ads](https://www.linebiz.com/jp/service/line-point-ad/) (Japanese only). - &#x60;AD_MANAGER&#x60;: Audience created with [LINE Ads](https://admanager.line.biz/). 
  */
 public enum AudienceGroupCreateRoute {
-  
+
+    
     @JsonProperty("OA_MANAGER")
   OA_MANAGER,
-  
+    
     @JsonProperty("MESSAGING_API")
   MESSAGING_API,
-  
+    
     @JsonProperty("POINT_AD")
   POINT_AD,
-  
+    
     @JsonProperty("AD_MANAGER")
   AD_MANAGER,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

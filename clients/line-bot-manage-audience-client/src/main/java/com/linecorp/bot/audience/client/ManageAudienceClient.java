@@ -15,7 +15,6 @@
  */
 
 package com.linecorp.bot.audience.client;
-
 import java.net.URI;
 
 import java.util.concurrent.CompletableFuture;
@@ -49,6 +48,7 @@ import com.linecorp.bot.audience.model.GetAudienceGroupsResponse;
 import com.linecorp.bot.audience.model.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.audience.model.UpdateAudienceGroupDescriptionRequest;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,91 +57,125 @@ import java.util.Set;
 
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public interface ManageAudienceClient {
+
         /**
         * 
         * Activate audience
             * @param audienceGroupId The audience ID. (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#activate-audience-group"> Documentation</a>
-     */
+    */
+    
+    
     @PUT("/v2/bot/audienceGroup/{audienceGroupId}/activate")
+    
     CompletableFuture<Result<Void>> activateAudienceGroup(@Path("audienceGroupId") Long audienceGroupId
-);
+    );
+
 
         /**
         * 
         * Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by JSON)
             * @param addAudienceToAudienceGroupRequest  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#update-upload-audience-group"> Documentation</a>
-     */
+    */
+    
+    
     @PUT("/v2/bot/audienceGroup/upload")
+    
     CompletableFuture<Result<Void>> addAudienceToAudienceGroup(@Body AddAudienceToAudienceGroupRequest addAudienceToAudienceGroupRequest
-);
+    );
+
 
         /**
         * 
         * Create audience for uploading user IDs (by JSON)
             * @param createAudienceGroupRequest  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-upload-audience-group"> Documentation</a>
-     */
+    */
+    
+    
     @POST("/v2/bot/audienceGroup/upload")
+    
     CompletableFuture<Result<CreateAudienceGroupResponse>> createAudienceGroup(@Body CreateAudienceGroupRequest createAudienceGroupRequest
-);
+    );
+
 
         /**
         * 
         * Create audience for click-based retargeting
             * @param createClickBasedAudienceGroupRequest  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-click-audience-group"> Documentation</a>
-     */
+    */
+    
+    
     @POST("/v2/bot/audienceGroup/click")
+    
     CompletableFuture<Result<CreateClickBasedAudienceGroupResponse>> createClickBasedAudienceGroup(@Body CreateClickBasedAudienceGroupRequest createClickBasedAudienceGroupRequest
-);
+    );
+
 
         /**
         * 
         * Create audience for impression-based retargeting
             * @param createImpBasedAudienceGroupRequest  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-imp-audience-group"> Documentation</a>
-     */
+    */
+    
+    
     @POST("/v2/bot/audienceGroup/imp")
+    
     CompletableFuture<Result<CreateImpBasedAudienceGroupResponse>> createImpBasedAudienceGroup(@Body CreateImpBasedAudienceGroupRequest createImpBasedAudienceGroupRequest
-);
+    );
+
 
         /**
         * 
         * Delete audience
             * @param audienceGroupId The audience ID. (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#delete-audience-group"> Documentation</a>
-     */
+    */
+    
+    
     @DELETE("/v2/bot/audienceGroup/{audienceGroupId}")
+    
     CompletableFuture<Result<Void>> deleteAudienceGroup(@Path("audienceGroupId") Long audienceGroupId
-);
+    );
+
 
         /**
         * 
         * Gets audience data.
             * @param audienceGroupId The audience ID. (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-audience-group"> Documentation</a>
-     */
+    */
+    
+    
     @GET("/v2/bot/audienceGroup/{audienceGroupId}")
+    
     CompletableFuture<Result<GetAudienceDataResponse>> getAudienceData(@Path("audienceGroupId") Long audienceGroupId
-);
+    );
+
 
         /**
         * 
         * Get the authority level of the audience
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-authority-level"> Documentation</a>
-     */
+    */
+    
+    
     @GET("/v2/bot/audienceGroup/authorityLevel")
-    CompletableFuture<Result<GetAudienceGroupAuthorityLevelResponse>> getAudienceGroupAuthorityLevel();
+    
+    CompletableFuture<Result<GetAudienceGroupAuthorityLevelResponse>> getAudienceGroupAuthorityLevel(
+    );
+
 
         /**
         * 
@@ -152,41 +186,48 @@ public interface ManageAudienceClient {
             * @param size The number of audiences per page. Default: 20 Max: 40  (optional)
             * @param includesExternalPublicGroups true (default): Get public audiences created in all channels linked to the same bot. false: Get audiences created in the same channel.  (optional)
             * @param createRoute How the audience was created. If omitted, all audiences are included.  &#x60;OA_MANAGER&#x60;: Return only audiences created with LINE Official Account Manager (opens new window). &#x60;MESSAGING_API&#x60;: Return only audiences created with Messaging API.  (optional)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-audience-groups"> Documentation</a>
-     */
+    */
+    
+    
     @GET("/v2/bot/audienceGroup/list")
-    CompletableFuture<Result<GetAudienceGroupsResponse>> getAudienceGroups(@Query("page") Long page
-, @Query("description") String description
-, @Query("status") AudienceGroupStatus status
-, @Query("size") Long size
-, @Query("includesExternalPublicGroups") Boolean includesExternalPublicGroups
-, @Query("createRoute") AudienceGroupCreateRoute createRoute
-);
+    
+    CompletableFuture<Result<GetAudienceGroupsResponse>> getAudienceGroups(@Query("page") Long page, @Query("description") String description, @Query("status") AudienceGroupStatus status, @Query("size") Long size, @Query("includesExternalPublicGroups") Boolean includesExternalPublicGroups, @Query("createRoute") AudienceGroupCreateRoute createRoute
+    );
+
 
         /**
         * 
         * Change the authority level of the audience
             * @param updateAudienceGroupAuthorityLevelRequest  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#change-authority-level"> Documentation</a>
-     */
+    */
+    
+    
     @PUT("/v2/bot/audienceGroup/authorityLevel")
+    
     CompletableFuture<Result<Void>> updateAudienceGroupAuthorityLevel(@Body UpdateAudienceGroupAuthorityLevelRequest updateAudienceGroupAuthorityLevelRequest
-);
+    );
+
 
         /**
         * 
         * Renames an existing audience.
             * @param audienceGroupId The audience ID. (required)
             * @param updateAudienceGroupDescriptionRequest  (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/messaging-api/#set-description-audience-group"> Documentation</a>
-     */
+    */
+    
+    
     @PUT("/v2/bot/audienceGroup/{audienceGroupId}/updateDescription")
-    CompletableFuture<Result<Void>> updateAudienceGroupDescription(@Path("audienceGroupId") Long audienceGroupId
-, @Body UpdateAudienceGroupDescriptionRequest updateAudienceGroupDescriptionRequest
-);
+    
+    CompletableFuture<Result<Void>> updateAudienceGroupDescription(@Path("audienceGroupId") Long audienceGroupId, @Body UpdateAudienceGroupDescriptionRequest updateAudienceGroupDescriptionRequest
+    );
+
+
 
 
     public static ApiAuthenticatedClientBuilder<ManageAudienceClient> builder(String channelToken) {
@@ -195,5 +236,6 @@ public interface ManageAudienceClient {
     public static ApiAuthenticatedClientBuilder<ManageAudienceClient> builder(ChannelTokenSupplier channelTokenSupplier) {
         return new ApiAuthenticatedClientBuilder<>(URI.create("https://api.line.me"), ManageAudienceClient.class, new ManageAudienceExceptionBuilder(), channelTokenSupplier);
     }
+
 
 }

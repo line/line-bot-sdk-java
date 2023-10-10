@@ -34,20 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Rename an audience
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record UpdateAudienceGroupDescriptionRequest (
-    /**
-     * The audience&#39;s name. This is case-insensitive, meaning AUDIENCE and audience are considered identical. Max character limit: 120 
-     */
-
+/**
+    * The audience&#39;s name. This is case-insensitive, meaning AUDIENCE and audience are considered identical. Max character limit: 120 
+    */
+    
     @JsonProperty("description")
     String description
+
 )  {
 
-}
 
+}

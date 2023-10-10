@@ -38,20 +38,21 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * Mention
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record Mention (
-    /**
-     * Array of one or more mention objects. Max: 20 mentions
-     */
-
+/**
+    * Array of one or more mention objects. Max: 20 mentions
+    */
+    
     @JsonProperty("mentionees")
     List<Mentionee> mentionees
+
 )  {
 
-}
 
+}

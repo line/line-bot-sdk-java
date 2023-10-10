@@ -39,21 +39,22 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * AppTypeDemographicFilter
  */
 @JsonTypeName("appType")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AppTypeDemographicFilter (
-    /**
-     * Get oneOf
-     */
-
+/**
+    * Get oneOf
+    */
+    
     @JsonProperty("oneOf")
     List<AppTypeDemographic> oneOf
-) implements DemographicFilter  {
+
+) implements DemographicFilter {
+
 
 }
-

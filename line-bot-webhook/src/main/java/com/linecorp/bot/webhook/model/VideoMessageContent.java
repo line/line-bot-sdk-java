@@ -36,42 +36,40 @@ import com.linecorp.bot.webhook.model.ContentProvider;
 import com.linecorp.bot.webhook.model.MessageContent;
 
 
-
 /**
  * VideoMessageContent
  */
 @JsonTypeName("video")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record VideoMessageContent (
-    /**
-     * Message ID
-     */
-
+/**
+    * Message ID
+    */
+    
     @JsonProperty("id")
     String id,
-    /**
-     * Length of video file (milliseconds)
-     */
-
+/**
+    * Length of video file (milliseconds)
+    */
+    
     @JsonProperty("duration")
     Long duration,
-    /**
-     * Get contentProvider
-     */
-
+/**
+    * Get contentProvider
+    */
+    
     @JsonProperty("contentProvider")
     ContentProvider contentProvider,
-    /**
-     * Quote token to quote this message. 
-     */
-
+/**
+    * Quote token to quote this message. 
+    */
+    
     @JsonProperty("quoteToken")
     String quoteToken
-) implements MessageContent  {
 
-
+) implements MessageContent {
 
 
 }
-

@@ -41,62 +41,57 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * LiffApp
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record LiffApp (
-    /**
-     * LIFF app ID
-     */
-
+/**
+    * LIFF app ID
+    */
+    
     @JsonProperty("liffId")
     String liffId,
-    /**
-     * Get view
-     */
-
+/**
+    * Get view
+    */
+    
     @JsonProperty("view")
     LiffView view,
-    /**
-     * Name of the LIFF app
-     */
-
+/**
+    * Name of the LIFF app
+    */
+    
     @JsonProperty("description")
     String description,
-    /**
-     * Get features
-     */
-
+/**
+    * Get features
+    */
+    
     @JsonProperty("features")
     LiffFeatures features,
-    /**
-     * How additional information in LIFF URLs is handled. concat is returned. 
-     */
-
+/**
+    * How additional information in LIFF URLs is handled. concat is returned. 
+    */
+    
     @JsonProperty("permanentLinkPattern")
     String permanentLinkPattern,
-    /**
-     * Get scope
-     */
-
+/**
+    * Get scope
+    */
+    
     @JsonProperty("scope")
     List<LiffScope> scope,
-    /**
-     * Get botPrompt
-     */
-
+/**
+    * Get botPrompt
+    */
+    
     @JsonProperty("botPrompt")
     LiffBotPrompt botPrompt
+
 )  {
 
 
-
-
-
-
-
 }
-

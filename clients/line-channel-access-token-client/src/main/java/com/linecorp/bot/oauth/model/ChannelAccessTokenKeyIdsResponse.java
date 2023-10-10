@@ -37,20 +37,21 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * Channel access token key IDs
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ChannelAccessTokenKeyIdsResponse (
-    /**
-     * Array of channel access token key IDs.
-     */
-
+/**
+    * Array of channel access token key IDs.
+    */
+    
     @JsonProperty("kids")
     List<String> kids
+
 )  {
 
-}
 
+}

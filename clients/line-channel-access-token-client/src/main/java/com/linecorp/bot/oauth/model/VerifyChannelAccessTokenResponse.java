@@ -34,34 +34,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Verification result
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record VerifyChannelAccessTokenResponse (
-    /**
-     * The channel ID for which the channel access token was issued.
-     */
-
+/**
+    * The channel ID for which the channel access token was issued.
+    */
+    
     @JsonProperty("client_id")
     String clientId,
-    /**
-     * Number of seconds before the channel access token expires.
-     */
-
+/**
+    * Number of seconds before the channel access token expires.
+    */
+    
     @JsonProperty("expires_in")
     Long expiresIn,
-    /**
-     * Permissions granted to the channel access token.
-     */
-
+/**
+    * Permissions granted to the channel access token.
+    */
+    
     @JsonProperty("scope")
     String scope
+
 )  {
 
 
-
 }
-

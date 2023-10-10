@@ -34,20 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * webhook&#39;s delivery context information
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record DeliveryContext (
-    /**
-     * Whether the webhook event is a redelivered one or not.
-     */
-
+/**
+    * Whether the webhook event is a redelivered one or not.
+    */
+    
     @JsonProperty("isRedelivery")
     Boolean isRedelivery
+
 )  {
 
-}
 
+}

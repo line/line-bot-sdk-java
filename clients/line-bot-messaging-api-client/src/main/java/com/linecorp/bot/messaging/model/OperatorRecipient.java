@@ -38,35 +38,34 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * OperatorRecipient
  */
 @JsonTypeName("operator")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record OperatorRecipient (
-    /**
-     * Create a new recipient object by taking the logical conjunction (AND) of the specified array of recipient objects. 
-     */
-
+/**
+    * Create a new recipient object by taking the logical conjunction (AND) of the specified array of recipient objects. 
+    */
+    
     @JsonProperty("and")
     List<Recipient> and,
-    /**
-     * Create a new recipient object by taking the logical disjunction (OR) of the specified array of recipient objects. 
-     */
-
+/**
+    * Create a new recipient object by taking the logical disjunction (OR) of the specified array of recipient objects. 
+    */
+    
     @JsonProperty("or")
     List<Recipient> or,
-    /**
-     * Get not
-     */
-
+/**
+    * Get not
+    */
+    
     @JsonProperty("not")
     Recipient not
-) implements Recipient  {
 
+) implements Recipient {
 
 
 }
-

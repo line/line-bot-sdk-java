@@ -34,55 +34,56 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * AgeTile
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AgeTile (
-    /**
-     * users&#39; age
-     */
-
+/**
+    * users&#39; age
+    */
+    
     @JsonProperty("age")
     Age age,
-    /**
-     * Percentage
-     */
-
+/**
+    * Percentage
+    */
+    
     @JsonProperty("percentage")
     Double percentage
+
 )  {
-    /**
+/**
      * users&#39; age
      */
     public enum Age {
-      @JsonProperty("from0to14")
+@JsonProperty("from0to14")
       FROM0TO14,
-      @JsonProperty("from15to19")
+    @JsonProperty("from15to19")
       FROM15TO19,
-      @JsonProperty("from20to24")
+    @JsonProperty("from20to24")
       FROM20TO24,
-      @JsonProperty("from25to29")
+    @JsonProperty("from25to29")
       FROM25TO29,
-      @JsonProperty("from30to34")
+    @JsonProperty("from30to34")
       FROM30TO34,
-      @JsonProperty("from35to39")
+    @JsonProperty("from35to39")
       FROM35TO39,
-      @JsonProperty("from40to44")
+    @JsonProperty("from40to44")
       FROM40TO44,
-      @JsonProperty("from45to49")
+    @JsonProperty("from45to49")
       FROM45TO49,
-      @JsonProperty("from50")
+    @JsonProperty("from50")
       FROM50,
-      @JsonProperty("unknown")
+    @JsonProperty("unknown")
       UNKNOWN,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

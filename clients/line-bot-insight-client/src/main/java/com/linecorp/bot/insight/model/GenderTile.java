@@ -34,41 +34,42 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * GenderTile
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GenderTile (
-    /**
-     * users&#39; gender
-     */
-
+/**
+    * users&#39; gender
+    */
+    
     @JsonProperty("gender")
     Gender gender,
-    /**
-     * Percentage
-     */
-
+/**
+    * Percentage
+    */
+    
     @JsonProperty("percentage")
     Double percentage
+
 )  {
-    /**
+/**
      * users&#39; gender
      */
     public enum Gender {
-      @JsonProperty("male")
+@JsonProperty("male")
       MALE,
-      @JsonProperty("female")
+    @JsonProperty("female")
       FEMALE,
-      @JsonProperty("unknown")
+    @JsonProperty("unknown")
       UNKNOWN,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

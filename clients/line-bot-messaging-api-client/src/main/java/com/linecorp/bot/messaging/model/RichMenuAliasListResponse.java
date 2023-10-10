@@ -38,20 +38,21 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * RichMenuAliasListResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuAliasListResponse (
-    /**
-     * Rich menu aliases.
-     */
-
+/**
+    * Rich menu aliases.
+    */
+    
     @JsonProperty("aliases")
     List<RichMenuAliasResponse> aliases
+
 )  {
 
-}
 
+}

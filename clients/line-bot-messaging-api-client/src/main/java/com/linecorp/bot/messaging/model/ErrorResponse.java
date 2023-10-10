@@ -39,34 +39,33 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * ErrorResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ErrorResponse (
-    /**
-     * Message containing information about the error.
-     */
-
+/**
+    * Message containing information about the error.
+    */
+    
     @JsonProperty("message")
     String message,
-    /**
-     * An array of error details. If the array is empty, this property will not be included in the response.
-     */
-
+/**
+    * An array of error details. If the array is empty, this property will not be included in the response.
+    */
+    
     @JsonProperty("details")
     List<ErrorDetail> details,
-    /**
-     * Array of sent messages.
-     */
-
+/**
+    * Array of sent messages.
+    */
+    
     @JsonProperty("sentMessages")
     List<SentMessage> sentMessages
+
 )  {
 
 
-
 }
-

@@ -38,45 +38,43 @@ import com.linecorp.bot.messaging.model.Sender;
 import java.net.URI;
 
 
-
 /**
  * AudioMessage
  */
 @JsonTypeName("audio")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AudioMessage (
-    /**
-     * Get quickReply
-     */
-
+/**
+    * Get quickReply
+    */
+    
     @JsonProperty("quickReply")
     QuickReply quickReply,
-    /**
-     * Get sender
-     */
-
+/**
+    * Get sender
+    */
+    
     @JsonProperty("sender")
     Sender sender,
-    /**
-     * Get originalContentUrl
-     */
-
+/**
+    * Get originalContentUrl
+    */
+    
     @JsonProperty("originalContentUrl")
     URI originalContentUrl,
-    /**
-     * Get duration
-     */
-
+/**
+    * Get duration
+    */
+    
     @JsonProperty("duration")
     Long duration
-) implements Message  {
 
+) implements Message {
 
-
-
-    public AudioMessage(URI originalContentUrl, Long duration) {
-        this(null, null, originalContentUrl, duration);
-    }
+public AudioMessage(URI originalContentUrl, Long duration) {
+    this(null, null, originalContentUrl, duration);
 }
 
+}

@@ -38,56 +38,52 @@ import com.linecorp.bot.webhook.model.EventMode;
 import com.linecorp.bot.webhook.model.Source;
 
 
-
 /**
  * Event object for when your LINE Official Account is added as a friend (or unblocked). You can reply to follow events.
  */
 @JsonTypeName("follow")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FollowEvent (
-    /**
-     * Get source
-     */
-
+/**
+    * Get source
+    */
+    
     @JsonProperty("source")
     Source source,
-    /**
-     * Time of the event in milliseconds.
-     */
-
+/**
+    * Time of the event in milliseconds.
+    */
+    
     @JsonProperty("timestamp")
     Long timestamp,
-    /**
-     * Get mode
-     */
-
+/**
+    * Get mode
+    */
+    
     @JsonProperty("mode")
     EventMode mode,
-    /**
-     * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
-     */
-
+/**
+    * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
+    */
+    
     @JsonProperty("webhookEventId")
     String webhookEventId,
-    /**
-     * Get deliveryContext
-     */
-
+/**
+    * Get deliveryContext
+    */
+    
     @JsonProperty("deliveryContext")
     DeliveryContext deliveryContext,
-    /**
-     * Reply token used to send reply message to this event
-     */
-
+/**
+    * Reply token used to send reply message to this event
+    */
+    
     @JsonProperty("replyToken")
     String replyToken
-) implements Event, ReplyEvent  {
 
-
-
-
+) implements Event, ReplyEvent {
 
 
 }
-

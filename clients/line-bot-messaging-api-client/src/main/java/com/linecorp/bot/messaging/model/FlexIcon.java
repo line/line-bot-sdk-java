@@ -36,96 +36,89 @@ import com.linecorp.bot.messaging.model.FlexComponent;
 import java.net.URI;
 
 
-
 /**
  * FlexIcon
  */
 @JsonTypeName("icon")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexIcon (
-    /**
-     * Get url
-     */
-
+/**
+    * Get url
+    */
+    
     @JsonProperty("url")
     URI url,
-    /**
-     * Get size
-     */
-
+/**
+    * Get size
+    */
+    
     @JsonProperty("size")
     String size,
-    /**
-     * Get aspectRatio
-     */
-
+/**
+    * Get aspectRatio
+    */
+    
     @JsonProperty("aspectRatio")
     String aspectRatio,
-    /**
-     * Get margin
-     */
-
+/**
+    * Get margin
+    */
+    
     @JsonProperty("margin")
     String margin,
-    /**
-     * Get position
-     */
-
+/**
+    * Get position
+    */
+    
     @JsonProperty("position")
     Position position,
-    /**
-     * Get offsetTop
-     */
-
+/**
+    * Get offsetTop
+    */
+    
     @JsonProperty("offsetTop")
     String offsetTop,
-    /**
-     * Get offsetBottom
-     */
-
+/**
+    * Get offsetBottom
+    */
+    
     @JsonProperty("offsetBottom")
     String offsetBottom,
-    /**
-     * Get offsetStart
-     */
-
+/**
+    * Get offsetStart
+    */
+    
     @JsonProperty("offsetStart")
     String offsetStart,
-    /**
-     * Get offsetEnd
-     */
-
+/**
+    * Get offsetEnd
+    */
+    
     @JsonProperty("offsetEnd")
     String offsetEnd,
-    /**
-     * Get scaling
-     */
-
+/**
+    * Get scaling
+    */
+    
     @JsonProperty("scaling")
     Boolean scaling
-) implements FlexComponent  {
 
-
-
-
-    /**
+) implements FlexComponent {
+/**
      * Gets or Sets position
      */
     public enum Position {
-      @JsonProperty("relative")
+@JsonProperty("relative")
       RELATIVE,
-      @JsonProperty("absolute")
+    @JsonProperty("absolute")
       ABSOLUTE,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
-
-
-
-
 }
-

@@ -41,48 +41,45 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * NarrowcastRequest
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record NarrowcastRequest (
-    /**
-     * List of Message objects.
-     */
-
+/**
+    * List of Message objects.
+    */
+    
     @JsonProperty("messages")
     List<Message> messages,
-    /**
-     * Get recipient
-     */
-
+/**
+    * Get recipient
+    */
+    
     @JsonProperty("recipient")
     Recipient recipient,
-    /**
-     * Get filter
-     */
-
+/**
+    * Get filter
+    */
+    
     @JsonProperty("filter")
     Filter filter,
-    /**
-     * Get limit
-     */
-
+/**
+    * Get limit
+    */
+    
     @JsonProperty("limit")
     Limit limit,
-    /**
-     * &#x60;true&#x60;: The user doesn’t receive a push notification when a message is sent. &#x60;false&#x60;: The user receives a push notification when the message is sent (unless they have disabled push notifications in LINE and/or their device). The default value is false. 
-     */
-
+/**
+    * &#x60;true&#x60;: The user doesn’t receive a push notification when a message is sent. &#x60;false&#x60;: The user receives a push notification when the message is sent (unless they have disabled push notifications in LINE and/or their device). The default value is false. 
+    */
+    
     @JsonProperty("notificationDisabled")
     Boolean notificationDisabled
+
 )  {
 
 
-
-
-
 }
-

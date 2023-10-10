@@ -35,48 +35,48 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.net.URI;
 
 
-
 /**
  * LiffView
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record LiffView (
-    /**
-     * Size of the LIFF app view. Specify one of these values: - compact - tall - full 
-     */
-
+/**
+    * Size of the LIFF app view. Specify one of these values: - compact - tall - full 
+    */
+    
     @JsonProperty("type")
     Type type,
-    /**
-     * Endpoint URL. This is the URL of the web app that implements the LIFF app (e.g. https://example.com). Used when the LIFF app is launched using the LIFF URL. The URL scheme must be https. URL fragments (#URL-fragment) can&#39;t be specified. 
-     */
-
+/**
+    * Endpoint URL. This is the URL of the web app that implements the LIFF app (e.g. https://example.com). Used when the LIFF app is launched using the LIFF URL. The URL scheme must be https. URL fragments (#URL-fragment) can&#39;t be specified. 
+    */
+    
     @JsonProperty("url")
     URI url,
-    /**
-     * &#x60;true&#x60; to use the LIFF app in modular mode. When in modular mode, the action button in the header is not displayed. 
-     */
-
+/**
+    * &#x60;true&#x60; to use the LIFF app in modular mode. When in modular mode, the action button in the header is not displayed. 
+    */
+    
     @JsonProperty("moduleMode")
     Boolean moduleMode
+
 )  {
-    /**
+/**
      * Size of the LIFF app view. Specify one of these values: - compact - tall - full 
      */
     public enum Type {
-      @JsonProperty("compact")
+@JsonProperty("compact")
       COMPACT,
-      @JsonProperty("tall")
+    @JsonProperty("tall")
       TALL,
-      @JsonProperty("full")
+    @JsonProperty("full")
       FULL,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
-
 }
-

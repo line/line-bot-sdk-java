@@ -34,39 +34,40 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Content of the account link event.
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record LinkContent (
-    /**
-     * One of the following values to indicate whether linking the account was successful or not
-     */
-
+/**
+    * One of the following values to indicate whether linking the account was successful or not
+    */
+    
     @JsonProperty("result")
     Result result,
-    /**
-     * Specified nonce (number used once) when verifying the user ID.
-     */
-
+/**
+    * Specified nonce (number used once) when verifying the user ID.
+    */
+    
     @JsonProperty("nonce")
     String nonce
+
 )  {
-    /**
+/**
      * One of the following values to indicate whether linking the account was successful or not
      */
     public enum Result {
-      @JsonProperty("ok")
+@JsonProperty("ok")
       OK,
-      @JsonProperty("failed")
+    @JsonProperty("failed")
       FAILED,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

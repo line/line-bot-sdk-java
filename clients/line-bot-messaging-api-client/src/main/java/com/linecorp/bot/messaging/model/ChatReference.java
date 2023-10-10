@@ -34,20 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Chat reference
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ChatReference (
-    /**
-     * The target user ID
-     */
-
+/**
+    * The target user ID
+    */
+    
     @JsonProperty("userId")
     String userId
+
 )  {
 
-}
 
+}

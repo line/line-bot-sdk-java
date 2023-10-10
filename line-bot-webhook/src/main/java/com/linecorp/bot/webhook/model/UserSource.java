@@ -35,21 +35,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.webhook.model.Source;
 
 
-
 /**
  * UserSource
  */
 @JsonTypeName("user")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record UserSource (
-    /**
-     * ID of the source user
-     */
-
+/**
+    * ID of the source user
+    */
+    
     @JsonProperty("userId")
     String userId
-) implements Source  {
+
+) implements Source {
+
 
 }
-

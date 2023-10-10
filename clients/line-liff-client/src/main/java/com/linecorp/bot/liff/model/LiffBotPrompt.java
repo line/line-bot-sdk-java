@@ -34,24 +34,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Specify the setting for bot link feature with one of the following values:  &#x60;normal&#x60;: Display the option to add the LINE Official Account as a friend in the channel consent screen. &#x60;aggressive&#x60;: Display a screen with the option to add the LINE Official Account as a friend after the channel consent screen. &#x60;none&#x60;: Don&#39;t display the option to add the LINE Official Account as a friend.   The default value is none. 
  */
 public enum LiffBotPrompt {
-  
+
+    
     @JsonProperty("normal")
   NORMAL,
-  
+    
     @JsonProperty("aggressive")
   AGGRESSIVE,
-  
+    
     @JsonProperty("none")
   NONE,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

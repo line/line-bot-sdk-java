@@ -39,56 +39,52 @@ import com.linecorp.bot.webhook.model.LeftMembers;
 import com.linecorp.bot.webhook.model.Source;
 
 
-
 /**
  * Event object for when a user leaves a group chat or multi-person chat that the LINE Official Account is in.
  */
 @JsonTypeName("memberLeft")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record MemberLeftEvent (
-    /**
-     * Get source
-     */
-
+/**
+    * Get source
+    */
+    
     @JsonProperty("source")
     Source source,
-    /**
-     * Time of the event in milliseconds.
-     */
-
+/**
+    * Time of the event in milliseconds.
+    */
+    
     @JsonProperty("timestamp")
     Long timestamp,
-    /**
-     * Get mode
-     */
-
+/**
+    * Get mode
+    */
+    
     @JsonProperty("mode")
     EventMode mode,
-    /**
-     * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
-     */
-
+/**
+    * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
+    */
+    
     @JsonProperty("webhookEventId")
     String webhookEventId,
-    /**
-     * Get deliveryContext
-     */
-
+/**
+    * Get deliveryContext
+    */
+    
     @JsonProperty("deliveryContext")
     DeliveryContext deliveryContext,
-    /**
-     * Get left
-     */
-
+/**
+    * Get left
+    */
+    
     @JsonProperty("left")
     LeftMembers left
-) implements Event  {
 
-
-
-
+) implements Event {
 
 
 }
-

@@ -34,51 +34,51 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Audience group type
  */
 public enum AudienceGroupType {
-  
+
+    
     @JsonProperty("UPLOAD")
   UPLOAD,
-  
+    
     @JsonProperty("CLICK")
   CLICK,
-  
+    
     @JsonProperty("IMP")
   IMP,
-  
+    
     @JsonProperty("CHAT_TAG")
   CHAT_TAG,
-  
+    
     @JsonProperty("FRIEND_PATH")
   FRIEND_PATH,
-  
+    
     @JsonProperty("RESERVATION")
   RESERVATION,
-  
+    
     @JsonProperty("APP_EVENT")
   APP_EVENT,
-  
+    
     @JsonProperty("VIDEO_VIEW")
   VIDEO_VIEW,
-  
+    
     @JsonProperty("WEBTRAFFIC")
   WEBTRAFFIC,
-  
+    
     @JsonProperty("IMAGE_CLICK")
   IMAGE_CLICK,
-  
+    
     @JsonProperty("RICHMENU_IMP")
   RICHMENU_IMP,
-  
+    
     @JsonProperty("RICHMENU_CLICK")
   RICHMENU_CLICK,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

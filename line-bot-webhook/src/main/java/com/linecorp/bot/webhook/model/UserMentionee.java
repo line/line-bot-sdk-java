@@ -35,35 +35,34 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.webhook.model.Mentionee;
 
 
-
 /**
  * Mentioned target is user
  */
 @JsonTypeName("user")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record UserMentionee (
-    /**
-     * Index position of the user mention for a character in text, with the first character being at position 0.
-     */
-
+/**
+    * Index position of the user mention for a character in text, with the first character being at position 0.
+    */
+    
     @JsonProperty("index")
     Integer index,
-    /**
-     * The length of the text of the mentioned user. For a mention @example, 8 is the length.
-     */
-
+/**
+    * The length of the text of the mentioned user. For a mention @example, 8 is the length.
+    */
+    
     @JsonProperty("length")
     Integer length,
-    /**
-     * User ID of the mentioned user. Only included if mention.mentions[].type is user and the user consents to the LINE Official Account obtaining their user profile information.
-     */
-
+/**
+    * User ID of the mentioned user. Only included if mention.mentions[].type is user and the user consents to the LINE Official Account obtaining their user profile information.
+    */
+    
     @JsonProperty("userId")
     String userId
-) implements Mentionee  {
 
+) implements Mentionee {
 
 
 }
-

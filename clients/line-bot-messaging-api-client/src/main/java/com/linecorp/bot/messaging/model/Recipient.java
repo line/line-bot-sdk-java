@@ -34,7 +34,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Recipient
  */
@@ -42,6 +41,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
         @JsonSubTypes.Type(value = AudienceRecipient.class, name = "audience"),
         @JsonSubTypes.Type(value = OperatorRecipient.class, name = "operator"),
         @JsonSubTypes.Type(value = RedeliveryRecipient.class, name = "redelivery"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -53,4 +53,3 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public interface Recipient {
 
 }
-

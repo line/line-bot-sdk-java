@@ -38,20 +38,21 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * GetAllLiffAppsResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetAllLiffAppsResponse (
-    /**
-     * Get apps
-     */
-
+/**
+    * Get apps
+    */
+    
     @JsonProperty("apps")
     List<LiffApp> apps
+
 )  {
 
-}
 
+}

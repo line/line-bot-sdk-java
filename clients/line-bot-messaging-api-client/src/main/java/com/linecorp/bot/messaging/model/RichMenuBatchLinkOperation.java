@@ -35,28 +35,28 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.RichMenuBatchOperation;
 
 
-
 /**
  * Replace the rich menu with the rich menu specified in the &#x60;to&#x60; property for all users linked to the rich menu specified in the &#x60;from&#x60; property.
  */
 @JsonTypeName("link")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuBatchLinkOperation (
-    /**
-     * Get from
-     */
-
+/**
+    * Get from
+    */
+    
     @JsonProperty("from")
     String from,
-    /**
-     * Get to
-     */
-
+/**
+    * Get to
+    */
+    
     @JsonProperty("to")
     String to
-) implements RichMenuBatchOperation  {
+
+) implements RichMenuBatchOperation {
 
 
 }
-

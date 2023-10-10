@@ -34,28 +34,28 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Limit of the Narrowcast
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record Limit (
-    /**
-     * The maximum number of narrowcast messages to send. Use this parameter to limit the number of narrowcast messages sent. The recipients will be chosen at random. 
-     * minimum: 1
-     */
-
+/**
+    * The maximum number of narrowcast messages to send. Use this parameter to limit the number of narrowcast messages sent. The recipients will be chosen at random. 
+    * minimum: 1
+    */
+    
     @JsonProperty("max")
     Integer max,
-    /**
-     * If true, the message will be sent within the maximum number of deliverable messages. The default value is &#x60;false&#x60;.  Targets will be selected at random. 
-     */
-
+/**
+    * If true, the message will be sent within the maximum number of deliverable messages. The default value is &#x60;false&#x60;.  Targets will be selected at random. 
+    */
+    
     @JsonProperty("upToRemainingQuota")
     Boolean upToRemainingQuota
+
 )  {
 
 
 }
-

@@ -34,20 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * RoomMemberCountResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RoomMemberCountResponse (
-    /**
-     * The count of members in the multi-person chat. The number returned excludes the LINE Official Account.
-     */
-
+/**
+    * The count of members in the multi-person chat. The number returned excludes the LINE Official Account.
+    */
+    
     @JsonProperty("count")
     Integer count
+
 )  {
 
-}
 
+}

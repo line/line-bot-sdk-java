@@ -34,20 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * UnsendDetail
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record UnsendDetail (
-    /**
-     * The message ID of the unsent message
-     */
-
+/**
+    * The message ID of the unsent message
+    */
+    
     @JsonProperty("messageId")
     String messageId
+
 )  {
 
-}
 
+}

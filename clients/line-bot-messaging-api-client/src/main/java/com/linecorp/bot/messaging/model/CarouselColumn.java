@@ -39,55 +39,51 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * Column object for carousel template.
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record CarouselColumn (
-    /**
-     * Get thumbnailImageUrl
-     */
-
+/**
+    * Get thumbnailImageUrl
+    */
+    
     @JsonProperty("thumbnailImageUrl")
     URI thumbnailImageUrl,
-    /**
-     * Get imageBackgroundColor
-     */
-
+/**
+    * Get imageBackgroundColor
+    */
+    
     @JsonProperty("imageBackgroundColor")
     String imageBackgroundColor,
-    /**
-     * Get title
-     */
-
+/**
+    * Get title
+    */
+    
     @JsonProperty("title")
     String title,
-    /**
-     * Get text
-     */
-
+/**
+    * Get text
+    */
+    
     @JsonProperty("text")
     String text,
-    /**
-     * Get defaultAction
-     */
-
+/**
+    * Get defaultAction
+    */
+    
     @JsonProperty("defaultAction")
     Action defaultAction,
-    /**
-     * Get actions
-     */
-
+/**
+    * Get actions
+    */
+    
     @JsonProperty("actions")
     List<Action> actions
+
 )  {
 
 
-
-
-
-
 }
-

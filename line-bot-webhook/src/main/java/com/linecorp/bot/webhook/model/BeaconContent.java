@@ -34,48 +34,48 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * BeaconContent
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record BeaconContent (
-    /**
-     * Hardware ID of the beacon that was detected
-     */
-
+/**
+    * Hardware ID of the beacon that was detected
+    */
+    
     @JsonProperty("hwid")
     String hwid,
-    /**
-     * Type of beacon event.
-     */
-
+/**
+    * Type of beacon event.
+    */
+    
     @JsonProperty("type")
     Type type,
-    /**
-     * Device message of beacon that was detected.
-     */
-
+/**
+    * Device message of beacon that was detected.
+    */
+    
     @JsonProperty("dm")
     String dm
-)  {
 
-    /**
+)  {
+/**
      * Type of beacon event.
      */
     public enum Type {
-      @JsonProperty("enter")
+@JsonProperty("enter")
       ENTER,
-      @JsonProperty("banner")
+    @JsonProperty("banner")
       BANNER,
-      @JsonProperty("stay")
+    @JsonProperty("stay")
       STAY,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

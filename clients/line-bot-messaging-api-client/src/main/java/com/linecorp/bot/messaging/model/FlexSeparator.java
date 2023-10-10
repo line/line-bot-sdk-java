@@ -35,28 +35,28 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.FlexComponent;
 
 
-
 /**
  * FlexSeparator
  */
 @JsonTypeName("separator")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexSeparator (
-    /**
-     * Get margin
-     */
-
+/**
+    * Get margin
+    */
+    
     @JsonProperty("margin")
     String margin,
-    /**
-     * Get color
-     */
-
+/**
+    * Get color
+    */
+    
     @JsonProperty("color")
     String color
-) implements FlexComponent  {
+
+) implements FlexComponent {
 
 
 }
-

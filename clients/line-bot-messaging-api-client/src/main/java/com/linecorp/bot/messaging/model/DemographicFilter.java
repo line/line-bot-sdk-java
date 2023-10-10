@@ -34,7 +34,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Demographic filter
  */
@@ -45,6 +44,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
         @JsonSubTypes.Type(value = GenderDemographicFilter.class, name = "gender"),
         @JsonSubTypes.Type(value = OperatorDemographicFilter.class, name = "operator"),
         @JsonSubTypes.Type(value = SubscriptionPeriodDemographicFilter.class, name = "subscriptionPeriod"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -56,4 +56,3 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public interface DemographicFilter {
 
 }
-

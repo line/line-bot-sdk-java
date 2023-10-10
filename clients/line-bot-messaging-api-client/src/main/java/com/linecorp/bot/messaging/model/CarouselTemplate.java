@@ -39,35 +39,34 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * CarouselTemplate
  */
 @JsonTypeName("carousel")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record CarouselTemplate (
-    /**
-     * Get columns
-     */
-
+/**
+    * Get columns
+    */
+    
     @JsonProperty("columns")
     List<CarouselColumn> columns,
-    /**
-     * Get imageAspectRatio
-     */
-
+/**
+    * Get imageAspectRatio
+    */
+    
     @JsonProperty("imageAspectRatio")
     String imageAspectRatio,
-    /**
-     * Get imageSize
-     */
-
+/**
+    * Get imageSize
+    */
+    
     @JsonProperty("imageSize")
     String imageSize
-) implements Template  {
 
+) implements Template {
 
 
 }
-

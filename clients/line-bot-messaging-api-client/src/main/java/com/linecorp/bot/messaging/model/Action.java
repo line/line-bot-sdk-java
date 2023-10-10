@@ -34,7 +34,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Action
  */
@@ -47,6 +46,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
         @JsonSubTypes.Type(value = PostbackAction.class, name = "postback"),
         @JsonSubTypes.Type(value = RichMenuSwitchAction.class, name = "richmenuswitch"),
         @JsonSubTypes.Type(value = URIAction.class, name = "uri"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -57,6 +57,4 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 )
 public interface Action {
 
-
 }
-

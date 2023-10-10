@@ -15,7 +15,6 @@
  */
 
 package com.linecorp.bot.module.client;
-
 import java.net.URI;
 
 import java.util.concurrent.CompletableFuture;
@@ -37,6 +36,7 @@ import com.linecorp.bot.module.model.AcquireChatControlRequest;
 import com.linecorp.bot.module.model.DetachModuleRequest;
 import com.linecorp.bot.module.model.GetModulesResponse;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,53 +45,69 @@ import java.util.Set;
 
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public interface LineModuleClient {
+
         /**
         * 
         * If the Standby Channel wants to take the initiative (Chat Control), it calls the Acquire Control API. The channel that was previously an Active Channel will automatically switch to a Standby Channel. 
             * @param chatId The &#x60;userId&#x60;, &#x60;roomId&#x60;, or &#x60;groupId&#x60; (required)
             * @param acquireChatControlRequest  (optional)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/partner-docs/#acquire-control-api"> Documentation</a>
-     */
+    */
+    
+    
     @POST("/v2/bot/chat/{chatId}/control/acquire")
-    CompletableFuture<Result<Void>> acquireChatControl(@Path("chatId") String chatId
-, @Body AcquireChatControlRequest acquireChatControlRequest
-);
+    
+    CompletableFuture<Result<Void>> acquireChatControl(@Path("chatId") String chatId, @Body AcquireChatControlRequest acquireChatControlRequest
+    );
+
 
         /**
         * 
         * The module channel admin calls the Detach API to detach the module channel from a LINE Official Account.
             * @param detachModuleRequest  (optional)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/partner-docs/#unlink-detach-module-channel-by-operation-mc-admin"> Documentation</a>
-     */
+    */
+    
+    
     @POST("/v2/bot/channel/detach")
+    
     CompletableFuture<Result<Void>> detachModule(@Body DetachModuleRequest detachModuleRequest
-);
+    );
+
 
         /**
         * 
         * Gets a list of basic information about the bots of multiple LINE Official Accounts that have attached module channels.
             * @param start Value of the continuation token found in the next property of the JSON object returned in the response. If you can&#39;t get all basic information about the bots in one request, include this parameter to get the remaining array.  (optional)
             * @param limit Specify the maximum number of bots that you get basic information from. The default value is 100. Max value: 100  (optional, default to 100)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/partner-docs/#get-multiple-bot-info-api"> Documentation</a>
-     */
+    */
+    
+    
     @GET("/v2/bot/list")
-    CompletableFuture<Result<GetModulesResponse>> getModules(@Query("start") String start
-, @Query("limit") Integer limit
-);
+    
+    CompletableFuture<Result<GetModulesResponse>> getModules(@Query("start") String start, @Query("limit") Integer limit
+    );
+
 
         /**
         * 
         * To return the initiative (Chat Control) of Active Channel to Primary Channel, call the Release Control API. 
             * @param chatId The &#x60;userId&#x60;, &#x60;roomId&#x60;, or &#x60;groupId&#x60; (required)
-     * 
+    * 
      * @see <a href="https://developers.line.biz/en/reference/partner-docs/#release-control-api"> Documentation</a>
-     */
+    */
+    
+    
     @POST("/v2/bot/chat/{chatId}/control/release")
+    
     CompletableFuture<Result<Void>> releaseChatControl(@Path("chatId") String chatId
-);
+    );
+
+
 
 
     public static ApiAuthenticatedClientBuilder<LineModuleClient> builder(String channelToken) {
@@ -100,5 +116,6 @@ public interface LineModuleClient {
     public static ApiAuthenticatedClientBuilder<LineModuleClient> builder(ChannelTokenSupplier channelTokenSupplier) {
         return new ApiAuthenticatedClientBuilder<>(URI.create("https://api.line.me"), LineModuleClient.class, new LineModuleExceptionBuilder(), channelTokenSupplier);
     }
+
 
 }

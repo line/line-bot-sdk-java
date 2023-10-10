@@ -34,27 +34,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * ErrorDetail
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ErrorDetail (
-    /**
-     * Details of the error. Not included in the response under certain situations.
-     */
-
+/**
+    * Details of the error. Not included in the response under certain situations.
+    */
+    
     @JsonProperty("message")
     String message,
-    /**
-     * Location of where the error occurred. Returns the JSON field name or query parameter name of the request. Not included in the response under certain situations.
-     */
-
+/**
+    * Location of where the error occurred. Returns the JSON field name or query parameter name of the request. Not included in the response under certain situations.
+    */
+    
     @JsonProperty("property")
     String property
+
 )  {
 
 
 }
-

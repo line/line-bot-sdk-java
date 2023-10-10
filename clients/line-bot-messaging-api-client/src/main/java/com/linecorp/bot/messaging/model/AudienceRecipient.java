@@ -35,21 +35,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.messaging.model.Recipient;
 
 
-
 /**
  * AudienceRecipient
  */
 @JsonTypeName("audience")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AudienceRecipient (
-    /**
-     * Get audienceGroupId
-     */
-
+/**
+    * Get audienceGroupId
+    */
+    
     @JsonProperty("audienceGroupId")
     Long audienceGroupId
-) implements Recipient  {
+
+) implements Recipient {
+
 
 }
-

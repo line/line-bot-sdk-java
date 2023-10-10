@@ -38,28 +38,28 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * AttachedModuleContent
  */
 @JsonTypeName("attached")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AttachedModuleContent (
-    /**
-     * User ID of the bot on the attached LINE Official Account
-     */
-
+/**
+    * User ID of the bot on the attached LINE Official Account
+    */
+    
     @JsonProperty("botId")
     String botId,
-    /**
-     * An array of strings indicating the scope permitted by the admin of the LINE Official Account.
-     */
-
+/**
+    * An array of strings indicating the scope permitted by the admin of the LINE Official Account.
+    */
+    
     @JsonProperty("scopes")
     List<String> scopes
-) implements ModuleContent  {
+
+) implements ModuleContent {
 
 
 }
-

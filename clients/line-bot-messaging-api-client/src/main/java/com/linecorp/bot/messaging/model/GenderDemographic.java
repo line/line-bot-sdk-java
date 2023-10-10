@@ -34,21 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Gets or Sets GenderDemographic
  */
 public enum GenderDemographic {
-  
+
+    
     @JsonProperty("male")
   MALE,
-  
+    
     @JsonProperty("female")
   FEMALE,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

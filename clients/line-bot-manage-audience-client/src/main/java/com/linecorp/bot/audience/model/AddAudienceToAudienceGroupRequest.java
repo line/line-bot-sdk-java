@@ -38,34 +38,33 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by JSON)
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AddAudienceToAudienceGroupRequest (
-    /**
-     * The audience ID.
-     */
-
+/**
+    * The audience ID.
+    */
+    
     @JsonProperty("audienceGroupId")
     Long audienceGroupId,
-    /**
-     * The audience&#39;s name.
-     */
-
+/**
+    * The audience&#39;s name.
+    */
+    
     @JsonProperty("uploadDescription")
     String uploadDescription,
-    /**
-     * An array of up to 10,000 user IDs or IFAs.
-     */
-
+/**
+    * An array of up to 10,000 user IDs or IFAs.
+    */
+    
     @JsonProperty("audiences")
     List<Audience> audiences
+
 )  {
 
 
-
 }
-

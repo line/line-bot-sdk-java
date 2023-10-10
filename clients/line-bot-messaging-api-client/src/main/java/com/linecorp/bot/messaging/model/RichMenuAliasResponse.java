@@ -34,27 +34,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * RichMenuAliasResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuAliasResponse (
-    /**
-     * Rich menu alias ID.
-     */
-
+/**
+    * Rich menu alias ID.
+    */
+    
     @JsonProperty("richMenuAliasId")
     String richMenuAliasId,
-    /**
-     * The rich menu ID associated with the rich menu alias.
-     */
-
+/**
+    * The rich menu ID associated with the rich menu alias.
+    */
+    
     @JsonProperty("richMenuId")
     String richMenuId
+
 )  {
 
 
 }
-

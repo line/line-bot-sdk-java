@@ -34,31 +34,31 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Rich menu size
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuSize (
-    /**
-     * width
-     * minimum: 1
-     * maximum: 2147483647
-     */
-
+/**
+    * width
+    * minimum: 1
+    * maximum: 2147483647
+    */
+    
     @JsonProperty("width")
     Long width,
-    /**
-     * height
-     * minimum: 1
-     * maximum: 2147483647
-     */
-
+/**
+    * height
+    * minimum: 1
+    * maximum: 2147483647
+    */
+    
     @JsonProperty("height")
     Long height
+
 )  {
 
 
 }
-

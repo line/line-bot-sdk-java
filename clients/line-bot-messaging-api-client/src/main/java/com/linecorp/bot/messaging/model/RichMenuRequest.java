@@ -39,48 +39,45 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * RichMenuRequest
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuRequest (
-    /**
-     * Get size
-     */
-
+/**
+    * Get size
+    */
+    
     @JsonProperty("size")
     RichMenuSize size,
-    /**
-     * &#x60;true&#x60; to display the rich menu by default. Otherwise, &#x60;false&#x60;.
-     */
-
+/**
+    * &#x60;true&#x60; to display the rich menu by default. Otherwise, &#x60;false&#x60;.
+    */
+    
     @JsonProperty("selected")
     Boolean selected,
-    /**
-     * Name of the rich menu. This value can be used to help manage your rich menus and is not displayed to users.
-     */
-
+/**
+    * Name of the rich menu. This value can be used to help manage your rich menus and is not displayed to users.
+    */
+    
     @JsonProperty("name")
     String name,
-    /**
-     * Text displayed in the chat bar
-     */
-
+/**
+    * Text displayed in the chat bar
+    */
+    
     @JsonProperty("chatBarText")
     String chatBarText,
-    /**
-     * Array of area objects which define the coordinates and size of tappable areas
-     */
-
+/**
+    * Array of area objects which define the coordinates and size of tappable areas
+    */
+    
     @JsonProperty("areas")
     List<RichMenuArea> areas
+
 )  {
 
 
-
-
-
 }
-

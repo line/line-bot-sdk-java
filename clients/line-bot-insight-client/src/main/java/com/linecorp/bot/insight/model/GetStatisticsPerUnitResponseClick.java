@@ -34,48 +34,45 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * GetStatisticsPerUnitResponseClick
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetStatisticsPerUnitResponseClick (
-    /**
-     * The URL&#39;s serial number.
-     */
-
+/**
+    * The URL&#39;s serial number.
+    */
+    
     @JsonProperty("seq")
     Long seq,
-    /**
-     * URL.
-     */
-
+/**
+    * URL.
+    */
+    
     @JsonProperty("url")
     String url,
-    /**
-     * Number of times the URL in the bubble was opened.
-     */
-
+/**
+    * Number of times the URL in the bubble was opened.
+    */
+    
     @JsonProperty("click")
     Long click,
-    /**
-     * Number of users that opened the URL in the bubble.
-     */
-
+/**
+    * Number of users that opened the URL in the bubble.
+    */
+    
     @JsonProperty("uniqueClick")
     Long uniqueClick,
-    /**
-     * Number of users who opened this url through any link in the message. If another message bubble contains the same URL and a user opens both links, it&#39;s counted only once. 
-     */
-
+/**
+    * Number of users who opened this url through any link in the message. If another message bubble contains the same URL and a user opens both links, it&#39;s counted only once. 
+    */
+    
     @JsonProperty("uniqueClickOfRequest")
     Long uniqueClickOfRequest
+
 )  {
 
 
-
-
-
 }
-

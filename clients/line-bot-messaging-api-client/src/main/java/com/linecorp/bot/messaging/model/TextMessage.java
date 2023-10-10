@@ -41,52 +41,49 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * TextMessage
  */
 @JsonTypeName("text")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record TextMessage (
-    /**
-     * Get quickReply
-     */
-
+/**
+    * Get quickReply
+    */
+    
     @JsonProperty("quickReply")
     QuickReply quickReply,
-    /**
-     * Get sender
-     */
-
+/**
+    * Get sender
+    */
+    
     @JsonProperty("sender")
     Sender sender,
-    /**
-     * Get text
-     */
-
+/**
+    * Get text
+    */
+    
     @JsonProperty("text")
     String text,
-    /**
-     * Get emojis
-     */
-
+/**
+    * Get emojis
+    */
+    
     @JsonProperty("emojis")
     List<Emoji> emojis,
-    /**
-     * Quote token of the message you want to quote.
-     */
-
+/**
+    * Quote token of the message you want to quote.
+    */
+    
     @JsonProperty("quoteToken")
     String quoteToken
-) implements Message  {
 
+) implements Message {
 
-
-
-
-    public TextMessage(String text) {
-        this(null, null, text, null, null);
-    }
+public TextMessage(String text) {
+    this(null, null, text, null, null);
 }
 
+}

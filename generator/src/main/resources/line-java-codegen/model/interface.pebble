@@ -1,0 +1,22 @@
+{# @pebvariable name="model" type="org.openapitools.codegen.CodegenModel" -#}
+/**
+ * {{ model.description | escape }}{% if model.description == "" or model.description == null %}{{model.classname}}{% endif %}{% if model.isDeprecated %}
+ * @deprecated{% endif %}
+ */
+{%- if model.isDeprecated -%}
+@Deprecated
+{% endif %}
+@JsonSubTypes({
+{% for mm in model.discriminator.mappedModels %}        @JsonSubTypes.Type(value = {{mm.modelName}}.class, name = "{{mm.mappingName}}"),
+{% endfor %}
+})
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "{{model.discriminator.propertyName}}",
+    defaultImpl = Unknown{{model.classname}}.class,
+    visible = true
+)
+public interface {{model.classname}} {
+{% if ["Event", "Source"] contains model.classname %}{% include "../body/model/" + model.classname + ".java" %}{% endif %}
+}

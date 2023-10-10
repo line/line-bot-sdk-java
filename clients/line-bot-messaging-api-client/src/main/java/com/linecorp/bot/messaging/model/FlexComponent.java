@@ -34,7 +34,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * FlexComponent
  */
@@ -48,6 +47,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
         @JsonSubTypes.Type(value = FlexSpan.class, name = "span"),
         @JsonSubTypes.Type(value = FlexText.class, name = "text"),
         @JsonSubTypes.Type(value = FlexVideo.class, name = "video"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -59,4 +59,3 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public interface FlexComponent {
 
 }
-

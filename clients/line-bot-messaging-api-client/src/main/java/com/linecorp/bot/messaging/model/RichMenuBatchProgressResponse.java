@@ -36,34 +36,33 @@ import com.linecorp.bot.messaging.model.RichMenuBatchProgressPhase;
 import java.time.OffsetDateTime;
 
 
-
 /**
  * RichMenuBatchProgressResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RichMenuBatchProgressResponse (
-    /**
-     * Get phase
-     */
-
+/**
+    * Get phase
+    */
+    
     @JsonProperty("phase")
     RichMenuBatchProgressPhase phase,
-    /**
-     * The accepted time in milliseconds of the request of batch control the rich menu.  Format: ISO 8601 (e.g. 2023-06-08T10:15:30.121Z) Timezone: UTC 
-     */
-
+/**
+    * The accepted time in milliseconds of the request of batch control the rich menu.  Format: ISO 8601 (e.g. 2023-06-08T10:15:30.121Z) Timezone: UTC 
+    */
+    
     @JsonProperty("acceptedTime")
     OffsetDateTime acceptedTime,
-    /**
-     * The completed time in milliseconds of rich menu batch control. Returned when the phase property is succeeded or failed.  Format: ISO 8601 (e.g. 2023-06-08T10:15:30.121Z) Timezone: UTC 
-     */
-
+/**
+    * The completed time in milliseconds of rich menu batch control. Returned when the phase property is succeeded or failed.  Format: ISO 8601 (e.g. 2023-06-08T10:15:30.121Z) Timezone: UTC 
+    */
+    
     @JsonProperty("completedTime")
     OffsetDateTime completedTime
+
 )  {
 
 
-
 }
-

@@ -34,27 +34,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * AreaTile
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AreaTile (
-    /**
-     * users&#39; country and region
-     */
-
+/**
+    * users&#39; country and region
+    */
+    
     @JsonProperty("area")
     String area,
-    /**
-     * Percentage
-     */
-
+/**
+    * Percentage
+    */
+    
     @JsonProperty("percentage")
     Double percentage
+
 )  {
 
 
 }
-

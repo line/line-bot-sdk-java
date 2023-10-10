@@ -35,27 +35,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.net.URI;
 
 
-
 /**
  * ImagemapExternalLink
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ImagemapExternalLink (
-    /**
-     * Get linkUri
-     */
-
+/**
+    * Get linkUri
+    */
+    
     @JsonProperty("linkUri")
     URI linkUri,
-    /**
-     * Get label
-     */
-
+/**
+    * Get label
+    */
+    
     @JsonProperty("label")
     String label
+
 )  {
 
 
 }
-

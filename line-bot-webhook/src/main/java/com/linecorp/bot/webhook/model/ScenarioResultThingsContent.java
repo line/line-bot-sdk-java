@@ -36,28 +36,28 @@ import com.linecorp.bot.webhook.model.ScenarioResult;
 import com.linecorp.bot.webhook.model.ThingsContent;
 
 
-
 /**
  * ScenarioResultThingsContent
  */
 @JsonTypeName("scenarioResult")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ScenarioResultThingsContent (
-    /**
-     * Device ID of the device that has been linked with LINE.
-     */
-
+/**
+    * Device ID of the device that has been linked with LINE.
+    */
+    
     @JsonProperty("deviceId")
     String deviceId,
-    /**
-     * Get result
-     */
-
+/**
+    * Get result
+    */
+    
     @JsonProperty("result")
     ScenarioResult result
-) implements ThingsContent  {
+
+) implements ThingsContent {
 
 
 }
-

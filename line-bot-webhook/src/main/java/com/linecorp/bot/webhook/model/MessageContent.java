@@ -34,7 +34,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * MessageContent
  */
@@ -46,6 +45,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
         @JsonSubTypes.Type(value = StickerMessageContent.class, name = "sticker"),
         @JsonSubTypes.Type(value = TextMessageContent.class, name = "text"),
         @JsonSubTypes.Type(value = VideoMessageContent.class, name = "video"),
+
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -57,4 +57,3 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public interface MessageContent {
 
 }
-

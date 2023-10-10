@@ -37,69 +37,63 @@ import com.linecorp.bot.audience.model.AudienceGroupJobStatus;
 import com.linecorp.bot.audience.model.AudienceGroupJobType;
 
 
-
 /**
  * Audience group job
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AudienceGroupJob (
-    /**
-     * A job ID.
-     */
-
+/**
+    * A job ID.
+    */
+    
     @JsonProperty("audienceGroupJobId")
     Long audienceGroupJobId,
-    /**
-     * An audience ID.
-     */
-
+/**
+    * An audience ID.
+    */
+    
     @JsonProperty("audienceGroupId")
     Long audienceGroupId,
-    /**
-     * The job&#39;s description.
-     */
-
+/**
+    * The job&#39;s description.
+    */
+    
     @JsonProperty("description")
     String description,
-    /**
-     * Get type
-     */
-
+/**
+    * Get type
+    */
+    
     @JsonProperty("type")
     AudienceGroupJobType type,
-    /**
-     * Get jobStatus
-     */
-
+/**
+    * Get jobStatus
+    */
+    
     @JsonProperty("jobStatus")
     AudienceGroupJobStatus jobStatus,
-    /**
-     * Get failedType
-     */
-
+/**
+    * Get failedType
+    */
+    
     @JsonProperty("failedType")
     AudienceGroupJobFailedType failedType,
-    /**
-     * The number of accounts (recipients) that were added or removed.
-     */
-
+/**
+    * The number of accounts (recipients) that were added or removed.
+    */
+    
     @JsonProperty("audienceCount")
     Long audienceCount,
-    /**
-     * When the job was created (in UNIX time).
-     */
-
+/**
+    * When the job was created (in UNIX time).
+    */
+    
     @JsonProperty("created")
     Long created
+
 )  {
 
 
-
-
-
-
-
-
 }
-

@@ -34,21 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Failed type
  */
 public enum AudienceGroupJobFailedType {
-  
+
+    
     @JsonProperty("INTERNAL_ERROR")
   INTERNAL_ERROR,
-  
+    
     @JsonProperty("AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT")
   AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

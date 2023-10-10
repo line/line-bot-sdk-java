@@ -39,63 +39,58 @@ import com.linecorp.bot.webhook.model.LinkContent;
 import com.linecorp.bot.webhook.model.Source;
 
 
-
 /**
  * Event object for when a user has linked their LINE account with a provider&#39;s service account. You can reply to account link events.
  */
 @JsonTypeName("accountLink")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AccountLinkEvent (
-    /**
-     * Get source
-     */
-
+/**
+    * Get source
+    */
+    
     @JsonProperty("source")
     Source source,
-    /**
-     * Time of the event in milliseconds.
-     */
-
+/**
+    * Time of the event in milliseconds.
+    */
+    
     @JsonProperty("timestamp")
     Long timestamp,
-    /**
-     * Get mode
-     */
-
+/**
+    * Get mode
+    */
+    
     @JsonProperty("mode")
     EventMode mode,
-    /**
-     * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
-     */
-
+/**
+    * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
+    */
+    
     @JsonProperty("webhookEventId")
     String webhookEventId,
-    /**
-     * Get deliveryContext
-     */
-
+/**
+    * Get deliveryContext
+    */
+    
     @JsonProperty("deliveryContext")
     DeliveryContext deliveryContext,
-    /**
-     * Reply token used to send reply message to this event. This property won&#39;t be included if linking the account has failed.
-     */
-
+/**
+    * Reply token used to send reply message to this event. This property won&#39;t be included if linking the account has failed.
+    */
+    
     @JsonProperty("replyToken")
     String replyToken,
-    /**
-     * Get link
-     */
-
+/**
+    * Get link
+    */
+    
     @JsonProperty("link")
     LinkContent link
-) implements Event, ReplyEvent  {
 
-
-
-
-
+) implements Event, ReplyEvent {
 
 
 }
-

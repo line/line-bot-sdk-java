@@ -38,69 +38,63 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * ScenarioResult
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ScenarioResult (
-    /**
-     * Scenario ID executed
-     */
-
+/**
+    * Scenario ID executed
+    */
+    
     @JsonProperty("scenarioId")
     String scenarioId,
-    /**
-     * Revision number of the scenario set containing the executed scenario
-     */
-
+/**
+    * Revision number of the scenario set containing the executed scenario
+    */
+    
     @JsonProperty("revision")
     Integer revision,
-    /**
-     * Timestamp for when execution of scenario action started (milliseconds, LINE app time)
-     */
-
+/**
+    * Timestamp for when execution of scenario action started (milliseconds, LINE app time)
+    */
+    
     @JsonProperty("startTime")
     Long startTime,
-    /**
-     * Timestamp for when execution of scenario was completed (milliseconds, LINE app time)
-     */
-
+/**
+    * Timestamp for when execution of scenario was completed (milliseconds, LINE app time)
+    */
+    
     @JsonProperty("endTime")
     Long endTime,
-    /**
-     * Scenario execution completion status
-     */
-
+/**
+    * Scenario execution completion status
+    */
+    
     @JsonProperty("resultCode")
     String resultCode,
-    /**
-     * Execution result of individual operations specified in action. Only included when things.result.resultCode is success.
-     */
-
+/**
+    * Execution result of individual operations specified in action. Only included when things.result.resultCode is success.
+    */
+    
     @JsonProperty("actionResults")
     List<ActionResult> actionResults,
-    /**
-     * Data contained in notification.
-     */
-
+/**
+    * Data contained in notification.
+    */
+    
     @JsonProperty("bleNotificationPayload")
     String bleNotificationPayload,
-    /**
-     * Error reason.
-     */
-
+/**
+    * Error reason.
+    */
+    
     @JsonProperty("errorReason")
     String errorReason
+
 )  {
 
 
-
-
-
-
-
-
 }
-

@@ -34,20 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * VideoPlayComplete
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record VideoPlayComplete (
-    /**
-     * ID used to identify a video. Returns the same value as the trackingId assigned to the video message.
-     */
-
+/**
+    * ID used to identify a video. Returns the same value as the trackingId assigned to the video message.
+    */
+    
     @JsonProperty("trackingId")
     String trackingId
+
 )  {
 
-}
 
+}

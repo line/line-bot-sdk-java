@@ -35,34 +35,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.net.URI;
 
 
-
 /**
  * RoomUserProfileResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record RoomUserProfileResponse (
-    /**
-     * User&#39;s display name
-     */
-
+/**
+    * User&#39;s display name
+    */
+    
     @JsonProperty("displayName")
     String displayName,
-    /**
-     * User ID
-     */
-
+/**
+    * User ID
+    */
+    
     @JsonProperty("userId")
     String userId,
-    /**
-     * Profile image URL. &#x60;https&#x60; image URL. Not included in the response if the user doesn&#39;t have a profile image.
-     */
-
+/**
+    * Profile image URL. &#x60;https&#x60; image URL. Not included in the response if the user doesn&#39;t have a profile image.
+    */
+    
     @JsonProperty("pictureUrl")
     URI pictureUrl
+
 )  {
 
 
-
 }
-

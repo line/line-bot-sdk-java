@@ -39,63 +39,58 @@ import com.linecorp.bot.webhook.model.MessageContent;
 import com.linecorp.bot.webhook.model.Source;
 
 
-
 /**
  * Webhook event object which contains the sent message.
  */
 @JsonTypeName("message")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record MessageEvent (
-    /**
-     * Get source
-     */
-
+/**
+    * Get source
+    */
+    
     @JsonProperty("source")
     Source source,
-    /**
-     * Time of the event in milliseconds.
-     */
-
+/**
+    * Time of the event in milliseconds.
+    */
+    
     @JsonProperty("timestamp")
     Long timestamp,
-    /**
-     * Get mode
-     */
-
+/**
+    * Get mode
+    */
+    
     @JsonProperty("mode")
     EventMode mode,
-    /**
-     * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
-     */
-
+/**
+    * Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
+    */
+    
     @JsonProperty("webhookEventId")
     String webhookEventId,
-    /**
-     * Get deliveryContext
-     */
-
+/**
+    * Get deliveryContext
+    */
+    
     @JsonProperty("deliveryContext")
     DeliveryContext deliveryContext,
-    /**
-     * Get replyToken
-     */
-
+/**
+    * Get replyToken
+    */
+    
     @JsonProperty("replyToken")
     String replyToken,
-    /**
-     * Get message
-     */
-
+/**
+    * Get message
+    */
+    
     @JsonProperty("message")
     MessageContent message
-) implements Event, ReplyEvent  {
 
-
-
-
-
+) implements Event, ReplyEvent {
 
 
 }
-

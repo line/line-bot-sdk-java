@@ -34,20 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * GetAggregationUnitUsageResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GetAggregationUnitUsageResponse (
-    /**
-     * Number of aggregation units used this month.
-     */
-
+/**
+    * Number of aggregation units used this month.
+    */
+    
     @JsonProperty("numOfCustomAggregationUnits")
     Long numOfCustomAggregationUnits
+
 )  {
 
-}
 
+}

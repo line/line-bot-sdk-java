@@ -37,41 +37,39 @@ import com.linecorp.bot.messaging.model.ImagemapExternalLink;
 import java.net.URI;
 
 
-
 /**
  * ImagemapVideo
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ImagemapVideo (
-    /**
-     * Get originalContentUrl
-     */
-
+/**
+    * Get originalContentUrl
+    */
+    
     @JsonProperty("originalContentUrl")
     URI originalContentUrl,
-    /**
-     * Get previewImageUrl
-     */
-
+/**
+    * Get previewImageUrl
+    */
+    
     @JsonProperty("previewImageUrl")
     URI previewImageUrl,
-    /**
-     * Get area
-     */
-
+/**
+    * Get area
+    */
+    
     @JsonProperty("area")
     ImagemapArea area,
-    /**
-     * Get externalLink
-     */
-
+/**
+    * Get externalLink
+    */
+    
     @JsonProperty("externalLink")
     ImagemapExternalLink externalLink
+
 )  {
 
 
-
-
 }
-

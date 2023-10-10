@@ -35,38 +35,39 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.webhook.model.ModuleContent;
 
 
-
 /**
  * DetachedModuleContent
  */
 @JsonTypeName("detached")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record DetachedModuleContent (
-    /**
-     * Detached LINE Official Account bot user ID
-     */
-
+/**
+    * Detached LINE Official Account bot user ID
+    */
+    
     @JsonProperty("botId")
     String botId,
-    /**
-     * Reason for detaching
-     */
-
+/**
+    * Reason for detaching
+    */
+    
     @JsonProperty("reason")
     Reason reason
-) implements ModuleContent  {
 
-    /**
+) implements ModuleContent {
+/**
      * Reason for detaching
      */
     public enum Reason {
-      @JsonProperty("bot_deleted")
+@JsonProperty("bot_deleted")
       BOT_DELETED,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
 }
-

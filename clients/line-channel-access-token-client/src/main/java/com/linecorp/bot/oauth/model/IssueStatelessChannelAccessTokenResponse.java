@@ -34,34 +34,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 /**
  * Issued stateless channel access token
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record IssueStatelessChannelAccessTokenResponse (
-    /**
-     * A stateless channel access token. The token is an opaque string which means its format is an implementation detail and the consumer of this token should never try to use the data parsed from the token. 
-     */
-
+/**
+    * A stateless channel access token. The token is an opaque string which means its format is an implementation detail and the consumer of this token should never try to use the data parsed from the token. 
+    */
+    
     @JsonProperty("access_token")
     String accessToken,
-    /**
-     * Duration in seconds after which the issued access token expires
-     */
-
+/**
+    * Duration in seconds after which the issued access token expires
+    */
+    
     @JsonProperty("expires_in")
     Integer expiresIn,
-    /**
-     * Token type. The value is always &#x60;Bearer&#x60;.
-     */
-
+/**
+    * Token type. The value is always &#x60;Bearer&#x60;.
+    */
+    
     @JsonProperty("token_type")
     String tokenType
+
 )  {
 
 
-
 }
-

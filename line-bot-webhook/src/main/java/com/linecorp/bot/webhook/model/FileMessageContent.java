@@ -35,35 +35,34 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.webhook.model.MessageContent;
 
 
-
 /**
  * FileMessageContent
  */
 @JsonTypeName("file")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FileMessageContent (
-    /**
-     * Message ID
-     */
-
+/**
+    * Message ID
+    */
+    
     @JsonProperty("id")
     String id,
-    /**
-     * File name
-     */
-
+/**
+    * File name
+    */
+    
     @JsonProperty("fileName")
     String fileName,
-    /**
-     * File size in bytes
-     */
-
+/**
+    * File size in bytes
+    */
+    
     @JsonProperty("fileSize")
     Integer fileSize
-) implements MessageContent  {
 
+) implements MessageContent {
 
 
 }
-

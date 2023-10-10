@@ -35,49 +35,46 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.linecorp.bot.webhook.model.MessageContent;
 
 
-
 /**
  * LocationMessageContent
  */
 @JsonTypeName("location")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record LocationMessageContent (
-    /**
-     * Message ID
-     */
-
+/**
+    * Message ID
+    */
+    
     @JsonProperty("id")
     String id,
-    /**
-     * Title
-     */
-
+/**
+    * Title
+    */
+    
     @JsonProperty("title")
     String title,
-    /**
-     * Address
-     */
-
+/**
+    * Address
+    */
+    
     @JsonProperty("address")
     String address,
-    /**
-     * Latitude
-     */
-
+/**
+    * Latitude
+    */
+    
     @JsonProperty("latitude")
     Double latitude,
-    /**
-     * Longitude
-     */
-
+/**
+    * Longitude
+    */
+    
     @JsonProperty("longitude")
     Double longitude
-) implements MessageContent  {
 
-
-
+) implements MessageContent {
 
 
 }
-

@@ -34,21 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * One of the following values to indicate whether a target limit is set or not.
  */
 public enum QuotaType {
-  
+
+    
     @JsonProperty("none")
   NONE,
-  
+    
     @JsonProperty("limited")
   LIMITED,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

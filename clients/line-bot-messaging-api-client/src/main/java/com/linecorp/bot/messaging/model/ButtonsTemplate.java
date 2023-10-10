@@ -40,70 +40,64 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * ButtonsTemplate
  */
 @JsonTypeName("buttons")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record ButtonsTemplate (
-    /**
-     * Get thumbnailImageUrl
-     */
-
+/**
+    * Get thumbnailImageUrl
+    */
+    
     @JsonProperty("thumbnailImageUrl")
     URI thumbnailImageUrl,
-    /**
-     * Get imageAspectRatio
-     */
-
+/**
+    * Get imageAspectRatio
+    */
+    
     @JsonProperty("imageAspectRatio")
     String imageAspectRatio,
-    /**
-     * Get imageSize
-     */
-
+/**
+    * Get imageSize
+    */
+    
     @JsonProperty("imageSize")
     String imageSize,
-    /**
-     * Get imageBackgroundColor
-     */
-
+/**
+    * Get imageBackgroundColor
+    */
+    
     @JsonProperty("imageBackgroundColor")
     String imageBackgroundColor,
-    /**
-     * Get title
-     */
-
+/**
+    * Get title
+    */
+    
     @JsonProperty("title")
     String title,
-    /**
-     * Get text
-     */
-
+/**
+    * Get text
+    */
+    
     @JsonProperty("text")
     String text,
-    /**
-     * Get defaultAction
-     */
-
+/**
+    * Get defaultAction
+    */
+    
     @JsonProperty("defaultAction")
     Action defaultAction,
-    /**
-     * Get actions
-     */
-
+/**
+    * Get actions
+    */
+    
     @JsonProperty("actions")
     List<Action> actions
-) implements Template  {
 
-
-
-
-
-
+) implements Template {
 
 
 }
-

@@ -35,86 +35,83 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.net.URI;
 
 
-
 /**
  * BotInfoResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record BotInfoResponse (
-    /**
-     * Bot&#39;s user ID
-     */
-
+/**
+    * Bot&#39;s user ID
+    */
+    
     @JsonProperty("userId")
     String userId,
-    /**
-     * Bot&#39;s basic ID
-     */
-
+/**
+    * Bot&#39;s basic ID
+    */
+    
     @JsonProperty("basicId")
     String basicId,
-    /**
-     * Bot&#39;s premium ID. Not included in the response if the premium ID isn&#39;t set.
-     */
-
+/**
+    * Bot&#39;s premium ID. Not included in the response if the premium ID isn&#39;t set.
+    */
+    
     @JsonProperty("premiumId")
     String premiumId,
-    /**
-     * Bot&#39;s display name
-     */
-
+/**
+    * Bot&#39;s display name
+    */
+    
     @JsonProperty("displayName")
     String displayName,
-    /**
-     * Profile image URL. &#x60;https&#x60; image URL. Not included in the response if the bot doesn&#39;t have a profile image.
-     */
-
+/**
+    * Profile image URL. &#x60;https&#x60; image URL. Not included in the response if the bot doesn&#39;t have a profile image.
+    */
+    
     @JsonProperty("pictureUrl")
     URI pictureUrl,
-    /**
-     * Chat settings set in the LINE Official Account Manager. One of:  &#x60;chat&#x60;: Chat is set to \&quot;On\&quot;. &#x60;bot&#x60;: Chat is set to \&quot;Off\&quot;. 
-     */
-
+/**
+    * Chat settings set in the LINE Official Account Manager. One of:  &#x60;chat&#x60;: Chat is set to \&quot;On\&quot;. &#x60;bot&#x60;: Chat is set to \&quot;Off\&quot;. 
+    */
+    
     @JsonProperty("chatMode")
     ChatMode chatMode,
-    /**
-     * Automatic read setting for messages. If the chat is set to \&quot;Off\&quot;, auto is returned. If the chat is set to \&quot;On\&quot;, manual is returned.  &#x60;auto&#x60;: Auto read setting is enabled. &#x60;manual&#x60;: Auto read setting is disabled.  
-     */
-
+/**
+    * Automatic read setting for messages. If the chat is set to \&quot;Off\&quot;, auto is returned. If the chat is set to \&quot;On\&quot;, manual is returned.  &#x60;auto&#x60;: Auto read setting is enabled. &#x60;manual&#x60;: Auto read setting is disabled.  
+    */
+    
     @JsonProperty("markAsReadMode")
     MarkAsReadMode markAsReadMode
+
 )  {
-
-
-
-
-
-    /**
+/**
      * Chat settings set in the LINE Official Account Manager. One of:  &#x60;chat&#x60;: Chat is set to \&quot;On\&quot;. &#x60;bot&#x60;: Chat is set to \&quot;Off\&quot;. 
      */
     public enum ChatMode {
-      @JsonProperty("chat")
+@JsonProperty("chat")
       CHAT,
-      @JsonProperty("bot")
+    @JsonProperty("bot")
       BOT,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-    /**
+/**
      * Automatic read setting for messages. If the chat is set to \&quot;Off\&quot;, auto is returned. If the chat is set to \&quot;On\&quot;, manual is returned.  &#x60;auto&#x60;: Auto read setting is enabled. &#x60;manual&#x60;: Auto read setting is disabled.  
      */
     public enum MarkAsReadMode {
-      @JsonProperty("auto")
+@JsonProperty("auto")
       AUTO,
-      @JsonProperty("manual")
+    @JsonProperty("manual")
       MANUAL,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
 }
-

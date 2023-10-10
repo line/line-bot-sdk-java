@@ -36,35 +36,34 @@ import com.linecorp.bot.messaging.model.ImagemapAction;
 import com.linecorp.bot.messaging.model.ImagemapArea;
 
 
-
 /**
  * URIImagemapAction
  */
 @JsonTypeName("uri")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record URIImagemapAction (
-    /**
-     * Get area
-     */
-
+/**
+    * Get area
+    */
+    
     @JsonProperty("area")
     ImagemapArea area,
-    /**
-     * Get linkUri
-     */
-
+/**
+    * Get linkUri
+    */
+    
     @JsonProperty("linkUri")
     String linkUri,
-    /**
-     * Get label
-     */
-
+/**
+    * Get label
+    */
+    
     @JsonProperty("label")
     String label
-) implements ImagemapAction  {
 
+) implements ImagemapAction {
 
 
 }
-

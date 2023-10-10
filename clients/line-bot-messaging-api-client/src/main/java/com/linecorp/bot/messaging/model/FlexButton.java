@@ -36,174 +36,167 @@ import com.linecorp.bot.messaging.model.Action;
 import com.linecorp.bot.messaging.model.FlexComponent;
 
 
-
 /**
  * FlexButton
  */
 @JsonTypeName("button")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record FlexButton (
-    /**
-     * Get flex
-     */
-
+/**
+    * Get flex
+    */
+    
     @JsonProperty("flex")
     Integer flex,
-    /**
-     * Get color
-     */
-
+/**
+    * Get color
+    */
+    
     @JsonProperty("color")
     String color,
-    /**
-     * Get style
-     */
-
+/**
+    * Get style
+    */
+    
     @JsonProperty("style")
     Style style,
-    /**
-     * Get action
-     */
-
+/**
+    * Get action
+    */
+    
     @JsonProperty("action")
     Action action,
-    /**
-     * Get gravity
-     */
-
+/**
+    * Get gravity
+    */
+    
     @JsonProperty("gravity")
     Gravity gravity,
-    /**
-     * Get margin
-     */
-
+/**
+    * Get margin
+    */
+    
     @JsonProperty("margin")
     String margin,
-    /**
-     * Get position
-     */
-
+/**
+    * Get position
+    */
+    
     @JsonProperty("position")
     Position position,
-    /**
-     * Get offsetTop
-     */
-
+/**
+    * Get offsetTop
+    */
+    
     @JsonProperty("offsetTop")
     String offsetTop,
-    /**
-     * Get offsetBottom
-     */
-
+/**
+    * Get offsetBottom
+    */
+    
     @JsonProperty("offsetBottom")
     String offsetBottom,
-    /**
-     * Get offsetStart
-     */
-
+/**
+    * Get offsetStart
+    */
+    
     @JsonProperty("offsetStart")
     String offsetStart,
-    /**
-     * Get offsetEnd
-     */
-
+/**
+    * Get offsetEnd
+    */
+    
     @JsonProperty("offsetEnd")
     String offsetEnd,
-    /**
-     * Get height
-     */
-
+/**
+    * Get height
+    */
+    
     @JsonProperty("height")
     Height height,
-    /**
-     * Get adjustMode
-     */
-
+/**
+    * Get adjustMode
+    */
+    
     @JsonProperty("adjustMode")
     AdjustMode adjustMode,
-    /**
-     * Get scaling
-     */
-
+/**
+    * Get scaling
+    */
+    
     @JsonProperty("scaling")
     Boolean scaling
-) implements FlexComponent  {
 
-
-    /**
+) implements FlexComponent {
+/**
      * Gets or Sets style
      */
     public enum Style {
-      @JsonProperty("primary")
+@JsonProperty("primary")
       PRIMARY,
-      @JsonProperty("secondary")
+    @JsonProperty("secondary")
       SECONDARY,
-      @JsonProperty("link")
+    @JsonProperty("link")
       LINK,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-
-    /**
+/**
      * Gets or Sets gravity
      */
     public enum Gravity {
-      @JsonProperty("top")
+@JsonProperty("top")
       TOP,
-      @JsonProperty("bottom")
+    @JsonProperty("bottom")
       BOTTOM,
-      @JsonProperty("center")
+    @JsonProperty("center")
       CENTER,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-
-    /**
+/**
      * Gets or Sets position
      */
     public enum Position {
-      @JsonProperty("relative")
+@JsonProperty("relative")
       RELATIVE,
-      @JsonProperty("absolute")
+    @JsonProperty("absolute")
       ABSOLUTE,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-
-
-
-
-    /**
+/**
      * Gets or Sets height
      */
     public enum Height {
-      @JsonProperty("md")
+@JsonProperty("md")
       MD,
-      @JsonProperty("sm")
+    @JsonProperty("sm")
       SM,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
-
-
-    /**
+/**
      * Gets or Sets adjustMode
      */
     public enum AdjustMode {
-      @JsonProperty("shrink-to-fit")
+@JsonProperty("shrink-to-fit")
       SHRINK_TO_FIT,
+    
+
       @JsonEnumDefaultValue
       UNDEFINED;
     }
 
 
-
 }
-

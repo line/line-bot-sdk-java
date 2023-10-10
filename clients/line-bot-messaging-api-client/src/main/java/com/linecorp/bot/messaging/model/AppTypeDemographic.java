@@ -34,21 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Gets or Sets AppTypeDemographic
  */
 public enum AppTypeDemographic {
-  
+
+    
     @JsonProperty("ios")
   IOS,
-  
+    
     @JsonProperty("android")
   ANDROID,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

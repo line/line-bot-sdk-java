@@ -37,27 +37,27 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 /**
  * MembersIdsResponse
  */
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record MembersIdsResponse (
-    /**
-     * List of user IDs of members in the group chat. Only users of LINE for iOS and LINE for Android are included in &#x60;memberIds&#x60;.
-     */
-
+/**
+    * List of user IDs of members in the group chat. Only users of LINE for iOS and LINE for Android are included in &#x60;memberIds&#x60;.
+    */
+    
     @JsonProperty("memberIds")
     List<String> memberIds,
-    /**
-     * A continuation token to get the next array of user IDs of the members in the group chat. Returned only when there are remaining user IDs that were not returned in &#x60;memberIds&#x60; in the original request. 
-     */
-
+/**
+    * A continuation token to get the next array of user IDs of the members in the group chat. Returned only when there are remaining user IDs that were not returned in &#x60;memberIds&#x60; in the original request. 
+    */
+    
     @JsonProperty("next")
     String next
+
 )  {
 
 
 }
-

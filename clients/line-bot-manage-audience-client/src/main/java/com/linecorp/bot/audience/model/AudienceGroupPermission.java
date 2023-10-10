@@ -34,21 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Permission
  */
 public enum AudienceGroupPermission {
-  
+
+    
     @JsonProperty("READ")
   READ,
-  
+    
     @JsonProperty("READ_WRITE")
   READ_WRITE,
-  
+    
+
     @JsonEnumDefaultValue
     UNDEFINED
 }
-

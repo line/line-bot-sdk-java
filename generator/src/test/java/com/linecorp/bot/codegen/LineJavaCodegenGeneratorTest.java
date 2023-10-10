@@ -42,6 +42,7 @@ public class LineJavaCodegenGeneratorTest {
     final CodegenConfigurator configurator = new CodegenConfigurator()
             .addGlobalProperty("modelDocs", "false")
             .addGlobalProperty("apiDocs", "false")
+            .setTemplatingEngineName("pebble")
             .setGeneratorName("line-java-codegen") // use this codegen library
             .setInputSpec("../line-openapi/shop.yml") // sample OpenAPI file
             .setOutputDir("out/line-java-codegen"); // output directory

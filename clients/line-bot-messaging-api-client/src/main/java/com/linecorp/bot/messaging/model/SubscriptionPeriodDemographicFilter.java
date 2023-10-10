@@ -36,28 +36,28 @@ import com.linecorp.bot.messaging.model.DemographicFilter;
 import com.linecorp.bot.messaging.model.SubscriptionPeriodDemographic;
 
 
-
 /**
  * SubscriptionPeriodDemographicFilter
  */
 @JsonTypeName("subscriptionPeriod")
+
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record SubscriptionPeriodDemographicFilter (
-    /**
-     * Get gte
-     */
-
+/**
+    * Get gte
+    */
+    
     @JsonProperty("gte")
     SubscriptionPeriodDemographic gte,
-    /**
-     * Get lt
-     */
-
+/**
+    * Get lt
+    */
+    
     @JsonProperty("lt")
     SubscriptionPeriodDemographic lt
-) implements DemographicFilter  {
+
+) implements DemographicFilter {
 
 
 }
-
