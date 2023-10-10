@@ -41,41 +41,23 @@ import com.linecorp.bot.webhook.model.Source;
  * Webhook event
  */
 @JsonSubTypes({
-
         @JsonSubTypes.Type(value = AccountLinkEvent.class, name = "accountLink"),
-
         @JsonSubTypes.Type(value = ActivatedEvent.class, name = "activated"),
-
         @JsonSubTypes.Type(value = BeaconEvent.class, name = "beacon"),
-
         @JsonSubTypes.Type(value = BotResumedEvent.class, name = "botResumed"),
-
         @JsonSubTypes.Type(value = BotSuspendedEvent.class, name = "botSuspended"),
-
         @JsonSubTypes.Type(value = DeactivatedEvent.class, name = "deactivated"),
-
         @JsonSubTypes.Type(value = FollowEvent.class, name = "follow"),
-
         @JsonSubTypes.Type(value = JoinEvent.class, name = "join"),
-
         @JsonSubTypes.Type(value = LeaveEvent.class, name = "leave"),
-
         @JsonSubTypes.Type(value = MemberJoinedEvent.class, name = "memberJoined"),
-
         @JsonSubTypes.Type(value = MemberLeftEvent.class, name = "memberLeft"),
-
         @JsonSubTypes.Type(value = MessageEvent.class, name = "message"),
-
         @JsonSubTypes.Type(value = ModuleEvent.class, name = "module"),
-
         @JsonSubTypes.Type(value = PostbackEvent.class, name = "postback"),
-
         @JsonSubTypes.Type(value = ThingsEvent.class, name = "things"),
-
         @JsonSubTypes.Type(value = UnfollowEvent.class, name = "unfollow"),
-
         @JsonSubTypes.Type(value = UnsendEvent.class, name = "unsend"),
-
         @JsonSubTypes.Type(value = VideoPlayCompleteEvent.class, name = "videoPlayComplete"),
 
 })

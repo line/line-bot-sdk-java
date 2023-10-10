@@ -39,9 +39,7 @@ import com.linecorp.bot.messaging.model.ImagemapArea;
  * ImagemapAction
  */
 @JsonSubTypes({
-
         @JsonSubTypes.Type(value = MessageImagemapAction.class, name = "message"),
-
         @JsonSubTypes.Type(value = URIImagemapAction.class, name = "uri"),
 
 })

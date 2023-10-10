@@ -38,11 +38,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * the source of the event.
  */
 @JsonSubTypes({
-
         @JsonSubTypes.Type(value = GroupSource.class, name = "group"),
-
         @JsonSubTypes.Type(value = RoomSource.class, name = "room"),
-
         @JsonSubTypes.Type(value = UserSource.class, name = "user"),
 
 })

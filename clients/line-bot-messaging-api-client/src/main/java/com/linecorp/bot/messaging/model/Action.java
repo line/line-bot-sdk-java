@@ -38,21 +38,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Action
  */
 @JsonSubTypes({
-
         @JsonSubTypes.Type(value = CameraAction.class, name = "camera"),
-
         @JsonSubTypes.Type(value = CameraRollAction.class, name = "cameraRoll"),
-
         @JsonSubTypes.Type(value = DatetimePickerAction.class, name = "datetimepicker"),
-
         @JsonSubTypes.Type(value = LocationAction.class, name = "location"),
-
         @JsonSubTypes.Type(value = MessageAction.class, name = "message"),
-
         @JsonSubTypes.Type(value = PostbackAction.class, name = "postback"),
-
         @JsonSubTypes.Type(value = RichMenuSwitchAction.class, name = "richmenuswitch"),
-
         @JsonSubTypes.Type(value = URIAction.class, name = "uri"),
 
 })

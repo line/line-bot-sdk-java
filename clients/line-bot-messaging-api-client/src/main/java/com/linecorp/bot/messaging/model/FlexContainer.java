@@ -38,9 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * FlexContainer
  */
 @JsonSubTypes({
-
         @JsonSubTypes.Type(value = FlexBubble.class, name = "bubble"),
-
         @JsonSubTypes.Type(value = FlexCarousel.class, name = "carousel"),
 
 })

@@ -38,23 +38,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * FlexComponent
  */
 @JsonSubTypes({
-
         @JsonSubTypes.Type(value = FlexBox.class, name = "box"),
-
         @JsonSubTypes.Type(value = FlexButton.class, name = "button"),
-
         @JsonSubTypes.Type(value = FlexFiller.class, name = "filler"),
-
         @JsonSubTypes.Type(value = FlexIcon.class, name = "icon"),
-
         @JsonSubTypes.Type(value = FlexImage.class, name = "image"),
-
         @JsonSubTypes.Type(value = FlexSeparator.class, name = "separator"),
-
         @JsonSubTypes.Type(value = FlexSpan.class, name = "span"),
-
         @JsonSubTypes.Type(value = FlexText.class, name = "text"),
-
         @JsonSubTypes.Type(value = FlexVideo.class, name = "video"),
 
 })

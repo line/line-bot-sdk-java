@@ -38,19 +38,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * MessageContent
  */
 @JsonSubTypes({
-
         @JsonSubTypes.Type(value = AudioMessageContent.class, name = "audio"),
-
         @JsonSubTypes.Type(value = FileMessageContent.class, name = "file"),
-
         @JsonSubTypes.Type(value = ImageMessageContent.class, name = "image"),
-
         @JsonSubTypes.Type(value = LocationMessageContent.class, name = "location"),
-
         @JsonSubTypes.Type(value = StickerMessageContent.class, name = "sticker"),
-
         @JsonSubTypes.Type(value = TextMessageContent.class, name = "text"),
-
         @JsonSubTypes.Type(value = VideoMessageContent.class, name = "video"),
 
 })

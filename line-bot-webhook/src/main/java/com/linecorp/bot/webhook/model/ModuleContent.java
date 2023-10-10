@@ -38,9 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * ModuleContent
  */
 @JsonSubTypes({
-
         @JsonSubTypes.Type(value = AttachedModuleContent.class, name = "attached"),
-
         @JsonSubTypes.Type(value = DetachedModuleContent.class, name = "detached"),
 
 })

@@ -38,11 +38,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Recipient
  */
 @JsonSubTypes({
-
         @JsonSubTypes.Type(value = AudienceRecipient.class, name = "audience"),
-
         @JsonSubTypes.Type(value = OperatorRecipient.class, name = "operator"),
-
         @JsonSubTypes.Type(value = RedeliveryRecipient.class, name = "redelivery"),
 
 })

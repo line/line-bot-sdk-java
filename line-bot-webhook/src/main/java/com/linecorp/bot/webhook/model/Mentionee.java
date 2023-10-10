@@ -38,9 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Mentionee
  */
 @JsonSubTypes({
-
         @JsonSubTypes.Type(value = AllMentionee.class, name = "all"),
-
         @JsonSubTypes.Type(value = UserMentionee.class, name = "user"),
 
 })

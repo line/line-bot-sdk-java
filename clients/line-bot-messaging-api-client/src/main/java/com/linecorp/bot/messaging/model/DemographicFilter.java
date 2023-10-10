@@ -38,17 +38,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Demographic filter
  */
 @JsonSubTypes({
-
         @JsonSubTypes.Type(value = AgeDemographicFilter.class, name = "age"),
-
         @JsonSubTypes.Type(value = AppTypeDemographicFilter.class, name = "appType"),
-
         @JsonSubTypes.Type(value = AreaDemographicFilter.class, name = "area"),
-
         @JsonSubTypes.Type(value = GenderDemographicFilter.class, name = "gender"),
-
         @JsonSubTypes.Type(value = OperatorDemographicFilter.class, name = "operator"),
-
         @JsonSubTypes.Type(value = SubscriptionPeriodDemographicFilter.class, name = "subscriptionPeriod"),
 
 })

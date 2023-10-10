@@ -7,8 +7,7 @@
 @Deprecated
 {% endif %}
 @JsonSubTypes({
-{% for mm in model.discriminator.mappedModels %}
-        @JsonSubTypes.Type(value = {{mm.modelName}}.class, name = "{{mm.mappingName}}"),
+{% for mm in model.discriminator.mappedModels %}        @JsonSubTypes.Type(value = {{mm.modelName}}.class, name = "{{mm.mappingName}}"),
 {% endfor %}
 })
 @JsonTypeInfo(
