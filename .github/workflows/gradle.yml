@@ -32,6 +32,6 @@ jobs:
           mkdir -p ~/.gradle
           echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
       - run: ./gradlew -v
-      - run: ./gradlew build
+      - run: cd generator && mvn package && cd ..
       - run: python3 generate-code.py
-      - run: cd generator && mvn package
+      - run: ./gradlew build
