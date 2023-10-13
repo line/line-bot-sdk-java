@@ -55,5 +55,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
     visible = true
 )
 public interface MessageContent {
+    /** Get Message ID. */
+    String id();
 
 }
