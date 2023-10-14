@@ -56,4 +56,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 )
 public interface MessageContent {
 
+
+    /**
+     * Message ID
+     */
+    
+    String id();
+
+
 }

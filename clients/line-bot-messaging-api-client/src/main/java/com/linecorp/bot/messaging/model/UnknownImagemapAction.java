@@ -16,6 +16,6 @@
 
 package com.linecorp.bot.messaging.model;
 
-public record UnknownImagemapAction() implements ImagemapAction {
+public record UnknownImagemapAction(ImagemapArea area) implements ImagemapAction {
 }
 

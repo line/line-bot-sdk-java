@@ -51,4 +51,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 )
 public interface Mentionee {
 
+
+    /**
+     * Index position of the user mention for a character in text, with the first character being at position 0.
+     */
+    
+    Integer index();
+
+
+    /**
+     * The length of the text of the mentioned user. For a mention @example, 8 is the length.
+     */
+    
+    Integer length();
+
+
 }
