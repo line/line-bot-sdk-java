@@ -63,4 +63,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 )
 public interface Action {
 
+
+    /**
+     * Label for the action.
+     */
+    
+    String label();
+
+
 }

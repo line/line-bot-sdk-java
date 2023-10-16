@@ -58,4 +58,9 @@ import com.linecorp.bot.messaging.model.ImagemapArea;
 )
 public interface ImagemapAction {
 
+
+    
+    ImagemapArea area();
+
+
 }

@@ -16,6 +16,6 @@
 
 package com.linecorp.bot.messaging.model;
 
-public record UnknownMessage() implements Message {
+public record UnknownMessage(QuickReply quickReply, Sender sender) implements Message {
 }
 

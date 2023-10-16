@@ -66,4 +66,13 @@ import com.linecorp.bot.messaging.model.Sender;
 )
 public interface Message {
 
+
+    
+    QuickReply quickReply();
+
+
+    
+    Sender sender();
+
+
 }
