@@ -18,5 +18,15 @@
     visible = true
 )
 public interface {{model.classname}} {
-{% if ["Event", "Source"] contains model.classname %}{% include "../body/model/" + model.classname + ".java" %}{% endif %}
+{% for var in model.vars -%}
+{% if model.discriminator.propertyName != var.name %}
+    {% if var.description -%}
+    /**
+     * {{ var.description | escape }}
+     */
+    {% endif %}
+    {{ var.dataType }} {{ var.name }}();
+{% endif %}
+{% endfor -%}
+{% if ["Source"] contains model.classname %}{% include "../body/model/" + model.classname + ".java" %}{% endif %}
 }

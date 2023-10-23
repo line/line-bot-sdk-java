@@ -16,6 +16,6 @@
 
 package com.linecorp.bot.messaging.model;
 
-public record UnknownAction() implements Action {
+public record UnknownAction(String label) implements Action {
 }
 
