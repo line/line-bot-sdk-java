@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * ReplyMessageResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#send-reply-message-response"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

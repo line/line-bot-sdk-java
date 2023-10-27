@@ -44,6 +44,7 @@ import java.net.URI;
 
 /**
  * FlexIcon
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#icon"> Documentation</a>
  */
 @JsonTypeName("icon")
 

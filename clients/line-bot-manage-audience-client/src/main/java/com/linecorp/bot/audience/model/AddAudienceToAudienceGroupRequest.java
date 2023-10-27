@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by JSON)
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#update-upload-audience-group"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

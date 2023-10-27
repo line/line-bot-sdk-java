@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * PnpMessagesRequest
+ * @see <a href="https://developers.line.biz/en/reference/partner-docs/#send-line-notification-message"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

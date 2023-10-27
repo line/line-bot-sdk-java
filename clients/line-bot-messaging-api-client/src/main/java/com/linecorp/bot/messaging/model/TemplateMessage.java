@@ -46,6 +46,7 @@ import com.linecorp.bot.messaging.model.Template;
 
 /**
  * TemplateMessage
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#template-messages"> Documentation</a>
  */
 @JsonTypeName("template")
 

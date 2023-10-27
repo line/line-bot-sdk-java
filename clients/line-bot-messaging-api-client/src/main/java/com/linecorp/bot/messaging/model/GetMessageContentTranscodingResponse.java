@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Transcoding response
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#verify-video-or-audio-preparation-status"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

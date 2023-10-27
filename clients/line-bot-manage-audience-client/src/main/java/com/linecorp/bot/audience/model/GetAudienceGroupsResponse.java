@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * Gets data for more than one audience.
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-audience-groups"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

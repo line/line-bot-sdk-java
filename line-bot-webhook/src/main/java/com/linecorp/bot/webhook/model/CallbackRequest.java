@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * The request body contains a JSON object with the user ID of a bot that should receive webhook events and an array of webhook event objects. 
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#request-body"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

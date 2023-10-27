@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * ErrorResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#error-responses"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

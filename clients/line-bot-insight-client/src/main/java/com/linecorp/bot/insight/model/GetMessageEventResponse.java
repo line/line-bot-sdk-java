@@ -48,6 +48,7 @@ import java.util.List;
 
 /**
  * Statistics about how users interact with narrowcast messages or broadcast messages sent from your LINE Official Account.
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-insight-message-event-response"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

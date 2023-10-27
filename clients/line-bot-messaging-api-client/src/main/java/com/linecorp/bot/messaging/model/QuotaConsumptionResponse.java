@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * QuotaConsumptionResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-consumption"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

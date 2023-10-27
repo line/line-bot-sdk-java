@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Issued short-lived channel access token
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#issue-shortlived-channel-access-token"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

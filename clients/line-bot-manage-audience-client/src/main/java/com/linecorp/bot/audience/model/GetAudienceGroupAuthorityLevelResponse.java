@@ -43,6 +43,7 @@ import com.linecorp.bot.audience.model.AudienceGroupAuthorityLevel;
 
 /**
  * Get the authority level of the audience
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-authority-level"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

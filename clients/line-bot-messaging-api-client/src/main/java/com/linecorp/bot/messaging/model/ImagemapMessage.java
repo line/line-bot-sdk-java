@@ -52,6 +52,7 @@ import java.util.List;
 
 /**
  * ImagemapMessage
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#imagemap-message"> Documentation</a>
  */
 @JsonTypeName("imagemap")
 

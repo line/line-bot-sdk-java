@@ -43,6 +43,7 @@ import java.time.OffsetDateTime;
 
 /**
  * NarrowcastProgressResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-narrowcast-progress-status"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

@@ -43,6 +43,7 @@ import com.linecorp.bot.messaging.model.QuotaType;
 
 /**
  * MessageQuotaResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-quota"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

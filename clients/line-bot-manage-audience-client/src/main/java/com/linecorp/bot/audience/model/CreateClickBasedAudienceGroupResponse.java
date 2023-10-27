@@ -44,6 +44,7 @@ import java.net.URI;
 
 /**
  * Create audience for click-based retargeting
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-click-audience-group"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

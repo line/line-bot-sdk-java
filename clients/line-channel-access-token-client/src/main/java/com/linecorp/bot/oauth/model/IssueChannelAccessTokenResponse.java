@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Issued channel access token
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#issue-channel-access-token-v2-1"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)
