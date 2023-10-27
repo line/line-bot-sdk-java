@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Get number of message deliveries
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-number-of-delivery-messages"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

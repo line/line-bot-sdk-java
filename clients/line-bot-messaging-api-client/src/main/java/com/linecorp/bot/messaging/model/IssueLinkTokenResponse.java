@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * IssueLinkTokenResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#issue-link-token"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

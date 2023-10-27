@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Get number of followers
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-number-of-followers"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

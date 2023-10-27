@@ -45,6 +45,7 @@ import java.util.List;
 
 /**
  * Channel access token key IDs
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-all-valid-channel-access-token-key-ids-v2-1"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

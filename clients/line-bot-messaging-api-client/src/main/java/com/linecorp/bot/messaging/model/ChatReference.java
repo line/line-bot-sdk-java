@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Chat reference
+ * @see <a href="https://developers.line.biz/en/reference/partner-docs/#mark-messages-from-users-as-read"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

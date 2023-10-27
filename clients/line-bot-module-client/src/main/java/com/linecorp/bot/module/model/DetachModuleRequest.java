@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Unlink (detach) the module channel by the operation of the module channel administrator
+ * @see <a href="https://developers.line.biz/en/reference/partner-docs/#unlink-detach-module-channel-by-operation-mc-admin"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

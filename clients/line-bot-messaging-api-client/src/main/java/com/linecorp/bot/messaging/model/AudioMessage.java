@@ -46,6 +46,7 @@ import java.net.URI;
 
 /**
  * AudioMessage
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#audio-message"> Documentation</a>
  */
 @JsonTypeName("audio")
 

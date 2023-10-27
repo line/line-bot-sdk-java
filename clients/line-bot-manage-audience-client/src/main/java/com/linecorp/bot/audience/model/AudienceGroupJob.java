@@ -45,6 +45,7 @@ import com.linecorp.bot.audience.model.AudienceGroupJobType;
 
 /**
  * Audience group job
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-audience-group"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

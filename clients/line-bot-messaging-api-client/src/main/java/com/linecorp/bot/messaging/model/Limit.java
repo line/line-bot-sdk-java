@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Limit of the Narrowcast
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#send-narrowcast-message"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

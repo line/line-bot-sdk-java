@@ -46,6 +46,7 @@ import java.net.URI;
 
 /**
  * VideoMessage
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#video-message"> Documentation</a>
  */
 @JsonTypeName("video")
 

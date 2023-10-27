@@ -43,6 +43,7 @@ import java.net.URI;
 
 /**
  * UserProfileResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-profile"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

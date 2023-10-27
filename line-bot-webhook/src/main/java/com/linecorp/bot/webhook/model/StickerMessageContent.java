@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * StickerMessageContent
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#wh-sticker"> Documentation</a>
  */
 @JsonTypeName("sticker")
 

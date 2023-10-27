@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * CreateRichMenuAliasRequest
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-rich-menu-alias"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

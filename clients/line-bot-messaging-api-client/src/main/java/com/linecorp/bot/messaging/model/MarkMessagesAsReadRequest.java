@@ -43,6 +43,7 @@ import com.linecorp.bot.messaging.model.ChatReference;
 
 /**
  * MarkMessagesAsReadRequest
+ * @see <a href="https://developers.line.biz/en/reference/partner-docs/#mark-messages-from-users-as-read"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

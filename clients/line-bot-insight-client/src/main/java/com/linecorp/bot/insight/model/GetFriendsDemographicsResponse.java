@@ -50,6 +50,7 @@ import java.util.List;
 
 /**
  * Get friend demographics
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-demographic"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

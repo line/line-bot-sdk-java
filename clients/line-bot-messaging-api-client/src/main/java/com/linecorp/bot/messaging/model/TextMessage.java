@@ -49,6 +49,7 @@ import java.util.List;
 
 /**
  * TextMessage
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#text-message"> Documentation</a>
  */
 @JsonTypeName("text")
 

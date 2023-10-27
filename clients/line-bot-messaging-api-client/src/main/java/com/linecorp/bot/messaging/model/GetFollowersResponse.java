@@ -45,6 +45,7 @@ import java.util.List;
 
 /**
  * GetFollowersResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-follower-ids"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

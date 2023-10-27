@@ -45,6 +45,7 @@ import java.net.URI;
 
 /**
  * FlexImage
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#f-image"> Documentation</a>
  */
 @JsonTypeName("image")
 

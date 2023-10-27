@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * GetAggregationUnitUsageResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-number-of-units-used-this-month"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)
