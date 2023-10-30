@@ -1,12 +1,10 @@
 [versions]
-jsonwebtoken = "0.11.5"
 retrofit2 = "2.9.0"
-jjwt = "0.11.5"
+jjwt = "0.12.3"
 jackson = "2.15.3"
 assertj = "3.24.2"
 junit = "5.10.0"
 slf4j = "2.0.9"
-json-path = "2.8.0"
 mockito = "5.6.0"
 okhttp3 = "4.12.0"
 
@@ -43,13 +41,10 @@ assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
-json-path = { module = "com.jayway.jsonpath:json-path", version.ref = "json-path" }
-json-path-assert = { module = "com.jayway.jsonpath:json-path-assert", version.ref = "json-path" }
 jsonassert = { module = "org.skyscreamer:jsonassert", version = "1.5.1" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
-# https://github.com/wiremock/wiremock/issues/1760
-wiremock = { group = "com.github.tomakehurst", name = "wiremock", version = "3.0.1" }
+wiremock = { group = "org.wiremock", name = "wiremock-standalone", version = "3.2.0" }
 test-arranger = { module = "com.ocadotechnology.gembus:test-arranger", version = "1.5.7.1" }
 socks-proxy-server = { module = "com.github.bbottema:java-socks-proxy-server", version = "2.0.0" }
 littleproxy = { module = "xyz.rogfam:littleproxy", version = "2.0.22" }
@@ -60,6 +55,5 @@ tests = [
     "assertj-core",
     "junit-jupiter-api", "junit-jupiter-params", "junit-jupiter-engine",
     "slf4j-api", "logback",
-    "json-path", "json-path-assert", "jsonassert",
     "mockito-core", "mockito-junit-jupiter",
 ]
