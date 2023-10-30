@@ -43,6 +43,7 @@ import java.net.URI;
 
 /**
  * BotInfoResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-bot-info"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

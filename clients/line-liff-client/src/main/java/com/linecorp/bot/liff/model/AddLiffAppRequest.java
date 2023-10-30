@@ -49,6 +49,7 @@ import java.util.List;
 
 /**
  * AddLiffAppRequest
+ * @see <a href="https://developers.line.biz/en/reference/liff-server/#add-liff-app"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

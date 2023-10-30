@@ -43,6 +43,7 @@ import java.net.URI;
 
 /**
  * GroupSummaryResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-group-summary"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

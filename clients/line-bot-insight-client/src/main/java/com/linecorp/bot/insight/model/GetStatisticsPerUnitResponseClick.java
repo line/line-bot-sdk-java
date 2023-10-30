@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * GetStatisticsPerUnitResponseClick
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-statistics-per-unit-response"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

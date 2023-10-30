@@ -3,6 +3,9 @@
 /**
  * {{ model.description | escape }}{% if model.description == "" or model.description == null %}{{model.classname}}{% endif %}{% if model.isDeprecated %}
  * @deprecated{% endif %}
+ {% if model.externalDocumentation != null -%}
+ * @see <a href="{{model.externalDocumentation.url}}">{{ model.externalDocumentation.description | escape }} Documentation</a>
+ {% endif -%}
  */
 {%- if model.isDeprecated -%}
 @Deprecated

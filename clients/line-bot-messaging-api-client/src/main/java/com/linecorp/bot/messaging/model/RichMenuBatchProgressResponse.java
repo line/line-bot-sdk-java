@@ -44,6 +44,7 @@ import java.time.OffsetDateTime;
 
 /**
  * RichMenuBatchProgressResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-batch-control-rich-menus-progress-status-response"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

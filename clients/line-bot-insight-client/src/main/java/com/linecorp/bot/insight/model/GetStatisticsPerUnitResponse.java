@@ -48,6 +48,7 @@ import java.util.List;
 
 /**
  * Response object for &#x60;get statistics per unit&#x60;
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-statistics-per-unit-response"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

@@ -45,6 +45,7 @@ import java.util.List;
 
 /**
  * RichMenuBulkUnlinkRequest
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#unlink-rich-menu-from-users"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

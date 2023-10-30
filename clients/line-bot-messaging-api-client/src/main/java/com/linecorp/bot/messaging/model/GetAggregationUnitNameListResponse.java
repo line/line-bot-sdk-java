@@ -45,6 +45,7 @@ import java.util.List;
 
 /**
  * GetAggregationUnitNameListResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-name-list-of-units-used-this-month"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

@@ -97,10 +97,12 @@ public class ChannelAccessTokenIntegrationTest {
         PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(rsaPrivateKey));
 
         String jws = Jwts.builder()
-                .serializeToJsonWith(new JacksonSerializer<>(new ObjectMapper()))
-                .setHeader(header)
-                .setClaims(body)
-                .signWith(privateKey, SignatureAlgorithm.RS256)
+                .json(new JacksonSerializer<>(new ObjectMapper()))
+                .header()
+                .add(header)
+                .and()
+                .claims(body)
+                .signWith(privateKey, Jwts.SIG.RS256)
                 .compact();
 
         log.info("{}", jws);
