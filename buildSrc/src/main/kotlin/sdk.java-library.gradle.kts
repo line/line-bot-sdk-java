@@ -60,6 +60,10 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 
+tasks.withType<Javadoc> {
+    (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
+}
+
 tasks.withType(Test::class.java) {
     useJUnitPlatform()
     testLogging {
