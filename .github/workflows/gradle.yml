@@ -8,7 +8,11 @@
 #  Gradle Deamon:
 #    Disabled via appending ~/.gradle/gradle.properties
 name: CI
-on: [ push, pull_request ]
+on:
+  push:
+  pull_request:
+  merge_group:
+
 jobs:
   test:
     name: test (JDK ${{ matrix.java }})
