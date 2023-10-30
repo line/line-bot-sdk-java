@@ -112,7 +112,7 @@ class ApiClientBuilderTest {
 
     @Test
     void httpProxy() {
-        int httpProxyPort = 9080;
+        int httpProxyPort = 9081;
 
         HttpProxyServer proxyServer =
                 DefaultHttpProxyServer.bootstrap()

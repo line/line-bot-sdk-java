@@ -19,3 +19,6 @@ plugins {
     id("sdk.publish")
 }
 
+dependencies {
+    testImplementation(libs.jsonassert)
+}

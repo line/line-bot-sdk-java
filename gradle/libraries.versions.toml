@@ -1,12 +1,10 @@
 [versions]
-jsonwebtoken = "0.11.5"
 retrofit2 = "2.9.0"
 jjwt = "0.12.3"
 jackson = "2.15.3"
 assertj = "3.24.2"
 junit = "5.10.0"
 slf4j = "2.0.9"
-json-path = "2.8.0"
 mockito = "5.6.0"
 okhttp3 = "4.12.0"
 
@@ -43,8 +41,6 @@ assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
-json-path = { module = "com.jayway.jsonpath:json-path", version.ref = "json-path" }
-json-path-assert = { module = "com.jayway.jsonpath:json-path-assert", version.ref = "json-path" }
 jsonassert = { module = "org.skyscreamer:jsonassert", version = "1.5.1" }
 commons-io = { module = "commons-io:commons-io", version = "2.15.0" }
 reflections = { module = "org.reflections:reflections", version = "0.10.2" }
@@ -63,6 +59,5 @@ tests = [
     "assertj-core",
     "junit-jupiter-api", "junit-jupiter-params", "junit-jupiter-engine",
     "slf4j-api", "logback",
-    "json-path", "json-path-assert", "jsonassert",
     "mockito-core", "mockito-junit-jupiter",
 ]
