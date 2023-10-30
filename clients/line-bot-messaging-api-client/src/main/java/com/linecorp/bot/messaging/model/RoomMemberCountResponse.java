@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * RoomMemberCountResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-members-room-count"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

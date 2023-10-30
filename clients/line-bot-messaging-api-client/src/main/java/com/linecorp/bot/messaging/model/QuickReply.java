@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * Quick reply
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#items-object"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

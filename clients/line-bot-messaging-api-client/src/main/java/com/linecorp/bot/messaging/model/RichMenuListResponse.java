@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * RichMenuListResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-rich-menu-list"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

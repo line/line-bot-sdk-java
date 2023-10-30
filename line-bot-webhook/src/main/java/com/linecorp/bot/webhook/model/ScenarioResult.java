@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * ScenarioResult
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#scenario-result-event"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

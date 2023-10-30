@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * List of bots to which the module is attached
+ * @see <a href="https://developers.line.biz/en/reference/partner-docs/#get-multiple-bot-info-api"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * Create audience for uploading user IDs (by JSON)
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-upload-audience-group"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

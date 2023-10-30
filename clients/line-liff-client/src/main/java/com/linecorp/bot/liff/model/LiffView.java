@@ -43,6 +43,7 @@ import java.net.URI;
 
 /**
  * LiffView
+ * @see <a href="https://developers.line.biz/en/reference/liff-server/#add-liff-app"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

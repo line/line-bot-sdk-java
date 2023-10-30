@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * AudienceMatchMessagesRequest
+ * @see <a href="https://developers.line.biz/en/reference/partner-docs/#phone-audience-match"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

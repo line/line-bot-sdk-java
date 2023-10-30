@@ -45,6 +45,7 @@ import com.linecorp.bot.messaging.model.Sender;
 
 /**
  * StickerMessage
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#sticker-message"> Documentation</a>
  */
 @JsonTypeName("sticker")
 

@@ -45,6 +45,7 @@ import com.linecorp.bot.messaging.model.Sender;
 
 /**
  * LocationMessage
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#location-message"> Documentation</a>
  */
 @JsonTypeName("location")
 

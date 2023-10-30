@@ -42,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * GroupMemberCountResponse
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-members-group-count"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

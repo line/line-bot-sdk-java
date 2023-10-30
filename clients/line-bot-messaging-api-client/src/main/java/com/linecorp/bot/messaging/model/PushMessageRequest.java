@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * PushMessageRequest
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#send-push-message"> Documentation</a>
  */
 
 @JsonInclude(Include.NON_NULL)

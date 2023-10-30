@@ -46,6 +46,7 @@ import java.net.URI;
 
 /**
  * ImageMessage
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#image-message"> Documentation</a>
  */
 @JsonTypeName("image")
 
