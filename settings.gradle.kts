@@ -36,8 +36,6 @@ dependencyResolutionManagement {
     }
 }
 
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
 // core components
 include("line-bot-jackson")
 include("line-bot-parser")
