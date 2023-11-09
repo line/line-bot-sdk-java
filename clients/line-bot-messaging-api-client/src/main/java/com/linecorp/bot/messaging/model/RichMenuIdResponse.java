@@ -59,6 +59,9 @@ public record RichMenuIdResponse (
 
     public static class Builder {
 private String richMenuId;
+    
+        private boolean richMenuId$set;
+    
 
 
         public Builder() {
@@ -66,11 +69,21 @@ private String richMenuId;
 
 public Builder richMenuId(String richMenuId) {
             this.richMenuId = richMenuId;
+    
+            this.richMenuId$set = true;
+    
             return this;
         }
 
 
         public RichMenuIdResponse build() {
+
+            if (!this.richMenuId$set) {
+                throw new IllegalStateException("'richMenuId' must be set for RichMenuIdResponse.");
+            }
+    
+
+
             return new RichMenuIdResponse(
 richMenuId
             );

@@ -80,9 +80,19 @@ public record VideoMessageContent (
 
     public static class Builder {
 private String id;
+    
+        private boolean id$set;
+    
 private Long duration;
+    
 private ContentProvider contentProvider;
+    
+        private boolean contentProvider$set;
+    
 private String quoteToken;
+    
+        private boolean quoteToken$set;
+    
 
 
         public Builder() {
@@ -90,23 +100,51 @@ private String quoteToken;
 
 public Builder id(String id) {
             this.id = id;
+    
+            this.id$set = true;
+    
             return this;
         }
 public Builder duration(Long duration) {
             this.duration = duration;
+    
             return this;
         }
 public Builder contentProvider(ContentProvider contentProvider) {
             this.contentProvider = contentProvider;
+    
+            this.contentProvider$set = true;
+    
             return this;
         }
 public Builder quoteToken(String quoteToken) {
             this.quoteToken = quoteToken;
+    
+            this.quoteToken$set = true;
+    
             return this;
         }
 
 
         public VideoMessageContent build() {
+
+            if (!this.id$set) {
+                throw new IllegalStateException("'id' must be set for VideoMessageContent.");
+            }
+    
+
+
+            if (!this.contentProvider$set) {
+                throw new IllegalStateException("'contentProvider' must be set for VideoMessageContent.");
+            }
+    
+
+            if (!this.quoteToken$set) {
+                throw new IllegalStateException("'quoteToken' must be set for VideoMessageContent.");
+            }
+    
+
+
             return new VideoMessageContent(
 id,duration,contentProvider,quoteToken
             );

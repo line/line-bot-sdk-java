@@ -78,9 +78,21 @@ public record IssueChannelAccessTokenResponse (
 
     public static class Builder {
 private String accessToken;
+    
+        private boolean accessToken$set;
+    
 private Integer expiresIn;
+    
+        private boolean expiresIn$set;
+    
 private String tokenType;
+    
+        private boolean tokenType$set;
+    
 private String keyId;
+    
+        private boolean keyId$set;
+    
 
 
         public Builder() {
@@ -88,23 +100,57 @@ private String keyId;
 
 public Builder accessToken(String accessToken) {
             this.accessToken = accessToken;
+    
+            this.accessToken$set = true;
+    
             return this;
         }
 public Builder expiresIn(Integer expiresIn) {
             this.expiresIn = expiresIn;
+    
+            this.expiresIn$set = true;
+    
             return this;
         }
 public Builder tokenType(String tokenType) {
             this.tokenType = tokenType;
+    
+            this.tokenType$set = true;
+    
             return this;
         }
 public Builder keyId(String keyId) {
             this.keyId = keyId;
+    
+            this.keyId$set = true;
+    
             return this;
         }
 
 
         public IssueChannelAccessTokenResponse build() {
+
+            if (!this.accessToken$set) {
+                throw new IllegalStateException("'accessToken' must be set for IssueChannelAccessTokenResponse.");
+            }
+    
+
+            if (!this.expiresIn$set) {
+                throw new IllegalStateException("'expiresIn' must be set for IssueChannelAccessTokenResponse.");
+            }
+    
+
+            if (!this.tokenType$set) {
+                throw new IllegalStateException("'tokenType' must be set for IssueChannelAccessTokenResponse.");
+            }
+    
+
+            if (!this.keyId$set) {
+                throw new IllegalStateException("'keyId' must be set for IssueChannelAccessTokenResponse.");
+            }
+    
+
+
             return new IssueChannelAccessTokenResponse(
 accessToken,expiresIn,tokenType,keyId
             );

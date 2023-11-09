@@ -60,6 +60,7 @@ public record DetachModuleRequest (
 
     public static class Builder {
 private String botId;
+    
 
 
         public Builder() {
@@ -67,11 +68,15 @@ private String botId;
 
 public Builder botId(String botId) {
             this.botId = botId;
+    
             return this;
         }
 
 
         public DetachModuleRequest build() {
+
+
+
             return new DetachModuleRequest(
 botId
             );

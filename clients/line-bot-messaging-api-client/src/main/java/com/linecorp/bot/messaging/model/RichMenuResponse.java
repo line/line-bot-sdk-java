@@ -94,11 +94,29 @@ public record RichMenuResponse (
 
     public static class Builder {
 private String richMenuId;
+    
+        private boolean richMenuId$set;
+    
 private RichMenuSize size;
+    
+        private boolean size$set;
+    
 private Boolean selected;
+    
+        private boolean selected$set;
+    
 private String name;
+    
+        private boolean name$set;
+    
 private String chatBarText;
+    
+        private boolean chatBarText$set;
+    
 private List<RichMenuArea> areas;
+    
+        private boolean areas$set;
+    
 
 
         public Builder() {
@@ -106,31 +124,81 @@ private List<RichMenuArea> areas;
 
 public Builder richMenuId(String richMenuId) {
             this.richMenuId = richMenuId;
+    
+            this.richMenuId$set = true;
+    
             return this;
         }
 public Builder size(RichMenuSize size) {
             this.size = size;
+    
+            this.size$set = true;
+    
             return this;
         }
 public Builder selected(Boolean selected) {
             this.selected = selected;
+    
+            this.selected$set = true;
+    
             return this;
         }
 public Builder name(String name) {
             this.name = name;
+    
+            this.name$set = true;
+    
             return this;
         }
 public Builder chatBarText(String chatBarText) {
             this.chatBarText = chatBarText;
+    
+            this.chatBarText$set = true;
+    
             return this;
         }
 public Builder areas(List<RichMenuArea> areas) {
             this.areas = areas;
+    
+            this.areas$set = true;
+    
             return this;
         }
 
 
         public RichMenuResponse build() {
+
+            if (!this.richMenuId$set) {
+                throw new IllegalStateException("'richMenuId' must be set for RichMenuResponse.");
+            }
+    
+
+            if (!this.size$set) {
+                throw new IllegalStateException("'size' must be set for RichMenuResponse.");
+            }
+    
+
+            if (!this.selected$set) {
+                throw new IllegalStateException("'selected' must be set for RichMenuResponse.");
+            }
+    
+
+            if (!this.name$set) {
+                throw new IllegalStateException("'name' must be set for RichMenuResponse.");
+            }
+    
+
+            if (!this.chatBarText$set) {
+                throw new IllegalStateException("'chatBarText' must be set for RichMenuResponse.");
+            }
+    
+
+            if (!this.areas$set) {
+                throw new IllegalStateException("'areas' must be set for RichMenuResponse.");
+            }
+    
+
+
             return new RichMenuResponse(
 richMenuId,size,selected,name,chatBarText,areas
             );

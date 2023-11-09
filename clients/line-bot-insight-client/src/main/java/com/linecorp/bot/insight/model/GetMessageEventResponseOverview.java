@@ -95,12 +95,19 @@ public record GetMessageEventResponseOverview (
 
     public static class Builder {
 private String requestId;
+    
 private Long timestamp;
+    
 private Long delivered;
+    
 private Long uniqueImpression;
+    
 private Long uniqueClick;
+    
 private Long uniqueMediaPlayed;
+    
 private Long uniqueMediaPlayed100Percent;
+    
 
 
         public Builder() {
@@ -108,35 +115,51 @@ private Long uniqueMediaPlayed100Percent;
 
 public Builder requestId(String requestId) {
             this.requestId = requestId;
+    
             return this;
         }
 public Builder timestamp(Long timestamp) {
             this.timestamp = timestamp;
+    
             return this;
         }
 public Builder delivered(Long delivered) {
             this.delivered = delivered;
+    
             return this;
         }
 public Builder uniqueImpression(Long uniqueImpression) {
             this.uniqueImpression = uniqueImpression;
+    
             return this;
         }
 public Builder uniqueClick(Long uniqueClick) {
             this.uniqueClick = uniqueClick;
+    
             return this;
         }
 public Builder uniqueMediaPlayed(Long uniqueMediaPlayed) {
             this.uniqueMediaPlayed = uniqueMediaPlayed;
+    
             return this;
         }
 public Builder uniqueMediaPlayed100Percent(Long uniqueMediaPlayed100Percent) {
             this.uniqueMediaPlayed100Percent = uniqueMediaPlayed100Percent;
+    
             return this;
         }
 
 
         public GetMessageEventResponseOverview build() {
+
+
+
+
+
+
+
+
+
             return new GetMessageEventResponseOverview(
 requestId,timestamp,delivered,uniqueImpression,uniqueClick,uniqueMediaPlayed,uniqueMediaPlayed100Percent
             );

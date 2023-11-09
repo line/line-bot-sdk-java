@@ -71,8 +71,15 @@ public record VerifyChannelAccessTokenResponse (
 
     public static class Builder {
 private String clientId;
+    
+        private boolean clientId$set;
+    
 private Long expiresIn;
+    
+        private boolean expiresIn$set;
+    
 private String scope;
+    
 
 
         public Builder() {
@@ -80,19 +87,39 @@ private String scope;
 
 public Builder clientId(String clientId) {
             this.clientId = clientId;
+    
+            this.clientId$set = true;
+    
             return this;
         }
 public Builder expiresIn(Long expiresIn) {
             this.expiresIn = expiresIn;
+    
+            this.expiresIn$set = true;
+    
             return this;
         }
 public Builder scope(String scope) {
             this.scope = scope;
+    
             return this;
         }
 
 
         public VerifyChannelAccessTokenResponse build() {
+
+            if (!this.clientId$set) {
+                throw new IllegalStateException("'clientId' must be set for VerifyChannelAccessTokenResponse.");
+            }
+    
+
+            if (!this.expiresIn$set) {
+                throw new IllegalStateException("'expiresIn' must be set for VerifyChannelAccessTokenResponse.");
+            }
+    
+
+
+
             return new VerifyChannelAccessTokenResponse(
 clientId,expiresIn,scope
             );

@@ -63,6 +63,9 @@ public record JoinedMembers (
 
     public static class Builder {
 private List<UserSource> members;
+    
+        private boolean members$set;
+    
 
 
         public Builder() {
@@ -70,11 +73,21 @@ private List<UserSource> members;
 
 public Builder members(List<UserSource> members) {
             this.members = members;
+    
+            this.members$set = true;
+    
             return this;
         }
 
 
         public JoinedMembers build() {
+
+            if (!this.members$set) {
+                throw new IllegalStateException("'members' must be set for JoinedMembers.");
+            }
+    
+
+
             return new JoinedMembers(
 members
             );

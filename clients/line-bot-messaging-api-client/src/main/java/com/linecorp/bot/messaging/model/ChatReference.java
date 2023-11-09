@@ -60,6 +60,9 @@ public record ChatReference (
 
     public static class Builder {
 private String userId;
+    
+        private boolean userId$set;
+    
 
 
         public Builder() {
@@ -67,11 +70,21 @@ private String userId;
 
 public Builder userId(String userId) {
             this.userId = userId;
+    
+            this.userId$set = true;
+    
             return this;
         }
 
 
         public ChatReference build() {
+
+            if (!this.userId$set) {
+                throw new IllegalStateException("'userId' must be set for ChatReference.");
+            }
+    
+
+
             return new ChatReference(
 userId
             );

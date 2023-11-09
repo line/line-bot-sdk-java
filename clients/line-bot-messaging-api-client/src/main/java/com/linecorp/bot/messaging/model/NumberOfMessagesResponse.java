@@ -82,7 +82,11 @@ public record NumberOfMessagesResponse (
 
     public static class Builder {
 private Status status;
+    
+        private boolean status$set;
+    
 private Long success;
+    
 
 
         public Builder() {
@@ -90,15 +94,27 @@ private Long success;
 
 public Builder status(Status status) {
             this.status = status;
+    
+            this.status$set = true;
+    
             return this;
         }
 public Builder success(Long success) {
             this.success = success;
+    
             return this;
         }
 
 
         public NumberOfMessagesResponse build() {
+
+            if (!this.status$set) {
+                throw new IllegalStateException("'status' must be set for NumberOfMessagesResponse.");
+            }
+    
+
+
+
             return new NumberOfMessagesResponse(
 status,success
             );

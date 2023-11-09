@@ -61,6 +61,7 @@ public record RedeliveryRecipient (
 
     public static class Builder {
 private String requestId;
+    
 
 
         public Builder() {
@@ -68,11 +69,15 @@ private String requestId;
 
 public Builder requestId(String requestId) {
             this.requestId = requestId;
+    
             return this;
         }
 
 
         public RedeliveryRecipient build() {
+
+
+
             return new RedeliveryRecipient(
 requestId
             );

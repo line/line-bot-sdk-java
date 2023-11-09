@@ -65,7 +65,9 @@ public record ErrorDetail (
 
     public static class Builder {
 private String message;
+    
 private String property;
+    
 
 
         public Builder() {
@@ -73,15 +75,21 @@ private String property;
 
 public Builder message(String message) {
             this.message = message;
+    
             return this;
         }
 public Builder property(String property) {
             this.property = property;
+    
             return this;
         }
 
 
         public ErrorDetail build() {
+
+
+
+
             return new ErrorDetail(
 message,property
             );

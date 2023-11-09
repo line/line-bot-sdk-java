@@ -80,7 +80,9 @@ public record AppTypeTile (
 
     public static class Builder {
 private AppType appType;
+    
 private Double percentage;
+    
 
 
         public Builder() {
@@ -88,15 +90,21 @@ private Double percentage;
 
 public Builder appType(AppType appType) {
             this.appType = appType;
+    
             return this;
         }
 public Builder percentage(Double percentage) {
             this.percentage = percentage;
+    
             return this;
         }
 
 
         public AppTypeTile build() {
+
+
+
+
             return new AppTypeTile(
 appType,percentage
             );

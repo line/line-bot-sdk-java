@@ -17,6 +17,7 @@
 package com.linecorp.bot.messaging.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,16 @@ class TextMessageTest {
         TextMessage textMessage = builder.text("Hello").build();
         assertThat(textMessage.text()).isEqualTo("Hello");
         assertThat(textMessage.quoteToken()).isNull();
+    }
+
+    @Test
+    public void testBuilderMissingParameter() {
+        assertThatThrownBy(() -> {
+            var builder = new TextMessage.Builder();
+            builder.build();
+        })
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("'text' must be set for TextMessage.");
     }
 
 }

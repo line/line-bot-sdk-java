@@ -61,6 +61,7 @@ public record TestWebhookEndpointRequest (
 
     public static class Builder {
 private URI endpoint;
+    
 
 
         public Builder() {
@@ -68,11 +69,15 @@ private URI endpoint;
 
 public Builder endpoint(URI endpoint) {
             this.endpoint = endpoint;
+    
             return this;
         }
 
 
         public TestWebhookEndpointRequest build() {
+
+
+
             return new TestWebhookEndpointRequest(
 endpoint
             );

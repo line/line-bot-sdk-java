@@ -64,6 +64,9 @@ public record PushMessageResponse (
 
     public static class Builder {
 private List<SentMessage> sentMessages;
+    
+        private boolean sentMessages$set;
+    
 
 
         public Builder() {
@@ -71,11 +74,21 @@ private List<SentMessage> sentMessages;
 
 public Builder sentMessages(List<SentMessage> sentMessages) {
             this.sentMessages = sentMessages;
+    
+            this.sentMessages$set = true;
+    
             return this;
         }
 
 
         public PushMessageResponse build() {
+
+            if (!this.sentMessages$set) {
+                throw new IllegalStateException("'sentMessages' must be set for PushMessageResponse.");
+            }
+    
+
+
             return new PushMessageResponse(
 sentMessages
             );

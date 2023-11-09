@@ -72,8 +72,17 @@ public record IssueStatelessChannelAccessTokenResponse (
 
     public static class Builder {
 private String accessToken;
+    
+        private boolean accessToken$set;
+    
 private Integer expiresIn;
+    
+        private boolean expiresIn$set;
+    
 private String tokenType;
+    
+        private boolean tokenType$set;
+    
 
 
         public Builder() {
@@ -81,19 +90,45 @@ private String tokenType;
 
 public Builder accessToken(String accessToken) {
             this.accessToken = accessToken;
+    
+            this.accessToken$set = true;
+    
             return this;
         }
 public Builder expiresIn(Integer expiresIn) {
             this.expiresIn = expiresIn;
+    
+            this.expiresIn$set = true;
+    
             return this;
         }
 public Builder tokenType(String tokenType) {
             this.tokenType = tokenType;
+    
+            this.tokenType$set = true;
+    
             return this;
         }
 
 
         public IssueStatelessChannelAccessTokenResponse build() {
+
+            if (!this.accessToken$set) {
+                throw new IllegalStateException("'accessToken' must be set for IssueStatelessChannelAccessTokenResponse.");
+            }
+    
+
+            if (!this.expiresIn$set) {
+                throw new IllegalStateException("'expiresIn' must be set for IssueStatelessChannelAccessTokenResponse.");
+            }
+    
+
+            if (!this.tokenType$set) {
+                throw new IllegalStateException("'tokenType' must be set for IssueStatelessChannelAccessTokenResponse.");
+            }
+    
+
+
             return new IssueStatelessChannelAccessTokenResponse(
 accessToken,expiresIn,tokenType
             );

@@ -123,12 +123,29 @@ public record BotInfoResponse (
 
     public static class Builder {
 private String userId;
+    
+        private boolean userId$set;
+    
 private String basicId;
+    
+        private boolean basicId$set;
+    
 private String premiumId;
+    
 private String displayName;
+    
+        private boolean displayName$set;
+    
 private URI pictureUrl;
+    
 private ChatMode chatMode;
+    
+        private boolean chatMode$set;
+    
 private MarkAsReadMode markAsReadMode;
+    
+        private boolean markAsReadMode$set;
+    
 
 
         public Builder() {
@@ -136,35 +153,81 @@ private MarkAsReadMode markAsReadMode;
 
 public Builder userId(String userId) {
             this.userId = userId;
+    
+            this.userId$set = true;
+    
             return this;
         }
 public Builder basicId(String basicId) {
             this.basicId = basicId;
+    
+            this.basicId$set = true;
+    
             return this;
         }
 public Builder premiumId(String premiumId) {
             this.premiumId = premiumId;
+    
             return this;
         }
 public Builder displayName(String displayName) {
             this.displayName = displayName;
+    
+            this.displayName$set = true;
+    
             return this;
         }
 public Builder pictureUrl(URI pictureUrl) {
             this.pictureUrl = pictureUrl;
+    
             return this;
         }
 public Builder chatMode(ChatMode chatMode) {
             this.chatMode = chatMode;
+    
+            this.chatMode$set = true;
+    
             return this;
         }
 public Builder markAsReadMode(MarkAsReadMode markAsReadMode) {
             this.markAsReadMode = markAsReadMode;
+    
+            this.markAsReadMode$set = true;
+    
             return this;
         }
 
 
         public BotInfoResponse build() {
+
+            if (!this.userId$set) {
+                throw new IllegalStateException("'userId' must be set for BotInfoResponse.");
+            }
+    
+
+            if (!this.basicId$set) {
+                throw new IllegalStateException("'basicId' must be set for BotInfoResponse.");
+            }
+    
+
+
+            if (!this.displayName$set) {
+                throw new IllegalStateException("'displayName' must be set for BotInfoResponse.");
+            }
+    
+
+
+            if (!this.chatMode$set) {
+                throw new IllegalStateException("'chatMode' must be set for BotInfoResponse.");
+            }
+    
+
+            if (!this.markAsReadMode$set) {
+                throw new IllegalStateException("'markAsReadMode' must be set for BotInfoResponse.");
+            }
+    
+
+
             return new BotInfoResponse(
 userId,basicId,premiumId,displayName,pictureUrl,chatMode,markAsReadMode
             );

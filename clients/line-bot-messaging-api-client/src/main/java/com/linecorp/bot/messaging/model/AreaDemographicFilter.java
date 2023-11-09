@@ -65,6 +65,7 @@ public record AreaDemographicFilter (
 
     public static class Builder {
 private List<AreaDemographic> oneOf;
+    
 
 
         public Builder() {
@@ -72,11 +73,15 @@ private List<AreaDemographic> oneOf;
 
 public Builder oneOf(List<AreaDemographic> oneOf) {
             this.oneOf = oneOf;
+    
             return this;
         }
 
 
         public AreaDemographicFilter build() {
+
+
+
             return new AreaDemographicFilter(
 oneOf
             );

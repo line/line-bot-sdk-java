@@ -76,8 +76,15 @@ public record ReplyMessageRequest (
 
     public static class Builder {
 private String replyToken;
+    
+        private boolean replyToken$set;
+    
 private List<Message> messages;
+    
+        private boolean messages$set;
+    
 private Boolean notificationDisabled;
+    
 
 
         public Builder() {
@@ -85,19 +92,39 @@ private Boolean notificationDisabled;
 
 public Builder replyToken(String replyToken) {
             this.replyToken = replyToken;
+    
+            this.replyToken$set = true;
+    
             return this;
         }
 public Builder messages(List<Message> messages) {
             this.messages = messages;
+    
+            this.messages$set = true;
+    
             return this;
         }
 public Builder notificationDisabled(Boolean notificationDisabled) {
             this.notificationDisabled = notificationDisabled;
+    
             return this;
         }
 
 
         public ReplyMessageRequest build() {
+
+            if (!this.replyToken$set) {
+                throw new IllegalStateException("'replyToken' must be set for ReplyMessageRequest.");
+            }
+    
+
+            if (!this.messages$set) {
+                throw new IllegalStateException("'messages' must be set for ReplyMessageRequest.");
+            }
+    
+
+
+
             return new ReplyMessageRequest(
 replyToken,messages,notificationDisabled
             );

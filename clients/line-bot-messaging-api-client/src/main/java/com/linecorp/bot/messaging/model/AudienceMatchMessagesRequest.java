@@ -76,8 +76,15 @@ public record AudienceMatchMessagesRequest (
 
     public static class Builder {
 private List<Message> messages;
+    
+        private boolean messages$set;
+    
 private List<String> to;
+    
+        private boolean to$set;
+    
 private Boolean notificationDisabled;
+    
 
 
         public Builder() {
@@ -85,19 +92,39 @@ private Boolean notificationDisabled;
 
 public Builder messages(List<Message> messages) {
             this.messages = messages;
+    
+            this.messages$set = true;
+    
             return this;
         }
 public Builder to(List<String> to) {
             this.to = to;
+    
+            this.to$set = true;
+    
             return this;
         }
 public Builder notificationDisabled(Boolean notificationDisabled) {
             this.notificationDisabled = notificationDisabled;
+    
             return this;
         }
 
 
         public AudienceMatchMessagesRequest build() {
+
+            if (!this.messages$set) {
+                throw new IllegalStateException("'messages' must be set for AudienceMatchMessagesRequest.");
+            }
+    
+
+            if (!this.to$set) {
+                throw new IllegalStateException("'to' must be set for AudienceMatchMessagesRequest.");
+            }
+    
+
+
+
             return new AudienceMatchMessagesRequest(
 messages,to,notificationDisabled
             );

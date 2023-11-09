@@ -53,6 +53,9 @@ public record {{model.classname}} (
     public static class Builder {
 {% for var in model.allVars -%}
         private {{var.datatypeWithEnum}} {{var.name}};
+    {% if var.required %}
+        private boolean {{var.name}}$set;
+    {% endif %}
 {% endfor %}
 
         public Builder() {
@@ -61,11 +64,22 @@ public record {{model.classname}} (
 {% for var in model.allVars -%}
         public Builder {{ var.name }}({{var.datatypeWithEnum}} {{var.name}}) {
             this.{{ var.name }} = {{ var.name }};
+    {% if var.required %}
+            this.{{ var.name }}$set = true;
+    {% endif %}
             return this;
         }
 {% endfor %}
 
         public {{ model.classname }} build() {
+{% for var in model.allVars -%}
+    {% if var.required %}
+            if (!this.{{ var.name }}$set) {
+                throw new IllegalStateException("'{{ var.name }}' must be set for {{ model.classname }}.");
+            }
+    {% endif %}
+{% endfor %}
+
             return new {{ model.classname }}(
 {% for var in model.allVars -%}{{ var.name }}{% if not loop.last %},{% endif %}{% endfor %}
             );

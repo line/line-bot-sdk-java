@@ -67,7 +67,9 @@ public record RichMenuArea (
 
     public static class Builder {
 private RichMenuBounds bounds;
+    
 private Action action;
+    
 
 
         public Builder() {
@@ -75,15 +77,21 @@ private Action action;
 
 public Builder bounds(RichMenuBounds bounds) {
             this.bounds = bounds;
+    
             return this;
         }
 public Builder action(Action action) {
             this.action = action;
+    
             return this;
         }
 
 
         public RichMenuArea build() {
+
+
+
+
             return new RichMenuArea(
 bounds,action
             );

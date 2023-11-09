@@ -66,7 +66,9 @@ public record ImagemapExternalLink (
 
     public static class Builder {
 private URI linkUri;
+    
 private String label;
+    
 
 
         public Builder() {
@@ -74,15 +76,21 @@ private String label;
 
 public Builder linkUri(URI linkUri) {
             this.linkUri = linkUri;
+    
             return this;
         }
 public Builder label(String label) {
             this.label = label;
+    
             return this;
         }
 
 
         public ImagemapExternalLink build() {
+
+
+
+
             return new ImagemapExternalLink(
 linkUri,label
             );

@@ -65,7 +65,11 @@ public record SentMessage (
 
     public static class Builder {
 private String id;
+    
+        private boolean id$set;
+    
 private String quoteToken;
+    
 
 
         public Builder() {
@@ -73,15 +77,27 @@ private String quoteToken;
 
 public Builder id(String id) {
             this.id = id;
+    
+            this.id$set = true;
+    
             return this;
         }
 public Builder quoteToken(String quoteToken) {
             this.quoteToken = quoteToken;
+    
             return this;
         }
 
 
         public SentMessage build() {
+
+            if (!this.id$set) {
+                throw new IllegalStateException("'id' must be set for SentMessage.");
+            }
+    
+
+
+
             return new SentMessage(
 id,quoteToken
             );

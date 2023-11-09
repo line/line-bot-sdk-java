@@ -67,7 +67,13 @@ public record ImageCarouselColumn (
 
     public static class Builder {
 private URI imageUrl;
+    
+        private boolean imageUrl$set;
+    
 private Action action;
+    
+        private boolean action$set;
+    
 
 
         public Builder() {
@@ -75,15 +81,33 @@ private Action action;
 
 public Builder imageUrl(URI imageUrl) {
             this.imageUrl = imageUrl;
+    
+            this.imageUrl$set = true;
+    
             return this;
         }
 public Builder action(Action action) {
             this.action = action;
+    
+            this.action$set = true;
+    
             return this;
         }
 
 
         public ImageCarouselColumn build() {
+
+            if (!this.imageUrl$set) {
+                throw new IllegalStateException("'imageUrl' must be set for ImageCarouselColumn.");
+            }
+    
+
+            if (!this.action$set) {
+                throw new IllegalStateException("'action' must be set for ImageCarouselColumn.");
+            }
+    
+
+
             return new ImageCarouselColumn(
 imageUrl,action
             );

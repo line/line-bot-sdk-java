@@ -95,10 +95,17 @@ public TextMessage(String text) {
 
     public static class Builder {
 private QuickReply quickReply;
+    
 private Sender sender;
+    
 private String text;
+    
+        private boolean text$set;
+    
 private List<Emoji> emojis;
+    
 private String quoteToken;
+    
 
 
         public Builder() {
@@ -106,27 +113,45 @@ private String quoteToken;
 
 public Builder quickReply(QuickReply quickReply) {
             this.quickReply = quickReply;
+    
             return this;
         }
 public Builder sender(Sender sender) {
             this.sender = sender;
+    
             return this;
         }
 public Builder text(String text) {
             this.text = text;
+    
+            this.text$set = true;
+    
             return this;
         }
 public Builder emojis(List<Emoji> emojis) {
             this.emojis = emojis;
+    
             return this;
         }
 public Builder quoteToken(String quoteToken) {
             this.quoteToken = quoteToken;
+    
             return this;
         }
 
 
         public TextMessage build() {
+
+
+
+            if (!this.text$set) {
+                throw new IllegalStateException("'text' must be set for TextMessage.");
+            }
+    
+
+
+
+
             return new TextMessage(
 quickReply,sender,text,emojis,quoteToken
             );

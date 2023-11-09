@@ -64,6 +64,9 @@ public record RichMenuAliasListResponse (
 
     public static class Builder {
 private List<RichMenuAliasResponse> aliases;
+    
+        private boolean aliases$set;
+    
 
 
         public Builder() {
@@ -71,11 +74,21 @@ private List<RichMenuAliasResponse> aliases;
 
 public Builder aliases(List<RichMenuAliasResponse> aliases) {
             this.aliases = aliases;
+    
+            this.aliases$set = true;
+    
             return this;
         }
 
 
         public RichMenuAliasListResponse build() {
+
+            if (!this.aliases$set) {
+                throw new IllegalStateException("'aliases' must be set for RichMenuAliasListResponse.");
+            }
+    
+
+
             return new RichMenuAliasListResponse(
 aliases
             );

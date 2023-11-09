@@ -61,6 +61,7 @@ public record UserSource (
 
     public static class Builder {
 private String userId;
+    
 
 
         public Builder() {
@@ -68,11 +69,15 @@ private String userId;
 
 public Builder userId(String userId) {
             this.userId = userId;
+    
             return this;
         }
 
 
         public UserSource build() {
+
+
+
             return new UserSource(
 userId
             );

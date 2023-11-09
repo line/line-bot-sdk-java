@@ -63,6 +63,9 @@ public record Mention (
 
     public static class Builder {
 private List<Mentionee> mentionees;
+    
+        private boolean mentionees$set;
+    
 
 
         public Builder() {
@@ -70,11 +73,21 @@ private List<Mentionee> mentionees;
 
 public Builder mentionees(List<Mentionee> mentionees) {
             this.mentionees = mentionees;
+    
+            this.mentionees$set = true;
+    
             return this;
         }
 
 
         public Mention build() {
+
+            if (!this.mentionees$set) {
+                throw new IllegalStateException("'mentionees' must be set for Mention.");
+            }
+    
+
+
             return new Mention(
 mentionees
             );

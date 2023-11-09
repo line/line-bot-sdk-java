@@ -85,10 +85,23 @@ public record TestWebhookEndpointResponse (
 
     public static class Builder {
 private Boolean success;
+    
 private OffsetDateTime timestamp;
+    
+        private boolean timestamp$set;
+    
 private Integer statusCode;
+    
+        private boolean statusCode$set;
+    
 private String reason;
+    
+        private boolean reason$set;
+    
 private String detail;
+    
+        private boolean detail$set;
+    
 
 
         public Builder() {
@@ -96,27 +109,63 @@ private String detail;
 
 public Builder success(Boolean success) {
             this.success = success;
+    
             return this;
         }
 public Builder timestamp(OffsetDateTime timestamp) {
             this.timestamp = timestamp;
+    
+            this.timestamp$set = true;
+    
             return this;
         }
 public Builder statusCode(Integer statusCode) {
             this.statusCode = statusCode;
+    
+            this.statusCode$set = true;
+    
             return this;
         }
 public Builder reason(String reason) {
             this.reason = reason;
+    
+            this.reason$set = true;
+    
             return this;
         }
 public Builder detail(String detail) {
             this.detail = detail;
+    
+            this.detail$set = true;
+    
             return this;
         }
 
 
         public TestWebhookEndpointResponse build() {
+
+
+            if (!this.timestamp$set) {
+                throw new IllegalStateException("'timestamp' must be set for TestWebhookEndpointResponse.");
+            }
+    
+
+            if (!this.statusCode$set) {
+                throw new IllegalStateException("'statusCode' must be set for TestWebhookEndpointResponse.");
+            }
+    
+
+            if (!this.reason$set) {
+                throw new IllegalStateException("'reason' must be set for TestWebhookEndpointResponse.");
+            }
+    
+
+            if (!this.detail$set) {
+                throw new IllegalStateException("'detail' must be set for TestWebhookEndpointResponse.");
+            }
+    
+
+
             return new TestWebhookEndpointResponse(
 success,timestamp,statusCode,reason,detail
             );

@@ -69,7 +69,11 @@ public record GetFollowersResponse (
 
     public static class Builder {
 private List<String> userIds;
+    
+        private boolean userIds$set;
+    
 private String next;
+    
 
 
         public Builder() {
@@ -77,15 +81,27 @@ private String next;
 
 public Builder userIds(List<String> userIds) {
             this.userIds = userIds;
+    
+            this.userIds$set = true;
+    
             return this;
         }
 public Builder next(String next) {
             this.next = next;
+    
             return this;
         }
 
 
         public GetFollowersResponse build() {
+
+            if (!this.userIds$set) {
+                throw new IllegalStateException("'userIds' must be set for GetFollowersResponse.");
+            }
+    
+
+
+
             return new GetFollowersResponse(
 userIds,next
             );

@@ -60,6 +60,9 @@ public record RoomMemberCountResponse (
 
     public static class Builder {
 private Integer count;
+    
+        private boolean count$set;
+    
 
 
         public Builder() {
@@ -67,11 +70,21 @@ private Integer count;
 
 public Builder count(Integer count) {
             this.count = count;
+    
+            this.count$set = true;
+    
             return this;
         }
 
 
         public RoomMemberCountResponse build() {
+
+            if (!this.count$set) {
+                throw new IllegalStateException("'count' must be set for RoomMemberCountResponse.");
+            }
+    
+
+
             return new RoomMemberCountResponse(
 count
             );

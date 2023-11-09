@@ -130,15 +130,27 @@ public record FlexIcon (
 
     public static class Builder {
 private URI url;
+    
+        private boolean url$set;
+    
 private String size;
+    
 private String aspectRatio;
+    
 private String margin;
+    
 private Position position;
+    
 private String offsetTop;
+    
 private String offsetBottom;
+    
 private String offsetStart;
+    
 private String offsetEnd;
+    
 private Boolean scaling;
+    
 
 
         public Builder() {
@@ -146,47 +158,75 @@ private Boolean scaling;
 
 public Builder url(URI url) {
             this.url = url;
+    
+            this.url$set = true;
+    
             return this;
         }
 public Builder size(String size) {
             this.size = size;
+    
             return this;
         }
 public Builder aspectRatio(String aspectRatio) {
             this.aspectRatio = aspectRatio;
+    
             return this;
         }
 public Builder margin(String margin) {
             this.margin = margin;
+    
             return this;
         }
 public Builder position(Position position) {
             this.position = position;
+    
             return this;
         }
 public Builder offsetTop(String offsetTop) {
             this.offsetTop = offsetTop;
+    
             return this;
         }
 public Builder offsetBottom(String offsetBottom) {
             this.offsetBottom = offsetBottom;
+    
             return this;
         }
 public Builder offsetStart(String offsetStart) {
             this.offsetStart = offsetStart;
+    
             return this;
         }
 public Builder offsetEnd(String offsetEnd) {
             this.offsetEnd = offsetEnd;
+    
             return this;
         }
 public Builder scaling(Boolean scaling) {
             this.scaling = scaling;
+    
             return this;
         }
 
 
         public FlexIcon build() {
+
+            if (!this.url$set) {
+                throw new IllegalStateException("'url' must be set for FlexIcon.");
+            }
+    
+
+
+
+
+
+
+
+
+
+
+
             return new FlexIcon(
 url,size,aspectRatio,margin,position,offsetTop,offsetBottom,offsetStart,offsetEnd,scaling
             );

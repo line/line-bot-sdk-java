@@ -71,8 +71,11 @@ public record Emoji (
 
     public static class Builder {
 private Integer index;
+    
 private String productId;
+    
 private String emojiId;
+    
 
 
         public Builder() {
@@ -80,19 +83,27 @@ private String emojiId;
 
 public Builder index(Integer index) {
             this.index = index;
+    
             return this;
         }
 public Builder productId(String productId) {
             this.productId = productId;
+    
             return this;
         }
 public Builder emojiId(String emojiId) {
             this.emojiId = emojiId;
+    
             return this;
         }
 
 
         public Emoji build() {
+
+
+
+
+
             return new Emoji(
 index,productId,emojiId
             );

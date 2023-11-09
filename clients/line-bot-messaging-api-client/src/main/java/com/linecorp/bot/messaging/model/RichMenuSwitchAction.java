@@ -73,8 +73,11 @@ public record RichMenuSwitchAction (
 
     public static class Builder {
 private String label;
+    
 private String data;
+    
 private String richMenuAliasId;
+    
 
 
         public Builder() {
@@ -82,19 +85,27 @@ private String richMenuAliasId;
 
 public Builder label(String label) {
             this.label = label;
+    
             return this;
         }
 public Builder data(String data) {
             this.data = data;
+    
             return this;
         }
 public Builder richMenuAliasId(String richMenuAliasId) {
             this.richMenuAliasId = richMenuAliasId;
+    
             return this;
         }
 
 
         public RichMenuSwitchAction build() {
+
+
+
+
+
             return new RichMenuSwitchAction(
 label,data,richMenuAliasId
             );

@@ -62,6 +62,8 @@ public record RichMenuBatchUnlinkAllOperation (
 
 
         public RichMenuBatchUnlinkAllOperation build() {
+
+
             return new RichMenuBatchUnlinkAllOperation(
 
             );

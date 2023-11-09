@@ -60,6 +60,9 @@ public record GetAggregationUnitUsageResponse (
 
     public static class Builder {
 private Long numOfCustomAggregationUnits;
+    
+        private boolean numOfCustomAggregationUnits$set;
+    
 
 
         public Builder() {
@@ -67,11 +70,21 @@ private Long numOfCustomAggregationUnits;
 
 public Builder numOfCustomAggregationUnits(Long numOfCustomAggregationUnits) {
             this.numOfCustomAggregationUnits = numOfCustomAggregationUnits;
+    
+            this.numOfCustomAggregationUnits$set = true;
+    
             return this;
         }
 
 
         public GetAggregationUnitUsageResponse build() {
+
+            if (!this.numOfCustomAggregationUnits$set) {
+                throw new IllegalStateException("'numOfCustomAggregationUnits' must be set for GetAggregationUnitUsageResponse.");
+            }
+    
+
+
             return new GetAggregationUnitUsageResponse(
 numOfCustomAggregationUnits
             );

@@ -64,6 +64,7 @@ public record QuickReply (
 
     public static class Builder {
 private List<QuickReplyItem> items;
+    
 
 
         public Builder() {
@@ -71,11 +72,15 @@ private List<QuickReplyItem> items;
 
 public Builder items(List<QuickReplyItem> items) {
             this.items = items;
+    
             return this;
         }
 
 
         public QuickReply build() {
+
+
+
             return new QuickReply(
 items
             );

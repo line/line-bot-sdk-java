@@ -69,7 +69,9 @@ public record RichMenuSize (
 
     public static class Builder {
 private Long width;
+    
 private Long height;
+    
 
 
         public Builder() {
@@ -77,15 +79,21 @@ private Long height;
 
 public Builder width(Long width) {
             this.width = width;
+    
             return this;
         }
 public Builder height(Long height) {
             this.height = height;
+    
             return this;
         }
 
 
         public RichMenuSize build() {
+
+
+
+
             return new RichMenuSize(
 width,height
             );

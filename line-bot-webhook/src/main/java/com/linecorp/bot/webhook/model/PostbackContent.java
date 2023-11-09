@@ -67,7 +67,11 @@ public record PostbackContent (
 
     public static class Builder {
 private String data;
+    
+        private boolean data$set;
+    
 private Map<String, String> params;
+    
 
 
         public Builder() {
@@ -75,15 +79,27 @@ private Map<String, String> params;
 
 public Builder data(String data) {
             this.data = data;
+    
+            this.data$set = true;
+    
             return this;
         }
 public Builder params(Map<String, String> params) {
             this.params = params;
+    
             return this;
         }
 
 
         public PostbackContent build() {
+
+            if (!this.data$set) {
+                throw new IllegalStateException("'data' must be set for PostbackContent.");
+            }
+    
+
+
+
             return new PostbackContent(
 data,params
             );

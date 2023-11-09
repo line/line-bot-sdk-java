@@ -67,7 +67,9 @@ public record AcquireChatControlRequest (
 
     public static class Builder {
 private Boolean expired;
+    
 private Integer ttl;
+    
 
 
         public Builder() {
@@ -75,15 +77,21 @@ private Integer ttl;
 
 public Builder expired(Boolean expired) {
             this.expired = expired;
+    
             return this;
         }
 public Builder ttl(Integer ttl) {
             this.ttl = ttl;
+    
             return this;
         }
 
 
         public AcquireChatControlRequest build() {
+
+
+
+
             return new AcquireChatControlRequest(
 expired,ttl
             );

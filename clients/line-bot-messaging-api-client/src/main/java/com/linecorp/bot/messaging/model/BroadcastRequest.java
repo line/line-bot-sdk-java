@@ -70,7 +70,11 @@ public record BroadcastRequest (
 
     public static class Builder {
 private List<Message> messages;
+    
+        private boolean messages$set;
+    
 private Boolean notificationDisabled;
+    
 
 
         public Builder() {
@@ -78,15 +82,27 @@ private Boolean notificationDisabled;
 
 public Builder messages(List<Message> messages) {
             this.messages = messages;
+    
+            this.messages$set = true;
+    
             return this;
         }
 public Builder notificationDisabled(Boolean notificationDisabled) {
             this.notificationDisabled = notificationDisabled;
+    
             return this;
         }
 
 
         public BroadcastRequest build() {
+
+            if (!this.messages$set) {
+                throw new IllegalStateException("'messages' must be set for BroadcastRequest.");
+            }
+    
+
+
+
             return new BroadcastRequest(
 messages,notificationDisabled
             );

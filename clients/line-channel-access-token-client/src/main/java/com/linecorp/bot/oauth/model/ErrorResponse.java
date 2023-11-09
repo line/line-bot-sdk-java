@@ -65,7 +65,9 @@ public record ErrorResponse (
 
     public static class Builder {
 private String error;
+    
 private String errorDescription;
+    
 
 
         public Builder() {
@@ -73,15 +75,21 @@ private String errorDescription;
 
 public Builder error(String error) {
             this.error = error;
+    
             return this;
         }
 public Builder errorDescription(String errorDescription) {
             this.errorDescription = errorDescription;
+    
             return this;
         }
 
 
         public ErrorResponse build() {
+
+
+
+
             return new ErrorResponse(
 error,errorDescription
             );

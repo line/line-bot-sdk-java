@@ -67,7 +67,11 @@ public record RoomSource (
 
     public static class Builder {
 private String userId;
+    
 private String roomId;
+    
+        private boolean roomId$set;
+    
 
 
         public Builder() {
@@ -75,15 +79,27 @@ private String roomId;
 
 public Builder userId(String userId) {
             this.userId = userId;
+    
             return this;
         }
 public Builder roomId(String roomId) {
             this.roomId = roomId;
+    
+            this.roomId$set = true;
+    
             return this;
         }
 
 
         public RoomSource build() {
+
+
+            if (!this.roomId$set) {
+                throw new IllegalStateException("'roomId' must be set for RoomSource.");
+            }
+    
+
+
             return new RoomSource(
 userId,roomId
             );

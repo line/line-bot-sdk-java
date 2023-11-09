@@ -68,7 +68,9 @@ public record SubscriptionPeriodDemographicFilter (
 
     public static class Builder {
 private SubscriptionPeriodDemographic gte;
+    
 private SubscriptionPeriodDemographic lt;
+    
 
 
         public Builder() {
@@ -76,15 +78,21 @@ private SubscriptionPeriodDemographic lt;
 
 public Builder gte(SubscriptionPeriodDemographic gte) {
             this.gte = gte;
+    
             return this;
         }
 public Builder lt(SubscriptionPeriodDemographic lt) {
             this.lt = lt;
+    
             return this;
         }
 
 
         public SubscriptionPeriodDemographicFilter build() {
+
+
+
+
             return new SubscriptionPeriodDemographicFilter(
 gte,lt
             );

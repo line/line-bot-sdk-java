@@ -97,11 +97,25 @@ public LocationMessage(String title, String address, Double latitude, Double lon
 
     public static class Builder {
 private QuickReply quickReply;
+    
 private Sender sender;
+    
 private String title;
+    
+        private boolean title$set;
+    
 private String address;
+    
+        private boolean address$set;
+    
 private Double latitude;
+    
+        private boolean latitude$set;
+    
 private Double longitude;
+    
+        private boolean longitude$set;
+    
 
 
         public Builder() {
@@ -109,31 +123,69 @@ private Double longitude;
 
 public Builder quickReply(QuickReply quickReply) {
             this.quickReply = quickReply;
+    
             return this;
         }
 public Builder sender(Sender sender) {
             this.sender = sender;
+    
             return this;
         }
 public Builder title(String title) {
             this.title = title;
+    
+            this.title$set = true;
+    
             return this;
         }
 public Builder address(String address) {
             this.address = address;
+    
+            this.address$set = true;
+    
             return this;
         }
 public Builder latitude(Double latitude) {
             this.latitude = latitude;
+    
+            this.latitude$set = true;
+    
             return this;
         }
 public Builder longitude(Double longitude) {
             this.longitude = longitude;
+    
+            this.longitude$set = true;
+    
             return this;
         }
 
 
         public LocationMessage build() {
+
+
+
+            if (!this.title$set) {
+                throw new IllegalStateException("'title' must be set for LocationMessage.");
+            }
+    
+
+            if (!this.address$set) {
+                throw new IllegalStateException("'address' must be set for LocationMessage.");
+            }
+    
+
+            if (!this.latitude$set) {
+                throw new IllegalStateException("'latitude' must be set for LocationMessage.");
+            }
+    
+
+            if (!this.longitude$set) {
+                throw new IllegalStateException("'longitude' must be set for LocationMessage.");
+            }
+    
+
+
             return new LocationMessage(
 quickReply,sender,title,address,latitude,longitude
             );

@@ -73,8 +73,17 @@ public record FileMessageContent (
 
     public static class Builder {
 private String id;
+    
+        private boolean id$set;
+    
 private String fileName;
+    
+        private boolean fileName$set;
+    
 private Integer fileSize;
+    
+        private boolean fileSize$set;
+    
 
 
         public Builder() {
@@ -82,19 +91,45 @@ private Integer fileSize;
 
 public Builder id(String id) {
             this.id = id;
+    
+            this.id$set = true;
+    
             return this;
         }
 public Builder fileName(String fileName) {
             this.fileName = fileName;
+    
+            this.fileName$set = true;
+    
             return this;
         }
 public Builder fileSize(Integer fileSize) {
             this.fileSize = fileSize;
+    
+            this.fileSize$set = true;
+    
             return this;
         }
 
 
         public FileMessageContent build() {
+
+            if (!this.id$set) {
+                throw new IllegalStateException("'id' must be set for FileMessageContent.");
+            }
+    
+
+            if (!this.fileName$set) {
+                throw new IllegalStateException("'fileName' must be set for FileMessageContent.");
+            }
+    
+
+            if (!this.fileSize$set) {
+                throw new IllegalStateException("'fileSize' must be set for FileMessageContent.");
+            }
+    
+
+
             return new FileMessageContent(
 id,fileName,fileSize
             );

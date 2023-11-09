@@ -60,6 +60,9 @@ public record QuotaConsumptionResponse (
 
     public static class Builder {
 private Long totalUsage;
+    
+        private boolean totalUsage$set;
+    
 
 
         public Builder() {
@@ -67,11 +70,21 @@ private Long totalUsage;
 
 public Builder totalUsage(Long totalUsage) {
             this.totalUsage = totalUsage;
+    
+            this.totalUsage$set = true;
+    
             return this;
         }
 
 
         public QuotaConsumptionResponse build() {
+
+            if (!this.totalUsage$set) {
+                throw new IllegalStateException("'totalUsage' must be set for QuotaConsumptionResponse.");
+            }
+    
+
+
             return new QuotaConsumptionResponse(
 totalUsage
             );

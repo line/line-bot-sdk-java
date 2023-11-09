@@ -102,12 +102,19 @@ public record LiffApp (
 
     public static class Builder {
 private String liffId;
+    
 private LiffView view;
+    
 private String description;
+    
 private LiffFeatures features;
+    
 private String permanentLinkPattern;
+    
 private List<LiffScope> scope;
+    
 private LiffBotPrompt botPrompt;
+    
 
 
         public Builder() {
@@ -115,35 +122,51 @@ private LiffBotPrompt botPrompt;
 
 public Builder liffId(String liffId) {
             this.liffId = liffId;
+    
             return this;
         }
 public Builder view(LiffView view) {
             this.view = view;
+    
             return this;
         }
 public Builder description(String description) {
             this.description = description;
+    
             return this;
         }
 public Builder features(LiffFeatures features) {
             this.features = features;
+    
             return this;
         }
 public Builder permanentLinkPattern(String permanentLinkPattern) {
             this.permanentLinkPattern = permanentLinkPattern;
+    
             return this;
         }
 public Builder scope(List<LiffScope> scope) {
             this.scope = scope;
+    
             return this;
         }
 public Builder botPrompt(LiffBotPrompt botPrompt) {
             this.botPrompt = botPrompt;
+    
             return this;
         }
 
 
         public LiffApp build() {
+
+
+
+
+
+
+
+
+
             return new LiffApp(
 liffId,view,description,features,permanentLinkPattern,scope,botPrompt
             );

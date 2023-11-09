@@ -66,7 +66,9 @@ public record Sender (
 
     public static class Builder {
 private String name;
+    
 private URI iconUrl;
+    
 
 
         public Builder() {
@@ -74,15 +76,21 @@ private URI iconUrl;
 
 public Builder name(String name) {
             this.name = name;
+    
             return this;
         }
 public Builder iconUrl(URI iconUrl) {
             this.iconUrl = iconUrl;
+    
             return this;
         }
 
 
         public Sender build() {
+
+
+
+
             return new Sender(
 name,iconUrl
             );

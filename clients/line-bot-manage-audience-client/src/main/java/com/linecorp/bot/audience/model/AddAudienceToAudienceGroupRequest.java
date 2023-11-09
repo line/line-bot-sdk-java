@@ -76,8 +76,11 @@ public record AddAudienceToAudienceGroupRequest (
 
     public static class Builder {
 private Long audienceGroupId;
+    
 private String uploadDescription;
+    
 private List<Audience> audiences;
+    
 
 
         public Builder() {
@@ -85,19 +88,27 @@ private List<Audience> audiences;
 
 public Builder audienceGroupId(Long audienceGroupId) {
             this.audienceGroupId = audienceGroupId;
+    
             return this;
         }
 public Builder uploadDescription(String uploadDescription) {
             this.uploadDescription = uploadDescription;
+    
             return this;
         }
 public Builder audiences(List<Audience> audiences) {
             this.audiences = audiences;
+    
             return this;
         }
 
 
         public AddAudienceToAudienceGroupRequest build() {
+
+
+
+
+
             return new AddAudienceToAudienceGroupRequest(
 audienceGroupId,uploadDescription,audiences
             );

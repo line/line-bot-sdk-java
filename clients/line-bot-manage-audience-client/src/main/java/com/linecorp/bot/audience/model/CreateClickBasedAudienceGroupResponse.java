@@ -140,15 +140,25 @@ public record CreateClickBasedAudienceGroupResponse (
 
     public static class Builder {
 private Long audienceGroupId;
+    
 private AudienceGroupType type;
+    
 private String description;
+    
 private Long created;
+    
 private String requestId;
+    
 private URI clickUrl;
+    
 private CreateRoute createRoute;
+    
 private Permission permission;
+    
 private Long expireTimestamp;
+    
 private Boolean isIfaAudience;
+    
 
 
         public Builder() {
@@ -156,47 +166,69 @@ private Boolean isIfaAudience;
 
 public Builder audienceGroupId(Long audienceGroupId) {
             this.audienceGroupId = audienceGroupId;
+    
             return this;
         }
 public Builder type(AudienceGroupType type) {
             this.type = type;
+    
             return this;
         }
 public Builder description(String description) {
             this.description = description;
+    
             return this;
         }
 public Builder created(Long created) {
             this.created = created;
+    
             return this;
         }
 public Builder requestId(String requestId) {
             this.requestId = requestId;
+    
             return this;
         }
 public Builder clickUrl(URI clickUrl) {
             this.clickUrl = clickUrl;
+    
             return this;
         }
 public Builder createRoute(CreateRoute createRoute) {
             this.createRoute = createRoute;
+    
             return this;
         }
 public Builder permission(Permission permission) {
             this.permission = permission;
+    
             return this;
         }
 public Builder expireTimestamp(Long expireTimestamp) {
             this.expireTimestamp = expireTimestamp;
+    
             return this;
         }
 public Builder isIfaAudience(Boolean isIfaAudience) {
             this.isIfaAudience = isIfaAudience;
+    
             return this;
         }
 
 
         public CreateClickBasedAudienceGroupResponse build() {
+
+
+
+
+
+
+
+
+
+
+
+
             return new CreateClickBasedAudienceGroupResponse(
 audienceGroupId,type,description,created,requestId,clickUrl,createRoute,permission,expireTimestamp,isIfaAudience
             );

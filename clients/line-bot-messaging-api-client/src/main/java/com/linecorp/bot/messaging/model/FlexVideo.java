@@ -87,10 +87,21 @@ public record FlexVideo (
 
     public static class Builder {
 private URI url;
+    
+        private boolean url$set;
+    
 private URI previewUrl;
+    
+        private boolean previewUrl$set;
+    
 private FlexComponent altContent;
+    
+        private boolean altContent$set;
+    
 private String aspectRatio;
+    
 private Action action;
+    
 
 
         public Builder() {
@@ -98,27 +109,57 @@ private Action action;
 
 public Builder url(URI url) {
             this.url = url;
+    
+            this.url$set = true;
+    
             return this;
         }
 public Builder previewUrl(URI previewUrl) {
             this.previewUrl = previewUrl;
+    
+            this.previewUrl$set = true;
+    
             return this;
         }
 public Builder altContent(FlexComponent altContent) {
             this.altContent = altContent;
+    
+            this.altContent$set = true;
+    
             return this;
         }
 public Builder aspectRatio(String aspectRatio) {
             this.aspectRatio = aspectRatio;
+    
             return this;
         }
 public Builder action(Action action) {
             this.action = action;
+    
             return this;
         }
 
 
         public FlexVideo build() {
+
+            if (!this.url$set) {
+                throw new IllegalStateException("'url' must be set for FlexVideo.");
+            }
+    
+
+            if (!this.previewUrl$set) {
+                throw new IllegalStateException("'previewUrl' must be set for FlexVideo.");
+            }
+    
+
+            if (!this.altContent$set) {
+                throw new IllegalStateException("'altContent' must be set for FlexVideo.");
+            }
+    
+
+
+
+
             return new FlexVideo(
 url,previewUrl,altContent,aspectRatio,action
             );

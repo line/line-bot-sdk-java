@@ -77,9 +77,21 @@ public record ImagemapArea (
 
     public static class Builder {
 private Integer x;
+    
+        private boolean x$set;
+    
 private Integer y;
+    
+        private boolean y$set;
+    
 private Integer width;
+    
+        private boolean width$set;
+    
 private Integer height;
+    
+        private boolean height$set;
+    
 
 
         public Builder() {
@@ -87,23 +99,57 @@ private Integer height;
 
 public Builder x(Integer x) {
             this.x = x;
+    
+            this.x$set = true;
+    
             return this;
         }
 public Builder y(Integer y) {
             this.y = y;
+    
+            this.y$set = true;
+    
             return this;
         }
 public Builder width(Integer width) {
             this.width = width;
+    
+            this.width$set = true;
+    
             return this;
         }
 public Builder height(Integer height) {
             this.height = height;
+    
+            this.height$set = true;
+    
             return this;
         }
 
 
         public ImagemapArea build() {
+
+            if (!this.x$set) {
+                throw new IllegalStateException("'x' must be set for ImagemapArea.");
+            }
+    
+
+            if (!this.y$set) {
+                throw new IllegalStateException("'y' must be set for ImagemapArea.");
+            }
+    
+
+            if (!this.width$set) {
+                throw new IllegalStateException("'width' must be set for ImagemapArea.");
+            }
+    
+
+            if (!this.height$set) {
+                throw new IllegalStateException("'height' must be set for ImagemapArea.");
+            }
+    
+
+
             return new ImagemapArea(
 x,y,width,height
             );

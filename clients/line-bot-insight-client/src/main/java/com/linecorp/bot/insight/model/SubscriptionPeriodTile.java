@@ -88,7 +88,9 @@ public record SubscriptionPeriodTile (
 
     public static class Builder {
 private SubscriptionPeriod subscriptionPeriod;
+    
 private Double percentage;
+    
 
 
         public Builder() {
@@ -96,15 +98,21 @@ private Double percentage;
 
 public Builder subscriptionPeriod(SubscriptionPeriod subscriptionPeriod) {
             this.subscriptionPeriod = subscriptionPeriod;
+    
             return this;
         }
 public Builder percentage(Double percentage) {
             this.percentage = percentage;
+    
             return this;
         }
 
 
         public SubscriptionPeriodTile build() {
+
+
+
+
             return new SubscriptionPeriodTile(
 subscriptionPeriod,percentage
             );

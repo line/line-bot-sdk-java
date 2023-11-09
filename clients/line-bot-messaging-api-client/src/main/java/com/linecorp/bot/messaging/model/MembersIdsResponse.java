@@ -68,7 +68,11 @@ public record MembersIdsResponse (
 
     public static class Builder {
 private List<String> memberIds;
+    
+        private boolean memberIds$set;
+    
 private String next;
+    
 
 
         public Builder() {
@@ -76,15 +80,27 @@ private String next;
 
 public Builder memberIds(List<String> memberIds) {
             this.memberIds = memberIds;
+    
+            this.memberIds$set = true;
+    
             return this;
         }
 public Builder next(String next) {
             this.next = next;
+    
             return this;
         }
 
 
         public MembersIdsResponse build() {
+
+            if (!this.memberIds$set) {
+                throw new IllegalStateException("'memberIds' must be set for MembersIdsResponse.");
+            }
+    
+
+
+
             return new MembersIdsResponse(
 memberIds,next
             );

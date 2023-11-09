@@ -65,7 +65,9 @@ public record LiffFeatures (
 
     public static class Builder {
 private Boolean ble;
+    
 private Boolean qrCode;
+    
 
 
         public Builder() {
@@ -73,15 +75,21 @@ private Boolean qrCode;
 
 public Builder ble(Boolean ble) {
             this.ble = ble;
+    
             return this;
         }
 public Builder qrCode(Boolean qrCode) {
             this.qrCode = qrCode;
+    
             return this;
         }
 
 
         public LiffFeatures build() {
+
+
+
+
             return new LiffFeatures(
 ble,qrCode
             );

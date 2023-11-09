@@ -95,11 +95,27 @@ public record ModuleEvent (
 
     public static class Builder {
 private Source source;
+    
 private Long timestamp;
+    
+        private boolean timestamp$set;
+    
 private EventMode mode;
+    
+        private boolean mode$set;
+    
 private String webhookEventId;
+    
+        private boolean webhookEventId$set;
+    
 private DeliveryContext deliveryContext;
+    
+        private boolean deliveryContext$set;
+    
 private ModuleContent module;
+    
+        private boolean module$set;
+    
 
 
         public Builder() {
@@ -107,31 +123,75 @@ private ModuleContent module;
 
 public Builder source(Source source) {
             this.source = source;
+    
             return this;
         }
 public Builder timestamp(Long timestamp) {
             this.timestamp = timestamp;
+    
+            this.timestamp$set = true;
+    
             return this;
         }
 public Builder mode(EventMode mode) {
             this.mode = mode;
+    
+            this.mode$set = true;
+    
             return this;
         }
 public Builder webhookEventId(String webhookEventId) {
             this.webhookEventId = webhookEventId;
+    
+            this.webhookEventId$set = true;
+    
             return this;
         }
 public Builder deliveryContext(DeliveryContext deliveryContext) {
             this.deliveryContext = deliveryContext;
+    
+            this.deliveryContext$set = true;
+    
             return this;
         }
 public Builder module(ModuleContent module) {
             this.module = module;
+    
+            this.module$set = true;
+    
             return this;
         }
 
 
         public ModuleEvent build() {
+
+
+            if (!this.timestamp$set) {
+                throw new IllegalStateException("'timestamp' must be set for ModuleEvent.");
+            }
+    
+
+            if (!this.mode$set) {
+                throw new IllegalStateException("'mode' must be set for ModuleEvent.");
+            }
+    
+
+            if (!this.webhookEventId$set) {
+                throw new IllegalStateException("'webhookEventId' must be set for ModuleEvent.");
+            }
+    
+
+            if (!this.deliveryContext$set) {
+                throw new IllegalStateException("'deliveryContext' must be set for ModuleEvent.");
+            }
+    
+
+            if (!this.module$set) {
+                throw new IllegalStateException("'module' must be set for ModuleEvent.");
+            }
+    
+
+
             return new ModuleEvent(
 source,timestamp,mode,webhookEventId,deliveryContext,module
             );

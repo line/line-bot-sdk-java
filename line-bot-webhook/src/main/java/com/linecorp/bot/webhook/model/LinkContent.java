@@ -78,7 +78,13 @@ public record LinkContent (
 
     public static class Builder {
 private Result result;
+    
+        private boolean result$set;
+    
 private String nonce;
+    
+        private boolean nonce$set;
+    
 
 
         public Builder() {
@@ -86,15 +92,33 @@ private String nonce;
 
 public Builder result(Result result) {
             this.result = result;
+    
+            this.result$set = true;
+    
             return this;
         }
 public Builder nonce(String nonce) {
             this.nonce = nonce;
+    
+            this.nonce$set = true;
+    
             return this;
         }
 
 
         public LinkContent build() {
+
+            if (!this.result$set) {
+                throw new IllegalStateException("'result' must be set for LinkContent.");
+            }
+    
+
+            if (!this.nonce$set) {
+                throw new IllegalStateException("'nonce' must be set for LinkContent.");
+            }
+    
+
+
             return new LinkContent(
 result,nonce
             );

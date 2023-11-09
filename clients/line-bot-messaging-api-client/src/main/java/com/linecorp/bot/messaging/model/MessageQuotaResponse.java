@@ -67,7 +67,11 @@ public record MessageQuotaResponse (
 
     public static class Builder {
 private QuotaType type;
+    
+        private boolean type$set;
+    
 private Long value;
+    
 
 
         public Builder() {
@@ -75,15 +79,27 @@ private Long value;
 
 public Builder type(QuotaType type) {
             this.type = type;
+    
+            this.type$set = true;
+    
             return this;
         }
 public Builder value(Long value) {
             this.value = value;
+    
             return this;
         }
 
 
         public MessageQuotaResponse build() {
+
+            if (!this.type$set) {
+                throw new IllegalStateException("'type' must be set for MessageQuotaResponse.");
+            }
+    
+
+
+
             return new MessageQuotaResponse(
 type,value
             );

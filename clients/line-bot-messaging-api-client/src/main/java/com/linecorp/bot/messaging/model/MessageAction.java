@@ -67,7 +67,9 @@ public record MessageAction (
 
     public static class Builder {
 private String label;
+    
 private String text;
+    
 
 
         public Builder() {
@@ -75,15 +77,21 @@ private String text;
 
 public Builder label(String label) {
             this.label = label;
+    
             return this;
         }
 public Builder text(String text) {
             this.text = text;
+    
             return this;
         }
 
 
         public MessageAction build() {
+
+
+
+
             return new MessageAction(
 label,text
             );

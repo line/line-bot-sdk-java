@@ -95,11 +95,27 @@ public record ActivatedEvent (
 
     public static class Builder {
 private Source source;
+    
 private Long timestamp;
+    
+        private boolean timestamp$set;
+    
 private EventMode mode;
+    
+        private boolean mode$set;
+    
 private String webhookEventId;
+    
+        private boolean webhookEventId$set;
+    
 private DeliveryContext deliveryContext;
+    
+        private boolean deliveryContext$set;
+    
 private ChatControl chatControl;
+    
+        private boolean chatControl$set;
+    
 
 
         public Builder() {
@@ -107,31 +123,75 @@ private ChatControl chatControl;
 
 public Builder source(Source source) {
             this.source = source;
+    
             return this;
         }
 public Builder timestamp(Long timestamp) {
             this.timestamp = timestamp;
+    
+            this.timestamp$set = true;
+    
             return this;
         }
 public Builder mode(EventMode mode) {
             this.mode = mode;
+    
+            this.mode$set = true;
+    
             return this;
         }
 public Builder webhookEventId(String webhookEventId) {
             this.webhookEventId = webhookEventId;
+    
+            this.webhookEventId$set = true;
+    
             return this;
         }
 public Builder deliveryContext(DeliveryContext deliveryContext) {
             this.deliveryContext = deliveryContext;
+    
+            this.deliveryContext$set = true;
+    
             return this;
         }
 public Builder chatControl(ChatControl chatControl) {
             this.chatControl = chatControl;
+    
+            this.chatControl$set = true;
+    
             return this;
         }
 
 
         public ActivatedEvent build() {
+
+
+            if (!this.timestamp$set) {
+                throw new IllegalStateException("'timestamp' must be set for ActivatedEvent.");
+            }
+    
+
+            if (!this.mode$set) {
+                throw new IllegalStateException("'mode' must be set for ActivatedEvent.");
+            }
+    
+
+            if (!this.webhookEventId$set) {
+                throw new IllegalStateException("'webhookEventId' must be set for ActivatedEvent.");
+            }
+    
+
+            if (!this.deliveryContext$set) {
+                throw new IllegalStateException("'deliveryContext' must be set for ActivatedEvent.");
+            }
+    
+
+            if (!this.chatControl$set) {
+                throw new IllegalStateException("'chatControl' must be set for ActivatedEvent.");
+            }
+    
+
+
             return new ActivatedEvent(
 source,timestamp,mode,webhookEventId,deliveryContext,chatControl
             );

@@ -73,8 +73,15 @@ public record UserMentionee (
 
     public static class Builder {
 private Integer index;
+    
+        private boolean index$set;
+    
 private Integer length;
+    
+        private boolean length$set;
+    
 private String userId;
+    
 
 
         public Builder() {
@@ -82,19 +89,39 @@ private String userId;
 
 public Builder index(Integer index) {
             this.index = index;
+    
+            this.index$set = true;
+    
             return this;
         }
 public Builder length(Integer length) {
             this.length = length;
+    
+            this.length$set = true;
+    
             return this;
         }
 public Builder userId(String userId) {
             this.userId = userId;
+    
             return this;
         }
 
 
         public UserMentionee build() {
+
+            if (!this.index$set) {
+                throw new IllegalStateException("'index' must be set for UserMentionee.");
+            }
+    
+
+            if (!this.length$set) {
+                throw new IllegalStateException("'length' must be set for UserMentionee.");
+            }
+    
+
+
+
             return new UserMentionee(
 index,length,userId
             );

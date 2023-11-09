@@ -85,10 +85,21 @@ public record LocationMessageContent (
 
     public static class Builder {
 private String id;
+    
+        private boolean id$set;
+    
 private String title;
+    
 private String address;
+    
 private Double latitude;
+    
+        private boolean latitude$set;
+    
 private Double longitude;
+    
+        private boolean longitude$set;
+    
 
 
         public Builder() {
@@ -96,27 +107,57 @@ private Double longitude;
 
 public Builder id(String id) {
             this.id = id;
+    
+            this.id$set = true;
+    
             return this;
         }
 public Builder title(String title) {
             this.title = title;
+    
             return this;
         }
 public Builder address(String address) {
             this.address = address;
+    
             return this;
         }
 public Builder latitude(Double latitude) {
             this.latitude = latitude;
+    
+            this.latitude$set = true;
+    
             return this;
         }
 public Builder longitude(Double longitude) {
             this.longitude = longitude;
+    
+            this.longitude$set = true;
+    
             return this;
         }
 
 
         public LocationMessageContent build() {
+
+            if (!this.id$set) {
+                throw new IllegalStateException("'id' must be set for LocationMessageContent.");
+            }
+    
+
+
+
+            if (!this.latitude$set) {
+                throw new IllegalStateException("'latitude' must be set for LocationMessageContent.");
+            }
+    
+
+            if (!this.longitude$set) {
+                throw new IllegalStateException("'longitude' must be set for LocationMessageContent.");
+            }
+    
+
+
             return new LocationMessageContent(
 id,title,address,latitude,longitude
             );

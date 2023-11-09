@@ -61,6 +61,7 @@ public record AudienceRecipient (
 
     public static class Builder {
 private Long audienceGroupId;
+    
 
 
         public Builder() {
@@ -68,11 +69,15 @@ private Long audienceGroupId;
 
 public Builder audienceGroupId(Long audienceGroupId) {
             this.audienceGroupId = audienceGroupId;
+    
             return this;
         }
 
 
         public AudienceRecipient build() {
+
+
+
             return new AudienceRecipient(
 audienceGroupId
             );

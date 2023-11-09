@@ -65,6 +65,7 @@ public record GenderDemographicFilter (
 
     public static class Builder {
 private List<GenderDemographic> oneOf;
+    
 
 
         public Builder() {
@@ -72,11 +73,15 @@ private List<GenderDemographic> oneOf;
 
 public Builder oneOf(List<GenderDemographic> oneOf) {
             this.oneOf = oneOf;
+    
             return this;
         }
 
 
         public GenderDemographicFilter build() {
+
+
+
             return new GenderDemographicFilter(
 oneOf
             );
