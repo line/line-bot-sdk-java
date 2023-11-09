@@ -126,4 +126,84 @@ public record CreateAudienceGroupResponse (
     }
 
 
+    public static class Builder {
+private Long audienceGroupId;
+    
+private CreateRoute createRoute;
+    
+private AudienceGroupType type;
+    
+private String description;
+    
+private Long created;
+    
+private Permission permission;
+    
+private BigDecimal expireTimestamp;
+    
+private Boolean isIfaAudience;
+    
+
+
+        public Builder() {
+        }
+
+public Builder audienceGroupId(Long audienceGroupId) {
+            this.audienceGroupId = audienceGroupId;
+    
+            return this;
+        }
+public Builder createRoute(CreateRoute createRoute) {
+            this.createRoute = createRoute;
+    
+            return this;
+        }
+public Builder type(AudienceGroupType type) {
+            this.type = type;
+    
+            return this;
+        }
+public Builder description(String description) {
+            this.description = description;
+    
+            return this;
+        }
+public Builder created(Long created) {
+            this.created = created;
+    
+            return this;
+        }
+public Builder permission(Permission permission) {
+            this.permission = permission;
+    
+            return this;
+        }
+public Builder expireTimestamp(BigDecimal expireTimestamp) {
+            this.expireTimestamp = expireTimestamp;
+    
+            return this;
+        }
+public Builder isIfaAudience(Boolean isIfaAudience) {
+            this.isIfaAudience = isIfaAudience;
+    
+            return this;
+        }
+
+
+        public CreateAudienceGroupResponse build() {
+
+
+
+
+
+
+
+
+
+
+            return new CreateAudienceGroupResponse(
+audienceGroupId,createRoute,type,description,created,permission,expireTimestamp,isIfaAudience
+            );
+        }
+    }
 }

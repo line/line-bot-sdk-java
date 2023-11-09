@@ -84,4 +84,68 @@ public TemplateMessage(String altText, Template template) {
     this(null, null, altText, template);
 }
 
+    public static class Builder {
+private QuickReply quickReply;
+    
+private Sender sender;
+    
+private String altText;
+    
+        private boolean altText$set;
+    
+private Template template;
+    
+        private boolean template$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+    
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+    
+            return this;
+        }
+public Builder altText(String altText) {
+            this.altText = altText;
+    
+            this.altText$set = true;
+    
+            return this;
+        }
+public Builder template(Template template) {
+            this.template = template;
+    
+            this.template$set = true;
+    
+            return this;
+        }
+
+
+        public TemplateMessage build() {
+
+
+
+            if (!this.altText$set) {
+                throw new IllegalStateException("'altText' must be set for TemplateMessage.");
+            }
+    
+
+            if (!this.template$set) {
+                throw new IllegalStateException("'template' must be set for TemplateMessage.");
+            }
+    
+
+
+            return new TemplateMessage(
+quickReply,sender,altText,template
+            );
+        }
+    }
 }

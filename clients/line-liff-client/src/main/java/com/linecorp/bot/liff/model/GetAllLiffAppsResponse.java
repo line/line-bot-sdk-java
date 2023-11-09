@@ -61,4 +61,28 @@ public record GetAllLiffAppsResponse (
 )  {
 
 
+    public static class Builder {
+private List<LiffApp> apps;
+    
+
+
+        public Builder() {
+        }
+
+public Builder apps(List<LiffApp> apps) {
+            this.apps = apps;
+    
+            return this;
+        }
+
+
+        public GetAllLiffAppsResponse build() {
+
+
+
+            return new GetAllLiffAppsResponse(
+apps
+            );
+        }
+    }
 }

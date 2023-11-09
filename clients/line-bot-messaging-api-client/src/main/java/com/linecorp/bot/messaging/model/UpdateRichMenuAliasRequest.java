@@ -58,4 +58,36 @@ public record UpdateRichMenuAliasRequest (
 )  {
 
 
+    public static class Builder {
+private String richMenuId;
+    
+        private boolean richMenuId$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder richMenuId(String richMenuId) {
+            this.richMenuId = richMenuId;
+    
+            this.richMenuId$set = true;
+    
+            return this;
+        }
+
+
+        public UpdateRichMenuAliasRequest build() {
+
+            if (!this.richMenuId$set) {
+                throw new IllegalStateException("'richMenuId' must be set for UpdateRichMenuAliasRequest.");
+            }
+    
+
+
+            return new UpdateRichMenuAliasRequest(
+richMenuId
+            );
+        }
+    }
 }

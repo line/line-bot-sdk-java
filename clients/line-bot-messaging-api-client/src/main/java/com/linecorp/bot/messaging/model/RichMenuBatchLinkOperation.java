@@ -65,4 +65,52 @@ public record RichMenuBatchLinkOperation (
 ) implements RichMenuBatchOperation {
 
 
+    public static class Builder {
+private String from;
+    
+        private boolean from$set;
+    
+private String to;
+    
+        private boolean to$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder from(String from) {
+            this.from = from;
+    
+            this.from$set = true;
+    
+            return this;
+        }
+public Builder to(String to) {
+            this.to = to;
+    
+            this.to$set = true;
+    
+            return this;
+        }
+
+
+        public RichMenuBatchLinkOperation build() {
+
+            if (!this.from$set) {
+                throw new IllegalStateException("'from' must be set for RichMenuBatchLinkOperation.");
+            }
+    
+
+            if (!this.to$set) {
+                throw new IllegalStateException("'to' must be set for RichMenuBatchLinkOperation.");
+            }
+    
+
+
+            return new RichMenuBatchLinkOperation(
+from,to
+            );
+        }
+    }
 }

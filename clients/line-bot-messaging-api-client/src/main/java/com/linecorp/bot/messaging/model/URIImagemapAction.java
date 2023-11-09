@@ -72,4 +72,60 @@ public record URIImagemapAction (
 ) implements ImagemapAction {
 
 
+    public static class Builder {
+private ImagemapArea area;
+    
+        private boolean area$set;
+    
+private String linkUri;
+    
+        private boolean linkUri$set;
+    
+private String label;
+    
+
+
+        public Builder() {
+        }
+
+public Builder area(ImagemapArea area) {
+            this.area = area;
+    
+            this.area$set = true;
+    
+            return this;
+        }
+public Builder linkUri(String linkUri) {
+            this.linkUri = linkUri;
+    
+            this.linkUri$set = true;
+    
+            return this;
+        }
+public Builder label(String label) {
+            this.label = label;
+    
+            return this;
+        }
+
+
+        public URIImagemapAction build() {
+
+            if (!this.area$set) {
+                throw new IllegalStateException("'area' must be set for URIImagemapAction.");
+            }
+    
+
+            if (!this.linkUri$set) {
+                throw new IllegalStateException("'linkUri' must be set for URIImagemapAction.");
+            }
+    
+
+
+
+            return new URIImagemapAction(
+area,linkUri,label
+            );
+        }
+    }
 }

@@ -59,4 +59,36 @@ public record SetWebhookEndpointRequest (
 )  {
 
 
+    public static class Builder {
+private URI endpoint;
+    
+        private boolean endpoint$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder endpoint(URI endpoint) {
+            this.endpoint = endpoint;
+    
+            this.endpoint$set = true;
+    
+            return this;
+        }
+
+
+        public SetWebhookEndpointRequest build() {
+
+            if (!this.endpoint$set) {
+                throw new IllegalStateException("'endpoint' must be set for SetWebhookEndpointRequest.");
+            }
+    
+
+
+            return new SetWebhookEndpointRequest(
+endpoint
+            );
+        }
+    }
 }

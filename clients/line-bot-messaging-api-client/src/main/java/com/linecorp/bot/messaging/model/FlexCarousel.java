@@ -63,4 +63,36 @@ public record FlexCarousel (
 ) implements FlexContainer {
 
 
+    public static class Builder {
+private List<FlexBubble> contents;
+    
+        private boolean contents$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder contents(List<FlexBubble> contents) {
+            this.contents = contents;
+    
+            this.contents$set = true;
+    
+            return this;
+        }
+
+
+        public FlexCarousel build() {
+
+            if (!this.contents$set) {
+                throw new IllegalStateException("'contents' must be set for FlexCarousel.");
+            }
+    
+
+
+            return new FlexCarousel(
+contents
+            );
+        }
+    }
 }

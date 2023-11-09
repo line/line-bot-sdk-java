@@ -59,4 +59,28 @@ public record RedeliveryRecipient (
 ) implements Recipient {
 
 
+    public static class Builder {
+private String requestId;
+    
+
+
+        public Builder() {
+        }
+
+public Builder requestId(String requestId) {
+            this.requestId = requestId;
+    
+            return this;
+        }
+
+
+        public RedeliveryRecipient build() {
+
+
+
+            return new RedeliveryRecipient(
+requestId
+            );
+        }
+    }
 }

@@ -59,4 +59,28 @@ public record UpdateAudienceGroupAuthorityLevelRequest (
 )  {
 
 
+    public static class Builder {
+private AudienceGroupAuthorityLevel authorityLevel;
+    
+
+
+        public Builder() {
+        }
+
+public Builder authorityLevel(AudienceGroupAuthorityLevel authorityLevel) {
+            this.authorityLevel = authorityLevel;
+    
+            return this;
+        }
+
+
+        public UpdateAudienceGroupAuthorityLevelRequest build() {
+
+
+
+            return new UpdateAudienceGroupAuthorityLevelRequest(
+authorityLevel
+            );
+        }
+    }
 }

@@ -57,4 +57,28 @@ public record AltUri (
 )  {
 
 
+    public static class Builder {
+private String desktop;
+    
+
+
+        public Builder() {
+        }
+
+public Builder desktop(String desktop) {
+            this.desktop = desktop;
+    
+            return this;
+        }
+
+
+        public AltUri build() {
+
+
+
+            return new AltUri(
+desktop
+            );
+        }
+    }
 }

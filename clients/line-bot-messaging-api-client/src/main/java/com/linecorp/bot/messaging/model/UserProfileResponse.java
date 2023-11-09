@@ -83,4 +83,76 @@ public record UserProfileResponse (
 )  {
 
 
+    public static class Builder {
+private String displayName;
+    
+        private boolean displayName$set;
+    
+private String userId;
+    
+        private boolean userId$set;
+    
+private URI pictureUrl;
+    
+private String statusMessage;
+    
+private String language;
+    
+
+
+        public Builder() {
+        }
+
+public Builder displayName(String displayName) {
+            this.displayName = displayName;
+    
+            this.displayName$set = true;
+    
+            return this;
+        }
+public Builder userId(String userId) {
+            this.userId = userId;
+    
+            this.userId$set = true;
+    
+            return this;
+        }
+public Builder pictureUrl(URI pictureUrl) {
+            this.pictureUrl = pictureUrl;
+    
+            return this;
+        }
+public Builder statusMessage(String statusMessage) {
+            this.statusMessage = statusMessage;
+    
+            return this;
+        }
+public Builder language(String language) {
+            this.language = language;
+    
+            return this;
+        }
+
+
+        public UserProfileResponse build() {
+
+            if (!this.displayName$set) {
+                throw new IllegalStateException("'displayName' must be set for UserProfileResponse.");
+            }
+    
+
+            if (!this.userId$set) {
+                throw new IllegalStateException("'userId' must be set for UserProfileResponse.");
+            }
+    
+
+
+
+
+
+            return new UserProfileResponse(
+displayName,userId,pictureUrl,statusMessage,language
+            );
+        }
+    }
 }

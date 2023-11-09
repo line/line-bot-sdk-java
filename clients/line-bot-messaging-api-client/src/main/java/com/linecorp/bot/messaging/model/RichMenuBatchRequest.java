@@ -67,4 +67,44 @@ public record RichMenuBatchRequest (
 )  {
 
 
+    public static class Builder {
+private List<RichMenuBatchOperation> operations;
+    
+        private boolean operations$set;
+    
+private String resumeRequestKey;
+    
+
+
+        public Builder() {
+        }
+
+public Builder operations(List<RichMenuBatchOperation> operations) {
+            this.operations = operations;
+    
+            this.operations$set = true;
+    
+            return this;
+        }
+public Builder resumeRequestKey(String resumeRequestKey) {
+            this.resumeRequestKey = resumeRequestKey;
+    
+            return this;
+        }
+
+
+        public RichMenuBatchRequest build() {
+
+            if (!this.operations$set) {
+                throw new IllegalStateException("'operations' must be set for RichMenuBatchRequest.");
+            }
+    
+
+
+
+            return new RichMenuBatchRequest(
+operations,resumeRequestKey
+            );
+        }
+    }
 }

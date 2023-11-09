@@ -65,4 +65,52 @@ public record GetWebhookEndpointResponse (
 )  {
 
 
+    public static class Builder {
+private URI endpoint;
+    
+        private boolean endpoint$set;
+    
+private Boolean active;
+    
+        private boolean active$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder endpoint(URI endpoint) {
+            this.endpoint = endpoint;
+    
+            this.endpoint$set = true;
+    
+            return this;
+        }
+public Builder active(Boolean active) {
+            this.active = active;
+    
+            this.active$set = true;
+    
+            return this;
+        }
+
+
+        public GetWebhookEndpointResponse build() {
+
+            if (!this.endpoint$set) {
+                throw new IllegalStateException("'endpoint' must be set for GetWebhookEndpointResponse.");
+            }
+    
+
+            if (!this.active$set) {
+                throw new IllegalStateException("'active' must be set for GetWebhookEndpointResponse.");
+            }
+    
+
+
+            return new GetWebhookEndpointResponse(
+endpoint,active
+            );
+        }
+    }
 }

@@ -74,4 +74,44 @@ public record OperatorRecipient (
 ) implements Recipient {
 
 
+    public static class Builder {
+private List<Recipient> and;
+    
+private List<Recipient> or;
+    
+private Recipient not;
+    
+
+
+        public Builder() {
+        }
+
+public Builder and(List<Recipient> and) {
+            this.and = and;
+    
+            return this;
+        }
+public Builder or(List<Recipient> or) {
+            this.or = or;
+    
+            return this;
+        }
+public Builder not(Recipient not) {
+            this.not = not;
+    
+            return this;
+        }
+
+
+        public OperatorRecipient build() {
+
+
+
+
+
+            return new OperatorRecipient(
+and,or,not
+            );
+        }
+    }
 }

@@ -86,4 +86,92 @@ public record UnfollowEvent (
 ) implements Event {
 
 
+    public static class Builder {
+private Source source;
+    
+private Long timestamp;
+    
+        private boolean timestamp$set;
+    
+private EventMode mode;
+    
+        private boolean mode$set;
+    
+private String webhookEventId;
+    
+        private boolean webhookEventId$set;
+    
+private DeliveryContext deliveryContext;
+    
+        private boolean deliveryContext$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder source(Source source) {
+            this.source = source;
+    
+            return this;
+        }
+public Builder timestamp(Long timestamp) {
+            this.timestamp = timestamp;
+    
+            this.timestamp$set = true;
+    
+            return this;
+        }
+public Builder mode(EventMode mode) {
+            this.mode = mode;
+    
+            this.mode$set = true;
+    
+            return this;
+        }
+public Builder webhookEventId(String webhookEventId) {
+            this.webhookEventId = webhookEventId;
+    
+            this.webhookEventId$set = true;
+    
+            return this;
+        }
+public Builder deliveryContext(DeliveryContext deliveryContext) {
+            this.deliveryContext = deliveryContext;
+    
+            this.deliveryContext$set = true;
+    
+            return this;
+        }
+
+
+        public UnfollowEvent build() {
+
+
+            if (!this.timestamp$set) {
+                throw new IllegalStateException("'timestamp' must be set for UnfollowEvent.");
+            }
+    
+
+            if (!this.mode$set) {
+                throw new IllegalStateException("'mode' must be set for UnfollowEvent.");
+            }
+    
+
+            if (!this.webhookEventId$set) {
+                throw new IllegalStateException("'webhookEventId' must be set for UnfollowEvent.");
+            }
+    
+
+            if (!this.deliveryContext$set) {
+                throw new IllegalStateException("'deliveryContext' must be set for UnfollowEvent.");
+            }
+    
+
+
+            return new UnfollowEvent(
+source,timestamp,mode,webhookEventId,deliveryContext
+            );
+        }
+    }
 }

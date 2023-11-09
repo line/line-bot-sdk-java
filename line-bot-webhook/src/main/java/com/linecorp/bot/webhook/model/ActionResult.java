@@ -76,4 +76,44 @@ public record ActionResult (
     }
 
 
+    public static class Builder {
+private Type type;
+    
+        private boolean type$set;
+    
+private String data;
+    
+
+
+        public Builder() {
+        }
+
+public Builder type(Type type) {
+            this.type = type;
+    
+            this.type$set = true;
+    
+            return this;
+        }
+public Builder data(String data) {
+            this.data = data;
+    
+            return this;
+        }
+
+
+        public ActionResult build() {
+
+            if (!this.type$set) {
+                throw new IllegalStateException("'type' must be set for ActionResult.");
+            }
+    
+
+
+
+            return new ActionResult(
+type,data
+            );
+        }
+    }
 }

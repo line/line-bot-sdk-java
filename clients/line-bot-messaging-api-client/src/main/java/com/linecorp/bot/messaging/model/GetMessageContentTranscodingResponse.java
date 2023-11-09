@@ -73,4 +73,36 @@ public record GetMessageContentTranscodingResponse (
     }
 
 
+    public static class Builder {
+private Status status;
+    
+        private boolean status$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder status(Status status) {
+            this.status = status;
+    
+            this.status$set = true;
+    
+            return this;
+        }
+
+
+        public GetMessageContentTranscodingResponse build() {
+
+            if (!this.status$set) {
+                throw new IllegalStateException("'status' must be set for GetMessageContentTranscodingResponse.");
+            }
+    
+
+
+            return new GetMessageContentTranscodingResponse(
+status
+            );
+        }
+    }
 }

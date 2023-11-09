@@ -80,4 +80,52 @@ public record CreateAudienceGroupRequest (
 )  {
 
 
+    public static class Builder {
+private String description;
+    
+private Boolean isIfaAudience;
+    
+private String uploadDescription;
+    
+private List<Audience> audiences;
+    
+
+
+        public Builder() {
+        }
+
+public Builder description(String description) {
+            this.description = description;
+    
+            return this;
+        }
+public Builder isIfaAudience(Boolean isIfaAudience) {
+            this.isIfaAudience = isIfaAudience;
+    
+            return this;
+        }
+public Builder uploadDescription(String uploadDescription) {
+            this.uploadDescription = uploadDescription;
+    
+            return this;
+        }
+public Builder audiences(List<Audience> audiences) {
+            this.audiences = audiences;
+    
+            return this;
+        }
+
+
+        public CreateAudienceGroupRequest build() {
+
+
+
+
+
+
+            return new CreateAudienceGroupRequest(
+description,isIfaAudience,uploadDescription,audiences
+            );
+        }
+    }
 }

@@ -96,4 +96,68 @@ public record GetFriendsDemographicsResponse (
 )  {
 
 
+    public static class Builder {
+private Boolean available;
+    
+private List<GenderTile> genders;
+    
+private List<AgeTile> ages;
+    
+private List<AreaTile> areas;
+    
+private List<AppTypeTile> appTypes;
+    
+private List<SubscriptionPeriodTile> subscriptionPeriods;
+    
+
+
+        public Builder() {
+        }
+
+public Builder available(Boolean available) {
+            this.available = available;
+    
+            return this;
+        }
+public Builder genders(List<GenderTile> genders) {
+            this.genders = genders;
+    
+            return this;
+        }
+public Builder ages(List<AgeTile> ages) {
+            this.ages = ages;
+    
+            return this;
+        }
+public Builder areas(List<AreaTile> areas) {
+            this.areas = areas;
+    
+            return this;
+        }
+public Builder appTypes(List<AppTypeTile> appTypes) {
+            this.appTypes = appTypes;
+    
+            return this;
+        }
+public Builder subscriptionPeriods(List<SubscriptionPeriodTile> subscriptionPeriods) {
+            this.subscriptionPeriods = subscriptionPeriods;
+    
+            return this;
+        }
+
+
+        public GetFriendsDemographicsResponse build() {
+
+
+
+
+
+
+
+
+            return new GetFriendsDemographicsResponse(
+available,genders,ages,areas,appTypes,subscriptionPeriods
+            );
+        }
+    }
 }

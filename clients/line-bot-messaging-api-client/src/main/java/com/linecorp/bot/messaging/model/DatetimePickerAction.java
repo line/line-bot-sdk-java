@@ -105,4 +105,68 @@ public record DatetimePickerAction (
     }
 
 
+    public static class Builder {
+private String label;
+    
+private String data;
+    
+private Mode mode;
+    
+private String initial;
+    
+private String max;
+    
+private String min;
+    
+
+
+        public Builder() {
+        }
+
+public Builder label(String label) {
+            this.label = label;
+    
+            return this;
+        }
+public Builder data(String data) {
+            this.data = data;
+    
+            return this;
+        }
+public Builder mode(Mode mode) {
+            this.mode = mode;
+    
+            return this;
+        }
+public Builder initial(String initial) {
+            this.initial = initial;
+    
+            return this;
+        }
+public Builder max(String max) {
+            this.max = max;
+    
+            return this;
+        }
+public Builder min(String min) {
+            this.min = min;
+    
+            return this;
+        }
+
+
+        public DatetimePickerAction build() {
+
+
+
+
+
+
+
+
+            return new DatetimePickerAction(
+label,data,mode,initial,max,min
+            );
+        }
+    }
 }

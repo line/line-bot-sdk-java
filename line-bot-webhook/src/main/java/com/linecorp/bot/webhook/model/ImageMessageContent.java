@@ -79,4 +79,76 @@ public record ImageMessageContent (
 ) implements MessageContent {
 
 
+    public static class Builder {
+private String id;
+    
+        private boolean id$set;
+    
+private ContentProvider contentProvider;
+    
+        private boolean contentProvider$set;
+    
+private ImageSet imageSet;
+    
+private String quoteToken;
+    
+        private boolean quoteToken$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+    
+            this.id$set = true;
+    
+            return this;
+        }
+public Builder contentProvider(ContentProvider contentProvider) {
+            this.contentProvider = contentProvider;
+    
+            this.contentProvider$set = true;
+    
+            return this;
+        }
+public Builder imageSet(ImageSet imageSet) {
+            this.imageSet = imageSet;
+    
+            return this;
+        }
+public Builder quoteToken(String quoteToken) {
+            this.quoteToken = quoteToken;
+    
+            this.quoteToken$set = true;
+    
+            return this;
+        }
+
+
+        public ImageMessageContent build() {
+
+            if (!this.id$set) {
+                throw new IllegalStateException("'id' must be set for ImageMessageContent.");
+            }
+    
+
+            if (!this.contentProvider$set) {
+                throw new IllegalStateException("'contentProvider' must be set for ImageMessageContent.");
+            }
+    
+
+
+            if (!this.quoteToken$set) {
+                throw new IllegalStateException("'quoteToken' must be set for ImageMessageContent.");
+            }
+    
+
+
+            return new ImageMessageContent(
+id,contentProvider,imageSet,quoteToken
+            );
+        }
+    }
 }

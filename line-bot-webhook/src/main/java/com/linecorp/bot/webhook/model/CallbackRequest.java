@@ -68,4 +68,52 @@ public record CallbackRequest (
 )  {
 
 
+    public static class Builder {
+private String destination;
+    
+        private boolean destination$set;
+    
+private List<Event> events;
+    
+        private boolean events$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder destination(String destination) {
+            this.destination = destination;
+    
+            this.destination$set = true;
+    
+            return this;
+        }
+public Builder events(List<Event> events) {
+            this.events = events;
+    
+            this.events$set = true;
+    
+            return this;
+        }
+
+
+        public CallbackRequest build() {
+
+            if (!this.destination$set) {
+                throw new IllegalStateException("'destination' must be set for CallbackRequest.");
+            }
+    
+
+            if (!this.events$set) {
+                throw new IllegalStateException("'events' must be set for CallbackRequest.");
+            }
+    
+
+
+            return new CallbackRequest(
+destination,events
+            );
+        }
+    }
 }

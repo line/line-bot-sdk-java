@@ -89,4 +89,68 @@ public record NarrowcastRequest (
 )  {
 
 
+    public static class Builder {
+private List<Message> messages;
+    
+        private boolean messages$set;
+    
+private Recipient recipient;
+    
+private Filter filter;
+    
+private Limit limit;
+    
+private Boolean notificationDisabled;
+    
+
+
+        public Builder() {
+        }
+
+public Builder messages(List<Message> messages) {
+            this.messages = messages;
+    
+            this.messages$set = true;
+    
+            return this;
+        }
+public Builder recipient(Recipient recipient) {
+            this.recipient = recipient;
+    
+            return this;
+        }
+public Builder filter(Filter filter) {
+            this.filter = filter;
+    
+            return this;
+        }
+public Builder limit(Limit limit) {
+            this.limit = limit;
+    
+            return this;
+        }
+public Builder notificationDisabled(Boolean notificationDisabled) {
+            this.notificationDisabled = notificationDisabled;
+    
+            return this;
+        }
+
+
+        public NarrowcastRequest build() {
+
+            if (!this.messages$set) {
+                throw new IllegalStateException("'messages' must be set for NarrowcastRequest.");
+            }
+    
+
+
+
+
+
+
+            return new NarrowcastRequest(
+messages,recipient,filter,limit,notificationDisabled
+            );
+        }
+    }
 }

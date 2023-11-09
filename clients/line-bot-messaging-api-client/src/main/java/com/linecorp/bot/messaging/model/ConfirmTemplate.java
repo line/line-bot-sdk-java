@@ -69,4 +69,52 @@ public record ConfirmTemplate (
 ) implements Template {
 
 
+    public static class Builder {
+private String text;
+    
+        private boolean text$set;
+    
+private List<Action> actions;
+    
+        private boolean actions$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder text(String text) {
+            this.text = text;
+    
+            this.text$set = true;
+    
+            return this;
+        }
+public Builder actions(List<Action> actions) {
+            this.actions = actions;
+    
+            this.actions$set = true;
+    
+            return this;
+        }
+
+
+        public ConfirmTemplate build() {
+
+            if (!this.text$set) {
+                throw new IllegalStateException("'text' must be set for ConfirmTemplate.");
+            }
+    
+
+            if (!this.actions$set) {
+                throw new IllegalStateException("'actions' must be set for ConfirmTemplate.");
+            }
+    
+
+
+            return new ConfirmTemplate(
+text,actions
+            );
+        }
+    }
 }

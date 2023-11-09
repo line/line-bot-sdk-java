@@ -76,4 +76,84 @@ public record MissionStickerRequest (
 )  {
 
 
+    public static class Builder {
+private String to;
+    
+        private boolean to$set;
+    
+private String productId;
+    
+        private boolean productId$set;
+    
+private String productType;
+    
+        private boolean productType$set;
+    
+private Boolean sendPresentMessage;
+    
+        private boolean sendPresentMessage$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder to(String to) {
+            this.to = to;
+    
+            this.to$set = true;
+    
+            return this;
+        }
+public Builder productId(String productId) {
+            this.productId = productId;
+    
+            this.productId$set = true;
+    
+            return this;
+        }
+public Builder productType(String productType) {
+            this.productType = productType;
+    
+            this.productType$set = true;
+    
+            return this;
+        }
+public Builder sendPresentMessage(Boolean sendPresentMessage) {
+            this.sendPresentMessage = sendPresentMessage;
+    
+            this.sendPresentMessage$set = true;
+    
+            return this;
+        }
+
+
+        public MissionStickerRequest build() {
+
+            if (!this.to$set) {
+                throw new IllegalStateException("'to' must be set for MissionStickerRequest.");
+            }
+    
+
+            if (!this.productId$set) {
+                throw new IllegalStateException("'productId' must be set for MissionStickerRequest.");
+            }
+    
+
+            if (!this.productType$set) {
+                throw new IllegalStateException("'productType' must be set for MissionStickerRequest.");
+            }
+    
+
+            if (!this.sendPresentMessage$set) {
+                throw new IllegalStateException("'sendPresentMessage' must be set for MissionStickerRequest.");
+            }
+    
+
+
+            return new MissionStickerRequest(
+to,productId,productType,sendPresentMessage
+            );
+        }
+    }
 }

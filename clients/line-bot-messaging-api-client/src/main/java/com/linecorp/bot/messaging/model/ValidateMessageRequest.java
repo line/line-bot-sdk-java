@@ -61,4 +61,36 @@ public record ValidateMessageRequest (
 )  {
 
 
+    public static class Builder {
+private List<Message> messages;
+    
+        private boolean messages$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder messages(List<Message> messages) {
+            this.messages = messages;
+    
+            this.messages$set = true;
+    
+            return this;
+        }
+
+
+        public ValidateMessageRequest build() {
+
+            if (!this.messages$set) {
+                throw new IllegalStateException("'messages' must be set for ValidateMessageRequest.");
+            }
+    
+
+
+            return new ValidateMessageRequest(
+messages
+            );
+        }
+    }
 }

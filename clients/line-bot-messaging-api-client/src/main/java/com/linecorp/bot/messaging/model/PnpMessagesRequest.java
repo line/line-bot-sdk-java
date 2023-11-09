@@ -74,4 +74,60 @@ public record PnpMessagesRequest (
 )  {
 
 
+    public static class Builder {
+private List<Message> messages;
+    
+        private boolean messages$set;
+    
+private String to;
+    
+        private boolean to$set;
+    
+private Boolean notificationDisabled;
+    
+
+
+        public Builder() {
+        }
+
+public Builder messages(List<Message> messages) {
+            this.messages = messages;
+    
+            this.messages$set = true;
+    
+            return this;
+        }
+public Builder to(String to) {
+            this.to = to;
+    
+            this.to$set = true;
+    
+            return this;
+        }
+public Builder notificationDisabled(Boolean notificationDisabled) {
+            this.notificationDisabled = notificationDisabled;
+    
+            return this;
+        }
+
+
+        public PnpMessagesRequest build() {
+
+            if (!this.messages$set) {
+                throw new IllegalStateException("'messages' must be set for PnpMessagesRequest.");
+            }
+    
+
+            if (!this.to$set) {
+                throw new IllegalStateException("'to' must be set for PnpMessagesRequest.");
+            }
+    
+
+
+
+            return new PnpMessagesRequest(
+messages,to,notificationDisabled
+            );
+        }
+    }
 }

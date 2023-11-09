@@ -208,4 +208,156 @@ public record FlexImage (
     }
 
 
+    public static class Builder {
+private URI url;
+    
+        private boolean url$set;
+    
+private Integer flex;
+    
+private String margin;
+    
+private Position position;
+    
+private String offsetTop;
+    
+private String offsetBottom;
+    
+private String offsetStart;
+    
+private String offsetEnd;
+    
+private Align align;
+    
+private Gravity gravity;
+    
+private String size;
+    
+private String aspectRatio;
+    
+private AspectMode aspectMode;
+    
+private String backgroundColor;
+    
+private Action action;
+    
+private Boolean animated;
+    
+
+
+        public Builder() {
+        }
+
+public Builder url(URI url) {
+            this.url = url;
+    
+            this.url$set = true;
+    
+            return this;
+        }
+public Builder flex(Integer flex) {
+            this.flex = flex;
+    
+            return this;
+        }
+public Builder margin(String margin) {
+            this.margin = margin;
+    
+            return this;
+        }
+public Builder position(Position position) {
+            this.position = position;
+    
+            return this;
+        }
+public Builder offsetTop(String offsetTop) {
+            this.offsetTop = offsetTop;
+    
+            return this;
+        }
+public Builder offsetBottom(String offsetBottom) {
+            this.offsetBottom = offsetBottom;
+    
+            return this;
+        }
+public Builder offsetStart(String offsetStart) {
+            this.offsetStart = offsetStart;
+    
+            return this;
+        }
+public Builder offsetEnd(String offsetEnd) {
+            this.offsetEnd = offsetEnd;
+    
+            return this;
+        }
+public Builder align(Align align) {
+            this.align = align;
+    
+            return this;
+        }
+public Builder gravity(Gravity gravity) {
+            this.gravity = gravity;
+    
+            return this;
+        }
+public Builder size(String size) {
+            this.size = size;
+    
+            return this;
+        }
+public Builder aspectRatio(String aspectRatio) {
+            this.aspectRatio = aspectRatio;
+    
+            return this;
+        }
+public Builder aspectMode(AspectMode aspectMode) {
+            this.aspectMode = aspectMode;
+    
+            return this;
+        }
+public Builder backgroundColor(String backgroundColor) {
+            this.backgroundColor = backgroundColor;
+    
+            return this;
+        }
+public Builder action(Action action) {
+            this.action = action;
+    
+            return this;
+        }
+public Builder animated(Boolean animated) {
+            this.animated = animated;
+    
+            return this;
+        }
+
+
+        public FlexImage build() {
+
+            if (!this.url$set) {
+                throw new IllegalStateException("'url' must be set for FlexImage.");
+            }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return new FlexImage(
+url,flex,margin,position,offsetTop,offsetBottom,offsetStart,offsetEnd,align,gravity,size,aspectRatio,aspectMode,backgroundColor,action,animated
+            );
+        }
+    }
 }

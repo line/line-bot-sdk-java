@@ -59,4 +59,36 @@ public record UnlinkThingsContent (
 ) implements ThingsContent {
 
 
+    public static class Builder {
+private String deviceId;
+    
+        private boolean deviceId$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder deviceId(String deviceId) {
+            this.deviceId = deviceId;
+    
+            this.deviceId$set = true;
+    
+            return this;
+        }
+
+
+        public UnlinkThingsContent build() {
+
+            if (!this.deviceId$set) {
+                throw new IllegalStateException("'deviceId' must be set for UnlinkThingsContent.");
+            }
+    
+
+
+            return new UnlinkThingsContent(
+deviceId
+            );
+        }
+    }
 }

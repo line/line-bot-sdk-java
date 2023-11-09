@@ -59,4 +59,28 @@ public record FlexFiller (
 ) implements FlexComponent {
 
 
+    public static class Builder {
+private Integer flex;
+    
+
+
+        public Builder() {
+        }
+
+public Builder flex(Integer flex) {
+            this.flex = flex;
+    
+            return this;
+        }
+
+
+        public FlexFiller build() {
+
+
+
+            return new FlexFiller(
+flex
+            );
+        }
+    }
 }

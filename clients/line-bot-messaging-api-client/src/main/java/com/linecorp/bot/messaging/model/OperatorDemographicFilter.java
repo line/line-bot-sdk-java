@@ -74,4 +74,44 @@ public record OperatorDemographicFilter (
 ) implements DemographicFilter {
 
 
+    public static class Builder {
+private List<DemographicFilter> and;
+    
+private List<DemographicFilter> or;
+    
+private DemographicFilter not;
+    
+
+
+        public Builder() {
+        }
+
+public Builder and(List<DemographicFilter> and) {
+            this.and = and;
+    
+            return this;
+        }
+public Builder or(List<DemographicFilter> or) {
+            this.or = or;
+    
+            return this;
+        }
+public Builder not(DemographicFilter not) {
+            this.not = not;
+    
+            return this;
+        }
+
+
+        public OperatorDemographicFilter build() {
+
+
+
+
+
+            return new OperatorDemographicFilter(
+and,or,not
+            );
+        }
+    }
 }

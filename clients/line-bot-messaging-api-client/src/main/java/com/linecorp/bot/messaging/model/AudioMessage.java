@@ -84,4 +84,68 @@ public AudioMessage(URI originalContentUrl, Long duration) {
     this(null, null, originalContentUrl, duration);
 }
 
+    public static class Builder {
+private QuickReply quickReply;
+    
+private Sender sender;
+    
+private URI originalContentUrl;
+    
+        private boolean originalContentUrl$set;
+    
+private Long duration;
+    
+        private boolean duration$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+    
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+    
+            return this;
+        }
+public Builder originalContentUrl(URI originalContentUrl) {
+            this.originalContentUrl = originalContentUrl;
+    
+            this.originalContentUrl$set = true;
+    
+            return this;
+        }
+public Builder duration(Long duration) {
+            this.duration = duration;
+    
+            this.duration$set = true;
+    
+            return this;
+        }
+
+
+        public AudioMessage build() {
+
+
+
+            if (!this.originalContentUrl$set) {
+                throw new IllegalStateException("'originalContentUrl' must be set for AudioMessage.");
+            }
+    
+
+            if (!this.duration$set) {
+                throw new IllegalStateException("'duration' must be set for AudioMessage.");
+            }
+    
+
+
+            return new AudioMessage(
+quickReply,sender,originalContentUrl,duration
+            );
+        }
+    }
 }

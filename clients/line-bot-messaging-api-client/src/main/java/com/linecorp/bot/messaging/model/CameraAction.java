@@ -59,4 +59,28 @@ public record CameraAction (
 ) implements Action {
 
 
+    public static class Builder {
+private String label;
+    
+
+
+        public Builder() {
+        }
+
+public Builder label(String label) {
+            this.label = label;
+    
+            return this;
+        }
+
+
+        public CameraAction build() {
+
+
+
+            return new CameraAction(
+label
+            );
+        }
+    }
 }

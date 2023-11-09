@@ -59,4 +59,36 @@ public record MarkMessagesAsReadRequest (
 )  {
 
 
+    public static class Builder {
+private ChatReference chat;
+    
+        private boolean chat$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder chat(ChatReference chat) {
+            this.chat = chat;
+    
+            this.chat$set = true;
+    
+            return this;
+        }
+
+
+        public MarkMessagesAsReadRequest build() {
+
+            if (!this.chat$set) {
+                throw new IllegalStateException("'chat' must be set for MarkMessagesAsReadRequest.");
+            }
+    
+
+
+            return new MarkMessagesAsReadRequest(
+chat
+            );
+        }
+    }
 }

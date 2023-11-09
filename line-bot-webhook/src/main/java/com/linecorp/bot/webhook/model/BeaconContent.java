@@ -84,4 +84,60 @@ public record BeaconContent (
     }
 
 
+    public static class Builder {
+private String hwid;
+    
+        private boolean hwid$set;
+    
+private Type type;
+    
+        private boolean type$set;
+    
+private String dm;
+    
+
+
+        public Builder() {
+        }
+
+public Builder hwid(String hwid) {
+            this.hwid = hwid;
+    
+            this.hwid$set = true;
+    
+            return this;
+        }
+public Builder type(Type type) {
+            this.type = type;
+    
+            this.type$set = true;
+    
+            return this;
+        }
+public Builder dm(String dm) {
+            this.dm = dm;
+    
+            return this;
+        }
+
+
+        public BeaconContent build() {
+
+            if (!this.hwid$set) {
+                throw new IllegalStateException("'hwid' must be set for BeaconContent.");
+            }
+    
+
+            if (!this.type$set) {
+                throw new IllegalStateException("'type' must be set for BeaconContent.");
+            }
+    
+
+
+
+            return new BeaconContent(
+hwid,type,dm
+            );
+        }
+    }
 }

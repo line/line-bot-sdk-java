@@ -57,4 +57,36 @@ public record VideoPlayComplete (
 )  {
 
 
+    public static class Builder {
+private String trackingId;
+    
+        private boolean trackingId$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder trackingId(String trackingId) {
+            this.trackingId = trackingId;
+    
+            this.trackingId$set = true;
+    
+            return this;
+        }
+
+
+        public VideoPlayComplete build() {
+
+            if (!this.trackingId$set) {
+                throw new IllegalStateException("'trackingId' must be set for VideoPlayComplete.");
+            }
+    
+
+
+            return new VideoPlayComplete(
+trackingId
+            );
+        }
+    }
 }

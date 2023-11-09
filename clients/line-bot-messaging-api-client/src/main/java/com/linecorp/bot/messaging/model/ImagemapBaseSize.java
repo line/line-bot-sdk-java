@@ -63,4 +63,52 @@ public record ImagemapBaseSize (
 )  {
 
 
+    public static class Builder {
+private Integer height;
+    
+        private boolean height$set;
+    
+private Integer width;
+    
+        private boolean width$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder height(Integer height) {
+            this.height = height;
+    
+            this.height$set = true;
+    
+            return this;
+        }
+public Builder width(Integer width) {
+            this.width = width;
+    
+            this.width$set = true;
+    
+            return this;
+        }
+
+
+        public ImagemapBaseSize build() {
+
+            if (!this.height$set) {
+                throw new IllegalStateException("'height' must be set for ImagemapBaseSize.");
+            }
+    
+
+            if (!this.width$set) {
+                throw new IllegalStateException("'width' must be set for ImagemapBaseSize.");
+            }
+    
+
+
+            return new ImagemapBaseSize(
+height,width
+            );
+        }
+    }
 }

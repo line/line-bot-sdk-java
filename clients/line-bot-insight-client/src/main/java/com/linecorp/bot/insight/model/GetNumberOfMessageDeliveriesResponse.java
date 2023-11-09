@@ -133,4 +133,108 @@ public record GetNumberOfMessageDeliveriesResponse (
     }
 
 
+    public static class Builder {
+private Status status;
+    
+private Long broadcast;
+    
+private Long targeting;
+    
+private Long autoResponse;
+    
+private Long welcomeResponse;
+    
+private Long chat;
+    
+private Long apiBroadcast;
+    
+private Long apiPush;
+    
+private Long apiMulticast;
+    
+private Long apiNarrowcast;
+    
+private Long apiReply;
+    
+
+
+        public Builder() {
+        }
+
+public Builder status(Status status) {
+            this.status = status;
+    
+            return this;
+        }
+public Builder broadcast(Long broadcast) {
+            this.broadcast = broadcast;
+    
+            return this;
+        }
+public Builder targeting(Long targeting) {
+            this.targeting = targeting;
+    
+            return this;
+        }
+public Builder autoResponse(Long autoResponse) {
+            this.autoResponse = autoResponse;
+    
+            return this;
+        }
+public Builder welcomeResponse(Long welcomeResponse) {
+            this.welcomeResponse = welcomeResponse;
+    
+            return this;
+        }
+public Builder chat(Long chat) {
+            this.chat = chat;
+    
+            return this;
+        }
+public Builder apiBroadcast(Long apiBroadcast) {
+            this.apiBroadcast = apiBroadcast;
+    
+            return this;
+        }
+public Builder apiPush(Long apiPush) {
+            this.apiPush = apiPush;
+    
+            return this;
+        }
+public Builder apiMulticast(Long apiMulticast) {
+            this.apiMulticast = apiMulticast;
+    
+            return this;
+        }
+public Builder apiNarrowcast(Long apiNarrowcast) {
+            this.apiNarrowcast = apiNarrowcast;
+    
+            return this;
+        }
+public Builder apiReply(Long apiReply) {
+            this.apiReply = apiReply;
+    
+            return this;
+        }
+
+
+        public GetNumberOfMessageDeliveriesResponse build() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return new GetNumberOfMessageDeliveriesResponse(
+status,broadcast,targeting,autoResponse,welcomeResponse,chat,apiBroadcast,apiPush,apiMulticast,apiNarrowcast,apiReply
+            );
+        }
+    }
 }

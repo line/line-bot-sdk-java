@@ -84,4 +84,68 @@ public ImageMessage(URI originalContentUrl, URI previewImageUrl) {
     this(null, null, originalContentUrl, previewImageUrl);
 }
 
+    public static class Builder {
+private QuickReply quickReply;
+    
+private Sender sender;
+    
+private URI originalContentUrl;
+    
+        private boolean originalContentUrl$set;
+    
+private URI previewImageUrl;
+    
+        private boolean previewImageUrl$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+    
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+    
+            return this;
+        }
+public Builder originalContentUrl(URI originalContentUrl) {
+            this.originalContentUrl = originalContentUrl;
+    
+            this.originalContentUrl$set = true;
+    
+            return this;
+        }
+public Builder previewImageUrl(URI previewImageUrl) {
+            this.previewImageUrl = previewImageUrl;
+    
+            this.previewImageUrl$set = true;
+    
+            return this;
+        }
+
+
+        public ImageMessage build() {
+
+
+
+            if (!this.originalContentUrl$set) {
+                throw new IllegalStateException("'originalContentUrl' must be set for ImageMessage.");
+            }
+    
+
+            if (!this.previewImageUrl$set) {
+                throw new IllegalStateException("'previewImageUrl' must be set for ImageMessage.");
+            }
+    
+
+
+            return new ImageMessage(
+quickReply,sender,originalContentUrl,previewImageUrl
+            );
+        }
+    }
 }

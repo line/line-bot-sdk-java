@@ -94,4 +94,92 @@ public record TextMessageContent (
 ) implements MessageContent {
 
 
+    public static class Builder {
+private String id;
+    
+        private boolean id$set;
+    
+private String text;
+    
+        private boolean text$set;
+    
+private List<Emoji> emojis;
+    
+private Mention mention;
+    
+private String quoteToken;
+    
+        private boolean quoteToken$set;
+    
+private String quotedMessageId;
+    
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+    
+            this.id$set = true;
+    
+            return this;
+        }
+public Builder text(String text) {
+            this.text = text;
+    
+            this.text$set = true;
+    
+            return this;
+        }
+public Builder emojis(List<Emoji> emojis) {
+            this.emojis = emojis;
+    
+            return this;
+        }
+public Builder mention(Mention mention) {
+            this.mention = mention;
+    
+            return this;
+        }
+public Builder quoteToken(String quoteToken) {
+            this.quoteToken = quoteToken;
+    
+            this.quoteToken$set = true;
+    
+            return this;
+        }
+public Builder quotedMessageId(String quotedMessageId) {
+            this.quotedMessageId = quotedMessageId;
+    
+            return this;
+        }
+
+
+        public TextMessageContent build() {
+
+            if (!this.id$set) {
+                throw new IllegalStateException("'id' must be set for TextMessageContent.");
+            }
+    
+
+            if (!this.text$set) {
+                throw new IllegalStateException("'text' must be set for TextMessageContent.");
+            }
+    
+
+
+
+            if (!this.quoteToken$set) {
+                throw new IllegalStateException("'quoteToken' must be set for TextMessageContent.");
+            }
+    
+
+
+
+            return new TextMessageContent(
+id,text,emojis,mention,quoteToken,quotedMessageId
+            );
+        }
+    }
 }

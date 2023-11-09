@@ -57,4 +57,36 @@ public record DeliveryContext (
 )  {
 
 
+    public static class Builder {
+private Boolean isRedelivery;
+    
+        private boolean isRedelivery$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder isRedelivery(Boolean isRedelivery) {
+            this.isRedelivery = isRedelivery;
+    
+            this.isRedelivery$set = true;
+    
+            return this;
+        }
+
+
+        public DeliveryContext build() {
+
+            if (!this.isRedelivery$set) {
+                throw new IllegalStateException("'isRedelivery' must be set for DeliveryContext.");
+            }
+    
+
+
+            return new DeliveryContext(
+isRedelivery
+            );
+        }
+    }
 }

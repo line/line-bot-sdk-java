@@ -65,4 +65,52 @@ public record AllMentionee (
 ) implements Mentionee {
 
 
+    public static class Builder {
+private Integer index;
+    
+        private boolean index$set;
+    
+private Integer length;
+    
+        private boolean length$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder index(Integer index) {
+            this.index = index;
+    
+            this.index$set = true;
+    
+            return this;
+        }
+public Builder length(Integer length) {
+            this.length = length;
+    
+            this.length$set = true;
+    
+            return this;
+        }
+
+
+        public AllMentionee build() {
+
+            if (!this.index$set) {
+                throw new IllegalStateException("'index' must be set for AllMentionee.");
+            }
+    
+
+            if (!this.length$set) {
+                throw new IllegalStateException("'length' must be set for AllMentionee.");
+            }
+    
+
+
+            return new AllMentionee(
+index,length
+            );
+        }
+    }
 }

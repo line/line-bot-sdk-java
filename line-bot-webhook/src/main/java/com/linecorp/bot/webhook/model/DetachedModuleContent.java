@@ -76,4 +76,52 @@ public record DetachedModuleContent (
     }
 
 
+    public static class Builder {
+private String botId;
+    
+        private boolean botId$set;
+    
+private Reason reason;
+    
+        private boolean reason$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder botId(String botId) {
+            this.botId = botId;
+    
+            this.botId$set = true;
+    
+            return this;
+        }
+public Builder reason(Reason reason) {
+            this.reason = reason;
+    
+            this.reason$set = true;
+    
+            return this;
+        }
+
+
+        public DetachedModuleContent build() {
+
+            if (!this.botId$set) {
+                throw new IllegalStateException("'botId' must be set for DetachedModuleContent.");
+            }
+    
+
+            if (!this.reason$set) {
+                throw new IllegalStateException("'reason' must be set for DetachedModuleContent.");
+            }
+    
+
+
+            return new DetachedModuleContent(
+botId,reason
+            );
+        }
+    }
 }

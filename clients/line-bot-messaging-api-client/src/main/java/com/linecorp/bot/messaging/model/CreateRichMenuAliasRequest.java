@@ -64,4 +64,52 @@ public record CreateRichMenuAliasRequest (
 )  {
 
 
+    public static class Builder {
+private String richMenuAliasId;
+    
+        private boolean richMenuAliasId$set;
+    
+private String richMenuId;
+    
+        private boolean richMenuId$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder richMenuAliasId(String richMenuAliasId) {
+            this.richMenuAliasId = richMenuAliasId;
+    
+            this.richMenuAliasId$set = true;
+    
+            return this;
+        }
+public Builder richMenuId(String richMenuId) {
+            this.richMenuId = richMenuId;
+    
+            this.richMenuId$set = true;
+    
+            return this;
+        }
+
+
+        public CreateRichMenuAliasRequest build() {
+
+            if (!this.richMenuAliasId$set) {
+                throw new IllegalStateException("'richMenuAliasId' must be set for CreateRichMenuAliasRequest.");
+            }
+    
+
+            if (!this.richMenuId$set) {
+                throw new IllegalStateException("'richMenuId' must be set for CreateRichMenuAliasRequest.");
+            }
+    
+
+
+            return new CreateRichMenuAliasRequest(
+richMenuAliasId,richMenuId
+            );
+        }
+    }
 }

@@ -105,4 +105,108 @@ public record ImagemapMessage (
 ) implements Message {
 
 
+    public static class Builder {
+private QuickReply quickReply;
+    
+private Sender sender;
+    
+private URI baseUrl;
+    
+        private boolean baseUrl$set;
+    
+private String altText;
+    
+        private boolean altText$set;
+    
+private ImagemapBaseSize baseSize;
+    
+        private boolean baseSize$set;
+    
+private List<ImagemapAction> actions;
+    
+        private boolean actions$set;
+    
+private ImagemapVideo video;
+    
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+    
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+    
+            return this;
+        }
+public Builder baseUrl(URI baseUrl) {
+            this.baseUrl = baseUrl;
+    
+            this.baseUrl$set = true;
+    
+            return this;
+        }
+public Builder altText(String altText) {
+            this.altText = altText;
+    
+            this.altText$set = true;
+    
+            return this;
+        }
+public Builder baseSize(ImagemapBaseSize baseSize) {
+            this.baseSize = baseSize;
+    
+            this.baseSize$set = true;
+    
+            return this;
+        }
+public Builder actions(List<ImagemapAction> actions) {
+            this.actions = actions;
+    
+            this.actions$set = true;
+    
+            return this;
+        }
+public Builder video(ImagemapVideo video) {
+            this.video = video;
+    
+            return this;
+        }
+
+
+        public ImagemapMessage build() {
+
+
+
+            if (!this.baseUrl$set) {
+                throw new IllegalStateException("'baseUrl' must be set for ImagemapMessage.");
+            }
+    
+
+            if (!this.altText$set) {
+                throw new IllegalStateException("'altText' must be set for ImagemapMessage.");
+            }
+    
+
+            if (!this.baseSize$set) {
+                throw new IllegalStateException("'baseSize' must be set for ImagemapMessage.");
+            }
+    
+
+            if (!this.actions$set) {
+                throw new IllegalStateException("'actions' must be set for ImagemapMessage.");
+            }
+    
+
+
+
+            return new ImagemapMessage(
+quickReply,sender,baseUrl,altText,baseSize,actions,video
+            );
+        }
+    }
 }

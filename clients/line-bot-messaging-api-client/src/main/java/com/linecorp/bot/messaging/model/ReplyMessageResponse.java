@@ -62,4 +62,36 @@ public record ReplyMessageResponse (
 )  {
 
 
+    public static class Builder {
+private List<SentMessage> sentMessages;
+    
+        private boolean sentMessages$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder sentMessages(List<SentMessage> sentMessages) {
+            this.sentMessages = sentMessages;
+    
+            this.sentMessages$set = true;
+    
+            return this;
+        }
+
+
+        public ReplyMessageResponse build() {
+
+            if (!this.sentMessages$set) {
+                throw new IllegalStateException("'sentMessages' must be set for ReplyMessageResponse.");
+            }
+    
+
+
+            return new ReplyMessageResponse(
+sentMessages
+            );
+        }
+    }
 }

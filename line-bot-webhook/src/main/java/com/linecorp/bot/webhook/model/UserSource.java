@@ -59,4 +59,28 @@ public record UserSource (
 ) implements Source {
 
 
+    public static class Builder {
+private String userId;
+    
+
+
+        public Builder() {
+        }
+
+public Builder userId(String userId) {
+            this.userId = userId;
+    
+            return this;
+        }
+
+
+        public UserSource build() {
+
+
+
+            return new UserSource(
+userId
+            );
+        }
+    }
 }

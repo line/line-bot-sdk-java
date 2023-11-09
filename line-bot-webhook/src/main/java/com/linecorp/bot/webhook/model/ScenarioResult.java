@@ -104,4 +104,108 @@ public record ScenarioResult (
 )  {
 
 
+    public static class Builder {
+private String scenarioId;
+    
+private Integer revision;
+    
+private Long startTime;
+    
+        private boolean startTime$set;
+    
+private Long endTime;
+    
+        private boolean endTime$set;
+    
+private String resultCode;
+    
+        private boolean resultCode$set;
+    
+private List<ActionResult> actionResults;
+    
+private String bleNotificationPayload;
+    
+private String errorReason;
+    
+
+
+        public Builder() {
+        }
+
+public Builder scenarioId(String scenarioId) {
+            this.scenarioId = scenarioId;
+    
+            return this;
+        }
+public Builder revision(Integer revision) {
+            this.revision = revision;
+    
+            return this;
+        }
+public Builder startTime(Long startTime) {
+            this.startTime = startTime;
+    
+            this.startTime$set = true;
+    
+            return this;
+        }
+public Builder endTime(Long endTime) {
+            this.endTime = endTime;
+    
+            this.endTime$set = true;
+    
+            return this;
+        }
+public Builder resultCode(String resultCode) {
+            this.resultCode = resultCode;
+    
+            this.resultCode$set = true;
+    
+            return this;
+        }
+public Builder actionResults(List<ActionResult> actionResults) {
+            this.actionResults = actionResults;
+    
+            return this;
+        }
+public Builder bleNotificationPayload(String bleNotificationPayload) {
+            this.bleNotificationPayload = bleNotificationPayload;
+    
+            return this;
+        }
+public Builder errorReason(String errorReason) {
+            this.errorReason = errorReason;
+    
+            return this;
+        }
+
+
+        public ScenarioResult build() {
+
+
+
+            if (!this.startTime$set) {
+                throw new IllegalStateException("'startTime' must be set for ScenarioResult.");
+            }
+    
+
+            if (!this.endTime$set) {
+                throw new IllegalStateException("'endTime' must be set for ScenarioResult.");
+            }
+    
+
+            if (!this.resultCode$set) {
+                throw new IllegalStateException("'resultCode' must be set for ScenarioResult.");
+            }
+    
+
+
+
+
+
+            return new ScenarioResult(
+scenarioId,revision,startTime,endTime,resultCode,actionResults,bleNotificationPayload,errorReason
+            );
+        }
+    }
 }

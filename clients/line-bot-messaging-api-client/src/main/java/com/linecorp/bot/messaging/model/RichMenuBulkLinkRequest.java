@@ -67,4 +67,52 @@ public record RichMenuBulkLinkRequest (
 )  {
 
 
+    public static class Builder {
+private String richMenuId;
+    
+        private boolean richMenuId$set;
+    
+private List<String> userIds;
+    
+        private boolean userIds$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder richMenuId(String richMenuId) {
+            this.richMenuId = richMenuId;
+    
+            this.richMenuId$set = true;
+    
+            return this;
+        }
+public Builder userIds(List<String> userIds) {
+            this.userIds = userIds;
+    
+            this.userIds$set = true;
+    
+            return this;
+        }
+
+
+        public RichMenuBulkLinkRequest build() {
+
+            if (!this.richMenuId$set) {
+                throw new IllegalStateException("'richMenuId' must be set for RichMenuBulkLinkRequest.");
+            }
+    
+
+            if (!this.userIds$set) {
+                throw new IllegalStateException("'userIds' must be set for RichMenuBulkLinkRequest.");
+            }
+    
+
+
+            return new RichMenuBulkLinkRequest(
+richMenuId,userIds
+            );
+        }
+    }
 }

@@ -58,4 +58,36 @@ public record IssueLinkTokenResponse (
 )  {
 
 
+    public static class Builder {
+private String linkToken;
+    
+        private boolean linkToken$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder linkToken(String linkToken) {
+            this.linkToken = linkToken;
+    
+            this.linkToken$set = true;
+    
+            return this;
+        }
+
+
+        public IssueLinkTokenResponse build() {
+
+            if (!this.linkToken$set) {
+                throw new IllegalStateException("'linkToken' must be set for IssueLinkTokenResponse.");
+            }
+    
+
+
+            return new IssueLinkTokenResponse(
+linkToken
+            );
+        }
+    }
 }

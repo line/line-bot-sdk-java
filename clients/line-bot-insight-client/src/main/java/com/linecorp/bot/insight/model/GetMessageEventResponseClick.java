@@ -81,4 +81,60 @@ public record GetMessageEventResponseClick (
 )  {
 
 
+    public static class Builder {
+private Integer seq;
+    
+private String url;
+    
+private Long click;
+    
+private Long uniqueClick;
+    
+private Long uniqueClickOfRequest;
+    
+
+
+        public Builder() {
+        }
+
+public Builder seq(Integer seq) {
+            this.seq = seq;
+    
+            return this;
+        }
+public Builder url(String url) {
+            this.url = url;
+    
+            return this;
+        }
+public Builder click(Long click) {
+            this.click = click;
+    
+            return this;
+        }
+public Builder uniqueClick(Long uniqueClick) {
+            this.uniqueClick = uniqueClick;
+    
+            return this;
+        }
+public Builder uniqueClickOfRequest(Long uniqueClickOfRequest) {
+            this.uniqueClickOfRequest = uniqueClickOfRequest;
+    
+            return this;
+        }
+
+
+        public GetMessageEventResponseClick build() {
+
+
+
+
+
+
+
+            return new GetMessageEventResponseClick(
+seq,url,click,uniqueClick,uniqueClickOfRequest
+            );
+        }
+    }
 }

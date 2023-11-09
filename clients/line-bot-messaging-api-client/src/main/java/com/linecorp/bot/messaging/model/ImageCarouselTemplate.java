@@ -63,4 +63,36 @@ public record ImageCarouselTemplate (
 ) implements Template {
 
 
+    public static class Builder {
+private List<ImageCarouselColumn> columns;
+    
+        private boolean columns$set;
+    
+
+
+        public Builder() {
+        }
+
+public Builder columns(List<ImageCarouselColumn> columns) {
+            this.columns = columns;
+    
+            this.columns$set = true;
+    
+            return this;
+        }
+
+
+        public ImageCarouselTemplate build() {
+
+            if (!this.columns$set) {
+                throw new IllegalStateException("'columns' must be set for ImageCarouselTemplate.");
+            }
+    
+
+
+            return new ImageCarouselTemplate(
+columns
+            );
+        }
+    }
 }
