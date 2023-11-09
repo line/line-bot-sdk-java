@@ -63,4 +63,28 @@ public record ImagemapBaseSize (
 )  {
 
 
+    public static class Builder {
+private Integer height;
+private Integer width;
+
+
+        public Builder() {
+        }
+
+public Builder height(Integer height) {
+            this.height = height;
+            return this;
+        }
+public Builder width(Integer width) {
+            this.width = width;
+            return this;
+        }
+
+
+        public ImagemapBaseSize build() {
+            return new ImagemapBaseSize(
+height,width
+            );
+        }
+    }
 }

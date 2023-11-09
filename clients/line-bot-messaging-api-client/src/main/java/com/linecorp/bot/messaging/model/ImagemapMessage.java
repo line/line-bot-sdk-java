@@ -105,4 +105,53 @@ public record ImagemapMessage (
 ) implements Message {
 
 
+    public static class Builder {
+private QuickReply quickReply;
+private Sender sender;
+private URI baseUrl;
+private String altText;
+private ImagemapBaseSize baseSize;
+private List<ImagemapAction> actions;
+private ImagemapVideo video;
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+            return this;
+        }
+public Builder baseUrl(URI baseUrl) {
+            this.baseUrl = baseUrl;
+            return this;
+        }
+public Builder altText(String altText) {
+            this.altText = altText;
+            return this;
+        }
+public Builder baseSize(ImagemapBaseSize baseSize) {
+            this.baseSize = baseSize;
+            return this;
+        }
+public Builder actions(List<ImagemapAction> actions) {
+            this.actions = actions;
+            return this;
+        }
+public Builder video(ImagemapVideo video) {
+            this.video = video;
+            return this;
+        }
+
+
+        public ImagemapMessage build() {
+            return new ImagemapMessage(
+quickReply,sender,baseUrl,altText,baseSize,actions,video
+            );
+        }
+    }
 }

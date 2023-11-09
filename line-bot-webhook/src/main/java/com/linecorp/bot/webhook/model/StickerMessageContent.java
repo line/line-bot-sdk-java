@@ -134,4 +134,58 @@ public record StickerMessageContent (
     }
 
 
+    public static class Builder {
+private String id;
+private String packageId;
+private String stickerId;
+private StickerResourceType stickerResourceType;
+private List<String> keywords;
+private String text;
+private String quoteToken;
+private String quotedMessageId;
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+public Builder packageId(String packageId) {
+            this.packageId = packageId;
+            return this;
+        }
+public Builder stickerId(String stickerId) {
+            this.stickerId = stickerId;
+            return this;
+        }
+public Builder stickerResourceType(StickerResourceType stickerResourceType) {
+            this.stickerResourceType = stickerResourceType;
+            return this;
+        }
+public Builder keywords(List<String> keywords) {
+            this.keywords = keywords;
+            return this;
+        }
+public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+public Builder quoteToken(String quoteToken) {
+            this.quoteToken = quoteToken;
+            return this;
+        }
+public Builder quotedMessageId(String quotedMessageId) {
+            this.quotedMessageId = quotedMessageId;
+            return this;
+        }
+
+
+        public StickerMessageContent build() {
+            return new StickerMessageContent(
+id,packageId,stickerId,stickerResourceType,keywords,text,quoteToken,quotedMessageId
+            );
+        }
+    }
 }

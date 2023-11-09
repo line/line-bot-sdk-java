@@ -72,4 +72,33 @@ public record RichMenuBatchProgressResponse (
 )  {
 
 
+    public static class Builder {
+private RichMenuBatchProgressPhase phase;
+private OffsetDateTime acceptedTime;
+private OffsetDateTime completedTime;
+
+
+        public Builder() {
+        }
+
+public Builder phase(RichMenuBatchProgressPhase phase) {
+            this.phase = phase;
+            return this;
+        }
+public Builder acceptedTime(OffsetDateTime acceptedTime) {
+            this.acceptedTime = acceptedTime;
+            return this;
+        }
+public Builder completedTime(OffsetDateTime completedTime) {
+            this.completedTime = completedTime;
+            return this;
+        }
+
+
+        public RichMenuBatchProgressResponse build() {
+            return new RichMenuBatchProgressResponse(
+phase,acceptedTime,completedTime
+            );
+        }
+    }
 }

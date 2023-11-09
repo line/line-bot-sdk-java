@@ -86,4 +86,33 @@ public record LiffView (
     }
 
 
+    public static class Builder {
+private Type type;
+private URI url;
+private Boolean moduleMode;
+
+
+        public Builder() {
+        }
+
+public Builder type(Type type) {
+            this.type = type;
+            return this;
+        }
+public Builder url(URI url) {
+            this.url = url;
+            return this;
+        }
+public Builder moduleMode(Boolean moduleMode) {
+            this.moduleMode = moduleMode;
+            return this;
+        }
+
+
+        public LiffView build() {
+            return new LiffView(
+type,url,moduleMode
+            );
+        }
+    }
 }

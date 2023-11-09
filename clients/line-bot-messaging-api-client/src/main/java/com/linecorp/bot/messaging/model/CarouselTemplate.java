@@ -75,4 +75,33 @@ public record CarouselTemplate (
 ) implements Template {
 
 
+    public static class Builder {
+private List<CarouselColumn> columns;
+private String imageAspectRatio;
+private String imageSize;
+
+
+        public Builder() {
+        }
+
+public Builder columns(List<CarouselColumn> columns) {
+            this.columns = columns;
+            return this;
+        }
+public Builder imageAspectRatio(String imageAspectRatio) {
+            this.imageAspectRatio = imageAspectRatio;
+            return this;
+        }
+public Builder imageSize(String imageSize) {
+            this.imageSize = imageSize;
+            return this;
+        }
+
+
+        public CarouselTemplate build() {
+            return new CarouselTemplate(
+columns,imageAspectRatio,imageSize
+            );
+        }
+    }
 }

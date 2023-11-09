@@ -75,4 +75,38 @@ public record ImagemapArea (
 )  {
 
 
+    public static class Builder {
+private Integer x;
+private Integer y;
+private Integer width;
+private Integer height;
+
+
+        public Builder() {
+        }
+
+public Builder x(Integer x) {
+            this.x = x;
+            return this;
+        }
+public Builder y(Integer y) {
+            this.y = y;
+            return this;
+        }
+public Builder width(Integer width) {
+            this.width = width;
+            return this;
+        }
+public Builder height(Integer height) {
+            this.height = height;
+            return this;
+        }
+
+
+        public ImagemapArea build() {
+            return new ImagemapArea(
+x,y,width,height
+            );
+        }
+    }
 }

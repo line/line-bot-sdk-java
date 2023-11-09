@@ -62,4 +62,23 @@ public record ReplyMessageResponse (
 )  {
 
 
+    public static class Builder {
+private List<SentMessage> sentMessages;
+
+
+        public Builder() {
+        }
+
+public Builder sentMessages(List<SentMessage> sentMessages) {
+            this.sentMessages = sentMessages;
+            return this;
+        }
+
+
+        public ReplyMessageResponse build() {
+            return new ReplyMessageResponse(
+sentMessages
+            );
+        }
+    }
 }

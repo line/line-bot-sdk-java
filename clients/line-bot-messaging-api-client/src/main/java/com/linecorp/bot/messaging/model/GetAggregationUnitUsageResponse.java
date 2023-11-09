@@ -58,4 +58,23 @@ public record GetAggregationUnitUsageResponse (
 )  {
 
 
+    public static class Builder {
+private Long numOfCustomAggregationUnits;
+
+
+        public Builder() {
+        }
+
+public Builder numOfCustomAggregationUnits(Long numOfCustomAggregationUnits) {
+            this.numOfCustomAggregationUnits = numOfCustomAggregationUnits;
+            return this;
+        }
+
+
+        public GetAggregationUnitUsageResponse build() {
+            return new GetAggregationUnitUsageResponse(
+numOfCustomAggregationUnits
+            );
+        }
+    }
 }

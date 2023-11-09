@@ -67,4 +67,28 @@ public record GetAggregationUnitNameListResponse (
 )  {
 
 
+    public static class Builder {
+private List<String> customAggregationUnits;
+private String next;
+
+
+        public Builder() {
+        }
+
+public Builder customAggregationUnits(List<String> customAggregationUnits) {
+            this.customAggregationUnits = customAggregationUnits;
+            return this;
+        }
+public Builder next(String next) {
+            this.next = next;
+            return this;
+        }
+
+
+        public GetAggregationUnitNameListResponse build() {
+            return new GetAggregationUnitNameListResponse(
+customAggregationUnits,next
+            );
+        }
+    }
 }

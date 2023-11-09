@@ -83,4 +83,43 @@ public record UserProfileResponse (
 )  {
 
 
+    public static class Builder {
+private String displayName;
+private String userId;
+private URI pictureUrl;
+private String statusMessage;
+private String language;
+
+
+        public Builder() {
+        }
+
+public Builder displayName(String displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+public Builder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+public Builder pictureUrl(URI pictureUrl) {
+            this.pictureUrl = pictureUrl;
+            return this;
+        }
+public Builder statusMessage(String statusMessage) {
+            this.statusMessage = statusMessage;
+            return this;
+        }
+public Builder language(String language) {
+            this.language = language;
+            return this;
+        }
+
+
+        public UserProfileResponse build() {
+            return new UserProfileResponse(
+displayName,userId,pictureUrl,statusMessage,language
+            );
+        }
+    }
 }

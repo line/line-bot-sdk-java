@@ -89,4 +89,43 @@ public StickerMessage(String packageId, String stickerId) {
     this(null, null, packageId, stickerId, null);
 }
 
+    public static class Builder {
+private QuickReply quickReply;
+private Sender sender;
+private String packageId;
+private String stickerId;
+private String quoteToken;
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+            return this;
+        }
+public Builder packageId(String packageId) {
+            this.packageId = packageId;
+            return this;
+        }
+public Builder stickerId(String stickerId) {
+            this.stickerId = stickerId;
+            return this;
+        }
+public Builder quoteToken(String quoteToken) {
+            this.quoteToken = quoteToken;
+            return this;
+        }
+
+
+        public StickerMessage build() {
+            return new StickerMessage(
+quickReply,sender,packageId,stickerId,quoteToken
+            );
+        }
+    }
 }

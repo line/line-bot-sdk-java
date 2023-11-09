@@ -82,4 +82,43 @@ public record GetStatisticsPerUnitResponseClick (
 )  {
 
 
+    public static class Builder {
+private Long seq;
+private String url;
+private Long click;
+private Long uniqueClick;
+private Long uniqueClickOfRequest;
+
+
+        public Builder() {
+        }
+
+public Builder seq(Long seq) {
+            this.seq = seq;
+            return this;
+        }
+public Builder url(String url) {
+            this.url = url;
+            return this;
+        }
+public Builder click(Long click) {
+            this.click = click;
+            return this;
+        }
+public Builder uniqueClick(Long uniqueClick) {
+            this.uniqueClick = uniqueClick;
+            return this;
+        }
+public Builder uniqueClickOfRequest(Long uniqueClickOfRequest) {
+            this.uniqueClickOfRequest = uniqueClickOfRequest;
+            return this;
+        }
+
+
+        public GetStatisticsPerUnitResponseClick build() {
+            return new GetStatisticsPerUnitResponseClick(
+seq,url,click,uniqueClick,uniqueClickOfRequest
+            );
+        }
+    }
 }

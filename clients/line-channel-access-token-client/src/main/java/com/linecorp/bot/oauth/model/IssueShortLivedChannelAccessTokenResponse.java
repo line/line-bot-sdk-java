@@ -70,4 +70,33 @@ public record IssueShortLivedChannelAccessTokenResponse (
 )  {
 
 
+    public static class Builder {
+private String accessToken;
+private Integer expiresIn;
+private String tokenType;
+
+
+        public Builder() {
+        }
+
+public Builder accessToken(String accessToken) {
+            this.accessToken = accessToken;
+            return this;
+        }
+public Builder expiresIn(Integer expiresIn) {
+            this.expiresIn = expiresIn;
+            return this;
+        }
+public Builder tokenType(String tokenType) {
+            this.tokenType = tokenType;
+            return this;
+        }
+
+
+        public IssueShortLivedChannelAccessTokenResponse build() {
+            return new IssueShortLivedChannelAccessTokenResponse(
+accessToken,expiresIn,tokenType
+            );
+        }
+    }
 }

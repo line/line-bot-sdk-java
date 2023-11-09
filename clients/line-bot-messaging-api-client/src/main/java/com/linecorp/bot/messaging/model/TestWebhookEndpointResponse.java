@@ -83,4 +83,43 @@ public record TestWebhookEndpointResponse (
 )  {
 
 
+    public static class Builder {
+private Boolean success;
+private OffsetDateTime timestamp;
+private Integer statusCode;
+private String reason;
+private String detail;
+
+
+        public Builder() {
+        }
+
+public Builder success(Boolean success) {
+            this.success = success;
+            return this;
+        }
+public Builder timestamp(OffsetDateTime timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+public Builder statusCode(Integer statusCode) {
+            this.statusCode = statusCode;
+            return this;
+        }
+public Builder reason(String reason) {
+            this.reason = reason;
+            return this;
+        }
+public Builder detail(String detail) {
+            this.detail = detail;
+            return this;
+        }
+
+
+        public TestWebhookEndpointResponse build() {
+            return new TestWebhookEndpointResponse(
+success,timestamp,statusCode,reason,detail
+            );
+        }
+    }
 }

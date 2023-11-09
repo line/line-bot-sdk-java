@@ -71,4 +71,33 @@ public record GroupSummaryResponse (
 )  {
 
 
+    public static class Builder {
+private String groupId;
+private String groupName;
+private URI pictureUrl;
+
+
+        public Builder() {
+        }
+
+public Builder groupId(String groupId) {
+            this.groupId = groupId;
+            return this;
+        }
+public Builder groupName(String groupName) {
+            this.groupName = groupName;
+            return this;
+        }
+public Builder pictureUrl(URI pictureUrl) {
+            this.pictureUrl = pictureUrl;
+            return this;
+        }
+
+
+        public GroupSummaryResponse build() {
+            return new GroupSummaryResponse(
+groupId,groupName,pictureUrl
+            );
+        }
+    }
 }

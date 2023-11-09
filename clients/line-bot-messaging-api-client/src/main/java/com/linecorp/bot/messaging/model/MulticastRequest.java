@@ -80,4 +80,38 @@ public record MulticastRequest (
 )  {
 
 
+    public static class Builder {
+private List<Message> messages;
+private List<String> to;
+private Boolean notificationDisabled;
+private List<String> customAggregationUnits;
+
+
+        public Builder() {
+        }
+
+public Builder messages(List<Message> messages) {
+            this.messages = messages;
+            return this;
+        }
+public Builder to(List<String> to) {
+            this.to = to;
+            return this;
+        }
+public Builder notificationDisabled(Boolean notificationDisabled) {
+            this.notificationDisabled = notificationDisabled;
+            return this;
+        }
+public Builder customAggregationUnits(List<String> customAggregationUnits) {
+            this.customAggregationUnits = customAggregationUnits;
+            return this;
+        }
+
+
+        public MulticastRequest build() {
+            return new MulticastRequest(
+messages,to,notificationDisabled,customAggregationUnits
+            );
+        }
+    }
 }

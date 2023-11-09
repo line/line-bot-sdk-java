@@ -58,4 +58,23 @@ public record UpdateRichMenuAliasRequest (
 )  {
 
 
+    public static class Builder {
+private String richMenuId;
+
+
+        public Builder() {
+        }
+
+public Builder richMenuId(String richMenuId) {
+            this.richMenuId = richMenuId;
+            return this;
+        }
+
+
+        public UpdateRichMenuAliasRequest build() {
+            return new UpdateRichMenuAliasRequest(
+richMenuId
+            );
+        }
+    }
 }

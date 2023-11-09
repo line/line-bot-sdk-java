@@ -59,4 +59,23 @@ public record AudienceRecipient (
 ) implements Recipient {
 
 
+    public static class Builder {
+private Long audienceGroupId;
+
+
+        public Builder() {
+        }
+
+public Builder audienceGroupId(Long audienceGroupId) {
+            this.audienceGroupId = audienceGroupId;
+            return this;
+        }
+
+
+        public AudienceRecipient build() {
+            return new AudienceRecipient(
+audienceGroupId
+            );
+        }
+    }
 }

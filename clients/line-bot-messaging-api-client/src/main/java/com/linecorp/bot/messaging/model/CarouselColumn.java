@@ -92,4 +92,48 @@ public record CarouselColumn (
 )  {
 
 
+    public static class Builder {
+private URI thumbnailImageUrl;
+private String imageBackgroundColor;
+private String title;
+private String text;
+private Action defaultAction;
+private List<Action> actions;
+
+
+        public Builder() {
+        }
+
+public Builder thumbnailImageUrl(URI thumbnailImageUrl) {
+            this.thumbnailImageUrl = thumbnailImageUrl;
+            return this;
+        }
+public Builder imageBackgroundColor(String imageBackgroundColor) {
+            this.imageBackgroundColor = imageBackgroundColor;
+            return this;
+        }
+public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+public Builder defaultAction(Action defaultAction) {
+            this.defaultAction = defaultAction;
+            return this;
+        }
+public Builder actions(List<Action> actions) {
+            this.actions = actions;
+            return this;
+        }
+
+
+        public CarouselColumn build() {
+            return new CarouselColumn(
+thumbnailImageUrl,imageBackgroundColor,title,text,defaultAction,actions
+            );
+        }
+    }
 }

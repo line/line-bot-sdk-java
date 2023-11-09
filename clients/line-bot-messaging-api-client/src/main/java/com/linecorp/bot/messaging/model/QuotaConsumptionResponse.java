@@ -58,4 +58,23 @@ public record QuotaConsumptionResponse (
 )  {
 
 
+    public static class Builder {
+private Long totalUsage;
+
+
+        public Builder() {
+        }
+
+public Builder totalUsage(Long totalUsage) {
+            this.totalUsage = totalUsage;
+            return this;
+        }
+
+
+        public QuotaConsumptionResponse build() {
+            return new QuotaConsumptionResponse(
+totalUsage
+            );
+        }
+    }
 }

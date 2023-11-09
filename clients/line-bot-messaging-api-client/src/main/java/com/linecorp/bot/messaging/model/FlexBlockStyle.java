@@ -69,4 +69,33 @@ public record FlexBlockStyle (
 )  {
 
 
+    public static class Builder {
+private String backgroundColor;
+private Boolean separator;
+private String separatorColor;
+
+
+        public Builder() {
+        }
+
+public Builder backgroundColor(String backgroundColor) {
+            this.backgroundColor = backgroundColor;
+            return this;
+        }
+public Builder separator(Boolean separator) {
+            this.separator = separator;
+            return this;
+        }
+public Builder separatorColor(String separatorColor) {
+            this.separatorColor = separatorColor;
+            return this;
+        }
+
+
+        public FlexBlockStyle build() {
+            return new FlexBlockStyle(
+backgroundColor,separator,separatorColor
+            );
+        }
+    }
 }

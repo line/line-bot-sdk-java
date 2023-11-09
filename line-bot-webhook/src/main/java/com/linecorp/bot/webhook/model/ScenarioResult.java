@@ -104,4 +104,58 @@ public record ScenarioResult (
 )  {
 
 
+    public static class Builder {
+private String scenarioId;
+private Integer revision;
+private Long startTime;
+private Long endTime;
+private String resultCode;
+private List<ActionResult> actionResults;
+private String bleNotificationPayload;
+private String errorReason;
+
+
+        public Builder() {
+        }
+
+public Builder scenarioId(String scenarioId) {
+            this.scenarioId = scenarioId;
+            return this;
+        }
+public Builder revision(Integer revision) {
+            this.revision = revision;
+            return this;
+        }
+public Builder startTime(Long startTime) {
+            this.startTime = startTime;
+            return this;
+        }
+public Builder endTime(Long endTime) {
+            this.endTime = endTime;
+            return this;
+        }
+public Builder resultCode(String resultCode) {
+            this.resultCode = resultCode;
+            return this;
+        }
+public Builder actionResults(List<ActionResult> actionResults) {
+            this.actionResults = actionResults;
+            return this;
+        }
+public Builder bleNotificationPayload(String bleNotificationPayload) {
+            this.bleNotificationPayload = bleNotificationPayload;
+            return this;
+        }
+public Builder errorReason(String errorReason) {
+            this.errorReason = errorReason;
+            return this;
+        }
+
+
+        public ScenarioResult build() {
+            return new ScenarioResult(
+scenarioId,revision,startTime,endTime,resultCode,actionResults,bleNotificationPayload,errorReason
+            );
+        }
+    }
 }

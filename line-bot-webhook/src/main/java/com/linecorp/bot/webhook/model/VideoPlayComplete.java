@@ -57,4 +57,23 @@ public record VideoPlayComplete (
 )  {
 
 
+    public static class Builder {
+private String trackingId;
+
+
+        public Builder() {
+        }
+
+public Builder trackingId(String trackingId) {
+            this.trackingId = trackingId;
+            return this;
+        }
+
+
+        public VideoPlayComplete build() {
+            return new VideoPlayComplete(
+trackingId
+            );
+        }
+    }
 }

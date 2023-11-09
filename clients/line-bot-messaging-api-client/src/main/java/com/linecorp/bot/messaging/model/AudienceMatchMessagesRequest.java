@@ -74,4 +74,33 @@ public record AudienceMatchMessagesRequest (
 )  {
 
 
+    public static class Builder {
+private List<Message> messages;
+private List<String> to;
+private Boolean notificationDisabled;
+
+
+        public Builder() {
+        }
+
+public Builder messages(List<Message> messages) {
+            this.messages = messages;
+            return this;
+        }
+public Builder to(List<String> to) {
+            this.to = to;
+            return this;
+        }
+public Builder notificationDisabled(Boolean notificationDisabled) {
+            this.notificationDisabled = notificationDisabled;
+            return this;
+        }
+
+
+        public AudienceMatchMessagesRequest build() {
+            return new AudienceMatchMessagesRequest(
+messages,to,notificationDisabled
+            );
+        }
+    }
 }

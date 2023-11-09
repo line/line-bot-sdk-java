@@ -61,4 +61,23 @@ public record RichMenuBulkUnlinkRequest (
 )  {
 
 
+    public static class Builder {
+private List<String> userIds;
+
+
+        public Builder() {
+        }
+
+public Builder userIds(List<String> userIds) {
+            this.userIds = userIds;
+            return this;
+        }
+
+
+        public RichMenuBulkUnlinkRequest build() {
+            return new RichMenuBulkUnlinkRequest(
+userIds
+            );
+        }
+    }
 }

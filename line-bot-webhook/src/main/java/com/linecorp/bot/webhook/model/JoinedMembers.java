@@ -61,4 +61,23 @@ public record JoinedMembers (
 )  {
 
 
+    public static class Builder {
+private List<UserSource> members;
+
+
+        public Builder() {
+        }
+
+public Builder members(List<UserSource> members) {
+            this.members = members;
+            return this;
+        }
+
+
+        public JoinedMembers build() {
+            return new JoinedMembers(
+members
+            );
+        }
+    }
 }

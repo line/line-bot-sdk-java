@@ -68,4 +68,28 @@ public record AttachedModuleContent (
 ) implements ModuleContent {
 
 
+    public static class Builder {
+private String botId;
+private List<String> scopes;
+
+
+        public Builder() {
+        }
+
+public Builder botId(String botId) {
+            this.botId = botId;
+            return this;
+        }
+public Builder scopes(List<String> scopes) {
+            this.scopes = scopes;
+            return this;
+        }
+
+
+        public AttachedModuleContent build() {
+            return new AttachedModuleContent(
+botId,scopes
+            );
+        }
+    }
 }

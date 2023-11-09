@@ -84,4 +84,38 @@ public FlexMessage(String altText, FlexContainer contents) {
     this(null, null, altText, contents);
 }
 
+    public static class Builder {
+private QuickReply quickReply;
+private Sender sender;
+private String altText;
+private FlexContainer contents;
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+            return this;
+        }
+public Builder altText(String altText) {
+            this.altText = altText;
+            return this;
+        }
+public Builder contents(FlexContainer contents) {
+            this.contents = contents;
+            return this;
+        }
+
+
+        public FlexMessage build() {
+            return new FlexMessage(
+quickReply,sender,altText,contents
+            );
+        }
+    }
 }

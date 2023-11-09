@@ -59,4 +59,23 @@ public record SetWebhookEndpointRequest (
 )  {
 
 
+    public static class Builder {
+private URI endpoint;
+
+
+        public Builder() {
+        }
+
+public Builder endpoint(URI endpoint) {
+            this.endpoint = endpoint;
+            return this;
+        }
+
+
+        public SetWebhookEndpointRequest build() {
+            return new SetWebhookEndpointRequest(
+endpoint
+            );
+        }
+    }
 }

@@ -61,4 +61,23 @@ public record ValidateMessageRequest (
 )  {
 
 
+    public static class Builder {
+private List<Message> messages;
+
+
+        public Builder() {
+        }
+
+public Builder messages(List<Message> messages) {
+            this.messages = messages;
+            return this;
+        }
+
+
+        public ValidateMessageRequest build() {
+            return new ValidateMessageRequest(
+messages
+            );
+        }
+    }
 }

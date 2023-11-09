@@ -99,4 +99,53 @@ public record ThingsEvent (
 ) implements Event, ReplyEvent {
 
 
+    public static class Builder {
+private Source source;
+private Long timestamp;
+private EventMode mode;
+private String webhookEventId;
+private DeliveryContext deliveryContext;
+private String replyToken;
+private ThingsContent things;
+
+
+        public Builder() {
+        }
+
+public Builder source(Source source) {
+            this.source = source;
+            return this;
+        }
+public Builder timestamp(Long timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+public Builder mode(EventMode mode) {
+            this.mode = mode;
+            return this;
+        }
+public Builder webhookEventId(String webhookEventId) {
+            this.webhookEventId = webhookEventId;
+            return this;
+        }
+public Builder deliveryContext(DeliveryContext deliveryContext) {
+            this.deliveryContext = deliveryContext;
+            return this;
+        }
+public Builder replyToken(String replyToken) {
+            this.replyToken = replyToken;
+            return this;
+        }
+public Builder things(ThingsContent things) {
+            this.things = things;
+            return this;
+        }
+
+
+        public ThingsEvent build() {
+            return new ThingsEvent(
+source,timestamp,mode,webhookEventId,deliveryContext,replyToken,things
+            );
+        }
+    }
 }

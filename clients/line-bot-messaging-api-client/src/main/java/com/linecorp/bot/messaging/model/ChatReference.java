@@ -58,4 +58,23 @@ public record ChatReference (
 )  {
 
 
+    public static class Builder {
+private String userId;
+
+
+        public Builder() {
+        }
+
+public Builder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+
+
+        public ChatReference build() {
+            return new ChatReference(
+userId
+            );
+        }
+    }
 }

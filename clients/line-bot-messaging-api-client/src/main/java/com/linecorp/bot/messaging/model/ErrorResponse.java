@@ -75,4 +75,33 @@ public record ErrorResponse (
 )  {
 
 
+    public static class Builder {
+private String message;
+private List<ErrorDetail> details;
+private List<SentMessage> sentMessages;
+
+
+        public Builder() {
+        }
+
+public Builder message(String message) {
+            this.message = message;
+            return this;
+        }
+public Builder details(List<ErrorDetail> details) {
+            this.details = details;
+            return this;
+        }
+public Builder sentMessages(List<SentMessage> sentMessages) {
+            this.sentMessages = sentMessages;
+            return this;
+        }
+
+
+        public ErrorResponse build() {
+            return new ErrorResponse(
+message,details,sentMessages
+            );
+        }
+    }
 }

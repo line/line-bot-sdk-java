@@ -84,4 +84,38 @@ public TemplateMessage(String altText, Template template) {
     this(null, null, altText, template);
 }
 
+    public static class Builder {
+private QuickReply quickReply;
+private Sender sender;
+private String altText;
+private Template template;
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+            return this;
+        }
+public Builder altText(String altText) {
+            this.altText = altText;
+            return this;
+        }
+public Builder template(Template template) {
+            this.template = template;
+            return this;
+        }
+
+
+        public TemplateMessage build() {
+            return new TemplateMessage(
+quickReply,sender,altText,template
+            );
+        }
+    }
 }

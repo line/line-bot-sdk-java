@@ -80,4 +80,38 @@ public record PushMessageRequest (
 )  {
 
 
+    public static class Builder {
+private String to;
+private List<Message> messages;
+private Boolean notificationDisabled;
+private List<String> customAggregationUnits;
+
+
+        public Builder() {
+        }
+
+public Builder to(String to) {
+            this.to = to;
+            return this;
+        }
+public Builder messages(List<Message> messages) {
+            this.messages = messages;
+            return this;
+        }
+public Builder notificationDisabled(Boolean notificationDisabled) {
+            this.notificationDisabled = notificationDisabled;
+            return this;
+        }
+public Builder customAggregationUnits(List<String> customAggregationUnits) {
+            this.customAggregationUnits = customAggregationUnits;
+            return this;
+        }
+
+
+        public PushMessageRequest build() {
+            return new PushMessageRequest(
+to,messages,notificationDisabled,customAggregationUnits
+            );
+        }
+    }
 }

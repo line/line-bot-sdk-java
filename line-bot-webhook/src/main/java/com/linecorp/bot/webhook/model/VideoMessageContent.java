@@ -78,4 +78,38 @@ public record VideoMessageContent (
 ) implements MessageContent {
 
 
+    public static class Builder {
+private String id;
+private Long duration;
+private ContentProvider contentProvider;
+private String quoteToken;
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+public Builder duration(Long duration) {
+            this.duration = duration;
+            return this;
+        }
+public Builder contentProvider(ContentProvider contentProvider) {
+            this.contentProvider = contentProvider;
+            return this;
+        }
+public Builder quoteToken(String quoteToken) {
+            this.quoteToken = quoteToken;
+            return this;
+        }
+
+
+        public VideoMessageContent build() {
+            return new VideoMessageContent(
+id,duration,contentProvider,quoteToken
+            );
+        }
+    }
 }

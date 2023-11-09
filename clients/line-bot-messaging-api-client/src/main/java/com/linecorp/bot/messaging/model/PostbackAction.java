@@ -106,4 +106,48 @@ public record PostbackAction (
     }
 
 
+    public static class Builder {
+private String label;
+private String data;
+private String displayText;
+private String text;
+private InputOption inputOption;
+private String fillInText;
+
+
+        public Builder() {
+        }
+
+public Builder label(String label) {
+            this.label = label;
+            return this;
+        }
+public Builder data(String data) {
+            this.data = data;
+            return this;
+        }
+public Builder displayText(String displayText) {
+            this.displayText = displayText;
+            return this;
+        }
+public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+public Builder inputOption(InputOption inputOption) {
+            this.inputOption = inputOption;
+            return this;
+        }
+public Builder fillInText(String fillInText) {
+            this.fillInText = fillInText;
+            return this;
+        }
+
+
+        public PostbackAction build() {
+            return new PostbackAction(
+label,data,displayText,text,inputOption,fillInText
+            );
+        }
+    }
 }

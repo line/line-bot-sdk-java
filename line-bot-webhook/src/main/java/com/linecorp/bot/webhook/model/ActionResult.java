@@ -76,4 +76,28 @@ public record ActionResult (
     }
 
 
+    public static class Builder {
+private Type type;
+private String data;
+
+
+        public Builder() {
+        }
+
+public Builder type(Type type) {
+            this.type = type;
+            return this;
+        }
+public Builder data(String data) {
+            this.data = data;
+            return this;
+        }
+
+
+        public ActionResult build() {
+            return new ActionResult(
+type,data
+            );
+        }
+    }
 }

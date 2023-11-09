@@ -63,4 +63,23 @@ public record FlexCarousel (
 ) implements FlexContainer {
 
 
+    public static class Builder {
+private List<FlexBubble> contents;
+
+
+        public Builder() {
+        }
+
+public Builder contents(List<FlexBubble> contents) {
+            this.contents = contents;
+            return this;
+        }
+
+
+        public FlexCarousel build() {
+            return new FlexCarousel(
+contents
+            );
+        }
+    }
 }

@@ -63,4 +63,23 @@ public record ImageCarouselTemplate (
 ) implements Template {
 
 
+    public static class Builder {
+private List<ImageCarouselColumn> columns;
+
+
+        public Builder() {
+        }
+
+public Builder columns(List<ImageCarouselColumn> columns) {
+            this.columns = columns;
+            return this;
+        }
+
+
+        public ImageCarouselTemplate build() {
+            return new ImageCarouselTemplate(
+columns
+            );
+        }
+    }
 }

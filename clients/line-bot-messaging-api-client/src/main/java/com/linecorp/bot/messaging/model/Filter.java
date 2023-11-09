@@ -58,4 +58,23 @@ public record Filter (
 )  {
 
 
+    public static class Builder {
+private DemographicFilter demographic;
+
+
+        public Builder() {
+        }
+
+public Builder demographic(DemographicFilter demographic) {
+            this.demographic = demographic;
+            return this;
+        }
+
+
+        public Filter build() {
+            return new Filter(
+demographic
+            );
+        }
+    }
 }

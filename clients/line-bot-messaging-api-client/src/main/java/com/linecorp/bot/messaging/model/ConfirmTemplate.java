@@ -69,4 +69,28 @@ public record ConfirmTemplate (
 ) implements Template {
 
 
+    public static class Builder {
+private String text;
+private List<Action> actions;
+
+
+        public Builder() {
+        }
+
+public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+public Builder actions(List<Action> actions) {
+            this.actions = actions;
+            return this;
+        }
+
+
+        public ConfirmTemplate build() {
+            return new ConfirmTemplate(
+text,actions
+            );
+        }
+    }
 }

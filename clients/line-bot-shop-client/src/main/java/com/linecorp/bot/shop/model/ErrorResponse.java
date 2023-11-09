@@ -58,4 +58,23 @@ public record ErrorResponse (
 )  {
 
 
+    public static class Builder {
+private String message;
+
+
+        public Builder() {
+        }
+
+public Builder message(String message) {
+            this.message = message;
+            return this;
+        }
+
+
+        public ErrorResponse build() {
+            return new ErrorResponse(
+message
+            );
+        }
+    }
 }

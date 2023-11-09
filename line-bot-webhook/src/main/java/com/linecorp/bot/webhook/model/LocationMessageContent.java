@@ -83,4 +83,43 @@ public record LocationMessageContent (
 ) implements MessageContent {
 
 
+    public static class Builder {
+private String id;
+private String title;
+private String address;
+private Double latitude;
+private Double longitude;
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+public Builder address(String address) {
+            this.address = address;
+            return this;
+        }
+public Builder latitude(Double latitude) {
+            this.latitude = latitude;
+            return this;
+        }
+public Builder longitude(Double longitude) {
+            this.longitude = longitude;
+            return this;
+        }
+
+
+        public LocationMessageContent build() {
+            return new LocationMessageContent(
+id,title,address,latitude,longitude
+            );
+        }
+    }
 }

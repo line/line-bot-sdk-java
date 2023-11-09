@@ -68,4 +68,28 @@ public record BroadcastRequest (
 )  {
 
 
+    public static class Builder {
+private List<Message> messages;
+private Boolean notificationDisabled;
+
+
+        public Builder() {
+        }
+
+public Builder messages(List<Message> messages) {
+            this.messages = messages;
+            return this;
+        }
+public Builder notificationDisabled(Boolean notificationDisabled) {
+            this.notificationDisabled = notificationDisabled;
+            return this;
+        }
+
+
+        public BroadcastRequest build() {
+            return new BroadcastRequest(
+messages,notificationDisabled
+            );
+        }
+    }
 }

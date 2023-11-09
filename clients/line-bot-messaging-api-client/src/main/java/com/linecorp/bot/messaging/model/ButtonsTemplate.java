@@ -106,4 +106,58 @@ public record ButtonsTemplate (
 ) implements Template {
 
 
+    public static class Builder {
+private URI thumbnailImageUrl;
+private String imageAspectRatio;
+private String imageSize;
+private String imageBackgroundColor;
+private String title;
+private String text;
+private Action defaultAction;
+private List<Action> actions;
+
+
+        public Builder() {
+        }
+
+public Builder thumbnailImageUrl(URI thumbnailImageUrl) {
+            this.thumbnailImageUrl = thumbnailImageUrl;
+            return this;
+        }
+public Builder imageAspectRatio(String imageAspectRatio) {
+            this.imageAspectRatio = imageAspectRatio;
+            return this;
+        }
+public Builder imageSize(String imageSize) {
+            this.imageSize = imageSize;
+            return this;
+        }
+public Builder imageBackgroundColor(String imageBackgroundColor) {
+            this.imageBackgroundColor = imageBackgroundColor;
+            return this;
+        }
+public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+public Builder defaultAction(Action defaultAction) {
+            this.defaultAction = defaultAction;
+            return this;
+        }
+public Builder actions(List<Action> actions) {
+            this.actions = actions;
+            return this;
+        }
+
+
+        public ButtonsTemplate build() {
+            return new ButtonsTemplate(
+thumbnailImageUrl,imageAspectRatio,imageSize,imageBackgroundColor,title,text,defaultAction,actions
+            );
+        }
+    }
 }

@@ -71,4 +71,33 @@ public record GroupUserProfileResponse (
 )  {
 
 
+    public static class Builder {
+private String displayName;
+private String userId;
+private URI pictureUrl;
+
+
+        public Builder() {
+        }
+
+public Builder displayName(String displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+public Builder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+public Builder pictureUrl(URI pictureUrl) {
+            this.pictureUrl = pictureUrl;
+            return this;
+        }
+
+
+        public GroupUserProfileResponse build() {
+            return new GroupUserProfileResponse(
+displayName,userId,pictureUrl
+            );
+        }
+    }
 }

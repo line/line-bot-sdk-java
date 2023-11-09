@@ -90,4 +90,43 @@ public VideoMessage(URI originalContentUrl, URI previewImageUrl, String tracking
     this(null, null, originalContentUrl, previewImageUrl, trackingId);
 }
 
+    public static class Builder {
+private QuickReply quickReply;
+private Sender sender;
+private URI originalContentUrl;
+private URI previewImageUrl;
+private String trackingId;
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+            return this;
+        }
+public Builder originalContentUrl(URI originalContentUrl) {
+            this.originalContentUrl = originalContentUrl;
+            return this;
+        }
+public Builder previewImageUrl(URI previewImageUrl) {
+            this.previewImageUrl = previewImageUrl;
+            return this;
+        }
+public Builder trackingId(String trackingId) {
+            this.trackingId = trackingId;
+            return this;
+        }
+
+
+        public VideoMessage build() {
+            return new VideoMessage(
+quickReply,sender,originalContentUrl,previewImageUrl,trackingId
+            );
+        }
+    }
 }

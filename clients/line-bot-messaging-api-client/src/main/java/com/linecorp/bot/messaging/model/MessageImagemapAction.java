@@ -72,4 +72,33 @@ public record MessageImagemapAction (
 ) implements ImagemapAction {
 
 
+    public static class Builder {
+private ImagemapArea area;
+private String text;
+private String label;
+
+
+        public Builder() {
+        }
+
+public Builder area(ImagemapArea area) {
+            this.area = area;
+            return this;
+        }
+public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+public Builder label(String label) {
+            this.label = label;
+            return this;
+        }
+
+
+        public MessageImagemapAction build() {
+            return new MessageImagemapAction(
+area,text,label
+            );
+        }
+    }
 }

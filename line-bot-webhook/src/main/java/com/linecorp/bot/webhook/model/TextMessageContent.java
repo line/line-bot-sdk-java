@@ -94,4 +94,48 @@ public record TextMessageContent (
 ) implements MessageContent {
 
 
+    public static class Builder {
+private String id;
+private String text;
+private List<Emoji> emojis;
+private Mention mention;
+private String quoteToken;
+private String quotedMessageId;
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+public Builder emojis(List<Emoji> emojis) {
+            this.emojis = emojis;
+            return this;
+        }
+public Builder mention(Mention mention) {
+            this.mention = mention;
+            return this;
+        }
+public Builder quoteToken(String quoteToken) {
+            this.quoteToken = quoteToken;
+            return this;
+        }
+public Builder quotedMessageId(String quotedMessageId) {
+            this.quotedMessageId = quotedMessageId;
+            return this;
+        }
+
+
+        public TextMessageContent build() {
+            return new TextMessageContent(
+id,text,emojis,mention,quoteToken,quotedMessageId
+            );
+        }
+    }
 }

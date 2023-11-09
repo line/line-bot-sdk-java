@@ -65,4 +65,28 @@ public record ImageCarouselColumn (
 )  {
 
 
+    public static class Builder {
+private URI imageUrl;
+private Action action;
+
+
+        public Builder() {
+        }
+
+public Builder imageUrl(URI imageUrl) {
+            this.imageUrl = imageUrl;
+            return this;
+        }
+public Builder action(Action action) {
+            this.action = action;
+            return this;
+        }
+
+
+        public ImageCarouselColumn build() {
+            return new ImageCarouselColumn(
+imageUrl,action
+            );
+        }
+    }
 }

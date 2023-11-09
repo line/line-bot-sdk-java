@@ -83,4 +83,33 @@ public record ContentProvider (
     }
 
 
+    public static class Builder {
+private Type type;
+private URI originalContentUrl;
+private URI previewImageUrl;
+
+
+        public Builder() {
+        }
+
+public Builder type(Type type) {
+            this.type = type;
+            return this;
+        }
+public Builder originalContentUrl(URI originalContentUrl) {
+            this.originalContentUrl = originalContentUrl;
+            return this;
+        }
+public Builder previewImageUrl(URI previewImageUrl) {
+            this.previewImageUrl = previewImageUrl;
+            return this;
+        }
+
+
+        public ContentProvider build() {
+            return new ContentProvider(
+type,originalContentUrl,previewImageUrl
+            );
+        }
+    }
 }

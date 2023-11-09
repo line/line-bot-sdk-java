@@ -72,4 +72,33 @@ public record AudioMessageContent (
 ) implements MessageContent {
 
 
+    public static class Builder {
+private String id;
+private ContentProvider contentProvider;
+private Long duration;
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+public Builder contentProvider(ContentProvider contentProvider) {
+            this.contentProvider = contentProvider;
+            return this;
+        }
+public Builder duration(Long duration) {
+            this.duration = duration;
+            return this;
+        }
+
+
+        public AudioMessageContent build() {
+            return new AudioMessageContent(
+id,contentProvider,duration
+            );
+        }
+    }
 }

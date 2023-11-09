@@ -92,4 +92,48 @@ public record RichMenuResponse (
 )  {
 
 
+    public static class Builder {
+private String richMenuId;
+private RichMenuSize size;
+private Boolean selected;
+private String name;
+private String chatBarText;
+private List<RichMenuArea> areas;
+
+
+        public Builder() {
+        }
+
+public Builder richMenuId(String richMenuId) {
+            this.richMenuId = richMenuId;
+            return this;
+        }
+public Builder size(RichMenuSize size) {
+            this.size = size;
+            return this;
+        }
+public Builder selected(Boolean selected) {
+            this.selected = selected;
+            return this;
+        }
+public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+public Builder chatBarText(String chatBarText) {
+            this.chatBarText = chatBarText;
+            return this;
+        }
+public Builder areas(List<RichMenuArea> areas) {
+            this.areas = areas;
+            return this;
+        }
+
+
+        public RichMenuResponse build() {
+            return new RichMenuResponse(
+richMenuId,size,selected,name,chatBarText,areas
+            );
+        }
+    }
 }

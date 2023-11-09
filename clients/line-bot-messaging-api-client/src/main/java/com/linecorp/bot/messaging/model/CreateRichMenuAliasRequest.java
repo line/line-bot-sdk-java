@@ -64,4 +64,28 @@ public record CreateRichMenuAliasRequest (
 )  {
 
 
+    public static class Builder {
+private String richMenuAliasId;
+private String richMenuId;
+
+
+        public Builder() {
+        }
+
+public Builder richMenuAliasId(String richMenuAliasId) {
+            this.richMenuAliasId = richMenuAliasId;
+            return this;
+        }
+public Builder richMenuId(String richMenuId) {
+            this.richMenuId = richMenuId;
+            return this;
+        }
+
+
+        public CreateRichMenuAliasRequest build() {
+            return new CreateRichMenuAliasRequest(
+richMenuAliasId,richMenuId
+            );
+        }
+    }
 }

@@ -65,4 +65,28 @@ public record MessageQuotaResponse (
 )  {
 
 
+    public static class Builder {
+private QuotaType type;
+private Long value;
+
+
+        public Builder() {
+        }
+
+public Builder type(QuotaType type) {
+            this.type = type;
+            return this;
+        }
+public Builder value(Long value) {
+            this.value = value;
+            return this;
+        }
+
+
+        public MessageQuotaResponse build() {
+            return new MessageQuotaResponse(
+type,value
+            );
+        }
+    }
 }

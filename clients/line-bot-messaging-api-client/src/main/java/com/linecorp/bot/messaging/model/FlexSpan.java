@@ -130,4 +130,48 @@ public record FlexSpan (
     }
 
 
+    public static class Builder {
+private String text;
+private String size;
+private String color;
+private Weight weight;
+private Style style;
+private Decoration decoration;
+
+
+        public Builder() {
+        }
+
+public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+public Builder size(String size) {
+            this.size = size;
+            return this;
+        }
+public Builder color(String color) {
+            this.color = color;
+            return this;
+        }
+public Builder weight(Weight weight) {
+            this.weight = weight;
+            return this;
+        }
+public Builder style(Style style) {
+            this.style = style;
+            return this;
+        }
+public Builder decoration(Decoration decoration) {
+            this.decoration = decoration;
+            return this;
+        }
+
+
+        public FlexSpan build() {
+            return new FlexSpan(
+text,size,color,weight,style,decoration
+            );
+        }
+    }
 }

@@ -65,4 +65,28 @@ public record PostbackContent (
 )  {
 
 
+    public static class Builder {
+private String data;
+private Map<String, String> params;
+
+
+        public Builder() {
+        }
+
+public Builder data(String data) {
+            this.data = data;
+            return this;
+        }
+public Builder params(Map<String, String> params) {
+            this.params = params;
+            return this;
+        }
+
+
+        public PostbackContent build() {
+            return new PostbackContent(
+data,params
+            );
+        }
+    }
 }

@@ -86,4 +86,43 @@ public record UnfollowEvent (
 ) implements Event {
 
 
+    public static class Builder {
+private Source source;
+private Long timestamp;
+private EventMode mode;
+private String webhookEventId;
+private DeliveryContext deliveryContext;
+
+
+        public Builder() {
+        }
+
+public Builder source(Source source) {
+            this.source = source;
+            return this;
+        }
+public Builder timestamp(Long timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+public Builder mode(EventMode mode) {
+            this.mode = mode;
+            return this;
+        }
+public Builder webhookEventId(String webhookEventId) {
+            this.webhookEventId = webhookEventId;
+            return this;
+        }
+public Builder deliveryContext(DeliveryContext deliveryContext) {
+            this.deliveryContext = deliveryContext;
+            return this;
+        }
+
+
+        public UnfollowEvent build() {
+            return new UnfollowEvent(
+source,timestamp,mode,webhookEventId,deliveryContext
+            );
+        }
+    }
 }

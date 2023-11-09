@@ -67,4 +67,28 @@ public record RichMenuBatchRequest (
 )  {
 
 
+    public static class Builder {
+private List<RichMenuBatchOperation> operations;
+private String resumeRequestKey;
+
+
+        public Builder() {
+        }
+
+public Builder operations(List<RichMenuBatchOperation> operations) {
+            this.operations = operations;
+            return this;
+        }
+public Builder resumeRequestKey(String resumeRequestKey) {
+            this.resumeRequestKey = resumeRequestKey;
+            return this;
+        }
+
+
+        public RichMenuBatchRequest build() {
+            return new RichMenuBatchRequest(
+operations,resumeRequestKey
+            );
+        }
+    }
 }

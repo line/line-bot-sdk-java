@@ -76,4 +76,33 @@ public record GetMessageEventResponse (
 )  {
 
 
+    public static class Builder {
+private GetMessageEventResponseOverview overview;
+private List<GetMessageEventResponseMessage> messages;
+private List<GetMessageEventResponseClick> clicks;
+
+
+        public Builder() {
+        }
+
+public Builder overview(GetMessageEventResponseOverview overview) {
+            this.overview = overview;
+            return this;
+        }
+public Builder messages(List<GetMessageEventResponseMessage> messages) {
+            this.messages = messages;
+            return this;
+        }
+public Builder clicks(List<GetMessageEventResponseClick> clicks) {
+            this.clicks = clicks;
+            return this;
+        }
+
+
+        public GetMessageEventResponse build() {
+            return new GetMessageEventResponse(
+overview,messages,clicks
+            );
+        }
+    }
 }

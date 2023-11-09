@@ -66,4 +66,28 @@ public record MembersIdsResponse (
 )  {
 
 
+    public static class Builder {
+private List<String> memberIds;
+private String next;
+
+
+        public Builder() {
+        }
+
+public Builder memberIds(List<String> memberIds) {
+            this.memberIds = memberIds;
+            return this;
+        }
+public Builder next(String next) {
+            this.next = next;
+            return this;
+        }
+
+
+        public MembersIdsResponse build() {
+            return new MembersIdsResponse(
+memberIds,next
+            );
+        }
+    }
 }

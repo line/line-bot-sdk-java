@@ -53,4 +53,18 @@ public record RichMenuBatchUnlinkAllOperation (
 ) implements RichMenuBatchOperation {
 
 
+    public static class Builder {
+
+
+        public Builder() {
+        }
+
+
+
+        public RichMenuBatchUnlinkAllOperation build() {
+            return new RichMenuBatchUnlinkAllOperation(
+
+            );
+        }
+    }
 }

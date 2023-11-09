@@ -75,4 +75,38 @@ public record Emoji (
 )  {
 
 
+    public static class Builder {
+private Integer index;
+private Integer length;
+private String productId;
+private String emojiId;
+
+
+        public Builder() {
+        }
+
+public Builder index(Integer index) {
+            this.index = index;
+            return this;
+        }
+public Builder length(Integer length) {
+            this.length = length;
+            return this;
+        }
+public Builder productId(String productId) {
+            this.productId = productId;
+            return this;
+        }
+public Builder emojiId(String emojiId) {
+            this.emojiId = emojiId;
+            return this;
+        }
+
+
+        public Emoji build() {
+            return new Emoji(
+index,length,productId,emojiId
+            );
+        }
+    }
 }

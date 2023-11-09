@@ -76,4 +76,28 @@ public record DetachedModuleContent (
     }
 
 
+    public static class Builder {
+private String botId;
+private Reason reason;
+
+
+        public Builder() {
+        }
+
+public Builder botId(String botId) {
+            this.botId = botId;
+            return this;
+        }
+public Builder reason(Reason reason) {
+            this.reason = reason;
+            return this;
+        }
+
+
+        public DetachedModuleContent build() {
+            return new DetachedModuleContent(
+botId,reason
+            );
+        }
+    }
 }

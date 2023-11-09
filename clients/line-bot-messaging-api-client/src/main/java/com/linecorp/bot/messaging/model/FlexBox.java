@@ -284,4 +284,153 @@ public record FlexBox (
     }
 
 
+    public static class Builder {
+private Layout layout;
+private Integer flex;
+private List<FlexComponent> contents;
+private String spacing;
+private String margin;
+private Position position;
+private String offsetTop;
+private String offsetBottom;
+private String offsetStart;
+private String offsetEnd;
+private String backgroundColor;
+private String borderColor;
+private String borderWidth;
+private String cornerRadius;
+private String width;
+private String maxWidth;
+private String height;
+private String maxHeight;
+private String paddingAll;
+private String paddingTop;
+private String paddingBottom;
+private String paddingStart;
+private String paddingEnd;
+private Action action;
+private JustifyContent justifyContent;
+private AlignItems alignItems;
+private FlexBoxBackground background;
+
+
+        public Builder() {
+        }
+
+public Builder layout(Layout layout) {
+            this.layout = layout;
+            return this;
+        }
+public Builder flex(Integer flex) {
+            this.flex = flex;
+            return this;
+        }
+public Builder contents(List<FlexComponent> contents) {
+            this.contents = contents;
+            return this;
+        }
+public Builder spacing(String spacing) {
+            this.spacing = spacing;
+            return this;
+        }
+public Builder margin(String margin) {
+            this.margin = margin;
+            return this;
+        }
+public Builder position(Position position) {
+            this.position = position;
+            return this;
+        }
+public Builder offsetTop(String offsetTop) {
+            this.offsetTop = offsetTop;
+            return this;
+        }
+public Builder offsetBottom(String offsetBottom) {
+            this.offsetBottom = offsetBottom;
+            return this;
+        }
+public Builder offsetStart(String offsetStart) {
+            this.offsetStart = offsetStart;
+            return this;
+        }
+public Builder offsetEnd(String offsetEnd) {
+            this.offsetEnd = offsetEnd;
+            return this;
+        }
+public Builder backgroundColor(String backgroundColor) {
+            this.backgroundColor = backgroundColor;
+            return this;
+        }
+public Builder borderColor(String borderColor) {
+            this.borderColor = borderColor;
+            return this;
+        }
+public Builder borderWidth(String borderWidth) {
+            this.borderWidth = borderWidth;
+            return this;
+        }
+public Builder cornerRadius(String cornerRadius) {
+            this.cornerRadius = cornerRadius;
+            return this;
+        }
+public Builder width(String width) {
+            this.width = width;
+            return this;
+        }
+public Builder maxWidth(String maxWidth) {
+            this.maxWidth = maxWidth;
+            return this;
+        }
+public Builder height(String height) {
+            this.height = height;
+            return this;
+        }
+public Builder maxHeight(String maxHeight) {
+            this.maxHeight = maxHeight;
+            return this;
+        }
+public Builder paddingAll(String paddingAll) {
+            this.paddingAll = paddingAll;
+            return this;
+        }
+public Builder paddingTop(String paddingTop) {
+            this.paddingTop = paddingTop;
+            return this;
+        }
+public Builder paddingBottom(String paddingBottom) {
+            this.paddingBottom = paddingBottom;
+            return this;
+        }
+public Builder paddingStart(String paddingStart) {
+            this.paddingStart = paddingStart;
+            return this;
+        }
+public Builder paddingEnd(String paddingEnd) {
+            this.paddingEnd = paddingEnd;
+            return this;
+        }
+public Builder action(Action action) {
+            this.action = action;
+            return this;
+        }
+public Builder justifyContent(JustifyContent justifyContent) {
+            this.justifyContent = justifyContent;
+            return this;
+        }
+public Builder alignItems(AlignItems alignItems) {
+            this.alignItems = alignItems;
+            return this;
+        }
+public Builder background(FlexBoxBackground background) {
+            this.background = background;
+            return this;
+        }
+
+
+        public FlexBox build() {
+            return new FlexBox(
+layout,flex,contents,spacing,margin,position,offsetTop,offsetBottom,offsetStart,offsetEnd,backgroundColor,borderColor,borderWidth,cornerRadius,width,maxWidth,height,maxHeight,paddingAll,paddingTop,paddingBottom,paddingStart,paddingEnd,action,justifyContent,alignItems,background
+            );
+        }
+    }
 }

@@ -71,4 +71,33 @@ public record UserMentionee (
 ) implements Mentionee {
 
 
+    public static class Builder {
+private Integer index;
+private Integer length;
+private String userId;
+
+
+        public Builder() {
+        }
+
+public Builder index(Integer index) {
+            this.index = index;
+            return this;
+        }
+public Builder length(Integer length) {
+            this.length = length;
+            return this;
+        }
+public Builder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+
+
+        public UserMentionee build() {
+            return new UserMentionee(
+index,length,userId
+            );
+        }
+    }
 }

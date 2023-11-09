@@ -80,4 +80,28 @@ public record NumberOfMessagesResponse (
     }
 
 
+    public static class Builder {
+private Status status;
+private Long success;
+
+
+        public Builder() {
+        }
+
+public Builder status(Status status) {
+            this.status = status;
+            return this;
+        }
+public Builder success(Long success) {
+            this.success = success;
+            return this;
+        }
+
+
+        public NumberOfMessagesResponse build() {
+            return new NumberOfMessagesResponse(
+status,success
+            );
+        }
+    }
 }

@@ -57,4 +57,23 @@ public record UnsendDetail (
 )  {
 
 
+    public static class Builder {
+private String messageId;
+
+
+        public Builder() {
+        }
+
+public Builder messageId(String messageId) {
+            this.messageId = messageId;
+            return this;
+        }
+
+
+        public UnsendDetail build() {
+            return new UnsendDetail(
+messageId
+            );
+        }
+    }
 }

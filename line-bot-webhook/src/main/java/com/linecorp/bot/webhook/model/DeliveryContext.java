@@ -57,4 +57,23 @@ public record DeliveryContext (
 )  {
 
 
+    public static class Builder {
+private Boolean isRedelivery;
+
+
+        public Builder() {
+        }
+
+public Builder isRedelivery(Boolean isRedelivery) {
+            this.isRedelivery = isRedelivery;
+            return this;
+        }
+
+
+        public DeliveryContext build() {
+            return new DeliveryContext(
+isRedelivery
+            );
+        }
+    }
 }

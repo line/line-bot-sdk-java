@@ -74,4 +74,33 @@ public record ReplyMessageRequest (
 )  {
 
 
+    public static class Builder {
+private String replyToken;
+private List<Message> messages;
+private Boolean notificationDisabled;
+
+
+        public Builder() {
+        }
+
+public Builder replyToken(String replyToken) {
+            this.replyToken = replyToken;
+            return this;
+        }
+public Builder messages(List<Message> messages) {
+            this.messages = messages;
+            return this;
+        }
+public Builder notificationDisabled(Boolean notificationDisabled) {
+            this.notificationDisabled = notificationDisabled;
+            return this;
+        }
+
+
+        public ReplyMessageRequest build() {
+            return new ReplyMessageRequest(
+replyToken,messages,notificationDisabled
+            );
+        }
+    }
 }

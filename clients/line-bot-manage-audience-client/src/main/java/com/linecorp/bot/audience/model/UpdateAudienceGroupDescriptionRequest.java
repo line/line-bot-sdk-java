@@ -58,4 +58,23 @@ public record UpdateAudienceGroupDescriptionRequest (
 )  {
 
 
+    public static class Builder {
+private String description;
+
+
+        public Builder() {
+        }
+
+public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+
+        public UpdateAudienceGroupDescriptionRequest build() {
+            return new UpdateAudienceGroupDescriptionRequest(
+description
+            );
+        }
+    }
 }

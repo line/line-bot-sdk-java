@@ -72,4 +72,33 @@ public record URIImagemapAction (
 ) implements ImagemapAction {
 
 
+    public static class Builder {
+private ImagemapArea area;
+private String linkUri;
+private String label;
+
+
+        public Builder() {
+        }
+
+public Builder area(ImagemapArea area) {
+            this.area = area;
+            return this;
+        }
+public Builder linkUri(String linkUri) {
+            this.linkUri = linkUri;
+            return this;
+        }
+public Builder label(String label) {
+            this.label = label;
+            return this;
+        }
+
+
+        public URIImagemapAction build() {
+            return new URIImagemapAction(
+area,linkUri,label
+            );
+        }
+    }
 }

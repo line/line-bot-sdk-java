@@ -68,4 +68,28 @@ public record CallbackRequest (
 )  {
 
 
+    public static class Builder {
+private String destination;
+private List<Event> events;
+
+
+        public Builder() {
+        }
+
+public Builder destination(String destination) {
+            this.destination = destination;
+            return this;
+        }
+public Builder events(List<Event> events) {
+            this.events = events;
+            return this;
+        }
+
+
+        public CallbackRequest build() {
+            return new CallbackRequest(
+destination,events
+            );
+        }
+    }
 }

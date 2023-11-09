@@ -69,4 +69,28 @@ public record GetAudienceDataResponse (
 )  {
 
 
+    public static class Builder {
+private AudienceGroup audienceGroup;
+private List<AudienceGroupJob> jobs;
+
+
+        public Builder() {
+        }
+
+public Builder audienceGroup(AudienceGroup audienceGroup) {
+            this.audienceGroup = audienceGroup;
+            return this;
+        }
+public Builder jobs(List<AudienceGroupJob> jobs) {
+            this.jobs = jobs;
+            return this;
+        }
+
+
+        public GetAudienceDataResponse build() {
+            return new GetAudienceDataResponse(
+audienceGroup,jobs
+            );
+        }
+    }
 }

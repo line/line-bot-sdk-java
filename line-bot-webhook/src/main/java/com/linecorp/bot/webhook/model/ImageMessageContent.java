@@ -79,4 +79,38 @@ public record ImageMessageContent (
 ) implements MessageContent {
 
 
+    public static class Builder {
+private String id;
+private ContentProvider contentProvider;
+private ImageSet imageSet;
+private String quoteToken;
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+public Builder contentProvider(ContentProvider contentProvider) {
+            this.contentProvider = contentProvider;
+            return this;
+        }
+public Builder imageSet(ImageSet imageSet) {
+            this.imageSet = imageSet;
+            return this;
+        }
+public Builder quoteToken(String quoteToken) {
+            this.quoteToken = quoteToken;
+            return this;
+        }
+
+
+        public ImageMessageContent build() {
+            return new ImageMessageContent(
+id,contentProvider,imageSet,quoteToken
+            );
+        }
+    }
 }

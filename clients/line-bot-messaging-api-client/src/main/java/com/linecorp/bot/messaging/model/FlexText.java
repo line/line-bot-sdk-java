@@ -285,4 +285,128 @@ public record FlexText (
     }
 
 
+    public static class Builder {
+private Integer flex;
+private String text;
+private String size;
+private Align align;
+private Gravity gravity;
+private String color;
+private Weight weight;
+private Style style;
+private Decoration decoration;
+private Boolean wrap;
+private String lineSpacing;
+private String margin;
+private Position position;
+private String offsetTop;
+private String offsetBottom;
+private String offsetStart;
+private String offsetEnd;
+private Action action;
+private Integer maxLines;
+private List<FlexSpan> contents;
+private AdjustMode adjustMode;
+private Boolean scaling;
+
+
+        public Builder() {
+        }
+
+public Builder flex(Integer flex) {
+            this.flex = flex;
+            return this;
+        }
+public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+public Builder size(String size) {
+            this.size = size;
+            return this;
+        }
+public Builder align(Align align) {
+            this.align = align;
+            return this;
+        }
+public Builder gravity(Gravity gravity) {
+            this.gravity = gravity;
+            return this;
+        }
+public Builder color(String color) {
+            this.color = color;
+            return this;
+        }
+public Builder weight(Weight weight) {
+            this.weight = weight;
+            return this;
+        }
+public Builder style(Style style) {
+            this.style = style;
+            return this;
+        }
+public Builder decoration(Decoration decoration) {
+            this.decoration = decoration;
+            return this;
+        }
+public Builder wrap(Boolean wrap) {
+            this.wrap = wrap;
+            return this;
+        }
+public Builder lineSpacing(String lineSpacing) {
+            this.lineSpacing = lineSpacing;
+            return this;
+        }
+public Builder margin(String margin) {
+            this.margin = margin;
+            return this;
+        }
+public Builder position(Position position) {
+            this.position = position;
+            return this;
+        }
+public Builder offsetTop(String offsetTop) {
+            this.offsetTop = offsetTop;
+            return this;
+        }
+public Builder offsetBottom(String offsetBottom) {
+            this.offsetBottom = offsetBottom;
+            return this;
+        }
+public Builder offsetStart(String offsetStart) {
+            this.offsetStart = offsetStart;
+            return this;
+        }
+public Builder offsetEnd(String offsetEnd) {
+            this.offsetEnd = offsetEnd;
+            return this;
+        }
+public Builder action(Action action) {
+            this.action = action;
+            return this;
+        }
+public Builder maxLines(Integer maxLines) {
+            this.maxLines = maxLines;
+            return this;
+        }
+public Builder contents(List<FlexSpan> contents) {
+            this.contents = contents;
+            return this;
+        }
+public Builder adjustMode(AdjustMode adjustMode) {
+            this.adjustMode = adjustMode;
+            return this;
+        }
+public Builder scaling(Boolean scaling) {
+            this.scaling = scaling;
+            return this;
+        }
+
+
+        public FlexText build() {
+            return new FlexText(
+flex,text,size,align,gravity,color,weight,style,decoration,wrap,lineSpacing,margin,position,offsetTop,offsetBottom,offsetStart,offsetEnd,action,maxLines,contents,adjustMode,scaling
+            );
+        }
+    }
 }

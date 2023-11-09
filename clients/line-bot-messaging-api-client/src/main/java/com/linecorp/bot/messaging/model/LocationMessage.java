@@ -95,4 +95,48 @@ public LocationMessage(String title, String address, Double latitude, Double lon
     this(null, null, title, address, latitude, longitude);
 }
 
+    public static class Builder {
+private QuickReply quickReply;
+private Sender sender;
+private String title;
+private String address;
+private Double latitude;
+private Double longitude;
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+            return this;
+        }
+public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+public Builder address(String address) {
+            this.address = address;
+            return this;
+        }
+public Builder latitude(Double latitude) {
+            this.latitude = latitude;
+            return this;
+        }
+public Builder longitude(Double longitude) {
+            this.longitude = longitude;
+            return this;
+        }
+
+
+        public LocationMessage build() {
+            return new LocationMessage(
+quickReply,sender,title,address,latitude,longitude
+            );
+        }
+    }
 }

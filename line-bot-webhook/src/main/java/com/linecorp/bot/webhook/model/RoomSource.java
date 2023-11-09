@@ -65,4 +65,28 @@ public record RoomSource (
 ) implements Source {
 
 
+    public static class Builder {
+private String userId;
+private String roomId;
+
+
+        public Builder() {
+        }
+
+public Builder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+public Builder roomId(String roomId) {
+            this.roomId = roomId;
+            return this;
+        }
+
+
+        public RoomSource build() {
+            return new RoomSource(
+userId,roomId
+            );
+        }
+    }
 }

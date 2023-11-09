@@ -93,4 +93,48 @@ public record ModuleEvent (
 ) implements Event {
 
 
+    public static class Builder {
+private Source source;
+private Long timestamp;
+private EventMode mode;
+private String webhookEventId;
+private DeliveryContext deliveryContext;
+private ModuleContent module;
+
+
+        public Builder() {
+        }
+
+public Builder source(Source source) {
+            this.source = source;
+            return this;
+        }
+public Builder timestamp(Long timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+public Builder mode(EventMode mode) {
+            this.mode = mode;
+            return this;
+        }
+public Builder webhookEventId(String webhookEventId) {
+            this.webhookEventId = webhookEventId;
+            return this;
+        }
+public Builder deliveryContext(DeliveryContext deliveryContext) {
+            this.deliveryContext = deliveryContext;
+            return this;
+        }
+public Builder module(ModuleContent module) {
+            this.module = module;
+            return this;
+        }
+
+
+        public ModuleEvent build() {
+            return new ModuleEvent(
+source,timestamp,mode,webhookEventId,deliveryContext,module
+            );
+        }
+    }
 }

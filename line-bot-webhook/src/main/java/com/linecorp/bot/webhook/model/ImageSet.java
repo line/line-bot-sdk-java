@@ -69,4 +69,33 @@ public record ImageSet (
 )  {
 
 
+    public static class Builder {
+private String id;
+private Integer index;
+private Integer total;
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+public Builder index(Integer index) {
+            this.index = index;
+            return this;
+        }
+public Builder total(Integer total) {
+            this.total = total;
+            return this;
+        }
+
+
+        public ImageSet build() {
+            return new ImageSet(
+id,index,total
+            );
+        }
+    }
 }

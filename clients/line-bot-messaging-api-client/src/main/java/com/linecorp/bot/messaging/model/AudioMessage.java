@@ -84,4 +84,38 @@ public AudioMessage(URI originalContentUrl, Long duration) {
     this(null, null, originalContentUrl, duration);
 }
 
+    public static class Builder {
+private QuickReply quickReply;
+private Sender sender;
+private URI originalContentUrl;
+private Long duration;
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+            return this;
+        }
+public Builder originalContentUrl(URI originalContentUrl) {
+            this.originalContentUrl = originalContentUrl;
+            return this;
+        }
+public Builder duration(Long duration) {
+            this.duration = duration;
+            return this;
+        }
+
+
+        public AudioMessage build() {
+            return new AudioMessage(
+quickReply,sender,originalContentUrl,duration
+            );
+        }
+    }
 }

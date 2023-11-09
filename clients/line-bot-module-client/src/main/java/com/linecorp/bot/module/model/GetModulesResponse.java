@@ -68,4 +68,28 @@ public record GetModulesResponse (
 )  {
 
 
+    public static class Builder {
+private List<ModuleBot> bots;
+private String next;
+
+
+        public Builder() {
+        }
+
+public Builder bots(List<ModuleBot> bots) {
+            this.bots = bots;
+            return this;
+        }
+public Builder next(String next) {
+            this.next = next;
+            return this;
+        }
+
+
+        public GetModulesResponse build() {
+            return new GetModulesResponse(
+bots,next
+            );
+        }
+    }
 }

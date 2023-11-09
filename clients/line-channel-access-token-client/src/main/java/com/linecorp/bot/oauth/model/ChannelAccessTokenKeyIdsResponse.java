@@ -61,4 +61,23 @@ public record ChannelAccessTokenKeyIdsResponse (
 )  {
 
 
+    public static class Builder {
+private List<String> kids;
+
+
+        public Builder() {
+        }
+
+public Builder kids(List<String> kids) {
+            this.kids = kids;
+            return this;
+        }
+
+
+        public ChannelAccessTokenKeyIdsResponse build() {
+            return new ChannelAccessTokenKeyIdsResponse(
+kids
+            );
+        }
+    }
 }

@@ -76,4 +76,28 @@ public record LinkContent (
     }
 
 
+    public static class Builder {
+private Result result;
+private String nonce;
+
+
+        public Builder() {
+        }
+
+public Builder result(Result result) {
+            this.result = result;
+            return this;
+        }
+public Builder nonce(String nonce) {
+            this.nonce = nonce;
+            return this;
+        }
+
+
+        public LinkContent build() {
+            return new LinkContent(
+result,nonce
+            );
+        }
+    }
 }

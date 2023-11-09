@@ -118,4 +118,58 @@ public record NarrowcastProgressResponse (
     }
 
 
+    public static class Builder {
+private Phase phase;
+private Long successCount;
+private Long failureCount;
+private Long targetCount;
+private String failedDescription;
+private Long errorCode;
+private OffsetDateTime acceptedTime;
+private OffsetDateTime completedTime;
+
+
+        public Builder() {
+        }
+
+public Builder phase(Phase phase) {
+            this.phase = phase;
+            return this;
+        }
+public Builder successCount(Long successCount) {
+            this.successCount = successCount;
+            return this;
+        }
+public Builder failureCount(Long failureCount) {
+            this.failureCount = failureCount;
+            return this;
+        }
+public Builder targetCount(Long targetCount) {
+            this.targetCount = targetCount;
+            return this;
+        }
+public Builder failedDescription(String failedDescription) {
+            this.failedDescription = failedDescription;
+            return this;
+        }
+public Builder errorCode(Long errorCode) {
+            this.errorCode = errorCode;
+            return this;
+        }
+public Builder acceptedTime(OffsetDateTime acceptedTime) {
+            this.acceptedTime = acceptedTime;
+            return this;
+        }
+public Builder completedTime(OffsetDateTime completedTime) {
+            this.completedTime = completedTime;
+            return this;
+        }
+
+
+        public NarrowcastProgressResponse build() {
+            return new NarrowcastProgressResponse(
+phase,successCount,failureCount,targetCount,failedDescription,errorCode,acceptedTime,completedTime
+            );
+        }
+    }
 }

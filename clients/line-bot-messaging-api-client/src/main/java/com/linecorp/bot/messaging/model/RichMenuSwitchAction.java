@@ -71,4 +71,33 @@ public record RichMenuSwitchAction (
 ) implements Action {
 
 
+    public static class Builder {
+private String label;
+private String data;
+private String richMenuAliasId;
+
+
+        public Builder() {
+        }
+
+public Builder label(String label) {
+            this.label = label;
+            return this;
+        }
+public Builder data(String data) {
+            this.data = data;
+            return this;
+        }
+public Builder richMenuAliasId(String richMenuAliasId) {
+            this.richMenuAliasId = richMenuAliasId;
+            return this;
+        }
+
+
+        public RichMenuSwitchAction build() {
+            return new RichMenuSwitchAction(
+label,data,richMenuAliasId
+            );
+        }
+    }
 }

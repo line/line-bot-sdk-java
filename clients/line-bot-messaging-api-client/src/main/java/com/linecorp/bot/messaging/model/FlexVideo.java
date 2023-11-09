@@ -85,4 +85,43 @@ public record FlexVideo (
 ) implements FlexComponent {
 
 
+    public static class Builder {
+private URI url;
+private URI previewUrl;
+private FlexComponent altContent;
+private String aspectRatio;
+private Action action;
+
+
+        public Builder() {
+        }
+
+public Builder url(URI url) {
+            this.url = url;
+            return this;
+        }
+public Builder previewUrl(URI previewUrl) {
+            this.previewUrl = previewUrl;
+            return this;
+        }
+public Builder altContent(FlexComponent altContent) {
+            this.altContent = altContent;
+            return this;
+        }
+public Builder aspectRatio(String aspectRatio) {
+            this.aspectRatio = aspectRatio;
+            return this;
+        }
+public Builder action(Action action) {
+            this.action = action;
+            return this;
+        }
+
+
+        public FlexVideo build() {
+            return new FlexVideo(
+url,previewUrl,altContent,aspectRatio,action
+            );
+        }
+    }
 }

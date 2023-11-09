@@ -62,4 +62,23 @@ public record RichMenuAliasListResponse (
 )  {
 
 
+    public static class Builder {
+private List<RichMenuAliasResponse> aliases;
+
+
+        public Builder() {
+        }
+
+public Builder aliases(List<RichMenuAliasResponse> aliases) {
+            this.aliases = aliases;
+            return this;
+        }
+
+
+        public RichMenuAliasListResponse build() {
+            return new RichMenuAliasListResponse(
+aliases
+            );
+        }
+    }
 }

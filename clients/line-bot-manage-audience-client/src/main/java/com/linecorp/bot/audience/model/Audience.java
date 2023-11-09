@@ -57,4 +57,23 @@ public record Audience (
 )  {
 
 
+    public static class Builder {
+private String id;
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+
+        public Audience build() {
+            return new Audience(
+id
+            );
+        }
+    }
 }

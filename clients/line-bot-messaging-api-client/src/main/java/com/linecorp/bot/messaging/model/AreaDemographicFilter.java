@@ -63,4 +63,23 @@ public record AreaDemographicFilter (
 ) implements DemographicFilter {
 
 
+    public static class Builder {
+private List<AreaDemographic> oneOf;
+
+
+        public Builder() {
+        }
+
+public Builder oneOf(List<AreaDemographic> oneOf) {
+            this.oneOf = oneOf;
+            return this;
+        }
+
+
+        public AreaDemographicFilter build() {
+            return new AreaDemographicFilter(
+oneOf
+            );
+        }
+    }
 }

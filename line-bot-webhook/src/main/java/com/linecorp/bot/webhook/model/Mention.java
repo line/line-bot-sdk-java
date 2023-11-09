@@ -61,4 +61,23 @@ public record Mention (
 )  {
 
 
+    public static class Builder {
+private List<Mentionee> mentionees;
+
+
+        public Builder() {
+        }
+
+public Builder mentionees(List<Mentionee> mentionees) {
+            this.mentionees = mentionees;
+            return this;
+        }
+
+
+        public Mention build() {
+            return new Mention(
+mentionees
+            );
+        }
+    }
 }

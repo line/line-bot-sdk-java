@@ -82,4 +82,43 @@ public record ModuleBot (
 )  {
 
 
+    public static class Builder {
+private String userId;
+private String basicId;
+private String premiumId;
+private String displayName;
+private String pictureUrl;
+
+
+        public Builder() {
+        }
+
+public Builder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+public Builder basicId(String basicId) {
+            this.basicId = basicId;
+            return this;
+        }
+public Builder premiumId(String premiumId) {
+            this.premiumId = premiumId;
+            return this;
+        }
+public Builder displayName(String displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+public Builder pictureUrl(String pictureUrl) {
+            this.pictureUrl = pictureUrl;
+            return this;
+        }
+
+
+        public ModuleBot build() {
+            return new ModuleBot(
+userId,basicId,premiumId,displayName,pictureUrl
+            );
+        }
+    }
 }

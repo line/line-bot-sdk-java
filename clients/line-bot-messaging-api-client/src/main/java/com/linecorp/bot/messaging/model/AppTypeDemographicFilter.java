@@ -63,4 +63,23 @@ public record AppTypeDemographicFilter (
 ) implements DemographicFilter {
 
 
+    public static class Builder {
+private List<AppTypeDemographic> oneOf;
+
+
+        public Builder() {
+        }
+
+public Builder oneOf(List<AppTypeDemographic> oneOf) {
+            this.oneOf = oneOf;
+            return this;
+        }
+
+
+        public AppTypeDemographicFilter build() {
+            return new AppTypeDemographicFilter(
+oneOf
+            );
+        }
+    }
 }

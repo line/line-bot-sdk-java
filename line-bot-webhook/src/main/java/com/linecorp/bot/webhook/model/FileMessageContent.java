@@ -71,4 +71,33 @@ public record FileMessageContent (
 ) implements MessageContent {
 
 
+    public static class Builder {
+private String id;
+private String fileName;
+private Integer fileSize;
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+public Builder fileName(String fileName) {
+            this.fileName = fileName;
+            return this;
+        }
+public Builder fileSize(Integer fileSize) {
+            this.fileSize = fileSize;
+            return this;
+        }
+
+
+        public FileMessageContent build() {
+            return new FileMessageContent(
+id,fileName,fileSize
+            );
+        }
+    }
 }

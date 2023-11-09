@@ -59,4 +59,23 @@ public record RichMenuBatchUnlinkOperation (
 ) implements RichMenuBatchOperation {
 
 
+    public static class Builder {
+private String from;
+
+
+        public Builder() {
+        }
+
+public Builder from(String from) {
+            this.from = from;
+            return this;
+        }
+
+
+        public RichMenuBatchUnlinkOperation build() {
+            return new RichMenuBatchUnlinkOperation(
+from
+            );
+        }
+    }
 }

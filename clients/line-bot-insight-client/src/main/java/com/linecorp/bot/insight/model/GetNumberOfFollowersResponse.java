@@ -91,4 +91,38 @@ public record GetNumberOfFollowersResponse (
     }
 
 
+    public static class Builder {
+private Status status;
+private Long followers;
+private Long targetedReaches;
+private Long blocks;
+
+
+        public Builder() {
+        }
+
+public Builder status(Status status) {
+            this.status = status;
+            return this;
+        }
+public Builder followers(Long followers) {
+            this.followers = followers;
+            return this;
+        }
+public Builder targetedReaches(Long targetedReaches) {
+            this.targetedReaches = targetedReaches;
+            return this;
+        }
+public Builder blocks(Long blocks) {
+            this.blocks = blocks;
+            return this;
+        }
+
+
+        public GetNumberOfFollowersResponse build() {
+            return new GetNumberOfFollowersResponse(
+status,followers,targetedReaches,blocks
+            );
+        }
+    }
 }

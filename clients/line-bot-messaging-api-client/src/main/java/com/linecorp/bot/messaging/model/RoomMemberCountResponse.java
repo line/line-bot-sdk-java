@@ -58,4 +58,23 @@ public record RoomMemberCountResponse (
 )  {
 
 
+    public static class Builder {
+private Integer count;
+
+
+        public Builder() {
+        }
+
+public Builder count(Integer count) {
+            this.count = count;
+            return this;
+        }
+
+
+        public RoomMemberCountResponse build() {
+            return new RoomMemberCountResponse(
+count
+            );
+        }
+    }
 }

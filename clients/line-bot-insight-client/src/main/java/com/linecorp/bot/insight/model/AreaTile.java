@@ -63,4 +63,28 @@ public record AreaTile (
 )  {
 
 
+    public static class Builder {
+private String area;
+private Double percentage;
+
+
+        public Builder() {
+        }
+
+public Builder area(String area) {
+            this.area = area;
+            return this;
+        }
+public Builder percentage(Double percentage) {
+            this.percentage = percentage;
+            return this;
+        }
+
+
+        public AreaTile build() {
+            return new AreaTile(
+area,percentage
+            );
+        }
+    }
 }

@@ -73,4 +73,23 @@ public record GetMessageContentTranscodingResponse (
     }
 
 
+    public static class Builder {
+private Status status;
+
+
+        public Builder() {
+        }
+
+public Builder status(Status status) {
+            this.status = status;
+            return this;
+        }
+
+
+        public GetMessageContentTranscodingResponse build() {
+            return new GetMessageContentTranscodingResponse(
+status
+            );
+        }
+    }
 }

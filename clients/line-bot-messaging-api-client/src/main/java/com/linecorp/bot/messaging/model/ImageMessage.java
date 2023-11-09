@@ -84,4 +84,38 @@ public ImageMessage(URI originalContentUrl, URI previewImageUrl) {
     this(null, null, originalContentUrl, previewImageUrl);
 }
 
+    public static class Builder {
+private QuickReply quickReply;
+private Sender sender;
+private URI originalContentUrl;
+private URI previewImageUrl;
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+            return this;
+        }
+public Builder originalContentUrl(URI originalContentUrl) {
+            this.originalContentUrl = originalContentUrl;
+            return this;
+        }
+public Builder previewImageUrl(URI previewImageUrl) {
+            this.previewImageUrl = previewImageUrl;
+            return this;
+        }
+
+
+        public ImageMessage build() {
+            return new ImageMessage(
+quickReply,sender,originalContentUrl,previewImageUrl
+            );
+        }
+    }
 }

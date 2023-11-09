@@ -65,4 +65,28 @@ public record RichMenuBatchLinkOperation (
 ) implements RichMenuBatchOperation {
 
 
+    public static class Builder {
+private String from;
+private String to;
+
+
+        public Builder() {
+        }
+
+public Builder from(String from) {
+            this.from = from;
+            return this;
+        }
+public Builder to(String to) {
+            this.to = to;
+            return this;
+        }
+
+
+        public RichMenuBatchLinkOperation build() {
+            return new RichMenuBatchLinkOperation(
+from,to
+            );
+        }
+    }
 }

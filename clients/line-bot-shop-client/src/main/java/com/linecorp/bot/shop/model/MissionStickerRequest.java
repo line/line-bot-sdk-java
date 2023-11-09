@@ -76,4 +76,38 @@ public record MissionStickerRequest (
 )  {
 
 
+    public static class Builder {
+private String to;
+private String productId;
+private String productType;
+private Boolean sendPresentMessage;
+
+
+        public Builder() {
+        }
+
+public Builder to(String to) {
+            this.to = to;
+            return this;
+        }
+public Builder productId(String productId) {
+            this.productId = productId;
+            return this;
+        }
+public Builder productType(String productType) {
+            this.productType = productType;
+            return this;
+        }
+public Builder sendPresentMessage(Boolean sendPresentMessage) {
+            this.sendPresentMessage = sendPresentMessage;
+            return this;
+        }
+
+
+        public MissionStickerRequest build() {
+            return new MissionStickerRequest(
+to,productId,productType,sendPresentMessage
+            );
+        }
+    }
 }

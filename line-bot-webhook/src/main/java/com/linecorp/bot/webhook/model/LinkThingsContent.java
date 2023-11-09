@@ -59,4 +59,23 @@ public record LinkThingsContent (
 ) implements ThingsContent {
 
 
+    public static class Builder {
+private String deviceId;
+
+
+        public Builder() {
+        }
+
+public Builder deviceId(String deviceId) {
+            this.deviceId = deviceId;
+            return this;
+        }
+
+
+        public LinkThingsContent build() {
+            return new LinkThingsContent(
+deviceId
+            );
+        }
+    }
 }

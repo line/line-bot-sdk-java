@@ -76,4 +76,33 @@ public record GetStatisticsPerUnitResponse (
 )  {
 
 
+    public static class Builder {
+private GetStatisticsPerUnitResponseOverview overview;
+private List<GetStatisticsPerUnitResponseMessage> messages;
+private List<GetStatisticsPerUnitResponseClick> clicks;
+
+
+        public Builder() {
+        }
+
+public Builder overview(GetStatisticsPerUnitResponseOverview overview) {
+            this.overview = overview;
+            return this;
+        }
+public Builder messages(List<GetStatisticsPerUnitResponseMessage> messages) {
+            this.messages = messages;
+            return this;
+        }
+public Builder clicks(List<GetStatisticsPerUnitResponseClick> clicks) {
+            this.clicks = clicks;
+            return this;
+        }
+
+
+        public GetStatisticsPerUnitResponse build() {
+            return new GetStatisticsPerUnitResponse(
+overview,messages,clicks
+            );
+        }
+    }
 }

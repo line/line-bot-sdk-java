@@ -65,4 +65,28 @@ public record GetWebhookEndpointResponse (
 )  {
 
 
+    public static class Builder {
+private URI endpoint;
+private Boolean active;
+
+
+        public Builder() {
+        }
+
+public Builder endpoint(URI endpoint) {
+            this.endpoint = endpoint;
+            return this;
+        }
+public Builder active(Boolean active) {
+            this.active = active;
+            return this;
+        }
+
+
+        public GetWebhookEndpointResponse build() {
+            return new GetWebhookEndpointResponse(
+endpoint,active
+            );
+        }
+    }
 }

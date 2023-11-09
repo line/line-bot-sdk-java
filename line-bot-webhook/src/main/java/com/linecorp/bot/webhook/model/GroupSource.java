@@ -65,4 +65,28 @@ public record GroupSource (
 ) implements Source {
 
 
+    public static class Builder {
+private String groupId;
+private String userId;
+
+
+        public Builder() {
+        }
+
+public Builder groupId(String groupId) {
+            this.groupId = groupId;
+            return this;
+        }
+public Builder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+
+
+        public GroupSource build() {
+            return new GroupSource(
+groupId,userId
+            );
+        }
+    }
 }

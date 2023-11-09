@@ -59,4 +59,23 @@ public record MarkMessagesAsReadRequest (
 )  {
 
 
+    public static class Builder {
+private ChatReference chat;
+
+
+        public Builder() {
+        }
+
+public Builder chat(ChatReference chat) {
+            this.chat = chat;
+            return this;
+        }
+
+
+        public MarkMessagesAsReadRequest build() {
+            return new MarkMessagesAsReadRequest(
+chat
+            );
+        }
+    }
 }

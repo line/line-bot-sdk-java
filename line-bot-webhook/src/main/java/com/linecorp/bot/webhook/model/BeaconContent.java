@@ -84,4 +84,33 @@ public record BeaconContent (
     }
 
 
+    public static class Builder {
+private String hwid;
+private Type type;
+private String dm;
+
+
+        public Builder() {
+        }
+
+public Builder hwid(String hwid) {
+            this.hwid = hwid;
+            return this;
+        }
+public Builder type(Type type) {
+            this.type = type;
+            return this;
+        }
+public Builder dm(String dm) {
+            this.dm = dm;
+            return this;
+        }
+
+
+        public BeaconContent build() {
+            return new BeaconContent(
+hwid,type,dm
+            );
+        }
+    }
 }

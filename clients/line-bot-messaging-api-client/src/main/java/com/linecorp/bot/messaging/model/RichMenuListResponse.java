@@ -62,4 +62,23 @@ public record RichMenuListResponse (
 )  {
 
 
+    public static class Builder {
+private List<RichMenuResponse> richmenus;
+
+
+        public Builder() {
+        }
+
+public Builder richmenus(List<RichMenuResponse> richmenus) {
+            this.richmenus = richmenus;
+            return this;
+        }
+
+
+        public RichMenuListResponse build() {
+            return new RichMenuListResponse(
+richmenus
+            );
+        }
+    }
 }

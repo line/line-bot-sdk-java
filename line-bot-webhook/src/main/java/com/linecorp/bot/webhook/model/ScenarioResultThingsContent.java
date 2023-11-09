@@ -66,4 +66,28 @@ public record ScenarioResultThingsContent (
 ) implements ThingsContent {
 
 
+    public static class Builder {
+private String deviceId;
+private ScenarioResult result;
+
+
+        public Builder() {
+        }
+
+public Builder deviceId(String deviceId) {
+            this.deviceId = deviceId;
+            return this;
+        }
+public Builder result(ScenarioResult result) {
+            this.result = result;
+            return this;
+        }
+
+
+        public ScenarioResultThingsContent build() {
+            return new ScenarioResultThingsContent(
+deviceId,result
+            );
+        }
+    }
 }

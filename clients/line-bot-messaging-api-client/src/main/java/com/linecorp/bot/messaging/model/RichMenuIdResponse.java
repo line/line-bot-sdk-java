@@ -57,4 +57,23 @@ public record RichMenuIdResponse (
 )  {
 
 
+    public static class Builder {
+private String richMenuId;
+
+
+        public Builder() {
+        }
+
+public Builder richMenuId(String richMenuId) {
+            this.richMenuId = richMenuId;
+            return this;
+        }
+
+
+        public RichMenuIdResponse build() {
+            return new RichMenuIdResponse(
+richMenuId
+            );
+        }
+    }
 }

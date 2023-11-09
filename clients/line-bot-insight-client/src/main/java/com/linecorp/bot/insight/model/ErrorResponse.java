@@ -68,4 +68,28 @@ public record ErrorResponse (
 )  {
 
 
+    public static class Builder {
+private String message;
+private List<ErrorDetail> details;
+
+
+        public Builder() {
+        }
+
+public Builder message(String message) {
+            this.message = message;
+            return this;
+        }
+public Builder details(List<ErrorDetail> details) {
+            this.details = details;
+            return this;
+        }
+
+
+        public ErrorResponse build() {
+            return new ErrorResponse(
+message,details
+            );
+        }
+    }
 }

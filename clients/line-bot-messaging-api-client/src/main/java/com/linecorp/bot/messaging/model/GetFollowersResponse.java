@@ -67,4 +67,28 @@ public record GetFollowersResponse (
 )  {
 
 
+    public static class Builder {
+private List<String> userIds;
+private String next;
+
+
+        public Builder() {
+        }
+
+public Builder userIds(List<String> userIds) {
+            this.userIds = userIds;
+            return this;
+        }
+public Builder next(String next) {
+            this.next = next;
+            return this;
+        }
+
+
+        public GetFollowersResponse build() {
+            return new GetFollowersResponse(
+userIds,next
+            );
+        }
+    }
 }

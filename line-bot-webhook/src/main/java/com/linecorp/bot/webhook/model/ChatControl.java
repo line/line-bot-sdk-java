@@ -57,4 +57,23 @@ public record ChatControl (
 )  {
 
 
+    public static class Builder {
+private Long expireAt;
+
+
+        public Builder() {
+        }
+
+public Builder expireAt(Long expireAt) {
+            this.expireAt = expireAt;
+            return this;
+        }
+
+
+        public ChatControl build() {
+            return new ChatControl(
+expireAt
+            );
+        }
+    }
 }

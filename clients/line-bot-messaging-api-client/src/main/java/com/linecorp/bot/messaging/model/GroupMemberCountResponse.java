@@ -58,4 +58,23 @@ public record GroupMemberCountResponse (
 )  {
 
 
+    public static class Builder {
+private Integer count;
+
+
+        public Builder() {
+        }
+
+public Builder count(Integer count) {
+            this.count = count;
+            return this;
+        }
+
+
+        public GroupMemberCountResponse build() {
+            return new GroupMemberCountResponse(
+count
+            );
+        }
+    }
 }

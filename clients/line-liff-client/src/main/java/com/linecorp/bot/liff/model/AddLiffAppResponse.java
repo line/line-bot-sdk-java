@@ -57,4 +57,23 @@ public record AddLiffAppResponse (
 )  {
 
 
+    public static class Builder {
+private String liffId;
+
+
+        public Builder() {
+        }
+
+public Builder liffId(String liffId) {
+            this.liffId = liffId;
+            return this;
+        }
+
+
+        public AddLiffAppResponse build() {
+            return new AddLiffAppResponse(
+liffId
+            );
+        }
+    }
 }

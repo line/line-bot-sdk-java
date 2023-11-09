@@ -76,4 +76,38 @@ public record IssueChannelAccessTokenResponse (
 )  {
 
 
+    public static class Builder {
+private String accessToken;
+private Integer expiresIn;
+private String tokenType;
+private String keyId;
+
+
+        public Builder() {
+        }
+
+public Builder accessToken(String accessToken) {
+            this.accessToken = accessToken;
+            return this;
+        }
+public Builder expiresIn(Integer expiresIn) {
+            this.expiresIn = expiresIn;
+            return this;
+        }
+public Builder tokenType(String tokenType) {
+            this.tokenType = tokenType;
+            return this;
+        }
+public Builder keyId(String keyId) {
+            this.keyId = keyId;
+            return this;
+        }
+
+
+        public IssueChannelAccessTokenResponse build() {
+            return new IssueChannelAccessTokenResponse(
+accessToken,expiresIn,tokenType,keyId
+            );
+        }
+    }
 }

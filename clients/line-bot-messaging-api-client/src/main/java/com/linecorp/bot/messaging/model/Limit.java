@@ -65,4 +65,28 @@ public record Limit (
 )  {
 
 
+    public static class Builder {
+private Integer max;
+private Boolean upToRemainingQuota;
+
+
+        public Builder() {
+        }
+
+public Builder max(Integer max) {
+            this.max = max;
+            return this;
+        }
+public Builder upToRemainingQuota(Boolean upToRemainingQuota) {
+            this.upToRemainingQuota = upToRemainingQuota;
+            return this;
+        }
+
+
+        public Limit build() {
+            return new Limit(
+max,upToRemainingQuota
+            );
+        }
+    }
 }

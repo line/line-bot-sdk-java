@@ -121,4 +121,53 @@ public record BotInfoResponse (
     }
 
 
+    public static class Builder {
+private String userId;
+private String basicId;
+private String premiumId;
+private String displayName;
+private URI pictureUrl;
+private ChatMode chatMode;
+private MarkAsReadMode markAsReadMode;
+
+
+        public Builder() {
+        }
+
+public Builder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+public Builder basicId(String basicId) {
+            this.basicId = basicId;
+            return this;
+        }
+public Builder premiumId(String premiumId) {
+            this.premiumId = premiumId;
+            return this;
+        }
+public Builder displayName(String displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+public Builder pictureUrl(URI pictureUrl) {
+            this.pictureUrl = pictureUrl;
+            return this;
+        }
+public Builder chatMode(ChatMode chatMode) {
+            this.chatMode = chatMode;
+            return this;
+        }
+public Builder markAsReadMode(MarkAsReadMode markAsReadMode) {
+            this.markAsReadMode = markAsReadMode;
+            return this;
+        }
+
+
+        public BotInfoResponse build() {
+            return new BotInfoResponse(
+userId,basicId,premiumId,displayName,pictureUrl,chatMode,markAsReadMode
+            );
+        }
+    }
 }

@@ -67,4 +67,28 @@ public record RichMenuBulkLinkRequest (
 )  {
 
 
+    public static class Builder {
+private String richMenuId;
+private List<String> userIds;
+
+
+        public Builder() {
+        }
+
+public Builder richMenuId(String richMenuId) {
+            this.richMenuId = richMenuId;
+            return this;
+        }
+public Builder userIds(List<String> userIds) {
+            this.userIds = userIds;
+            return this;
+        }
+
+
+        public RichMenuBulkLinkRequest build() {
+            return new RichMenuBulkLinkRequest(
+richMenuId,userIds
+            );
+        }
+    }
 }

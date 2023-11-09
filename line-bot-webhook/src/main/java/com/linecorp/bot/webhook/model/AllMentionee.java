@@ -65,4 +65,28 @@ public record AllMentionee (
 ) implements Mentionee {
 
 
+    public static class Builder {
+private Integer index;
+private Integer length;
+
+
+        public Builder() {
+        }
+
+public Builder index(Integer index) {
+            this.index = index;
+            return this;
+        }
+public Builder length(Integer length) {
+            this.length = length;
+            return this;
+        }
+
+
+        public AllMentionee build() {
+            return new AllMentionee(
+index,length
+            );
+        }
+    }
 }

@@ -69,4 +69,33 @@ public record VerifyChannelAccessTokenResponse (
 )  {
 
 
+    public static class Builder {
+private String clientId;
+private Long expiresIn;
+private String scope;
+
+
+        public Builder() {
+        }
+
+public Builder clientId(String clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+public Builder expiresIn(Long expiresIn) {
+            this.expiresIn = expiresIn;
+            return this;
+        }
+public Builder scope(String scope) {
+            this.scope = scope;
+            return this;
+        }
+
+
+        public VerifyChannelAccessTokenResponse build() {
+            return new VerifyChannelAccessTokenResponse(
+clientId,expiresIn,scope
+            );
+        }
+    }
 }

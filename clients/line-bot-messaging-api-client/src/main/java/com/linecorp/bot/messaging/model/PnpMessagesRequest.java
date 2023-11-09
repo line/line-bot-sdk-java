@@ -74,4 +74,33 @@ public record PnpMessagesRequest (
 )  {
 
 
+    public static class Builder {
+private List<Message> messages;
+private String to;
+private Boolean notificationDisabled;
+
+
+        public Builder() {
+        }
+
+public Builder messages(List<Message> messages) {
+            this.messages = messages;
+            return this;
+        }
+public Builder to(String to) {
+            this.to = to;
+            return this;
+        }
+public Builder notificationDisabled(Boolean notificationDisabled) {
+            this.notificationDisabled = notificationDisabled;
+            return this;
+        }
+
+
+        public PnpMessagesRequest build() {
+            return new PnpMessagesRequest(
+messages,to,notificationDisabled
+            );
+        }
+    }
 }

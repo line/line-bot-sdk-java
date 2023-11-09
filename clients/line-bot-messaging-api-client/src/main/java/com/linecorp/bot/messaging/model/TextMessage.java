@@ -93,4 +93,43 @@ public TextMessage(String text) {
     this(null, null, text, null, null);
 }
 
+    public static class Builder {
+private QuickReply quickReply;
+private Sender sender;
+private String text;
+private List<Emoji> emojis;
+private String quoteToken;
+
+
+        public Builder() {
+        }
+
+public Builder quickReply(QuickReply quickReply) {
+            this.quickReply = quickReply;
+            return this;
+        }
+public Builder sender(Sender sender) {
+            this.sender = sender;
+            return this;
+        }
+public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+public Builder emojis(List<Emoji> emojis) {
+            this.emojis = emojis;
+            return this;
+        }
+public Builder quoteToken(String quoteToken) {
+            this.quoteToken = quoteToken;
+            return this;
+        }
+
+
+        public TextMessage build() {
+            return new TextMessage(
+quickReply,sender,text,emojis,quoteToken
+            );
+        }
+    }
 }

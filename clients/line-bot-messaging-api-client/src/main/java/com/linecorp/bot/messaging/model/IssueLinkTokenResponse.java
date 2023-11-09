@@ -58,4 +58,23 @@ public record IssueLinkTokenResponse (
 )  {
 
 
+    public static class Builder {
+private String linkToken;
+
+
+        public Builder() {
+        }
+
+public Builder linkToken(String linkToken) {
+            this.linkToken = linkToken;
+            return this;
+        }
+
+
+        public IssueLinkTokenResponse build() {
+            return new IssueLinkTokenResponse(
+linkToken
+            );
+        }
+    }
 }

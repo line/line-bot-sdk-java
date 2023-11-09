@@ -63,4 +63,28 @@ public record SentMessage (
 )  {
 
 
+    public static class Builder {
+private String id;
+private String quoteToken;
+
+
+        public Builder() {
+        }
+
+public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+public Builder quoteToken(String quoteToken) {
+            this.quoteToken = quoteToken;
+            return this;
+        }
+
+
+        public SentMessage build() {
+            return new SentMessage(
+id,quoteToken
+            );
+        }
+    }
 }
