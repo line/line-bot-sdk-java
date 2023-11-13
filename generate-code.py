@@ -97,7 +97,7 @@ def main():
         remove_previous_files(component['outdir'])
 
         command = f'''java \\
-                    -cp ./tools/openapi-generator-cli.jar:./generator/target/line-java-codegen-1.0.0.jar \\
+                    -cp ./generator/target/line-java-codegen-1.0.0.jar \\
                     org.openapitools.codegen.OpenAPIGenerator \\
                     generate \\
                     -e pebble \\
@@ -128,7 +128,7 @@ def main():
     # run_command(f'rm -rf line-bot-webhook/src/main/java/{modelPackagePath}/')
 
     command = f'''java \\
-                -cp ./tools/openapi-generator-cli.jar:./generator/target/line-java-codegen-1.0.0.jar \\
+                -cp ./generator/target/line-java-codegen-1.0.0.jar \\
                 org.openapitools.codegen.OpenAPIGenerator \\
                 generate \\
                 -e pebble \\
