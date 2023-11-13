@@ -52,41 +52,25 @@ public record ContentProvider(
 
   public static class Builder {
     private Type type;
-
-    private boolean type$set;
-
     private URI originalContentUrl;
-
     private URI previewImageUrl;
 
-    public Builder() {}
+    public Builder(Type type) {
 
-    public Builder type(Type type) {
       this.type = type;
-
-      this.type$set = true;
-
-      return this;
     }
 
     public Builder originalContentUrl(URI originalContentUrl) {
       this.originalContentUrl = originalContentUrl;
-
       return this;
     }
 
     public Builder previewImageUrl(URI previewImageUrl) {
       this.previewImageUrl = previewImageUrl;
-
       return this;
     }
 
     public ContentProvider build() {
-
-      if (!this.type$set) {
-        throw new IllegalStateException("'type' must be set for ContentProvider.");
-      }
-
       return new ContentProvider(type, originalContentUrl, previewImageUrl);
     }
   }

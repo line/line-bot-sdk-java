@@ -42,12 +42,10 @@ public record RedeliveryRecipient(
 
     public Builder requestId(String requestId) {
       this.requestId = requestId;
-
       return this;
     }
 
     public RedeliveryRecipient build() {
-
       return new RedeliveryRecipient(requestId);
     }
   }

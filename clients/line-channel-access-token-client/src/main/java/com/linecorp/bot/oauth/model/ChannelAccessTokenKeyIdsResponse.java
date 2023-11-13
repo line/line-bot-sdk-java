@@ -43,24 +43,12 @@ public record ChannelAccessTokenKeyIdsResponse(
   public static class Builder {
     private List<String> kids;
 
-    private boolean kids$set;
+    public Builder(List<String> kids) {
 
-    public Builder() {}
-
-    public Builder kids(List<String> kids) {
       this.kids = kids;
-
-      this.kids$set = true;
-
-      return this;
     }
 
     public ChannelAccessTokenKeyIdsResponse build() {
-
-      if (!this.kids$set) {
-        throw new IllegalStateException("'kids' must be set for ChannelAccessTokenKeyIdsResponse.");
-      }
-
       return new ChannelAccessTokenKeyIdsResponse(kids);
     }
   }

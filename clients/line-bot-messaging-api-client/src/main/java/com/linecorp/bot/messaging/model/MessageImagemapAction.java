@@ -42,49 +42,22 @@ public record MessageImagemapAction(
 
   public static class Builder {
     private ImagemapArea area;
-
-    private boolean area$set;
-
     private String text;
-
-    private boolean text$set;
-
     private String label;
 
-    public Builder() {}
+    public Builder(ImagemapArea area, String text) {
 
-    public Builder area(ImagemapArea area) {
       this.area = area;
 
-      this.area$set = true;
-
-      return this;
-    }
-
-    public Builder text(String text) {
       this.text = text;
-
-      this.text$set = true;
-
-      return this;
     }
 
     public Builder label(String label) {
       this.label = label;
-
       return this;
     }
 
     public MessageImagemapAction build() {
-
-      if (!this.area$set) {
-        throw new IllegalStateException("'area' must be set for MessageImagemapAction.");
-      }
-
-      if (!this.text$set) {
-        throw new IllegalStateException("'text' must be set for MessageImagemapAction.");
-      }
-
       return new MessageImagemapAction(area, text, label);
     }
   }

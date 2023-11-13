@@ -81,105 +81,81 @@ public record GetMessageEventResponseMessage(
 
   public static class Builder {
     private Integer seq;
-
     private Long impression;
-
     private Long mediaPlayed;
-
     private Long mediaPlayed25Percent;
-
     private Long mediaPlayed50Percent;
-
     private Long mediaPlayed75Percent;
-
     private Long mediaPlayed100Percent;
-
     private Long uniqueMediaPlayed;
-
     private Long uniqueMediaPlayed25Percent;
-
     private Long uniqueMediaPlayed50Percent;
-
     private Long uniqueMediaPlayed75Percent;
-
     private Long uniqueMediaPlayed100Percent;
 
     public Builder() {}
 
     public Builder seq(Integer seq) {
       this.seq = seq;
-
       return this;
     }
 
     public Builder impression(Long impression) {
       this.impression = impression;
-
       return this;
     }
 
     public Builder mediaPlayed(Long mediaPlayed) {
       this.mediaPlayed = mediaPlayed;
-
       return this;
     }
 
     public Builder mediaPlayed25Percent(Long mediaPlayed25Percent) {
       this.mediaPlayed25Percent = mediaPlayed25Percent;
-
       return this;
     }
 
     public Builder mediaPlayed50Percent(Long mediaPlayed50Percent) {
       this.mediaPlayed50Percent = mediaPlayed50Percent;
-
       return this;
     }
 
     public Builder mediaPlayed75Percent(Long mediaPlayed75Percent) {
       this.mediaPlayed75Percent = mediaPlayed75Percent;
-
       return this;
     }
 
     public Builder mediaPlayed100Percent(Long mediaPlayed100Percent) {
       this.mediaPlayed100Percent = mediaPlayed100Percent;
-
       return this;
     }
 
     public Builder uniqueMediaPlayed(Long uniqueMediaPlayed) {
       this.uniqueMediaPlayed = uniqueMediaPlayed;
-
       return this;
     }
 
     public Builder uniqueMediaPlayed25Percent(Long uniqueMediaPlayed25Percent) {
       this.uniqueMediaPlayed25Percent = uniqueMediaPlayed25Percent;
-
       return this;
     }
 
     public Builder uniqueMediaPlayed50Percent(Long uniqueMediaPlayed50Percent) {
       this.uniqueMediaPlayed50Percent = uniqueMediaPlayed50Percent;
-
       return this;
     }
 
     public Builder uniqueMediaPlayed75Percent(Long uniqueMediaPlayed75Percent) {
       this.uniqueMediaPlayed75Percent = uniqueMediaPlayed75Percent;
-
       return this;
     }
 
     public Builder uniqueMediaPlayed100Percent(Long uniqueMediaPlayed100Percent) {
       this.uniqueMediaPlayed100Percent = uniqueMediaPlayed100Percent;
-
       return this;
     }
 
     public GetMessageEventResponseMessage build() {
-
       return new GetMessageEventResponseMessage(
           seq,
           impression,

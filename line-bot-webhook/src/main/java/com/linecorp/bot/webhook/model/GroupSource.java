@@ -43,33 +43,19 @@ public record GroupSource(
 
   public static class Builder {
     private String groupId;
-
-    private boolean groupId$set;
-
     private String userId;
 
-    public Builder() {}
+    public Builder(String groupId) {
 
-    public Builder groupId(String groupId) {
       this.groupId = groupId;
-
-      this.groupId$set = true;
-
-      return this;
     }
 
     public Builder userId(String userId) {
       this.userId = userId;
-
       return this;
     }
 
     public GroupSource build() {
-
-      if (!this.groupId$set) {
-        throw new IllegalStateException("'groupId' must be set for GroupSource.");
-      }
-
       return new GroupSource(groupId, userId);
     }
   }

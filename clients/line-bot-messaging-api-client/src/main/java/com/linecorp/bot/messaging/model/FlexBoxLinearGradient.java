@@ -46,49 +46,39 @@ public record FlexBoxLinearGradient(
 
   public static class Builder {
     private String angle;
-
     private String startColor;
-
     private String endColor;
-
     private String centerColor;
-
     private String centerPosition;
 
     public Builder() {}
 
     public Builder angle(String angle) {
       this.angle = angle;
-
       return this;
     }
 
     public Builder startColor(String startColor) {
       this.startColor = startColor;
-
       return this;
     }
 
     public Builder endColor(String endColor) {
       this.endColor = endColor;
-
       return this;
     }
 
     public Builder centerColor(String centerColor) {
       this.centerColor = centerColor;
-
       return this;
     }
 
     public Builder centerPosition(String centerPosition) {
       this.centerPosition = centerPosition;
-
       return this;
     }
 
     public FlexBoxLinearGradient build() {
-
       return new FlexBoxLinearGradient(angle, startColor, endColor, centerColor, centerPosition);
     }
   }

@@ -51,25 +51,21 @@ public record GenderTile(
 
   public static class Builder {
     private Gender gender;
-
     private Double percentage;
 
     public Builder() {}
 
     public Builder gender(Gender gender) {
       this.gender = gender;
-
       return this;
     }
 
     public Builder percentage(Double percentage) {
       this.percentage = percentage;
-
       return this;
     }
 
     public GenderTile build() {
-
       return new GenderTile(gender, percentage);
     }
   }

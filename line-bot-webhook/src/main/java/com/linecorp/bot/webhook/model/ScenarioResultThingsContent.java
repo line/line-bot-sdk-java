@@ -40,41 +40,16 @@ public record ScenarioResultThingsContent(
 
   public static class Builder {
     private String deviceId;
-
-    private boolean deviceId$set;
-
     private ScenarioResult result;
 
-    private boolean result$set;
+    public Builder(String deviceId, ScenarioResult result) {
 
-    public Builder() {}
-
-    public Builder deviceId(String deviceId) {
       this.deviceId = deviceId;
 
-      this.deviceId$set = true;
-
-      return this;
-    }
-
-    public Builder result(ScenarioResult result) {
       this.result = result;
-
-      this.result$set = true;
-
-      return this;
     }
 
     public ScenarioResultThingsContent build() {
-
-      if (!this.deviceId$set) {
-        throw new IllegalStateException("'deviceId' must be set for ScenarioResultThingsContent.");
-      }
-
-      if (!this.result$set) {
-        throw new IllegalStateException("'result' must be set for ScenarioResultThingsContent.");
-      }
-
       return new ScenarioResultThingsContent(deviceId, result);
     }
   }

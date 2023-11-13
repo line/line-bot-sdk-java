@@ -42,12 +42,10 @@ public record UserSource(
 
     public Builder userId(String userId) {
       this.userId = userId;
-
       return this;
     }
 
     public UserSource build() {
-
       return new UserSource(userId);
     }
   }

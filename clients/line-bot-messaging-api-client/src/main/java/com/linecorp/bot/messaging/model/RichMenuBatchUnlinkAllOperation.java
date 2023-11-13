@@ -37,7 +37,6 @@ public record RichMenuBatchUnlinkAllOperation() implements RichMenuBatchOperatio
     public Builder() {}
 
     public RichMenuBatchUnlinkAllOperation build() {
-
       return new RichMenuBatchUnlinkAllOperation();
     }
   }

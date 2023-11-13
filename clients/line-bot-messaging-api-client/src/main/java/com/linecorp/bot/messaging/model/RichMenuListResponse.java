@@ -42,24 +42,12 @@ public record RichMenuListResponse(
   public static class Builder {
     private List<RichMenuResponse> richmenus;
 
-    private boolean richmenus$set;
+    public Builder(List<RichMenuResponse> richmenus) {
 
-    public Builder() {}
-
-    public Builder richmenus(List<RichMenuResponse> richmenus) {
       this.richmenus = richmenus;
-
-      this.richmenus$set = true;
-
-      return this;
     }
 
     public RichMenuListResponse build() {
-
-      if (!this.richmenus$set) {
-        throw new IllegalStateException("'richmenus' must be set for RichMenuListResponse.");
-      }
-
       return new RichMenuListResponse(richmenus);
     }
   }

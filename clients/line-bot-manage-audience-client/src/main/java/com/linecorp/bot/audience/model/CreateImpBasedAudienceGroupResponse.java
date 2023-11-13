@@ -48,49 +48,39 @@ public record CreateImpBasedAudienceGroupResponse(
 
   public static class Builder {
     private Long audienceGroupId;
-
     private AudienceGroupType type;
-
     private String description;
-
     private Long created;
-
     private String requestId;
 
     public Builder() {}
 
     public Builder audienceGroupId(Long audienceGroupId) {
       this.audienceGroupId = audienceGroupId;
-
       return this;
     }
 
     public Builder type(AudienceGroupType type) {
       this.type = type;
-
       return this;
     }
 
     public Builder description(String description) {
       this.description = description;
-
       return this;
     }
 
     public Builder created(Long created) {
       this.created = created;
-
       return this;
     }
 
     public Builder requestId(String requestId) {
       this.requestId = requestId;
-
       return this;
     }
 
     public CreateImpBasedAudienceGroupResponse build() {
-
       return new CreateImpBasedAudienceGroupResponse(
           audienceGroupId, type, description, created, requestId);
     }

@@ -43,41 +43,16 @@ public record AttachedModuleContent(
 
   public static class Builder {
     private String botId;
-
-    private boolean botId$set;
-
     private List<String> scopes;
 
-    private boolean scopes$set;
+    public Builder(String botId, List<String> scopes) {
 
-    public Builder() {}
-
-    public Builder botId(String botId) {
       this.botId = botId;
 
-      this.botId$set = true;
-
-      return this;
-    }
-
-    public Builder scopes(List<String> scopes) {
       this.scopes = scopes;
-
-      this.scopes$set = true;
-
-      return this;
     }
 
     public AttachedModuleContent build() {
-
-      if (!this.botId$set) {
-        throw new IllegalStateException("'botId' must be set for AttachedModuleContent.");
-      }
-
-      if (!this.scopes$set) {
-        throw new IllegalStateException("'scopes' must be set for AttachedModuleContent.");
-      }
-
       return new AttachedModuleContent(botId, scopes);
     }
   }

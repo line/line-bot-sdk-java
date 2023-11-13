@@ -36,24 +36,12 @@ public record AddLiffAppResponse(
   public static class Builder {
     private String liffId;
 
-    private boolean liffId$set;
+    public Builder(String liffId) {
 
-    public Builder() {}
-
-    public Builder liffId(String liffId) {
       this.liffId = liffId;
-
-      this.liffId$set = true;
-
-      return this;
     }
 
     public AddLiffAppResponse build() {
-
-      if (!this.liffId$set) {
-        throw new IllegalStateException("'liffId' must be set for AddLiffAppResponse.");
-      }
-
       return new AddLiffAppResponse(liffId);
     }
   }

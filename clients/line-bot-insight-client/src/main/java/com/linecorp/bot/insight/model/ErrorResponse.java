@@ -46,33 +46,19 @@ public record ErrorResponse(
 
   public static class Builder {
     private String message;
-
-    private boolean message$set;
-
     private List<ErrorDetail> details;
 
-    public Builder() {}
+    public Builder(String message) {
 
-    public Builder message(String message) {
       this.message = message;
-
-      this.message$set = true;
-
-      return this;
     }
 
     public Builder details(List<ErrorDetail> details) {
       this.details = details;
-
       return this;
     }
 
     public ErrorResponse build() {
-
-      if (!this.message$set) {
-        throw new IllegalStateException("'message' must be set for ErrorResponse.");
-      }
-
       return new ErrorResponse(message, details);
     }
   }

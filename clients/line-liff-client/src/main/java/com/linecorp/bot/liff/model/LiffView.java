@@ -66,49 +66,22 @@ public record LiffView(
 
   public static class Builder {
     private Type type;
-
-    private boolean type$set;
-
     private URI url;
-
-    private boolean url$set;
-
     private Boolean moduleMode;
 
-    public Builder() {}
+    public Builder(Type type, URI url) {
 
-    public Builder type(Type type) {
       this.type = type;
 
-      this.type$set = true;
-
-      return this;
-    }
-
-    public Builder url(URI url) {
       this.url = url;
-
-      this.url$set = true;
-
-      return this;
     }
 
     public Builder moduleMode(Boolean moduleMode) {
       this.moduleMode = moduleMode;
-
       return this;
     }
 
     public LiffView build() {
-
-      if (!this.type$set) {
-        throw new IllegalStateException("'type' must be set for LiffView.");
-      }
-
-      if (!this.url$set) {
-        throw new IllegalStateException("'url' must be set for LiffView.");
-      }
-
       return new LiffView(type, url, moduleMode);
     }
   }

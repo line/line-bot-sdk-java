@@ -42,12 +42,10 @@ public record CameraRollAction(
 
     public Builder label(String label) {
       this.label = label;
-
       return this;
     }
 
     public CameraRollAction build() {
-
       return new CameraRollAction(label);
     }
   }

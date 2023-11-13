@@ -46,33 +46,19 @@ public record GetModulesResponse(
 
   public static class Builder {
     private List<ModuleBot> bots;
-
-    private boolean bots$set;
-
     private String next;
 
-    public Builder() {}
+    public Builder(List<ModuleBot> bots) {
 
-    public Builder bots(List<ModuleBot> bots) {
       this.bots = bots;
-
-      this.bots$set = true;
-
-      return this;
     }
 
     public Builder next(String next) {
       this.next = next;
-
       return this;
     }
 
     public GetModulesResponse build() {
-
-      if (!this.bots$set) {
-        throw new IllegalStateException("'bots' must be set for GetModulesResponse.");
-      }
-
       return new GetModulesResponse(bots, next);
     }
   }

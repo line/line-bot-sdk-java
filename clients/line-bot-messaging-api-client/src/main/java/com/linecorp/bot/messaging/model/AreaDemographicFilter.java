@@ -43,12 +43,10 @@ public record AreaDemographicFilter(
 
     public Builder oneOf(List<AreaDemographic> oneOf) {
       this.oneOf = oneOf;
-
       return this;
     }
 
     public AreaDemographicFilter build() {
-
       return new AreaDemographicFilter(oneOf);
     }
   }

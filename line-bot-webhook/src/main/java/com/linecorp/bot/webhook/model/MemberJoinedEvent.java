@@ -56,113 +56,40 @@ public record MemberJoinedEvent(
 
   public static class Builder {
     private Source source;
-
     private Long timestamp;
-
-    private boolean timestamp$set;
-
     private EventMode mode;
-
-    private boolean mode$set;
-
     private String webhookEventId;
-
-    private boolean webhookEventId$set;
-
     private DeliveryContext deliveryContext;
-
-    private boolean deliveryContext$set;
-
     private String replyToken;
-
-    private boolean replyToken$set;
-
     private JoinedMembers joined;
 
-    private boolean joined$set;
+    public Builder(
+        Long timestamp,
+        EventMode mode,
+        String webhookEventId,
+        DeliveryContext deliveryContext,
+        String replyToken,
+        JoinedMembers joined) {
 
-    public Builder() {}
+      this.timestamp = timestamp;
+
+      this.mode = mode;
+
+      this.webhookEventId = webhookEventId;
+
+      this.deliveryContext = deliveryContext;
+
+      this.replyToken = replyToken;
+
+      this.joined = joined;
+    }
 
     public Builder source(Source source) {
       this.source = source;
-
-      return this;
-    }
-
-    public Builder timestamp(Long timestamp) {
-      this.timestamp = timestamp;
-
-      this.timestamp$set = true;
-
-      return this;
-    }
-
-    public Builder mode(EventMode mode) {
-      this.mode = mode;
-
-      this.mode$set = true;
-
-      return this;
-    }
-
-    public Builder webhookEventId(String webhookEventId) {
-      this.webhookEventId = webhookEventId;
-
-      this.webhookEventId$set = true;
-
-      return this;
-    }
-
-    public Builder deliveryContext(DeliveryContext deliveryContext) {
-      this.deliveryContext = deliveryContext;
-
-      this.deliveryContext$set = true;
-
-      return this;
-    }
-
-    public Builder replyToken(String replyToken) {
-      this.replyToken = replyToken;
-
-      this.replyToken$set = true;
-
-      return this;
-    }
-
-    public Builder joined(JoinedMembers joined) {
-      this.joined = joined;
-
-      this.joined$set = true;
-
       return this;
     }
 
     public MemberJoinedEvent build() {
-
-      if (!this.timestamp$set) {
-        throw new IllegalStateException("'timestamp' must be set for MemberJoinedEvent.");
-      }
-
-      if (!this.mode$set) {
-        throw new IllegalStateException("'mode' must be set for MemberJoinedEvent.");
-      }
-
-      if (!this.webhookEventId$set) {
-        throw new IllegalStateException("'webhookEventId' must be set for MemberJoinedEvent.");
-      }
-
-      if (!this.deliveryContext$set) {
-        throw new IllegalStateException("'deliveryContext' must be set for MemberJoinedEvent.");
-      }
-
-      if (!this.replyToken$set) {
-        throw new IllegalStateException("'replyToken' must be set for MemberJoinedEvent.");
-      }
-
-      if (!this.joined$set) {
-        throw new IllegalStateException("'joined' must be set for MemberJoinedEvent.");
-      }
-
       return new MemberJoinedEvent(
           source, timestamp, mode, webhookEventId, deliveryContext, replyToken, joined);
     }

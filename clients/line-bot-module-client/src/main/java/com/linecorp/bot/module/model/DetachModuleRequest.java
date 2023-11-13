@@ -46,12 +46,10 @@ public record DetachModuleRequest(
 
     public Builder botId(String botId) {
       this.botId = botId;
-
       return this;
     }
 
     public DetachModuleRequest build() {
-
       return new DetachModuleRequest(botId);
     }
   }

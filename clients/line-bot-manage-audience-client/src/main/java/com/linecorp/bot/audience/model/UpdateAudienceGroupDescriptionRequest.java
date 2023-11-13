@@ -49,12 +49,10 @@ public record UpdateAudienceGroupDescriptionRequest(
 
     public Builder description(String description) {
       this.description = description;
-
       return this;
     }
 
     public UpdateAudienceGroupDescriptionRequest build() {
-
       return new UpdateAudienceGroupDescriptionRequest(description);
     }
   }

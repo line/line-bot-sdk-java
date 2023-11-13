@@ -42,41 +42,33 @@ public record ImagemapVideo(
 
   public static class Builder {
     private URI originalContentUrl;
-
     private URI previewImageUrl;
-
     private ImagemapArea area;
-
     private ImagemapExternalLink externalLink;
 
     public Builder() {}
 
     public Builder originalContentUrl(URI originalContentUrl) {
       this.originalContentUrl = originalContentUrl;
-
       return this;
     }
 
     public Builder previewImageUrl(URI previewImageUrl) {
       this.previewImageUrl = previewImageUrl;
-
       return this;
     }
 
     public Builder area(ImagemapArea area) {
       this.area = area;
-
       return this;
     }
 
     public Builder externalLink(ImagemapExternalLink externalLink) {
       this.externalLink = externalLink;
-
       return this;
     }
 
     public ImagemapVideo build() {
-
       return new ImagemapVideo(originalContentUrl, previewImageUrl, area, externalLink);
     }
   }

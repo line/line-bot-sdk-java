@@ -53,33 +53,27 @@ public record QuickReplyItem(
 
   public static class Builder {
     private URI imageUrl;
-
     private Action action;
-
     private String type;
 
     public Builder() {}
 
     public Builder imageUrl(URI imageUrl) {
       this.imageUrl = imageUrl;
-
       return this;
     }
 
     public Builder action(Action action) {
       this.action = action;
-
       return this;
     }
 
     public Builder type(String type) {
       this.type = type;
-
       return this;
     }
 
     public QuickReplyItem build() {
-
       return new QuickReplyItem(imageUrl, action, type);
     }
   }

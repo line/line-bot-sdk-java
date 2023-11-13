@@ -48,25 +48,21 @@ public record CreateImpBasedAudienceGroupRequest(
 
   public static class Builder {
     private String description;
-
     private String requestId;
 
     public Builder() {}
 
     public Builder description(String description) {
       this.description = description;
-
       return this;
     }
 
     public Builder requestId(String requestId) {
       this.requestId = requestId;
-
       return this;
     }
 
     public CreateImpBasedAudienceGroupRequest build() {
-
       return new CreateImpBasedAudienceGroupRequest(description, requestId);
     }
   }

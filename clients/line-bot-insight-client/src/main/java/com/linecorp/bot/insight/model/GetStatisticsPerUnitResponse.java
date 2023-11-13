@@ -46,57 +46,22 @@ public record GetStatisticsPerUnitResponse(
 
   public static class Builder {
     private GetStatisticsPerUnitResponseOverview overview;
-
-    private boolean overview$set;
-
     private List<GetStatisticsPerUnitResponseMessage> messages;
-
-    private boolean messages$set;
-
     private List<GetStatisticsPerUnitResponseClick> clicks;
 
-    private boolean clicks$set;
+    public Builder(
+        GetStatisticsPerUnitResponseOverview overview,
+        List<GetStatisticsPerUnitResponseMessage> messages,
+        List<GetStatisticsPerUnitResponseClick> clicks) {
 
-    public Builder() {}
-
-    public Builder overview(GetStatisticsPerUnitResponseOverview overview) {
       this.overview = overview;
 
-      this.overview$set = true;
-
-      return this;
-    }
-
-    public Builder messages(List<GetStatisticsPerUnitResponseMessage> messages) {
       this.messages = messages;
 
-      this.messages$set = true;
-
-      return this;
-    }
-
-    public Builder clicks(List<GetStatisticsPerUnitResponseClick> clicks) {
       this.clicks = clicks;
-
-      this.clicks$set = true;
-
-      return this;
     }
 
     public GetStatisticsPerUnitResponse build() {
-
-      if (!this.overview$set) {
-        throw new IllegalStateException("'overview' must be set for GetStatisticsPerUnitResponse.");
-      }
-
-      if (!this.messages$set) {
-        throw new IllegalStateException("'messages' must be set for GetStatisticsPerUnitResponse.");
-      }
-
-      if (!this.clicks$set) {
-        throw new IllegalStateException("'clicks' must be set for GetStatisticsPerUnitResponse.");
-      }
-
       return new GetStatisticsPerUnitResponse(overview, messages, clicks);
     }
   }

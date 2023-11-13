@@ -48,34 +48,19 @@ public record GetAggregationUnitNameListResponse(
 
   public static class Builder {
     private List<String> customAggregationUnits;
-
-    private boolean customAggregationUnits$set;
-
     private String next;
 
-    public Builder() {}
+    public Builder(List<String> customAggregationUnits) {
 
-    public Builder customAggregationUnits(List<String> customAggregationUnits) {
       this.customAggregationUnits = customAggregationUnits;
-
-      this.customAggregationUnits$set = true;
-
-      return this;
     }
 
     public Builder next(String next) {
       this.next = next;
-
       return this;
     }
 
     public GetAggregationUnitNameListResponse build() {
-
-      if (!this.customAggregationUnits$set) {
-        throw new IllegalStateException(
-            "'customAggregationUnits' must be set for GetAggregationUnitNameListResponse.");
-      }
-
       return new GetAggregationUnitNameListResponse(customAggregationUnits, next);
     }
   }

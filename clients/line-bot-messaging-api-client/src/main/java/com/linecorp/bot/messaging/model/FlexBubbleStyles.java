@@ -41,41 +41,33 @@ public record FlexBubbleStyles(
 
   public static class Builder {
     private FlexBlockStyle header;
-
     private FlexBlockStyle hero;
-
     private FlexBlockStyle body;
-
     private FlexBlockStyle footer;
 
     public Builder() {}
 
     public Builder header(FlexBlockStyle header) {
       this.header = header;
-
       return this;
     }
 
     public Builder hero(FlexBlockStyle hero) {
       this.hero = hero;
-
       return this;
     }
 
     public Builder body(FlexBlockStyle body) {
       this.body = body;
-
       return this;
     }
 
     public Builder footer(FlexBlockStyle footer) {
       this.footer = footer;
-
       return this;
     }
 
     public FlexBubbleStyles build() {
-
       return new FlexBubbleStyles(header, hero, body, footer);
     }
   }

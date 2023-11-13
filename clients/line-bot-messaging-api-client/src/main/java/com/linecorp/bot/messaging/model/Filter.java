@@ -40,12 +40,10 @@ public record Filter(
 
     public Builder demographic(DemographicFilter demographic) {
       this.demographic = demographic;
-
       return this;
     }
 
     public Filter build() {
-
       return new Filter(demographic);
     }
   }

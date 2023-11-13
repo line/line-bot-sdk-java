@@ -42,49 +42,22 @@ public record AudioMessageContent(
 
   public static class Builder {
     private String id;
-
-    private boolean id$set;
-
     private ContentProvider contentProvider;
-
-    private boolean contentProvider$set;
-
     private Long duration;
 
-    public Builder() {}
+    public Builder(String id, ContentProvider contentProvider) {
 
-    public Builder id(String id) {
       this.id = id;
 
-      this.id$set = true;
-
-      return this;
-    }
-
-    public Builder contentProvider(ContentProvider contentProvider) {
       this.contentProvider = contentProvider;
-
-      this.contentProvider$set = true;
-
-      return this;
     }
 
     public Builder duration(Long duration) {
       this.duration = duration;
-
       return this;
     }
 
     public AudioMessageContent build() {
-
-      if (!this.id$set) {
-        throw new IllegalStateException("'id' must be set for AudioMessageContent.");
-      }
-
-      if (!this.contentProvider$set) {
-        throw new IllegalStateException("'contentProvider' must be set for AudioMessageContent.");
-      }
-
       return new AudioMessageContent(id, contentProvider, duration);
     }
   }

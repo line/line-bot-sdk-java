@@ -36,24 +36,12 @@ public record ChatControl(
   public static class Builder {
     private Long expireAt;
 
-    private boolean expireAt$set;
+    public Builder(Long expireAt) {
 
-    public Builder() {}
-
-    public Builder expireAt(Long expireAt) {
       this.expireAt = expireAt;
-
-      this.expireAt$set = true;
-
-      return this;
     }
 
     public ChatControl build() {
-
-      if (!this.expireAt$set) {
-        throw new IllegalStateException("'expireAt' must be set for ChatControl.");
-      }
-
       return new ChatControl(expireAt);
     }
   }

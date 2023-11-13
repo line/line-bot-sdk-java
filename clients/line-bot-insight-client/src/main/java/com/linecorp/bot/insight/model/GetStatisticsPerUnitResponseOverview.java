@@ -47,41 +47,33 @@ public record GetStatisticsPerUnitResponseOverview(
 
   public static class Builder {
     private Long uniqueImpression;
-
     private Long uniqueClick;
-
     private Long uniqueMediaPlayed;
-
     private Long uniqueMediaPlayed100Percent;
 
     public Builder() {}
 
     public Builder uniqueImpression(Long uniqueImpression) {
       this.uniqueImpression = uniqueImpression;
-
       return this;
     }
 
     public Builder uniqueClick(Long uniqueClick) {
       this.uniqueClick = uniqueClick;
-
       return this;
     }
 
     public Builder uniqueMediaPlayed(Long uniqueMediaPlayed) {
       this.uniqueMediaPlayed = uniqueMediaPlayed;
-
       return this;
     }
 
     public Builder uniqueMediaPlayed100Percent(Long uniqueMediaPlayed100Percent) {
       this.uniqueMediaPlayed100Percent = uniqueMediaPlayed100Percent;
-
       return this;
     }
 
     public GetStatisticsPerUnitResponseOverview build() {
-
       return new GetStatisticsPerUnitResponseOverview(
           uniqueImpression, uniqueClick, uniqueMediaPlayed, uniqueMediaPlayed100Percent);
     }

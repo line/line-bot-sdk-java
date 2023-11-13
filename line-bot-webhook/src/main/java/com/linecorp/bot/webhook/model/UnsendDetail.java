@@ -36,24 +36,12 @@ public record UnsendDetail(
   public static class Builder {
     private String messageId;
 
-    private boolean messageId$set;
+    public Builder(String messageId) {
 
-    public Builder() {}
-
-    public Builder messageId(String messageId) {
       this.messageId = messageId;
-
-      this.messageId$set = true;
-
-      return this;
     }
 
     public UnsendDetail build() {
-
-      if (!this.messageId$set) {
-        throw new IllegalStateException("'messageId' must be set for UnsendDetail.");
-      }
-
       return new UnsendDetail(messageId);
     }
   }

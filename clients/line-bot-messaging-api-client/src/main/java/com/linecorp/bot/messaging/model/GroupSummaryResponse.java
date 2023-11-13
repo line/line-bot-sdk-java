@@ -48,49 +48,22 @@ public record GroupSummaryResponse(
 
   public static class Builder {
     private String groupId;
-
-    private boolean groupId$set;
-
     private String groupName;
-
-    private boolean groupName$set;
-
     private URI pictureUrl;
 
-    public Builder() {}
+    public Builder(String groupId, String groupName) {
 
-    public Builder groupId(String groupId) {
       this.groupId = groupId;
 
-      this.groupId$set = true;
-
-      return this;
-    }
-
-    public Builder groupName(String groupName) {
       this.groupName = groupName;
-
-      this.groupName$set = true;
-
-      return this;
     }
 
     public Builder pictureUrl(URI pictureUrl) {
       this.pictureUrl = pictureUrl;
-
       return this;
     }
 
     public GroupSummaryResponse build() {
-
-      if (!this.groupId$set) {
-        throw new IllegalStateException("'groupId' must be set for GroupSummaryResponse.");
-      }
-
-      if (!this.groupName$set) {
-        throw new IllegalStateException("'groupName' must be set for GroupSummaryResponse.");
-      }
-
       return new GroupSummaryResponse(groupId, groupName, pictureUrl);
     }
   }

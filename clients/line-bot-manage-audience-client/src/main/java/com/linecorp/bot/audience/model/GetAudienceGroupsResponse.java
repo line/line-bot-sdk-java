@@ -57,57 +57,45 @@ public record GetAudienceGroupsResponse(
 
   public static class Builder {
     private List<AudienceGroup> audienceGroups;
-
     private Boolean hasNextPage;
-
     private Long totalCount;
-
     private Long readWriteAudienceGroupTotalCount;
-
     private Long page;
-
     private Long size;
 
     public Builder() {}
 
     public Builder audienceGroups(List<AudienceGroup> audienceGroups) {
       this.audienceGroups = audienceGroups;
-
       return this;
     }
 
     public Builder hasNextPage(Boolean hasNextPage) {
       this.hasNextPage = hasNextPage;
-
       return this;
     }
 
     public Builder totalCount(Long totalCount) {
       this.totalCount = totalCount;
-
       return this;
     }
 
     public Builder readWriteAudienceGroupTotalCount(Long readWriteAudienceGroupTotalCount) {
       this.readWriteAudienceGroupTotalCount = readWriteAudienceGroupTotalCount;
-
       return this;
     }
 
     public Builder page(Long page) {
       this.page = page;
-
       return this;
     }
 
     public Builder size(Long size) {
       this.size = size;
-
       return this;
     }
 
     public GetAudienceGroupsResponse build() {
-
       return new GetAudienceGroupsResponse(
           audienceGroups, hasNextPage, totalCount, readWriteAudienceGroupTotalCount, page, size);
     }

@@ -67,105 +67,81 @@ public record AudienceGroup(
 
   public static class Builder {
     private Long audienceGroupId;
-
     private AudienceGroupType type;
-
     private String description;
-
     private AudienceGroupStatus status;
-
     private AudienceGroupFailedType failedType;
-
     private Long audienceCount;
-
     private Long created;
-
     private String requestId;
-
     private URI clickUrl;
-
     private Boolean isIfaAudience;
-
     private AudienceGroupPermission permission;
-
     private AudienceGroupCreateRoute createRoute;
 
     public Builder() {}
 
     public Builder audienceGroupId(Long audienceGroupId) {
       this.audienceGroupId = audienceGroupId;
-
       return this;
     }
 
     public Builder type(AudienceGroupType type) {
       this.type = type;
-
       return this;
     }
 
     public Builder description(String description) {
       this.description = description;
-
       return this;
     }
 
     public Builder status(AudienceGroupStatus status) {
       this.status = status;
-
       return this;
     }
 
     public Builder failedType(AudienceGroupFailedType failedType) {
       this.failedType = failedType;
-
       return this;
     }
 
     public Builder audienceCount(Long audienceCount) {
       this.audienceCount = audienceCount;
-
       return this;
     }
 
     public Builder created(Long created) {
       this.created = created;
-
       return this;
     }
 
     public Builder requestId(String requestId) {
       this.requestId = requestId;
-
       return this;
     }
 
     public Builder clickUrl(URI clickUrl) {
       this.clickUrl = clickUrl;
-
       return this;
     }
 
     public Builder isIfaAudience(Boolean isIfaAudience) {
       this.isIfaAudience = isIfaAudience;
-
       return this;
     }
 
     public Builder permission(AudienceGroupPermission permission) {
       this.permission = permission;
-
       return this;
     }
 
     public Builder createRoute(AudienceGroupCreateRoute createRoute) {
       this.createRoute = createRoute;
-
       return this;
     }
 
     public AudienceGroup build() {
-
       return new AudienceGroup(
           audienceGroupId,
           type,

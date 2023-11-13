@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package com.linecorp.bot.codegen.pebble;
+package com.linecorp.bot.codegen.pebble.function;
 
 
 import io.pebbletemplates.pebble.extension.Function;
