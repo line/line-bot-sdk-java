@@ -40,25 +40,21 @@ public record FlexSeparator(
 
   public static class Builder {
     private String margin;
-
     private String color;
 
     public Builder() {}
 
     public Builder margin(String margin) {
       this.margin = margin;
-
       return this;
     }
 
     public Builder color(String color) {
       this.color = color;
-
       return this;
     }
 
     public FlexSeparator build() {
-
       return new FlexSeparator(margin, color);
     }
   }

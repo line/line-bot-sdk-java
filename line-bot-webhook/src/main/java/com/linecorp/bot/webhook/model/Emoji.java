@@ -41,73 +41,22 @@ public record Emoji(
 
   public static class Builder {
     private Integer index;
-
-    private boolean index$set;
-
     private Integer length;
-
-    private boolean length$set;
-
     private String productId;
-
-    private boolean productId$set;
-
     private String emojiId;
 
-    private boolean emojiId$set;
+    public Builder(Integer index, Integer length, String productId, String emojiId) {
 
-    public Builder() {}
-
-    public Builder index(Integer index) {
       this.index = index;
 
-      this.index$set = true;
-
-      return this;
-    }
-
-    public Builder length(Integer length) {
       this.length = length;
 
-      this.length$set = true;
-
-      return this;
-    }
-
-    public Builder productId(String productId) {
       this.productId = productId;
 
-      this.productId$set = true;
-
-      return this;
-    }
-
-    public Builder emojiId(String emojiId) {
       this.emojiId = emojiId;
-
-      this.emojiId$set = true;
-
-      return this;
     }
 
     public Emoji build() {
-
-      if (!this.index$set) {
-        throw new IllegalStateException("'index' must be set for Emoji.");
-      }
-
-      if (!this.length$set) {
-        throw new IllegalStateException("'length' must be set for Emoji.");
-      }
-
-      if (!this.productId$set) {
-        throw new IllegalStateException("'productId' must be set for Emoji.");
-      }
-
-      if (!this.emojiId$set) {
-        throw new IllegalStateException("'emojiId' must be set for Emoji.");
-      }
-
       return new Emoji(index, length, productId, emojiId);
     }
   }

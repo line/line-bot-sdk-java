@@ -95,114 +95,48 @@ public record StickerMessageContent(
 
   public static class Builder {
     private String id;
-
-    private boolean id$set;
-
     private String packageId;
-
-    private boolean packageId$set;
-
     private String stickerId;
-
-    private boolean stickerId$set;
-
     private StickerResourceType stickerResourceType;
-
-    private boolean stickerResourceType$set;
-
     private List<String> keywords;
-
     private String text;
-
     private String quoteToken;
-
-    private boolean quoteToken$set;
-
     private String quotedMessageId;
 
-    public Builder() {}
+    public Builder(
+        String id,
+        String packageId,
+        String stickerId,
+        StickerResourceType stickerResourceType,
+        String quoteToken) {
 
-    public Builder id(String id) {
       this.id = id;
 
-      this.id$set = true;
-
-      return this;
-    }
-
-    public Builder packageId(String packageId) {
       this.packageId = packageId;
 
-      this.packageId$set = true;
-
-      return this;
-    }
-
-    public Builder stickerId(String stickerId) {
       this.stickerId = stickerId;
 
-      this.stickerId$set = true;
-
-      return this;
-    }
-
-    public Builder stickerResourceType(StickerResourceType stickerResourceType) {
       this.stickerResourceType = stickerResourceType;
 
-      this.stickerResourceType$set = true;
-
-      return this;
+      this.quoteToken = quoteToken;
     }
 
     public Builder keywords(List<String> keywords) {
       this.keywords = keywords;
-
       return this;
     }
 
     public Builder text(String text) {
       this.text = text;
-
-      return this;
-    }
-
-    public Builder quoteToken(String quoteToken) {
-      this.quoteToken = quoteToken;
-
-      this.quoteToken$set = true;
-
       return this;
     }
 
     public Builder quotedMessageId(String quotedMessageId) {
       this.quotedMessageId = quotedMessageId;
-
       return this;
     }
 
     public StickerMessageContent build() {
-
-      if (!this.id$set) {
-        throw new IllegalStateException("'id' must be set for StickerMessageContent.");
-      }
-
-      if (!this.packageId$set) {
-        throw new IllegalStateException("'packageId' must be set for StickerMessageContent.");
-      }
-
-      if (!this.stickerId$set) {
-        throw new IllegalStateException("'stickerId' must be set for StickerMessageContent.");
-      }
-
-      if (!this.stickerResourceType$set) {
-        throw new IllegalStateException(
-            "'stickerResourceType' must be set for StickerMessageContent.");
-      }
-
-      if (!this.quoteToken$set) {
-        throw new IllegalStateException("'quoteToken' must be set for StickerMessageContent.");
-      }
-
       return new StickerMessageContent(
           id,
           packageId,

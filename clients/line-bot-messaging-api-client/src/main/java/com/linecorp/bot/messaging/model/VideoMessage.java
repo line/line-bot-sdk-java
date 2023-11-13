@@ -56,65 +56,34 @@ public record VideoMessage(
 
   public static class Builder {
     private QuickReply quickReply;
-
     private Sender sender;
-
     private URI originalContentUrl;
-
-    private boolean originalContentUrl$set;
-
     private URI previewImageUrl;
-
-    private boolean previewImageUrl$set;
-
     private String trackingId;
 
-    public Builder() {}
+    public Builder(URI originalContentUrl, URI previewImageUrl) {
+
+      this.originalContentUrl = originalContentUrl;
+
+      this.previewImageUrl = previewImageUrl;
+    }
 
     public Builder quickReply(QuickReply quickReply) {
       this.quickReply = quickReply;
-
       return this;
     }
 
     public Builder sender(Sender sender) {
       this.sender = sender;
-
-      return this;
-    }
-
-    public Builder originalContentUrl(URI originalContentUrl) {
-      this.originalContentUrl = originalContentUrl;
-
-      this.originalContentUrl$set = true;
-
-      return this;
-    }
-
-    public Builder previewImageUrl(URI previewImageUrl) {
-      this.previewImageUrl = previewImageUrl;
-
-      this.previewImageUrl$set = true;
-
       return this;
     }
 
     public Builder trackingId(String trackingId) {
       this.trackingId = trackingId;
-
       return this;
     }
 
     public VideoMessage build() {
-
-      if (!this.originalContentUrl$set) {
-        throw new IllegalStateException("'originalContentUrl' must be set for VideoMessage.");
-      }
-
-      if (!this.previewImageUrl$set) {
-        throw new IllegalStateException("'previewImageUrl' must be set for VideoMessage.");
-      }
-
       return new VideoMessage(quickReply, sender, originalContentUrl, previewImageUrl, trackingId);
     }
   }

@@ -43,33 +43,27 @@ public record URIAction(
 
   public static class Builder {
     private String label;
-
     private URI uri;
-
     private AltUri altUri;
 
     public Builder() {}
 
     public Builder label(String label) {
       this.label = label;
-
       return this;
     }
 
     public Builder uri(URI uri) {
       this.uri = uri;
-
       return this;
     }
 
     public Builder altUri(AltUri altUri) {
       this.altUri = altUri;
-
       return this;
     }
 
     public URIAction build() {
-
       return new URIAction(label, uri, altUri);
     }
   }

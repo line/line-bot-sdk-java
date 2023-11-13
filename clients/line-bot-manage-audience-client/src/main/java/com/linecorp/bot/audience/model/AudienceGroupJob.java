@@ -54,73 +54,57 @@ public record AudienceGroupJob(
 
   public static class Builder {
     private Long audienceGroupJobId;
-
     private Long audienceGroupId;
-
     private String description;
-
     private AudienceGroupJobType type;
-
     private AudienceGroupJobStatus jobStatus;
-
     private AudienceGroupJobFailedType failedType;
-
     private Long audienceCount;
-
     private Long created;
 
     public Builder() {}
 
     public Builder audienceGroupJobId(Long audienceGroupJobId) {
       this.audienceGroupJobId = audienceGroupJobId;
-
       return this;
     }
 
     public Builder audienceGroupId(Long audienceGroupId) {
       this.audienceGroupId = audienceGroupId;
-
       return this;
     }
 
     public Builder description(String description) {
       this.description = description;
-
       return this;
     }
 
     public Builder type(AudienceGroupJobType type) {
       this.type = type;
-
       return this;
     }
 
     public Builder jobStatus(AudienceGroupJobStatus jobStatus) {
       this.jobStatus = jobStatus;
-
       return this;
     }
 
     public Builder failedType(AudienceGroupJobFailedType failedType) {
       this.failedType = failedType;
-
       return this;
     }
 
     public Builder audienceCount(Long audienceCount) {
       this.audienceCount = audienceCount;
-
       return this;
     }
 
     public Builder created(Long created) {
       this.created = created;
-
       return this;
     }
 
     public AudienceGroupJob build() {
-
       return new AudienceGroupJob(
           audienceGroupJobId,
           audienceGroupId,

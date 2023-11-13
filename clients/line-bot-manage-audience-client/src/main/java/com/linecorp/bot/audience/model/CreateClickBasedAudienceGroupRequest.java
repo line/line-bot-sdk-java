@@ -55,33 +55,27 @@ public record CreateClickBasedAudienceGroupRequest(
 
   public static class Builder {
     private String description;
-
     private String requestId;
-
     private URI clickUrl;
 
     public Builder() {}
 
     public Builder description(String description) {
       this.description = description;
-
       return this;
     }
 
     public Builder requestId(String requestId) {
       this.requestId = requestId;
-
       return this;
     }
 
     public Builder clickUrl(URI clickUrl) {
       this.clickUrl = clickUrl;
-
       return this;
     }
 
     public CreateClickBasedAudienceGroupRequest build() {
-
       return new CreateClickBasedAudienceGroupRequest(description, requestId, clickUrl);
     }
   }

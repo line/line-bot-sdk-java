@@ -42,12 +42,10 @@ public record LocationAction(
 
     public Builder label(String label) {
       this.label = label;
-
       return this;
     }
 
     public LocationAction build() {
-
       return new LocationAction(label);
     }
   }

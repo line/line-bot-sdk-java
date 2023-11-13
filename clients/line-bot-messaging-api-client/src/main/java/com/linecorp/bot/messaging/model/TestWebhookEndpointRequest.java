@@ -46,12 +46,10 @@ public record TestWebhookEndpointRequest(
 
     public Builder endpoint(URI endpoint) {
       this.endpoint = endpoint;
-
       return this;
     }
 
     public TestWebhookEndpointRequest build() {
-
       return new TestWebhookEndpointRequest(endpoint);
     }
   }

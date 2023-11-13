@@ -84,73 +84,57 @@ public record FlexBubble(
 
   public static class Builder {
     private Direction direction;
-
     private FlexBubbleStyles styles;
-
     private FlexBox header;
-
     private FlexComponent hero;
-
     private FlexBox body;
-
     private FlexBox footer;
-
     private Size size;
-
     private Action action;
 
     public Builder() {}
 
     public Builder direction(Direction direction) {
       this.direction = direction;
-
       return this;
     }
 
     public Builder styles(FlexBubbleStyles styles) {
       this.styles = styles;
-
       return this;
     }
 
     public Builder header(FlexBox header) {
       this.header = header;
-
       return this;
     }
 
     public Builder hero(FlexComponent hero) {
       this.hero = hero;
-
       return this;
     }
 
     public Builder body(FlexBox body) {
       this.body = body;
-
       return this;
     }
 
     public Builder footer(FlexBox footer) {
       this.footer = footer;
-
       return this;
     }
 
     public Builder size(Size size) {
       this.size = size;
-
       return this;
     }
 
     public Builder action(Action action) {
       this.action = action;
-
       return this;
     }
 
     public FlexBubble build() {
-
       return new FlexBubble(direction, styles, header, hero, body, footer, size, action);
     }
   }

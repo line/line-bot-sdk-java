@@ -52,65 +52,34 @@ public record GetStatisticsPerUnitResponseClick(
 
   public static class Builder {
     private Long seq;
-
-    private boolean seq$set;
-
     private String url;
-
-    private boolean url$set;
-
     private Long click;
-
     private Long uniqueClick;
-
     private Long uniqueClickOfRequest;
 
-    public Builder() {}
+    public Builder(Long seq, String url) {
 
-    public Builder seq(Long seq) {
       this.seq = seq;
 
-      this.seq$set = true;
-
-      return this;
-    }
-
-    public Builder url(String url) {
       this.url = url;
-
-      this.url$set = true;
-
-      return this;
     }
 
     public Builder click(Long click) {
       this.click = click;
-
       return this;
     }
 
     public Builder uniqueClick(Long uniqueClick) {
       this.uniqueClick = uniqueClick;
-
       return this;
     }
 
     public Builder uniqueClickOfRequest(Long uniqueClickOfRequest) {
       this.uniqueClickOfRequest = uniqueClickOfRequest;
-
       return this;
     }
 
     public GetStatisticsPerUnitResponseClick build() {
-
-      if (!this.seq$set) {
-        throw new IllegalStateException("'seq' must be set for GetStatisticsPerUnitResponseClick.");
-      }
-
-      if (!this.url$set) {
-        throw new IllegalStateException("'url' must be set for GetStatisticsPerUnitResponseClick.");
-      }
-
       return new GetStatisticsPerUnitResponseClick(
           seq, url, click, uniqueClick, uniqueClickOfRequest);
     }

@@ -42,12 +42,10 @@ public record AudienceRecipient(
 
     public Builder audienceGroupId(Long audienceGroupId) {
       this.audienceGroupId = audienceGroupId;
-
       return this;
     }
 
     public AudienceRecipient build() {
-
       return new AudienceRecipient(audienceGroupId);
     }
   }

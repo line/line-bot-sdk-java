@@ -55,65 +55,34 @@ public record StickerMessage(
 
   public static class Builder {
     private QuickReply quickReply;
-
     private Sender sender;
-
     private String packageId;
-
-    private boolean packageId$set;
-
     private String stickerId;
-
-    private boolean stickerId$set;
-
     private String quoteToken;
 
-    public Builder() {}
+    public Builder(String packageId, String stickerId) {
+
+      this.packageId = packageId;
+
+      this.stickerId = stickerId;
+    }
 
     public Builder quickReply(QuickReply quickReply) {
       this.quickReply = quickReply;
-
       return this;
     }
 
     public Builder sender(Sender sender) {
       this.sender = sender;
-
-      return this;
-    }
-
-    public Builder packageId(String packageId) {
-      this.packageId = packageId;
-
-      this.packageId$set = true;
-
-      return this;
-    }
-
-    public Builder stickerId(String stickerId) {
-      this.stickerId = stickerId;
-
-      this.stickerId$set = true;
-
       return this;
     }
 
     public Builder quoteToken(String quoteToken) {
       this.quoteToken = quoteToken;
-
       return this;
     }
 
     public StickerMessage build() {
-
-      if (!this.packageId$set) {
-        throw new IllegalStateException("'packageId' must be set for StickerMessage.");
-      }
-
-      if (!this.stickerId$set) {
-        throw new IllegalStateException("'stickerId' must be set for StickerMessage.");
-      }
-
       return new StickerMessage(quickReply, sender, packageId, stickerId, quoteToken);
     }
   }

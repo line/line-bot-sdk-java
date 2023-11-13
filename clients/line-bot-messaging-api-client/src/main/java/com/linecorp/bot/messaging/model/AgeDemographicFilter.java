@@ -40,25 +40,21 @@ public record AgeDemographicFilter(
 
   public static class Builder {
     private AgeDemographic gte;
-
     private AgeDemographic lt;
 
     public Builder() {}
 
     public Builder gte(AgeDemographic gte) {
       this.gte = gte;
-
       return this;
     }
 
     public Builder lt(AgeDemographic lt) {
       this.lt = lt;
-
       return this;
     }
 
     public AgeDemographicFilter build() {
-
       return new AgeDemographicFilter(gte, lt);
     }
   }

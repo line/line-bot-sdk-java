@@ -51,41 +51,33 @@ public record RichMenuBounds(
 
   public static class Builder {
     private Long x;
-
     private Long y;
-
     private Long width;
-
     private Long height;
 
     public Builder() {}
 
     public Builder x(Long x) {
       this.x = x;
-
       return this;
     }
 
     public Builder y(Long y) {
       this.y = y;
-
       return this;
     }
 
     public Builder width(Long width) {
       this.width = width;
-
       return this;
     }
 
     public Builder height(Long height) {
       this.height = height;
-
       return this;
     }
 
     public RichMenuBounds build() {
-
       return new RichMenuBounds(x, y, width, height);
     }
   }

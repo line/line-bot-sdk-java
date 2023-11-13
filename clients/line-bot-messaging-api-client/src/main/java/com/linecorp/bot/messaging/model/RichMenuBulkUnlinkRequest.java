@@ -46,24 +46,12 @@ public record RichMenuBulkUnlinkRequest(
   public static class Builder {
     private List<String> userIds;
 
-    private boolean userIds$set;
+    public Builder(List<String> userIds) {
 
-    public Builder() {}
-
-    public Builder userIds(List<String> userIds) {
       this.userIds = userIds;
-
-      this.userIds$set = true;
-
-      return this;
     }
 
     public RichMenuBulkUnlinkRequest build() {
-
-      if (!this.userIds$set) {
-        throw new IllegalStateException("'userIds' must be set for RichMenuBulkUnlinkRequest.");
-      }
-
       return new RichMenuBulkUnlinkRequest(userIds);
     }
   }

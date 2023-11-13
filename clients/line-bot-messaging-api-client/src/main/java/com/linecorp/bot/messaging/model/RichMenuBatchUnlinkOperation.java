@@ -41,24 +41,12 @@ public record RichMenuBatchUnlinkOperation(
   public static class Builder {
     private String from;
 
-    private boolean from$set;
+    public Builder(String from) {
 
-    public Builder() {}
-
-    public Builder from(String from) {
       this.from = from;
-
-      this.from$set = true;
-
-      return this;
     }
 
     public RichMenuBatchUnlinkOperation build() {
-
-      if (!this.from$set) {
-        throw new IllegalStateException("'from' must be set for RichMenuBatchUnlinkOperation.");
-      }
-
       return new RichMenuBatchUnlinkOperation(from);
     }
   }

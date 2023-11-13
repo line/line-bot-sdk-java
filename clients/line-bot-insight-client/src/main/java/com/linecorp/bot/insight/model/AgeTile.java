@@ -65,25 +65,21 @@ public record AgeTile(
 
   public static class Builder {
     private Age age;
-
     private Double percentage;
 
     public Builder() {}
 
     public Builder age(Age age) {
       this.age = age;
-
       return this;
     }
 
     public Builder percentage(Double percentage) {
       this.percentage = percentage;
-
       return this;
     }
 
     public AgeTile build() {
-
       return new AgeTile(age, percentage);
     }
   }

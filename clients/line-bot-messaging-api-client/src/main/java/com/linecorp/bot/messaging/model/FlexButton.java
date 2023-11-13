@@ -121,129 +121,91 @@ public record FlexButton(
 
   public static class Builder {
     private Integer flex;
-
     private String color;
-
     private Style style;
-
     private Action action;
-
-    private boolean action$set;
-
     private Gravity gravity;
-
     private String margin;
-
     private Position position;
-
     private String offsetTop;
-
     private String offsetBottom;
-
     private String offsetStart;
-
     private String offsetEnd;
-
     private Height height;
-
     private AdjustMode adjustMode;
-
     private Boolean scaling;
 
-    public Builder() {}
+    public Builder(Action action) {
+
+      this.action = action;
+    }
 
     public Builder flex(Integer flex) {
       this.flex = flex;
-
       return this;
     }
 
     public Builder color(String color) {
       this.color = color;
-
       return this;
     }
 
     public Builder style(Style style) {
       this.style = style;
-
-      return this;
-    }
-
-    public Builder action(Action action) {
-      this.action = action;
-
-      this.action$set = true;
-
       return this;
     }
 
     public Builder gravity(Gravity gravity) {
       this.gravity = gravity;
-
       return this;
     }
 
     public Builder margin(String margin) {
       this.margin = margin;
-
       return this;
     }
 
     public Builder position(Position position) {
       this.position = position;
-
       return this;
     }
 
     public Builder offsetTop(String offsetTop) {
       this.offsetTop = offsetTop;
-
       return this;
     }
 
     public Builder offsetBottom(String offsetBottom) {
       this.offsetBottom = offsetBottom;
-
       return this;
     }
 
     public Builder offsetStart(String offsetStart) {
       this.offsetStart = offsetStart;
-
       return this;
     }
 
     public Builder offsetEnd(String offsetEnd) {
       this.offsetEnd = offsetEnd;
-
       return this;
     }
 
     public Builder height(Height height) {
       this.height = height;
-
       return this;
     }
 
     public Builder adjustMode(AdjustMode adjustMode) {
       this.adjustMode = adjustMode;
-
       return this;
     }
 
     public Builder scaling(Boolean scaling) {
       this.scaling = scaling;
-
       return this;
     }
 
     public FlexButton build() {
-
-      if (!this.action$set) {
-        throw new IllegalStateException("'action' must be set for FlexButton.");
-      }
-
       return new FlexButton(
           flex,
           color,

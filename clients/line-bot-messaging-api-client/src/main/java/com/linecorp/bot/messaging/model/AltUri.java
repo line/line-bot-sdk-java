@@ -40,12 +40,10 @@ public record AltUri(
 
     public Builder desktop(String desktop) {
       this.desktop = desktop;
-
       return this;
     }
 
     public AltUri build() {
-
       return new AltUri(desktop);
     }
   }

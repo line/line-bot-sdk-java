@@ -24,20 +24,10 @@ import org.junit.jupiter.api.Test;
 class TextMessageTest {
     @Test
     public void testBuilder() {
-        var builder = new TextMessage.Builder();
-        TextMessage textMessage = builder.text("Hello").build();
+        var builder = new TextMessage.Builder("Hello");
+        TextMessage textMessage = builder.build();
         assertThat(textMessage.text()).isEqualTo("Hello");
         assertThat(textMessage.quoteToken()).isNull();
-    }
-
-    @Test
-    public void testBuilderMissingParameter() {
-        assertThatThrownBy(() -> {
-            var builder = new TextMessage.Builder();
-            builder.build();
-        })
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("'text' must be set for TextMessage.");
     }
 
 }

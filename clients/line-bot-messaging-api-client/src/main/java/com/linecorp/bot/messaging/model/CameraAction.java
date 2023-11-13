@@ -42,12 +42,10 @@ public record CameraAction(
 
     public Builder label(String label) {
       this.label = label;
-
       return this;
     }
 
     public CameraAction build() {
-
       return new CameraAction(label);
     }
   }

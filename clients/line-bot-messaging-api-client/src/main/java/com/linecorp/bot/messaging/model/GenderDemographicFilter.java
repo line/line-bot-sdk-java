@@ -43,12 +43,10 @@ public record GenderDemographicFilter(
 
     public Builder oneOf(List<GenderDemographic> oneOf) {
       this.oneOf = oneOf;
-
       return this;
     }
 
     public GenderDemographicFilter build() {
-
       return new GenderDemographicFilter(oneOf);
     }
   }

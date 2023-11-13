@@ -45,12 +45,10 @@ public record UpdateAudienceGroupAuthorityLevelRequest(
 
     public Builder authorityLevel(AudienceGroupAuthorityLevel authorityLevel) {
       this.authorityLevel = authorityLevel;
-
       return this;
     }
 
     public UpdateAudienceGroupAuthorityLevelRequest build() {
-
       return new UpdateAudienceGroupAuthorityLevelRequest(authorityLevel);
     }
   }

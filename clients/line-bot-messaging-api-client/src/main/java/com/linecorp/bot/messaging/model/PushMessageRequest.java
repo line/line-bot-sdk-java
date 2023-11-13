@@ -55,57 +55,28 @@ public record PushMessageRequest(
 
   public static class Builder {
     private String to;
-
-    private boolean to$set;
-
     private List<Message> messages;
-
-    private boolean messages$set;
-
     private Boolean notificationDisabled;
-
     private List<String> customAggregationUnits;
 
-    public Builder() {}
+    public Builder(String to, List<Message> messages) {
 
-    public Builder to(String to) {
       this.to = to;
 
-      this.to$set = true;
-
-      return this;
-    }
-
-    public Builder messages(List<Message> messages) {
       this.messages = messages;
-
-      this.messages$set = true;
-
-      return this;
     }
 
     public Builder notificationDisabled(Boolean notificationDisabled) {
       this.notificationDisabled = notificationDisabled;
-
       return this;
     }
 
     public Builder customAggregationUnits(List<String> customAggregationUnits) {
       this.customAggregationUnits = customAggregationUnits;
-
       return this;
     }
 
     public PushMessageRequest build() {
-
-      if (!this.to$set) {
-        throw new IllegalStateException("'to' must be set for PushMessageRequest.");
-      }
-
-      if (!this.messages$set) {
-        throw new IllegalStateException("'messages' must be set for PushMessageRequest.");
-      }
-
       return new PushMessageRequest(to, messages, notificationDisabled, customAggregationUnits);
     }
   }

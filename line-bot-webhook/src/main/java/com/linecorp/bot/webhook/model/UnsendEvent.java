@@ -51,97 +51,36 @@ public record UnsendEvent(
 
   public static class Builder {
     private Source source;
-
     private Long timestamp;
-
-    private boolean timestamp$set;
-
     private EventMode mode;
-
-    private boolean mode$set;
-
     private String webhookEventId;
-
-    private boolean webhookEventId$set;
-
     private DeliveryContext deliveryContext;
-
-    private boolean deliveryContext$set;
-
     private UnsendDetail unsend;
 
-    private boolean unsend$set;
+    public Builder(
+        Long timestamp,
+        EventMode mode,
+        String webhookEventId,
+        DeliveryContext deliveryContext,
+        UnsendDetail unsend) {
 
-    public Builder() {}
+      this.timestamp = timestamp;
+
+      this.mode = mode;
+
+      this.webhookEventId = webhookEventId;
+
+      this.deliveryContext = deliveryContext;
+
+      this.unsend = unsend;
+    }
 
     public Builder source(Source source) {
       this.source = source;
-
-      return this;
-    }
-
-    public Builder timestamp(Long timestamp) {
-      this.timestamp = timestamp;
-
-      this.timestamp$set = true;
-
-      return this;
-    }
-
-    public Builder mode(EventMode mode) {
-      this.mode = mode;
-
-      this.mode$set = true;
-
-      return this;
-    }
-
-    public Builder webhookEventId(String webhookEventId) {
-      this.webhookEventId = webhookEventId;
-
-      this.webhookEventId$set = true;
-
-      return this;
-    }
-
-    public Builder deliveryContext(DeliveryContext deliveryContext) {
-      this.deliveryContext = deliveryContext;
-
-      this.deliveryContext$set = true;
-
-      return this;
-    }
-
-    public Builder unsend(UnsendDetail unsend) {
-      this.unsend = unsend;
-
-      this.unsend$set = true;
-
       return this;
     }
 
     public UnsendEvent build() {
-
-      if (!this.timestamp$set) {
-        throw new IllegalStateException("'timestamp' must be set for UnsendEvent.");
-      }
-
-      if (!this.mode$set) {
-        throw new IllegalStateException("'mode' must be set for UnsendEvent.");
-      }
-
-      if (!this.webhookEventId$set) {
-        throw new IllegalStateException("'webhookEventId' must be set for UnsendEvent.");
-      }
-
-      if (!this.deliveryContext$set) {
-        throw new IllegalStateException("'deliveryContext' must be set for UnsendEvent.");
-      }
-
-      if (!this.unsend$set) {
-        throw new IllegalStateException("'unsend' must be set for UnsendEvent.");
-      }
-
       return new UnsendEvent(source, timestamp, mode, webhookEventId, deliveryContext, unsend);
     }
   }

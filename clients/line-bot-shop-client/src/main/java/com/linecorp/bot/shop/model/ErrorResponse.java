@@ -41,24 +41,12 @@ public record ErrorResponse(
   public static class Builder {
     private String message;
 
-    private boolean message$set;
+    public Builder(String message) {
 
-    public Builder() {}
-
-    public Builder message(String message) {
       this.message = message;
-
-      this.message$set = true;
-
-      return this;
     }
 
     public ErrorResponse build() {
-
-      if (!this.message$set) {
-        throw new IllegalStateException("'message' must be set for ErrorResponse.");
-      }
-
       return new ErrorResponse(message);
     }
   }

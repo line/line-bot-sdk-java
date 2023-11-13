@@ -53,50 +53,22 @@ public record RichMenuBatchProgressResponse(
 
   public static class Builder {
     private RichMenuBatchProgressPhase phase;
-
-    private boolean phase$set;
-
     private OffsetDateTime acceptedTime;
-
-    private boolean acceptedTime$set;
-
     private OffsetDateTime completedTime;
 
-    public Builder() {}
+    public Builder(RichMenuBatchProgressPhase phase, OffsetDateTime acceptedTime) {
 
-    public Builder phase(RichMenuBatchProgressPhase phase) {
       this.phase = phase;
 
-      this.phase$set = true;
-
-      return this;
-    }
-
-    public Builder acceptedTime(OffsetDateTime acceptedTime) {
       this.acceptedTime = acceptedTime;
-
-      this.acceptedTime$set = true;
-
-      return this;
     }
 
     public Builder completedTime(OffsetDateTime completedTime) {
       this.completedTime = completedTime;
-
       return this;
     }
 
     public RichMenuBatchProgressResponse build() {
-
-      if (!this.phase$set) {
-        throw new IllegalStateException("'phase' must be set for RichMenuBatchProgressResponse.");
-      }
-
-      if (!this.acceptedTime$set) {
-        throw new IllegalStateException(
-            "'acceptedTime' must be set for RichMenuBatchProgressResponse.");
-      }
-
       return new RichMenuBatchProgressResponse(phase, acceptedTime, completedTime);
     }
   }

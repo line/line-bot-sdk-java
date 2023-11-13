@@ -14,21 +14,24 @@
  * under the License.
  */
 
-package com.linecorp.bot.codegen.pebble;
+package com.linecorp.bot.codegen.pebble.function;
 
-
-import io.pebbletemplates.pebble.extension.Function;
 import io.pebbletemplates.pebble.template.EvaluationContext;
 import io.pebbletemplates.pebble.template.PebbleTemplate;
-import org.openapitools.codegen.CodegenDiscriminator;
 import org.openapitools.codegen.CodegenModel;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
-public class JavaTypeFunction implements Function {
+/**
+ * We have a method, CodegenModel.requiredVars, which unfortunately includes the discriminator.
+ * One could think of implementing a separate filter to handle this, however, we ran into an
+ * issue where {% if loop.last %},{% endif %} isn't operating as expected. To address this,
+ * we've integrated a control mechanism in the Java part of the code.
+ */
+public class RequiredVarsFunction implements io.pebbletemplates.pebble.extension.Function {
     @Override
     public List<String> getArgumentNames() {
         return Collections.singletonList("model");
@@ -37,15 +40,8 @@ public class JavaTypeFunction implements Function {
     @Override
     public Object execute(Map<String, Object> args, PebbleTemplate self, EvaluationContext context, int lineNumber) {
         CodegenModel model = (CodegenModel) args.get("model");
-        return mappingName(model.name, model.parentModel.getDiscriminator());
-    }
-
-    private String mappingName(String modelName, CodegenDiscriminator discriminator) {
-        String valueToSearch = "#/components/schemas/" + modelName;
-        return discriminator.getMapping().entrySet().stream()
-                .filter(entry -> valueToSearch.equals(entry.getValue()))
-                .map(Map.Entry::getKey)
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Key not found (" + modelName + ") mapping (" + discriminator.getMapping() + ")"));
+        return model.allVars.stream()
+                .filter(var -> var.required)
+                .collect(Collectors.toList());
     }
 }

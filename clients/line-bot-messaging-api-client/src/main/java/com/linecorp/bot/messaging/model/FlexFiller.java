@@ -42,12 +42,10 @@ public record FlexFiller(
 
     public Builder flex(Integer flex) {
       this.flex = flex;
-
       return this;
     }
 
     public FlexFiller build() {
-
       return new FlexFiller(flex);
     }
   }
