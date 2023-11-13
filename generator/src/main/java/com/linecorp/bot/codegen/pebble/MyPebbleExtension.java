@@ -17,7 +17,6 @@
 package com.linecorp.bot.codegen.pebble;
 import com.linecorp.bot.codegen.pebble.function.EndpointFunction;
 import com.linecorp.bot.codegen.pebble.function.JavaTypeFunction;
-import com.linecorp.bot.codegen.pebble.function.OptionalVarsFunction;
 import com.linecorp.bot.codegen.pebble.function.RequiredVarsFunction;
 import io.pebbletemplates.pebble.extension.AbstractExtension;
 import io.pebbletemplates.pebble.extension.Function;
