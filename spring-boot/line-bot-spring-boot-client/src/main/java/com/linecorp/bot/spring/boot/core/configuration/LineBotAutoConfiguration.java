@@ -140,11 +140,9 @@ public class LineBotAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ChannelAccessTokenClient channelAccessTokenClient(
-            final ChannelTokenSupplier channelTokenSupplier
-    ) {
+    public ChannelAccessTokenClient channelAccessTokenClient() {
         return ChannelAccessTokenClient
-                .builder(channelTokenSupplier)
+                .builder()
                 .apiEndPoint(lineBotProperties.apiEndPoint())
                 .connectTimeout(lineBotProperties.connectTimeout())
                 .readTimeout(lineBotProperties.readTimeout())

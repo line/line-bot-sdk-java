@@ -3,7 +3,7 @@
 {# @pebvariable name="package" type="java.lang.String" -#}
 {# @pebvariable name="generatorClass" type="java.lang.String" -#}
 {# @pebvariable name="classname" type="java.lang.String" -#}
-{# @pebvariable name="authenticated" type="java.lang.Boolean" -#}
+{# @pebvariable name="authMethods" type="java.util.ArrayList<org.openapitools.codegen.CodegenSecurity>" -#}
 {% include "./licenseInfo.pebble" %}
 package {{ package }};
 {% import "./macros/api_param.pebble" %}
@@ -71,7 +71,7 @@ public interface {{classname}} {
 
 {% endfor %}
 
-{% if authenticated %}
+{% if authMethods != null %}
     public static ApiAuthenticatedClientBuilder<{{classname}}> builder(String channelToken) {
         return new ApiAuthenticatedClientBuilder<>(URI.create("{{ endpoint(classname) }}"), {{classname}}.class, new {{ exceptionbuilderclassname(classname) }}(), channelToken);
     }
