@@ -5,3 +5,4 @@ src/main/java/com/linecorp/bot/oauth/model/IssueChannelAccessTokenResponse.java
 src/main/java/com/linecorp/bot/oauth/model/IssueShortLivedChannelAccessTokenResponse.java
 src/main/java/com/linecorp/bot/oauth/model/IssueStatelessChannelAccessTokenResponse.java
 src/main/java/com/linecorp/bot/oauth/model/VerifyChannelAccessTokenResponse.java
+src/test/java/com/linecorp/bot/oauth/client/ChannelAccessTokenClientTest.java

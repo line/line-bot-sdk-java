@@ -20,9 +20,8 @@
  */
 package com.linecorp.bot.oauth.client;
 
-import com.linecorp.bot.client.base.ApiAuthenticatedClientBuilder;
+import com.linecorp.bot.client.base.ApiClientBuilder;
 import com.linecorp.bot.client.base.Result;
-import com.linecorp.bot.client.base.channel.ChannelTokenSupplier;
 import com.linecorp.bot.oauth.model.ChannelAccessTokenKeyIdsResponse;
 import com.linecorp.bot.oauth.model.IssueChannelAccessTokenResponse;
 import com.linecorp.bot.oauth.model.IssueShortLivedChannelAccessTokenResponse;
@@ -168,21 +167,10 @@ public interface ChannelAccessTokenClient {
   CompletableFuture<Result<VerifyChannelAccessTokenResponse>> verifyChannelTokenByJWT(
       @Query("access_token") String accessToken);
 
-  public static ApiAuthenticatedClientBuilder<ChannelAccessTokenClient> builder(
-      String channelToken) {
-    return new ApiAuthenticatedClientBuilder<>(
+  public static ApiClientBuilder<ChannelAccessTokenClient> builder() {
+    return new ApiClientBuilder<>(
         URI.create("https://api.line.me"),
         ChannelAccessTokenClient.class,
-        new ChannelAccessTokenExceptionBuilder(),
-        channelToken);
-  }
-
-  public static ApiAuthenticatedClientBuilder<ChannelAccessTokenClient> builder(
-      ChannelTokenSupplier channelTokenSupplier) {
-    return new ApiAuthenticatedClientBuilder<>(
-        URI.create("https://api.line.me"),
-        ChannelAccessTokenClient.class,
-        new ChannelAccessTokenExceptionBuilder(),
-        channelTokenSupplier);
+        new ChannelAccessTokenExceptionBuilder());
   }
 }
