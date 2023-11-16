@@ -41,6 +41,7 @@ import com.linecorp.bot.client.base.BlobContent;
 import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.messaging.client.MessagingApiBlobClient;
 import com.linecorp.bot.messaging.client.MessagingApiClient;
+import com.linecorp.bot.messaging.client.MessagingApiClientException;
 import com.linecorp.bot.messaging.model.AudioMessage;
 import com.linecorp.bot.messaging.model.ButtonsTemplate;
 import com.linecorp.bot.messaging.model.CarouselColumn;
@@ -637,6 +638,22 @@ public class KitchenSinkController {
                             "Hello, I'm cat! Meow~",
                             null,
                             null));
+            case "error" -> {
+                // demonstrate the case of the invalid request.
+                // and proper error handling.
+
+                // You will get an exception like this:
+                //
+                // Caused by: java.lang.RuntimeException: java.util.concurrent.ExecutionException: \
+                // com.linecorp.bot.messaging.client.MessagingApiClientException: API returns error: \
+                // code=400 requestUrl=https://api.line.me/v2/bot/message/reply \
+                // requestId=f3610029-302a-4fc3-8238-d3d6deadbeef error='Invalid reply token' details='null'
+                try {
+                    this.reply(replyToken + "invalid", new TextMessage("Request error"));
+                } catch (RuntimeException e) {
+                    log.info("Got an exception: " + e.getMessage(), e);
+                }
+            }
             default -> {
                 log.info("Returns echo message {}: {}", replyToken, text);
                 this.replyText(
