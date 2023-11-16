@@ -41,7 +41,6 @@ import com.linecorp.bot.client.base.BlobContent;
 import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.messaging.client.MessagingApiBlobClient;
 import com.linecorp.bot.messaging.client.MessagingApiClient;
-import com.linecorp.bot.messaging.client.MessagingApiClientException;
 import com.linecorp.bot.messaging.model.AudioMessage;
 import com.linecorp.bot.messaging.model.ButtonsTemplate;
 import com.linecorp.bot.messaging.model.CarouselColumn;
