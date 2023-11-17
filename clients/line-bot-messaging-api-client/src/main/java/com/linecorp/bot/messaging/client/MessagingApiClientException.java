@@ -21,6 +21,7 @@ import java.util.List;
 
 import com.linecorp.bot.client.base.exception.AbstractLineClientException;
 import com.linecorp.bot.messaging.model.ErrorDetail;
+import com.linecorp.bot.messaging.model.SentMessage;
 
 import okhttp3.Response;
 
@@ -39,10 +40,16 @@ public class MessagingApiClientException extends AbstractLineClientException {
      */
     private final List<ErrorDetail> details;
 
-    public MessagingApiClientException(Response response, String error, List<ErrorDetail> details) {
-        super(response, "error='" + error + "' details='" + details + "'");
+    /**
+     * Array of sent messages.
+     */
+    private final List<SentMessage> sentMessages;
+
+    public MessagingApiClientException(Response response, String error, List<ErrorDetail> details, List<SentMessage> sentMessages) {
+        super(response, "error='" + error + "' details='" + details + "' sentMessages='" + sentMessages + "'");
         this.error = error;
         this.details = details;
+        this.sentMessages = sentMessages;
     }
 
     public String getError() {
@@ -51,5 +58,9 @@ public class MessagingApiClientException extends AbstractLineClientException {
 
     public List<ErrorDetail> getDetails() {
         return Collections.unmodifiableList(details);
+    }
+
+    public List<SentMessage> getSentMessages() {
+        return Collections.unmodifiableList(sentMessages);
     }
 }
