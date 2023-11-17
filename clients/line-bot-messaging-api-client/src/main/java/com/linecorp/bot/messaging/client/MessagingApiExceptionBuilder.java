@@ -32,6 +32,6 @@ public class MessagingApiExceptionBuilder extends AbstractExceptionBuilder<Error
     protected IOException buildException(Response response, ErrorResponse errorBody) {
         return new MessagingApiClientException(
                 response,
-                errorBody.message(), errorBody.details());
+                errorBody.message(), errorBody.details(), errorBody.sentMessages());
     }
 }
