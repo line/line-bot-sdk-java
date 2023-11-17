@@ -60,7 +60,7 @@ public class ChannelAccessTokenClientExTest {
         wireMockServer.start();
         WireMock.configureFor("localhost", wireMockServer.port());
 
-        target = ChannelAccessTokenClient.builder("MY_ACCESS_TOKEN")
+        target = ChannelAccessTokenClient.builder()
                 .apiEndPoint(URI.create(wireMockServer.baseUrl()))
                 .build();
     }

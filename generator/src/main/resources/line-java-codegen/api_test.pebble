@@ -2,7 +2,7 @@
 {# @pebvariable name="operations" type="org.openapitools.codegen.model.OperationMap" -#}
 {# @pebvariable name="generatorClass" type="java.lang.String" -#}
 {# @pebvariable name="classname" type="java.lang.String" -#}
-{# @pebvariable name="authenticated" type="boolean" -#}
+{# @pebvariable name="authMethods" type="java.util.ArrayList<org.openapitools.codegen.CodegenSecurity>" -#}
 {% include "./licenseInfo.pebble" %}
 
 package {# @pebvariable name="package" type="java.lang.String" -#}{{package}};
@@ -71,7 +71,7 @@ public class {{classname}}Test {
         configureFor("localhost", wireMockServer.port());
 
 
-        api = {{classname}}.builder({% if authenticated %}"MY_OWN_TOKEN"{% endif %})
+        api = {{classname}}.builder({% if authMethods != null %}"MY_OWN_TOKEN"{% endif %})
             .apiEndPoint(URI.create(wireMockServer.baseUrl()))
             .build();
     }
