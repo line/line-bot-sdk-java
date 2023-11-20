@@ -1,8 +1,7 @@
 # LINE Messaging API SDK for Java
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.linecorp.bot/line-bot-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.linecorp.bot/line-bot-parser)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.linecorp.bot/line-bot-messaging-api-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.linecorp.bot/line-bot-messaging-api-client)
 [![javadoc](https://javadoc.io/badge2/com.linecorp.bot/line-bot-parser/javadoc.svg)](https://javadoc.io/doc/com.linecorp.bot/line-bot-parser)
-[![codecov](https://codecov.io/gh/line/line-bot-sdk-java/branch/master/graph/badge.svg)](https://codecov.io/gh/line/line-bot-sdk-java)
 
 ## Introduction
 
@@ -26,18 +25,35 @@ We've uploaded this library to the Maven Central Repository. You can install the
 
 https://central.sonatype.com/search?smo=true&q=com.linecorp.bot
 
-## Modules
+### Gradle (Kotlin) example
 
-This project contains the following modules:
+```kotlin
+implementation("com.linecorp.bot:line-bot-messaging-api-client:<VERSION>")
+implementation("com.linecorp.bot:line-bot-insight-client:<VERSION>")
+implementation("com.linecorp.bot:line-bot-manage-audience-client:<VERSION>")
+implementation("com.linecorp.bot:line-bot-module-attach-client:<VERSION>")
+implementation("com.linecorp.bot:line-bot-module-client:<VERSION>")
+implementation("com.linecorp.bot:line-bot-shop-client:<VERSION>")
+implementation("com.linecorp.bot:line-channel-access-token-client:<VERSION>")
+implementation("com.linecorp.bot:line-liff-client:<VERSION>")
 
-* line-bot-api-client: API client library for the Messaging API
-* line-bot-model: Model classes for the Messaging API
-* line-bot-spring-boot: Spring Boot auto configuration library for bot servers
+implementation("com.linecorp.bot:line-bot-webhook:<VERSION>")
+implementation("com.linecorp.bot:line-bot-parser:<VERSION>") // You don't need to depend on this explicitly.
+
+implementation("com.linecorp.bot:line-bot-spring-boot-webmvc:<VERSION>")
+implementation("com.linecorp.bot:line-bot-spring-boot-client:<VERSION>") // If you want to write spring-boot API client
+implementation("com.linecorp.bot:line-bot-spring-boot-handler:<VERSION>") // You don't need to depend on this explicitly.
+implementation("com.linecorp.bot:line-bot-spring-boot-web:<VERSION>") // You don't need to depend on this explicitly.
+```
+
+## Sample code
 
 This project contains the following sample projects:
 
-* sample-spring-boot-echo: A simple echo server.
-* sample-spring-boot-kitchensink: Full featured sample code.
+* [sample-spring-boot-echo](samples/sample-spring-boot-echo): A simple echo server.
+* [sample-spring-boot-kitchensink](samples/sample-spring-boot-kitchensink): Full featured sample code.
+* [sample-spring-boot-echo-kotlin](samples/sample-spring-boot-echo-kotlin): A simple echo server written in Kotlin.
+* [sample-manage-audience](samples/sample-manage-audience): A sample code for Manage Audience API.
 
 ## Spring Boot integration
 
@@ -46,27 +62,41 @@ The line-bot-spring-boot module lets you build a bot application as a Spring Boo
 ```java
 package com.example.bot.spring.echo;
 
+import java.util.List;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.linecorp.bot.model.event.Event;
-import com.linecorp.bot.model.event.MessageEvent;
-import com.linecorp.bot.model.event.message.TextMessageContent;
-import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.spring.boot.annotation.EventMapping;
-import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+import com.linecorp.bot.messaging.client.MessagingApiClient;
+import com.linecorp.bot.messaging.model.ReplyMessageRequest;
+import com.linecorp.bot.messaging.model.TextMessage;
+import com.linecorp.bot.spring.boot.handler.annotation.EventMapping;
+import com.linecorp.bot.spring.boot.handler.annotation.LineMessageHandler;
+import com.linecorp.bot.webhook.model.Event;
+import com.linecorp.bot.webhook.model.MessageEvent;
+import com.linecorp.bot.webhook.model.TextMessageContent;
 
 @SpringBootApplication
 @LineMessageHandler
 public class EchoApplication {
+    private final MessagingApiClient messagingApiClient;
+
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
     }
 
+    public EchoApplication(MessagingApiClient messagingApiClient) {
+        this.messagingApiClient = messagingApiClient;
+    }
+
     @EventMapping
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+    public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
-        return new TextMessage(event.getMessage().getText());
+        final String originalMessageText = ((TextMessageContent) event.message()).text();
+        messagingApiClient.replyMessage(
+            new ReplyMessageRequest.Builder(event.replyToken(), List.of(new TextMessage(originalMessageText)))
+                .build()
+        );
     }
 
     @EventMapping
@@ -80,15 +110,41 @@ public class EchoApplication {
 
 You can use a proxy with this module.
 
-        api = MessagingApiClient.builder("MY_OWN_TOKEN")
-                .apiEndPoint(URI.create("https://api.line.me/"))
-                .proxy(new Proxy(Proxy.Type.HTTP,
-                        new InetSocketAddress("proxy.example.com", 8080)
-                ))
-                .build();
-
+```java
+api = MessagingApiClient.builder("MY_OWN_TOKEN")
+        .apiEndPoint(URI.create("https://api.line.me/"))
+        .proxy(new Proxy(Proxy.Type.HTTP,
+                new InetSocketAddress("proxy.example.com", 8080)
+        ))
+        .build();
+```
 Note: You don't need to use an add-on like Fixie to have static IP addresses for proxy servers. You can make API calls
 without entering IP addresses on the server IP whitelist.
+
+## How to get x-line-request-id header and error message
+
+You may need to store the x-line-request-id header obtained as a response from several APIs. In this case, you can get it from `Result<T>`.
+```java
+Result<Object> apiResponse = messagingApiClient
+    .narrowcast(retryKey, new NarrowcastRequest.Builder(messages).build())
+    .get();
+System.out.println("x-line-request-id: " + apiResponse.requestId());
+```
+
+You can get error messages from `MessagingApiClientException` when you use `MessagingApiClient`. Each client defines its own exception class.
+```java
+try {
+    messagingApiClient.replyMessage(new ReplyMessage(replyToken, messages));
+} catch (ExecutionException e) {
+    if (e.getCause() instanceof MessagingApiClientException){
+        MessagingApiClientException exception=(MessagingApiClientException)e.getCause();
+        System.out.println("Error http status code: " + exception.getCode());
+        System.out.println("Error response: " + exception.getDetails());
+        System.out.println("Error message: " + exception.getMessage());
+    }
+}
+```
+When you need to get `x-line-accepted-request-id` header from error response, you can get it: `exception.getHeader("x-line-accepted-request-id")`.
 
 ## Help and media
 
@@ -114,7 +170,7 @@ The lifecycle of the Software Development Kit (SDK) follows certain stages that 
 - The SDK developers accept patches for the major versions in the maintenance phase. The maintenance phase continues for six months after the release of the next major version.
 - The SDK developers do not accept patches for major versions once the maintenance phase has ended.
 
-These principles ensure that the SDK remains up-to-date, secure, and reliable, while also encouraging developers to adopt the latest version. 
+These principles ensure that the SDK remains up-to-date, secure, and reliable, while also encouraging developers to adopt the latest version.
 
 Here's a brief summary of the current status of each version:
 
@@ -138,7 +194,7 @@ As a result, LINE bot sdk 7.x is not compatible with 6.x. But it can follow the 
 - `line-bot-cli` is no longer supported.
 - `line-bot-spring-boot` was splitted.
     - Splitted to following modules.
-        - `line-bot-spring-boot-client` is a client bean configuraion module.
+        - `line-bot-spring-boot-client` is a client bean configuration module.
             - If you want to write spring-boot API client,
         - `line-bot-spring-boot-handler` is a handler configuration.
             - You don't need to depend this explicitly.
