@@ -24,7 +24,6 @@ dependencies {
     compileOnly(libs.jackson.annotations)
     compileOnly(libs.javax.annotation)
     compileOnly(libs.jakarta.annotation.api)
-    api(libs.retrofit2.retrofit)
 
     testImplementation(libs.bundles.tests)
     testImplementation(libs.jackson.databind)
