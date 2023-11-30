@@ -20,6 +20,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Map;
 
@@ -71,7 +72,7 @@ public class AbstractLineClientExceptionTest {
     @Test
     void getRequestUrl() throws Exception {
         AbstractLineClientException exception = new AbstractLineClientException(response, "test message");
-        assertThat(exception.getRequestUrl()).isEqualTo(new URL("https://example.com/"));
+        assertThat(exception.getRequestUrl()).isEqualTo(new URI("https://example.com/").toURL());
     }
 
     @Test
