@@ -50,4 +50,28 @@ public record {{model.classname}} (
     {%- if var.isEnum %}{{ model_inner_enum(var) }}{% endif -%}
 {% endfor %}
 {% if ["AudioMessage", "FlexMessage", "ImageMessage", "LocationMessage", "QuickReplyItem", "StickerMessage", "TemplateMessage", "TextMessage", "VideoMessage"] contains model.classname %}{% include "../body/model/" + model.classname + ".java" %}{% endif %}
+    public static class Builder {
+{% for var in model.allVars -%}
+        private {{var.datatypeWithEnum}} {{var.name}};
+{% endfor %}
+
+        public Builder({% for var in requiredVars(model) -%}{% if not var.isDiscriminator %}{{var.datatypeWithEnum}} {{var.name}}{% if not loop.last %},{% endif %}{% endif %}{% endfor %}) {
+{% for var in model.allVars -%}{% if var.required %}
+    this.{{var.name}} = {{ var.name }};
+{% endif %}{% endfor %}
+        }
+
+{% for var in model.allVars %}{% if not var.required %}
+        public Builder {{ var.name }}({{var.datatypeWithEnum}} {{var.name}}) {
+            this.{{ var.name }} = {{ var.name }};
+            return this;
+        }
+{% endif %}{% endfor %}
+
+        public {{ model.classname }} build() {
+            return new {{ model.classname }}(
+{% for var in model.allVars -%}{{ var.name }}{% if not loop.last %},{% endif %}{% endfor %}
+            );
+        }
+    }
 }

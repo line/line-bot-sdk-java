@@ -1,11 +1,11 @@
 [versions]
 retrofit2 = "2.9.0"
 jjwt = "0.12.3"
-jackson = "2.15.3"
+jackson = "2.16.0"
 assertj = "3.24.2"
-junit = "5.10.0"
+junit = "5.10.1"
 slf4j = "2.0.9"
-mockito = "5.6.0"
+mockito = "5.7.0"
 okhttp3 = "4.12.0"
 
 [libraries]
@@ -15,7 +15,7 @@ system-lambda = { group = "com.github.stefanbirkner", name = "system-lambda", ve
 jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
 jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
 jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }
-logback = { module = "ch.qos.logback:logback-classic", version = "1.4.11" }
+logback = { module = "ch.qos.logback:logback-classic", version = "1.4.13" }
 
 okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp3" }
 okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3" }
@@ -44,10 +44,10 @@ junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", vers
 jsonassert = { module = "org.skyscreamer:jsonassert", version = "1.5.1" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
-wiremock = { group = "org.wiremock", name = "wiremock-standalone", version = "3.2.0" }
+wiremock = { group = "org.wiremock", name = "wiremock-standalone", version = "3.3.1" }
 test-arranger = { module = "com.ocadotechnology.gembus:test-arranger", version = "1.5.7.1" }
 socks-proxy-server = { module = "com.github.bbottema:java-socks-proxy-server", version = "2.0.0" }
-littleproxy = { module = "xyz.rogfam:littleproxy", version = "2.0.22" }
+littleproxy = { module = "xyz.rogfam:littleproxy", version = "2.1.0" }
 
 [bundles]
 retrofit2 = ["retrofit2-converter-jackson", "retrofit2-retrofit"]

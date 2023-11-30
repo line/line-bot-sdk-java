@@ -18,7 +18,10 @@ package com.linecorp.bot.client.base.exception;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+import okhttp3.Headers;
 import okhttp3.Response;
 
 @SuppressWarnings("serial")
@@ -28,7 +31,7 @@ public class AbstractLineClientException extends IOException {
     public AbstractLineClientException(Response response, String message, IOException ioException) {
         super("API returns error: code=" + response.code()
                 + " requestUrl=" + response.request().url()
-                + " requestId=" + response.headers().get("x-line-request-id")
+                + headerInfo(response.headers())
                 + " " + message, ioException);
         this.response = response;
     }
@@ -36,7 +39,7 @@ public class AbstractLineClientException extends IOException {
     public AbstractLineClientException(Response response, String message) {
         super("API returns error: code=" + response.code()
                 + " requestUrl=" + response.request().url()
-                + " requestId=" + response.headers().get("x-line-request-id")
+                + headerInfo(response.headers())
                 + " " + message);
         this.response = response;
     }
@@ -51,5 +54,22 @@ public class AbstractLineClientException extends IOException {
 
     public String getRequestId() {
         return response.headers().get("x-line-request-id");
+    }
+
+    public String getHeader(String name) {
+        return response.headers().get(name);
+    }
+
+    private static String headerInfo(Headers headers) {
+        String headerInfo = StreamSupport.stream(headers.spliterator(), false)
+                .filter(it -> it.getFirst().startsWith("x-line-"))
+                .sorted((a, b) -> a.getFirst().compareTo(b.getSecond()))
+                .map(it -> it.getFirst() + "=" + it.getSecond())
+                .collect(Collectors.joining(" "));
+        if (headerInfo.isEmpty()) {
+            return "";
+        } else {
+            return " " + headerInfo;
+        }
     }
 }

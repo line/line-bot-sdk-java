@@ -60,7 +60,7 @@ public class ChannelAccessTokenIntegrationTest {
         this.settings = IntegrationTestSettingsLoader.load();
 
         target = ChannelAccessTokenClient
-                .builder(settings.token())
+                .builder()
                 .apiEndPoint(URI.create(settings.apiEndpoint()))
                 .build();
 
