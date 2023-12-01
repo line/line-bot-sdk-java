@@ -20,6 +20,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.List;
 
+import jakarta.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -69,7 +71,10 @@ public class LineMessageHandlerSupport {
             final ConfigurableApplicationContext applicationContext) {
         this.returnValueConsumerFactory = returnValueConsumerFactory;
         this.applicationContext = applicationContext;
+    }
 
+    @PostConstruct
+    public void initialize() {
         applicationContext.addApplicationListener(event -> {
             if (event instanceof ContextRefreshedEvent) {
                 refresh();
