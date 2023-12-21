@@ -33,6 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
   @JsonSubTypes.Type(value = BotResumedEvent.class, name = "botResumed"),
   @JsonSubTypes.Type(value = BotSuspendedEvent.class, name = "botSuspended"),
   @JsonSubTypes.Type(value = DeactivatedEvent.class, name = "deactivated"),
+  @JsonSubTypes.Type(value = PnpDeliveryCompletionEvent.class, name = "delivery"),
   @JsonSubTypes.Type(value = FollowEvent.class, name = "follow"),
   @JsonSubTypes.Type(value = JoinEvent.class, name = "join"),
   @JsonSubTypes.Type(value = LeaveEvent.class, name = "leave"),
