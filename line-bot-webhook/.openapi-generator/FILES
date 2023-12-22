@@ -37,6 +37,8 @@ src/main/java/com/linecorp/bot/webhook/model/MessageContent.java
 src/main/java/com/linecorp/bot/webhook/model/MessageEvent.java
 src/main/java/com/linecorp/bot/webhook/model/ModuleContent.java
 src/main/java/com/linecorp/bot/webhook/model/ModuleEvent.java
+src/main/java/com/linecorp/bot/webhook/model/PnpDelivery.java
+src/main/java/com/linecorp/bot/webhook/model/PnpDeliveryCompletionEvent.java
 src/main/java/com/linecorp/bot/webhook/model/PostbackContent.java
 src/main/java/com/linecorp/bot/webhook/model/PostbackEvent.java
 src/main/java/com/linecorp/bot/webhook/model/RoomSource.java
