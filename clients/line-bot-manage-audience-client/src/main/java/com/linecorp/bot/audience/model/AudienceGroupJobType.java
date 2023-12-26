@@ -24,6 +24,7 @@ package com.linecorp.bot.audience.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Job Type */
 public enum AudienceGroupJobType {
@@ -31,5 +32,14 @@ public enum AudienceGroupJobType {
   DIFF_ADD,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case DIFF_ADD -> "DIFF_ADD";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

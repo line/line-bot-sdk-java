@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets AreaDemographic */
 public enum AreaDemographic {
@@ -385,5 +386,102 @@ public enum AreaDemographic {
   LAINNYA,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case HOKKAIDO -> "jp_01";
+      case AOMORI -> "jp_02";
+      case IWATE -> "jp_03";
+      case MIYAGI -> "jp_04";
+      case AKITA -> "jp_05";
+      case YAMAGATA -> "jp_06";
+      case FUKUSHIMA -> "jp_07";
+      case IBARAKI -> "jp_08";
+      case TOCHIGI -> "jp_09";
+      case GUNMA -> "jp_10";
+      case SAITAMA -> "jp_11";
+      case CHIBA -> "jp_12";
+      case TOKYO -> "jp_13";
+      case KANAGAWA -> "jp_14";
+      case NIIGATA -> "jp_15";
+      case TOYAMA -> "jp_16";
+      case ISHIKAWA -> "jp_17";
+      case FUKUI -> "jp_18";
+      case YAMANASHI -> "jp_19";
+      case NAGANO -> "jp_20";
+      case GIFU -> "jp_21";
+      case SHIZUOKA -> "jp_22";
+      case AICHI -> "jp_23";
+      case MIE -> "jp_24";
+      case SHIGA -> "jp_25";
+      case KYOTO -> "jp_26";
+      case OSAKA -> "jp_27";
+      case HYOUGO -> "jp_28";
+      case NARA -> "jp_29";
+      case WAKAYAMA -> "jp_30";
+      case TOTTORI -> "jp_31";
+      case SHIMANE -> "jp_32";
+      case OKAYAMA -> "jp_33";
+      case HIROSHIMA -> "jp_34";
+      case YAMAGUCHI -> "jp_35";
+      case TOKUSHIMA -> "jp_36";
+      case KAGAWA -> "jp_37";
+      case EHIME -> "jp_38";
+      case KOUCHI -> "jp_39";
+      case FUKUOKA -> "jp_40";
+      case SAGA -> "jp_41";
+      case NAGASAKI -> "jp_42";
+      case KUMAMOTO -> "jp_43";
+      case OITA -> "jp_44";
+      case MIYAZAKI -> "jp_45";
+      case KAGOSHIMA -> "jp_46";
+      case OKINAWA -> "jp_47";
+      case TAIPEI_CITY -> "tw_01";
+      case NEW_TAIPEI_CITY -> "tw_02";
+      case TAOYUAN_CITY -> "tw_03";
+      case TAICHUNG_CITY -> "tw_04";
+      case TAINAN_CITY -> "tw_05";
+      case KAOHSIUNG_CITY -> "tw_06";
+      case KEELUNG_CITY -> "tw_07";
+      case HSINCHU_CITY -> "tw_08";
+      case CHIAYI_CITY -> "tw_09";
+      case HSINCHU_COUNTY -> "tw_10";
+      case MIAOLI_COUNTY -> "tw_11";
+      case CHANGHUA_COUNTY -> "tw_12";
+      case NANTOU_COUNTY -> "tw_13";
+      case YUNLIN_COUNTY -> "tw_14";
+      case CHIAYI_COUNTY -> "tw_15";
+      case PINGTUNG_COUNTY -> "tw_16";
+      case YILAN_COUNTY -> "tw_17";
+      case HUALIEN_COUNTY -> "tw_18";
+      case TAITUNG_COUNTY -> "tw_19";
+      case PENGHU_COUNTY -> "tw_20";
+      case KINMEN_COUNTY -> "tw_21";
+      case LIENCHIANG_COUNTY -> "tw_22";
+      case BANGKOK -> "th_01";
+      case PATTAYA -> "th_02";
+      case NORTHERN -> "th_03";
+      case CENTRAL -> "th_04";
+      case SOUTHERN -> "th_05";
+      case EASTERN -> "th_06";
+      case NORTHEASTERN -> "th_07";
+      case WESTERN -> "th_08";
+      case BALI -> "id_01";
+      case BANDUNG -> "id_02";
+      case BANJARMASIN -> "id_03";
+      case JABODETABEK -> "id_04";
+      case MAKASSAR -> "id_05";
+      case MEDAN -> "id_06";
+      case PALEMBANG -> "id_07";
+      case SAMARINDA -> "id_08";
+      case SEMARANG -> "id_09";
+      case SURABAYA -> "id_10";
+      case YOGYAKARTA -> "id_11";
+      case LAINNYA -> "id_12";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

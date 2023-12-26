@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets AgeDemographic */
 public enum AgeDemographic {
@@ -52,5 +53,21 @@ public enum AgeDemographic {
   AGE_50,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case AGE_15 -> "age_15";
+      case AGE_20 -> "age_20";
+      case AGE_25 -> "age_25";
+      case AGE_30 -> "age_30";
+      case AGE_35 -> "age_35";
+      case AGE_40 -> "age_40";
+      case AGE_45 -> "age_45";
+      case AGE_50 -> "age_50";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

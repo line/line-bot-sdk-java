@@ -24,6 +24,7 @@ package com.linecorp.bot.audience.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Permission */
 public enum AudienceGroupPermission {
@@ -34,5 +35,15 @@ public enum AudienceGroupPermission {
   READ_WRITE,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case READ -> "READ";
+      case READ_WRITE -> "READ_WRITE";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets GenderDemographic */
 public enum GenderDemographic {
@@ -34,5 +35,15 @@ public enum GenderDemographic {
   FEMALE,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case MALE -> "male";
+      case FEMALE -> "female";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

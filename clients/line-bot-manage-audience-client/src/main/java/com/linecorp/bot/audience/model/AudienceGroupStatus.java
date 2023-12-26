@@ -24,6 +24,7 @@ package com.linecorp.bot.audience.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Status */
 public enum AudienceGroupStatus {
@@ -46,5 +47,19 @@ public enum AudienceGroupStatus {
   ACTIVATING,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case IN_PROGRESS -> "IN_PROGRESS";
+      case READY -> "READY";
+      case FAILED -> "FAILED";
+      case EXPIRED -> "EXPIRED";
+      case INACTIVE -> "INACTIVE";
+      case ACTIVATING -> "ACTIVATING";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

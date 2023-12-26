@@ -24,6 +24,7 @@ package com.linecorp.bot.audience.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Failed type */
 public enum AudienceGroupJobFailedType {
@@ -34,5 +35,15 @@ public enum AudienceGroupJobFailedType {
   AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case INTERNAL_ERROR -> "INTERNAL_ERROR";
+      case AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT -> "AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

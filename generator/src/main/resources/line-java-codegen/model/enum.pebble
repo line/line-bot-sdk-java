@@ -1,5 +1,6 @@
 {# @pebvariable name="model" type="org.openapitools.codegen.CodegenModel" -#}
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * {{ model.description | escape }}{% if not model.description %}Gets or Sets {{model.name}}{% endif %}
@@ -17,5 +18,18 @@ public enum {{model.classname}} {
     {% endfor %}
 {% endif %}
     @JsonEnumDefaultValue
-    UNDEFINED
+    UNDEFINED;
+
+
+    @JsonValue
+    public String toValue() {
+        return switch (this) {
+        {% if model.allowableValues != null %}
+            {% for enumVar in model.allowableValues.get("enumVars") -%}
+            case {{enumVar.name}} -> {{enumVar.value}};
+            {% endfor %}
+        {% endif %}
+            default -> "UNDEFINED";
+        };
+    }
 }
