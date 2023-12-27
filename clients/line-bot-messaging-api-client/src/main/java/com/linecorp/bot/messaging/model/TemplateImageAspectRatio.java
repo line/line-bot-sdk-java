@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Aspect ratio of the image. This is only for the &#x60;imageAspectRatio&#x60; in ButtonsTemplate.
@@ -37,5 +38,15 @@ public enum TemplateImageAspectRatio {
   SQUARE,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case RECTANGLE -> "rectangle";
+      case SQUARE -> "square";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

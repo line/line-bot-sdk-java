@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Size of the image. This is only for the &#x60;imageSize&#x60; in ButtonsTemplate. Specify one of
@@ -40,5 +41,15 @@ public enum TemplateImageSize {
   CONTAIN,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case COVER -> "cover";
+      case CONTAIN -> "contain";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

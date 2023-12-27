@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * You can specify the offset of a component with the &#x60;offset*&#x60; property, in pixels or
@@ -54,5 +55,20 @@ public enum FlexOffset {
   XXL,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case NONE -> "none";
+      case XS -> "xs";
+      case SM -> "sm";
+      case MD -> "md";
+      case LG -> "lg";
+      case XL -> "xl";
+      case XXL -> "xxl";
+
+      default -> "UNDEFINED";
+    };
+  }
 }
