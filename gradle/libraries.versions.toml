@@ -4,7 +4,7 @@ jjwt = "0.12.3"
 jackson = "2.16.1"
 assertj = "3.24.2"
 junit = "5.10.1"
-slf4j = "2.0.9"
+slf4j = "2.0.10"
 mockito = "5.8.0"
 okhttp3 = "4.12.0"
 
