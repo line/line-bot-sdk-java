@@ -33,6 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
@@ -131,6 +132,26 @@ public class MessagingApiBlobClientExTest {
                 "recipient", () -> null,
                 "filter", () -> null));
         UploadFile body = UploadFile.fromString("HELLO_FILE", "image/jpeg");
+
+        target.setRichMenuImage(richMenuId, body).join();
+    }
+
+    @Test
+    public void setRichMenuImageByteArrayTest() {
+        stubFor(post(urlPathTemplate("/v2/bot/richmenu/{richMenuId}/content"))
+                .withHeader("content-type", containing("image/jpeg")).willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader("content-type", "application/json")
+                                .withBody("{}")));
+
+        String richMenuId = Arranger.some(String.class, Map.of(
+                "message", () -> new TextMessage("hello"),
+                "recipient", () -> null,
+                "filter", () -> null));
+        UploadFile body = UploadFile.fromByteArray(
+                "HELLO_FILE".getBytes(StandardCharsets.UTF_8),
+                "image/jpeg");
 
         target.setRichMenuImage(richMenuId, body).join();
     }
