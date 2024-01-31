@@ -24,6 +24,7 @@ package com.linecorp.bot.audience.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Audience group type */
 public enum AudienceGroupType {
@@ -64,5 +65,25 @@ public enum AudienceGroupType {
   RICHMENU_CLICK,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case UPLOAD -> "UPLOAD";
+      case CLICK -> "CLICK";
+      case IMP -> "IMP";
+      case CHAT_TAG -> "CHAT_TAG";
+      case FRIEND_PATH -> "FRIEND_PATH";
+      case RESERVATION -> "RESERVATION";
+      case APP_EVENT -> "APP_EVENT";
+      case VIDEO_VIEW -> "VIDEO_VIEW";
+      case WEBTRAFFIC -> "WEBTRAFFIC";
+      case IMAGE_CLICK -> "IMAGE_CLICK";
+      case RICHMENU_IMP -> "RICHMENU_IMP";
+      case RICHMENU_CLICK -> "RICHMENU_CLICK";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

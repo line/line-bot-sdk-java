@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Width of box border. This is only for &#x60;borderWidth&#x60; in FlexBox. A value of none means
@@ -49,5 +50,19 @@ public enum FlexBoxBorderWidth {
   BOLD,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case NONE -> "none";
+      case LIGHT -> "light";
+      case NORMAL -> "normal";
+      case MEDIUM -> "medium";
+      case SEMI_BOLD -> "semi-bold";
+      case BOLD -> "bold";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

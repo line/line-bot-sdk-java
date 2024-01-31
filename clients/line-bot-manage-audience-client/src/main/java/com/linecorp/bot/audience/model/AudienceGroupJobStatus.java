@@ -24,6 +24,7 @@ package com.linecorp.bot.audience.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Job status */
 public enum AudienceGroupJobStatus {
@@ -40,5 +41,17 @@ public enum AudienceGroupJobStatus {
   FAILED,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case QUEUED -> "QUEUED";
+      case WORKING -> "WORKING";
+      case FINISHED -> "FINISHED";
+      case FAILED -> "FAILED";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

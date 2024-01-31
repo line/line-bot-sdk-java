@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * You can set the width of an Flex image component with the &#x60;size&#x60; property, in pixels,
@@ -64,5 +65,24 @@ public enum FlexImageSize {
   FULL,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case XXS -> "xxs";
+      case XS -> "xs";
+      case SM -> "sm";
+      case MD -> "md";
+      case LG -> "lg";
+      case XL -> "xl";
+      case XXL -> "xxl";
+      case _3XL -> "3xl";
+      case _4XL -> "4xl";
+      case _5XL -> "5xl";
+      case FULL -> "full";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

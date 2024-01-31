@@ -24,6 +24,7 @@ package com.linecorp.bot.audience.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * How the audience was created. One of: - &#x60;OA_MANAGER&#x60;: Audience created with [LINE
@@ -46,5 +47,17 @@ public enum AudienceGroupCreateRoute {
   AD_MANAGER,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case OA_MANAGER -> "OA_MANAGER";
+      case MESSAGING_API -> "MESSAGING_API";
+      case POINT_AD -> "POINT_AD";
+      case AD_MANAGER -> "AD_MANAGER";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

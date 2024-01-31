@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Padding can be specified in pixels, percentage (to the parent box width) or with a keyword.
@@ -52,5 +53,20 @@ public enum FlexBoxPadding {
   XXL,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case NONE -> "none";
+      case XS -> "xs";
+      case SM -> "sm";
+      case MD -> "md";
+      case LG -> "lg";
+      case XL -> "xl";
+      case XXL -> "xxl";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

@@ -24,6 +24,7 @@ package com.linecorp.bot.liff.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Array of scopes required for some LIFF SDK methods to function. The default value is
@@ -43,5 +44,17 @@ public enum LiffScope {
   CHAT_MESSAGE_WRITE,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case OPENID -> "openid";
+      case EMAIL -> "email";
+      case PROFILE -> "profile";
+      case CHAT_MESSAGE_WRITE -> "chat_message.write";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

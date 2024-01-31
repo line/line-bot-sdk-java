@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets SubscriptionPeriodDemographic */
 public enum SubscriptionPeriodDemographic {
@@ -43,5 +44,18 @@ public enum SubscriptionPeriodDemographic {
   DAY_365,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case DAY_7 -> "day_7";
+      case DAY_30 -> "day_30";
+      case DAY_90 -> "day_90";
+      case DAY_180 -> "day_180";
+      case DAY_365 -> "day_365";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

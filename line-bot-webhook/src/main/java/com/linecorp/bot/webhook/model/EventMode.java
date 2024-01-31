@@ -24,6 +24,7 @@ package com.linecorp.bot.webhook.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Channel state. */
 public enum EventMode {
@@ -34,5 +35,15 @@ public enum EventMode {
   STANDBY,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case ACTIVE -> "active";
+      case STANDBY -> "standby";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

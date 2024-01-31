@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Font size in the &#x60;size&#x60; property of the Flex text component. You can specify the size
@@ -61,5 +62,23 @@ public enum FlexTextFontSize {
   _5XL,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case XXS -> "xxs";
+      case XS -> "xs";
+      case SM -> "sm";
+      case MD -> "md";
+      case LG -> "lg";
+      case XL -> "xl";
+      case XXL -> "xxl";
+      case _3XL -> "3xl";
+      case _4XL -> "4xl";
+      case _5XL -> "5xl";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

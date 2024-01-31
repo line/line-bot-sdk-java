@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * The current status. One of: &#x60;ongoing&#x60;: Rich menu batch control is in progress.
@@ -42,5 +43,16 @@ public enum RichMenuBatchProgressPhase {
   FAILED,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case ONGOING -> "ongoing";
+      case SUCCEEDED -> "succeeded";
+      case FAILED -> "failed";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

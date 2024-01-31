@@ -24,6 +24,7 @@ package com.linecorp.bot.audience.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** authority level */
 public enum AudienceGroupAuthorityLevel {
@@ -34,5 +35,15 @@ public enum AudienceGroupAuthorityLevel {
   PRIVATE,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case PUBLIC -> "PUBLIC";
+      case PRIVATE -> "PRIVATE";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

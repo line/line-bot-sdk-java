@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Radius at the time of rounding the corners of the box. This is only for &#x60;cornerRadius&#x60;
@@ -53,5 +54,20 @@ public enum FlexBoxCornerRadius {
   XXL,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case NONE -> "none";
+      case XS -> "xs";
+      case SM -> "sm";
+      case MD -> "md";
+      case LG -> "lg";
+      case XL -> "xl";
+      case XXL -> "xxl";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

@@ -24,6 +24,7 @@ package com.linecorp.bot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /** One of the following values to indicate whether a target limit is set or not. */
 public enum QuotaType {
@@ -34,5 +35,15 @@ public enum QuotaType {
   LIMITED,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case NONE -> "none";
+      case LIMITED -> "limited";
+
+      default -> "UNDEFINED";
+    };
+  }
 }

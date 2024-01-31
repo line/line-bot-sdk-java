@@ -24,6 +24,7 @@ package com.linecorp.bot.liff.model;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Specify the setting for bot link feature with one of the following values: &#x60;normal&#x60;:
@@ -43,5 +44,16 @@ public enum LiffBotPrompt {
   NONE,
 
   @JsonEnumDefaultValue
-  UNDEFINED
+  UNDEFINED;
+
+  @JsonValue
+  public String toValue() {
+    return switch (this) {
+      case NORMAL -> "normal";
+      case AGGRESSIVE -> "aggressive";
+      case NONE -> "none";
+
+      default -> "UNDEFINED";
+    };
+  }
 }
