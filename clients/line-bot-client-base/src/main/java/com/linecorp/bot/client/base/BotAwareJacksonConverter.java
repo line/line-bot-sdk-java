@@ -68,6 +68,8 @@ public class BotAwareJacksonConverter extends Converter.Factory {
             return RequestBody.create(uploadFile.src(), MediaType.parse(uploadFile.contentType()));
         } else if (o instanceof UploadFile.FileUploadFile uploadFile) {
             return RequestBody.create(uploadFile.src(), MediaType.parse(uploadFile.contentType()));
+        } else if (o instanceof UploadFile.ByteArrayUploadFile uploadFile) {
+            return RequestBody.create(uploadFile.src(), MediaType.parse(uploadFile.contentType()));
         }
 
         throw new IllegalArgumentException("Unsupported object: " + o);

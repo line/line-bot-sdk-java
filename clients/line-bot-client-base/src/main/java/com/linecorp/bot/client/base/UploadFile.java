@@ -22,6 +22,13 @@ import java.io.File;
 
 public interface UploadFile {
     /**
+     * Upload file from byte array.
+     */
+    static ByteArrayUploadFile fromByteArray(byte[] src, String contentType) {
+        return new ByteArrayUploadFile(src, contentType);
+    }
+
+    /**
      * Upload file from String.
      */
     static StringUploadFile fromString(String src, String contentType) {
@@ -55,6 +62,12 @@ public interface UploadFile {
     @Deprecated
     static FileUploadFile fromFile(File src) {
         return new FileUploadFile(src, "text/plain");
+    }
+
+    record ByteArrayUploadFile(
+            byte[] src,
+            String contentType
+    ) implements UploadFile {
     }
 
     record StringUploadFile(
