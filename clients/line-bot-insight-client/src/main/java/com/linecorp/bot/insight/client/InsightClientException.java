@@ -50,6 +50,9 @@ public class InsightClientException extends AbstractLineClientException {
     }
 
     public List<ErrorDetail> getDetails() {
+        if (details == null) {
+            return Collections.emptyList();
+        }
         return Collections.unmodifiableList(details);
     }
 }

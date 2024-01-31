@@ -57,10 +57,16 @@ public class MessagingApiClientException extends AbstractLineClientException {
     }
 
     public List<ErrorDetail> getDetails() {
+        if (details == null) {
+            return Collections.emptyList();
+        }
         return Collections.unmodifiableList(details);
     }
 
     public List<SentMessage> getSentMessages() {
+        if (sentMessages == null) {
+            return Collections.emptyList();
+        }
         return Collections.unmodifiableList(sentMessages);
     }
 }
