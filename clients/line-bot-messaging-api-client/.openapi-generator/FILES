@@ -19,6 +19,8 @@ src/main/java/com/linecorp/bot/messaging/model/CameraRollAction.java
 src/main/java/com/linecorp/bot/messaging/model/CarouselColumn.java
 src/main/java/com/linecorp/bot/messaging/model/CarouselTemplate.java
 src/main/java/com/linecorp/bot/messaging/model/ChatReference.java
+src/main/java/com/linecorp/bot/messaging/model/ClipboardAction.java
+src/main/java/com/linecorp/bot/messaging/model/ClipboardImagemapAction.java
 src/main/java/com/linecorp/bot/messaging/model/ConfirmTemplate.java
 src/main/java/com/linecorp/bot/messaging/model/CreateRichMenuAliasRequest.java
 src/main/java/com/linecorp/bot/messaging/model/DatetimePickerAction.java
