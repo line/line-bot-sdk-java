@@ -49,7 +49,9 @@ public record FollowEvent(
     /** Get deliveryContext */
     @JsonProperty("deliveryContext") DeliveryContext deliveryContext,
     /** Reply token used to send reply message to this event */
-    @JsonProperty("replyToken") String replyToken)
+    @JsonProperty("replyToken") String replyToken,
+    /** Get follow */
+    @JsonProperty("follow") FollowDetail follow)
     implements Event, ReplyEvent {
 
   public static class Builder {
@@ -59,13 +61,15 @@ public record FollowEvent(
     private String webhookEventId;
     private DeliveryContext deliveryContext;
     private String replyToken;
+    private FollowDetail follow;
 
     public Builder(
         Long timestamp,
         EventMode mode,
         String webhookEventId,
         DeliveryContext deliveryContext,
-        String replyToken) {
+        String replyToken,
+        FollowDetail follow) {
 
       this.timestamp = timestamp;
 
@@ -76,6 +80,8 @@ public record FollowEvent(
       this.deliveryContext = deliveryContext;
 
       this.replyToken = replyToken;
+
+      this.follow = follow;
     }
 
     public Builder source(Source source) {
@@ -84,7 +90,8 @@ public record FollowEvent(
     }
 
     public FollowEvent build() {
-      return new FollowEvent(source, timestamp, mode, webhookEventId, deliveryContext, replyToken);
+      return new FollowEvent(
+          source, timestamp, mode, webhookEventId, deliveryContext, replyToken, follow);
     }
   }
 }

@@ -18,6 +18,7 @@ src/main/java/com/linecorp/bot/webhook/model/Emoji.java
 src/main/java/com/linecorp/bot/webhook/model/Event.java
 src/main/java/com/linecorp/bot/webhook/model/EventMode.java
 src/main/java/com/linecorp/bot/webhook/model/FileMessageContent.java
+src/main/java/com/linecorp/bot/webhook/model/FollowDetail.java
 src/main/java/com/linecorp/bot/webhook/model/FollowEvent.java
 src/main/java/com/linecorp/bot/webhook/model/GroupSource.java
 src/main/java/com/linecorp/bot/webhook/model/ImageMessageContent.java
