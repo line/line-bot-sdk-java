@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@c4ee1cd97a0e1216bdfdc65516ac12cac1576c76
+        uses: gradle/wrapper-validation-action@85cde3f5a1033b2adc2442631c24b530f1183a1a
 
       - name: Show Version Number
         id: version
