@@ -5,7 +5,7 @@ jackson = "2.16.1"
 assertj = "3.25.3"
 junit = "5.10.2"
 slf4j = "2.0.12"
-mockito = "5.10.0"
+mockito = "5.11.0"
 okhttp3 = "4.12.0"
 
 [libraries]
