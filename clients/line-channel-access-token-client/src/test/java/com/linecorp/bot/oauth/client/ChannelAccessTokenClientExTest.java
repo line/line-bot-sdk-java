@@ -39,6 +39,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
 import com.linecorp.bot.oauth.model.IssueShortLivedChannelAccessTokenResponse;
+import com.linecorp.bot.oauth.model.IssueStatelessChannelAccessTokenResponse;
 
 public class ChannelAccessTokenClientExTest {
     static {
@@ -76,12 +77,12 @@ public class ChannelAccessTokenClientExTest {
                 aResponse()
                         .withStatus(200)
                         .withBody("""
-            {
-            "access_token":"accessToken",
-            "expires_in":30,
-            "token_type":"Bearer"
-            }"""
-        )));
+                                {
+                                "access_token":"accessToken",
+                                "expires_in":30,
+                                "token_type":"Bearer"
+                                }"""
+                        )));
 
         // Do
         final IssueShortLivedChannelAccessTokenResponse actualResponse =
@@ -143,6 +144,37 @@ public class ChannelAccessTokenClientExTest {
 
         // Verify
         verify(postRequestedFor(urlEqualTo("/v2/oauth/revoke"))
-                       .withRequestBody(equalTo("access_token=accessToken")));
+                .withRequestBody(equalTo("access_token=accessToken")));
+    }
+
+    @Test
+    public void issueStatelessChannelToken() {
+        stubFor(post(urlEqualTo("/oauth2/v3/token")).willReturn(
+                aResponse()
+                        .withStatus(200)
+                        .withBody("""
+                                {
+                                "access_token":"accessToken",
+                                "expires_in":30,
+                                "token_type":"Bearer"
+                                }"""
+                        )));
+
+        // Do
+        final IssueStatelessChannelAccessTokenResponse actualResponse =
+                target.issueStatelessChannelToken("client_credentials",
+                                null,
+                                null,
+                                "1234",
+                                "clientSecret")
+                        .join().body();
+
+        // Verify
+        verify(postRequestedFor(
+                urlEqualTo("/oauth2/v3/token")
+        ).withRequestBody(
+                WireMock.equalTo(
+                        "grant_type=client_credentials&client_id=1234&client_secret=clientSecret")));
+        assertThat(actualResponse.tokenType()).isEqualTo("Bearer");
     }
 }
