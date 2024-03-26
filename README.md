@@ -150,11 +150,7 @@ When you need to get `x-line-accepted-request-id` header from error response, yo
 
 FAQ: https://developers.line.biz/en/faq/
 
-Community Q&A: https://www.line-community.me/questions
-
 News: https://developers.line.biz/en/news/
-
-Twitter: [@LINE_DEV](https://twitter.com/LINE_DEV)
 
 ## Versioning
 
@@ -162,29 +158,7 @@ This project respects semantic versioning.
 
 See http://semver.org/.
 
-### SDK Lifecycle Documentation
-
-The lifecycle of the Software Development Kit (SDK) follows certain stages that ensure optimal support and improvements for developers. The developers of the SDK manage different versions of the SDK following the principles outlined below:
-
-- The SDK developers only add features to the latest major version (active development version).
-- The SDK developers accept patches for the major versions in the maintenance phase. The maintenance phase continues for six months after the release of the next major version.
-- The SDK developers do not accept patches for major versions once the maintenance phase has ended.
-
-These principles ensure that the SDK remains up-to-date, secure, and reliable, while also encouraging developers to adopt the latest version.
-
-Here's a brief summary of the current status of each version:
-
-| Version | Release Date | Status | Active Development Until | End of Life Date |
-| --- | --- | --- | --- | --- |
-| 7.x | May 18, 2023 | Active Development | TBD | TBD |
-| 6.x | February 6, 2023 | Maintenance Phase | May 18, 2023 | November 18, 2023 |
-| 5.x | August 4, 2022 | Maintenance Phase(※) | February 6, 2023 | November 18, 2023 |
-
-"Active Development Until" indicates when the version will transition into the maintenance phase, while "End of Life Date" indicates when the version will no longer be supported.
-
-※: Exceptionally extended deadline
-
-## Version 7.x
+## From version 7.x
 
 LINE's SDK developer team decides to generate SDK code based on OpenAPI spec.
 As a result, LINE bot sdk 7.x is not compatible with 6.x. But it can follow the future API changes very quickly.
@@ -202,19 +176,6 @@ As a result, LINE bot sdk 7.x is not compatible with 6.x. But it can follow the 
             - You don't need to depend this explicitly.
         - `line-bot-spring-boot-webmvc` is a spring-webmvc binding.
             - **usually, you want to depend on this module.**
-
-## Version 5.x and 6.x
-
-This library provides the Spring Boot binding.
-And there are some incompatible changes between Spring Boot 2.x and 3.x.
-As a result, line-bot-sdk-java maintainers maintain two maintenance lines until the end of the life of Spring Boot 2.x.
-
-- line-bot-sdk-java 6.x supports Spring Boot 3.x and Jakarta EE, Java 17+(Branch: master).
-- line-bot-sdk-java 5.x supports Spring Boot 2.x and Java EE, Java 8+(branch: maint/5.x).
-
-Spring Boot 2.x is scheduled for retirement on 2023/11/18. This means that line-bot-sdk-java 5.x will be retired on
-2023/11/18.
-https://endoflife.date/spring-boot
 
 ## Contributing
 
