@@ -30,6 +30,7 @@ import com.linecorp.bot.messaging.model.CreateRichMenuAliasRequest;
 import com.linecorp.bot.messaging.model.GetAggregationUnitNameListResponse;
 import com.linecorp.bot.messaging.model.GetAggregationUnitUsageResponse;
 import com.linecorp.bot.messaging.model.GetFollowersResponse;
+import com.linecorp.bot.messaging.model.GetMembershipSubscriptionResponse;
 import com.linecorp.bot.messaging.model.GetWebhookEndpointResponse;
 import com.linecorp.bot.messaging.model.GroupMemberCountResponse;
 import com.linecorp.bot.messaging.model.GroupSummaryResponse;
@@ -37,6 +38,7 @@ import com.linecorp.bot.messaging.model.GroupUserProfileResponse;
 import com.linecorp.bot.messaging.model.IssueLinkTokenResponse;
 import com.linecorp.bot.messaging.model.MarkMessagesAsReadRequest;
 import com.linecorp.bot.messaging.model.MembersIdsResponse;
+import com.linecorp.bot.messaging.model.MembershipListResponse;
 import com.linecorp.bot.messaging.model.MessageQuotaResponse;
 import com.linecorp.bot.messaging.model.MulticastRequest;
 import com.linecorp.bot.messaging.model.NarrowcastProgressResponse;
@@ -271,6 +273,27 @@ public interface MessagingApiClient {
    */
   @GET("/v2/bot/group/{groupId}/summary")
   CompletableFuture<Result<GroupSummaryResponse>> getGroupSummary(@Path("groupId") String groupId);
+
+  /**
+   * Get a list of memberships.
+   *
+   * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-membership-plans">
+   *     Documentation</a>
+   */
+  @GET("/v2/bot/membership/list")
+  CompletableFuture<Result<MembershipListResponse>> getMembershipList();
+
+  /**
+   * Get a user&#39;s membership subscription.
+   *
+   * @param userId User ID (required)
+   * @see <a
+   *     href="https://developers.line.biz/en/reference/messaging-api/#get-a-users-membership-subscription-status">
+   *     Documentation</a>
+   */
+  @GET("/v2/bot/membership/subscription/{userId}")
+  CompletableFuture<Result<GetMembershipSubscriptionResponse>> getMembershipSubscription(
+      @Path("userId") String userId);
 
   /**
    * Gets the target limit for sending messages in the current month. The total number of the free

@@ -39,6 +39,7 @@ import com.linecorp.bot.messaging.model.CreateRichMenuAliasRequest;
 import com.linecorp.bot.messaging.model.GetAggregationUnitNameListResponse;
 import com.linecorp.bot.messaging.model.GetAggregationUnitUsageResponse;
 import com.linecorp.bot.messaging.model.GetFollowersResponse;
+import com.linecorp.bot.messaging.model.GetMembershipSubscriptionResponse;
 import com.linecorp.bot.messaging.model.GetWebhookEndpointResponse;
 import com.linecorp.bot.messaging.model.GroupMemberCountResponse;
 import com.linecorp.bot.messaging.model.GroupSummaryResponse;
@@ -46,6 +47,7 @@ import com.linecorp.bot.messaging.model.GroupUserProfileResponse;
 import com.linecorp.bot.messaging.model.IssueLinkTokenResponse;
 import com.linecorp.bot.messaging.model.MarkMessagesAsReadRequest;
 import com.linecorp.bot.messaging.model.MembersIdsResponse;
+import com.linecorp.bot.messaging.model.MembershipListResponse;
 import com.linecorp.bot.messaging.model.MessageQuotaResponse;
 import com.linecorp.bot.messaging.model.MulticastRequest;
 import com.linecorp.bot.messaging.model.NarrowcastProgressResponse;
@@ -586,6 +588,52 @@ public class MessagingApiClientTest {
                 () -> null));
 
     GroupSummaryResponse response = api.getGroupSummary(groupId).join().body();
+
+    assertThat(response).isNotNull();
+
+    // TODO: test validations
+  }
+
+  @Test
+  public void getMembershipListTest() {
+    stubFor(
+        get(urlPathTemplate("/v2/bot/membership/list"))
+            .willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("content-type", "application/json")
+                    .withBody("{}")));
+
+    MembershipListResponse response = api.getMembershipList().join().body();
+
+    assertThat(response).isNotNull();
+
+    // TODO: test validations
+  }
+
+  @Test
+  public void getMembershipSubscriptionTest() {
+    stubFor(
+        get(urlPathTemplate("/v2/bot/membership/subscription/{userId}"))
+            .willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("content-type", "application/json")
+                    .withBody("{}")));
+
+    String userId =
+        Arranger.some(
+            String.class,
+            Map.of(
+                "message",
+                () -> new TextMessage("hello"),
+                "recipient",
+                () -> null,
+                "filter",
+                () -> null));
+
+    GetMembershipSubscriptionResponse response =
+        api.getMembershipSubscription(userId).join().body();
 
     assertThat(response).isNotNull();
 
