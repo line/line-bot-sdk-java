@@ -12,7 +12,7 @@ dependencies {
     implementation("org.openapitools:openapi-generator:7.4.0")
 
     // plugins
-    implementation("io.github.gradle-nexus:publish-plugin:1.3.0")
+    implementation("io.github.gradle-nexus:publish-plugin:2.0.0")
     implementation("org.openapitools:openapi-generator-gradle-plugin:7.4.0")
     implementation("com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.9")
     implementation("org.springframework.boot:spring-boot-gradle-plugin:3.2.4")
