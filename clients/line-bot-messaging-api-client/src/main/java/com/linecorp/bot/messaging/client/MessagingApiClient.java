@@ -63,6 +63,7 @@ import com.linecorp.bot.messaging.model.RichMenuResponse;
 import com.linecorp.bot.messaging.model.RoomMemberCountResponse;
 import com.linecorp.bot.messaging.model.RoomUserProfileResponse;
 import com.linecorp.bot.messaging.model.SetWebhookEndpointRequest;
+import com.linecorp.bot.messaging.model.ShowLoadingAnimationRequest;
 import com.linecorp.bot.messaging.model.TestWebhookEndpointRequest;
 import com.linecorp.bot.messaging.model.TestWebhookEndpointResponse;
 import com.linecorp.bot.messaging.model.UpdateRichMenuAliasRequest;
@@ -688,6 +689,18 @@ public interface MessagingApiClient {
   @PUT("/v2/bot/channel/webhook/endpoint")
   CompletableFuture<Result<Void>> setWebhookEndpoint(
       @Body SetWebhookEndpointRequest setWebhookEndpointRequest);
+
+  /**
+   * Display a loading animation in one-on-one chats between users and LINE Official Accounts.
+   *
+   * @param showLoadingAnimationRequest (required)
+   * @see <a
+   *     href="https://developers.line.biz/en/reference/messaging-api/#display-a-loading-indicator">
+   *     Documentation</a>
+   */
+  @POST("/v2/bot/chat/loading/start")
+  CompletableFuture<Result<Object>> showLoadingAnimation(
+      @Body ShowLoadingAnimationRequest showLoadingAnimationRequest);
 
   /**
    * Test webhook endpoint

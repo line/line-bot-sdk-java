@@ -72,6 +72,7 @@ import com.linecorp.bot.messaging.model.RichMenuResponse;
 import com.linecorp.bot.messaging.model.RoomMemberCountResponse;
 import com.linecorp.bot.messaging.model.RoomUserProfileResponse;
 import com.linecorp.bot.messaging.model.SetWebhookEndpointRequest;
+import com.linecorp.bot.messaging.model.ShowLoadingAnimationRequest;
 import com.linecorp.bot.messaging.model.TestWebhookEndpointRequest;
 import com.linecorp.bot.messaging.model.TestWebhookEndpointResponse;
 import com.linecorp.bot.messaging.model.TextMessage;
@@ -1564,6 +1565,34 @@ public class MessagingApiClientTest {
                 () -> null));
 
     api.setWebhookEndpoint(setWebhookEndpointRequest).join().body();
+
+    // TODO: test validations
+  }
+
+  @Test
+  public void showLoadingAnimationTest() {
+    stubFor(
+        post(urlPathTemplate("/v2/bot/chat/loading/start"))
+            .willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("content-type", "application/json")
+                    .withBody("{}")));
+
+    ShowLoadingAnimationRequest showLoadingAnimationRequest =
+        Arranger.some(
+            ShowLoadingAnimationRequest.class,
+            Map.of(
+                "message",
+                () -> new TextMessage("hello"),
+                "recipient",
+                () -> null,
+                "filter",
+                () -> null));
+
+    Object response = api.showLoadingAnimation(showLoadingAnimationRequest).join().body();
+
+    assertThat(response).isNotNull();
 
     // TODO: test validations
   }
