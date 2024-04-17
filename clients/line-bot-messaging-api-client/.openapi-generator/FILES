@@ -131,6 +131,7 @@ src/main/java/com/linecorp/bot/messaging/model/RoomUserProfileResponse.java
 src/main/java/com/linecorp/bot/messaging/model/Sender.java
 src/main/java/com/linecorp/bot/messaging/model/SentMessage.java
 src/main/java/com/linecorp/bot/messaging/model/SetWebhookEndpointRequest.java
+src/main/java/com/linecorp/bot/messaging/model/ShowLoadingAnimationRequest.java
 src/main/java/com/linecorp/bot/messaging/model/StickerMessage.java
 src/main/java/com/linecorp/bot/messaging/model/SubscribedMembershipPlan.java
 src/main/java/com/linecorp/bot/messaging/model/SubscribedMembershipUser.java
