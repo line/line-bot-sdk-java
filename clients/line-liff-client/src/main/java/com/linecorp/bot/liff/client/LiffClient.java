@@ -35,11 +35,11 @@ import retrofit2.http.*;
 public interface LiffClient {
 
   /**
-   * Adding the LIFF app to a channel
+   * Create LIFF app Adding the LIFF app to a channel
    *
    * @param addLiffAppRequest (required)
-   * @see <a href="https://developers.line.biz/en/reference/liff-server/#add-liff-app">
-   *     Documentation</a>
+   * @see <a href="https://developers.line.biz/en/reference/liff-server/#add-liff-app">Create LIFF
+   *     app Documentation</a>
    */
   @POST("/liff/v1/apps")
   CompletableFuture<Result<AddLiffAppResponse>> addLIFFApp(
@@ -65,12 +65,12 @@ public interface LiffClient {
   CompletableFuture<Result<GetAllLiffAppsResponse>> getAllLIFFApps();
 
   /**
-   * Update LIFF app settings
+   * Update LIFF app from a channel Update LIFF app settings
    *
    * @param liffId ID of the LIFF app to be updated (required)
    * @param updateLiffAppRequest (required)
-   * @see <a href="https://developers.line.biz/en/reference/liff-server/#update-liff-app">
-   *     Documentation</a>
+   * @see <a href="https://developers.line.biz/en/reference/liff-server/#update-liff-app">Update
+   *     LIFF app from a channel Documentation</a>
    */
   @PUT("/liff/v1/apps/{liffId}")
   CompletableFuture<Result<Void>> updateLIFFApp(
