@@ -145,7 +145,7 @@ public interface ChannelAccessTokenClient {
    *
    * @param accessToken A short-lived or long-lived channel access token. (required)
    * @see <a
-   *     href="https://developers.line.biz/en/reference/messaging-api/#verfiy-channel-access-token">
+   *     href="https://developers.line.biz/en/reference/messaging-api/#verify-channel-access-token">
    *     Documentation</a>
    */
   @POST("/v2/oauth/verify")
@@ -160,7 +160,7 @@ public interface ChannelAccessTokenClient {
    * @param accessToken Channel access token with a user-specified expiration (Channel Access Token
    *     v2.1). (required)
    * @see <a
-   *     href="https://developers.line.biz/en/reference/messaging-api/#verfiy-channel-access-token-v2-1">
+   *     href="https://developers.line.biz/en/reference/messaging-api/#verify-channel-access-token-v2-1">
    *     Documentation</a>
    */
   @GET("/oauth2/v2.1/verify")
