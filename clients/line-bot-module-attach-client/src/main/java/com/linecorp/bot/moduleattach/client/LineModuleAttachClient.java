@@ -34,10 +34,10 @@ public interface LineModuleAttachClient {
   /**
    * Attach by operation of the module channel provider
    *
-   * @param grantType authorization_code (optional)
-   * @param code Authorization code received from the LINE Platform. (optional)
+   * @param grantType authorization_code (required)
+   * @param code Authorization code received from the LINE Platform. (required)
    * @param redirectUri Specify the redirect_uri specified in the URL for authentication and
-   *     authorization. (optional)
+   *     authorization. (required)
    * @param codeVerifier Specify when using PKCE (Proof Key for Code Exchange) defined in the OAuth
    *     2.0 extension specification as a countermeasure against authorization code interception
    *     attacks. (optional)
