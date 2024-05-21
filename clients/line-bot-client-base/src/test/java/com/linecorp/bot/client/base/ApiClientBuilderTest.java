@@ -33,7 +33,6 @@ import java.util.concurrent.CompletableFuture;
 
 import org.bbottema.javasocksproxyserver.SocksServer;
 import org.bbottema.javasocksproxyserver.auth.DefaultAuthenticator;
-import org.bbottema.javasocksproxyserver.auth.UsernamePasswordAuthenticator;
 import org.junit.jupiter.api.Test;
 import org.littleshoot.proxy.HttpProxyServer;
 import org.littleshoot.proxy.impl.DefaultHttpProxyServer;
