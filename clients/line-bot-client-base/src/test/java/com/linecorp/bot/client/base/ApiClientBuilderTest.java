@@ -32,6 +32,7 @@ import java.net.URI;
 import java.util.concurrent.CompletableFuture;
 
 import org.bbottema.javasocksproxyserver.SocksServer;
+import org.bbottema.javasocksproxyserver.auth.DefaultAuthenticator;
 import org.junit.jupiter.api.Test;
 import org.littleshoot.proxy.HttpProxyServer;
 import org.littleshoot.proxy.impl.DefaultHttpProxyServer;
@@ -77,8 +78,9 @@ class ApiClientBuilderTest {
     void socksProxy() {
         int socksPort = 9020;
 
-        SocksServer socksServer = new SocksServer();
-        socksServer.start(socksPort);
+        SocksServer socksServer = new SocksServer(socksPort)
+                .setAuthenticator(new DefaultAuthenticator())
+                .start();
 
         WireMockServer wireMockServer = new WireMockServer(wireMockConfig().dynamicPort());
         wireMockServer.start();
@@ -108,6 +110,7 @@ class ApiClientBuilderTest {
         assertThat(client.get().join().body().message).isEqualTo("OK");
 
         wireMockServer.stop();
+        socksServer.stop();
     }
 
     @Test
