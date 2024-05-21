@@ -77,8 +77,8 @@ class ApiClientBuilderTest {
     void socksProxy() {
         int socksPort = 9020;
 
-        SocksServer socksServer = new SocksServer();
-        socksServer.start(socksPort);
+        SocksServer socksServer = new SocksServer(socksPort);
+        socksServer.start();
 
         WireMockServer wireMockServer = new WireMockServer(wireMockConfig().dynamicPort());
         wireMockServer.start();
