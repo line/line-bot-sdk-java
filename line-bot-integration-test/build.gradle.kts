@@ -70,7 +70,7 @@ dependencies {
     integrationTestImplementation(libs.jjwt.jackson)
     // https://github.com/jwtk/jjwt/issues/236 jjwt doens't support JWK parsing, yet.
     // Once jjwt support JWK, we can remove this dependency.
-    integrationTestImplementation("com.nimbusds:nimbus-jose-jwt:9.39.2")
+    integrationTestImplementation("com.nimbusds:nimbus-jose-jwt:9.39.3")
     integrationTestImplementation("org.springframework.boot:spring-boot-starter-test")
     integrationTestImplementation("org.springframework.boot:spring-boot-starter-logging")
     integrationTestImplementation("com.fasterxml.jackson.core:jackson-core")
