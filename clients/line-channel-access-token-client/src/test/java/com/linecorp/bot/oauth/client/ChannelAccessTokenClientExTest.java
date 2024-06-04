@@ -114,10 +114,10 @@ public class ChannelAccessTokenClientExTest {
 
         // Do
         final CompletionException actualException =
-                catchThrowableOfType(() -> target.issueChannelToken("client_credentials",
+                catchThrowableOfType(CompletionException.class,
+                        () -> target.issueChannelToken("client_credentials",
                                 "clientId",
-                                "clientSecret").join(),
-                        CompletionException.class);
+                                "clientSecret").join());
 
         // Verify
         verify(
