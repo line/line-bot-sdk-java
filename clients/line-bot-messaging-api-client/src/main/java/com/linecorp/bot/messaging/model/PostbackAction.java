@@ -49,13 +49,13 @@ public record PostbackAction(
   /** Gets or Sets inputOption */
   public enum InputOption {
     @JsonProperty("closeRichMenu")
-    CLOSERICHMENU,
+    CLOSE_RICH_MENU,
     @JsonProperty("openRichMenu")
-    OPENRICHMENU,
+    OPEN_RICH_MENU,
     @JsonProperty("openKeyboard")
-    OPENKEYBOARD,
+    OPEN_KEYBOARD,
     @JsonProperty("openVoice")
-    OPENVOICE,
+    OPEN_VOICE,
 
     @JsonEnumDefaultValue
     UNDEFINED;
