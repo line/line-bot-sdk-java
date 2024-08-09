@@ -14,7 +14,7 @@ dependencies {
     // plugins
     implementation("io.github.gradle-nexus:publish-plugin:2.0.0")
     implementation("org.openapitools:openapi-generator-gradle-plugin:7.7.0")
-    implementation("com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.19")
+    implementation("com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.20")
     implementation("org.springframework.boot:spring-boot-gradle-plugin:3.3.2")
 
     // workaround to use libs in a precompiled script plugin.
