@@ -9,7 +9,7 @@ plugins {
 
 dependencies {
     // dependency for LineJavaCodegenGenerator
-    implementation("org.openapitools:openapi-generator:7.7.0")
+    implementation("org.openapitools:openapi-generator:7.8.0")
 
     // plugins
     implementation("io.github.gradle-nexus:publish-plugin:2.0.0")
