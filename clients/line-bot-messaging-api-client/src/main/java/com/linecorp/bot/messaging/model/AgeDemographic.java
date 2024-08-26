@@ -52,6 +52,18 @@ public enum AgeDemographic {
   @JsonProperty("age_50")
   AGE_50,
 
+  @JsonProperty("age_55")
+  AGE_55,
+
+  @JsonProperty("age_60")
+  AGE_60,
+
+  @JsonProperty("age_65")
+  AGE_65,
+
+  @JsonProperty("age_70")
+  AGE_70,
+
   @JsonEnumDefaultValue
   UNDEFINED;
 
@@ -66,6 +78,10 @@ public enum AgeDemographic {
       case AGE_40 -> "age_40";
       case AGE_45 -> "age_45";
       case AGE_50 -> "age_50";
+      case AGE_55 -> "age_55";
+      case AGE_60 -> "age_60";
+      case AGE_65 -> "age_65";
+      case AGE_70 -> "age_70";
 
       default -> "UNDEFINED";
     };
