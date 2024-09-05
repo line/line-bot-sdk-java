@@ -56,6 +56,16 @@ public record AgeTile(
     FROM45TO49,
     @JsonProperty("from50")
     FROM50,
+    @JsonProperty("from50to54")
+    FROM50TO54,
+    @JsonProperty("from55to59")
+    FROM55TO59,
+    @JsonProperty("from60to64")
+    FROM60TO64,
+    @JsonProperty("from65to69")
+    FROM65TO69,
+    @JsonProperty("from70")
+    FROM70,
     @JsonProperty("unknown")
     UNKNOWN,
 
