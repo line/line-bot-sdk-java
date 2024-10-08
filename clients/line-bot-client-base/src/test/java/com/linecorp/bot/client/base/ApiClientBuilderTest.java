@@ -79,8 +79,8 @@ class ApiClientBuilderTest {
         int socksPort = 9020;
 
         SocksServer socksServer = new SocksServer(socksPort)
-                .setAuthenticator(new DefaultAuthenticator())
-                .start();
+                .setAuthenticator(new DefaultAuthenticator());
+        socksServer.start();
 
         WireMockServer wireMockServer = new WireMockServer(wireMockConfig().dynamicPort());
         wireMockServer.start();
