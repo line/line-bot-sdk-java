@@ -34,9 +34,6 @@ public enum AudienceGroupFailedType {
   @JsonProperty("INTERNAL_ERROR")
   INTERNAL_ERROR,
 
-  @JsonProperty("null")
-  NULL,
-
   @JsonEnumDefaultValue
   UNDEFINED;
 
@@ -45,7 +42,6 @@ public enum AudienceGroupFailedType {
     return switch (this) {
       case AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT -> "AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT";
       case INTERNAL_ERROR -> "INTERNAL_ERROR";
-      case NULL -> "null";
 
       default -> "UNDEFINED";
     };
