@@ -8,3 +8,4 @@ src/main/java/com/linecorp/bot/liff/model/LiffFeatures.java
 src/main/java/com/linecorp/bot/liff/model/LiffScope.java
 src/main/java/com/linecorp/bot/liff/model/LiffView.java
 src/main/java/com/linecorp/bot/liff/model/UpdateLiffAppRequest.java
+src/main/java/com/linecorp/bot/liff/model/UpdateLiffView.java
