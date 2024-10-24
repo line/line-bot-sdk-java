@@ -37,7 +37,7 @@ import java.util.List;
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record UpdateLiffAppRequest(
     /** Get view */
-    @JsonProperty("view") LiffView view,
+    @JsonProperty("view") UpdateLiffView view,
     /**
      * Name of the LIFF app. The LIFF app name can&#39;t include \&quot;LINE\&quot; or similar
      * strings, or inappropriate strings.
@@ -53,7 +53,7 @@ public record UpdateLiffAppRequest(
     @JsonProperty("botPrompt") LiffBotPrompt botPrompt) {
 
   public static class Builder {
-    private LiffView view;
+    private UpdateLiffView view;
     private String description;
     private LiffFeatures features;
     private String permanentLinkPattern;
@@ -62,7 +62,7 @@ public record UpdateLiffAppRequest(
 
     public Builder() {}
 
-    public Builder view(LiffView view) {
+    public Builder view(UpdateLiffView view) {
       this.view = view;
       return this;
     }
