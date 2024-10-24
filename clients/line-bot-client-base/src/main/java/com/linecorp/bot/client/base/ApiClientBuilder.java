@@ -97,6 +97,8 @@ public class ApiClientBuilder<T> {
 
     private Integer maxRequestsPerHost = 5;
 
+    private boolean usingDefaultLogger = true; // Just kept the same behavior as the original code
+
     /**
      * API Endpoint.
      */
@@ -158,7 +160,16 @@ public class ApiClientBuilder<T> {
         return this;
     }
 
-    private static Interceptor buildLoggingInterceptor() {
+    /**
+     * Use default logger (see {@link #buildLoggingInterceptor()}) , default is true
+     * @param usingDefaultLogger
+     */
+    public ApiClientBuilder<T> usingDefaultLogger(boolean usingDefaultLogger) {
+        this.usingDefaultLogger = usingDefaultLogger;
+        return this;
+    }
+
+    public static Interceptor buildLoggingInterceptor() {
         final Logger slf4jLogger = LoggerFactory.getLogger("com.linecorp.bot.client.wire");
 
         return new HttpLoggingInterceptor(slf4jLogger::info)
@@ -191,7 +202,10 @@ public class ApiClientBuilder<T> {
     public T build() {
         OkHttpClient.Builder okHttpClientBuilder = createBuilder();
         additionalInterceptors.forEach(okHttpClientBuilder::addInterceptor);
-        okHttpClientBuilder.addInterceptor(buildLoggingInterceptor());
+        // Either adding explicitly HttpInterceptor#loggingInterceptor() or write your own
+        if (usingDefaultLogger) {
+            okHttpClientBuilder.addInterceptor(buildLoggingInterceptor());
+        }
 
         // Set timeout.
         okHttpClientBuilder
