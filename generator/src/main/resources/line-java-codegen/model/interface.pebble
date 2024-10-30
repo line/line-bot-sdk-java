@@ -14,7 +14,12 @@
     use = JsonTypeInfo.Id.NAME,
     include = JsonTypeInfo.As.PROPERTY,
     property = "{{model.discriminator.propertyName}}",
+    {# Unknown{{className}} is not auto-generated, so the defaultImpl for newly added classes needs to be disabled. #}
+    {% if ["Event", "MessageContent", "Message", "Action", "DemographicFilter", "FlexBoxBackground", "FlexComponent",
+       "FlexContainer", "ImagemapAction", "Mentionee", "ModuleContent", "Recipient", "RichMenuBatchOperation",
+       "Source", "Template", "ThingsContent"] contains model.classname %}
     defaultImpl = Unknown{{model.classname}}.class,
+    {% endif %}
     visible = true
 )
 public interface {{model.classname}} {
