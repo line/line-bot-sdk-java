@@ -44,6 +44,9 @@ public interface MessagingApiBlobClient {
   @GET("/v2/bot/message/{messageId}/content")
   CompletableFuture<Result<BlobContent>> getMessageContent(@Path("messageId") String messageId);
 
+
+
+
   /**
    * Get a preview image of the image or video
    *
