@@ -3,6 +3,11 @@ name: Publish package to the Maven Central Repository
 on:
   release:
     types: [ published ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version to release'
+        required: true
 
 jobs:
   publish:
@@ -26,9 +31,18 @@ jobs:
         run: |
           echo "Version=${{ github.event.release.tag_name }}"
 
-      - name: Publish package
+      - name: Build package
         run: |
           ./gradlew build
+
+      - name: Set version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            VERSION=${{ github.event.inputs.version }}
+          else
+            VERSION=${{ github.event.release.tag_name }}
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Publish package
         run: |
@@ -36,7 +50,7 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-          SDK_VERSION: ${{ github.event.release.tag_name }}
+          SDK_VERSION: ${{ env.VERSION }}
           ORG_GRADLE_PROJECT_signingKeyId: ${{ secrets.GPG_KEY_ID }}
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.GPG_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.GPG_PASSWORD }}
