@@ -48,8 +48,8 @@ jobs:
         run: |
           ./gradlew --no-daemon --stacktrace --max-workers=1 --info publish closeAndReleaseStagingRepository
         env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME_Y }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN_Y }}
           SDK_VERSION: ${{ env.VERSION }}
           ORG_GRADLE_PROJECT_signingKeyId: ${{ secrets.GPG_KEY_ID }}
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.GPG_PRIVATE_KEY }}
