@@ -18,18 +18,6 @@ package com.linecorp.bot.client.base.http;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import okhttp3.Interceptor;
-import okhttp3.logging.HttpLoggingInterceptor;
-
 public interface HttpInterceptor {
     HttpResponse intercept(HttpChain httpChain) throws IOException;
-
-    static Interceptor loggingInterceptor() {
-        final Logger slf4jLogger = LoggerFactory.getLogger("com.linecorp.bot.client.wire");
-        return new HttpLoggingInterceptor(slf4jLogger::info)
-                .setLevel(HttpLoggingInterceptor.Level.BODY);
-    }
 }

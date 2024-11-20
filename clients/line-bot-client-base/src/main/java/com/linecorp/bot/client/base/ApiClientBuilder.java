@@ -97,7 +97,7 @@ public class ApiClientBuilder<T> {
 
     private Integer maxRequestsPerHost = 5;
 
-    private boolean usingDefaultLogger = true; // Just kept the same behavior as the original code
+    private boolean usingDefaultLogger = true;
 
     /**
      * API Endpoint.
