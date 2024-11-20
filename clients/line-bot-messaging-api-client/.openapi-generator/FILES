@@ -3,6 +3,7 @@ src/main/java/com/linecorp/bot/messaging/client/MessagingApiClient.java
 src/main/java/com/linecorp/bot/messaging/model/Action.java
 src/main/java/com/linecorp/bot/messaging/model/AgeDemographic.java
 src/main/java/com/linecorp/bot/messaging/model/AgeDemographicFilter.java
+src/main/java/com/linecorp/bot/messaging/model/AllMentionTarget.java
 src/main/java/com/linecorp/bot/messaging/model/AltUri.java
 src/main/java/com/linecorp/bot/messaging/model/AppTypeDemographic.java
 src/main/java/com/linecorp/bot/messaging/model/AppTypeDemographicFilter.java
@@ -26,6 +27,7 @@ src/main/java/com/linecorp/bot/messaging/model/CreateRichMenuAliasRequest.java
 src/main/java/com/linecorp/bot/messaging/model/DatetimePickerAction.java
 src/main/java/com/linecorp/bot/messaging/model/DemographicFilter.java
 src/main/java/com/linecorp/bot/messaging/model/Emoji.java
+src/main/java/com/linecorp/bot/messaging/model/EmojiSubstitutionObject.java
 src/main/java/com/linecorp/bot/messaging/model/ErrorDetail.java
 src/main/java/com/linecorp/bot/messaging/model/ErrorResponse.java
 src/main/java/com/linecorp/bot/messaging/model/Filter.java
@@ -85,6 +87,8 @@ src/main/java/com/linecorp/bot/messaging/model/MarkMessagesAsReadRequest.java
 src/main/java/com/linecorp/bot/messaging/model/MembersIdsResponse.java
 src/main/java/com/linecorp/bot/messaging/model/Membership.java
 src/main/java/com/linecorp/bot/messaging/model/MembershipListResponse.java
+src/main/java/com/linecorp/bot/messaging/model/MentionSubstitutionObject.java
+src/main/java/com/linecorp/bot/messaging/model/MentionTarget.java
 src/main/java/com/linecorp/bot/messaging/model/Message.java
 src/main/java/com/linecorp/bot/messaging/model/MessageAction.java
 src/main/java/com/linecorp/bot/messaging/model/MessageImagemapAction.java
@@ -138,6 +142,7 @@ src/main/java/com/linecorp/bot/messaging/model/SubscribedMembershipUser.java
 src/main/java/com/linecorp/bot/messaging/model/Subscription.java
 src/main/java/com/linecorp/bot/messaging/model/SubscriptionPeriodDemographic.java
 src/main/java/com/linecorp/bot/messaging/model/SubscriptionPeriodDemographicFilter.java
+src/main/java/com/linecorp/bot/messaging/model/SubstitutionObject.java
 src/main/java/com/linecorp/bot/messaging/model/Template.java
 src/main/java/com/linecorp/bot/messaging/model/TemplateImageAspectRatio.java
 src/main/java/com/linecorp/bot/messaging/model/TemplateImageSize.java
@@ -145,9 +150,11 @@ src/main/java/com/linecorp/bot/messaging/model/TemplateMessage.java
 src/main/java/com/linecorp/bot/messaging/model/TestWebhookEndpointRequest.java
 src/main/java/com/linecorp/bot/messaging/model/TestWebhookEndpointResponse.java
 src/main/java/com/linecorp/bot/messaging/model/TextMessage.java
+src/main/java/com/linecorp/bot/messaging/model/TextMessageV2.java
 src/main/java/com/linecorp/bot/messaging/model/URIAction.java
 src/main/java/com/linecorp/bot/messaging/model/URIImagemapAction.java
 src/main/java/com/linecorp/bot/messaging/model/UpdateRichMenuAliasRequest.java
+src/main/java/com/linecorp/bot/messaging/model/UserMentionTarget.java
 src/main/java/com/linecorp/bot/messaging/model/UserProfileResponse.java
 src/main/java/com/linecorp/bot/messaging/model/ValidateMessageRequest.java
 src/main/java/com/linecorp/bot/messaging/model/VideoMessage.java
