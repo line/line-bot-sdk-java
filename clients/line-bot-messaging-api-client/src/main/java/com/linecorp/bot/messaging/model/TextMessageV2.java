@@ -44,7 +44,7 @@ public record TextMessageV2(
     /** Get text */
     @JsonProperty("text") String text,
     /**
-     * A mapping that specifies substitutions for parts enclosed in {} within the &#39;text&#39;
+     * A mapping that specifies substitutions for parts enclosed in {} within the &#x60;text&#x60;
      * field.
      */
     @JsonProperty("substitution") Map<String, SubstitutionObject> substitution,
