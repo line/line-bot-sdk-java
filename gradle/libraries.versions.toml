@@ -2,7 +2,7 @@
 retrofit2 = "2.11.0"
 jjwt = "0.12.6"
 jackson = "2.18.2"
-assertj = "3.26.3"
+assertj = "3.27.0"
 junit = "5.11.4"
 slf4j = "2.0.16"
 mockito = "5.14.2"
