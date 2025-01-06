@@ -15,7 +15,7 @@ system-lambda = { group = "com.github.stefanbirkner", name = "system-lambda", ve
 jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
 jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
 jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }
-logback = { module = "ch.qos.logback:logback-classic", version = "1.5.15" }
+logback = { module = "ch.qos.logback:logback-classic", version = "1.5.16" }
 
 okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp3" }
 okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3" }
