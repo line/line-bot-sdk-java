@@ -61,7 +61,8 @@ public record NarrowcastProgressResponse(
      * Error summary. This is only included with a phase property value of failed. One of:
      * &#x60;1&#x60;: An internal error occurred. &#x60;2&#x60;: An error occurred because there
      * weren&#39;t enough recipients. &#x60;3&#x60;: A conflict error of requests occurs because a
-     * request that has already been accepted is retried.
+     * request that has already been accepted is retried. &#x60;4&#x60;: An audience of less than 50
+     * recipients is included as a condition of sending.
      */
     @JsonProperty("errorCode") Long errorCode,
     /**
