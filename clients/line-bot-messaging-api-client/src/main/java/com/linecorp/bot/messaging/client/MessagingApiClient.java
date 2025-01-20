@@ -23,7 +23,6 @@ package com.linecorp.bot.messaging.client;
 import com.linecorp.bot.client.base.ApiAuthenticatedClientBuilder;
 import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.client.base.channel.ChannelTokenSupplier;
-import com.linecorp.bot.messaging.model.AudienceMatchMessagesRequest;
 import com.linecorp.bot.messaging.model.BotInfoResponse;
 import com.linecorp.bot.messaging.model.BroadcastRequest;
 import com.linecorp.bot.messaging.model.CreateRichMenuAliasRequest;
@@ -76,17 +75,6 @@ import retrofit2.http.*;
 
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public interface MessagingApiClient {
-
-  /**
-   * Send a message using phone number
-   *
-   * @param audienceMatchMessagesRequest (required)
-   * @see <a href="https://developers.line.biz/en/reference/partner-docs/#phone-audience-match">
-   *     Documentation</a>
-   */
-  @POST("/bot/ad/multicast/phone")
-  CompletableFuture<Result<Void>> audienceMatch(
-      @Body AudienceMatchMessagesRequest audienceMatchMessagesRequest);
 
   /**
    * Sends a message to multiple users at any time.
