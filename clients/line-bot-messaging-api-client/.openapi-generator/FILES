@@ -9,7 +9,6 @@ src/main/java/com/linecorp/bot/messaging/model/AppTypeDemographic.java
 src/main/java/com/linecorp/bot/messaging/model/AppTypeDemographicFilter.java
 src/main/java/com/linecorp/bot/messaging/model/AreaDemographic.java
 src/main/java/com/linecorp/bot/messaging/model/AreaDemographicFilter.java
-src/main/java/com/linecorp/bot/messaging/model/AudienceMatchMessagesRequest.java
 src/main/java/com/linecorp/bot/messaging/model/AudienceRecipient.java
 src/main/java/com/linecorp/bot/messaging/model/AudioMessage.java
 src/main/java/com/linecorp/bot/messaging/model/BotInfoResponse.java
