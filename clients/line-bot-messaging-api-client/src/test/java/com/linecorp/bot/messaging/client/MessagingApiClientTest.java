@@ -277,34 +277,6 @@ public class MessagingApiClientTest {
   }
 
   @Test
-  public void getAdPhoneMessageStatisticsTest() {
-    stubFor(
-        get(urlPathTemplate("/v2/bot/message/delivery/ad_phone"))
-            .willReturn(
-                aResponse()
-                    .withStatus(200)
-                    .withHeader("content-type", "application/json")
-                    .withBody("{}")));
-
-    String date =
-        Arranger.some(
-            String.class,
-            Map.of(
-                "message",
-                () -> new TextMessage("hello"),
-                "recipient",
-                () -> null,
-                "filter",
-                () -> null));
-
-    NumberOfMessagesResponse response = api.getAdPhoneMessageStatistics(date).join().body();
-
-    assertThat(response).isNotNull();
-
-    // TODO: test validations
-  }
-
-  @Test
   public void getAggregationUnitNameListTest() {
     stubFor(
         get(urlPathTemplate("/v2/bot/message/aggregation/list"))

@@ -144,18 +144,6 @@ public interface MessagingApiClient {
       @Path("richMenuAliasId") String richMenuAliasId);
 
   /**
-   * Get result of message delivery using phone number
-   *
-   * @param date Date the message was sent Format: &#x60;yyyyMMdd&#x60; (e.g. &#x60;20190831&#x60;)
-   *     Time Zone: UTC+9 (required)
-   * @see <a href="https://developers.line.biz/en/reference/partner-docs/#get-phone-audience-match">
-   *     Documentation</a>
-   */
-  @GET("/v2/bot/message/delivery/ad_phone")
-  CompletableFuture<Result<NumberOfMessagesResponse>> getAdPhoneMessageStatistics(
-      @Query("date") String date);
-
-  /**
    * Get name list of units used this month
    *
    * @param limit The maximum number of aggregation units you can get per request. (optional)
