@@ -44,7 +44,7 @@ junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", vers
 jsonassert = { module = "org.skyscreamer:jsonassert", version = "1.5.3" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
-wiremock = { group = "org.wiremock", name = "wiremock-standalone", version = "3.10.0" }
+wiremock = { group = "org.wiremock", name = "wiremock-standalone", version = "3.11.0" }
 test-arranger = { module = "com.ocadotechnology.gembus:test-arranger", version = "1.5.7.1" }
 socks-proxy-server = { module = "com.github.bbottema:java-socks-proxy-server", version = "4.1.2" }
 littleproxy = { module = "xyz.rogfam:littleproxy", version = "2.2.0" }
