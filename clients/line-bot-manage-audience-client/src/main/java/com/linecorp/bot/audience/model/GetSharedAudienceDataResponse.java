@@ -35,7 +35,7 @@ import java.util.List;
  */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
-public record GetAudienceDataResponse(
+public record GetSharedAudienceDataResponse(
     /** Get audienceGroup */
     @JsonProperty("audienceGroup") AudienceGroup audienceGroup,
     /**
@@ -44,13 +44,13 @@ public record GetAudienceDataResponse(
      * audience. Max: 50
      */
     @JsonProperty("jobs") List<AudienceGroupJob> jobs,
-    /** Get adaccount */
-    @JsonProperty("adaccount") Adaccount adaccount) {
+    /** Get owner */
+    @JsonProperty("owner") DetailedOwner owner) {
 
   public static class Builder {
     private AudienceGroup audienceGroup;
     private List<AudienceGroupJob> jobs;
-    private Adaccount adaccount;
+    private DetailedOwner owner;
 
     public Builder() {}
 
@@ -64,13 +64,13 @@ public record GetAudienceDataResponse(
       return this;
     }
 
-    public Builder adaccount(Adaccount adaccount) {
-      this.adaccount = adaccount;
+    public Builder owner(DetailedOwner owner) {
+      this.owner = owner;
       return this;
     }
 
-    public GetAudienceDataResponse build() {
-      return new GetAudienceDataResponse(audienceGroup, jobs, adaccount);
+    public GetSharedAudienceDataResponse build() {
+      return new GetSharedAudienceDataResponse(audienceGroup, jobs, owner);
     }
   }
 }

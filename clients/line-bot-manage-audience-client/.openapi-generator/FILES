@@ -1,5 +1,6 @@
 src/main/java/com/linecorp/bot/audience/client/ManageAudienceBlobClient.java
 src/main/java/com/linecorp/bot/audience/client/ManageAudienceClient.java
+src/main/java/com/linecorp/bot/audience/model/Adaccount.java
 src/main/java/com/linecorp/bot/audience/model/AddAudienceToAudienceGroupRequest.java
 src/main/java/com/linecorp/bot/audience/model/Audience.java
 src/main/java/com/linecorp/bot/audience/model/AudienceGroup.java
@@ -19,10 +20,13 @@ src/main/java/com/linecorp/bot/audience/model/CreateClickBasedAudienceGroupReque
 src/main/java/com/linecorp/bot/audience/model/CreateClickBasedAudienceGroupResponse.java
 src/main/java/com/linecorp/bot/audience/model/CreateImpBasedAudienceGroupRequest.java
 src/main/java/com/linecorp/bot/audience/model/CreateImpBasedAudienceGroupResponse.java
+src/main/java/com/linecorp/bot/audience/model/DetailedOwner.java
 src/main/java/com/linecorp/bot/audience/model/ErrorDetail.java
 src/main/java/com/linecorp/bot/audience/model/ErrorResponse.java
 src/main/java/com/linecorp/bot/audience/model/GetAudienceDataResponse.java
 src/main/java/com/linecorp/bot/audience/model/GetAudienceGroupAuthorityLevelResponse.java
 src/main/java/com/linecorp/bot/audience/model/GetAudienceGroupsResponse.java
+src/main/java/com/linecorp/bot/audience/model/GetSharedAudienceDataResponse.java
+src/main/java/com/linecorp/bot/audience/model/GetSharedAudienceGroupsResponse.java
 src/main/java/com/linecorp/bot/audience/model/UpdateAudienceGroupAuthorityLevelRequest.java
 src/main/java/com/linecorp/bot/audience/model/UpdateAudienceGroupDescriptionRequest.java

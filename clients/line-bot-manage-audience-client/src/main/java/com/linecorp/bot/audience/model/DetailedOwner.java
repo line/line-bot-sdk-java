@@ -25,52 +25,42 @@ package com.linecorp.bot.audience.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 
-/**
- * Get audience data
- *
- * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-audience-group">
- *     Documentation</a>
- */
+/** Owner of this audience group. */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
-public record GetAudienceDataResponse(
-    /** Get audienceGroup */
-    @JsonProperty("audienceGroup") AudienceGroup audienceGroup,
-    /**
-     * An array of jobs. This array is used to keep track of each attempt to add new user IDs or
-     * IFAs to an audience for uploading user IDs. Empty array is returned for any other type of
-     * audience. Max: 50
-     */
-    @JsonProperty("jobs") List<AudienceGroupJob> jobs,
-    /** Get adaccount */
-    @JsonProperty("adaccount") Adaccount adaccount) {
+public record DetailedOwner(
+    /** Service name where the audience group has been created. */
+    @JsonProperty("serviceType") String serviceType,
+    /** Owner ID in the service. */
+    @JsonProperty("id") String id,
+    /** Owner account name. */
+    @JsonProperty("name") String name) {
 
   public static class Builder {
-    private AudienceGroup audienceGroup;
-    private List<AudienceGroupJob> jobs;
-    private Adaccount adaccount;
+    private String serviceType;
+    private String id;
+    private String name;
 
     public Builder() {}
 
-    public Builder audienceGroup(AudienceGroup audienceGroup) {
-      this.audienceGroup = audienceGroup;
+    public Builder serviceType(String serviceType) {
+      this.serviceType = serviceType;
       return this;
     }
 
-    public Builder jobs(List<AudienceGroupJob> jobs) {
-      this.jobs = jobs;
+    public Builder id(String id) {
+      this.id = id;
       return this;
     }
 
-    public Builder adaccount(Adaccount adaccount) {
-      this.adaccount = adaccount;
+    public Builder name(String name) {
+      this.name = name;
       return this;
     }
 
-    public GetAudienceDataResponse build() {
-      return new GetAudienceDataResponse(audienceGroup, jobs, adaccount);
+    public DetailedOwner build() {
+      return new DetailedOwner(serviceType, id, name);
     }
   }
 }
