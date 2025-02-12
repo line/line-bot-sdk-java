@@ -32,6 +32,8 @@ import com.linecorp.bot.audience.model.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.audience.model.GetAudienceDataResponse;
 import com.linecorp.bot.audience.model.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.audience.model.GetAudienceGroupsResponse;
+import com.linecorp.bot.audience.model.GetSharedAudienceDataResponse;
+import com.linecorp.bot.audience.model.GetSharedAudienceGroupsResponse;
 import com.linecorp.bot.audience.model.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.audience.model.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.client.base.ApiAuthenticatedClientBuilder;
@@ -164,6 +166,44 @@ public interface ManageAudienceClient {
       @Query("status") AudienceGroupStatus status,
       @Query("size") Long size,
       @Query("includesExternalPublicGroups") Boolean includesExternalPublicGroups,
+      @Query("createRoute") AudienceGroupCreateRoute createRoute);
+
+  /**
+   * Gets audience data.
+   *
+   * @param audienceGroupId The audience ID. (required)
+   * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-shared-audience">
+   *     Documentation</a>
+   */
+  @GET("/v2/bot/audienceGroup/shared/{audienceGroupId}")
+  CompletableFuture<Result<GetSharedAudienceDataResponse>> getSharedAudienceData(
+      @Path("audienceGroupId") Long audienceGroupId);
+
+  /**
+   * Gets data for more than one audience, including those shared by the Business Manager.
+   *
+   * @param page The page to return when getting (paginated) results. Must be 1 or higher.
+   *     (required)
+   * @param description The name of the audience(s) to return. You can search for partial matches.
+   *     This is case-insensitive, meaning AUDIENCE and audience are considered identical. If
+   *     omitted, the name of the audience(s) will not be used as a search criterion. (optional)
+   * @param status The status of the audience(s) to return. If omitted, the status of the
+   *     audience(s) will not be used as a search criterion. (optional)
+   * @param size The number of audiences per page. Default: 20 Max: 40 (optional)
+   * @param createRoute How the audience was created. If omitted, all audiences are included.
+   *     &#x60;OA_MANAGER&#x60;: Return only audiences created with LINE Official Account Manager
+   *     (opens new window). &#x60;MESSAGING_API&#x60;: Return only audiences created with Messaging
+   *     API. (optional)
+   * @see <a
+   *     href="https://developers.line.biz/en/reference/messaging-api/#get-shared-audience-list">
+   *     Documentation</a>
+   */
+  @GET("/v2/bot/audienceGroup/shared/list")
+  CompletableFuture<Result<GetSharedAudienceGroupsResponse>> getSharedAudienceGroups(
+      @Query("page") Long page,
+      @Query("description") String description,
+      @Query("status") AudienceGroupStatus status,
+      @Query("size") Long size,
       @Query("createRoute") AudienceGroupCreateRoute createRoute);
 
   /**
