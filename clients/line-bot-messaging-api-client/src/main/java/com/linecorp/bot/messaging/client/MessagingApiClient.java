@@ -29,6 +29,7 @@ import com.linecorp.bot.messaging.model.CreateRichMenuAliasRequest;
 import com.linecorp.bot.messaging.model.GetAggregationUnitNameListResponse;
 import com.linecorp.bot.messaging.model.GetAggregationUnitUsageResponse;
 import com.linecorp.bot.messaging.model.GetFollowersResponse;
+import com.linecorp.bot.messaging.model.GetJoinedMembershipUsersResponse;
 import com.linecorp.bot.messaging.model.GetMembershipSubscriptionResponse;
 import com.linecorp.bot.messaging.model.GetWebhookEndpointResponse;
 import com.linecorp.bot.messaging.model.GroupMemberCountResponse;
@@ -250,6 +251,24 @@ public interface MessagingApiClient {
    */
   @GET("/v2/bot/group/{groupId}/summary")
   CompletableFuture<Result<GroupSummaryResponse>> getGroupSummary(@Path("groupId") String groupId);
+
+  /**
+   * Get a list of user IDs who joined the membership.
+   *
+   * @param membershipId Membership plan ID. (required)
+   * @param start A continuation token to get next remaining membership user IDs. Returned only when
+   *     there are remaining user IDs that weren&#39;t returned in the userIds property in the
+   *     previous request. The continuation token expires in 24 hours (86,400 seconds). (optional)
+   * @param limit The max number of items to return for this API call. The value is set to 300 by
+   *     default, but the max acceptable value is 1000. (optional, default to 300)
+   * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-membership-user-ids">
+   *     Documentation</a>
+   */
+  @GET("/v2/bot/membership/{membershipId}/users/ids")
+  CompletableFuture<Result<GetJoinedMembershipUsersResponse>> getJoinedMembershipUsers(
+      @Path("membershipId") Integer membershipId,
+      @Query("start") String start,
+      @Query("limit") Integer limit);
 
   /**
    * Get a list of memberships.
