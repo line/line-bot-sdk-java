@@ -63,6 +63,7 @@ src/main/java/com/linecorp/bot/messaging/model/GenderDemographicFilter.java
 src/main/java/com/linecorp/bot/messaging/model/GetAggregationUnitNameListResponse.java
 src/main/java/com/linecorp/bot/messaging/model/GetAggregationUnitUsageResponse.java
 src/main/java/com/linecorp/bot/messaging/model/GetFollowersResponse.java
+src/main/java/com/linecorp/bot/messaging/model/GetJoinedMembershipUsersResponse.java
 src/main/java/com/linecorp/bot/messaging/model/GetMembershipSubscriptionResponse.java
 src/main/java/com/linecorp/bot/messaging/model/GetMessageContentTranscodingResponse.java
 src/main/java/com/linecorp/bot/messaging/model/GetWebhookEndpointResponse.java
