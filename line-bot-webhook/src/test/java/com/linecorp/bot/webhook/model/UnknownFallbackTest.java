@@ -50,7 +50,8 @@ class UnknownFallbackTest {
                 arguments(MessageContent.class, UnknownMessageContent.class),
                 arguments(ModuleContent.class, UnknownModuleContent.class),
                 arguments(Source.class, UnknownSource.class),
-                arguments(ThingsContent.class, UnknownThingsContent.class)
+                arguments(ThingsContent.class, UnknownThingsContent.class),
+                arguments(MembershipContent.class, UnknownMembershipContent.class)
         );
     }
 }
