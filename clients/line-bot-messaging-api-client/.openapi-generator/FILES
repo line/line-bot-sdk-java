@@ -153,6 +153,8 @@ src/main/java/com/linecorp/bot/messaging/model/TextMessage.java
 src/main/java/com/linecorp/bot/messaging/model/TextMessageV2.java
 src/main/java/com/linecorp/bot/messaging/model/URIAction.java
 src/main/java/com/linecorp/bot/messaging/model/URIImagemapAction.java
+src/main/java/com/linecorp/bot/messaging/model/UnknownMentionTarget.java
+src/main/java/com/linecorp/bot/messaging/model/UnknownSubstitutionObject.java
 src/main/java/com/linecorp/bot/messaging/model/UpdateRichMenuAliasRequest.java
 src/main/java/com/linecorp/bot/messaging/model/UserMentionTarget.java
 src/main/java/com/linecorp/bot/messaging/model/UserProfileResponse.java
