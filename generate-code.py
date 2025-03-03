@@ -1,9 +1,7 @@
 import os
-import re
 import subprocess
 import sys
 import urllib.request
-from datetime import datetime
 from pathlib import Path
 
 
@@ -68,73 +66,6 @@ def run_command(command):
 
     return proc.stdout.strip()
 
-# Get the current year
-current_year = datetime.now().year
-
-LICENSE_HEADER = f"""/*
- * Copyright {current_year} LINE Corporation
- *
- * LINE Corporation licenses this file to you under the Apache License,
- * version 2.0 (the "License"); you may not use this file except in compliance
- * with the License. You may obtain a copy of the License at:
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations
- * under the License.
- */
-"""
-
-CLASS_TEMPLATE = """package {package};
-
-public record {unknown_class_name}() implements {interface_name} {{
-}}
-"""
-
-def generate_unknown_classes(base_directories):
-    interface_pattern = re.compile(
-        r'defaultImpl = Unknown(\w+).class'
-    )
-    # List of interfaces for which an Unknown class should not be generated
-    excluded_interfaces = [
-        "Event", "MessageContent", "Message", "Action", "DemographicFilter",
-        "FlexBoxBackground", "FlexComponent", "FlexContainer", "ImagemapAction",
-        "Mentionee", "ModuleContent", "Recipient", "RichMenuBatchOperation",
-        "Source", "Template", "ThingsContent"
-    ]
-
-    for base_directory in base_directories:
-        for root, _, files in os.walk(base_directory):
-            for file in files:
-                if file.endswith('.java'):
-                    file_path = os.path.join(root, file)
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        content = f.read()
-
-                    match = interface_pattern.search(content)
-                    if match:
-                        interface_name = match.group(1)
-                        # Skip generation for excluded interfaces
-                        if interface_name in excluded_interfaces:
-                            continue
-                        unknown_class_name = f"Unknown{interface_name}"
-
-                        package_match = re.search(r'package\s+([\w\.]+);', content)
-                        package_name = package_match.group(1) if package_match else "default.package"
-
-                        unknown_class_file_path = os.path.join(root, f"{unknown_class_name}.java")
-                        with open(unknown_class_file_path, 'w', encoding='utf-8') as f:
-                            f.write(LICENSE_HEADER)
-                            f.write('\n')
-                            f.write(CLASS_TEMPLATE.format(
-                                package=package_name,
-                                unknown_class_name=unknown_class_name,
-                                interface_name=interface_name
-                            ))
-                        print(f"Generated {unknown_class_file_path}")
 
 def main():
     os.chdir("generator")
@@ -212,18 +143,6 @@ def main():
                 --additional-properties=openApiNullable=false
               '''
     run_command(command)
-
-    generate_unknown_classes([
-        './line-bot-webhook/src/main/java/com/linecorp/bot/webhook/model',
-        './clients/line-channel-access-token-client/src/main/java/com/linecorp/bot/oauth/model',
-        './clients/line-bot-insight-client/src/main/java/com/linecorp/bot/insight/model',
-        './clients/line-liff-client/src/main/java/com/linecorp/bot/liff/model',
-        './clients/line-bot-manage-audience-client/src/main/java/com/linecorp/bot/audience/model',
-        './clients/line-bot-messaging-api-client/src/main/java/com/linecorp/bot/messaging/model',
-        './clients/line-bot-module-attach-client/src/main/java/com/linecorp/bot/moduleattach/model',
-        './clients/line-bot-module-client/src/main/java/com/linecorp/bot/module/model',
-        './clients/line-bot-shop-client/src/main/java/com/linecorp/bot/shop/model',
-    ])
 
     run_google_java_format()
 

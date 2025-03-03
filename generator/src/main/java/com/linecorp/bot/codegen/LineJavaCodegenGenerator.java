@@ -22,9 +22,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -135,6 +137,72 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
         }
 
         return modelsMap;
+    }
+
+    @Override
+    public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
+        super.postProcessAllModels(objs);
+
+        Map<String, ModelsMap> additionalModels = new HashMap<>();
+
+        // List of interfaces for which an Unknown class should not be generated
+        List<String> excluded_interfaces = List.of(
+                "Event", "MessageContent", "Message", "Action", "DemographicFilter",
+                "FlexBoxBackground", "FlexComponent", "FlexContainer", "ImagemapAction",
+                "Mentionee", "ModuleContent", "Recipient", "RichMenuBatchOperation",
+                "Source", "Template", "ThingsContent"
+        );
+
+        // Set additional unknown* class for jackson's defaultImpl to have unknwon* class as fallback
+        for (ModelsMap modelsAttrs : objs.values()) {
+            String packageName = modelsAttrs.containsKey("packageName")
+                    ? modelsAttrs.get("packageName").toString()
+                    : null;
+            String _package = modelsAttrs.containsKey("package")
+                    ? modelsAttrs.get("package").toString()
+                    : packageName;
+
+            for (ModelMap mo : modelsAttrs.getModels()) {
+                CodegenModel codegenModel = mo.getModel();
+                if (codegenModel.discriminator != null) {
+                    String baseName = codegenModel.classname;
+
+                    // skip for excluded interfaces
+                    if (excluded_interfaces.contains(baseName)) {
+                        continue;
+                    }
+
+                    String fallbackModelName = "Unknown" + baseName;
+                    CodegenModel fallbackModel = new CodegenModel();
+                    fallbackModel.name = fallbackModelName;
+                    fallbackModel.schemaName = fallbackModelName;
+                    fallbackModel.parent = baseName;
+                    fallbackModel.interfaces = List.of(baseName);
+                    fallbackModel.allOf = Set.of(baseName);
+                    fallbackModel.classname = fallbackModelName;
+                    fallbackModel.classVarName = camelize(fallbackModelName);
+                    fallbackModel.dataType = baseName;
+                    fallbackModel.classFilename = fallbackModelName;
+                    fallbackModel.imports = Set.of(baseName);
+                    fallbackModel.setIsAnyType(true);
+                    addImplements(fallbackModel, baseName);
+                    ModelMap fallbackModelMap = new ModelMap();
+                    fallbackModelMap.setModel(fallbackModel);
+
+                    ModelsMap fallbackModelsMap = new ModelsMap();
+                    fallbackModelsMap.setModels(List.of(fallbackModelMap));
+                    fallbackModelsMap.setImports(List.of(Map.of("import", _package + "." + baseName)));
+                    fallbackModelsMap.put("packageName", packageName);
+                    fallbackModelsMap.put("package", _package);
+                    fallbackModelsMap.put("classname", fallbackModelName);
+
+                    additionalModels.put(fallbackModelName, fallbackModelsMap);
+                }
+            }
+        }
+        objs.putAll(additionalModels);
+
+        return objs;
     }
 
     private String readPartialBody(String path) {
