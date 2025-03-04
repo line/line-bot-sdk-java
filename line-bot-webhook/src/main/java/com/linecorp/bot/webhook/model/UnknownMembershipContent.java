@@ -22,19 +22,20 @@ package com.linecorp.bot.webhook.model;
 
 
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-/** Content of the membership event. */
-@JsonSubTypes({
-  @JsonSubTypes.Type(value = JoinedMembershipContent.class, name = "joined"),
-  @JsonSubTypes.Type(value = LeftMembershipContent.class, name = "left"),
-  @JsonSubTypes.Type(value = RenewedMembershipContent.class, name = "renewed"),
-})
-@JsonTypeInfo(
-    use = JsonTypeInfo.Id.NAME,
-    include = JsonTypeInfo.As.PROPERTY,
-    property = "type",
-    defaultImpl = UnknownMembershipContent.class,
-    visible = true)
-public interface MembershipContent {}
+/** UnknownMembershipContent */
+@JsonInclude(Include.NON_NULL)
+@javax.annotation.Generated(value = "")
+public record UnknownMembershipContent() implements MembershipContent {
+
+  public static class Builder {
+
+    public Builder() {}
+
+    public UnknownMembershipContent build() {
+      return new UnknownMembershipContent();
+    }
+  }
+}
