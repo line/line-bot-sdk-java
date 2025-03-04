@@ -145,8 +145,8 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
 
         Map<String, ModelsMap> additionalModels = new HashMap<>();
 
-        // List of interfaces for which an Unknown class should not be generated
-        List<String> excluded_interfaces = List.of(
+        // List of interfaces for which an Unknown class should not be generated for backward compatibility
+        List<String> definedInterfaces = List.of(
                 "Event", "MessageContent", "Message", "Action", "DemographicFilter",
                 "FlexBoxBackground", "FlexComponent", "FlexContainer", "ImagemapAction",
                 "Mentionee", "ModuleContent", "Recipient", "RichMenuBatchOperation",
@@ -168,7 +168,7 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
                     String baseName = codegenModel.classname;
 
                     // skip for excluded interfaces
-                    if (excluded_interfaces.contains(baseName)) {
+                    if (definedInterfaces.contains(baseName)) {
                         continue;
                     }
 
