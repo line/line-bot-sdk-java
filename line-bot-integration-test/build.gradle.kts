@@ -57,6 +57,8 @@ dependencies {
 
     testImplementation(libs.wiremock)
     testImplementation(libs.bundles.tests)
+    testImplementation(platform(libs.junit.bom))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation(libs.jul.to.slf4j)
 
     integrationTestImplementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))

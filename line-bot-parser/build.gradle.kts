@@ -27,4 +27,6 @@ dependencies {
     implementation(libs.slf4j.api)
 
     testImplementation(libs.bundles.tests)
+    testImplementation(platform(libs.junit.bom))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

@@ -32,6 +32,8 @@ dependencies {
 
     testImplementation(libs.wiremock)
     testImplementation(libs.bundles.tests)
+    testImplementation(platform(libs.junit.bom))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation(libs.socks.proxy.server)
     testImplementation(libs.littleproxy)
 }

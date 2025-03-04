@@ -33,6 +33,8 @@ dependencies {
     compileOnly(libs.jakarta.annotation.api)
 
     testImplementation(libs.bundles.tests)
+    testImplementation(platform(libs.junit.bom))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation(libs.wiremock)
     testImplementation(libs.jul.to.slf4j)
     testImplementation(libs.test.arranger)

@@ -26,6 +26,8 @@ dependencies {
     compileOnly(libs.jakarta.annotation.api)
 
     testImplementation(libs.bundles.tests)
+    testImplementation(platform(libs.junit.bom))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation(libs.jackson.databind)
     testImplementation(libs.wiremock)
 }
