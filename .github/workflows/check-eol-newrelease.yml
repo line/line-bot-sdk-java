@@ -25,8 +25,8 @@ jobs:
               languageName: 'Java',
               eolJsonUrl: 'https://endoflife.date/api/eclipse-temurin.json',
               eolViewUrl: 'https://endoflife.date/eclipse-temurin',
-              eolLookbackDays: 100,
-              newReleaseThresholdDays: 100,
+              eolLookbackDays: 1000,
+              newReleaseThresholdDays: 1000,
               ltsOnly: true,
               retryCount: 3,
               retryIntervalSec: 30
