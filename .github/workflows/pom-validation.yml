@@ -5,6 +5,8 @@ jobs:
     name: test (JDK ${{ matrix.java }})
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
