@@ -1,5 +1,10 @@
 name: pom validation
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+
 jobs:
   test:
     name: test (JDK ${{ matrix.java }})
