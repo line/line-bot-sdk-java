@@ -33,7 +33,6 @@ import com.linecorp.bot.audience.client.ManageAudienceClient;
 import com.linecorp.bot.audience.model.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.audience.model.Audience;
 import com.linecorp.bot.audience.model.AudienceGroup;
-import com.linecorp.bot.audience.model.AudienceGroupAuthorityLevel;
 import com.linecorp.bot.audience.model.AudienceGroupCreateRoute;
 import com.linecorp.bot.audience.model.CreateAudienceGroupRequest;
 import com.linecorp.bot.audience.model.CreateAudienceGroupResponse;
@@ -42,9 +41,7 @@ import com.linecorp.bot.audience.model.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.audience.model.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.audience.model.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.audience.model.GetAudienceDataResponse;
-import com.linecorp.bot.audience.model.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.audience.model.GetAudienceGroupsResponse;
-import com.linecorp.bot.audience.model.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.audience.model.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.client.utils.IntegrationTestSettings;
@@ -148,26 +145,5 @@ public class ManageAudienceIntegrationTest {
                     .isEqualTo(audienceGroup.audienceGroupId());
             log.info("id={} data={}", audienceGroup.audienceGroupId(), dataResponse);
         }
-    }
-
-    @Test
-    public void getAudienceGroupAuthorityLevel() throws ExecutionException, InterruptedException {
-        GetAudienceGroupAuthorityLevelResponse response = target
-                .getAudienceGroupAuthorityLevel()
-                .get().body();
-        log.info(response.toString());
-
-        AudienceGroupAuthorityLevel origLevel = response.authorityLevel();
-        AudienceGroupAuthorityLevel inverted = origLevel == AudienceGroupAuthorityLevel.PRIVATE
-                ? AudienceGroupAuthorityLevel.PUBLIC
-                : AudienceGroupAuthorityLevel.PRIVATE;
-
-        Result<Void> invertResponse = target.updateAudienceGroupAuthorityLevel(
-                new UpdateAudienceGroupAuthorityLevelRequest(inverted)).get();
-        log.info(invertResponse.toString());
-
-        Result<Void> revertResponse = target.updateAudienceGroupAuthorityLevel(
-                new UpdateAudienceGroupAuthorityLevelRequest(origLevel)).get();
-        log.info(revertResponse.toString());
     }
 }
