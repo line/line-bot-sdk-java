@@ -101,21 +101,6 @@ public class ManageAudienceClientTest {
     }
 
     @Test
-    public void activateAudienceGroupTest() {
-        stubFor(put(urlPathTemplate("/v2/bot/audienceGroup/{audienceGroupId}/activate")).willReturn(
-            aResponse()
-                .withStatus(200)
-                .withHeader("content-type", "application/json")
-                .withBody("{}")));
-
-            Long audienceGroupId = Arranger.some(Long.class);
-
-        api.activateAudienceGroup(audienceGroupId).join().body();
-
-        // TODO: test validations
-    }
-
-    @Test
     public void addAudienceToAudienceGroupTest() {
         stubFor(put(urlPathTemplate("/v2/bot/audienceGroup/upload")).willReturn(
             aResponse()
@@ -210,21 +195,6 @@ public class ManageAudienceClientTest {
     }
 
     @Test
-    public void getAudienceGroupAuthorityLevelTest() {
-        stubFor(get(urlPathTemplate("/v2/bot/audienceGroup/authorityLevel")).willReturn(
-            aResponse()
-                .withStatus(200)
-                .withHeader("content-type", "application/json")
-                .withBody("{}")));
-
-
-        GetAudienceGroupAuthorityLevelResponse response = api.getAudienceGroupAuthorityLevel().join().body();
-
-        assertThat(response).isNotNull();
-        // TODO: test validations
-    }
-
-    @Test
     public void getAudienceGroupsTest() {
         stubFor(get(urlPathTemplate("/v2/bot/audienceGroup/list")).willReturn(
             aResponse()
@@ -242,21 +212,6 @@ public class ManageAudienceClientTest {
         GetAudienceGroupsResponse response = api.getAudienceGroups(page, description, status, size, includesExternalPublicGroups, createRoute).join().body();
 
         assertThat(response).isNotNull();
-        // TODO: test validations
-    }
-
-    @Test
-    public void updateAudienceGroupAuthorityLevelTest() {
-        stubFor(put(urlPathTemplate("/v2/bot/audienceGroup/authorityLevel")).willReturn(
-            aResponse()
-                .withStatus(200)
-                .withHeader("content-type", "application/json")
-                .withBody("{}")));
-
-            UpdateAudienceGroupAuthorityLevelRequest updateAudienceGroupAuthorityLevelRequest = Arranger.some(UpdateAudienceGroupAuthorityLevelRequest.class);
-
-        api.updateAudienceGroupAuthorityLevel(updateAudienceGroupAuthorityLevelRequest).join().body();
-
         // TODO: test validations
     }
 
