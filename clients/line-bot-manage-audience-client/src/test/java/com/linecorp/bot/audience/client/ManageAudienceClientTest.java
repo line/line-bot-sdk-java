@@ -21,25 +21,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.put;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
-import static com.github.tomakehurst.wiremock.client.WireMock.putRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
-import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
-import com.linecorp.bot.client.base.BlobContent;
-import com.linecorp.bot.client.base.UploadFile;
-
 import java.net.URI;
-
-import java.util.Map;
-
 
 import com.linecorp.bot.audience.model.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.audience.model.AudienceGroupCreateRoute;
@@ -50,23 +40,16 @@ import com.linecorp.bot.audience.model.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.audience.model.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.audience.model.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.audience.model.CreateImpBasedAudienceGroupResponse;
-import com.linecorp.bot.audience.model.ErrorResponse;
 import com.linecorp.bot.audience.model.GetAudienceDataResponse;
-import com.linecorp.bot.audience.model.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.audience.model.GetAudienceGroupsResponse;
-import com.linecorp.bot.audience.model.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.audience.model.UpdateAudienceGroupDescriptionRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.ocadotechnology.gembus.test.Arranger;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
