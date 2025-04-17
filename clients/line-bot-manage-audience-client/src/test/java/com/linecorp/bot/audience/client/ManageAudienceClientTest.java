@@ -21,25 +21,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.put;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
-import static com.github.tomakehurst.wiremock.client.WireMock.putRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
-import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
-import com.linecorp.bot.client.base.BlobContent;
-import com.linecorp.bot.client.base.UploadFile;
-
 import java.net.URI;
-
-import java.util.Map;
-
 
 import com.linecorp.bot.audience.model.AddAudienceToAudienceGroupRequest;
 import com.linecorp.bot.audience.model.AudienceGroupCreateRoute;
@@ -50,23 +40,16 @@ import com.linecorp.bot.audience.model.CreateClickBasedAudienceGroupRequest;
 import com.linecorp.bot.audience.model.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.audience.model.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.audience.model.CreateImpBasedAudienceGroupResponse;
-import com.linecorp.bot.audience.model.ErrorResponse;
 import com.linecorp.bot.audience.model.GetAudienceDataResponse;
-import com.linecorp.bot.audience.model.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.audience.model.GetAudienceGroupsResponse;
-import com.linecorp.bot.audience.model.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.audience.model.UpdateAudienceGroupDescriptionRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.ocadotechnology.gembus.test.Arranger;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
@@ -98,21 +81,6 @@ public class ManageAudienceClientTest {
     @AfterEach
     public void tearDown() {
         wireMockServer.stop();
-    }
-
-    @Test
-    public void activateAudienceGroupTest() {
-        stubFor(put(urlPathTemplate("/v2/bot/audienceGroup/{audienceGroupId}/activate")).willReturn(
-            aResponse()
-                .withStatus(200)
-                .withHeader("content-type", "application/json")
-                .withBody("{}")));
-
-            Long audienceGroupId = Arranger.some(Long.class);
-
-        api.activateAudienceGroup(audienceGroupId).join().body();
-
-        // TODO: test validations
     }
 
     @Test
@@ -210,21 +178,6 @@ public class ManageAudienceClientTest {
     }
 
     @Test
-    public void getAudienceGroupAuthorityLevelTest() {
-        stubFor(get(urlPathTemplate("/v2/bot/audienceGroup/authorityLevel")).willReturn(
-            aResponse()
-                .withStatus(200)
-                .withHeader("content-type", "application/json")
-                .withBody("{}")));
-
-
-        GetAudienceGroupAuthorityLevelResponse response = api.getAudienceGroupAuthorityLevel().join().body();
-
-        assertThat(response).isNotNull();
-        // TODO: test validations
-    }
-
-    @Test
     public void getAudienceGroupsTest() {
         stubFor(get(urlPathTemplate("/v2/bot/audienceGroup/list")).willReturn(
             aResponse()
@@ -242,21 +195,6 @@ public class ManageAudienceClientTest {
         GetAudienceGroupsResponse response = api.getAudienceGroups(page, description, status, size, includesExternalPublicGroups, createRoute).join().body();
 
         assertThat(response).isNotNull();
-        // TODO: test validations
-    }
-
-    @Test
-    public void updateAudienceGroupAuthorityLevelTest() {
-        stubFor(put(urlPathTemplate("/v2/bot/audienceGroup/authorityLevel")).willReturn(
-            aResponse()
-                .withStatus(200)
-                .withHeader("content-type", "application/json")
-                .withBody("{}")));
-
-            UpdateAudienceGroupAuthorityLevelRequest updateAudienceGroupAuthorityLevelRequest = Arranger.some(UpdateAudienceGroupAuthorityLevelRequest.class);
-
-        api.updateAudienceGroupAuthorityLevel(updateAudienceGroupAuthorityLevelRequest).join().body();
-
         // TODO: test validations
     }
 
