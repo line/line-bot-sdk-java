@@ -30,11 +30,9 @@ import com.linecorp.bot.audience.model.CreateClickBasedAudienceGroupResponse;
 import com.linecorp.bot.audience.model.CreateImpBasedAudienceGroupRequest;
 import com.linecorp.bot.audience.model.CreateImpBasedAudienceGroupResponse;
 import com.linecorp.bot.audience.model.GetAudienceDataResponse;
-import com.linecorp.bot.audience.model.GetAudienceGroupAuthorityLevelResponse;
 import com.linecorp.bot.audience.model.GetAudienceGroupsResponse;
 import com.linecorp.bot.audience.model.GetSharedAudienceDataResponse;
 import com.linecorp.bot.audience.model.GetSharedAudienceGroupsResponse;
-import com.linecorp.bot.audience.model.UpdateAudienceGroupAuthorityLevelRequest;
 import com.linecorp.bot.audience.model.UpdateAudienceGroupDescriptionRequest;
 import com.linecorp.bot.client.base.ApiAuthenticatedClientBuilder;
 import com.linecorp.bot.client.base.Result;
@@ -45,17 +43,6 @@ import retrofit2.http.*;
 
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public interface ManageAudienceClient {
-
-  /**
-   * Activate audience
-   *
-   * @param audienceGroupId The audience ID. (required)
-   * @see <a href="https://developers.line.biz/en/reference/messaging-api/#activate-audience-group">
-   *     Documentation</a>
-   */
-  @PUT("/v2/bot/audienceGroup/{audienceGroupId}/activate")
-  CompletableFuture<Result<Void>> activateAudienceGroup(
-      @Path("audienceGroupId") Long audienceGroupId);
 
   /**
    * Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by
@@ -129,16 +116,6 @@ public interface ManageAudienceClient {
       @Path("audienceGroupId") Long audienceGroupId);
 
   /**
-   * Get the authority level of the audience
-   *
-   * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-authority-level">
-   *     Documentation</a>
-   */
-  @GET("/v2/bot/audienceGroup/authorityLevel")
-  CompletableFuture<Result<GetAudienceGroupAuthorityLevelResponse>>
-      getAudienceGroupAuthorityLevel();
-
-  /**
    * Gets data for more than one audience.
    *
    * @param page The page to return when getting (paginated) results. Must be 1 or higher.
@@ -194,6 +171,9 @@ public interface ManageAudienceClient {
    *     &#x60;OA_MANAGER&#x60;: Return only audiences created with LINE Official Account Manager
    *     (opens new window). &#x60;MESSAGING_API&#x60;: Return only audiences created with Messaging
    *     API. (optional)
+   * @param includesOwnedAudienceGroups true: Include audienceGroups owned by LINE Official Account
+   *     Manager false: Respond only audienceGroups shared by Business Manager (optional, default to
+   *     false)
    * @see <a
    *     href="https://developers.line.biz/en/reference/messaging-api/#get-shared-audience-list">
    *     Documentation</a>
@@ -204,18 +184,8 @@ public interface ManageAudienceClient {
       @Query("description") String description,
       @Query("status") AudienceGroupStatus status,
       @Query("size") Long size,
-      @Query("createRoute") AudienceGroupCreateRoute createRoute);
-
-  /**
-   * Change the authority level of the audience
-   *
-   * @param updateAudienceGroupAuthorityLevelRequest (required)
-   * @see <a href="https://developers.line.biz/en/reference/messaging-api/#change-authority-level">
-   *     Documentation</a>
-   */
-  @PUT("/v2/bot/audienceGroup/authorityLevel")
-  CompletableFuture<Result<Void>> updateAudienceGroupAuthorityLevel(
-      @Body UpdateAudienceGroupAuthorityLevelRequest updateAudienceGroupAuthorityLevelRequest);
+      @Query("createRoute") AudienceGroupCreateRoute createRoute,
+      @Query("includesOwnedAudienceGroups") Boolean includesOwnedAudienceGroups);
 
   /**
    * Renames an existing audience.
