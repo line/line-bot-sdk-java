@@ -4,6 +4,7 @@ jjwt = "0.12.6"
 jackson = "2.18.3"
 assertj = "3.27.3"
 junit = "5.12.2"
+junitPlatformLauncher = "1.12.2"
 slf4j = "2.0.17"
 mockito = "5.17.0"
 okhttp3 = "4.12.0"
@@ -41,6 +42,7 @@ assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatformLauncher" }
 jsonassert = { module = "org.skyscreamer:jsonassert", version = "1.5.3" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
@@ -53,7 +55,7 @@ littleproxy = { module = "xyz.rogfam:littleproxy", version = "2.2.0" }
 retrofit2 = ["retrofit2-converter-jackson", "retrofit2-retrofit"]
 tests = [
     "assertj-core",
-    "junit-jupiter-api", "junit-jupiter-params", "junit-jupiter-engine",
+    "junit-jupiter-api", "junit-jupiter-params", "junit-jupiter-engine", "junit-platform-launcher",
     "slf4j-api", "logback",
     "mockito-core", "mockito-junit-jupiter",
 ]
