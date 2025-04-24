@@ -26,7 +26,6 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 
 /**
  * Create audience for uploading user IDs (by JSON)
@@ -57,7 +56,7 @@ public record CreateAudienceGroupResponse(
      */
     @JsonProperty("permission") Permission permission,
     /** Time of audience expiration. Only returned for specific audiences. */
-    @JsonProperty("expireTimestamp") BigDecimal expireTimestamp,
+    @JsonProperty("expireTimestamp") Long expireTimestamp,
     /**
      * The value indicating the type of account to be sent, as specified when creating the audience
      * for uploading user IDs. One of: &#x60;true&#x60;: Accounts are specified with IFAs.
@@ -98,7 +97,7 @@ public record CreateAudienceGroupResponse(
     private String description;
     private Long created;
     private Permission permission;
-    private BigDecimal expireTimestamp;
+    private Long expireTimestamp;
     private Boolean isIfaAudience;
 
     public Builder() {}
@@ -133,7 +132,7 @@ public record CreateAudienceGroupResponse(
       return this;
     }
 
-    public Builder expireTimestamp(BigDecimal expireTimestamp) {
+    public Builder expireTimestamp(Long expireTimestamp) {
       this.expireTimestamp = expireTimestamp;
       return this;
     }
