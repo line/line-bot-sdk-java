@@ -1,5 +1,5 @@
 [versions]
-retrofit2 = "2.11.0"
+retrofit2 = "3.0.0"
 jjwt = "0.12.6"
 jackson = "2.19.0"
 assertj = "3.27.3"
