@@ -34,14 +34,17 @@ public class WebhookParser {
 
     private final ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
     private final SignatureValidator signatureValidator;
+    private final SkipSignatureVerificationSupplier skipSignatureVerificationSupplier;
 
     /**
      * Creates a new instance.
      *
      * @param signatureValidator LINE messaging API's signature validator
      */
-    public WebhookParser(SignatureValidator signatureValidator) {
+    public WebhookParser(SignatureValidator signatureValidator,
+                         SkipSignatureVerificationSupplier skipSignatureVerificationSupplier) {
         this.signatureValidator = requireNonNull(signatureValidator);
+        this.skipSignatureVerificationSupplier = requireNonNull(skipSignatureVerificationSupplier);
     }
 
     /**
@@ -62,7 +65,8 @@ public class WebhookParser {
             log.debug("got: {}", new String(payload, StandardCharsets.UTF_8));
         }
 
-        if (!signatureValidator.validateSignature(payload, signature)) {
+        if (!skipSignatureVerificationSupplier.getAsBoolean()
+            && !signatureValidator.validateSignature(payload, signature)) {
             throw new WebhookParseException("Invalid API signature");
         }
 

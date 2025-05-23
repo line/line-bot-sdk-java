@@ -18,6 +18,8 @@ package com.linecorp.bot.parser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.InputStream;
@@ -48,11 +50,23 @@ public class WebhookParserTest {
         }
     }
 
+    @Mock
+    private final SkipSignatureVerificationSupplier skipSignatureVerificationSupplier =
+            new MockSkipSignatureVerificationSupplier();
+
+    static class MockSkipSignatureVerificationSupplier
+            implements SkipSignatureVerificationSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return false;
+        }
+    }
+
     private WebhookParser parser;
 
     @BeforeEach
     public void before() {
-        parser = new WebhookParser(signatureValidator);
+        parser = new WebhookParser(signatureValidator, skipSignatureVerificationSupplier);
     }
 
     @Test
@@ -105,5 +119,34 @@ public class WebhookParserTest {
         assertThat(followedUserId).isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
         assertThat(messageEvent.timestamp()).isEqualTo(
                 Instant.parse("2016-05-07T13:57:59.859Z").toEpochMilli());
+    }
+
+    @Test
+    public void testSkipSignatureVerification() throws Exception {
+        final InputStream resource = getClass().getClassLoader().getResourceAsStream(
+                "callback-request.json");
+        final byte[] payload = resource.readAllBytes();
+
+        when(skipSignatureVerificationSupplier.getAsBoolean()).thenReturn(true);
+        verify(signatureValidator, never()).validateSignature(payload, "SSSSIGNATURE");
+
+        // assert no interaction with signatureValidator
+
+        final CallbackRequest callbackRequest = parser.handle("SSSSIGNATURE", payload);
+
+        assertThat(callbackRequest).isNotNull();
+
+        final List<Event> result = callbackRequest.events();
+
+        @SuppressWarnings("rawtypes")
+        final MessageEvent messageEvent = (MessageEvent) result.get(0);
+        final TextMessageContent text = (TextMessageContent) messageEvent.message();
+        assertThat(text.text()).isEqualTo("Hello, world");
+
+        final String followedUserId = messageEvent.source().userId();
+        assertThat(followedUserId).isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+        assertThat(messageEvent.timestamp()).isEqualTo(
+                Instant.parse("2016-05-07T13:57:59.859Z").toEpochMilli());
+
     }
 }
