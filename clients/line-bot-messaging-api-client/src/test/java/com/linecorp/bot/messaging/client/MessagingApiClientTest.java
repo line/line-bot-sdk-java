@@ -32,13 +32,13 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.linecorp.bot.messaging.model.AudienceMatchMessagesRequest;
 import com.linecorp.bot.messaging.model.BotInfoResponse;
 import com.linecorp.bot.messaging.model.BroadcastRequest;
 import com.linecorp.bot.messaging.model.CreateRichMenuAliasRequest;
 import com.linecorp.bot.messaging.model.GetAggregationUnitNameListResponse;
 import com.linecorp.bot.messaging.model.GetAggregationUnitUsageResponse;
 import com.linecorp.bot.messaging.model.GetFollowersResponse;
+import com.linecorp.bot.messaging.model.GetJoinedMembershipUsersResponse;
 import com.linecorp.bot.messaging.model.GetMembershipSubscriptionResponse;
 import com.linecorp.bot.messaging.model.GetWebhookEndpointResponse;
 import com.linecorp.bot.messaging.model.GroupMemberCountResponse;
@@ -115,32 +115,6 @@ public class MessagingApiClientTest {
   @AfterEach
   public void tearDown() {
     wireMockServer.stop();
-  }
-
-  @Test
-  public void audienceMatchTest() {
-    stubFor(
-        post(urlPathTemplate("/bot/ad/multicast/phone"))
-            .willReturn(
-                aResponse()
-                    .withStatus(200)
-                    .withHeader("content-type", "application/json")
-                    .withBody("{}")));
-
-    AudienceMatchMessagesRequest audienceMatchMessagesRequest =
-        Arranger.some(
-            AudienceMatchMessagesRequest.class,
-            Map.of(
-                "message",
-                () -> new TextMessage("hello"),
-                "recipient",
-                () -> null,
-                "filter",
-                () -> null));
-
-    api.audienceMatch(audienceMatchMessagesRequest).join().body();
-
-    // TODO: test validations
   }
 
   @Test
@@ -299,34 +273,6 @@ public class MessagingApiClientTest {
                 () -> null));
 
     api.deleteRichMenuAlias(richMenuAliasId).join().body();
-
-    // TODO: test validations
-  }
-
-  @Test
-  public void getAdPhoneMessageStatisticsTest() {
-    stubFor(
-        get(urlPathTemplate("/v2/bot/message/delivery/ad_phone"))
-            .willReturn(
-                aResponse()
-                    .withStatus(200)
-                    .withHeader("content-type", "application/json")
-                    .withBody("{}")));
-
-    String date =
-        Arranger.some(
-            String.class,
-            Map.of(
-                "message",
-                () -> new TextMessage("hello"),
-                "recipient",
-                () -> null,
-                "filter",
-                () -> null));
-
-    NumberOfMessagesResponse response = api.getAdPhoneMessageStatistics(date).join().body();
-
-    assertThat(response).isNotNull();
 
     // TODO: test validations
   }
@@ -589,6 +535,57 @@ public class MessagingApiClientTest {
                 () -> null));
 
     GroupSummaryResponse response = api.getGroupSummary(groupId).join().body();
+
+    assertThat(response).isNotNull();
+
+    // TODO: test validations
+  }
+
+  @Test
+  public void getJoinedMembershipUsersTest() {
+    stubFor(
+        get(urlPathTemplate("/v2/bot/membership/{membershipId}/users/ids"))
+            .willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("content-type", "application/json")
+                    .withBody("{}")));
+
+    Integer membershipId =
+        Arranger.some(
+            Integer.class,
+            Map.of(
+                "message",
+                () -> new TextMessage("hello"),
+                "recipient",
+                () -> null,
+                "filter",
+                () -> null));
+
+    String start =
+        Arranger.some(
+            String.class,
+            Map.of(
+                "message",
+                () -> new TextMessage("hello"),
+                "recipient",
+                () -> null,
+                "filter",
+                () -> null));
+
+    Integer limit =
+        Arranger.some(
+            Integer.class,
+            Map.of(
+                "message",
+                () -> new TextMessage("hello"),
+                "recipient",
+                () -> null,
+                "filter",
+                () -> null));
+
+    GetJoinedMembershipUsersResponse response =
+        api.getJoinedMembershipUsers(membershipId, start, limit).join().body();
 
     assertThat(response).isNotNull();
 

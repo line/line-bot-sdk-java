@@ -22,18 +22,20 @@ package com.linecorp.bot.messaging.model;
 
 
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-/** MentionTarget */
-@JsonSubTypes({
-  @JsonSubTypes.Type(value = AllMentionTarget.class, name = "all"),
-  @JsonSubTypes.Type(value = UserMentionTarget.class, name = "user"),
-})
-@JsonTypeInfo(
-    use = JsonTypeInfo.Id.NAME,
-    include = JsonTypeInfo.As.PROPERTY,
-    property = "type",
-    defaultImpl = UnknownMentionTarget.class,
-    visible = true)
-public interface MentionTarget {}
+/** UnknownSubstitutionObject */
+@JsonInclude(Include.NON_NULL)
+@javax.annotation.Generated(value = "")
+public record UnknownSubstitutionObject() implements SubstitutionObject {
+
+  public static class Builder {
+
+    public Builder() {}
+
+    public UnknownSubstitutionObject build() {
+      return new UnknownSubstitutionObject();
+    }
+  }
+}

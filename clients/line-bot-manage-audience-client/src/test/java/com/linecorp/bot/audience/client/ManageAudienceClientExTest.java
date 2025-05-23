@@ -70,46 +70,6 @@ public class ManageAudienceClientExTest {
     }
 
     @Test
-    public void headerInterceptor() {
-        stubFor(put(urlEqualTo("/v2/bot/audienceGroup/4649/activate")).willReturn(
-                aResponse()
-                        .withStatus(200)
-                        .withHeader("content-type", "application/json")
-                        .withBody("{}")));
-
-        // Do
-        target.activateAudienceGroup(4649L)
-                .join();
-
-        // Verify
-        verify(
-                putRequestedFor(
-                        urlEqualTo("/v2/bot/audienceGroup/4649/activate")
-                ).withHeader("Authorization", equalTo("Bearer MY_OWN_TOKEN"))
-        );
-    }
-
-    @Test
-    public void activateAudienceGroup() {
-        stubFor(put(urlEqualTo("/v2/bot/audienceGroup/4649/activate")).willReturn(
-                aResponse()
-                        .withStatus(200)
-                        .withHeader("content-type", "application/json")
-                        .withBody("{}")));
-
-        // Do
-        target.activateAudienceGroup(4649L)
-                .join();
-
-        // Verify
-        verify(
-                putRequestedFor(
-                        urlEqualTo("/v2/bot/audienceGroup/4649/activate")
-                )
-        );
-    }
-
-    @Test
     public void addAudienceToAudienceGroup() {
         stubFor(put(urlEqualTo("/v2/bot/audienceGroup/upload")).willReturn(
                 aResponse()

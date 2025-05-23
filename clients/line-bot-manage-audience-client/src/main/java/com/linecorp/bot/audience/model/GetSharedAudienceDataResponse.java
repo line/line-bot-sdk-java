@@ -25,31 +25,52 @@ package com.linecorp.bot.audience.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
 /**
- * Get the authority level of the audience
+ * Get audience data
  *
- * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-authority-level">
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-audience-group">
  *     Documentation</a>
  */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
-public record GetAudienceGroupAuthorityLevelResponse(
-    /** Get authorityLevel */
-    @JsonProperty("authorityLevel") AudienceGroupAuthorityLevel authorityLevel) {
+public record GetSharedAudienceDataResponse(
+    /** Get audienceGroup */
+    @JsonProperty("audienceGroup") AudienceGroup audienceGroup,
+    /**
+     * An array of jobs. This array is used to keep track of each attempt to add new user IDs or
+     * IFAs to an audience for uploading user IDs. Empty array is returned for any other type of
+     * audience. Max: 50
+     */
+    @JsonProperty("jobs") List<AudienceGroupJob> jobs,
+    /** Get owner */
+    @JsonProperty("owner") DetailedOwner owner) {
 
   public static class Builder {
-    private AudienceGroupAuthorityLevel authorityLevel;
+    private AudienceGroup audienceGroup;
+    private List<AudienceGroupJob> jobs;
+    private DetailedOwner owner;
 
     public Builder() {}
 
-    public Builder authorityLevel(AudienceGroupAuthorityLevel authorityLevel) {
-      this.authorityLevel = authorityLevel;
+    public Builder audienceGroup(AudienceGroup audienceGroup) {
+      this.audienceGroup = audienceGroup;
       return this;
     }
 
-    public GetAudienceGroupAuthorityLevelResponse build() {
-      return new GetAudienceGroupAuthorityLevelResponse(authorityLevel);
+    public Builder jobs(List<AudienceGroupJob> jobs) {
+      this.jobs = jobs;
+      return this;
+    }
+
+    public Builder owner(DetailedOwner owner) {
+      this.owner = owner;
+      return this;
+    }
+
+    public GetSharedAudienceDataResponse build() {
+      return new GetSharedAudienceDataResponse(audienceGroup, jobs, owner);
     }
   }
 }

@@ -25,13 +25,17 @@ src/main/java/com/linecorp/bot/webhook/model/ImageMessageContent.java
 src/main/java/com/linecorp/bot/webhook/model/ImageSet.java
 src/main/java/com/linecorp/bot/webhook/model/JoinEvent.java
 src/main/java/com/linecorp/bot/webhook/model/JoinedMembers.java
+src/main/java/com/linecorp/bot/webhook/model/JoinedMembershipContent.java
 src/main/java/com/linecorp/bot/webhook/model/LeaveEvent.java
 src/main/java/com/linecorp/bot/webhook/model/LeftMembers.java
+src/main/java/com/linecorp/bot/webhook/model/LeftMembershipContent.java
 src/main/java/com/linecorp/bot/webhook/model/LinkContent.java
 src/main/java/com/linecorp/bot/webhook/model/LinkThingsContent.java
 src/main/java/com/linecorp/bot/webhook/model/LocationMessageContent.java
 src/main/java/com/linecorp/bot/webhook/model/MemberJoinedEvent.java
 src/main/java/com/linecorp/bot/webhook/model/MemberLeftEvent.java
+src/main/java/com/linecorp/bot/webhook/model/MembershipContent.java
+src/main/java/com/linecorp/bot/webhook/model/MembershipEvent.java
 src/main/java/com/linecorp/bot/webhook/model/Mention.java
 src/main/java/com/linecorp/bot/webhook/model/Mentionee.java
 src/main/java/com/linecorp/bot/webhook/model/MessageContent.java
@@ -42,6 +46,7 @@ src/main/java/com/linecorp/bot/webhook/model/PnpDelivery.java
 src/main/java/com/linecorp/bot/webhook/model/PnpDeliveryCompletionEvent.java
 src/main/java/com/linecorp/bot/webhook/model/PostbackContent.java
 src/main/java/com/linecorp/bot/webhook/model/PostbackEvent.java
+src/main/java/com/linecorp/bot/webhook/model/RenewedMembershipContent.java
 src/main/java/com/linecorp/bot/webhook/model/RoomSource.java
 src/main/java/com/linecorp/bot/webhook/model/ScenarioResult.java
 src/main/java/com/linecorp/bot/webhook/model/ScenarioResultThingsContent.java
@@ -51,6 +56,7 @@ src/main/java/com/linecorp/bot/webhook/model/TextMessageContent.java
 src/main/java/com/linecorp/bot/webhook/model/ThingsContent.java
 src/main/java/com/linecorp/bot/webhook/model/ThingsEvent.java
 src/main/java/com/linecorp/bot/webhook/model/UnfollowEvent.java
+src/main/java/com/linecorp/bot/webhook/model/UnknownMembershipContent.java
 src/main/java/com/linecorp/bot/webhook/model/UnlinkThingsContent.java
 src/main/java/com/linecorp/bot/webhook/model/UnsendDetail.java
 src/main/java/com/linecorp/bot/webhook/model/UnsendEvent.java

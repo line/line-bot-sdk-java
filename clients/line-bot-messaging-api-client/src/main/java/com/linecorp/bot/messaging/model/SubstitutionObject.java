@@ -34,5 +34,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     use = JsonTypeInfo.Id.NAME,
     include = JsonTypeInfo.As.PROPERTY,
     property = "type",
+    defaultImpl = UnknownSubstitutionObject.class,
     visible = true)
 public interface SubstitutionObject {}

@@ -9,7 +9,6 @@ src/main/java/com/linecorp/bot/messaging/model/AppTypeDemographic.java
 src/main/java/com/linecorp/bot/messaging/model/AppTypeDemographicFilter.java
 src/main/java/com/linecorp/bot/messaging/model/AreaDemographic.java
 src/main/java/com/linecorp/bot/messaging/model/AreaDemographicFilter.java
-src/main/java/com/linecorp/bot/messaging/model/AudienceMatchMessagesRequest.java
 src/main/java/com/linecorp/bot/messaging/model/AudienceRecipient.java
 src/main/java/com/linecorp/bot/messaging/model/AudioMessage.java
 src/main/java/com/linecorp/bot/messaging/model/BotInfoResponse.java
@@ -64,6 +63,7 @@ src/main/java/com/linecorp/bot/messaging/model/GenderDemographicFilter.java
 src/main/java/com/linecorp/bot/messaging/model/GetAggregationUnitNameListResponse.java
 src/main/java/com/linecorp/bot/messaging/model/GetAggregationUnitUsageResponse.java
 src/main/java/com/linecorp/bot/messaging/model/GetFollowersResponse.java
+src/main/java/com/linecorp/bot/messaging/model/GetJoinedMembershipUsersResponse.java
 src/main/java/com/linecorp/bot/messaging/model/GetMembershipSubscriptionResponse.java
 src/main/java/com/linecorp/bot/messaging/model/GetMessageContentTranscodingResponse.java
 src/main/java/com/linecorp/bot/messaging/model/GetWebhookEndpointResponse.java
@@ -153,6 +153,8 @@ src/main/java/com/linecorp/bot/messaging/model/TextMessage.java
 src/main/java/com/linecorp/bot/messaging/model/TextMessageV2.java
 src/main/java/com/linecorp/bot/messaging/model/URIAction.java
 src/main/java/com/linecorp/bot/messaging/model/URIImagemapAction.java
+src/main/java/com/linecorp/bot/messaging/model/UnknownMentionTarget.java
+src/main/java/com/linecorp/bot/messaging/model/UnknownSubstitutionObject.java
 src/main/java/com/linecorp/bot/messaging/model/UpdateRichMenuAliasRequest.java
 src/main/java/com/linecorp/bot/messaging/model/UserMentionTarget.java
 src/main/java/com/linecorp/bot/messaging/model/UserProfileResponse.java

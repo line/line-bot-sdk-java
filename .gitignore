@@ -61,3 +61,6 @@ integration_test_settings.yml
 # Mac
 .DS_Store
 bin/
+
+# github workflow
+pr_info.json
