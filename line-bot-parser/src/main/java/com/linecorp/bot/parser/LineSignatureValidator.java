@@ -74,4 +74,5 @@ public class LineSignatureValidator implements SignatureValidator {
             throw new IllegalStateException(e);
         }
     }
+
 }
