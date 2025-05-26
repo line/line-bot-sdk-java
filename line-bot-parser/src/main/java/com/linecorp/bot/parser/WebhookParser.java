@@ -41,6 +41,17 @@ public class WebhookParser {
      *
      * @param signatureValidator LINE messaging API's signature validator
      */
+    public WebhookParser(SignatureValidator signatureValidator) {
+        this.signatureValidator = requireNonNull(signatureValidator);
+        this.skipSignatureVerificationSupplier = FixedSkipSignatureVerificationSupplier.of(false);
+    }
+
+    /**
+     * Creates a new instance.
+     *
+     * @param signatureValidator LINE messaging API's signature validator
+     * @param skipSignatureVerificationSupplier Supplier to determine whether to skip signature verification
+     */
     public WebhookParser(SignatureValidator signatureValidator,
                          SkipSignatureVerificationSupplier skipSignatureVerificationSupplier) {
         this.signatureValidator = requireNonNull(signatureValidator);
