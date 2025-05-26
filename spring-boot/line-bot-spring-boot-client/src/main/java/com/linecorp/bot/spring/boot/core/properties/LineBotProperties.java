@@ -89,6 +89,7 @@ public record LineBotProperties(
         /*
          * Skip signature verification of webhooks.
          */
+        @DefaultValue("false")
         boolean skipSignatureVerification
 ) {
     public enum ChannelTokenSupplyMode {

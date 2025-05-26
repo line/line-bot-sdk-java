@@ -153,13 +153,14 @@ public class EchoApplication {
 
 The Messaging API SDK is automatically configured by the system properties. The parameters are shown below.
 
-| Parameter                          | Description                                                                                                                                                    |
-|------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| line.bot.channel-token             | Channel access token for the server                                                                                                                            |
-| line.bot.channel-secret            | Channel secret for the server                                                                                                                                  |
-| line.bot.channel-token-supply-mode | The way to fix channel access token. (default: `FIXED`)<br>LINE Partners should change this value to `SUPPLIER` and create custom `ChannelTokenSupplier` bean. |
-| line.bot.connect-timeout           | Connection timeout in milliseconds                                                                                                                             |
-| line.bot.read-timeout              | Read timeout in milliseconds                                                                                                                                   |
-| line.bot.write-timeout             | Write timeout in milliseconds                                                                                                                                  |
-| line.bot.handler.enabled           | Enable @EventMapping mechanism. (default: true)                                                                                                                |
-| line.bot.handler.path              | Path to waiting webhook. (default: `/callback`)                                                                                                                |
+| Parameter                            | Description                                                                                                                                                    |
+|--------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| line.bot.channel-token               | Channel access token for the server                                                                                                                            |
+| line.bot.channel-secret              | Channel secret for the server                                                                                                                                  |
+| line.bot.channel-token-supply-mode   | The way to fix channel access token. (default: `FIXED`)<br>LINE Partners should change this value to `SUPPLIER` and create custom `ChannelTokenSupplier` bean. |
+| line.bot.connect-timeout             | Connection timeout in milliseconds                                                                                                                             |
+| line.bot.read-timeout                | Read timeout in milliseconds                                                                                                                                   |
+| line.bot.write-timeout               | Write timeout in milliseconds                                                                                                                                  |
+| line.bot.skip-signature-verification | Whether to skip signature verification of webhooks. (default: false)                                                                                           |
+| line.bot.handler.enabled             | Enable @EventMapping mechanism. (default: true)                                                                                                                |
+| line.bot.handler.path                | Path to waiting webhook. (default: `/callback`)                                                                                                                |
