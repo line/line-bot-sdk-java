@@ -22,6 +22,9 @@ import java.util.function.BooleanSupplier;
  * Special {@link BooleanSupplier} for Skip Signature Verification.
  *
  * <p>You can implement it to return whether to skip signature verification.
+ *
+ * <p>If true is returned, webhook signature verification is skipped.
+ * This may be helpful when you update the channel secret and want to skip the verification temporarily.
  */
 @FunctionalInterface
 public interface SkipSignatureVerificationSupplier extends BooleanSupplier {
