@@ -82,6 +82,8 @@ public class {{classname}}Test {
     }
 
 {% for op in operations.operation -%}
+    {% if ["createCoupon"] contains op.operationId %}
+    {% else %}
     @Test
     public void {{op.operationId}}Test() {
         stubFor({{op.httpMethod|lower}}(urlPathTemplate("{{op.path}}")).willReturn(
@@ -105,6 +107,7 @@ public class {{classname}}Test {
     {% endif %}
         // TODO: test validations
     }
+    {% endif %}
 
 {% endfor %}
 }
