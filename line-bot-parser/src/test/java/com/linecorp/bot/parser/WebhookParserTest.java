@@ -50,23 +50,13 @@ public class WebhookParserTest {
         }
     }
 
-    @Mock
-    private final SkipSignatureVerificationSupplier skipSignatureVerificationSupplier =
-            new MockSkipSignatureVerificationSupplier();
-
-    static class MockSkipSignatureVerificationSupplier
-            implements SkipSignatureVerificationSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return false;
-        }
-    }
-
     private WebhookParser parser;
 
     @BeforeEach
     public void before() {
-        parser = new WebhookParser(signatureValidator, skipSignatureVerificationSupplier);
+        parser = new WebhookParser(
+                signatureValidator,
+                FixedSkipSignatureVerificationSupplier.of(false));
     }
 
     @Test
@@ -127,7 +117,9 @@ public class WebhookParserTest {
                 "callback-request.json");
         final byte[] payload = resource.readAllBytes();
 
-        when(skipSignatureVerificationSupplier.getAsBoolean()).thenReturn(true);
+        final var parser = new WebhookParser(
+                signatureValidator,
+                FixedSkipSignatureVerificationSupplier.of(true));
 
         // assert no interaction with signatureValidator
         verify(signatureValidator, never()).validateSignature(payload, "SSSSIGNATURE");
