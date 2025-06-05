@@ -30,10 +30,8 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.linecorp.bot.client.base.http.EventListenerAdapter;
 import com.linecorp.bot.client.base.http.HttpAuthenticator;
 import com.linecorp.bot.client.base.http.HttpChain;
-import com.linecorp.bot.client.base.http.HttpEventListener;
 import com.linecorp.bot.client.base.http.HttpInterceptor;
 import com.linecorp.bot.client.base.http.HttpResponse;
 import com.linecorp.bot.jackson.ModelObjectMapper;
@@ -151,8 +149,8 @@ public class ApiClientBuilder<T> {
         return this;
     }
 
-    public ApiClientBuilder<T> setEventListener(HttpEventListener httpEventListener) {
-        this.eventListener = new EventListenerAdapter(httpEventListener);
+    public ApiClientBuilder<T> setEventListener(EventListener eventListener) {
+        this.eventListener = eventListener;
         return this;
     }
 
