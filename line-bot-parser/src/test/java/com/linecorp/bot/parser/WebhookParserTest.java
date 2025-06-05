@@ -18,6 +18,8 @@ package com.linecorp.bot.parser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.InputStream;
@@ -52,7 +54,9 @@ public class WebhookParserTest {
 
     @BeforeEach
     public void before() {
-        parser = new WebhookParser(signatureValidator);
+        parser = new WebhookParser(
+                signatureValidator,
+                FixedSkipSignatureVerificationSupplier.of(false));
     }
 
     @Test
@@ -90,6 +94,62 @@ public class WebhookParserTest {
 
         when(signatureValidator.validateSignature(payload, "SSSSIGNATURE")).thenReturn(true);
 
+        final CallbackRequest callbackRequest = parser.handle("SSSSIGNATURE", payload);
+
+        assertThat(callbackRequest).isNotNull();
+
+        final List<Event> result = callbackRequest.events();
+
+        @SuppressWarnings("rawtypes")
+        final MessageEvent messageEvent = (MessageEvent) result.get(0);
+        final TextMessageContent text = (TextMessageContent) messageEvent.message();
+        assertThat(text.text()).isEqualTo("Hello, world");
+
+        final String followedUserId = messageEvent.source().userId();
+        assertThat(followedUserId).isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+        assertThat(messageEvent.timestamp()).isEqualTo(
+                Instant.parse("2016-05-07T13:57:59.859Z").toEpochMilli());
+    }
+
+    @Test
+    public void testSkipSignatureVerification() throws Exception {
+        final InputStream resource = getClass().getClassLoader().getResourceAsStream(
+                "callback-request.json");
+        final byte[] payload = resource.readAllBytes();
+
+        final var parser = new WebhookParser(
+                signatureValidator,
+                FixedSkipSignatureVerificationSupplier.of(true));
+
+        // assert no interaction with signatureValidator
+        verify(signatureValidator, never()).validateSignature(payload, "SSSSIGNATURE");
+
+        final CallbackRequest callbackRequest = parser.handle("SSSSIGNATURE", payload);
+
+        assertThat(callbackRequest).isNotNull();
+
+        final List<Event> result = callbackRequest.events();
+
+        @SuppressWarnings("rawtypes")
+        final MessageEvent messageEvent = (MessageEvent) result.get(0);
+        final TextMessageContent text = (TextMessageContent) messageEvent.message();
+        assertThat(text.text()).isEqualTo("Hello, world");
+
+        final String followedUserId = messageEvent.source().userId();
+        assertThat(followedUserId).isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+        assertThat(messageEvent.timestamp()).isEqualTo(
+                Instant.parse("2016-05-07T13:57:59.859Z").toEpochMilli());
+    }
+
+    @Test
+    public void testWithoutSkipSignatureVerificationSupplierInConstructor() throws Exception {
+        final InputStream resource = getClass().getClassLoader().getResourceAsStream(
+                "callback-request.json");
+        final byte[] payload = resource.readAllBytes();
+
+        when(signatureValidator.validateSignature(payload, "SSSSIGNATURE")).thenReturn(true);
+
+        final var parser = new WebhookParser(signatureValidator);
         final CallbackRequest callbackRequest = parser.handle("SSSSIGNATURE", payload);
 
         assertThat(callbackRequest).isNotNull();
