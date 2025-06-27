@@ -18,12 +18,15 @@ package com.linecorp.bot.spring.boot.web.configuration;
 
 import java.nio.charset.StandardCharsets;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
+import com.linecorp.bot.parser.FixedSkipSignatureVerificationSupplier;
 import com.linecorp.bot.parser.LineSignatureValidator;
+import com.linecorp.bot.parser.SkipSignatureVerificationSupplier;
 import com.linecorp.bot.parser.WebhookParser;
 import com.linecorp.bot.spring.boot.core.properties.LineBotProperties;
 import com.linecorp.bot.spring.boot.web.argument.support.LineBotDestinationArgumentProcessor;
@@ -41,6 +44,13 @@ public class LineBotWebBeans {
         this.lineBotProperties = lineBotProperties;
     }
 
+    @Bean
+    @ConditionalOnMissingBean(SkipSignatureVerificationSupplier.class)
+    public SkipSignatureVerificationSupplier skipSignatureVerificationSupplier() {
+        final boolean skipVerification = lineBotProperties.skipSignatureVerification();
+        return FixedSkipSignatureVerificationSupplier.of(skipVerification);
+    }
+
     /**
      * Expose {@link LineSignatureValidator} as {@link Bean}.
      */
@@ -55,7 +65,8 @@ public class LineBotWebBeans {
      */
     @Bean
     public WebhookParser lineBotCallbackRequestParser(
-            LineSignatureValidator lineSignatureValidator) {
-        return new WebhookParser(lineSignatureValidator);
+            LineSignatureValidator lineSignatureValidator,
+            SkipSignatureVerificationSupplier skipSignatureVerificationSupplier) {
+        return new WebhookParser(lineSignatureValidator, skipSignatureVerificationSupplier);
     }
 }

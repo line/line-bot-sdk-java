@@ -55,7 +55,8 @@ public class BotPropertiesValidatorTest {
                 URI.create("https://manager.line.biz/"),
                 Duration.ofSeconds(10),
                 Duration.ofSeconds(10),
-                Duration.ofSeconds(10)
+                Duration.ofSeconds(10),
+                false
         );
     }
 

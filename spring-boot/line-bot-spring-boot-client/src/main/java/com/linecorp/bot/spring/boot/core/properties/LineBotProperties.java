@@ -84,7 +84,13 @@ public record LineBotProperties(
          * Write timeout in milliseconds.
          */
         @DefaultValue("10s")
-        @Valid @NotNull Duration writeTimeout
+        @Valid @NotNull Duration writeTimeout,
+
+        /*
+         * Skip signature verification of webhooks.
+         */
+        @DefaultValue("false")
+        boolean skipSignatureVerification
 ) {
     public enum ChannelTokenSupplyMode {
         /**
