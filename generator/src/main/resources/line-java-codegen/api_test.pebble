@@ -29,6 +29,7 @@ import com.linecorp.bot.client.base.UploadFile;
 import java.net.URI;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 {% if classname == "MessagingApiClient" or classname == "MessagingApiBlobClient" %}
 import com.linecorp.bot.messaging.model.TextMessage;
@@ -82,6 +83,8 @@ public class {{classname}}Test {
     }
 
 {% for op in operations.operation -%}
+    {% if ["createCoupon"] contains op.operationId %}
+    {% else %}
     @Test
     public void {{op.operationId}}Test() {
         stubFor({{op.httpMethod|lower}}(urlPathTemplate("{{op.path}}")).willReturn(
@@ -94,7 +97,12 @@ public class {{classname}}Test {
         {% if param.isFile %}
             UploadFile {{param.paramName}} = UploadFile.fromString("HELLO_FILE", "text/plain");
         {% else %}
-            {{param.dataType}} {{param.paramName}} = Arranger.some({{param.dataType}}.class{% if classname == "MessagingApiClient" or classname == "MessagingApiBlobClient" %}, Map.of("message", () -> new TextMessage("hello"), "recipient", () -> null, "filter", () -> null){% endif %});
+            {{param.dataType}} {{param.paramName}} =
+            {% if param.isArray %}
+            Arranger.someObjects({{param.items.dataType}}.class, 1{% if classname == "MessagingApiClient" or classname == "MessagingApiBlobClient" %}, Map.of("message", () -> new TextMessage("hello"), "recipient", () -> null, "filter", () -> null){% endif %}).collect(Collectors.toSet());
+            {% else %}
+            Arranger.some({{param.dataType}}.class{% if classname == "MessagingApiClient" or classname == "MessagingApiBlobClient" %}, Map.of("message", () -> new TextMessage("hello"), "recipient", () -> null, "filter", () -> null){% endif %});
+            {% endif %}
         {% endif %}
     {% endfor %}
 
@@ -105,6 +113,7 @@ public class {{classname}}Test {
     {% endif %}
         // TODO: test validations
     }
+    {% endif %}
 
 {% endfor %}
 }

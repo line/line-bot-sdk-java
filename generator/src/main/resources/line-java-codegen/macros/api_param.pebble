@@ -1,7 +1,8 @@
 {%- macro api_param(param, op) -%}
 {#- @pebvariable name="param" type="org.openapitools.codegen.CodegenParameter" -#}
 {#- @pebvariable name="op" type="org.openapitools.codegen.CodegenOperation" -#}
-{%- if param.isQueryParam %}@Query("{{param.baseName}}") {% if param.collectionFormat %}{{ abort() }}{% else %}{{ param.dataType }}{% endif %} {{ param.paramName }}
+{%- if param.isQueryParam %}
+    @Query("{{param.baseName}}") {{ param.dataType }} {{ param.paramName }}
 {%- elseif param.isPathParam -%}
 @Path("{{param.baseName}}") {{param.dataType}} {{param.paramName}}
 {%- elseif param.isHeaderParam -%}

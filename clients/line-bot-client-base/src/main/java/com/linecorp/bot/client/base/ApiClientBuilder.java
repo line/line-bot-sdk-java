@@ -37,6 +37,7 @@ import com.linecorp.bot.client.base.http.HttpResponse;
 import com.linecorp.bot.jackson.ModelObjectMapper;
 
 import okhttp3.Dispatcher;
+import okhttp3.EventListener;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -89,6 +90,13 @@ public class ApiClientBuilder<T> {
      */
     private List<Interceptor> additionalInterceptors = new ArrayList<>();
 
+    /**
+     * Custom EventListener
+     *
+     * <p>You can add your own EventListener.
+     */
+    private EventListener eventListener;
+
     private Proxy proxy;
 
     private HttpAuthenticator proxyAuthenticator;
@@ -138,6 +146,11 @@ public class ApiClientBuilder<T> {
             HttpResponse httpResponse = interceptor.intercept(httpChain);
             return httpResponse.toOkHttpResponse();
         });
+        return this;
+    }
+
+    public ApiClientBuilder<T> setEventListener(EventListener eventListener) {
+        this.eventListener = eventListener;
         return this;
     }
 
@@ -230,6 +243,10 @@ public class ApiClientBuilder<T> {
             }
         });
 
+        if (this.eventListener != null) {
+            okHttpClientBuilder.eventListener(this.eventListener);
+        }
+
         if (this.proxy != null) {
             okHttpClientBuilder.proxy(this.proxy);
         }
@@ -262,6 +279,7 @@ public class ApiClientBuilder<T> {
                 + ", readTimeout=" + readTimeout
                 + ", writeTimeout=" + writeTimeout
                 + ", additionalInterceptors=" + additionalInterceptors
+                + ", eventListener=" + eventListener
                 + ", maxRequests=" + maxRequests
                 + ", maxRequestsPerHost=" + maxRequestsPerHost
                 + '}';
