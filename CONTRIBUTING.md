@@ -67,21 +67,17 @@ You can run all CI tasks locally by running:
 ./gradlew check
 ```
 
-### JavaDoc
+#### Documentation
 
 We use JavaDoc to generate and maintain our code documentation.
-**Please make sure your new or modified code is also covered by proper JavaDoc comments.**
-Good documentation ensures that contributors and users can easily read and understand how the methods and classes work.
-
-#### How to generate and view documentation locally
-
 Run the following command to generate JavaDoc:
 
 ```bash
 ./gradlew javadoc
 ```
 
-Then open the generated documentation in your browser from the `build/docs/javadoc` directory.
+**Please make sure your new or modified code is also covered by proper JavaDoc comments.**
+Good documentation ensures that contributors and users can easily read and understand how the methods and classes work.
 
 ### Contributor license agreement
 
