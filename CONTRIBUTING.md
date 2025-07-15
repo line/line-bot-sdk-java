@@ -12,24 +12,24 @@ source projects you are aware of. It will be amazing if you could help us by doi
 
 ### Install dependencies
 
-This project uses Gradle as the build system. Make sure you have JDK installed (JDK 17 or later is recommended).
+This project uses Gradle as the build system. Make sure you have JDK installed (JDK 17 or later is required).
 
 ```bash
 ./gradlew build
 ```
 
-This will download all dependencies and build the project.
+This will download all dependencies, check for the build and build the project.
 
 ### Understand the project structure
 
 The project structure is as follows:
 - `clients`: The main client libraries.
-- `line-bot-webhook`: Webhook handling code.
-- `line-bot-parser`: Parser utilities.
+- `line-bot-webhook`: Webhook event definition.
+- `line-bot-parser`: Webhook Parser and its Signature Verification libraries.
 - `line-bot-jackson`: Jackson customizations for the SDK.
 - `generator`: Code generator for the libraries.
 - `samples`: Example projects that use the library.
-- `tests`: Test utilities.
+- `tests`: internal test for gradle.
 - `spring-boot`: Spring Boot integration components.
 
 ### Edit pebble template
@@ -64,7 +64,7 @@ The [sample projects](samples/) can be used to test your changes locally. You ca
 You can run all CI tasks locally by running:
 
 ```bash
-./gradlew check
+./gradlew build
 ```
 
 #### Documentation
