@@ -7,7 +7,7 @@ junit = "5.13.4"
 junitPlatformLauncher = "1.13.4"
 slf4j = "2.0.17"
 mockito = "5.18.0"
-okhttp3 = "4.12.0"
+okhttp3 = "5.1.0"
 
 [libraries]
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit2" }
