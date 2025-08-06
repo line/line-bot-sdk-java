@@ -25,6 +25,9 @@ import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.client.base.channel.ChannelTokenSupplier;
 import com.linecorp.bot.messaging.model.BotInfoResponse;
 import com.linecorp.bot.messaging.model.BroadcastRequest;
+import com.linecorp.bot.messaging.model.CouponCreateRequest;
+import com.linecorp.bot.messaging.model.CouponCreateResponse;
+import com.linecorp.bot.messaging.model.CouponResponse;
 import com.linecorp.bot.messaging.model.CreateRichMenuAliasRequest;
 import com.linecorp.bot.messaging.model.GetAggregationUnitNameListResponse;
 import com.linecorp.bot.messaging.model.GetAggregationUnitUsageResponse;
@@ -40,6 +43,7 @@ import com.linecorp.bot.messaging.model.MarkMessagesAsReadRequest;
 import com.linecorp.bot.messaging.model.MembersIdsResponse;
 import com.linecorp.bot.messaging.model.MembershipListResponse;
 import com.linecorp.bot.messaging.model.MessageQuotaResponse;
+import com.linecorp.bot.messaging.model.MessagingApiPagerCouponListResponse;
 import com.linecorp.bot.messaging.model.MulticastRequest;
 import com.linecorp.bot.messaging.model.NarrowcastProgressResponse;
 import com.linecorp.bot.messaging.model.NarrowcastRequest;
@@ -70,6 +74,7 @@ import com.linecorp.bot.messaging.model.UpdateRichMenuAliasRequest;
 import com.linecorp.bot.messaging.model.UserProfileResponse;
 import com.linecorp.bot.messaging.model.ValidateMessageRequest;
 import java.net.URI;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import retrofit2.http.*;
@@ -100,6 +105,27 @@ public interface MessagingApiClient {
    */
   @DELETE("/v2/bot/user/all/richmenu")
   CompletableFuture<Result<Void>> cancelDefaultRichMenu();
+
+  /**
+   * Close coupon
+   *
+   * @param couponId (required)
+   * @see <a href="https://developers.line.biz/en/reference/messaging-api/#discontinue-coupon">
+   *     Documentation</a>
+   */
+  @PUT("/v2/bot/coupon/{couponId}/close")
+  CompletableFuture<Result<Void>> closeCoupon(@Path("couponId") String couponId);
+
+  /**
+   * Create a new coupon. Define coupon details such as type, title, and validity period.
+   *
+   * @param couponCreateRequest (optional)
+   * @see <a href="https://developers.line.biz/en/reference/messaging-api/#create-coupon">
+   *     Documentation</a>
+   */
+  @POST("/v2/bot/coupon")
+  CompletableFuture<Result<CouponCreateResponse>> createCoupon(
+      @Body CouponCreateRequest couponCreateRequest);
 
   /**
    * Create rich menu
@@ -177,6 +203,16 @@ public interface MessagingApiClient {
    */
   @GET("/v2/bot/info")
   CompletableFuture<Result<BotInfoResponse>> getBotInfo();
+
+  /**
+   * Get coupon detail
+   *
+   * @param couponId (required)
+   * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-coupon">
+   *     Documentation</a>
+   */
+  @GET("/v2/bot/coupon/{couponId}")
+  CompletableFuture<Result<CouponResponse>> getCouponDetail(@Path("couponId") String couponId);
 
   /**
    * Gets the ID of the default rich menu set with the Messaging API.
@@ -566,6 +602,21 @@ public interface MessagingApiClient {
   @POST("/v2/bot/richmenu/bulk/link")
   CompletableFuture<Result<Void>> linkRichMenuIdToUsers(
       @Body RichMenuBulkLinkRequest richMenuBulkLinkRequest);
+
+  /**
+   * Get a paginated list of coupons.
+   *
+   * @param status Filter coupons by their status. (optional)
+   * @param start Pagination token to retrieve the next page of results. (optional)
+   * @param limit Maximum number of coupons to return per request. (optional, default to 20)
+   * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-coupons-list">
+   *     Documentation</a>
+   */
+  @GET("/v2/bot/coupon")
+  CompletableFuture<Result<MessagingApiPagerCouponListResponse>> listCoupon(
+      @Query("status") Set<String> status,
+      @Query("start") String start,
+      @Query("limit") Integer limit);
 
   /**
    * Mark messages from users as read

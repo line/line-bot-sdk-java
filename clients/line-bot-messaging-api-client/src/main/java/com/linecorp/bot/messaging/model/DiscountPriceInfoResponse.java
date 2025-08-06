@@ -25,29 +25,16 @@ package com.linecorp.bot.messaging.model;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-/** Message */
+/** DiscountPriceInfoResponse */
 @JsonSubTypes({
-  @JsonSubTypes.Type(value = AudioMessage.class, name = "audio"),
-  @JsonSubTypes.Type(value = CouponMessage.class, name = "coupon"),
-  @JsonSubTypes.Type(value = FlexMessage.class, name = "flex"),
-  @JsonSubTypes.Type(value = ImageMessage.class, name = "image"),
-  @JsonSubTypes.Type(value = ImagemapMessage.class, name = "imagemap"),
-  @JsonSubTypes.Type(value = LocationMessage.class, name = "location"),
-  @JsonSubTypes.Type(value = StickerMessage.class, name = "sticker"),
-  @JsonSubTypes.Type(value = TemplateMessage.class, name = "template"),
-  @JsonSubTypes.Type(value = TextMessage.class, name = "text"),
-  @JsonSubTypes.Type(value = TextMessageV2.class, name = "textV2"),
-  @JsonSubTypes.Type(value = VideoMessage.class, name = "video"),
+  @JsonSubTypes.Type(value = DiscountExplicitPriceInfoResponse.class, name = "explicit"),
+  @JsonSubTypes.Type(value = DiscountFixedPriceInfoResponse.class, name = "fixed"),
+  @JsonSubTypes.Type(value = DiscountPercentagePriceInfoResponse.class, name = "percentage"),
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
     include = JsonTypeInfo.As.PROPERTY,
     property = "type",
-    defaultImpl = UnknownMessage.class,
+    defaultImpl = UnknownDiscountPriceInfoResponse.class,
     visible = true)
-public interface Message {
-
-  QuickReply quickReply();
-
-  Sender sender();
-}
+public interface DiscountPriceInfoResponse {}
