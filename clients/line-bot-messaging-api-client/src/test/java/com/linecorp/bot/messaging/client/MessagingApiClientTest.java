@@ -34,6 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.linecorp.bot.messaging.model.BotInfoResponse;
 import com.linecorp.bot.messaging.model.BroadcastRequest;
+import com.linecorp.bot.messaging.model.CouponResponse;
 import com.linecorp.bot.messaging.model.CreateRichMenuAliasRequest;
 import com.linecorp.bot.messaging.model.GetAggregationUnitNameListResponse;
 import com.linecorp.bot.messaging.model.GetAggregationUnitUsageResponse;
@@ -49,6 +50,7 @@ import com.linecorp.bot.messaging.model.MarkMessagesAsReadRequest;
 import com.linecorp.bot.messaging.model.MembersIdsResponse;
 import com.linecorp.bot.messaging.model.MembershipListResponse;
 import com.linecorp.bot.messaging.model.MessageQuotaResponse;
+import com.linecorp.bot.messaging.model.MessagingApiPagerCouponListResponse;
 import com.linecorp.bot.messaging.model.MulticastRequest;
 import com.linecorp.bot.messaging.model.NarrowcastProgressResponse;
 import com.linecorp.bot.messaging.model.NarrowcastRequest;
@@ -82,7 +84,9 @@ import com.linecorp.bot.messaging.model.ValidateMessageRequest;
 import com.ocadotechnology.gembus.test.Arranger;
 import java.net.URI;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -167,6 +171,32 @@ public class MessagingApiClientTest {
                     .withBody("{}")));
 
     api.cancelDefaultRichMenu().join().body();
+
+    // TODO: test validations
+  }
+
+  @Test
+  public void closeCouponTest() {
+    stubFor(
+        put(urlPathTemplate("/v2/bot/coupon/{couponId}/close"))
+            .willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("content-type", "application/json")
+                    .withBody("{}")));
+
+    String couponId =
+        Arranger.some(
+            String.class,
+            Map.of(
+                "message",
+                () -> new TextMessage("hello"),
+                "recipient",
+                () -> null,
+                "filter",
+                () -> null));
+
+    api.closeCoupon(couponId).join().body();
 
     // TODO: test validations
   }
@@ -345,6 +375,34 @@ public class MessagingApiClientTest {
                     .withBody("{}")));
 
     BotInfoResponse response = api.getBotInfo().join().body();
+
+    assertThat(response).isNotNull();
+
+    // TODO: test validations
+  }
+
+  @Test
+  public void getCouponDetailTest() {
+    stubFor(
+        get(urlPathTemplate("/v2/bot/coupon/{couponId}"))
+            .willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("content-type", "application/json")
+                    .withBody("{}")));
+
+    String couponId =
+        Arranger.some(
+            String.class,
+            Map.of(
+                "message",
+                () -> new TextMessage("hello"),
+                "recipient",
+                () -> null,
+                "filter",
+                () -> null));
+
+    CouponResponse response = api.getCouponDetail(couponId).join().body();
 
     assertThat(response).isNotNull();
 
@@ -1276,6 +1334,59 @@ public class MessagingApiClientTest {
                 () -> null));
 
     api.linkRichMenuIdToUsers(richMenuBulkLinkRequest).join().body();
+
+    // TODO: test validations
+  }
+
+  @Test
+  public void listCouponTest() {
+    stubFor(
+        get(urlPathTemplate("/v2/bot/coupon"))
+            .willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("content-type", "application/json")
+                    .withBody("{}")));
+
+    Set<String> status =
+        Arranger.someObjects(
+                String.class,
+                1,
+                Map.of(
+                    "message",
+                    () -> new TextMessage("hello"),
+                    "recipient",
+                    () -> null,
+                    "filter",
+                    () -> null))
+            .collect(Collectors.toSet());
+
+    String start =
+        Arranger.some(
+            String.class,
+            Map.of(
+                "message",
+                () -> new TextMessage("hello"),
+                "recipient",
+                () -> null,
+                "filter",
+                () -> null));
+
+    Integer limit =
+        Arranger.some(
+            Integer.class,
+            Map.of(
+                "message",
+                () -> new TextMessage("hello"),
+                "recipient",
+                () -> null,
+                "filter",
+                () -> null));
+
+    MessagingApiPagerCouponListResponse response =
+        api.listCoupon(status, start, limit).join().body();
+
+    assertThat(response).isNotNull();
 
     // TODO: test validations
   }

@@ -25,29 +25,15 @@ package com.linecorp.bot.messaging.model;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-/** Message */
+/** CashBackPriceInfoResponse */
 @JsonSubTypes({
-  @JsonSubTypes.Type(value = AudioMessage.class, name = "audio"),
-  @JsonSubTypes.Type(value = CouponMessage.class, name = "coupon"),
-  @JsonSubTypes.Type(value = FlexMessage.class, name = "flex"),
-  @JsonSubTypes.Type(value = ImageMessage.class, name = "image"),
-  @JsonSubTypes.Type(value = ImagemapMessage.class, name = "imagemap"),
-  @JsonSubTypes.Type(value = LocationMessage.class, name = "location"),
-  @JsonSubTypes.Type(value = StickerMessage.class, name = "sticker"),
-  @JsonSubTypes.Type(value = TemplateMessage.class, name = "template"),
-  @JsonSubTypes.Type(value = TextMessage.class, name = "text"),
-  @JsonSubTypes.Type(value = TextMessageV2.class, name = "textV2"),
-  @JsonSubTypes.Type(value = VideoMessage.class, name = "video"),
+  @JsonSubTypes.Type(value = CashBackFixedPriceInfoResponse.class, name = "fixed"),
+  @JsonSubTypes.Type(value = CashBackPercentagePriceInfoResponse.class, name = "percentage"),
 })
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
     include = JsonTypeInfo.As.PROPERTY,
     property = "type",
-    defaultImpl = UnknownMessage.class,
+    defaultImpl = UnknownCashBackPriceInfoResponse.class,
     visible = true)
-public interface Message {
-
-  QuickReply quickReply();
-
-  Sender sender();
-}
+public interface CashBackPriceInfoResponse {}
