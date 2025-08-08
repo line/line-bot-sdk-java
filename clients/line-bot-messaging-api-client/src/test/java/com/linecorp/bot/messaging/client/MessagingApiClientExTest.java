@@ -107,4 +107,42 @@ public class MessagingApiClientExTest {
                 .withoutFormParam("start")
                 .withQueryParam("limit", equalTo(String.valueOf(99))));
     }
+
+    @Test
+    public void listCoupon() {
+        stubFor(get(urlPathEqualTo("/v2/bot/coupon"))
+                .withQueryParam("status", equalTo("RUNNING"))
+                .withQueryParam("status", equalTo("CLOSED"))
+                .withQueryParam("start",  equalTo("startToken"))
+                .withQueryParam("limit",  equalTo(String.valueOf(10)))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("content-type", "application/json")
+                        .withHeader("x-line-request-id", "ppp")
+                        .withBody("{\n" +
+                                "  \"items\": [{ \"couponId\": \"abc\", \"title\": \"test\" }],\n" +
+                                "  \"next\": \"nextToken\"\n" +
+                                "}")));
+
+        Set<String> status = Set.of("RUNNING", "CLOSED");
+        Result<MessagingApiPagerCouponListResponse> result =
+                target.listCoupon(status, "startToken", 10).join();
+
+        assertThat(result.requestId()).isEqualTo("ppp");
+
+        MessagingApiPagerCouponListResponse responseBody = requireNonNull(result.body());
+        assertThat(responseBody.items()).hasSize(1);
+        assertThat(responseBody.items().getFirst().couponId()).isEqualTo("abc");
+        assertThat(responseBody.next()).isEqualTo("nextToken");
+
+        verify(getRequestedFor(urlPathEqualTo("/v2/bot/coupon"))
+                .withQueryParam("status", equalTo("RUNNING"))
+                .withQueryParam("status", equalTo("CLOSED"))
+                .withQueryParam("start",  equalTo("startToken"))
+                .withQueryParam("limit",  equalTo(String.valueOf(10))));
+
+        LoggedRequest req = findAll(getRequestedFor(urlPathEqualTo("/v2/bot/coupon"))).get(0);
+        assertThat(req.getUrl())
+                .isEqualTo("/v2/bot/coupon?status=RUNNING&status=CLOSED&start=startToken&limit=10");
+    }
 }
