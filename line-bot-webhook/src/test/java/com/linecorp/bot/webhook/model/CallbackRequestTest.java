@@ -52,7 +52,7 @@ public class CallbackRequestTest {
     }
 
     private static void assertDestination(CallbackRequest request) {
-        Assertions.assertThat(request.destination()).isEqualTo("Uab012345678901234567890123456789");
+        Assertions.assertThat(request.destination()).isEqualTo("Uab01234567j8901234567890123456789");
     }
 
     @Test

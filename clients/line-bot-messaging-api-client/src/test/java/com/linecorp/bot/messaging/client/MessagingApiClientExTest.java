@@ -36,8 +36,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -134,7 +136,7 @@ public class MessagingApiClientExTest {
 
         final var responseBody = requireNonNull(result.body());
         assertThat(responseBody.items()).hasSize(1);
-        assertThat(responseBody.items().getFirst().couponId()).isEqualTo("abc");
+        assertThat(responseBody.items().get(0).couponId()).isEqualTo("abc");
         assertThat(responseBody.next()).isEqualTo("nextToken");
 
         verify(getRequestedFor(urlPathEqualTo("/v2/bot/coupon"))
@@ -144,7 +146,17 @@ public class MessagingApiClientExTest {
                 .withQueryParam("limit",  equalTo(String.valueOf(10))));
 
         final var req = findAll(getRequestedFor(urlPathEqualTo("/v2/bot/coupon"))).get(0);
-        assertThat(req.getUrl())
-                .isEqualTo("/v2/bot/coupon?status=RUNNING&status=CLOSED&start=startToken&limit=10");
+        Map<String, List<String>> actual = req.getQueryParams().entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        e -> e.getValue().values()
+                ));
+        Map<String, List<String>> expected = Map.of(
+                "status", List.of("RUNNING", "CLOSED"),
+                "start", List.of("startToken"),
+                "limit", List.of("11"));
+
+        assertThat(actual.entrySet())
+                .containsExactlyInAnyOrderElementsOf(expected.entrySet());
     }
 }
