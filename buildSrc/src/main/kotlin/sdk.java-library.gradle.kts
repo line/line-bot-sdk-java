@@ -65,6 +65,7 @@ tasks.withType<Javadoc> {
 }
 
 tasks.withType(Test::class.java) {
+    useJUnitPlatform()
     testLogging {
         // Make sure output from standard out or error is shown in Gradle output.
         showStandardStreams = true

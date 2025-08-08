@@ -20,6 +20,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.containing;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.findAll;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
@@ -35,7 +36,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -106,5 +110,54 @@ public class MessagingApiClientExTest {
         verify(getRequestedFor(urlPathEqualTo("/v2/bot/followers/ids"))
                 .withoutFormParam("start")
                 .withQueryParam("limit", equalTo(String.valueOf(99))));
+    }
+
+    @Test
+    public void listCoupon() {
+        stubFor(get(urlPathEqualTo("/v2/bot/coupon"))
+                .withQueryParam("status", equalTo("RUNNING"))
+                .withQueryParam("status", equalTo("CLOSED"))
+                .withQueryParam("start",  equalTo("startToken"))
+                .withQueryParam("limit",  equalTo(String.valueOf(10)))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("content-type", "application/json")
+                        .withHeader("x-line-request-id", "ppp")
+                        .withBody("{\n" +
+                                "  \"items\": [{ \"couponId\": \"abc\", \"title\": \"test\" }],\n" +
+                                "  \"next\": \"nextToken\"\n" +
+                                "}")));
+
+        Set<String> status = Set.of("RUNNING", "CLOSED");
+        final var result =
+                target.listCoupon(status, "startToken", 10).join();
+
+        assertThat(result.requestId()).isEqualTo("ppp");
+
+        final var responseBody = requireNonNull(result.body());
+        assertThat(responseBody.items()).hasSize(1);
+        assertThat(responseBody.items().get(0).couponId()).isEqualTo("abc");
+        assertThat(responseBody.next()).isEqualTo("nextToken");
+
+        verify(getRequestedFor(urlPathEqualTo("/v2/bot/coupon"))
+                .withQueryParam("status", equalTo("RUNNING"))
+                .withQueryParam("status", equalTo("CLOSED"))
+                .withQueryParam("start",  equalTo("startToken"))
+                .withQueryParam("limit",  equalTo(String.valueOf(10))));
+
+        final var req = findAll(getRequestedFor(urlPathEqualTo("/v2/bot/coupon"))).get(0);
+        Map<String, Set<String>> actual = req.getQueryParams().entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        e -> Set.copyOf(e.getValue().values())
+                ));
+
+        Map<String, Set<String>> expected = Map.of(
+                "status", Set.of("RUNNING", "CLOSED"),
+                "start",  Set.of("startToken"),
+                "limit",  Set.of("10")
+        );
+
+        assertThat(actual).isEqualTo(expected);
     }
 }
