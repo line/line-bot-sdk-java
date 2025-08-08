@@ -79,4 +79,5 @@ dependencies {
     integrationTestImplementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
     integrationTestImplementation(project(":line-bot-jackson"))
     integrationTestRuntimeOnly(libs.jjwt.impl)
+    integrationTestRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
