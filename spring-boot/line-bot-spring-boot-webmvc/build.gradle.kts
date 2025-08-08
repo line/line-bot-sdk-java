@@ -31,4 +31,5 @@ dependencies {
     testImplementation(libs.wiremock)
     testImplementation("org.springframework.boot:spring-boot-starter-test") // MockHttpServletRequest
     testImplementation("org.springframework.boot:spring-boot-starter-logging")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
