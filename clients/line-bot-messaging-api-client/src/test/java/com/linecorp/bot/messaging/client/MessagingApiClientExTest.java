@@ -20,6 +20,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.containing;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.findAll;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -125,12 +127,12 @@ public class MessagingApiClientExTest {
                                 "}")));
 
         Set<String> status = Set.of("RUNNING", "CLOSED");
-        Result<MessagingApiPagerCouponListResponse> result =
+        final var result =
                 target.listCoupon(status, "startToken", 10).join();
 
         assertThat(result.requestId()).isEqualTo("ppp");
 
-        MessagingApiPagerCouponListResponse responseBody = requireNonNull(result.body());
+        final var responseBody = requireNonNull(result.body());
         assertThat(responseBody.items()).hasSize(1);
         assertThat(responseBody.items().getFirst().couponId()).isEqualTo("abc");
         assertThat(responseBody.next()).isEqualTo("nextToken");
@@ -141,7 +143,7 @@ public class MessagingApiClientExTest {
                 .withQueryParam("start",  equalTo("startToken"))
                 .withQueryParam("limit",  equalTo(String.valueOf(10))));
 
-        LoggedRequest req = findAll(getRequestedFor(urlPathEqualTo("/v2/bot/coupon"))).get(0);
+        final var req = findAll(getRequestedFor(urlPathEqualTo("/v2/bot/coupon"))).get(0);
         assertThat(req.getUrl())
                 .isEqualTo("/v2/bot/coupon?status=RUNNING&status=CLOSED&start=startToken&limit=10");
     }
