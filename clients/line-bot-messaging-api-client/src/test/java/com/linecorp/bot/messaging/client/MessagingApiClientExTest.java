@@ -146,17 +146,18 @@ public class MessagingApiClientExTest {
                 .withQueryParam("limit",  equalTo(String.valueOf(10))));
 
         final var req = findAll(getRequestedFor(urlPathEqualTo("/v2/bot/coupon"))).get(0);
-        Map<String, List<String>> actual = req.getQueryParams().entrySet().stream()
+        Map<String, Set<String>> actual = req.getQueryParams().entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
-                        e -> e.getValue().values()
+                        e -> Set.copyOf(e.getValue().values())
                 ));
-        Map<String, List<String>> expected = Map.of(
-                "status", List.of("RUNNING", "CLOSED"),
-                "start", List.of("startToken"),
-                "limit", List.of("11"));
 
-        assertThat(actual.entrySet())
-                .containsExactlyInAnyOrderElementsOf(expected.entrySet());
+        Map<String, Set<String>> expected = Map.of(
+                "status", Set.of("RUNNING", "CLOSED"),
+                "start",  Set.of("startToken"),
+                "limit",  Set.of("10")
+        );
+
+        assertThat(actual).isEqualTo(expected);
     }
 }
