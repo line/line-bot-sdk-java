@@ -47,7 +47,7 @@ jsonassert = { module = "org.skyscreamer:jsonassert", version = "1.5.3" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
 wiremock = { group = "org.wiremock", name = "wiremock-standalone", version = "3.13.1" }
-test-arranger = { module = "com.ocadotechnology.gembus:test-arranger", version = "1.6.4.1" }
+test-arranger = { module = "com.ocadotechnology.gembus:test-arranger", version = "1.5.7.1" }
 socks-proxy-server = { module = "com.github.bbottema:java-socks-proxy-server", version = "4.1.2" }
 littleproxy = { module = "io.github.littleproxy:littleproxy", version = "2.4.4" }
 
