@@ -150,7 +150,7 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
                 "Event", "MessageContent", "Message", "Action", "DemographicFilter",
                 "FlexBoxBackground", "FlexComponent", "FlexContainer", "ImagemapAction",
                 "Mentionee", "ModuleContent", "Recipient", "RichMenuBatchOperation",
-                "Source", "Template", "ThingsContent"
+                "Source", "Template"
         );
 
         // Set additional unknown* class for jackson's defaultImpl to have unknwon* class as fallback
