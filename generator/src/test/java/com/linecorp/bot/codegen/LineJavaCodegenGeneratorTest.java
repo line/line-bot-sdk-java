@@ -65,6 +65,7 @@ public class LineJavaCodegenGeneratorTest {
         final CodegenConfigurator configurator = new CodegenConfigurator()
                 .addGlobalProperty("modelDocs", "false")
                 .addGlobalProperty("apiDocs", "false")
+                .addGlobalProperty("apiTests", "false")
                 .setTemplatingEngineName("pebble")
                 .setTemplateDir("src/main/resources/line-java-codegen")
                 .setGeneratorName("line-java-codegen") // use this codegen library

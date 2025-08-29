@@ -17,30 +17,23 @@
 
 package com.linecorp.bot.module.client;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
-import static com.github.tomakehurst.wiremock.client.WireMock.put;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
-import static com.github.tomakehurst.wiremock.client.WireMock.delete;
-import static com.github.tomakehurst.wiremock.client.WireMock.putRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
-import com.linecorp.bot.client.base.BlobContent;
-import com.linecorp.bot.client.base.UploadFile;
-
 import java.net.URI;
 
-import java.util.Map;
-
-
+import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.module.model.AcquireChatControlRequest;
 import com.linecorp.bot.module.model.DetachModuleRequest;
 import com.linecorp.bot.module.model.GetModulesResponse;
@@ -48,13 +41,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.bridge.SLF4JBridgeHandler;
-
-import com.ocadotechnology.gembus.test.Arranger;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
@@ -69,7 +56,7 @@ public class LineModuleClientTest {
     }
 
     private WireMockServer wireMockServer;
-    private LineModuleClient api;
+    private LineModuleClient target;
 
     @BeforeEach
     public void setUp() {
@@ -78,7 +65,7 @@ public class LineModuleClientTest {
         configureFor("localhost", wireMockServer.port());
 
 
-        api = LineModuleClient.builder("MY_OWN_TOKEN")
+        target = LineModuleClient.builder("MY_OWN_TOKEN")
             .apiEndPoint(URI.create(wireMockServer.baseUrl()))
             .build();
     }
@@ -96,12 +83,16 @@ public class LineModuleClientTest {
                 .withHeader("content-type", "application/json")
                 .withBody("{}")));
 
-            String chatId = Arranger.some(String.class);
-            AcquireChatControlRequest acquireChatControlRequest = Arranger.some(AcquireChatControlRequest.class);
+        String chatId = "test-chat-id";
 
-        api.acquireChatControl(chatId, acquireChatControlRequest).join().body();
+        // Do
+        target.acquireChatControl(chatId,
+                new AcquireChatControlRequest.Builder().build()
+        ).join();
 
-        // TODO: test validations
+        // Verify
+        verify(postRequestedFor(urlPathTemplate("/v2/bot/chat/{chatId}/control/acquire"))
+                .withPathParam("chatId", equalTo(chatId)));
     }
 
     @Test
@@ -112,11 +103,11 @@ public class LineModuleClientTest {
                 .withHeader("content-type", "application/json")
                 .withBody("{}")));
 
-            DetachModuleRequest detachModuleRequest = Arranger.some(DetachModuleRequest.class);
+        // Do
+        target.detachModule(new DetachModuleRequest.Builder().build()).join();
 
-        api.detachModule(detachModuleRequest).join().body();
-
-        // TODO: test validations
+        // Verify
+        verify(postRequestedFor(urlPathTemplate("/v2/bot/channel/detach")));
     }
 
     @Test
@@ -127,13 +118,17 @@ public class LineModuleClientTest {
                 .withHeader("content-type", "application/json")
                 .withBody("{}")));
 
-            String start = Arranger.some(String.class);
-            Integer limit = Arranger.some(Integer.class);
+        final var start = "token";
+        final var limit = 20;
+        // Do
+        Result<GetModulesResponse> response = target.getModules(start, limit).join();
 
-        GetModulesResponse response = api.getModules(start, limit).join().body();
-
+        // Verify
         assertThat(response).isNotNull();
-        // TODO: test validations
+        assertThat(response.body()).isNotNull();
+        verify(getRequestedFor(urlPathTemplate("/v2/bot/list"))
+                .withQueryParam("start", equalTo(start))
+                .withQueryParam("limit", equalTo(String.valueOf(limit))));
     }
 
     @Test
@@ -144,11 +139,12 @@ public class LineModuleClientTest {
                 .withHeader("content-type", "application/json")
                 .withBody("{}")));
 
-            String chatId = Arranger.some(String.class);
+        String chatId = "test-chat-id";
+        // Do
+        target.releaseChatControl(chatId).join();
 
-        api.releaseChatControl(chatId).join().body();
-
-        // TODO: test validations
+        // Verify
+        verify(postRequestedFor(urlPathTemplate("/v2/bot/chat/{chatId}/control/release"))
+                .withPathParam("chatId", equalTo(chatId)));
     }
-
 }

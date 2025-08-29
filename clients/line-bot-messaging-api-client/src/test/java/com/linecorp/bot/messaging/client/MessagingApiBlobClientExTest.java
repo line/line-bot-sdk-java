@@ -34,7 +34,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,12 +44,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.ocadotechnology.gembus.test.Arranger;
 
 import com.linecorp.bot.client.base.BlobContent;
 import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.client.base.UploadFile;
-import com.linecorp.bot.messaging.model.TextMessage;
+import com.linecorp.bot.messaging.model.GetMessageContentTranscodingResponse;
 
 @ExtendWith(MockitoExtension.class)
 @Timeout(5)
@@ -127,10 +125,7 @@ public class MessagingApiBlobClientExTest {
                                 .withHeader("content-type", "application/json")
                                 .withBody("{}")));
 
-        String richMenuId = Arranger.some(String.class, Map.of(
-                "message", () -> new TextMessage("hello"),
-                "recipient", () -> null,
-                "filter", () -> null));
+        String richMenuId = "test-richmenu-id";
         UploadFile body = UploadFile.fromString("HELLO_FILE", "image/jpeg");
 
         target.setRichMenuImage(richMenuId, body).join();
@@ -145,14 +140,34 @@ public class MessagingApiBlobClientExTest {
                                 .withHeader("content-type", "application/json")
                                 .withBody("{}")));
 
-        String richMenuId = Arranger.some(String.class, Map.of(
-                "message", () -> new TextMessage("hello"),
-                "recipient", () -> null,
-                "filter", () -> null));
+        String richMenuId = "test-richmenu-id";
         UploadFile body = UploadFile.fromByteArray(
                 "HELLO_FILE".getBytes(StandardCharsets.UTF_8),
                 "image/jpeg");
 
         target.setRichMenuImage(richMenuId, body).join();
+    }
+
+    @Test
+    public void getMessageContentTranscodingByMessageId() {
+        stubFor(get(urlEqualTo("/v2/bot/message/aaaa/content/transcoding")).willReturn(
+                aResponse()
+                        .withStatus(200)
+                        .withHeader("content-type", "application/json")
+                        .withBody("""
+                                {
+                                  "status": "processing"
+                                }
+                                """)));
+
+        // Do
+        Result<GetMessageContentTranscodingResponse> result =
+                target.getMessageContentTranscodingByMessageId("aaaa")
+                        .join();
+
+        // Verify
+        assertThat(result).isNotNull();
+        assertThat(result.body()).isNotNull();
+        assertThat(result.body().status()).isEqualTo(GetMessageContentTranscodingResponse.Status.PROCESSING);
     }
 }

@@ -207,5 +207,3 @@ src/main/java/com/linecorp/bot/messaging/model/UserMentionTarget.java
 src/main/java/com/linecorp/bot/messaging/model/UserProfileResponse.java
 src/main/java/com/linecorp/bot/messaging/model/ValidateMessageRequest.java
 src/main/java/com/linecorp/bot/messaging/model/VideoMessage.java
-src/test/java/com/linecorp/bot/messaging/client/MessagingApiBlobClientTest.java
-src/test/java/com/linecorp/bot/messaging/client/MessagingApiClientTest.java
