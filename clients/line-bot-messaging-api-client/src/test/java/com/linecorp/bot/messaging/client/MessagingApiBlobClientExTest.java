@@ -44,7 +44,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.ocadotechnology.gembus.test.Arranger;
 
 import com.linecorp.bot.client.base.BlobContent;
 import com.linecorp.bot.client.base.Result;
@@ -126,7 +125,7 @@ public class MessagingApiBlobClientExTest {
                                 .withHeader("content-type", "application/json")
                                 .withBody("{}")));
 
-        String richMenuId = Arranger.some(String.class);
+        String richMenuId = "test-richmenu-id";
         UploadFile body = UploadFile.fromString("HELLO_FILE", "image/jpeg");
 
         target.setRichMenuImage(richMenuId, body).join();
@@ -141,7 +140,7 @@ public class MessagingApiBlobClientExTest {
                                 .withHeader("content-type", "application/json")
                                 .withBody("{}")));
 
-        String richMenuId = Arranger.some(String.class);
+        String richMenuId = "test-richmenu-id";
         UploadFile body = UploadFile.fromByteArray(
                 "HELLO_FILE".getBytes(StandardCharsets.UTF_8),
                 "image/jpeg");

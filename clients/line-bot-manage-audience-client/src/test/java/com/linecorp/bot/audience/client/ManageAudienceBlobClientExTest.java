@@ -21,14 +21,19 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.containing;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.put;
 import static com.github.tomakehurst.wiremock.client.WireMock.putRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static com.linecorp.bot.audience.model.CreateAudienceGroupResponse.Permission.READ_WRITE;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +45,8 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
+import com.linecorp.bot.audience.model.CreateAudienceGroupResponse;
+import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.client.base.UploadFile;
 
 @ExtendWith(MockitoExtension.class)
@@ -92,5 +99,40 @@ public class ManageAudienceBlobClientExTest {
                         urlEqualTo("/v2/bot/audienceGroup/upload/byFile")
                 ).withHeader("Authorization", equalTo("Bearer MY_OWN_TOKEN"))
         );
+    }
+
+    @Test
+    public void testCreateAudienceForUploadingUserIds() {
+        stubFor(post(urlPathTemplate("/v2/bot/audienceGroup/upload/byFile"))
+                .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader("content-type", "application/json")
+                                .withBody("""
+                                        {
+                                          "audienceGroupId": 1234567890123,
+                                          "createRoute": "MESSAGING_API",
+                                          "type": "UPLOAD",
+                                          "description": "audienceGroupName_01",
+                                          "created": 1613700237,
+                                          "permission": "READ_WRITE",
+                                          "expireTimestamp": 1629252237,
+                                          "isIfaAudience": false
+                                        }""")));
+        // Do
+        UploadFile body = UploadFile.fromByteArray(
+                "HELLO_FILE".getBytes(StandardCharsets.UTF_8),
+                "text/plain");
+        Result<CreateAudienceGroupResponse> result = target.createAudienceForUploadingUserIds(
+                null, false, "Test Audience", body).join();
+
+        // Verify
+        assertThat(result).isNotNull();
+        assertThat(result.body()).isNotNull();
+        assertThat(result.body().audienceGroupId()).isEqualTo(1234567890123L);
+        assertThat(result.body().description()).isEqualTo("audienceGroupName_01");
+        assertThat(result.body().permission()).isEqualTo(READ_WRITE);
+        assertThat(result.body().expireTimestamp()).isEqualTo(1629252237L);
+        assertThat(result.body().isIfaAudience()).isFalse();
     }
 }
