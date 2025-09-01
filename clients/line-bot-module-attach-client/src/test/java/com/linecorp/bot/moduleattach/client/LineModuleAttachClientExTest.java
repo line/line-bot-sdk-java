@@ -17,42 +17,30 @@
 
 package com.linecorp.bot.moduleattach.client;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.containing;
+import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
+import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
-import static com.github.tomakehurst.wiremock.client.WireMock.put;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
-import static com.github.tomakehurst.wiremock.client.WireMock.delete;
-import static com.github.tomakehurst.wiremock.client.WireMock.putRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
-import com.linecorp.bot.client.base.BlobContent;
-import com.linecorp.bot.client.base.UploadFile;
-
 import java.net.URI;
+import java.util.List;
 
-import java.util.Map;
 
-
+import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.moduleattach.model.AttachModuleResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.bridge.SLF4JBridgeHandler;
-
-import com.ocadotechnology.gembus.test.Arranger;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
@@ -60,14 +48,14 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 * API tests for LineModuleAttachClient
 */
 @Timeout(5)
-public class LineModuleAttachClientTest {
+public class LineModuleAttachClientExTest {
     static {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
     }
 
     private WireMockServer wireMockServer;
-    private LineModuleAttachClient api;
+    private LineModuleAttachClient target;
 
     @BeforeEach
     public void setUp() {
@@ -76,7 +64,7 @@ public class LineModuleAttachClientTest {
         configureFor("localhost", wireMockServer.port());
 
 
-        api = LineModuleAttachClient.builder("MY_OWN_TOKEN")
+        target = LineModuleAttachClient.builder("MY_OWN_TOKEN")
             .apiEndPoint(URI.create(wireMockServer.baseUrl()))
             .build();
     }
@@ -88,27 +76,37 @@ public class LineModuleAttachClientTest {
 
     @Test
     public void attachModuleTest() {
-        stubFor(post(urlPathTemplate("/module/auth/v1/token")).willReturn(
-            aResponse()
-                .withStatus(200)
-                .withHeader("content-type", "application/json")
-                .withBody("{}")));
+        stubFor(post(urlPathTemplate("/module/auth/v1/token"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("content-type", "application/json")
+                        .withBody("""
+                                {
+                                  "bot_id": "U111...",
+                                  "scopes": ["message:send", "message:receive"]
+                                }""")));
 
-            String grantType = Arranger.some(String.class);
-            String code = Arranger.some(String.class);
-            String redirectUri = Arranger.some(String.class);
-            String codeVerifier = Arranger.some(String.class);
-            String clientId = Arranger.some(String.class);
-            String clientSecret = Arranger.some(String.class);
-            String region = Arranger.some(String.class);
-            String basicSearchId = Arranger.some(String.class);
-            String scope = Arranger.some(String.class);
-            String brandType = Arranger.some(String.class);
+        // Do
+        Result<AttachModuleResponse> result = target.attachModule(
+                "authorization_code",
+                "test-code",
+                "https://example2.com/callback?key=value",
+                null, null, null, null, null,
+                "message:send message:receive",
+                null
+                )
+            .join();
 
-        AttachModuleResponse response = api.attachModule(grantType, code, redirectUri, codeVerifier, clientId, clientSecret, region, basicSearchId, scope, brandType).join().body();
-
-        assertThat(response).isNotNull();
-        // TODO: test validations
+        // Verify
+        assertThat(result).isNotNull();
+        AttachModuleResponse responseBody = requireNonNull(result.body());
+        assertThat(responseBody.botId()).isEqualTo("U111...");
+        assertThat(responseBody.scopes()).isEqualTo(List.of("message:send", "message:receive"));
+        verify(postRequestedFor(urlPathTemplate("/module/auth/v1/token"))
+                .withRequestBody(containing("grant_type=authorization_code"))
+                .withRequestBody(containing("code=test-code"))
+                .withRequestBody(containing("redirect_uri=https%3A%2F%2Fexample2.com%2Fcallback%3Fkey%3Dvalue"))
+                .withRequestBody(containing("scope=message%3Asend+message%3Areceive"))
+                );
     }
-
 }
