@@ -1,5 +1,4 @@
 src/main/java/com/linecorp/bot/webhook/model/AccountLinkEvent.java
-src/main/java/com/linecorp/bot/webhook/model/ActionResult.java
 src/main/java/com/linecorp/bot/webhook/model/ActivatedEvent.java
 src/main/java/com/linecorp/bot/webhook/model/AllMentionee.java
 src/main/java/com/linecorp/bot/webhook/model/AttachedModuleContent.java
@@ -30,7 +29,6 @@ src/main/java/com/linecorp/bot/webhook/model/LeaveEvent.java
 src/main/java/com/linecorp/bot/webhook/model/LeftMembers.java
 src/main/java/com/linecorp/bot/webhook/model/LeftMembershipContent.java
 src/main/java/com/linecorp/bot/webhook/model/LinkContent.java
-src/main/java/com/linecorp/bot/webhook/model/LinkThingsContent.java
 src/main/java/com/linecorp/bot/webhook/model/LocationMessageContent.java
 src/main/java/com/linecorp/bot/webhook/model/MemberJoinedEvent.java
 src/main/java/com/linecorp/bot/webhook/model/MemberLeftEvent.java
@@ -48,16 +46,11 @@ src/main/java/com/linecorp/bot/webhook/model/PostbackContent.java
 src/main/java/com/linecorp/bot/webhook/model/PostbackEvent.java
 src/main/java/com/linecorp/bot/webhook/model/RenewedMembershipContent.java
 src/main/java/com/linecorp/bot/webhook/model/RoomSource.java
-src/main/java/com/linecorp/bot/webhook/model/ScenarioResult.java
-src/main/java/com/linecorp/bot/webhook/model/ScenarioResultThingsContent.java
 src/main/java/com/linecorp/bot/webhook/model/Source.java
 src/main/java/com/linecorp/bot/webhook/model/StickerMessageContent.java
 src/main/java/com/linecorp/bot/webhook/model/TextMessageContent.java
-src/main/java/com/linecorp/bot/webhook/model/ThingsContent.java
-src/main/java/com/linecorp/bot/webhook/model/ThingsEvent.java
 src/main/java/com/linecorp/bot/webhook/model/UnfollowEvent.java
 src/main/java/com/linecorp/bot/webhook/model/UnknownMembershipContent.java
-src/main/java/com/linecorp/bot/webhook/model/UnlinkThingsContent.java
 src/main/java/com/linecorp/bot/webhook/model/UnsendDetail.java
 src/main/java/com/linecorp/bot/webhook/model/UnsendEvent.java
 src/main/java/com/linecorp/bot/webhook/model/UserMentionee.java

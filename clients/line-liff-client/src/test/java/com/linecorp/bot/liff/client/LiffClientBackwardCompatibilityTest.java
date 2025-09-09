@@ -19,11 +19,18 @@ package com.linecorp.bot.liff.client;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.delete;
+import static com.github.tomakehurst.wiremock.client.WireMock.deleteRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.put;
+import static com.github.tomakehurst.wiremock.client.WireMock.putRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,11 +43,12 @@ import org.junit.jupiter.api.Timeout;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.ocadotechnology.gembus.test.Arranger;
 
+import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.liff.model.AddLiffAppRequest;
 import com.linecorp.bot.liff.model.AddLiffAppResponse;
 import com.linecorp.bot.liff.model.GetAllLiffAppsResponse;
+import com.linecorp.bot.liff.model.LiffView;
 import com.linecorp.bot.liff.model.UpdateLiffAppRequest;
 
 /**
@@ -56,7 +64,7 @@ public class LiffClientBackwardCompatibilityTest {
     }
 
     private WireMockServer wireMockServer;
-    private LiffClient api;
+    private LiffClient target;
 
     @BeforeEach
     public void setUp() {
@@ -64,7 +72,7 @@ public class LiffClientBackwardCompatibilityTest {
         wireMockServer.start();
         configureFor("localhost", wireMockServer.port());
 
-        api = LiffClient.builder("MY_OWN_TOKEN")
+        target = LiffClient.builder("MY_OWN_TOKEN")
                 .apiEndPoint(URI.create(wireMockServer.baseUrl()))
                 .build();
     }
@@ -82,10 +90,13 @@ public class LiffClientBackwardCompatibilityTest {
                         .withHeader("content-type", "application/json")
                         .withBody("{}")));
 
-        GetAllLiffAppsResponse response = api.liffV1AppsGet().join().body();
+        // Do
+        Result<GetAllLiffAppsResponse> result = target.liffV1AppsGet().join();
 
-        assertThat(response).isNotNull();
-        // TODO: test validations
+        // Verify
+        assertThat(result).isNotNull();
+        assertThat(result.body()).isNotNull();
+        verify(getRequestedFor(urlPathTemplate("/liff/v1/apps")));
     }
 
     @Test
@@ -96,11 +107,13 @@ public class LiffClientBackwardCompatibilityTest {
                         .withHeader("content-type", "application/json")
                         .withBody("{}")));
 
-        String liffId = Arranger.some(String.class);
+        String liffId = "test-liff-id";
+        // Do
+        target.liffV1AppsLiffIdDelete(liffId).join();
 
-        api.liffV1AppsLiffIdDelete(liffId).join().body();
-
-        // TODO: test validations
+        // Verify
+        verify(deleteRequestedFor(urlPathTemplate("/liff/v1/apps/{liffId}"))
+                .withPathParam("liffId", equalTo(liffId)));
     }
 
     @Test
@@ -111,12 +124,13 @@ public class LiffClientBackwardCompatibilityTest {
                         .withHeader("content-type", "application/json")
                         .withBody("{}")));
 
-        String liffId = Arranger.some(String.class);
-        UpdateLiffAppRequest updateLiffAppRequest = Arranger.some(UpdateLiffAppRequest.class);
+        String liffId = "test-liff-id2";
+        // Do
+        target.liffV1AppsLiffIdPut(liffId, new UpdateLiffAppRequest.Builder().build()).join();
 
-        api.liffV1AppsLiffIdPut(liffId, updateLiffAppRequest).join().body();
-
-        // TODO: test validations
+        // Verify
+        verify(putRequestedFor(urlPathTemplate("/liff/v1/apps/{liffId}"))
+                .withPathParam("liffId", equalTo(liffId)));
     }
 
     @Test
@@ -127,12 +141,27 @@ public class LiffClientBackwardCompatibilityTest {
                         .withHeader("content-type", "application/json")
                         .withBody("{}")));
 
-        AddLiffAppRequest addLiffAppRequest = Arranger.some(AddLiffAppRequest.class);
-
-        AddLiffAppResponse response = api.liffV1AppsPost(addLiffAppRequest).join().body();
+        Result<AddLiffAppResponse> response = target.liffV1AppsPost(
+                new AddLiffAppRequest.Builder(
+                        new LiffView.Builder(
+                                LiffView.Type.COMPACT,
+                                URI.create("https://example.com")
+                        ).build()
+                ).build()
+        ).join();
 
         assertThat(response).isNotNull();
-        // TODO: test validations
+        assertThat(response.body()).isNotNull();
+        verify(
+                postRequestedFor(urlPathTemplate("/liff/v1/apps"))
+                        .withRequestBody(equalToJson("""
+                                {
+                                "view": {
+                                    "type": "compact",
+                                    "url": "https://example.com"
+                                  }
+                                }"""))
+        );
     }
 
 }

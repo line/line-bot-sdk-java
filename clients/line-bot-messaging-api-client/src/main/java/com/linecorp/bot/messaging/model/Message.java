@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 /** Message */
 @JsonSubTypes({
   @JsonSubTypes.Type(value = AudioMessage.class, name = "audio"),
+  @JsonSubTypes.Type(value = CouponMessage.class, name = "coupon"),
   @JsonSubTypes.Type(value = FlexMessage.class, name = "flex"),
   @JsonSubTypes.Type(value = ImageMessage.class, name = "image"),
   @JsonSubTypes.Type(value = ImagemapMessage.class, name = "imagemap"),

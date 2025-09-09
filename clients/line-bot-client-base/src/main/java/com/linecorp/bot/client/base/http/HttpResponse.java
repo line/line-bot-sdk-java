@@ -50,9 +50,6 @@ public class HttpResponse {
 
     public HttpResponseBody body() {
         ResponseBody body = this.response.body();
-        if (body == null) {
-            return null;
-        }
         return new HttpResponseBody(body);
     }
 

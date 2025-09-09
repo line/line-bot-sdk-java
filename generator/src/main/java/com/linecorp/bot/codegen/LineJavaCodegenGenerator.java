@@ -53,8 +53,6 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
         embeddedTemplateDir = "line-java-codegen";
         apiTemplateFiles.remove("api.mustache");
         apiTemplateFiles.put("line-java-codegen/api.pebble", ".java");
-        apiTestTemplateFiles.remove("api_test.mustache");
-        apiTestTemplateFiles.put("line-java-codegen/api_test.pebble", ".java");
         modelTemplateFiles.remove("model.mustache");
         modelTemplateFiles.put("line-java-codegen/model.pebble", ".java");
     }
@@ -150,7 +148,7 @@ public class LineJavaCodegenGenerator extends AbstractJavaCodegen {
                 "Event", "MessageContent", "Message", "Action", "DemographicFilter",
                 "FlexBoxBackground", "FlexComponent", "FlexContainer", "ImagemapAction",
                 "Mentionee", "ModuleContent", "Recipient", "RichMenuBatchOperation",
-                "Source", "Template", "ThingsContent"
+                "Source", "Template"
         );
 
         // Set additional unknown* class for jackson's defaultImpl to have unknwon* class as fallback

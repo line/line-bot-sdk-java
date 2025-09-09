@@ -35,6 +35,5 @@ dependencies {
     testImplementation(libs.bundles.tests)
     testImplementation(libs.wiremock)
     testImplementation(libs.jul.to.slf4j)
-    testImplementation(libs.test.arranger)
 }
 

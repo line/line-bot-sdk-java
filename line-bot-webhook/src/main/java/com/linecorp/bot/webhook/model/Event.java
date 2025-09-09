@@ -43,7 +43,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
   @JsonSubTypes.Type(value = MessageEvent.class, name = "message"),
   @JsonSubTypes.Type(value = ModuleEvent.class, name = "module"),
   @JsonSubTypes.Type(value = PostbackEvent.class, name = "postback"),
-  @JsonSubTypes.Type(value = ThingsEvent.class, name = "things"),
   @JsonSubTypes.Type(value = UnfollowEvent.class, name = "unfollow"),
   @JsonSubTypes.Type(value = UnsendEvent.class, name = "unsend"),
   @JsonSubTypes.Type(value = VideoPlayCompleteEvent.class, name = "videoPlayComplete"),

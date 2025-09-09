@@ -105,6 +105,7 @@ def main():
                     -o {component['outdir']} \\
                     --global-property modelDocs=false \\
                     --global-property apiDocs=false \\
+                    --global-property apiTests=false \\
                     --additional-properties=excludeText=true \\
                     --additional-properties=generateSourceCodeOnly=true \\
                     --additional-properties=modelPackage={package}.model \\

@@ -41,6 +41,7 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") // MockHttpServletRequest
     testImplementation("org.springframework.boot:spring-boot-starter-logging")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

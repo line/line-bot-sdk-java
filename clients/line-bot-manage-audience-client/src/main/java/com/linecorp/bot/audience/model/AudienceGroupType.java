@@ -64,6 +64,9 @@ public enum AudienceGroupType {
   @JsonProperty("RICHMENU_CLICK")
   RICHMENU_CLICK,
 
+  @JsonProperty("POP_AD_IMP")
+  POP_AD_IMP,
+
   @JsonEnumDefaultValue
   UNDEFINED;
 
@@ -82,6 +85,7 @@ public enum AudienceGroupType {
       case IMAGE_CLICK -> "IMAGE_CLICK";
       case RICHMENU_IMP -> "RICHMENU_IMP";
       case RICHMENU_CLICK -> "RICHMENU_CLICK";
+      case POP_AD_IMP -> "POP_AD_IMP";
 
       default -> "UNDEFINED";
     };

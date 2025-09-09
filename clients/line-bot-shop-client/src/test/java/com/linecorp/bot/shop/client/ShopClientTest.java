@@ -17,28 +17,19 @@
 
 package com.linecorp.bot.shop.client;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
-import static com.github.tomakehurst.wiremock.client.WireMock.put;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
-import static com.github.tomakehurst.wiremock.client.WireMock.delete;
-import static com.github.tomakehurst.wiremock.client.WireMock.putRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathTemplate;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
-import com.linecorp.bot.client.base.BlobContent;
-import com.linecorp.bot.client.base.UploadFile;
-
 import java.net.URI;
-
-import java.util.Map;
 
 
 import com.linecorp.bot.shop.model.MissionStickerRequest;
@@ -46,13 +37,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.bridge.SLF4JBridgeHandler;
-
-import com.ocadotechnology.gembus.test.Arranger;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
@@ -67,7 +52,7 @@ public class ShopClientTest {
     }
 
     private WireMockServer wireMockServer;
-    private ShopClient api;
+    private ShopClient target;
 
     @BeforeEach
     public void setUp() {
@@ -76,7 +61,7 @@ public class ShopClientTest {
         configureFor("localhost", wireMockServer.port());
 
 
-        api = ShopClient.builder("MY_OWN_TOKEN")
+        target = ShopClient.builder("MY_OWN_TOKEN")
             .apiEndPoint(URI.create(wireMockServer.baseUrl()))
             .build();
     }
@@ -94,11 +79,25 @@ public class ShopClientTest {
                 .withHeader("content-type", "application/json")
                 .withBody("{}")));
 
-            MissionStickerRequest missionStickerRequest = Arranger.some(MissionStickerRequest.class);
+        String userId = "U111...";
+        String productId = "12345";
+        String productType = "STICKER";
+        Boolean sendPresentMessage = true;
+        // Do
+        target.missionStickerV3(new MissionStickerRequest.Builder(
+            userId, productId, productType, sendPresentMessage
+        ).build()).join();
 
-        api.missionStickerV3(missionStickerRequest).join().body();
-
-        // TODO: test validations
+        // Verify
+        verify(
+                postRequestedFor(urlPathEqualTo("/shop/v3/mission"))
+                        .withRequestBody(equalToJson("""
+                                {
+                                  "to": "U111...",
+                                  "productId": "12345",
+                                  "productType": "STICKER",
+                                  "sendPresentMessage": true
+                                }"""))
+        );
     }
-
 }

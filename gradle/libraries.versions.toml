@@ -1,13 +1,13 @@
 [versions]
 retrofit2 = "3.0.0"
-jjwt = "0.12.6"
-jackson = "2.19.1"
-assertj = "3.27.3"
-junit = "5.13.2"
-junitPlatformLauncher = "1.13.2"
+jjwt = "0.13.0"
+jackson = "2.19.2"
+assertj = "3.27.4"
+junit = "5.13.4"
+junitPlatformLauncher = "1.13.4"
 slf4j = "2.0.17"
-mockito = "5.18.0"
-okhttp3 = "4.12.0"
+mockito = "5.19.0"
+okhttp3 = "5.1.0"
 
 [libraries]
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit2" }
@@ -48,9 +48,8 @@ jsonassert = { module = "org.skyscreamer:jsonassert", version = "1.5.3" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
 wiremock = { group = "org.wiremock", name = "wiremock-standalone", version = "3.13.1" }
-test-arranger = { module = "com.ocadotechnology.gembus:test-arranger", version = "1.5.7.1" }
 socks-proxy-server = { module = "com.github.bbottema:java-socks-proxy-server", version = "4.1.2" }
-littleproxy = { module = "io.github.littleproxy:littleproxy", version = "2.4.2" }
+littleproxy = { module = "io.github.littleproxy:littleproxy", version = "2.4.5" }
 
 [bundles]
 retrofit2 = ["retrofit2-converter-jackson", "retrofit2-retrofit"]
