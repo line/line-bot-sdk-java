@@ -35,7 +35,7 @@ public class IntegrationTestSettingsLoader {
                 .isNotNull();
 
         IntegrationTestSettings settings = new ObjectMapper(new YAMLFactory())
-                .readValue(TEST_RESOURCE, IntegrationTestSettings.class);
+                .readValue(TEST_RESOURCE.openStream(), IntegrationTestSettings.class);
 
         assumeThat(settings.enabled() != null && !settings.enabled())
                 .as("Integration test was disabled.")

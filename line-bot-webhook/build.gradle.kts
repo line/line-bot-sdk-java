@@ -21,6 +21,8 @@ plugins {
 
 
 dependencies {
+    implementation(platform(libs.jackson.bom))
+
     compileOnly(libs.jackson.annotations)
     compileOnly(libs.javax.annotation)
     compileOnly(libs.jakarta.annotation.api)

@@ -31,6 +31,7 @@ subprocess.run("./gradlew publishToMavenLocal", shell=True, check=True)
 fails = 0
 
 pattern = re.compile("""<dependency>.*?</dependency>""", re.DOTALL)
+jackson_groupid_pattern = re.compile("""<groupId>com\.fasterxml\.jackson.*?</groupId>""")
 root = Path(os.path.expanduser("~/.m2/repository/com/linecorp/bot/"))
 for fname in root.glob("**/*.pom"):
     if fname.name.startswith("line-bot-spring-boot"):
@@ -42,6 +43,9 @@ for fname in root.glob("**/*.pom"):
         content = fp.read()
         for dependency in re.findall(pattern, content):
             if "<version>" not in dependency:
+                # Skip Jackson dependencies - they are managed by BOM
+                if jackson_groupid_pattern.search(dependency):
+                    continue
                 print(dependency)
                 fails += 1
 
