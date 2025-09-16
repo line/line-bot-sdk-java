@@ -19,8 +19,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("sdk.java-library")
     id("sdk.spring-boot")
-    kotlin("jvm") version "2.2.10"
-    kotlin("plugin.spring") version "2.2.10"
+    kotlin("jvm") version "2.2.20"
+    kotlin("plugin.spring") version "2.2.20"
 }
 
 dependencies {
