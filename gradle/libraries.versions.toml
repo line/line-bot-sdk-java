@@ -6,7 +6,7 @@ assertj = "3.27.5"
 junit = "5.13.4"
 junitPlatformLauncher = "1.13.4"
 slf4j = "2.0.17"
-mockito = "5.19.0"
+mockito = "5.20.0"
 okhttp3 = "5.1.0"
 
 [libraries]
