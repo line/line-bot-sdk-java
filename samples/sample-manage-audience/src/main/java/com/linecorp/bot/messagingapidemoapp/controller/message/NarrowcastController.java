@@ -144,7 +144,7 @@ public class NarrowcastController {
                 messageList,
                 recipientObject,
                 new Filter(new OperatorDemographicFilter(condition, null, null)),
-                maxLimit == null ? null : new Limit(maxLimit, false),
+                maxLimit == null ? null : new Limit.Builder().max(maxLimit).upToRemainingQuota(false).build(),
                 notificationDisabled
         );
         return messagingClient.narrowcast(null, narrowcast).thenApply(
