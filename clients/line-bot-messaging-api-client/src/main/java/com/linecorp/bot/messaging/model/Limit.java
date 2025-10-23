@@ -44,11 +44,19 @@ public record Limit(
      * If true, the message will be sent within the maximum number of deliverable messages. The
      * default value is &#x60;false&#x60;. Targets will be selected at random.
      */
-    @JsonProperty("upToRemainingQuota") Boolean upToRemainingQuota) {
+    @JsonProperty("upToRemainingQuota") Boolean upToRemainingQuota,
+    /**
+     * This option prevents messages from being delivered to only a subset of the target audience.
+     * If true, the narrowcast request success but fails asynchronously. You can check whether
+     * message delivery was canceled by retrieving the narrowcast message progress. This property
+     * can be set to true only if upToRemainingQuota is set to true.
+     */
+    @JsonProperty("forbidPartialDelivery") Boolean forbidPartialDelivery) {
 
   public static class Builder {
     private Integer max;
     private Boolean upToRemainingQuota;
+    private Boolean forbidPartialDelivery;
 
     public Builder() {}
 
@@ -62,8 +70,13 @@ public record Limit(
       return this;
     }
 
+    public Builder forbidPartialDelivery(Boolean forbidPartialDelivery) {
+      this.forbidPartialDelivery = forbidPartialDelivery;
+      return this;
+    }
+
     public Limit build() {
-      return new Limit(max, upToRemainingQuota);
+      return new Limit(max, upToRemainingQuota, forbidPartialDelivery);
     }
   }
 }
