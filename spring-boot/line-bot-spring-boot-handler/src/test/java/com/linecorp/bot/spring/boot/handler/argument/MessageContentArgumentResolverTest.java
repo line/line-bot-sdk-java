@@ -31,11 +31,23 @@ class MessageContentArgumentResolverTest {
     void isSupported() {
         var resolver = new MessageContentArgumentResolver(TextMessageContent.class);
         assertThat(resolver.isSupported(
-                new MessageEvent(null, null, null, null, null, null,
-                        new TextMessageContent("aaa", "bbb", null, null, null, null)))).isTrue();
+                new MessageEvent.Builder(
+                        null,
+                        null,
+                        null,
+                        null,
+                        new TextMessageContent("aaa", "bbb", null, null, null, null)
+                )
+                        .build())).isTrue();
         assertThat(resolver.isSupported(
-                new MessageEvent(null, null, null, null, null, null,
-                        new ImageMessageContent("aaa", null, null, null)))).isFalse();
+                new MessageEvent.Builder(
+                        null,
+                        null,
+                        null,
+                        null,
+                        new ImageMessageContent("aaa", null, null, null)
+                )
+                        .build())).isFalse();
         assertThat(resolver.isSupported(
                 new MemberJoinedEvent(null, null, null, null, null, null,
                         null))).isFalse();
@@ -46,8 +58,8 @@ class MessageContentArgumentResolverTest {
         var resolver = new MessageContentArgumentResolver(TextMessageContent.class);
         TextMessageContent textMessageContent = new TextMessageContent("aaa", "bbb", null, null, null, null);
         assertThat(resolver.resolve(
-                "AAAA", new MessageEvent(
-                        null, null, null, null, null, null,
-                        textMessageContent))).isEqualTo(textMessageContent);
+                "AAAA", new MessageEvent.Builder(
+                        null, null, null, null, textMessageContent
+                ).build())).isEqualTo(textMessageContent);
     }
 }
