@@ -30,13 +30,11 @@ public final class EventTestUtil {
     }
 
     public static MessageEvent createTextMessage(final String text) {
-        return new MessageEvent(
-                new UserSource("userId"),
+        return new MessageEvent.Builder(
                 Instant.parse("2016-11-19T00:00:00.000Z").toEpochMilli(),
                 EventMode.ACTIVE,
                 "AAAAAAAAAAAAAA",
                 new DeliveryContext(false),
-                "replyToken",
                 new TextMessageContent(
                         "id",
                         text,
@@ -45,6 +43,9 @@ public final class EventTestUtil {
                         null,
                         null
                 )
-        );
+        )
+                .source(new UserSource("userId"))
+                .replyToken("replyToken")
+                .build();
     }
 }
