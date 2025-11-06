@@ -35,14 +35,7 @@ public final class EventTestUtil {
                 EventMode.ACTIVE,
                 "AAAAAAAAAAAAAA",
                 new DeliveryContext(false),
-                new TextMessageContent(
-                        "id",
-                        text,
-                        null,
-                        null,
-                        null,
-                        null
-                )
+                new TextMessageContent.Builder("id", text, null).build()
         )
                 .source(new UserSource("userId"))
                 .replyToken("replyToken")

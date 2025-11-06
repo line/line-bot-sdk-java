@@ -36,7 +36,7 @@ class MessageContentArgumentResolverTest {
                         null,
                         null,
                         null,
-                        new TextMessageContent("aaa", "bbb", null, null, null, null)
+                        new TextMessageContent.Builder("aaa", "bbb", null).build()
                 )
                         .build())).isTrue();
         assertThat(resolver.isSupported(
@@ -45,7 +45,7 @@ class MessageContentArgumentResolverTest {
                         null,
                         null,
                         null,
-                        new ImageMessageContent("aaa", null, null, null)
+                        new ImageMessageContent.Builder("aaa", null, null).build()
                 )
                         .build())).isFalse();
         assertThat(resolver.isSupported(
@@ -56,7 +56,7 @@ class MessageContentArgumentResolverTest {
     @Test
     void resolve() {
         var resolver = new MessageContentArgumentResolver(TextMessageContent.class);
-        TextMessageContent textMessageContent = new TextMessageContent("aaa", "bbb", null, null, null, null);
+        TextMessageContent textMessageContent = new TextMessageContent.Builder("aaa", "bbb", null).build();
         assertThat(resolver.resolve(
                 "AAAA", new MessageEvent.Builder(
                         null, null, null, null, textMessageContent
