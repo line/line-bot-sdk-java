@@ -1,7 +1,7 @@
 [versions]
 retrofit2 = "3.0.0"
 jjwt = "0.13.0"
-jackson = "2.20.0"
+jackson = "2.20.1"
 jackson-annotations = "2.20"
 assertj = "3.27.6"
 junit = "6.0.0"
