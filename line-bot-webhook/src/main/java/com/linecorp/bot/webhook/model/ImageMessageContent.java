@@ -39,7 +39,9 @@ public record ImageMessageContent(
     /** Get imageSet */
     @JsonProperty("imageSet") ImageSet imageSet,
     /** Quote token to quote this message. */
-    @JsonProperty("quoteToken") String quoteToken)
+    @JsonProperty("quoteToken") String quoteToken,
+    /** Token used to mark the message as read. */
+    @JsonProperty("markAsReadToken") String markAsReadToken)
     implements MessageContent {
 
   public static class Builder {
@@ -47,6 +49,7 @@ public record ImageMessageContent(
     private ContentProvider contentProvider;
     private ImageSet imageSet;
     private String quoteToken;
+    private String markAsReadToken;
 
     public Builder(String id, ContentProvider contentProvider, String quoteToken) {
 
@@ -62,8 +65,13 @@ public record ImageMessageContent(
       return this;
     }
 
+    public Builder markAsReadToken(String markAsReadToken) {
+      this.markAsReadToken = markAsReadToken;
+      return this;
+    }
+
     public ImageMessageContent build() {
-      return new ImageMessageContent(id, contentProvider, imageSet, quoteToken);
+      return new ImageMessageContent(id, contentProvider, imageSet, quoteToken, markAsReadToken);
     }
   }
 }

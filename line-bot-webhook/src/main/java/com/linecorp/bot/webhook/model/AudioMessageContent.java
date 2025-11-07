@@ -37,13 +37,16 @@ public record AudioMessageContent(
     /** Get contentProvider */
     @JsonProperty("contentProvider") ContentProvider contentProvider,
     /** Length of audio file (milliseconds) */
-    @JsonProperty("duration") Long duration)
+    @JsonProperty("duration") Long duration,
+    /** Token used to mark the message as read. */
+    @JsonProperty("markAsReadToken") String markAsReadToken)
     implements MessageContent {
 
   public static class Builder {
     private String id;
     private ContentProvider contentProvider;
     private Long duration;
+    private String markAsReadToken;
 
     public Builder(String id, ContentProvider contentProvider) {
 
@@ -57,8 +60,13 @@ public record AudioMessageContent(
       return this;
     }
 
+    public Builder markAsReadToken(String markAsReadToken) {
+      this.markAsReadToken = markAsReadToken;
+      return this;
+    }
+
     public AudioMessageContent build() {
-      return new AudioMessageContent(id, contentProvider, duration);
+      return new AudioMessageContent(id, contentProvider, duration, markAsReadToken);
     }
   }
 }

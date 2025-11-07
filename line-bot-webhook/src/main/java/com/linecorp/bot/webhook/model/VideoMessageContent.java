@@ -39,7 +39,9 @@ public record VideoMessageContent(
     /** Get contentProvider */
     @JsonProperty("contentProvider") ContentProvider contentProvider,
     /** Quote token to quote this message. */
-    @JsonProperty("quoteToken") String quoteToken)
+    @JsonProperty("quoteToken") String quoteToken,
+    /** Token used to mark the message as read. */
+    @JsonProperty("markAsReadToken") String markAsReadToken)
     implements MessageContent {
 
   public static class Builder {
@@ -47,6 +49,7 @@ public record VideoMessageContent(
     private Long duration;
     private ContentProvider contentProvider;
     private String quoteToken;
+    private String markAsReadToken;
 
     public Builder(String id, ContentProvider contentProvider, String quoteToken) {
 
@@ -62,8 +65,13 @@ public record VideoMessageContent(
       return this;
     }
 
+    public Builder markAsReadToken(String markAsReadToken) {
+      this.markAsReadToken = markAsReadToken;
+      return this;
+    }
+
     public VideoMessageContent build() {
-      return new VideoMessageContent(id, duration, contentProvider, quoteToken);
+      return new VideoMessageContent(id, duration, contentProvider, quoteToken, markAsReadToken);
     }
   }
 }

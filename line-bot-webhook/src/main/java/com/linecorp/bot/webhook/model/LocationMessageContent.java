@@ -41,7 +41,9 @@ public record LocationMessageContent(
     /** Latitude */
     @JsonProperty("latitude") Double latitude,
     /** Longitude */
-    @JsonProperty("longitude") Double longitude)
+    @JsonProperty("longitude") Double longitude,
+    /** Token used to mark the message as read. */
+    @JsonProperty("markAsReadToken") String markAsReadToken)
     implements MessageContent {
 
   public static class Builder {
@@ -50,6 +52,7 @@ public record LocationMessageContent(
     private String address;
     private Double latitude;
     private Double longitude;
+    private String markAsReadToken;
 
     public Builder(String id, Double latitude, Double longitude) {
 
@@ -70,8 +73,13 @@ public record LocationMessageContent(
       return this;
     }
 
+    public Builder markAsReadToken(String markAsReadToken) {
+      this.markAsReadToken = markAsReadToken;
+      return this;
+    }
+
     public LocationMessageContent build() {
-      return new LocationMessageContent(id, title, address, latitude, longitude);
+      return new LocationMessageContent(id, title, address, latitude, longitude, markAsReadToken);
     }
   }
 }
