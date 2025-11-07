@@ -50,7 +50,9 @@ public record TextMessageContent(
      * Message ID of a quoted message. Only included when the received message quotes a past
      * message.
      */
-    @JsonProperty("quotedMessageId") String quotedMessageId)
+    @JsonProperty("quotedMessageId") String quotedMessageId,
+    /** Token used to mark the message as read. */
+    @JsonProperty("markAsReadToken") String markAsReadToken)
     implements MessageContent {
 
   public static class Builder {
@@ -60,6 +62,7 @@ public record TextMessageContent(
     private Mention mention;
     private String quoteToken;
     private String quotedMessageId;
+    private String markAsReadToken;
 
     public Builder(String id, String text, String quoteToken) {
 
@@ -85,8 +88,14 @@ public record TextMessageContent(
       return this;
     }
 
+    public Builder markAsReadToken(String markAsReadToken) {
+      this.markAsReadToken = markAsReadToken;
+      return this;
+    }
+
     public TextMessageContent build() {
-      return new TextMessageContent(id, text, emojis, mention, quoteToken, quotedMessageId);
+      return new TextMessageContent(
+          id, text, emojis, mention, quoteToken, quotedMessageId, markAsReadToken);
     }
   }
 }

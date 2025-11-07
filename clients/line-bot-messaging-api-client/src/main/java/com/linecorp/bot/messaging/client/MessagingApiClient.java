@@ -39,6 +39,7 @@ import com.linecorp.bot.messaging.model.GroupMemberCountResponse;
 import com.linecorp.bot.messaging.model.GroupSummaryResponse;
 import com.linecorp.bot.messaging.model.GroupUserProfileResponse;
 import com.linecorp.bot.messaging.model.IssueLinkTokenResponse;
+import com.linecorp.bot.messaging.model.MarkMessagesAsReadByTokenRequest;
 import com.linecorp.bot.messaging.model.MarkMessagesAsReadRequest;
 import com.linecorp.bot.messaging.model.MembersIdsResponse;
 import com.linecorp.bot.messaging.model.MembershipListResponse;
@@ -629,6 +630,17 @@ public interface MessagingApiClient {
   @POST("/v2/bot/message/markAsRead")
   CompletableFuture<Result<Void>> markMessagesAsRead(
       @Body MarkMessagesAsReadRequest markMessagesAsReadRequest);
+
+  /**
+   * Mark messages from users as read by token
+   *
+   * @param markMessagesAsReadByTokenRequest (required)
+   * @see <a href="https://developers.line.biz/en/reference/messaging-api/#mark-as-read">
+   *     Documentation</a>
+   */
+  @POST("/v2/bot/chat/markAsRead")
+  CompletableFuture<Result<Void>> markMessagesAsReadByToken(
+      @Body MarkMessagesAsReadByTokenRequest markMessagesAsReadByTokenRequest);
 
   /**
    * An API that efficiently sends the same message to multiple user IDs. You can&#39;t send

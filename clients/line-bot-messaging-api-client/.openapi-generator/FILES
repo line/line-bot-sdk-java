@@ -118,6 +118,7 @@ src/main/java/com/linecorp/bot/messaging/model/LocationAction.java
 src/main/java/com/linecorp/bot/messaging/model/LocationMessage.java
 src/main/java/com/linecorp/bot/messaging/model/LotteryAcquisitionConditionRequest.java
 src/main/java/com/linecorp/bot/messaging/model/LotteryAcquisitionConditionResponse.java
+src/main/java/com/linecorp/bot/messaging/model/MarkMessagesAsReadByTokenRequest.java
 src/main/java/com/linecorp/bot/messaging/model/MarkMessagesAsReadRequest.java
 src/main/java/com/linecorp/bot/messaging/model/MembersIdsResponse.java
 src/main/java/com/linecorp/bot/messaging/model/Membership.java

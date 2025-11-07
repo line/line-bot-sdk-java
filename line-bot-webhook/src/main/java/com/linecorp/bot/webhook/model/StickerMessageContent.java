@@ -64,7 +64,9 @@ public record StickerMessageContent(
      * Message ID of a quoted message. Only included when the received message quotes a past
      * message.
      */
-    @JsonProperty("quotedMessageId") String quotedMessageId)
+    @JsonProperty("quotedMessageId") String quotedMessageId,
+    /** Token used to mark the message as read. */
+    @JsonProperty("markAsReadToken") String markAsReadToken)
     implements MessageContent {
   /** Gets or Sets stickerResourceType */
   public enum StickerResourceType {
@@ -102,6 +104,7 @@ public record StickerMessageContent(
     private String text;
     private String quoteToken;
     private String quotedMessageId;
+    private String markAsReadToken;
 
     public Builder(
         String id,
@@ -136,6 +139,11 @@ public record StickerMessageContent(
       return this;
     }
 
+    public Builder markAsReadToken(String markAsReadToken) {
+      this.markAsReadToken = markAsReadToken;
+      return this;
+    }
+
     public StickerMessageContent build() {
       return new StickerMessageContent(
           id,
@@ -145,7 +153,8 @@ public record StickerMessageContent(
           keywords,
           text,
           quoteToken,
-          quotedMessageId);
+          quotedMessageId,
+          markAsReadToken);
     }
   }
 }
