@@ -32,6 +32,7 @@ dependencies {
     api(project(":clients:line-bot-shop-client"))
     api(project(":clients:line-channel-access-token-client"))
     api(project(":clients:line-liff-client"))
+    api(project(":line-bot-jackson"))
 
     implementation("org.springframework.boot:spring-boot-autoconfigure")
     implementation("org.springframework.boot:spring-boot-starter")
