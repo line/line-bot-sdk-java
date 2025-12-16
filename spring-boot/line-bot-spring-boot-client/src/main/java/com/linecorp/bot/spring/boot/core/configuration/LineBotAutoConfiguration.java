@@ -21,11 +21,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.linecorp.bot.audience.client.ManageAudienceBlobClient;
 import com.linecorp.bot.audience.client.ManageAudienceClient;
 import com.linecorp.bot.client.base.channel.ChannelTokenSupplier;
 import com.linecorp.bot.client.base.channel.FixedChannelTokenSupplier;
 import com.linecorp.bot.insight.client.InsightClient;
+import com.linecorp.bot.jackson.ModelObjectMapper;
 import com.linecorp.bot.liff.client.LiffClient;
 import com.linecorp.bot.messaging.client.MessagingApiBlobClient;
 import com.linecorp.bot.messaging.client.MessagingApiClient;
@@ -45,6 +48,16 @@ public class LineBotAutoConfiguration {
 
     public LineBotAutoConfiguration(LineBotProperties lineBotProperties) {
         this.lineBotProperties = lineBotProperties;
+    }
+
+    /**
+     * Expose {@link ObjectMapper} as {@link Bean}
+     * in case of no other definition for {@link ObjectMapper} type.
+     */
+    @Bean
+    @ConditionalOnMissingBean(ObjectMapper.class)
+    public ObjectMapper objectMapper() {
+        return ModelObjectMapper.createNewObjectMapper();
     }
 
     /**
