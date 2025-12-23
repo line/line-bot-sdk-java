@@ -48,7 +48,7 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
 wiremock = { group = "org.wiremock", name = "wiremock-standalone", version = "3.13.2" }
 socks-proxy-server = { module = "com.github.bbottema:java-socks-proxy-server", version = "4.1.2" }
-littleproxy = { module = "io.github.littleproxy:littleproxy", version = "2.4.6" }
+littleproxy = { module = "io.github.littleproxy:littleproxy", version = "2.4.7" }
 
 [bundles]
 retrofit2 = ["retrofit2-converter-jackson", "retrofit2-retrofit"]
