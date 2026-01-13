@@ -4,7 +4,6 @@ import com.samskivert.mustache.Escapers;
 import io.pebbletemplates.pebble.PebbleEngine;
 import io.pebbletemplates.pebble.loader.ClasspathLoader;
 import io.pebbletemplates.pebble.loader.DelegatingLoader;
-import io.pebbletemplates.pebble.loader.FileLoader;
 import org.openapitools.codegen.api.AbstractTemplatingEngineAdapter;
 import org.openapitools.codegen.api.TemplatingExecutor;
 
@@ -19,7 +18,6 @@ public class PebbleTemplateAdapter extends AbstractTemplatingEngineAdapter {
             .cacheActive(false)
             .newLineTrimming(false)
             .loader(new DelegatingLoader(Arrays.asList(
-                    new FileLoader(),
                     new ClasspathLoader()
             )))
             .autoEscaping(false)
