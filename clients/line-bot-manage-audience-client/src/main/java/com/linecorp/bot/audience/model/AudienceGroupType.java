@@ -67,6 +67,9 @@ public enum AudienceGroupType {
   @JsonProperty("POP_AD_IMP")
   POP_AD_IMP,
 
+  @JsonProperty("TRACKINGTAG_WEBTRAFFIC")
+  TRACKINGTAG_WEBTRAFFIC,
+
   @JsonEnumDefaultValue
   UNDEFINED;
 
@@ -86,6 +89,7 @@ public enum AudienceGroupType {
       case RICHMENU_IMP -> "RICHMENU_IMP";
       case RICHMENU_CLICK -> "RICHMENU_CLICK";
       case POP_AD_IMP -> "POP_AD_IMP";
+      case TRACKINGTAG_WEBTRAFFIC -> "TRACKINGTAG_WEBTRAFFIC";
 
       default -> "UNDEFINED";
     };
