@@ -177,4 +177,60 @@ public class ChannelAccessTokenClientExTest {
                         "grant_type=client_credentials&client_id=1234&client_secret=clientSecret")));
         assertThat(actualResponse.tokenType()).isEqualTo("Bearer");
     }
+
+    @Test
+    public void issueStatelessChannelTokenByJWTAssertion() {
+        stubFor(post(urlEqualTo("/oauth2/v3/token")).willReturn(
+                aResponse()
+                        .withStatus(200)
+                        .withBody("""
+                                {
+                                "access_token":"accessToken",
+                                "expires_in":30,
+                                "token_type":"Bearer"
+                                }"""
+                        )));
+
+        // Do
+        final IssueStatelessChannelAccessTokenResponse actualResponse =
+                target.issueStatelessChannelTokenByJWTAssertion("dummyClientAssertion")
+                        .join().body();
+
+        // Verify
+        verify(postRequestedFor(
+                urlEqualTo("/oauth2/v3/token")
+        ).withRequestBody(
+                WireMock.equalTo(
+                        "grant_type=client_credentials"
+                                + "&client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer"
+                                + "&client_assertion=dummyClientAssertion")));
+        assertThat(actualResponse.tokenType()).isEqualTo("Bearer");
+    }
+
+    @Test
+    public void issueStatelessChannelTokenByClientSecret() {
+        stubFor(post(urlEqualTo("/oauth2/v3/token")).willReturn(
+                aResponse()
+                        .withStatus(200)
+                        .withBody("""
+                                {
+                                "access_token":"accessToken",
+                                "expires_in":30,
+                                "token_type":"Bearer"
+                                }"""
+                        )));
+
+        // Do
+        final IssueStatelessChannelAccessTokenResponse actualResponse =
+                target.issueStatelessChannelTokenByClientSecret("1234", "clientSecret")
+                        .join().body();
+
+        // Verify
+        verify(postRequestedFor(
+                urlEqualTo("/oauth2/v3/token")
+        ).withRequestBody(
+                WireMock.equalTo(
+                        "grant_type=client_credentials&client_id=1234&client_secret=clientSecret")));
+        assertThat(actualResponse.tokenType()).isEqualTo("Bearer");
+    }
 }

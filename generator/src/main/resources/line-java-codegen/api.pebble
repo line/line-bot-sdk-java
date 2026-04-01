@@ -83,5 +83,5 @@ public interface {{classname}} {
         return new ApiClientBuilder<>(URI.create("{{ endpoint(classname) }}"), {{classname}}.class, new {{ exceptionbuilderclassname(classname) }}());
     }
 {% endif %}
-{% if ["LiffClient"] contains classname %}{% include "./body/api/" + classname + ".java" %}{% endif %}
+{% if ["LiffClient", "ChannelAccessTokenClient"] contains classname %}{% include "./body/api/" + classname + ".java" %}{% endif %}
 }
