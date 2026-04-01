@@ -18,16 +18,20 @@ package com.linecorp.bot.oauth.client;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowableOfType;
 
 import java.net.URI;
+import java.util.List;
 import java.util.concurrent.CompletionException;
 
 import org.junit.jupiter.api.AfterEach;
@@ -38,8 +42,10 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
+import com.linecorp.bot.oauth.model.ChannelAccessTokenKeyIdsResponse;
 import com.linecorp.bot.oauth.model.IssueShortLivedChannelAccessTokenResponse;
 import com.linecorp.bot.oauth.model.IssueStatelessChannelAccessTokenResponse;
+import com.linecorp.bot.oauth.model.VerifyChannelAccessTokenResponse;
 
 public class ChannelAccessTokenClientExTest {
     static {
@@ -145,6 +151,58 @@ public class ChannelAccessTokenClientExTest {
         // Verify
         verify(postRequestedFor(urlEqualTo("/v2/oauth/revoke"))
                 .withRequestBody(equalTo("access_token=accessToken")));
+    }
+
+    @Test
+    public void verifyChannelTokenByJWT() {
+        stubFor(get(urlPathEqualTo("/oauth2/v2.1/verify"))
+                .withQueryParam("access_token", equalTo("myAccessToken"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("""
+                                {
+                                "client_id":"1234",
+                                "expires_in":30
+                                }"""
+                        )));
+
+        // Do
+        final VerifyChannelAccessTokenResponse actualResponse =
+                target.verifyChannelTokenByJWT("myAccessToken")
+                        .join().body();
+
+        // Verify: query param key must be snake_case "access_token", not camelCase "accessToken"
+        verify(getRequestedFor(urlPathEqualTo("/oauth2/v2.1/verify"))
+                .withQueryParam("access_token", equalTo("myAccessToken")));
+        assertThat(actualResponse.clientId()).isEqualTo("1234");
+        assertThat(actualResponse.expiresIn()).isEqualTo(30L);
+    }
+
+    @Test
+    public void getsAllValidChannelAccessTokenKeyIds() {
+        stubFor(get(urlPathEqualTo("/oauth2/v2.1/tokens/kid"))
+                .withQueryParam("client_assertion_type", equalTo("urn:ietf:params:oauth:client-assertion-type:jwt-bearer"))
+                .withQueryParam("client_assertion", equalTo("myJwt"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("""
+                                {
+                                "kids":["kid1","kid2"]
+                                }"""
+                        )));
+
+        // Do
+        final ChannelAccessTokenKeyIdsResponse actualResponse =
+                target.getsAllValidChannelAccessTokenKeyIds(
+                                "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                                "myJwt")
+                        .join().body();
+
+        // Verify: query param keys must be snake_case, not camelCase
+        verify(getRequestedFor(urlPathEqualTo("/oauth2/v2.1/tokens/kid"))
+                .withQueryParam("client_assertion_type", equalTo("urn:ietf:params:oauth:client-assertion-type:jwt-bearer"))
+                .withQueryParam("client_assertion", equalTo("myJwt")));
+        assertThat(actualResponse.kids()).isEqualTo(List.of("kid1", "kid2"));
     }
 
     @Test
