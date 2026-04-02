@@ -41,6 +41,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.linecorp.bot.oauth.model.IssueShortLivedChannelAccessTokenResponse;
 import com.linecorp.bot.oauth.model.IssueStatelessChannelAccessTokenResponse;
 
+@SuppressWarnings("deprecation")
 public class ChannelAccessTokenClientExTest {
     static {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
