@@ -85,7 +85,7 @@ public interface MessagingApiBlobClient {
    * Upload rich menu image
    *
    * @param richMenuId The ID of the rich menu to attach the image to (required)
-   * @param body (optional)
+   * @param body (required)
    * @see <a href="https://developers.line.biz/en/reference/messaging-api/#upload-rich-menu-image">
    *     Documentation</a>
    */
