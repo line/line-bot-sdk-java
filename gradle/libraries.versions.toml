@@ -6,7 +6,7 @@ jackson-annotations = "2.21"
 assertj = "3.27.7"
 junit = "6.0.3"
 junitPlatformLauncher = "6.0.3"
-slf4j = "2.0.17"
+slf4j = "2.0.18"
 mockito = "5.23.0"
 okhttp3 = "5.3.2"
 
