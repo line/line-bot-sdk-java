@@ -28,7 +28,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.List;
 
-/** TextMessageContent */
+/**
+ * TextMessageContent
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#wh-text">Documentation</a>
+ */
 @JsonTypeName("text")
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")

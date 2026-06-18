@@ -28,7 +28,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.List;
 
-/** AttachedModuleContent */
+/**
+ * AttachedModuleContent
+ *
+ * @see <a href="https://developers.line.biz/en/reference/partner-docs/#attached-event">
+ *     Documentation</a>
+ */
 @JsonTypeName("attached")
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")

@@ -30,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Event object for when your LINE Official Account is added as a friend (or unblocked). You can
  * reply to follow events.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#follow-event">
+ *     Documentation</a>
  */
 @JsonTypeName("follow")
 @JsonInclude(Include.NON_NULL)

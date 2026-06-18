@@ -27,7 +27,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-/** AudioMessageContent */
+/**
+ * AudioMessageContent
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#wh-audio">Documentation</a>
+ */
 @JsonTypeName("audio")
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")

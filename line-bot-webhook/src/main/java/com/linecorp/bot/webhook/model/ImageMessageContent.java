@@ -27,7 +27,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-/** ImageMessageContent */
+/**
+ * ImageMessageContent
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#wh-image">Documentation</a>
+ */
 @JsonTypeName("image")
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")

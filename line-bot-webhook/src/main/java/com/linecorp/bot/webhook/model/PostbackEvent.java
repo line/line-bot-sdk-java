@@ -30,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Event object for when a user performs a postback action which initiates a postback. You can reply
  * to postback events.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#postback-event">
+ *     Documentation</a>
  */
 @JsonTypeName("postback")
 @JsonInclude(Include.NON_NULL)

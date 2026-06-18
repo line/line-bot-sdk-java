@@ -27,7 +27,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/** LiffApp */
+/**
+ * LiffApp
+ *
+ * @see <a href="https://developers.line.biz/en/reference/liff-server/#get-all-liff-apps">
+ *     Documentation</a>
+ */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record LiffApp(

@@ -30,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Event object for when a user joins a group chat or multi-person chat that the LINE Official
  * Account is in.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#member-joined-event">
+ *     Documentation</a>
  */
 @JsonTypeName("memberJoined")
 @JsonInclude(Include.NON_NULL)

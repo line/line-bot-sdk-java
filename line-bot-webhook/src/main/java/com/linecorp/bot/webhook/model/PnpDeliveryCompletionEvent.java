@@ -31,6 +31,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * When a request is made to the LINE notification messages API and delivery of the LINE
  * notification message to the user is completed, a dedicated webhook event (delivery completion
  * event) is sent from the LINE Platform to the webhook URL of the bot server.
+ *
+ * @see <a
+ *     href="https://developers.line.biz/en/docs/partner-docs/line-notification-messages/message-sending-complete-webhook-event/#overview-delivery-webhook-event">
+ *     Documentation</a>
  */
 @JsonTypeName("delivery")
 @JsonInclude(Include.NON_NULL)

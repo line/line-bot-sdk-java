@@ -27,7 +27,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-/** Event object for when the user unsends a message. */
+/**
+ * Event object for when the user unsends a message.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#unsend-event">
+ *     Documentation</a>
+ */
 @JsonTypeName("unsend")
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")

@@ -26,7 +26,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/** UnsendDetail */
+/**
+ * UnsendDetail
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#unsend-event">
+ *     Documentation</a>
+ */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record UnsendDetail(

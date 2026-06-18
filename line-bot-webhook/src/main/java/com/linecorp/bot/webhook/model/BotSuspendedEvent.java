@@ -30,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * This event indicates that the LINE Official Account has been suspended (Suspend). Sent to the
  * webhook URL server of the module channel.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/partner-docs/#botsuspend-event">
+ *     Documentation</a>
  */
 @JsonTypeName("botSuspended")
 @JsonInclude(Include.NON_NULL)

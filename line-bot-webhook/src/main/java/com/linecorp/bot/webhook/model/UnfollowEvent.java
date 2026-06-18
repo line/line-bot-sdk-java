@@ -27,7 +27,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-/** Event object for when your LINE Official Account is blocked. */
+/**
+ * Event object for when your LINE Official Account is blocked.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#unfollow-event">
+ *     Documentation</a>
+ */
 @JsonTypeName("unfollow")
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")

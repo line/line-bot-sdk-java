@@ -30,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Event object for when a user removes your LINE Official Account from a group chat or when your
  * LINE Official Account leaves a group chat or multi-person chat.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#leave-event">
+ *     Documentation</a>
  */
 @JsonTypeName("leave")
 @JsonInclude(Include.NON_NULL)

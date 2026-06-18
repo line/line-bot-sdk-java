@@ -27,7 +27,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/** GenderTile */
+/**
+ * GenderTile
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#get-demographic">
+ *     Documentation</a>
+ */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record GenderTile(

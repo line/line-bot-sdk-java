@@ -30,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * This event indicates that a user has subscribed (joined), unsubscribed (left), or renewed the
  * bot&#39;s membership.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#membership-event">
+ *     Documentation</a>
  */
 @JsonTypeName("membership")
 @JsonInclude(Include.NON_NULL)
