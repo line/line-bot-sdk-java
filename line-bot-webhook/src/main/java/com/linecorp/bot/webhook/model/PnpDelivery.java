@@ -29,6 +29,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * A delivery object containing a hashed phone number string or a string specified by
  * &#x60;X-Line-Delivery-Tag&#x60; header
+ *
+ * @see <a
+ *     href="https://developers.line.biz/en/docs/partner-docs/line-notification-messages/message-sending-complete-webhook-event/#overview-delivery-webhook-event">
+ *     Documentation</a>
  */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")

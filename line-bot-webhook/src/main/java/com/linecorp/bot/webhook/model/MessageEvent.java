@@ -27,7 +27,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-/** Webhook event object which contains the sent message. */
+/**
+ * Webhook event object which contains the sent message.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#message-event">
+ *     Documentation</a>
+ */
 @JsonTypeName("message")
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")

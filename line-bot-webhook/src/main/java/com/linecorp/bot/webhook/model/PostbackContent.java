@@ -26,7 +26,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
-/** PostbackContent */
+/**
+ * PostbackContent
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#postback-event">
+ *     Documentation</a>
+ */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record PostbackContent(

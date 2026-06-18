@@ -30,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * This event indicates that the LINE Official Account has returned from the suspended state. Sent
  * to the webhook URL server of the module channel.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/partner-docs/#botresumed-event">
+ *     Documentation</a>
  */
 @JsonTypeName("botResumed")
 @JsonInclude(Include.NON_NULL)

@@ -27,7 +27,13 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/** Attach by operation of the module channel provider */
+/**
+ * Attach by operation of the module channel provider
+ *
+ * @see <a
+ *     href="https://developers.line.biz/en/reference/partner-docs/#link-attach-by-operation-module-channel-provider">
+ *     Documentation</a>
+ */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
 public record AttachModuleResponse(

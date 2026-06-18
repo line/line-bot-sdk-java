@@ -30,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Event object for when a user has linked their LINE account with a provider&#39;s service account.
  * You can reply to account link events.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#account-link-event">
+ *     Documentation</a>
  */
 @JsonTypeName("accountLink")
 @JsonInclude(Include.NON_NULL)

@@ -30,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * This event indicates that the module channel has been switched to Active Channel by calling the
  * Acquire Control API. Sent to the webhook URL server of the module channel.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/partner-docs/#activated-event">
+ *     Documentation</a>
  */
 @JsonTypeName("activated")
 @JsonInclude(Include.NON_NULL)

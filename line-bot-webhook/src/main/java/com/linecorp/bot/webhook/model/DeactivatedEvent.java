@@ -30,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * This event indicates that the module channel has been switched to Standby Channel by calling
  * Acquire Control API or Release Control API. Sent to the webhook URL server of the module channel.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/partner-docs/#deactivated-event">
+ *     Documentation</a>
  */
 @JsonTypeName("deactivated")
 @JsonInclude(Include.NON_NULL)

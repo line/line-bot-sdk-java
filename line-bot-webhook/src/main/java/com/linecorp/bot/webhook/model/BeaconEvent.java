@@ -29,6 +29,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Event object for when a user enters the range of a LINE Beacon. You can reply to beacon events.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#beacon-event">
+ *     Documentation</a>
  */
 @JsonTypeName("beacon")
 @JsonInclude(Include.NON_NULL)

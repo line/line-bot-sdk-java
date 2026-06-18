@@ -30,6 +30,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Event for when a user finishes viewing a video at least once with the specified trackingId sent
  * by the LINE Official Account.
+ *
+ * @see <a href="https://developers.line.biz/en/reference/messaging-api/#video-viewing-complete">
+ *     Documentation</a>
  */
 @JsonTypeName("videoPlayComplete")
 @JsonInclude(Include.NON_NULL)
