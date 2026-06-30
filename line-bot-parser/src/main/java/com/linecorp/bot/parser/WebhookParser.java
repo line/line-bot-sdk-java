@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.jackson.ModelObjectMapper;
 import com.linecorp.bot.webhook.model.CallbackRequest;
 
-public class WebhookParser {
+public final class WebhookParser {
     public static final String SIGNATURE_HEADER_NAME = "X-Line-Signature";
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(WebhookParser.class);
 
