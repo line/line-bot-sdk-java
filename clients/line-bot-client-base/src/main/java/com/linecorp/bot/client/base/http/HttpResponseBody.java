@@ -23,7 +23,7 @@ import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
 
-public class HttpResponseBody {
+public final class HttpResponseBody {
     private final ResponseBody body;
 
     public HttpResponseBody(ResponseBody body) {

@@ -22,7 +22,7 @@ import java.util.Objects;
 import okhttp3.RequestBody;
 import okio.Buffer;
 
-public class HttpRequestBody {
+public final class HttpRequestBody {
     private final RequestBody body;
 
     public HttpRequestBody(RequestBody body) {
