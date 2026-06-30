@@ -19,7 +19,6 @@ package com.linecorp.bot.spring.boot.core.properties;
 import static com.linecorp.bot.spring.boot.core.properties.LineBotProperties.ChannelTokenSupplyMode.FIXED;
 import static com.linecorp.bot.spring.boot.core.properties.LineBotProperties.ChannelTokenSupplyMode.SUPPLIER;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hibernate.validator.internal.engine.path.PathImpl.createPathFromString;
 
 import java.net.URI;
 import java.time.Duration;
@@ -79,7 +78,7 @@ public class BotPropertiesValidatorTest {
         //Verify
         assertThat(constraintViolations)
                 .isNotEmpty()
-                .filteredOn("propertyPath", createPathFromString("channelToken"))
+                .filteredOn(violation -> violation.getPropertyPath().toString().equals("channelToken"))
                 .singleElement()
                 .extracting(ConstraintViolation::getMessage)
                 .isEqualTo("channelToken is null");
@@ -104,7 +103,7 @@ public class BotPropertiesValidatorTest {
         //Verify
         assertThat(constraintViolations)
                 .isNotEmpty()
-                .filteredOn("propertyPath", createPathFromString("channelToken"))
+                .filteredOn(violation -> violation.getPropertyPath().toString().equals("channelToken"))
                 .singleElement()
                 .extracting(ConstraintViolation::getMessage)
                 .isEqualTo("channelToken should be null if channelTokenSupplyMode = SUPPLIER");
