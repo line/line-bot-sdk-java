@@ -12,6 +12,16 @@ src/main/java/com/linecorp/bot/insight/model/GetMessageEventResponseMessage.java
 src/main/java/com/linecorp/bot/insight/model/GetMessageEventResponseOverview.java
 src/main/java/com/linecorp/bot/insight/model/GetNumberOfFollowersResponse.java
 src/main/java/com/linecorp/bot/insight/model/GetNumberOfMessageDeliveriesResponse.java
+src/main/java/com/linecorp/bot/insight/model/GetRichMenuInsightDailyResponse.java
+src/main/java/com/linecorp/bot/insight/model/GetRichMenuInsightDailyResponseBounds.java
+src/main/java/com/linecorp/bot/insight/model/GetRichMenuInsightDailyResponseClick.java
+src/main/java/com/linecorp/bot/insight/model/GetRichMenuInsightDailyResponseDailyMetrics.java
+src/main/java/com/linecorp/bot/insight/model/GetRichMenuInsightDailyResponseImpression.java
+src/main/java/com/linecorp/bot/insight/model/GetRichMenuInsightSummaryResponse.java
+src/main/java/com/linecorp/bot/insight/model/GetRichMenuInsightSummaryResponseBounds.java
+src/main/java/com/linecorp/bot/insight/model/GetRichMenuInsightSummaryResponseClick.java
+src/main/java/com/linecorp/bot/insight/model/GetRichMenuInsightSummaryResponseImpression.java
+src/main/java/com/linecorp/bot/insight/model/GetRichMenuInsightSummaryResponseMetrics.java
 src/main/java/com/linecorp/bot/insight/model/GetStatisticsPerUnitResponse.java
 src/main/java/com/linecorp/bot/insight/model/GetStatisticsPerUnitResponseClick.java
 src/main/java/com/linecorp/bot/insight/model/GetStatisticsPerUnitResponseMessage.java

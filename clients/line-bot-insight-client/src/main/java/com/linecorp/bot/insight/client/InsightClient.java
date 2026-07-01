@@ -27,6 +27,8 @@ import com.linecorp.bot.insight.model.GetFriendsDemographicsResponse;
 import com.linecorp.bot.insight.model.GetMessageEventResponse;
 import com.linecorp.bot.insight.model.GetNumberOfFollowersResponse;
 import com.linecorp.bot.insight.model.GetNumberOfMessageDeliveriesResponse;
+import com.linecorp.bot.insight.model.GetRichMenuInsightDailyResponse;
+import com.linecorp.bot.insight.model.GetRichMenuInsightSummaryResponse;
 import com.linecorp.bot.insight.model.GetStatisticsPerUnitResponse;
 import java.net.URI;
 import java.util.concurrent.CompletableFuture;
@@ -86,6 +88,48 @@ public interface InsightClient {
   @GET("/v2/bot/insight/message/delivery")
   CompletableFuture<Result<GetNumberOfMessageDeliveriesResponse>> getNumberOfMessageDeliveries(
       @Query("date") String date);
+
+  /**
+   * Get rich menu insight daily Gets rich menu statistics broken down by day for the specified
+   * period, for a rich menu created via the Messaging API. Returns the daily impression count for
+   * the whole rich menu and the daily click count for each tappable area. When the total number of
+   * unique clicks during the period is below the privacy threshold, only &#x60;richMenuId&#x60; is
+   * returned and the other fields are omitted.
+   *
+   * @param richMenuId ID of the rich menu created via the Messaging API. (required)
+   * @param from Start date of the aggregation period (inclusive). Must be within the most recent 3
+   *     years. Format: yyyyMMdd (e.g. 20260213) Time zone: UTC+9 (required)
+   * @param to End date of the aggregation period (inclusive). The end date can be specified for up
+   *     to 99 days after the start date. Format: yyyyMMdd (e.g. 20260215) Time zone: UTC+9
+   *     (required)
+   * @see <a
+   *     href="https://developers.line.biz/en/reference/messaging-api/#get-rich-menu-insight-daily">Get
+   *     rich menu insight daily Documentation</a>
+   */
+  @GET("/v2/bot/insight/richmenu/{richMenuId}/daily")
+  CompletableFuture<Result<GetRichMenuInsightDailyResponse>> getRichMenuInsightDaily(
+      @Path("richMenuId") String richMenuId, @Query("from") String from, @Query("to") String to);
+
+  /**
+   * Get rich menu insight summary Gets a summary of rich menu statistics for the specified period,
+   * for a rich menu created via the Messaging API. Returns the total impression count for the whole
+   * rich menu and the click count for each tappable area, aggregated over the entire period as a
+   * single result. When the total number of unique clicks during the period is below the privacy
+   * threshold, only &#x60;richMenuId&#x60; is returned and the other fields are omitted.
+   *
+   * @param richMenuId ID of the rich menu created via the Messaging API. (required)
+   * @param from Start date of the aggregation period (inclusive). Must be within the most recent 3
+   *     years. Format: yyyyMMdd (e.g. 20260213) Time zone: UTC+9 (required)
+   * @param to End date of the aggregation period (inclusive). The end date can be specified for up
+   *     to 396 days after the start date. Format: yyyyMMdd (e.g. 20260215) Time zone: UTC+9
+   *     (required)
+   * @see <a
+   *     href="https://developers.line.biz/en/reference/messaging-api/#get-rich-menu-insight-summary">Get
+   *     rich menu insight summary Documentation</a>
+   */
+  @GET("/v2/bot/insight/richmenu/{richMenuId}/summary")
+  CompletableFuture<Result<GetRichMenuInsightSummaryResponse>> getRichMenuInsightSummary(
+      @Path("richMenuId") String richMenuId, @Query("from") String from, @Query("to") String to);
 
   /**
    * You can check the per-unit statistics of how users interact with push messages and multicast
