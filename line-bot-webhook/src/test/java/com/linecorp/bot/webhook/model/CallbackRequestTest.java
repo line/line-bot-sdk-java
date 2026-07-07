@@ -632,6 +632,40 @@ public class CallbackRequestTest {
     }
 
     @Test
+    public void testMessageEdited() throws IOException {
+        parse("callback/message-edited.json", callbackRequest -> {
+            assertDestination(callbackRequest);
+            Assertions.assertThat(callbackRequest.events()).hasSize(1);
+            Event event = callbackRequest.events().get(0);
+            assertThat(event).isInstanceOf(MessageEditedEvent.class);
+            Assertions.assertThat(event.source())
+                    .isInstanceOf(GroupSource.class);
+            Assertions.assertThat(((GroupSource) event.source()).groupId())
+                    .isEqualTo("cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            Assertions.assertThat(event.source().userId())
+                    .isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
+            Assertions.assertThat(event.timestamp())
+                    .isEqualTo(Instant.parse("2016-05-07T13:57:59.859Z").toEpochMilli());
+            Assertions.assertThat(event.mode())
+                    .isEqualTo(EventMode.ACTIVE);
+
+            MessageEditedEvent messageEditedEvent = (MessageEditedEvent) event;
+            Assertions.assertThat(messageEditedEvent.replyToken())
+                    .isEqualTo("nHuyWiB7yP5Zw52FIkcQobQuGDXCTA");
+            Assertions.assertThat(messageEditedEvent.webhookEventId())
+                    .isEqualTo("01G2KZKG2DS765NMRH3GZFD8AP");
+            Assertions.assertThat(messageEditedEvent.deliveryContext().isRedelivery())
+                    .isEqualTo(false);
+
+            MessageContent message = messageEditedEvent.message();
+            assertThat(message).isInstanceOf(TextMessageContent.class);
+            TextMessageContent textMessage = (TextMessageContent) message;
+            Assertions.assertThat(textMessage.id()).isEqualTo("325708");
+            Assertions.assertThat(textMessage.text()).isEqualTo("Hello, edited world");
+        });
+    }
+
+    @Test
     public void testWebhookRedelivery() throws IOException {
         parse("callback/webhook-redelivery.json", callbackRequest -> {
             assertDestination(callbackRequest);
