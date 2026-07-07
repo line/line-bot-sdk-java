@@ -37,6 +37,7 @@ src/main/java/com/linecorp/bot/webhook/model/MembershipEvent.java
 src/main/java/com/linecorp/bot/webhook/model/Mention.java
 src/main/java/com/linecorp/bot/webhook/model/Mentionee.java
 src/main/java/com/linecorp/bot/webhook/model/MessageContent.java
+src/main/java/com/linecorp/bot/webhook/model/MessageEditedEvent.java
 src/main/java/com/linecorp/bot/webhook/model/MessageEvent.java
 src/main/java/com/linecorp/bot/webhook/model/ModuleContent.java
 src/main/java/com/linecorp/bot/webhook/model/ModuleEvent.java
