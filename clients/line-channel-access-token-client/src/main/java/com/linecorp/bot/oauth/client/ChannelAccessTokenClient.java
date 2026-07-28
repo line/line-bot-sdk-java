@@ -117,7 +117,7 @@ public interface ChannelAccessTokenClient {
   /**
    * Revoke short-lived or long-lived channel access token
    *
-   * @param accessToken Channel access token (required)
+   * @param accessToken A short-lived or long-lived channel access token. (required)
    * @see <a
    *     href="https://developers.line.biz/en/reference/messaging-api/#revoke-longlived-or-shortlived-channel-access-token">
    *     Documentation</a>
