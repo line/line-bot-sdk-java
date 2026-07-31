@@ -17,7 +17,7 @@ def get_generated_java_files():
 
 
 def download_java_format():
-    url = 'https://github.com/google/google-java-format/releases/download/v1.18.1/google-java-format-1.18.1-all-deps.jar'
+    url = 'https://github.com/google/google-java-format/releases/download/v1.29.0/google-java-format-1.29.0-all-deps.jar'
     filename = url.split('/')[-1]  # Extract the file name
     directory = Path('tools')
     jarfile = directory / filename
