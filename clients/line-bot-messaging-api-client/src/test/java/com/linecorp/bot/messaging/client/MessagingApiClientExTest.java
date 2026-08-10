@@ -851,14 +851,12 @@ public class MessagingApiClientExTest {
                 1,
                 1751619750L,
                 "100Yen OFF",
+                new CouponDiscountRewardRequest(
+                        new DiscountFixedPriceInfoRequest(100L)
+                ),
                 CouponCreateRequest.Visibility.PUBLIC,
                 CouponCreateRequest.Timezone.ASIA_TOKYO
         )
-                .reward(
-                        new CouponDiscountRewardRequest(
-                                new DiscountFixedPriceInfoRequest(100L)
-                        )
-                )
                 .build();
 
         // Do
