@@ -168,6 +168,7 @@ public record CouponCreateRequest(
         Integer maxUseCountPerTicket,
         Long startTimestamp,
         String title,
+        CouponRewardRequest reward,
         Visibility visibility,
         Timezone timezone) {
 
@@ -180,6 +181,8 @@ public record CouponCreateRequest(
       this.startTimestamp = startTimestamp;
 
       this.title = title;
+
+      this.reward = reward;
 
       this.visibility = visibility;
 
@@ -208,11 +211,6 @@ public record CouponCreateRequest(
 
     public Builder usageCondition(String usageCondition) {
       this.usageCondition = usageCondition;
-      return this;
-    }
-
-    public Builder reward(CouponRewardRequest reward) {
-      this.reward = reward;
       return this;
     }
 

@@ -36,7 +36,7 @@ public interface ManageAudienceBlobClient {
    * Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by
    * file).
    *
-   * @param audienceGroupId The audience ID. (optional)
+   * @param audienceGroupId The audience ID. (required)
    * @param uploadDescription The description to register with the job (optional)
    * @param _file A text file with one user ID or IFA entered per line. Specify text/plain as
    *     Content-Type. Max file number: 1 Max number: 1,500,000 (required)
@@ -55,7 +55,7 @@ public interface ManageAudienceBlobClient {
    * Create audience for uploading user IDs (by file).
    *
    * @param description The audience&#39;s name. This is case-insensitive, meaning AUDIENCE and
-   *     audience are considered identical. Max character limit: 120 (optional)
+   *     audience are considered identical. Max character limit: 120 (required)
    * @param isIfaAudience To specify recipients by IFAs: set &#x60;true&#x60;. To specify recipients
    *     by user IDs: set &#x60;false&#x60; or omit isIfaAudience property. (optional)
    * @param uploadDescription The description to register for the job (in

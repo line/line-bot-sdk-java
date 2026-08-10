@@ -58,16 +58,11 @@ public record CreateClickBasedAudienceGroupRequest(
     private String requestId;
     private URI clickUrl;
 
-    public Builder() {}
+    public Builder(String description, String requestId) {
 
-    public Builder description(String description) {
       this.description = description;
-      return this;
-    }
 
-    public Builder requestId(String requestId) {
       this.requestId = requestId;
-      return this;
     }
 
     public Builder clickUrl(URI clickUrl) {

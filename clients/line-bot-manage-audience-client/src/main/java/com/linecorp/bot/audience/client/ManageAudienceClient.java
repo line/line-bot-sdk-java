@@ -160,7 +160,7 @@ public interface ManageAudienceClient {
    * Gets data for more than one audience, including those shared by the Business Manager.
    *
    * @param page The page to return when getting (paginated) results. Must be 1 or higher.
-   *     (required)
+   *     (optional)
    * @param description The name of the audience(s) to return. You can search for partial matches.
    *     This is case-insensitive, meaning AUDIENCE and audience are considered identical. If
    *     omitted, the name of the audience(s) will not be used as a search criterion. (optional)

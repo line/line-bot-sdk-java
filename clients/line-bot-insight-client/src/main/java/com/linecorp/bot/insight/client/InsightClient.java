@@ -66,7 +66,7 @@ public interface InsightClient {
    * or before a specified date.
    *
    * @param date Date for which to retrieve the number of followers. Format: yyyyMMdd (e.g.
-   *     20191231) Timezone: UTC+9 (optional)
+   *     20191231) Timezone: UTC+9 (required)
    * @see <a
    *     href="https://developers.line.biz/en/reference/messaging-api/#get-number-of-followers">Get
    *     number of followers Documentation</a>

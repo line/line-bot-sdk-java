@@ -58,11 +58,9 @@ public record CreateAudienceGroupRequest(
     private String uploadDescription;
     private List<Audience> audiences;
 
-    public Builder() {}
+    public Builder(String description) {
 
-    public Builder description(String description) {
       this.description = description;
-      return this;
     }
 
     public Builder isIfaAudience(Boolean isIfaAudience) {

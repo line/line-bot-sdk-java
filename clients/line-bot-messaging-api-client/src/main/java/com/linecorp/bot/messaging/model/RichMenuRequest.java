@@ -52,31 +52,22 @@ public record RichMenuRequest(
     private String chatBarText;
     private List<RichMenuArea> areas;
 
-    public Builder() {}
+    public Builder(
+        RichMenuSize size,
+        Boolean selected,
+        String name,
+        String chatBarText,
+        List<RichMenuArea> areas) {
 
-    public Builder size(RichMenuSize size) {
       this.size = size;
-      return this;
-    }
 
-    public Builder selected(Boolean selected) {
       this.selected = selected;
-      return this;
-    }
 
-    public Builder name(String name) {
       this.name = name;
-      return this;
-    }
 
-    public Builder chatBarText(String chatBarText) {
       this.chatBarText = chatBarText;
-      return this;
-    }
 
-    public Builder areas(List<RichMenuArea> areas) {
       this.areas = areas;
-      return this;
     }
 
     public RichMenuRequest build() {

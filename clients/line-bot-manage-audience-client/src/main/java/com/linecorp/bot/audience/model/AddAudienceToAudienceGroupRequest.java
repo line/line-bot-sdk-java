@@ -50,20 +50,15 @@ public record AddAudienceToAudienceGroupRequest(
     private String uploadDescription;
     private List<Audience> audiences;
 
-    public Builder() {}
+    public Builder(Long audienceGroupId, List<Audience> audiences) {
 
-    public Builder audienceGroupId(Long audienceGroupId) {
       this.audienceGroupId = audienceGroupId;
-      return this;
+
+      this.audiences = audiences;
     }
 
     public Builder uploadDescription(String uploadDescription) {
       this.uploadDescription = uploadDescription;
-      return this;
-    }
-
-    public Builder audiences(List<Audience> audiences) {
-      this.audiences = audiences;
       return this;
     }
 
