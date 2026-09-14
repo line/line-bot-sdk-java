@@ -14,6 +14,10 @@ See the official API documentation for more information.
 - English: https://developers.line.biz/en/docs/messaging-api/overview/
 - Japanese: https://developers.line.biz/ja/docs/messaging-api/overview/
 
+The Javadoc for this SDK is available on javadoc.io.
+
+- https://javadoc.io/doc/com.linecorp.bot/line-bot-parser
+
 ## Requirements
 
 This library requires Java 17 or later.
