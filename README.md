@@ -1,6 +1,6 @@
 # LINE Messaging API SDK for Java
 
-[![javadoc](https://javadoc.io/badge2/com.linecorp.bot/line-bot-parser/javadoc.svg)](https://javadoc.io/doc/com.linecorp.bot/line-bot-parser)
+[![javadoc](https://javadoc.io/badge2/com.linecorp.bot/line-bot-messaging-api-client/javadoc.svg)](https://javadoc.io/doc/com.linecorp.bot/line-bot-messaging-api-client)
 
 ## Introduction
 
@@ -14,9 +14,9 @@ See the official API documentation for more information.
 - English: https://developers.line.biz/en/docs/messaging-api/overview/
 - Japanese: https://developers.line.biz/ja/docs/messaging-api/overview/
 
-The Javadoc for this SDK is available on javadoc.io.
+The Javadoc for all modules of this SDK is available on javadoc.io.
 
-- https://javadoc.io/doc/com.linecorp.bot/line-bot-parser
+- https://javadoc.io/doc/com.linecorp.bot
 
 ## Requirements
 
