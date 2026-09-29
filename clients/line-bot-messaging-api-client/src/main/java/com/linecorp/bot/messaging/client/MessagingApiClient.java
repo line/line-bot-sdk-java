@@ -50,6 +50,7 @@ import com.linecorp.bot.messaging.model.NarrowcastProgressResponse;
 import com.linecorp.bot.messaging.model.NarrowcastRequest;
 import com.linecorp.bot.messaging.model.NumberOfMessagesResponse;
 import com.linecorp.bot.messaging.model.PnpMessagesRequest;
+import com.linecorp.bot.messaging.model.PnpTemplatedMessageRequest;
 import com.linecorp.bot.messaging.model.PushMessageRequest;
 import com.linecorp.bot.messaging.model.PushMessageResponse;
 import com.linecorp.bot.messaging.model.QuotaConsumptionResponse;
@@ -426,6 +427,19 @@ public interface MessagingApiClient {
       @Query("date") String date);
 
   /**
+   * Get number of sent LINE notification messages (template)
+   *
+   * @param date Date the message was sent Format: &#x60;yyyyMMdd&#x60;
+   *     (Example:&#x60;20211231&#x60;) Time zone: UTC+9 (required)
+   * @see <a
+   *     href="https://developers.line.biz/en/reference/line-notification-messages/#get-number-of-sent-line-notification-messages-template">
+   *     Documentation</a>
+   */
+  @GET("/v2/bot/message/delivery/pnp/templated")
+  CompletableFuture<Result<NumberOfMessagesResponse>> getPNPTemplatedMessageStatistics(
+      @Query("date") String date);
+
+  /**
    * Get profile
    *
    * @param userId User ID (required)
@@ -699,6 +713,21 @@ public interface MessagingApiClient {
   CompletableFuture<Result<Void>> pushMessagesByPhone(
       @Header("X-Line-Delivery-Tag") String xLineDeliveryTag,
       @Body PnpMessagesRequest pnpMessagesRequest);
+
+  /**
+   * Send LINE notification message (template)
+   *
+   * @param xLineDeliveryTag String returned in the delivery.data property of the delivery
+   *     completion event via Webhook. (optional)
+   * @param pnpTemplatedMessageRequest (required)
+   * @see <a
+   *     href="https://developers.line.biz/en/reference/line-notification-messages/#send-line-notification-message-template">
+   *     Documentation</a>
+   */
+  @POST("/v2/bot/message/pnp/templated/push")
+  CompletableFuture<Result<Void>> pushTemplatedMessagesByPhone(
+      @Header("X-Line-Delivery-Tag") String xLineDeliveryTag,
+      @Body PnpTemplatedMessageRequest pnpTemplatedMessageRequest);
 
   /**
    * Send reply message
