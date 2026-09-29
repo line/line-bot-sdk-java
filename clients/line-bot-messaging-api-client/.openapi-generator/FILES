@@ -139,6 +139,11 @@ src/main/java/com/linecorp/bot/messaging/model/NumberOfMessagesResponse.java
 src/main/java/com/linecorp/bot/messaging/model/OperatorDemographicFilter.java
 src/main/java/com/linecorp/bot/messaging/model/OperatorRecipient.java
 src/main/java/com/linecorp/bot/messaging/model/PnpMessagesRequest.java
+src/main/java/com/linecorp/bot/messaging/model/PnpTemplatedButton.java
+src/main/java/com/linecorp/bot/messaging/model/PnpTemplatedEmphasizedItem.java
+src/main/java/com/linecorp/bot/messaging/model/PnpTemplatedItem.java
+src/main/java/com/linecorp/bot/messaging/model/PnpTemplatedMessageBody.java
+src/main/java/com/linecorp/bot/messaging/model/PnpTemplatedMessageRequest.java
 src/main/java/com/linecorp/bot/messaging/model/PostbackAction.java
 src/main/java/com/linecorp/bot/messaging/model/PushMessageRequest.java
 src/main/java/com/linecorp/bot/messaging/model/PushMessageResponse.java

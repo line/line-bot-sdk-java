@@ -28,47 +28,49 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
- * PnpMessagesRequest
+ * PnpTemplatedMessageRequest
  *
  * @see <a
- *     href="https://developers.line.biz/en/reference/partner-docs/#send-line-notification-message">
+ *     href="https://developers.line.biz/en/reference/line-notification-messages/#send-line-notification-message-template">
  *     Documentation</a>
  */
 @JsonInclude(Include.NON_NULL)
 @javax.annotation.Generated(value = "com.linecorp.bot.codegen.LineJavaCodegenGenerator")
-public record PnpMessagesRequest(
-    /** Message to be sent. */
-    @JsonProperty("messages") List<Message> messages,
+public record PnpTemplatedMessageRequest(
     /**
      * Message destination. Specify a phone number that has been normalized to E.164 format and
      * hashed with SHA256.
      */
     @JsonProperty("to") String to,
     /**
-     * &#x60;true&#x60;: The user doesn’t receive a push notification when a message is sent.
-     * &#x60;false&#x60;: The user receives a push notification when the message is sent (unless
-     * they have disabled push notifications in LINE and/or their device). The default value is
-     * false.
+     * Specify the key of the template you want to send. For available keys, see
+     * https://developers.line.biz/en/docs/partner-docs/line-notification-messages/template/#templates
      */
-    @JsonProperty("notificationDisabled") Boolean notificationDisabled,
-    /** Name of aggregation unit. Case-sensitive. */
+    @JsonProperty("templateKey") String templateKey,
+    /** Get body */
+    @JsonProperty("body") PnpTemplatedMessageBody body,
+    /**
+     * Name of aggregation unit. Case-sensitive. For more information about assigning a unit name,
+     * see
+     * https://developers.line.biz/en/docs/messaging-api/unit-based-statistics-aggregation/#assign-names-to-units-when-sending-messages
+     */
     @JsonProperty("customAggregationUnits") List<String> customAggregationUnits) {
 
   public static class Builder {
-    private List<Message> messages;
     private String to;
-    private Boolean notificationDisabled;
+    private String templateKey;
+    private PnpTemplatedMessageBody body;
     private List<String> customAggregationUnits;
 
-    public Builder(List<Message> messages, String to) {
-
-      this.messages = messages;
+    public Builder(String to, String templateKey) {
 
       this.to = to;
+
+      this.templateKey = templateKey;
     }
 
-    public Builder notificationDisabled(Boolean notificationDisabled) {
-      this.notificationDisabled = notificationDisabled;
+    public Builder body(PnpTemplatedMessageBody body) {
+      this.body = body;
       return this;
     }
 
@@ -77,8 +79,8 @@ public record PnpMessagesRequest(
       return this;
     }
 
-    public PnpMessagesRequest build() {
-      return new PnpMessagesRequest(messages, to, notificationDisabled, customAggregationUnits);
+    public PnpTemplatedMessageRequest build() {
+      return new PnpTemplatedMessageRequest(to, templateKey, body, customAggregationUnits);
     }
   }
 }
