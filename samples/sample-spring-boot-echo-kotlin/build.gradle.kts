@@ -20,7 +20,7 @@ plugins {
     id("sdk.java-library")
     id("sdk.spring-boot")
     kotlin("jvm") version "2.4.20"
-    kotlin("plugin.spring") version "2.4.20"
+    kotlin("plugin.spring") version "2.4.21"
 }
 
 dependencies {
