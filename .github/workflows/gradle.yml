@@ -27,6 +27,7 @@ jobs:
         java: # We want to test on LTSs.
           - '17'
           - '21'
+          - '25'
     steps:
       - name: actions/setup-java@v3 (JDK ${{ matrix.java }})
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
