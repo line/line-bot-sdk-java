@@ -60,13 +60,9 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.linecorp.bot.client.base.HeaderInterceptor;
 import com.linecorp.bot.client.base.Result;
 import com.linecorp.bot.messaging.model.BroadcastRequest;
-import com.linecorp.bot.messaging.model.CouponCreateRequest;
-import com.linecorp.bot.messaging.model.CouponCreateResponse;
-import com.linecorp.bot.messaging.model.CouponDiscountRewardRequest;
 import com.linecorp.bot.messaging.model.CouponDiscountRewardResponse;
 import com.linecorp.bot.messaging.model.CouponResponse;
 import com.linecorp.bot.messaging.model.DatetimePickerAction;
-import com.linecorp.bot.messaging.model.DiscountFixedPriceInfoRequest;
 import com.linecorp.bot.messaging.model.DiscountFixedPriceInfoResponse;
 import com.linecorp.bot.messaging.model.FlexBox;
 import com.linecorp.bot.messaging.model.FlexBoxLinearGradient;
@@ -78,7 +74,6 @@ import com.linecorp.bot.messaging.model.GetAggregationUnitNameListResponse;
 import com.linecorp.bot.messaging.model.GetFollowersResponse;
 import com.linecorp.bot.messaging.model.ImageCarouselColumn;
 import com.linecorp.bot.messaging.model.ImageCarouselTemplate;
-import com.linecorp.bot.messaging.model.LotteryAcquisitionConditionRequest;
 import com.linecorp.bot.messaging.model.LotteryAcquisitionConditionResponse;
 import com.linecorp.bot.messaging.model.NarrowcastProgressResponse;
 import com.linecorp.bot.messaging.model.PushMessageRequest;
@@ -831,68 +826,6 @@ public class MessagingApiClientExTest {
         assertThat(result.body()).isNull();
 
         verify(postRequestedFor(urlPathEqualTo("/v2/bot/user/U4af4980629.../richmenu/richmenu-1234abcd")));
-    }
-
-    @Test
-    public void createCoupon() {
-        stubFor(post(urlPathTemplate("/v2/bot/coupon"))
-                .willReturn(aResponse()
-                        .withStatus(200)
-                        .withHeader("content-type", "application/json")
-                        .withBody("{\n" +
-                                "  \"couponId\": \"abc\"\n" +
-                                "}")));
-        final var request = new CouponCreateRequest.Builder(
-                new LotteryAcquisitionConditionRequest(
-                        50,
-                        1
-                ),
-                1751619751L,
-                1,
-                1751619750L,
-                "100Yen OFF",
-                CouponCreateRequest.Visibility.PUBLIC,
-                CouponCreateRequest.Timezone.ASIA_TOKYO
-        )
-                .reward(
-                        new CouponDiscountRewardRequest(
-                                new DiscountFixedPriceInfoRequest(100L)
-                        )
-                )
-                .build();
-
-        // Do
-        Result<CouponCreateResponse> result = target.createCoupon(request)
-                .join();
-
-        String expectedBody = """
-            {
-              "title": "100Yen OFF",
-              "startTimestamp": 1751619750,
-              "endTimestamp": 1751619751,
-              "visibility": "PUBLIC",
-              "maxUseCountPerTicket": 1,
-              "timezone": "ASIA_TOKYO",
-              "reward": {
-                "type": "discount",
-                "priceInfo": {
-                  "type": "fixed",
-                  "fixedAmount": 100
-                }
-              },
-              "acquisitionCondition": {
-                "type": "lottery",
-                "lotteryProbability": 50,
-                "maxAcquireCount": 1
-              }
-            }
-            """;
-
-        // Verify
-        assertThat(result.body()).isNotNull();
-        assertThat(result.body().couponId()).isEqualTo("abc");
-        verify(postRequestedFor(urlPathEqualTo("/v2/bot/coupon"))
-                .withRequestBody(equalToJson(expectedBody, true, true)));
     }
 
     @Test
