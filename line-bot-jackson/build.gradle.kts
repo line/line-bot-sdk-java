@@ -21,5 +21,4 @@ plugins {
 
 dependencies {
     api(libs.jackson.databind) // Provide configured ObjectMapper.
-    implementation(libs.jackson.datatype.jsr310)
 }

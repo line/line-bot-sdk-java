@@ -30,8 +30,10 @@ import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.cfg.EnumFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 public class CallbackRequestTest {
     @FunctionalInterface
@@ -42,9 +44,10 @@ public class CallbackRequestTest {
     private void parse(String resourceName, RequestTester callback) throws IOException {
         try (InputStream resource = getClass().getClassLoader().getResourceAsStream(resourceName)) {
             String json = new String(requireNonNull(resource).readAllBytes(), StandardCharsets.UTF_8);
-            ObjectMapper objectMapper = new ObjectMapper()
-                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                    .enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
+            ObjectMapper objectMapper = JsonMapper.builder()
+                    .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                    .enable(EnumFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE)
+                    .build();
             CallbackRequest callbackRequest = objectMapper.readValue(json, CallbackRequest.class);
 
             callback.call(callbackRequest);

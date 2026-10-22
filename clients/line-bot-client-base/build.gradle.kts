@@ -28,7 +28,6 @@ dependencies {
     implementation(libs.bundles.retrofit2)
 
     compileOnly(libs.jackson.annotations)
-    implementation(libs.jackson.datatype.jsr310)
 
     testImplementation(libs.wiremock)
     testImplementation(libs.bundles.tests)

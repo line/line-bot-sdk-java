@@ -25,6 +25,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +33,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.audience.client.ManageAudienceClient;
 import com.linecorp.bot.audience.model.AudienceGroupStatus;
@@ -58,6 +56,8 @@ import com.linecorp.bot.messaging.model.OperatorDemographicFilter;
 import com.linecorp.bot.messaging.model.Recipient;
 
 import io.micrometer.common.util.StringUtils;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Controller
 public class NarrowcastController {
@@ -71,7 +71,7 @@ public class NarrowcastController {
             ManageAudienceClient client,
             MessagingApiClient messagingClient,
             MessageHelper messageHelper,
-            ObjectMapper objectMapper) {
+            @Qualifier("objectMapper") ObjectMapper objectMapper) {
         this.client = client;
         this.messagingClient = messagingClient;
         this.messageHelper = messageHelper;
@@ -104,7 +104,7 @@ public class NarrowcastController {
             @RequestParam(required = false) Integer maxLimit,
             @RequestParam(required = false) String recipient,
             @RequestParam Boolean notificationDisabled
-    ) throws JsonProcessingException {
+    ) throws JacksonException {
         List<Message> messageList = messageHelper.buildMessages(messages);
 
         List<DemographicFilter> condition = new ArrayList<>();

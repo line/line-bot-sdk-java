@@ -30,9 +30,9 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 import com.linecorp.bot.jackson.ModelObjectMapper;
+
+import tools.jackson.databind.SerializationFeature;
 
 class ModelObjectMapperTest {
     @Test

@@ -23,10 +23,11 @@ import java.nio.charset.StandardCharsets;
 
 import org.slf4j.Logger;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.linecorp.bot.jackson.ModelObjectMapper;
 import com.linecorp.bot.webhook.model.CallbackRequest;
+
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 public final class WebhookParser {
     public static final String SIGNATURE_HEADER_NAME = "X-Line-Signature";
@@ -81,7 +82,12 @@ public final class WebhookParser {
             throw new WebhookParseException("Invalid API signature");
         }
 
-        final CallbackRequest callbackRequest = objectMapper.readValue(payload, CallbackRequest.class);
+        final CallbackRequest callbackRequest;
+        try {
+            callbackRequest = objectMapper.readValue(payload, CallbackRequest.class);
+        } catch (JacksonException e) {
+            throw new IOException(e.getMessage(), e);
+        }
         if (callbackRequest == null || callbackRequest.events() == null) {
             throw new WebhookParseException("Invalid content");
         }
