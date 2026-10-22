@@ -27,6 +27,8 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.linecorp.bot.client.base.LineClientJsonParseException;
+
 import okhttp3.Headers;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -58,6 +60,14 @@ public class AbstractLineClientExceptionTest {
         assertThat(exception).isNotNull();
         assertThat(exception.getMessage()).isEqualTo("API returns error: code=200 requestUrl=https://example.com/ x-line-example=headerValue x-line-request-id=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx test message");        assertThat(exception.getCode()).isEqualTo(200);
         assertThat(exception.getCause()).isEqualTo(ioException);
+    }
+
+    @Test
+    void keepsIOExceptionConstructorSignatures() throws NoSuchMethodException {
+        assertThat(AbstractLineClientException.class.getConstructor(
+                Response.class, String.class, IOException.class)).isNotNull();
+        assertThat(LineClientJsonParseException.class.getConstructor(
+                Response.class, IOException.class)).isNotNull();
     }
 
     @Test
