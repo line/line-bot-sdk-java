@@ -23,12 +23,10 @@ import java.net.URI;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.client.base.http.HttpAuthenticator;
 import com.linecorp.bot.client.base.http.HttpChain;
@@ -42,12 +40,15 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
 
 public class ApiClientBuilder<T> {
-    private final ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+    private final AtomicReference<ObjectMapper> objectMapper =
+            new AtomicReference<>(ModelObjectMapper.createNewObjectMapper());
     private final Class<T> clientClass;
     private final ExceptionBuilder exceptionBuilder;
 
@@ -105,7 +106,7 @@ public class ApiClientBuilder<T> {
 
     private Integer maxRequestsPerHost = 5;
 
-    private boolean usingDefaultLogger = true;
+    private volatile boolean usingDefaultLogger = true;
 
     /**
      * API Endpoint.
@@ -117,11 +118,12 @@ public class ApiClientBuilder<T> {
 
     /**
      * Fail on unknown properties while JSON deserialization.
-     * As a result,
      */
     public ApiClientBuilder<T> failOnUnknownProperties(Boolean failOnUnknownProperties) {
-        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
-                failOnUnknownProperties);
+        objectMapper.updateAndGet(mapper -> mapper.rebuild()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+                        failOnUnknownProperties)
+                .build());
         return this;
     }
 
@@ -258,7 +260,7 @@ public class ApiClientBuilder<T> {
         }
 
         final Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-                .addConverterFactory(BotAwareJacksonConverter.create(objectMapper));
+                .addConverterFactory(BotAwareJacksonConverter.create(objectMapper::get));
         retrofitBuilder.client(okHttpClientBuilder.build());
         retrofitBuilder.addCallAdapterFactory(new ResultCallAdapterFactory());
         retrofitBuilder.baseUrl(apiEndPoint.toString());
@@ -271,7 +273,7 @@ public class ApiClientBuilder<T> {
     @Override
     public String toString() {
         return "ApiClientBuilder{"
-                + "objectMapper=" + objectMapper
+                + "objectMapper=" + objectMapper.get()
                 + ", clientClass=" + clientClass
                 + ", exceptionBuilder=" + exceptionBuilder
                 + ", apiEndPoint=" + apiEndPoint

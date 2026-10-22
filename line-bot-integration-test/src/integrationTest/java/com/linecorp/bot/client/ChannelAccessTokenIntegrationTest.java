@@ -33,7 +33,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.jwk.JWK;
 
 import com.linecorp.bot.client.utils.IntegrationTestSettings;
@@ -44,7 +43,6 @@ import com.linecorp.bot.oauth.model.IssueChannelAccessTokenResponse;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.jackson.io.JacksonSerializer;
 
 public class ChannelAccessTokenIntegrationTest {
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(ChannelAccessTokenIntegrationTest.class);
@@ -97,7 +95,6 @@ public class ChannelAccessTokenIntegrationTest {
         PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(rsaPrivateKey));
 
         String jws = Jwts.builder()
-                .json(new JacksonSerializer<>(new ObjectMapper()))
                 .header()
                 .add(header)
                 .and()

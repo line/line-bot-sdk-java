@@ -20,16 +20,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.linecorp.bot.jackson.ModelObjectMapper;
+
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 class FlexImageTest {
     private ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 
     @Test
-    void typeField() throws JsonProcessingException {
+    void typeField() throws JacksonException {
         String json = objectMapper.writeValueAsString(
                 new FlexImage(
                         null,

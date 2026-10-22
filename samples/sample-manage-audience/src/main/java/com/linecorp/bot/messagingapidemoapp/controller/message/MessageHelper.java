@@ -20,20 +20,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.linecorp.bot.messaging.model.Message;
 
 import io.micrometer.common.util.StringUtils;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 public class MessageHelper {
     private final ObjectMapper objectMapper;
 
-    public MessageHelper(ObjectMapper objectMapper) {
+    public MessageHelper(@Qualifier("objectMapper") ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 
@@ -43,7 +43,7 @@ public class MessageHelper {
                 .map(it -> {
                     try {
                         return objectMapper.readValue(it, Message.class);
-                    } catch (JsonProcessingException e) {
+                    } catch (JacksonException e) {
                         throw new RuntimeException(e);
                     }
                 }).collect(Collectors.toList());

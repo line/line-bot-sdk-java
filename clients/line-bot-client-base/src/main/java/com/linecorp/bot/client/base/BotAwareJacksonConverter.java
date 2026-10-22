@@ -16,27 +16,37 @@
 
 package com.linecorp.bot.client.base;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Objects;
+import java.util.function.Supplier;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.exc.JacksonIOException;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.ObjectMapper;
 
 public class BotAwareJacksonConverter extends Converter.Factory {
-    private final JacksonConverterFactory jacksonConverterFactory;
+    private static final MediaType JSON = MediaType.parse("application/json; charset=UTF-8");
+    private final Supplier<ObjectMapper> objectMapperSupplier;
 
-    private BotAwareJacksonConverter(ObjectMapper mapper) {
-        this.jacksonConverterFactory = JacksonConverterFactory.create(mapper);
+    private BotAwareJacksonConverter(Supplier<ObjectMapper> objectMapperSupplier) {
+        this.objectMapperSupplier = objectMapperSupplier;
     }
 
     public static Converter.Factory create(ObjectMapper objectMapper) {
-        return new BotAwareJacksonConverter(objectMapper);
+        ObjectMapper mapper = Objects.requireNonNull(objectMapper, "mapper == null");
+        return new BotAwareJacksonConverter(() -> mapper);
+    }
+
+    static Converter.Factory create(Supplier<ObjectMapper> objectMapperSupplier) {
+        return new BotAwareJacksonConverter(objectMapperSupplier);
     }
 
     @Override
@@ -46,7 +56,18 @@ public class BotAwareJacksonConverter extends Converter.Factory {
         if (type == BlobContent.class) {
             return BlobContent::new;
         }
-        return jacksonConverterFactory.responseBodyConverter(type, annotations, retrofit);
+        ObjectMapper objectMapper = objectMapperSupplier.get();
+        JavaType javaType = objectMapper.constructType(type);
+        var reader = objectMapper.readerFor(javaType);
+        return body -> {
+            try (body) {
+                return reader.readValue(body.byteStream());
+            } catch (JacksonIOException e) {
+                throw e.getCause();
+            } catch (JacksonException e) {
+                throw new IOException(e.getMessage(), e);
+            }
+        };
     }
 
     @Override
@@ -56,11 +77,19 @@ public class BotAwareJacksonConverter extends Converter.Factory {
                                                           Retrofit retrofit) {
         if (type == UploadFile.class) {
             return this::buildRequestBodyFromUploadFile;
-        } else {
-            return jacksonConverterFactory.requestBodyConverter(
-                    type, parameterAnnotations, methodAnnotations, retrofit
-            );
         }
+        ObjectMapper objectMapper = objectMapperSupplier.get();
+        JavaType javaType = objectMapper.constructType(type);
+        var writer = objectMapper.writerFor(javaType);
+        return value -> {
+            try {
+                return RequestBody.create(writer.writeValueAsBytes(value), JSON);
+            } catch (JacksonIOException e) {
+                throw e.getCause();
+            } catch (JacksonException e) {
+                throw new IOException(e.getMessage(), e);
+            }
+        };
     }
 
     private RequestBody buildRequestBodyFromUploadFile(Object o) {
