@@ -19,6 +19,7 @@ package com.linecorp.bot.client.utils;
 import static org.assertj.core.api.Assumptions.assumeThat;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,13 +35,20 @@ public class IntegrationTestSettingsLoader {
                 .as("exists integration_test_settings.yml in resource directory")
                 .isNotNull();
 
-        IntegrationTestSettings settings = new ObjectMapper(new YAMLFactory())
-                .readValue(TEST_RESOURCE.openStream(), IntegrationTestSettings.class);
+        IntegrationTestSettings settings;
+        try (InputStream yaml = TEST_RESOURCE.openStream()) {
+            settings = readYamlSettings(yaml);
+        }
 
         assumeThat(settings.enabled() != null && !settings.enabled())
                 .as("Integration test was disabled.")
                 .isFalse();
 
         return settings;
+    }
+
+    static IntegrationTestSettings readYamlSettings(InputStream yaml) throws IOException {
+        return new ObjectMapper(new YAMLFactory())
+                .readValue(yaml, IntegrationTestSettings.class);
     }
 }

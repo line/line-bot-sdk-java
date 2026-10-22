@@ -22,6 +22,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
@@ -165,5 +166,43 @@ public class WebhookParserTest {
         assertThat(followedUserId).isEqualTo("u206d25c2ea6bd87c17655609a1c37cb8");
         assertThat(messageEvent.timestamp()).isEqualTo(
                 Instant.parse("2016-05-07T13:57:59.859Z").toEpochMilli());
+    }
+
+    @Test
+    public void testIgnoresUnknownCallbackField() throws Exception {
+        byte[] payload = """
+                {"destination":"U111","events":[],"futureField":true}
+                """.getBytes(StandardCharsets.UTF_8);
+        WebhookParser parser = new WebhookParser(
+                signatureValidator, FixedSkipSignatureVerificationSupplier.of(true));
+
+        CallbackRequest callback = parser.handle("SSSSIGNATURE", payload);
+
+        assertThat(callback.destination()).isEqualTo("U111");
+        assertThat(callback.events()).isEmpty();
+    }
+
+    @Test
+    public void testIgnoresTrailingClosingBraceAfterCallbackJson() throws Exception {
+        byte[] payload = """
+                {"destination":"U111","events":[]}}
+                """.getBytes(StandardCharsets.UTF_8);
+        WebhookParser parser = new WebhookParser(
+                signatureValidator, FixedSkipSignatureVerificationSupplier.of(true));
+
+        CallbackRequest callback = parser.handle("SSSSIGNATURE", payload);
+
+        assertThat(callback.destination()).isEqualTo("U111");
+        assertThat(callback.events()).isEmpty();
+    }
+
+    @Test
+    public void testMalformedCallbackJsonThrowsIOException() {
+        byte[] payload = "{\"destination\":".getBytes(StandardCharsets.UTF_8);
+        WebhookParser parser = new WebhookParser(
+                signatureValidator, FixedSkipSignatureVerificationSupplier.of(true));
+
+        assertThatThrownBy(() -> parser.handle("SSSSIGNATURE", payload))
+                .isInstanceOf(IOException.class);
     }
 }

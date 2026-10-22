@@ -16,15 +16,42 @@
 
 package com.linecorp.bot.messagingapidemoapp;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.linecorp.bot.messaging.model.FlexBox;
+import com.linecorp.bot.messaging.model.FlexBubble;
+import com.linecorp.bot.messaging.model.FlexMessage;
+import com.linecorp.bot.messagingapidemoapp.controller.message.MessageHelper;
 
 @SpringBootTest(properties = {
         "line.bot.channel-token=DUMMY",
         "line.bot.channel-secret=DUMMY",
 })
 class SampleManageAudienceApplicationTests {
+    @Autowired
+    private MessageHelper messageHelper;
+
     @Test
     void contextLoads() {
+    }
+
+    @Test
+    void mapsUnknownFlexLayoutToUndefined() {
+        String json = """
+                {"type":"flex","altText":"example","contents":{
+                  "type":"bubble","body":{"type":"box","layout":"future","contents":[]}
+                }}
+                """;
+
+        var messages = messageHelper.buildMessages(new String[] {json});
+
+        assertThat(messages).hasSize(1);
+        FlexMessage message = (FlexMessage) messages.get(0);
+        FlexBubble bubble = (FlexBubble) message.contents();
+        assertThat(bubble.body().layout()).isEqualTo(FlexBox.Layout.UNDEFINED);
     }
 }
