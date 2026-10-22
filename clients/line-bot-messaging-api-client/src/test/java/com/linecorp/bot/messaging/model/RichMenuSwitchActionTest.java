@@ -20,24 +20,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.linecorp.bot.jackson.ModelObjectMapper;
+
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 public class RichMenuSwitchActionTest {
     private static final ObjectMapper mapper =
             ModelObjectMapper.createNewObjectMapper();
 
     @Test
-    public void testSerialize() throws JsonProcessingException {
+    public void testSerialize() throws JacksonException {
         String json = mapper.writeValueAsString(new RichMenuSwitchAction("aaa", "bbb", "ccc"));
         assertThat(json).isEqualTo("""
                 {"type":"richmenuswitch","label":"aaa","data":"bbb","richMenuAliasId":"ccc"}""");
     }
 
     @Test
-    public void testDeserialize() throws JsonProcessingException {
+    public void testDeserialize() throws JacksonException {
         Action action = mapper.readValue("""
                         {"type":"richmenuswitch","label":"aaa","data":"bbb","richMenuAliasId":"ccc"}""",
                 Action.class);

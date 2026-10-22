@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import tools.jackson.core.JacksonException;
+import tools.jackson.dataformat.yaml.YAMLMapper;
 
 public class IntegrationTestSettingsLoader {
     private static final URL TEST_RESOURCE = ClassLoader.getSystemResource("integration_test_settings.yml");
@@ -48,7 +48,11 @@ public class IntegrationTestSettingsLoader {
     }
 
     static IntegrationTestSettings readYamlSettings(InputStream yaml) throws IOException {
-        return new ObjectMapper(new YAMLFactory())
-                .readValue(yaml, IntegrationTestSettings.class);
+        try {
+            return YAMLMapper.builder().configureForJackson2().build()
+                    .readValue(yaml, IntegrationTestSettings.class);
+        } catch (JacksonException e) {
+            throw new IOException(e.getMessage(), e);
+        }
     }
 }

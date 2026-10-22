@@ -31,9 +31,9 @@ import org.junit.jupiter.api.TestFactory;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.slf4j.Logger;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.linecorp.bot.jackson.ModelObjectMapper;
+
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Get valid flex json and test deserialize and serialize it.

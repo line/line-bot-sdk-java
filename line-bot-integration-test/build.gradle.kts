@@ -67,17 +67,13 @@ dependencies {
     integrationTestImplementation(project(":clients:line-bot-insight-client"))
     integrationTestImplementation(project(":line-bot-jackson"))
     integrationTestImplementation(libs.jjwt.api)
-    integrationTestImplementation(libs.jjwt.jackson)
+    integrationTestImplementation(libs.jjwt.gson)
     // https://github.com/jwtk/jjwt/issues/236 jjwt doens't support JWK parsing, yet.
     // Once jjwt support JWK, we can remove this dependency.
     integrationTestImplementation("com.nimbusds:nimbus-jose-jwt:10.10")
     integrationTestImplementation("org.springframework.boot:spring-boot-starter-test")
     integrationTestImplementation("org.springframework.boot:spring-boot-starter-logging")
-    integrationTestImplementation("com.fasterxml.jackson.core:jackson-core")
-    integrationTestImplementation("com.fasterxml.jackson.core:jackson-databind")
-    integrationTestImplementation("com.fasterxml.jackson.core:jackson-annotations")
-    integrationTestImplementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
-    integrationTestImplementation(project(":line-bot-jackson"))
+    integrationTestImplementation(libs.jackson.dataformat.yaml)
     integrationTestRuntimeOnly(libs.jjwt.impl)
     integrationTestRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
