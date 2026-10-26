@@ -16,23 +16,42 @@
 
 package com.linecorp.bot.jackson;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.core.StreamReadConstraints;
+import tools.jackson.core.StreamWriteConstraints;
+import tools.jackson.core.json.JsonFactory;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.MapperFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.cfg.EnumFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 public final class ModelObjectMapper {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE)
-            // Register JSR-310(java.time.temporal.*) module.
-            .registerModule(new JavaTimeModule())
-            .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+    private static final int JSON_NESTING_LIMIT = 1000;
+    private static final int JSON_STRING_LENGTH_LIMIT = 20_000_000;
+    private static final JsonFactory JSON_FACTORY = JsonFactory.builderWithJackson2Defaults()
+            .streamReadConstraints(StreamReadConstraints.builder()
+                    .maxNestingDepth(JSON_NESTING_LIMIT)
+                    .maxStringLength(JSON_STRING_LENGTH_LIMIT).build())
+            .streamWriteConstraints(StreamWriteConstraints.builder()
+                    .maxNestingDepth(JSON_NESTING_LIMIT).build())
+            .build();
+    private static final ObjectMapper OBJECT_MAPPER = JsonMapper.builder(JSON_FACTORY)
+            .configureForJackson2()
+            .enable(MapperFeature.DEFAULT_VIEW_INCLUSION)
+            .disable(MapperFeature.ALLOW_VOID_VALUED_PROPERTIES)
+            .enable(SerializationFeature.FAIL_ON_ORDER_MAP_BY_INCOMPARABLE_KEY)
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .enable(EnumFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE)
+            .disable(DateTimeFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS)
+            .build();
 
     private ModelObjectMapper() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
     public static ObjectMapper createNewObjectMapper() {
-        return OBJECT_MAPPER.copy();
+        return OBJECT_MAPPER.rebuild().build();
     }
 }

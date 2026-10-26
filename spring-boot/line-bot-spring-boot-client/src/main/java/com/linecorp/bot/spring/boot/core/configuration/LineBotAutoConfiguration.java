@@ -21,8 +21,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.linecorp.bot.audience.client.ManageAudienceBlobClient;
 import com.linecorp.bot.audience.client.ManageAudienceClient;
 import com.linecorp.bot.client.base.channel.ChannelTokenSupplier;
@@ -38,6 +36,8 @@ import com.linecorp.bot.oauth.client.ChannelAccessTokenClient;
 import com.linecorp.bot.shop.client.ShopClient;
 import com.linecorp.bot.spring.boot.core.properties.LineBotProperties;
 
+import tools.jackson.databind.ObjectMapper;
+
 /**
  * Also refers for web only beans definition.
  */
@@ -52,10 +52,10 @@ public class LineBotAutoConfiguration {
 
     /**
      * Expose {@link ObjectMapper} as {@link Bean}
-     * in case of no other definition for {@link ObjectMapper} type.
+     * if neither its type nor the {@code objectMapper} bean name is already defined.
      */
     @Bean
-    @ConditionalOnMissingBean(ObjectMapper.class)
+    @ConditionalOnMissingBean(value = ObjectMapper.class, name = "objectMapper")
     public ObjectMapper objectMapper() {
         return ModelObjectMapper.createNewObjectMapper();
     }
