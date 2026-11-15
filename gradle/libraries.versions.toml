@@ -1,8 +1,8 @@
 [versions]
 retrofit2 = "3.0.0"
 jjwt = "0.13.0"
-jackson = "2.22.4"
-jackson-annotations = "2.22"
+jackson = "2.23.0"
+jackson-annotations = "2.23"
 assertj = "3.27.7"
 junit = "6.1.3"
 junitPlatformLauncher = "6.1.3"
